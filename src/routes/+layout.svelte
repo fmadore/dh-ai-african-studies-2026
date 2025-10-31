@@ -1,11 +1,10 @@
 <script lang="ts">
 	import '../app.css';
-	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Footer, FooterCopyright, FooterLinkGroup, FooterLink, DarkMode } from 'flowbite-svelte';
-	import { page } from '$app/state';
+	import Header from '$lib/components/Header.svelte';
+	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink } from 'flowbite-svelte';
 	import favicon from '$lib/assets/favicon.svg';
 	
 	let { children } = $props();
-	let activeUrl = $derived(page.url.pathname);
 </script>
 
 <svelte:head>
@@ -16,24 +15,7 @@
 
 <div class="min-h-screen flex flex-col">
 	<!-- Navigation -->
-	<Navbar class="border-b">
-		<NavBrand href="/">
-			<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-				DH & AI in African Studies
-			</span>
-		</NavBrand>
-		<div class="flex md:order-2 gap-2">
-			<DarkMode class="text-primary-500 dark:text-primary-600" />
-			<NavHamburger />
-		</div>
-		<NavUl {activeUrl}>
-			<NavLi href="/">Home</NavLi>
-			<NavLi href="/about">About</NavLi>
-			<NavLi href="/schedule">Schedule</NavLi>
-			<NavLi href="/speakers">Speakers</NavLi>
-			<NavLi href="/register">Register</NavLi>
-		</NavUl>
-	</Navbar>
+	<Header />
 
 	<!-- Main Content -->
 	<main class="flex-1">
