@@ -2,7 +2,7 @@
 	import { Heading, P, Card } from 'flowbite-svelte';
 </script>
 
-<section class="py-12 px-4 mx-auto max-w-screen-xl">
+<section class="py-12 px-4 mx-auto max-w-7xl">
 	<div class="max-w-4xl mx-auto">
 		<Heading tag="h1" class="mb-8 text-center">About the Workshop</Heading>
 		

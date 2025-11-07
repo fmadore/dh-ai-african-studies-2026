@@ -4,8 +4,8 @@
 </script>
 
 <!-- Hero Section -->
-<section class="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-gray-900 dark:to-gray-800">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+<section class="bg-linear-to-br from-primary-50 to-secondary-50 dark:from-gray-900 dark:to-gray-800">
+	<div class="py-8 px-4 mx-auto max-w-7xl text-center lg:py-16 lg:px-12">
 		<h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
 			Charting New Territory
 		</h1>
@@ -30,7 +30,7 @@
 </section>
 
 <!-- Key Information -->
-<section class="py-12 px-4 mx-auto max-w-screen-xl">
+<section class="py-12 px-4 mx-auto max-w-7xl">
 	<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 		<Card class="text-center hover:shadow-lg transition-shadow">
 			<div class="flex justify-center mb-4">
@@ -59,7 +59,7 @@
 </section>
 
 <!-- Conference Themes -->
-<section class="py-12 px-4 mx-auto max-w-screen-xl bg-gray-50 dark:bg-gray-900">
+<section class="py-12 px-4 mx-auto max-w-7xl bg-gray-50 dark:bg-gray-900">
 	<div class="max-w-4xl mx-auto">
 		<Heading tag="h2" class="mb-4 text-center">About the Workshop</Heading>
 		<P class="mb-8 text-lg text-center text-gray-600 dark:text-gray-400">
@@ -109,7 +109,7 @@
 </section>
 
 <!-- Call to Action -->
-<section class="py-12 px-4 mx-auto max-w-screen-xl text-center">
+<section class="py-12 px-4 mx-auto max-w-7xl text-center">
 	<Heading tag="h2" class="mb-4">Join the Conversation</Heading>
 	<P class="mb-8 text-lg max-w-3xl mx-auto">
 		This working meeting brings together international experts to collaboratively shape the future of digital humanities and AI in African studies. Register to participate in this important dialogue.
@@ -122,7 +122,7 @@
 </section>
 
 <!-- Funding Acknowledgment -->
-<section class="py-8 px-4 mx-auto max-w-screen-xl text-center bg-gray-100 dark:bg-gray-800">
+<section class="py-8 px-4 mx-auto max-w-7xl text-center bg-gray-100 dark:bg-gray-800">
 	<P class="text-sm text-gray-600 dark:text-gray-400">
 		This scoping workshop is made possible by the generous support of the
 		<span class="font-semibold">Volkswagen Foundation</span>

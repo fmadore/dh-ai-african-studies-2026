@@ -8,7 +8,7 @@
 
 <Navbar class="border-b bg-white dark:bg-gray-800 border-primary-200 dark:border-primary-800">
 	<NavBrand href="/" class="hover:opacity-80 transition-opacity">
-		<span class="self-center whitespace-nowrap text-xl font-semibold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent dark:from-primary-400 dark:to-secondary-400">
+		<span class="self-center whitespace-nowrap text-xl font-semibold bg-linear-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent dark:from-primary-400 dark:to-secondary-400">
 			DH & AI in African Studies
 		</span>
 	</NavBrand>

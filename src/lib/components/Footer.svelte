@@ -3,7 +3,7 @@
 </script>
 
 <Footer class="mt-auto border-t bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
-	<div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+	<div class="w-full max-w-7xl mx-auto p-4 md:py-8">
 		<!-- Logos Section -->
 		<div class="flex flex-wrap items-center justify-center gap-8 mb-6 pb-6 border-b border-primary-200 dark:border-primary-800">
 			<a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity">
