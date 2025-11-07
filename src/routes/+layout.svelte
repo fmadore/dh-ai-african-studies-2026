@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import Header from '$lib/components/Header.svelte';
-	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink } from 'flowbite-svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import favicon from '$lib/assets/favicon.svg';
 	
 	let { children } = $props();
@@ -23,14 +23,5 @@
 	</main>
 
 	<!-- Footer -->
-	<Footer class="mt-auto border-t">
-		<div class="w-full text-center">
-			<FooterCopyright by="Volkswagen Foundation" year={2026} />
-			<FooterLinkGroup class="mt-3 flex-wrap justify-center">
-				<FooterLink href="/about">About</FooterLink>
-				<FooterLink href="/contact">Contact</FooterLink>
-				<FooterLink href="/privacy">Privacy Policy</FooterLink>
-			</FooterLinkGroup>
-		</div>
-	</Footer>
+	<Footer />
 </div>
