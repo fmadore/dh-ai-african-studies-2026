@@ -22,7 +22,7 @@
 			<Button href="/register" size="xl" color="primary">
 				Register Now
 			</Button>
-			<Button href="/about" size="xl" outline color="blue">
+			<Button href="/about" size="xl" outline color="secondary">
 				Learn More
 			</Button>
 		</div>
@@ -116,7 +116,7 @@
 	</P>
 	<div class="flex flex-col sm:flex-row justify-center gap-4">
 		<Button href="/register" color="primary" size="lg">Register for the Workshop</Button>
-		<Button href="/about" color="blue" outline size="lg">More Information</Button>
+		<Button href="/about" color="secondary" outline size="lg">More Information</Button>
 		<Button href="/contact" color="secondary" outline size="lg">Contact Organizers</Button>
 	</div>
 </section>
