@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { Card, Heading, P, Badge } from 'flowbite-svelte';
+	import { UserCircleSolid } from 'flowbite-svelte-icons';
 	import { participants } from '$lib/data/participants';
+
+	function handleImageError(event: Event) {
+		const img = event.target as HTMLImageElement;
+		img.style.display = 'none';
+		const placeholder = img.nextElementSibling as HTMLElement;
+		if (placeholder) {
+			placeholder.style.display = 'flex';
+		}
+	}
 </script>
 
 <svelte:head>
@@ -23,11 +33,18 @@
 			<Card class="hover:shadow-xl transition-shadow flex flex-col p-6">
 				<!-- Participant Photo -->
 				<div class="flex justify-center mb-4">
-					<img
-						src={participant.photoUrl}
-						alt={participant.name}
-						class="w-32 h-32 rounded-full object-cover border-4 border-primary-100 dark:border-primary-900"
-					/>
+					<div class="relative w-32 h-32">
+						<img
+							src={participant.photoUrl}
+							alt={participant.name}
+							class="w-32 h-32 rounded-full object-cover border-4 border-primary-100 dark:border-primary-900"
+							onerror={handleImageError}
+						/>
+						<!-- Placeholder for missing images -->
+						<div class="w-32 h-32 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-primary-100 dark:border-primary-900 hidden items-center justify-center absolute top-0 left-0">
+							<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
+						</div>
+					</div>
 				</div>
 
 				<!-- Participant Name -->
