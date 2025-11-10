@@ -38,7 +38,7 @@
 					<CalendarMonthOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
 				<Heading tag="h3" class="heading-sub">Date</Heading>
-				<P class="text-gray-700 dark:text-gray-300">June 15-17, 2026</P>
+				<P class="text-gray-700 dark:text-gray-300">18-20 February 2026</P>
 			</Card>
 
 			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow space-y-3">
@@ -46,7 +46,7 @@
 					<MapPinAltOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
 				<Heading tag="h3" class="heading-sub">Location</Heading>
-				<P class="text-gray-700 dark:text-gray-300">To be announced</P>
+				<P class="text-gray-700 dark:text-gray-300">Xplanatorium Herrenhausen, Hanover, Germany</P>
 			</Card>
 
 			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow space-y-3">
@@ -54,7 +54,7 @@
 					<UsersGroupOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
 				<Heading tag="h3" class="heading-sub">Format</Heading>
-				<P class="text-gray-700 dark:text-gray-300">Hybrid (In-person &amp; Virtual)</P>
+				<P class="text-gray-700 dark:text-gray-300">In-person</P>
 			</Card>
 		</div>
 	</div>
@@ -110,21 +110,6 @@
 					</P>
 				</TimelineItem>
 			</Timeline>
-		</div>
-	</div>
-</section>
-
-<!-- Call to Action -->
-<section class="py-12 px-4">
-	<div class="mx-auto max-w-5xl surface-panel surface-padding text-center space-y-6">
-		<Heading tag="h2" class="heading-section heading-lg heading-color-light">Join the Conversation</Heading>
-		<P class="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-			This working meeting brings together international experts to collaboratively shape the future of digital humanities and AI in African studies. Register to participate in this important dialogue.
-		</P>
-		<div class="flex flex-col sm:flex-row justify-center gap-4">
-			<Button href="/register" color="primary" size="lg">Register for the Workshop</Button>
-			<Button href="/about" color="secondary" outline size="lg">More Information</Button>
-			<Button href="/contact" color="secondary" outline size="lg">Contact Organizers</Button>
 		</div>
 	</div>
 </section>
