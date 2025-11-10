@@ -57,7 +57,7 @@
 							Research Regions:
 						</P>
 						<div class="flex flex-wrap gap-2">
-							{#each participant.researchRegions as region (region)}
+							{#each participant.researchRegions.toSorted() as region (region)}
 								<Badge color="secondary" class="text-xs">{region}</Badge>
 							{/each}
 						</div>
