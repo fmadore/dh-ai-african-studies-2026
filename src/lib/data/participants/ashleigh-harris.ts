@@ -9,6 +9,6 @@ export const ashleighHarris: Participant = {
 	},
 	role: 'Participant',
 	bio: 'Ashleigh Harris is Professor of English at Uppsala University and team leader of the ALMEDA project. ALMEDA collects and links data on African literary and expressive culture that does not usually get catalogued in formal archives. Harris works more specifically on Zimbabwean and South African literature, as well as print and online ephemeral literatures from across the sub-Saharan continent.',
-	researchRegions: ['Southern African region'],
+	researchRegions: ['Southern Africa'],
 	photoUrl: '/images/participants/ashleigh-harris.jpeg'
 };
