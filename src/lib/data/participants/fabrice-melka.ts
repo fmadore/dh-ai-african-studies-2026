@@ -1,0 +1,14 @@
+import type { Participant } from '$lib/types/participant';
+
+export const fabriceMelka: Participant = {
+	name: 'Fabrice Melka',
+	affiliation: 'Institut des mondes africains (IMAF-CNRS)',
+	affiliationCoordinates: {
+		latitude: 48.8566,
+		longitude: 2.3522
+	},
+	role: 'Participant',
+	bio: "Fabrice Melka is Head of Resources, Publications, and Digital Data at the Institut des mondes africains (IMAF). In this capacity, he oversees all activities related to their production and dissemination, with a particular emphasis on promoting open science.",
+	researchRegions: [],
+	photoUrl: ''
+};
