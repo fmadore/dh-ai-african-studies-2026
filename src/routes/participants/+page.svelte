@@ -20,7 +20,7 @@
 <section class="py-8 px-4 mx-auto max-w-7xl">
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 		{#each participants as participant (participant.name)}
-			<Card class="hover:shadow-xl transition-shadow">
+			<Card class="hover:shadow-xl transition-shadow flex flex-col p-6">
 				<!-- Participant Photo -->
 				<div class="flex justify-center mb-4">
 					<img
@@ -46,13 +46,13 @@
 				</div>
 
 				<!-- Bio -->
-				<P class="text-sm text-gray-700 dark:text-gray-300 mb-4">
+				<P class="text-sm mb-4">
 					{participant.bio}
 				</P>
 
 				<!-- Research Regions -->
 				{#if participant.researchRegions.length > 0}
-					<div class="mt-auto">
+					<div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
 						<P class="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2">
 							Research Regions:
 						</P>
