@@ -19,6 +19,7 @@
 	<NavUl {activeUrl} class="[&>li>a]:hover:text-primary-600 dark:[&>li>a]:hover:text-primary-400 [&>li>a.active]:text-primary-700 dark:[&>li>a.active]:text-primary-500">
 		<NavLi href="/">Home</NavLi>
 		<NavLi href="/about">About</NavLi>
+		<NavLi href="/participants">Participants</NavLi>
 		<NavLi href="/schedule">Schedule</NavLi>
 		<NavLi href="/speakers">Speakers</NavLi>
 	</NavUl>

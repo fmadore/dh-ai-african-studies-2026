@@ -1,13 +1,14 @@
 import type { Participant } from '$lib/types/participant';
 
-// Import all participant files
-import { exampleParticipant } from './example-participant';
+// Automatically import all participant files
+const participantModules = import.meta.glob('./*.ts', { eager: true });
 
-// Export all participants as an array
-export const participants: Participant[] = [
-	exampleParticipant,
-	// Add more participants here as you create their files
-];
-
-// Export individual participants for direct access if needed
-export { exampleParticipant };
+// Extract and export all participants
+export const participants: Participant[] = Object.entries(participantModules)
+	.filter(([path]) => !path.includes('index.ts') && !path.includes('README') && !path.includes('example-participant'))
+	.map(([, module]: [string, any]) => {
+		// Get the first exported value that is a Participant object
+		const participantKey = Object.keys(module).find(key => key !== 'default');
+		return participantKey ? module[participantKey] : null;
+	})
+	.filter((participant): participant is Participant => participant !== null);
