@@ -19,18 +19,21 @@
 </svelte:head>
 
 <!-- Page Header -->
-<section class="py-8 px-4 mx-auto max-w-7xl">
-	<Heading tag="h1" class="mb-4 text-center heading-display heading-xl heading-color-light">Participants</Heading>
-	<P class="mb-8 text-lg text-center text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-		Meet the international experts participating in this scoping workshop on Digital Humanities and AI in African Studies.
-	</P>
+<section class="py-12 px-4">
+	<div class="mx-auto max-w-5xl surface-panel surface-padding text-center space-y-4">
+		<Heading tag="h1" class="heading-display heading-xl heading-color-light">Participants</Heading>
+		<P class="text-lg text-gray-600 dark:text-gray-300">
+			Meet the international experts participating in this scoping workshop on Digital Humanities and AI in African Studies.
+		</P>
+	</div>
 </section>
 
 <!-- Participants Grid -->
-<section class="py-8 px-4 mx-auto max-w-7xl">
-	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<section class="py-12 px-4">
+	<div class="mx-auto max-w-7xl surface-panel surface-padding">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 		{#each participants as participant (participant.name)}
-			<Card class="hover:shadow-xl transition-shadow flex flex-col p-6">
+			<Card class="card-surface surface-padding-sm transition-shadow flex flex-col hover:shadow-xl h-full">
 				<!-- Participant Photo -->
 				<div class="flex justify-center mb-4">
 					<div class="relative w-32 h-32">
@@ -48,7 +51,7 @@
 				</div>
 
 				<!-- Participant Name -->
-				<Heading tag="h3" class="text-xl text-center mb-2">
+				<Heading tag="h3" class="text-xl font-semibold text-gray-900 dark:text-gray-100 text-center mb-2">
 					{participant.name}
 				</Heading>
 
@@ -63,7 +66,7 @@
 				</div>
 
 				<!-- Bio -->
-				<P class="text-sm mb-4">
+				<P class="text-sm text-gray-700 dark:text-gray-300 mb-4">
 					{participant.bio}
 				</P>
 
@@ -82,6 +85,7 @@
 				{/if}
 			</Card>
 		{/each}
+	</div>
 	</div>
 
 	<!-- Empty State -->

@@ -61,6 +61,42 @@
     color: var(--color-gray-800, #1f2937);
   }
 
+  .heading-sub {
+    font-weight: var(--font-weight-semibold, 600);
+    letter-spacing: -0.008em;
+    color: var(--color-gray-900, #0f172a);
+  }
+
+  .dark .heading-sub {
+    color: var(--color-secondary-50, #f0f9ff);
+  }
+
+  .surface-panel {
+    border-radius: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid var(--color-primary-100, rgba(254, 121, 93, 0.18));
+    box-shadow: 0 30px 80px -40px rgba(15, 23, 42, 0.55);
+  }
+
+  .dark .surface-panel {
+    background-color: rgba(8, 11, 19, 0.92);
+    border-color: rgba(148, 163, 184, 0.3);
+    box-shadow: 0 40px 80px -45px rgba(2, 6, 23, 0.8);
+  }
+
+  .card-surface {
+    border-radius: 1rem;
+    background-color: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 20px 50px -35px rgba(15, 23, 42, 0.5);
+  }
+
+  .dark .card-surface {
+    background-color: rgba(15, 23, 42, 0.9);
+    border-color: rgba(148, 163, 184, 0.22);
+    box-shadow: 0 28px 60px -40px rgba(0, 0, 0, 0.75);
+  }
+
 }
 
 @layer utilities {
@@ -70,6 +106,22 @@
 
   .heading-lg {
     font-size: clamp(2rem, 3vw + 1rem, 2.75rem);
+  }
+
+  .surface-padding {
+    padding: clamp(2.25rem, 4vw, 3.5rem);
+  }
+
+  .surface-padding-sm {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .bg-page {
+    background-color: #f8fafc;
+  }
+
+  .dark .bg-page {
+    background-color: #020617;
   }
 
   .heading-color-light {

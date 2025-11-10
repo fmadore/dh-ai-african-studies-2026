@@ -18,7 +18,7 @@
 	<Header />
 
 	<!-- Main Content -->
-	<main class="flex-1">
+	<main class="flex-1 bg-page">
 		{@render children?.()}
 	</main>
 
