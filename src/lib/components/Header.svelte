@@ -21,6 +21,5 @@
 		<NavLi href="/about">About</NavLi>
 		<NavLi href="/participants">Participants</NavLi>
 		<NavLi href="/schedule">Schedule</NavLi>
-		<NavLi href="/speakers">Speakers</NavLi>
 	</NavUl>
 </Navbar>

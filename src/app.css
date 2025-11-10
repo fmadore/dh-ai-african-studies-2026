@@ -39,3 +39,44 @@
     cursor: pointer;
   }
 }
+
+@layer components {
+  .heading-display {
+    font-weight: var(--font-weight-extrabold, 800);
+    letter-spacing: -0.02em;
+    color: var(--color-gray-900, #0f172a);
+    line-height: 1.1;
+  }
+
+  .heading-section {
+    font-weight: var(--font-weight-extrabold, 800);
+    letter-spacing: -0.015em;
+    color: var(--color-gray-900, #0f172a);
+    line-height: 1.15;
+  }
+
+  .heading-display-compact {
+    font-weight: var(--font-weight-semibold, 600);
+    letter-spacing: -0.01em;
+    color: var(--color-gray-800, #1f2937);
+  }
+
+}
+
+@layer utilities {
+  .heading-xl {
+    font-size: clamp(2.5rem, 4vw + 1rem, 3.5rem);
+  }
+
+  .heading-lg {
+    font-size: clamp(2rem, 3vw + 1rem, 2.75rem);
+  }
+
+  .heading-color-light {
+    color: var(--color-gray-900, #0f172a);
+  }
+
+  .dark .heading-color-light {
+    color: var(--color-secondary-100, #e0f2fe);
+  }
+}

@@ -20,7 +20,7 @@
 
 <!-- Page Header -->
 <section class="py-8 px-4 mx-auto max-w-7xl">
-	<Heading tag="h1" class="mb-4 text-center">Participants</Heading>
+	<Heading tag="h1" class="mb-4 text-center heading-display heading-xl heading-color-light">Participants</Heading>
 	<P class="mb-8 text-lg text-center text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
 		Meet the international experts participating in this scoping workshop on Digital Humanities and AI in African Studies.
 	</P>

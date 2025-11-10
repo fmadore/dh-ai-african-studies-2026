@@ -4,7 +4,7 @@
 
 <section class="py-12 px-4 mx-auto max-w-7xl">
 	<div class="max-w-4xl mx-auto">
-		<Heading tag="h1" class="mb-8 text-center">About the Workshop</Heading>
+		<Heading tag="h1" class="mb-8 text-center heading-display heading-xl heading-color-light">About the Workshop</Heading>
 		
 		<P class="mb-6 text-lg text-gray-600 dark:text-gray-400">
 			This scoping workshop addresses the critical convergence of digital humanities (DH) and artificial intelligence (AI) within African studies. While this intersection offers transformative potential, it also poses pressing challenges in terms of equity, linguistic diversity and methodology.
@@ -36,7 +36,7 @@
 			</Card>
 		</div>
 
-		<Heading tag="h2" class="mb-6 text-primary-800 dark:text-primary-300">Funding</Heading>
+		<Heading tag="h2" class="mb-6 heading-section heading-lg heading-color-light">Funding</Heading>
 		<P class="mb-4 text-gray-600 dark:text-gray-400">
 			This scoping workshop is made possible by the generous support of the <strong class="text-primary-700 dark:text-primary-400">Volkswagen Foundation</strong>.
 		</P>
