@@ -1,7 +1,7 @@
 {
 	"name": "dh-ai-african-studies-2026",
 	"private": true,
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -12,12 +12,15 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
+		"@eslint/js": "^9.39.1",
 		"@sveltejs/adapter-auto": "^7.0.0",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.43.2",
 		"@sveltejs/vite-plugin-svelte": "^6.2.0",
 		"@tailwindcss/typography": "^0.5.18",
 		"@tailwindcss/vite": "^4.1.13",
+		"eslint": "^9.39.1",
+		"eslint-plugin-svelte": "^3.13.0",
 		"flowbite": "^3.1.2",
 		"flowbite-svelte": "^1.17.4",
 		"flowbite-svelte-icons": "^3.0.0",
@@ -25,6 +28,7 @@
 		"svelte-check": "^4.3.2",
 		"tailwindcss": "^4.1.13",
 		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.46.4",
 		"vite": "^7.1.7"
 	}
 }
