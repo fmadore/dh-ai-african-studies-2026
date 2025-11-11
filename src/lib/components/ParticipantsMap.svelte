@@ -73,9 +73,10 @@
 						[-90, -180], // Southwest coordinates
 						[90, 180]    // Northeast coordinates
 					],
-					maxBoundsViscosity: 1.0, // Makes the bounds completely solid
+					maxBoundsViscosity: 0.9, // Keep within bounds but allow slight elastic feel
 					minZoom: 2, // Prevent zooming out too far
-					maxZoom: 18
+					maxZoom: 18,
+					worldCopyJump: true // Ensure the map snaps to the base world copy so markers stay visible
 				});
 
 				// Add appropriate tile layer based on theme
@@ -85,8 +86,7 @@
 				tileLayer = L.tileLayer(isDarkMode ? darkTiles : lightTiles, {
 					attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 					subdomains: 'abcd',
-					maxZoom: 18,
-					noWrap: true // Prevent map from repeating horizontally
+					maxZoom: 18
 				}).addTo(map);
 
 				// Add markers for each location
