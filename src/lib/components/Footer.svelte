@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Footer, FooterCopyright, FooterLinkGroup, FooterLink } from 'flowbite-svelte';
+	import { Footer, FooterLinkGroup, FooterLink } from 'flowbite-svelte';
 </script>
 
 <Footer class="mt-auto bg-transparent">
