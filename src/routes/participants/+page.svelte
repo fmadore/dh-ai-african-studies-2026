@@ -5,6 +5,7 @@
 	import { createSeoMeta } from '$lib/utils/seo';
 
 	const displayedParticipants = participants.filter((p) => p.role !== 'Student assistant');
+	const uniqueCountries = new Set(displayedParticipants.map((p) => p.country)).size;
 
 	function handleImageError(event: Event) {
 		const img = event.target as HTMLImageElement;
@@ -38,7 +39,7 @@
 	<div class="mx-auto max-w-5xl surface-panel surface-padding text-center space-y-4">
 		<Heading tag="h1" class="heading-display heading-xl heading-color-light">Participants</Heading>
 		<P class="text-lg text-gray-600 dark:text-gray-300">
-			Meet the {displayedParticipants.length} international experts participating in this scoping workshop on Digital Humanities and AI in African Studies.
+			Meet the {displayedParticipants.length} international experts from {uniqueCountries} countries participating in this scoping workshop on Digital Humanities and AI in African Studies.
 		</P>
 	</div>
 </section>
