@@ -108,6 +108,11 @@
     font-size: clamp(2rem, 3vw + 1rem, 2.75rem);
   }
 
+  .content-width {
+    width: min(100%, 64rem);
+    margin-inline: auto;
+  }
+
   .surface-padding {
     padding: clamp(2.25rem, 4vw, 3.5rem);
   }

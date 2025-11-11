@@ -3,7 +3,7 @@
 </script>
 
 <section class="py-12 px-4">
-	<div class="mx-auto max-w-6xl surface-panel surface-padding space-y-10">
+	<div class="surface-panel surface-padding space-y-10 content-width">
 		<Heading tag="h1" class="text-center heading-display heading-xl heading-color-light">About the Workshop</Heading>
 		
 		<div class="space-y-6 text-left">

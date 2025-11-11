@@ -10,7 +10,7 @@
 
 <!-- Page Header -->
 <section class="py-12 px-4">
-	<div class="mx-auto max-w-4xl surface-panel surface-padding text-center space-y-4">
+	<div class="surface-panel surface-padding text-center space-y-4 content-width">
 		<Heading tag="h1" class="heading-display heading-xl heading-color-light">Workshop Schedule</Heading>
 		<P class="text-lg text-gray-600 dark:text-gray-300">
 			The detailed schedule for the three-day scoping workshop will be available soon.
@@ -20,7 +20,7 @@
 
 <!-- Placeholder Content -->
 <section class="py-12 px-4">
-	<Card class="mx-auto max-w-4xl card-surface surface-padding text-center">
+	<Card class="card-surface surface-padding text-center content-width">
 		<div class="flex justify-center mb-6">
 			<CalendarMonthOutline size="xl" class="w-24 h-24 text-primary-600 dark:text-primary-400" />
 		</div>
