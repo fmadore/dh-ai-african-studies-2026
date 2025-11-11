@@ -34,7 +34,7 @@
 	{/each}
 </svelte:head>
 
-<section class="py-12 px-4">
+<section class="bg-page py-12 px-4">
 	<div class="surface-panel surface-padding space-y-10 content-width">
 		<Heading tag="h1" class="text-center heading-display heading-xl heading-color-light">About the Workshop</Heading>
 		
@@ -71,7 +71,7 @@
 
 		<!-- Co-Organizers Section -->
 		{#if coOrganizers.length > 0}
-			<div class="space-y-6 content-width">
+			<div class="space-y-6">
 				<Heading tag="h2" class="heading-section heading-lg heading-color-light">Co-Organizers</Heading>
 				<div class="space-y-6">
 					{#each coOrganizers as organizer (organizer.name)}
