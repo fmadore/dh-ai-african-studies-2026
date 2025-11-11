@@ -1,6 +1,24 @@
 <script lang="ts">
 	import { Heading, P, Card } from 'flowbite-svelte';
+	import { createSeoMeta } from '$lib/utils/seo';
+
+	const seo = createSeoMeta({
+		title: 'About the Workshop',
+		description:
+			'This scoping workshop convenes international experts to map the intersection of digital humanities and AI within African studies, highlighting opportunities and challenges across equity, linguistics, and methodology.',
+		path: '/about'
+	});
 </script>
+
+<svelte:head>
+	<title>{seo.title}</title>
+	{#each seo.meta as attributes, index (attributes.name ?? attributes.property ?? `meta-${index}`)}
+		<meta {...attributes} />
+	{/each}
+	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
+		<link {...attributes} />
+	{/each}
+</svelte:head>
 
 <section class="py-12 px-4">
 	<div class="surface-panel surface-padding space-y-10 content-width">

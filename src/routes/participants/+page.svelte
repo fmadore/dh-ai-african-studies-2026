@@ -2,6 +2,7 @@
 	import { Card, Heading, P, Badge } from 'flowbite-svelte';
 	import { UserCircleSolid } from 'flowbite-svelte-icons';
 	import { participants } from '$lib/data/participants';
+	import { createSeoMeta } from '$lib/utils/seo';
 
 	function handleImageError(event: Event) {
 		const img = event.target as HTMLImageElement;
@@ -11,11 +12,23 @@
 			placeholder.style.display = 'flex';
 		}
 	}
+
+	const seo = createSeoMeta({
+		title: 'Participants',
+		description:
+			'Meet the international experts shaping the Digital Humanities and AI in African Studies scoping workshop.',
+		path: '/participants'
+	});
 </script>
 
 <svelte:head>
-	<title>Participants - DH & AI in African Studies</title>
-	<meta name="description" content="Meet the international experts participating in the Digital Humanities and AI in African Studies workshop." />
+	<title>{seo.title}</title>
+	{#each seo.meta as attributes, index (attributes.name ?? attributes.property ?? `meta-${index}`)}
+		<meta {...attributes} />
+	{/each}
+	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
+		<link {...attributes} />
+	{/each}
 </svelte:head>
 
 <!-- Page Header -->

@@ -1,7 +1,20 @@
 <script lang="ts">
 	import { Button, Card, Heading, P, Timeline, TimelineItem } from 'flowbite-svelte';
 	import { CalendarMonthOutline, MapPinAltOutline, UsersGroupOutline } from 'flowbite-svelte-icons';
+	import { createSeoMeta } from '$lib/utils/seo';
+
+	const seo = createSeoMeta({ path: '/' });
 </script>
+
+<svelte:head>
+	<title>{seo.title}</title>
+	{#each seo.meta as attributes, index (attributes.name ?? attributes.property ?? `meta-${index}`)}
+		<meta {...attributes} />
+	{/each}
+	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
+		<link {...attributes} />
+	{/each}
+</svelte:head>
 
 <!-- Hero Section -->
 <section class="bg-linear-to-br from-primary-50 to-secondary-50 dark:from-gray-900 dark:to-gray-800">
