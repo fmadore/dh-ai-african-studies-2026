@@ -4,6 +4,8 @@
 	import { participants } from '$lib/data/participants';
 	import { createSeoMeta } from '$lib/utils/seo';
 
+	const displayedParticipants = participants.filter((p) => p.role !== 'Student assistant');
+
 	function handleImageError(event: Event) {
 		const img = event.target as HTMLImageElement;
 		img.style.display = 'none';
@@ -36,7 +38,7 @@
 	<div class="mx-auto max-w-5xl surface-panel surface-padding text-center space-y-4">
 		<Heading tag="h1" class="heading-display heading-xl heading-color-light">Participants</Heading>
 		<P class="text-lg text-gray-600 dark:text-gray-300">
-			Meet the international experts participating in this scoping workshop on Digital Humanities and AI in African Studies.
+			Meet the {displayedParticipants.length} international experts participating in this scoping workshop on Digital Humanities and AI in African Studies.
 		</P>
 	</div>
 </section>
@@ -45,7 +47,7 @@
 <section class="py-12 px-4">
 	<div class="mx-auto max-w-7xl surface-panel surface-padding">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-		{#each participants as participant (participant.name)}
+		{#each displayedParticipants as participant (participant.name)}
 			<Card class="card-surface surface-padding-sm transition-shadow flex flex-col hover:shadow-xl h-full">
 				<!-- Participant Photo -->
 				<div class="flex justify-center mb-4">
@@ -102,7 +104,7 @@
 	</div>
 
 	<!-- Empty State -->
-	{#if participants.length === 0}
+	{#if displayedParticipants.length === 0}
 		<div class="text-center py-12">
 			<P class="text-gray-500 dark:text-gray-400">
 				Participant information will be added soon.
