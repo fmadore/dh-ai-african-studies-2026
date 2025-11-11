@@ -70,17 +70,17 @@
 					{participant.name}
 				</Heading>
 
-				<!-- Affiliation -->
-				<P class="text-center text-primary-600 dark:text-primary-400 font-semibold mb-3">
-					{participant.affiliation}
-				</P>
+			<!-- Affiliation -->
+			<P class="text-center text-primary-600 dark:text-primary-400 font-semibold mb-3">
+				{participant.affiliation}
+			</P>
 
-				<!-- Role Badge -->
-				<div class="flex justify-center mb-4">
-					<Badge color="primary">{participant.role}</Badge>
-				</div>
+			<!-- Country Badge -->
+			<div class="flex justify-center mb-4">
+				<Badge color="secondary">{participant.country}</Badge>
+			</div>
 
-				<!-- Bio -->
+			<!-- Bio -->
 				<P class="text-sm text-gray-700 dark:text-gray-300 mb-4">
 					{participant.bio}
 				</P>

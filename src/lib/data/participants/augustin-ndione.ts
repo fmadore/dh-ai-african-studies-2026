@@ -2,7 +2,7 @@ import type { Participant } from '$lib/types/participant';
 
 export const augustinNdione: Participant = {
 	name: 'Augustin Ndione',
-	affiliation: 'Centre de Linguistique Appliquée de Dakar (CLAD) - Université Cheikh Anta Diop de Dakar, Sénégal',
+	affiliation: 'Cheikh Anta Diop University',
 	affiliationCoordinates: {
 		latitude: 14.6928,
 		longitude: -17.4467

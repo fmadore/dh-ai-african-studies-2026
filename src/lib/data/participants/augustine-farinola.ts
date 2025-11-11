@@ -2,7 +2,7 @@ import type { Participant } from '$lib/types/participant';
 
 export const augustineFarinola: Participant = {
 	name: 'Augustine Farinola',
-	affiliation: 'University of Alberta, Canada',
+	affiliation: 'University of Alberta',
 	affiliationCoordinates: {
 		latitude: 53.5232,
 		longitude: -113.5263

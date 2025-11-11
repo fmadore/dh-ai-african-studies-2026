@@ -2,7 +2,7 @@ import type { Participant } from '$lib/types/participant';
 
 export const thompsonGyeduKwarkye: Participant = {
 	name: 'Thompson Gyedu Kwarkye',
-	affiliation: 'School of Law, University of Galway',
+	affiliation: 'University of Galway',
 	affiliationCoordinates: {
 		latitude: 53.2794,
 		longitude: -9.0489
