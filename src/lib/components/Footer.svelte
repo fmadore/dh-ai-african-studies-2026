@@ -21,6 +21,13 @@
 						class="h-12 md:h-16"
 					/>
 				</a>
+				<a href="https://www.kcl.ac.uk/" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity">
+					<img
+						src="/images/logo/King's_College_London_logo.svg"
+						alt="King's College London"
+						class="h-12 md:h-16"
+					/>
+				</a>
 			</div>
 
 			<!-- Footer Links and Copyright -->
