@@ -98,21 +98,21 @@
 					
 					// Create popup content with profile photos
 					const popupContent = `
-						<div class="min-w-[250px]">
-							<h3 class="font-bold text-lg mb-2 text-gray-900 dark:text-gray-100">${participantsAtLocation[0].affiliation}</h3>
-							<p class="text-sm mb-3 text-gray-600 dark:text-gray-400"><strong>${participantsAtLocation.length}</strong> participant${participantsAtLocation.length > 1 ? 's' : ''}</p>
-							<div class="space-y-3 max-h-[300px] overflow-y-auto">
-								${participantsAtLocation.map(p => `
-									<div class="flex items-start gap-3 pb-3 border-b border-gray-200 dark:border-gray-700 last:border-0 last:pb-0">
+						<div class="popup-card">
+							<h3 class="popup-title">${participantsAtLocation[0].affiliation}</h3>
+							<p class="popup-meta"><strong>${participantsAtLocation.length}</strong> participant${participantsAtLocation.length > 1 ? 's' : ''}</p>
+							<div class="popup-list">
+								${participantsAtLocation.map((p) => `
+									<div class="popup-participant">
 										<img 
 											src="${p.photoUrl}" 
 											alt="${p.name}"
-											class="w-12 h-12 rounded-full object-cover border-2 border-primary-200 dark:border-primary-700 flex-shrink-0"
+											class="popup-avatar"
 											onerror="this.style.display='none'"
 										/>
-										<div class="flex-1 min-w-0">
-											<p class="font-semibold text-sm text-gray-900 dark:text-gray-100">${p.name}</p>
-											<p class="text-xs text-gray-500 dark:text-gray-400">${p.country}</p>
+										<div class="popup-details">
+											<p class="popup-name">${p.name}</p>
+											<p class="popup-country">${p.country}</p>
 										</div>
 									</div>
 								`).join('')}
@@ -164,15 +164,31 @@
 	:global(.participant-popup .leaflet-popup-content-wrapper) {
 		border-radius: 0.75rem;
 		padding: 0.75rem;
-		box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+		background: #ffffff;
+		color: var(--color-gray-900, #0f172a);
+		border: 1px solid rgba(148, 163, 184, 0.4);
+		box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
 	}
-	
+
+	:global(.dark .participant-popup .leaflet-popup-content-wrapper) {
+		background: rgba(8, 11, 19, 0.94);
+		color: var(--color-secondary-50, #f0f9ff);
+		border-color: rgba(148, 163, 184, 0.28);
+		box-shadow: 0 14px 32px -18px rgba(2, 6, 23, 0.75);
+	}
+
 	:global(.participant-popup .leaflet-popup-content) {
 		margin: 0;
 	}
 
 	:global(.participant-popup .leaflet-popup-tip) {
-		background: white;
+		background: #ffffff;
+		border: 1px solid rgba(148, 163, 184, 0.4);
+	}
+
+	:global(.dark .participant-popup .leaflet-popup-tip) {
+		background: rgba(8, 11, 19, 0.94);
+		border-color: rgba(148, 163, 184, 0.28);
 	}
 
 	/* Custom scrollbar for popup */
@@ -196,5 +212,97 @@
 
 	:global(.participant-popup .leaflet-popup-content div::-webkit-scrollbar-thumb:hover) {
 		background: #555;
+	}
+
+	:global(.participant-popup .popup-card) {
+		min-width: 260px;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	:global(.participant-popup .popup-title) {
+		font-size: 1.125rem;
+		font-weight: 700;
+		margin: 0;
+		color: inherit;
+	}
+
+	:global(.dark .participant-popup .popup-title) {
+		color: var(--color-secondary-50, #f0f9ff);
+	}
+
+	:global(.participant-popup .popup-meta) {
+		font-size: 0.875rem;
+		margin: 0;
+		color: rgba(71, 85, 105, 0.85);
+	}
+
+	:global(.dark .participant-popup .popup-meta) {
+		color: rgba(226, 232, 240, 0.75);
+	}
+
+	:global(.participant-popup .popup-list) {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		max-height: 300px;
+		overflow-y: auto;
+	}
+
+	:global(.participant-popup .popup-participant) {
+		display: flex;
+		gap: 0.75rem;
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid rgba(203, 213, 225, 0.6);
+		align-items: flex-start;
+	}
+
+	:global(.participant-popup .popup-participant:last-child) {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+
+	:global(.dark .participant-popup .popup-participant) {
+		border-color: rgba(148, 163, 184, 0.25);
+	}
+
+	:global(.participant-popup .popup-avatar) {
+		width: 3rem;
+		height: 3rem;
+		border-radius: 9999px;
+		object-fit: cover;
+		border: 2px solid var(--color-primary-200, #ffe4de);
+		flex-shrink: 0;
+	}
+
+	:global(.dark .participant-popup .popup-avatar) {
+		border-color: var(--color-primary-700, #eb4f27);
+	}
+
+	:global(.participant-popup .popup-details) {
+		flex: 1;
+		min-width: 0;
+	}
+
+	:global(.participant-popup .popup-name) {
+		margin: 0;
+		font-size: 0.95rem;
+		font-weight: 600;
+		color: var(--color-gray-900, #0f172a);
+	}
+
+	:global(.dark .participant-popup .popup-name) {
+		color: var(--color-secondary-50, #f0f9ff);
+	}
+
+	:global(.participant-popup .popup-country) {
+		margin: 0.15rem 0 0;
+		font-size: 0.75rem;
+		color: rgba(71, 85, 105, 0.75);
+	}
+
+	:global(.dark .participant-popup .popup-country) {
+		color: rgba(203, 213, 225, 0.7);
 	}
 </style>
