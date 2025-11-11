@@ -2,6 +2,7 @@
 	import { Button, Card, Heading, P, Timeline, TimelineItem } from 'flowbite-svelte';
 	import { CalendarMonthOutline, MapPinAltOutline, UsersGroupOutline } from 'flowbite-svelte-icons';
 	import { createSeoMeta } from '$lib/utils/seo';
+	import { workshopInfo } from '$lib/data/workshop-info';
 
 	const seo = createSeoMeta({ path: '/' });
 </script>
@@ -51,7 +52,7 @@
 					<CalendarMonthOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
 				<Heading tag="h3" class="heading-sub">Date</Heading>
-				<P class="text-gray-700 dark:text-gray-300">18-20 February 2026</P>
+				<P class="text-gray-700 dark:text-gray-300">{workshopInfo.dates.full}</P>
 			</Card>
 
 			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow space-y-3">
@@ -59,7 +60,7 @@
 					<MapPinAltOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
 				<Heading tag="h3" class="heading-sub">Location</Heading>
-				<P class="text-gray-700 dark:text-gray-300">Xplanatorium Herrenhausen, Hanover, Germany</P>
+				<P class="text-gray-700 dark:text-gray-300">{workshopInfo.location.full}</P>
 			</Card>
 
 			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow space-y-3">
@@ -67,7 +68,7 @@
 					<UsersGroupOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
 				<Heading tag="h3" class="heading-sub">Format</Heading>
-				<P class="text-gray-700 dark:text-gray-300">In-person</P>
+				<P class="text-gray-700 dark:text-gray-300">{workshopInfo.format.type}</P>
 			</Card>
 		</div>
 	</div>

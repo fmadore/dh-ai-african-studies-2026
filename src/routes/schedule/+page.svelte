@@ -2,6 +2,7 @@
 	import { Heading, P, Card } from 'flowbite-svelte';
 	import { CalendarMonthOutline } from 'flowbite-svelte-icons';
 	import { createSeoMeta } from '$lib/utils/seo';
+	import { workshopInfo } from '$lib/data/workshop-info';
 
 	const seo = createSeoMeta({
 		title: 'Workshop Schedule',
@@ -71,18 +72,18 @@
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 			<Card class="card-surface surface-padding-sm text-center space-y-2">
 				<P class="text-sm font-semibold text-primary-600 dark:text-primary-400">Workshop Dates</P>
-				<P class="text-2xl font-bold text-gray-800 dark:text-gray-100">June 15-17, 2026</P>
-				<P class="text-sm text-gray-600 dark:text-gray-300">Three-day intensive workshop</P>
+				<P class="text-2xl font-bold text-gray-800 dark:text-gray-100">{workshopInfo.dates.full}</P>
+				<P class="text-sm text-gray-600 dark:text-gray-300">{workshopInfo.duration.description}</P>
 			</Card>
 			<Card class="card-surface surface-padding-sm text-center space-y-2">
 				<P class="text-sm font-semibold text-primary-600 dark:text-primary-400">Format</P>
-				<P class="text-2xl font-bold text-gray-800 dark:text-gray-100">Hybrid</P>
-				<P class="text-sm text-gray-600 dark:text-gray-300">In-person &amp; Virtual participation</P>
+				<P class="text-2xl font-bold text-gray-800 dark:text-gray-100">{workshopInfo.format.type}</P>
+				<P class="text-sm text-gray-600 dark:text-gray-300">{workshopInfo.format.description}</P>
 			</Card>
 			<Card class="card-surface surface-padding-sm text-center space-y-2">
 				<P class="text-sm font-semibold text-primary-600 dark:text-primary-400">Location</P>
-				<P class="text-2xl font-bold text-gray-800 dark:text-gray-100">TBA</P>
-				<P class="text-sm text-gray-600 dark:text-gray-300">To be announced</P>
+				<P class="text-2xl font-bold text-gray-800 dark:text-gray-100">{workshopInfo.location.venue}</P>
+				<P class="text-sm text-gray-600 dark:text-gray-300">{workshopInfo.location.city}, {workshopInfo.location.country}</P>
 			</Card>
 		</div>
 	</div>
