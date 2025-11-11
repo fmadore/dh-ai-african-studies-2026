@@ -7,6 +7,7 @@ export const exampleParticipant: Participant = {
 		latitude: 51.5074,
 		longitude: -0.1278
 	},
+	country: 'United Kingdom',
 	role: 'Participant',
 	bio: 'Dr. Example is a researcher specializing in digital humanities and African studies with over 10 years of experience in computational linguistics and cultural heritage preservation.',
 	researchRegions: ['West Africa', 'East Africa'],

@@ -7,6 +7,7 @@ export const fabriceMelka: Participant = {
 		latitude: 48.8566,
 		longitude: 2.3522
 	},
+	country: 'France',
 	role: 'Participant',
 	bio: "Fabrice Melka is Head of Resources, Publications, and Digital Data at the Institut des mondes africains (IMAF). In this capacity, he oversees all activities related to their production and dissemination, with a particular emphasis on promoting open science.",
 	researchRegions: [],

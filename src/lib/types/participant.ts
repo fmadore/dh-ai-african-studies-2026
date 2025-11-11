@@ -9,6 +9,7 @@ export interface Participant {
 	name: string;
 	affiliation: string;
 	affiliationCoordinates?: Coordinates;
+	country: string;
 	role: ParticipantRole;
 	bio: string;
 	researchRegions: string[];
