@@ -28,6 +28,13 @@
 						class="h-12 md:h-16"
 					/>
 				</a>
+				<a href="https://www.africamultiple.uni-bayreuth.de/en/index.html" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity">
+					<img
+						src="/images/logo/uni-bayreuth-africa-multiple-logo.jpeg"
+						alt="Africa Multiple Cluster of Excellence"
+						class="h-12 md:h-16"
+					/>
+				</a>
 			</div>
 
 			<!-- Footer Links and Copyright -->
