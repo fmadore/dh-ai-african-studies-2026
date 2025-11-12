@@ -131,11 +131,11 @@
 		{#if studentAssistants.length > 0}
 			<div class="space-y-6">
 				<Heading tag="h2" class="heading-section heading-lg heading-color-light">Student Assistants</Heading>
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 					{#each studentAssistants as assistant (assistant.name)}
 						<Card class="card-surface surface-padding-sm transition-shadow flex flex-col hover:shadow-xl h-full">
-							<!-- Photo -->
-							<div class="flex justify-center mb-4">
+							<div class="flex flex-col items-center text-center space-y-4">
+								<!-- Photo -->
 								<div class="relative w-24 h-24">
 									<img
 										src={assistant.photoUrl}
@@ -148,17 +148,38 @@
 										<UserCircleSolid class="w-16 h-16 text-gray-400 dark:text-gray-500" />
 									</div>
 								</div>
+
+								<!-- Name -->
+								<Heading tag="h3" class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+									{assistant.name}
+								</Heading>
+
+								<!-- Affiliation -->
+								<P class="text-secondary-600 dark:text-secondary-400 text-sm font-semibold">
+									{assistant.affiliation}
+								</P>
+
+								<!-- Bio -->
+								{#if assistant.bio}
+									<P class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+										{assistant.bio}
+									</P>
+								{/if}
+
+								<!-- Research Regions -->
+								{#if assistant.researchRegions.length > 0}
+									<div class="pt-2">
+										<P class="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2">
+											Research Regions
+										</P>
+										<div class="flex flex-wrap justify-center gap-2">
+											{#each assistant.researchRegions.toSorted() as region (region)}
+												<Badge color="secondary" class="text-xs">{region}</Badge>
+											{/each}
+										</div>
+									</div>
+								{/if}
 							</div>
-
-							<!-- Name -->
-							<Heading tag="h3" class="text-lg font-semibold text-gray-900 dark:text-gray-100 text-center mb-2">
-								{assistant.name}
-							</Heading>
-
-							<!-- Affiliation -->
-							<P class="text-center text-secondary-600 dark:text-secondary-400 text-sm font-semibold">
-								{assistant.affiliation}
-							</P>
 						</Card>
 					{/each}
 				</div>
