@@ -3,12 +3,20 @@
 	import { CalendarMonthOutline, MapPinAltOutline, UsersGroupOutline } from 'flowbite-svelte-icons';
 	import { createSeoMeta } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
-	import { resolveAppPath } from '$lib/utils/paths';
+	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
+	import { participants } from '$lib/data/participants';
 
 	const seo = createSeoMeta({ path: '/' });
 	const aboutHref = resolveAppPath('/about');
 	const participantsHref = resolveAppPath('/participants');
 	const positionPaperHref = resolveAppPath('/position-paper');
+
+	const organizers = participants
+		.filter((p) => p.role === 'Co-organizer')
+		.map((p) => ({
+			...p,
+			photoUrl: resolveAssetPath(p.photoUrl)
+		}));
 </script>
 
 <svelte:head>
@@ -133,6 +141,37 @@
 					</P>
 				</TimelineItem>
 			</Timeline>
+		</div>
+	</div>
+</section>
+
+<!-- Organizers Section -->
+<section class="py-12 px-4">
+	<div class="mx-auto max-w-7xl surface-panel surface-padding space-y-8">
+		<div class="text-center space-y-3">
+			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Organizers</Heading>
+		</div>
+
+		<div class="grid grid-cols-1 gap-6 justify-items-center md:grid-cols-2">
+			{#each organizers as organizer (organizer.name)}
+				<Card class="card-surface surface-padding-sm flex flex-col items-center text-center gap-4 md:h-full md:justify-between">
+					{#if organizer.photoUrl}
+						<img
+							src={organizer.photoUrl}
+							alt={organizer.name}
+							class="w-28 h-28 rounded-full object-cover border-4 border-primary-100 dark:border-primary-700"
+						/>
+					{/if}
+					<div class="space-y-1">
+						<Heading tag="h3" class="heading-sub heading-color-light text-xl">
+							{organizer.name}
+						</Heading>
+						<P class="text-primary-600 dark:text-primary-400 font-semibold">
+							{organizer.affiliation}
+						</P>
+					</div>
+				</Card>
+			{/each}
 		</div>
 	</div>
 </section>
