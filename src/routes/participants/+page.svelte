@@ -3,6 +3,7 @@
 	import { UserCircleSolid } from 'flowbite-svelte-icons';
 	import { participants } from '$lib/data/participants';
 	import { createSeoMeta } from '$lib/utils/seo';
+	import ParticipantsMap from '$lib/components/ParticipantsMap.svelte';
 
 	const displayedParticipants = participants.filter((p) => p.role !== 'Student assistant');
 	const uniqueCountries = new Set(displayedParticipants.map((p) => p.country)).size;
@@ -35,7 +36,7 @@
 </svelte:head>
 
 <!-- Page Header -->
-<section class="py-12 px-4">
+<section class="bg-page py-12 px-4">
 	<div class="mx-auto max-w-5xl surface-panel surface-padding text-center space-y-4">
 		<Heading tag="h1" class="heading-display heading-xl heading-color-light">Participants</Heading>
 		<P class="text-lg text-gray-600 dark:text-gray-300">
@@ -45,7 +46,7 @@
 </section>
 
 <!-- Participants Grid -->
-<section class="py-12 px-4">
+<section class="bg-page py-12 px-4">
 	<div class="mx-auto max-w-7xl surface-panel surface-padding">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 		{#each displayedParticipants as participant (participant.name)}
@@ -112,4 +113,15 @@
 			</P>
 		</div>
 	{/if}
+</section>
+
+<!-- Interactive Map -->
+<section class="bg-page py-12 px-4">
+	<div class="mx-auto max-w-7xl surface-panel surface-padding space-y-6">
+		<Heading tag="h2" class="heading-section heading-lg heading-color-light text-center">Global Distribution</Heading>
+		<P class="text-center text-gray-600 dark:text-gray-300 mb-6">
+			Explore where our participants are based around the world
+		</P>
+		<ParticipantsMap participants={displayedParticipants} />
+	</div>
 </section>
