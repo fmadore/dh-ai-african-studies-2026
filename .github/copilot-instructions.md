@@ -49,7 +49,12 @@ When writing Svelte components, ALWAYS use Svelte 5 runes syntax:
 **For library documentation:**
 - Use Context7 MCP tools (`mcp_context7_resolve-library-id` and `mcp_context7_get-library-docs`) for up-to-date documentation on Flowbite Svelte and other libraries
 
-### 3. Flowbite Svelte Components
+### 3. Routing & Asset Helpers
+
+- Internal links and static assets must respect the GitHub Pages base path. Use `resolveAppPath('/route')` and `resolveAssetPath('/images/foo.png')` from `$lib/utils/paths` for any `href`, `src`, or Flowbite component `href` props.
+- Derive navigation collections once in `<script>` blocks so they can be reused and stay type-safe.
+
+### 4. Flowbite Svelte Components
 
 **Import Pattern:**
 ```svelte
@@ -72,52 +77,11 @@ When writing Svelte components, ALWAYS use Svelte 5 runes syntax:
 </Card>
 ```
 
-### 4. Theming and Styling Best Practices
+### 5. Theming and Styling Best Practices
 
-**Global CSS Configuration (app.css or global.css):**
-
-```css
-@import "tailwindcss";
-
-@plugin 'flowbite/plugin';
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme {
-  /* Custom primary color (adapt to conference branding) */
-  --color-primary-50: #fff5f2;
-  --color-primary-100: #fff1ee;
-  --color-primary-200: #ffe4de;
-  --color-primary-300: #ffd5cc;
-  --color-primary-400: #ffbcad;
-  --color-primary-500: #fe795d;
-  --color-primary-600: #ef562f;
-  --color-primary-700: #eb4f27;
-  --color-primary-800: #cc4522;
-  --color-primary-900: #a5371b;
-
-  /* Custom secondary color */
-  --color-secondary-50: #f0f9ff;
-  --color-secondary-100: #e0f2fe;
-  --color-secondary-200: #bae6fd;
-  --color-secondary-300: #7dd3fc;
-  --color-secondary-400: #38bdf8;
-  --color-secondary-500: #0ea5e9;
-  --color-secondary-600: #0284c7;
-  --color-secondary-700: #0369a1;
-  --color-secondary-800: #075985;
-  --color-secondary-900: #0c4a6e;
-}
-
-@source "../node_modules/flowbite-svelte/dist";
-@source "../node_modules/flowbite-svelte-icons/dist";
-
-@layer base {
-  button, [role="button"] {
-    cursor: pointer;
-  }
-}
-```
+- Tailwind v4 with `flowbite/plugin` and `@tailwindcss/typography` is configured in `src/app.css`.
+- Custom palette: primary hex f06648 (with 50–900 scale), secondary hex 0ea5e9, neutrals span 0f172a to f8fafc.
+- Use the provided utility classes such as `.surface-panel`, `.card-surface`, `.bg-page`, and typography helpers instead of redefining styles per component.
 
 **Using Theme Values:**
 ```svelte
@@ -153,7 +117,11 @@ When writing Svelte components, ALWAYS use Svelte 5 runes syntax:
 </ThemeProvider>
 ```
 
-### 5. Custom Component Wrapper Pattern
+### 6. SEO Utilities
+
+- Use `createSeoMeta` from `$lib/utils/seo` for every page to populate `<svelte:head>` with canonical metadata.
+
+### 7. Custom Component Wrapper Pattern
 
 Create reusable themed components:
 
@@ -169,7 +137,7 @@ Create reusable themed components:
 </Button>
 ```
 
-### 6. Static Site Generation Configuration
+### 8. Static Site Generation Configuration
 
 **SvelteKit Configuration (svelte.config.js):**
 ```javascript
@@ -201,7 +169,7 @@ export default config;
 </script>
 ```
 
-### 7. Accessibility Best Practices
+### 9. Accessibility Best Practices
 
 - Always include meaningful alt text for images
 - Use semantic HTML elements
@@ -222,7 +190,7 @@ export default config;
 </nav>
 ```
 
-### 8. File Structure
+### 10. File Structure
 
 ```
 src/
@@ -234,30 +202,34 @@ src/
 │   ├── +layout.svelte  # Global layout
 │   ├── +page.svelte    # Homepage
 │   ├── about/          # About page
-│   ├── schedule/       # Schedule page
-│   ├── speakers/       # Speakers page
-│   └── register/       # Registration page
+│   ├── participants/   # Participants page
+│   ├── position-paper/ # Position paper page
+│   └── schedule/       # Schedule page
 └── app.css             # Global styles
 ```
 
-### 9. Common Component Patterns
+### 11. Common Component Patterns
 
 **Navigation:**
 ```svelte
 <script lang="ts">
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
   import { page } from '$app/state';
-  
+  import { resolveAppPath } from '$lib/utils/paths';
+
   let activeUrl = $derived(page.url.pathname);
+  const homeHref = resolveAppPath('/');
+  const scheduleHref = resolveAppPath('/schedule');
+  const participantsHref = resolveAppPath('/participants');
 </script>
 
 <Navbar>
-  <NavBrand href="/">Conference 2026</NavBrand>
+  <NavBrand href={homeHref}>Conference 2026</NavBrand>
   <NavHamburger />
   <NavUl {activeUrl}>
-    <NavLi href="/">Home</NavLi>
-    <NavLi href="/schedule">Schedule</NavLi>
-    <NavLi href="/speakers">Speakers</NavLi>
+    <NavLi href={homeHref}>Home</NavLi>
+    <NavLi href={scheduleHref}>Schedule</NavLi>
+    <NavLi href={participantsHref}>Participants</NavLi>
   </NavUl>
 </Navbar>
 ```
@@ -266,13 +238,17 @@ src/
 ```svelte
 <script lang="ts">
   import { Footer, FooterCopyright, FooterLinkGroup, FooterLink } from 'flowbite-svelte';
+  import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
+
+  const aboutHref = resolveAppPath('/about');
+  const logo = resolveAssetPath('/images/logo/VWST-logo.png');
 </script>
 
 <Footer>
+  <img src={logo} alt="Volkswagen Foundation" class="h-8" />
   <FooterCopyright by="Volkswagen Foundation" />
   <FooterLinkGroup>
-    <FooterLink href="/about">About</FooterLink>
-    <FooterLink href="/contact">Contact</FooterLink>
+    <FooterLink href={aboutHref}>About</FooterLink>
   </FooterLinkGroup>
 </Footer>
 ```
@@ -298,7 +274,7 @@ Always use TypeScript for type safety:
 </script>
 ```
 
-### 11. Dark Mode Support
+### 12. Dark Mode Support
 
 ```svelte
 <script lang="ts">
@@ -325,15 +301,6 @@ Always use TypeScript for type safety:
 7. **Test responsive behavior** at multiple breakpoints
 8. **Optimize images** and assets for web delivery
 9. **Use meaningful commit messages** following conventional commits
-
-## Conference-Specific Considerations
-
-- Emphasize **academic and professional** design aesthetics
-- Include **Volkswagen Foundation branding** where appropriate
-- Ensure content is **accessible and inclusive**
-- Support **multiple languages** if needed (use i18n patterns)
-- Optimize for **information density** (schedules, speaker bios, abstracts)
-- Include **call-to-action elements** (registration, submission deadlines)
 
 ## Resources
 
