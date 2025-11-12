@@ -5,8 +5,10 @@
 
 	const seo = createSeoMeta({
 		path: '/position-paper',
-		title: 'Position Paper',
-		description: 'A foundational blueprint for the emerging field of Digital Humanities and AI in African Studies, providing a strategic roadmap based on ethical and equitable practices.'
+		title: 'Position Paper Blueprint for DH & AI in African Studies',
+		description:
+			'The position paper synthesises workshop insights into a strategic roadmap for Digital Humanities and AI in African studies, foregrounding equitable collaboration, decolonial ethics, and actionable recommendations for stakeholders.',
+		type: 'article'
 	});
 </script>
 
