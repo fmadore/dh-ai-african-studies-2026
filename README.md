@@ -1,38 +1,94 @@
-# sv
+# Digital Humanities and AI in African Studies - Workshop Website
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A SvelteKit-powered static website for the "Charting New Territory: Digital Humanities and AI in African Studies" scoping workshop.
 
-## Creating a project
+## About
 
-If you're seeing this, you've probably already done this step. Congrats!
+This repository hosts the conference website for a three-day international workshop addressing the critical convergence of digital humanities and AI within African studies. The workshop is funded by the Volkswagen Foundation and brings together experts from Africa, Europe, and beyond.
+
+## Technology Stack
+
+- **Framework**: SvelteKit with Svelte 5 (runes syntax)
+- **UI Library**: Flowbite Svelte
+- **Styling**: Tailwind CSS v4
+- **Deployment**: GitHub Pages (static site generation)
+
+## Development
+
+Install dependencies:
 
 ```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+npm install
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start the development server:
 
 ```sh
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
+
+The site will be available at `http://localhost:5173`
 
 ## Building
 
-To create a production version of your app:
+Create a production build:
 
 ```sh
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+Preview the production build locally:
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```sh
+npm run preview
+```
+
+## Deployment
+
+The site automatically deploys to GitHub Pages when changes are pushed to the `main` branch.
+
+### GitHub Pages Setup
+
+1. Go to repository Settings → Pages
+2. Under "Build and deployment", select:
+   - **Source**: GitHub Actions
+3. The workflow in `.github/workflows/deploy.yml` will handle the rest
+
+The site will be available at: `https://fmadore.github.io/dh-ai-african-studies-2026/`
+
+### Manual Deployment
+
+You can also trigger a deployment manually:
+1. Go to the Actions tab in the GitHub repository
+2. Select "Deploy to GitHub Pages" workflow
+3. Click "Run workflow"
+
+## Project Structure
+
+```
+src/
+├── lib/
+│   ├── components/     # Reusable Svelte components
+│   ├── data/           # Participant and workshop data
+│   ├── types/          # TypeScript type definitions
+│   └── utils/          # Helper functions
+├── routes/
+│   ├── about/          # About page
+│   ├── participants/   # Participants page
+│   ├── position-paper/ # Position paper page
+│   ├── schedule/       # Schedule page
+│   └── +page.svelte    # Homepage
+└── app.css             # Global styles
+static/
+├── images/             # Static images
+├── robots.txt          # Search engine instructions
+└── sitemap.xml         # Site map
+```
+
+## Contributing
+
+This is a conference website project. For questions or contributions, please contact the workshop organizers.
+
+## License
+
+Copyright © 2025 - Workshop funded by the Volkswagen Foundation
