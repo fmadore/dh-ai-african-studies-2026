@@ -80,16 +80,23 @@
 								<!-- Photo -->
 								<div class="w-32 h-32 md:w-40 md:h-40 shrink-0">
 									<div class="relative w-full h-full">
-										<img
-											src={organizer.photoUrl}
-											alt={organizer.name}
-											class="w-full h-full rounded-full object-cover border-4 border-primary-100 dark:border-primary-700 shadow-md"
-											onerror={handleImageError}
-										/>
-										<!-- Placeholder for missing images -->
-										<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-primary-100 dark:border-primary-700 hidden items-center justify-center absolute top-0 left-0">
-											<UserCircleSolid class="w-16 h-16 md:w-20 md:h-20 text-gray-400 dark:text-gray-500" />
-										</div>
+										{#if organizer.photoUrl}
+											<img
+												src={organizer.photoUrl}
+												alt={organizer.name}
+												class="w-full h-full rounded-full object-cover border-4 border-primary-100 dark:border-primary-700 shadow-md"
+												onerror={handleImageError}
+											/>
+											<!-- Placeholder for missing images -->
+											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-primary-100 dark:border-primary-700 hidden items-center justify-center absolute top-0 left-0">
+												<UserCircleSolid class="w-16 h-16 md:w-20 md:h-20 text-gray-400 dark:text-gray-500" />
+											</div>
+										{:else}
+											<!-- Placeholder for organizers without photo -->
+											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-primary-100 dark:border-primary-700 flex items-center justify-center shadow-md">
+												<UserCircleSolid class="w-16 h-16 md:w-20 md:h-20 text-gray-400 dark:text-gray-500" />
+											</div>
+										{/if}
 									</div>
 								</div>
 
@@ -137,16 +144,23 @@
 							<div class="flex flex-col items-center text-center space-y-4">
 								<!-- Photo -->
 								<div class="relative w-24 h-24">
-									<img
-										src={assistant.photoUrl}
-										alt={assistant.name}
-										class="w-24 h-24 rounded-full object-cover border-4 border-secondary-100 dark:border-secondary-900"
-										onerror={handleImageError}
-									/>
-									<!-- Placeholder for missing images -->
-									<div class="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-secondary-100 dark:border-secondary-900 hidden items-center justify-center absolute top-0 left-0">
-										<UserCircleSolid class="w-16 h-16 text-gray-400 dark:text-gray-500" />
-									</div>
+									{#if assistant.photoUrl}
+										<img
+											src={assistant.photoUrl}
+											alt={assistant.name}
+											class="w-24 h-24 rounded-full object-cover border-4 border-secondary-100 dark:border-secondary-900"
+											onerror={handleImageError}
+										/>
+										<!-- Placeholder for missing images -->
+										<div class="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-secondary-100 dark:border-secondary-900 hidden items-center justify-center absolute top-0 left-0">
+											<UserCircleSolid class="w-16 h-16 text-gray-400 dark:text-gray-500" />
+										</div>
+									{:else}
+										<!-- Placeholder for assistants without photo -->
+										<div class="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-secondary-100 dark:border-secondary-900 flex items-center justify-center">
+											<UserCircleSolid class="w-16 h-16 text-gray-400 dark:text-gray-500" />
+										</div>
+									{/if}
 								</div>
 
 								<!-- Name -->
