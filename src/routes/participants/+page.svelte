@@ -54,16 +54,23 @@
 				<!-- Participant Photo -->
 				<div class="flex justify-center mb-4">
 					<div class="relative w-32 h-32">
-						<img
-							src={participant.photoUrl}
-							alt={participant.name}
-							class="w-32 h-32 rounded-full object-cover border-4 border-primary-100 dark:border-primary-900"
-							onerror={handleImageError}
-						/>
-						<!-- Placeholder for missing images -->
-						<div class="w-32 h-32 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-primary-100 dark:border-primary-900 hidden items-center justify-center absolute top-0 left-0">
-							<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
-						</div>
+						{#if participant.photoUrl}
+							<img
+								src={participant.photoUrl}
+								alt={participant.name}
+								class="w-32 h-32 rounded-full object-cover border-4 border-primary-100 dark:border-primary-900"
+								onerror={handleImageError}
+							/>
+							<!-- Placeholder for missing images -->
+							<div class="w-32 h-32 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-primary-100 dark:border-primary-900 hidden items-center justify-center absolute top-0 left-0">
+								<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
+							</div>
+						{:else}
+							<!-- Placeholder for participants without photo -->
+							<div class="w-32 h-32 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-primary-100 dark:border-primary-900 flex items-center justify-center">
+								<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
+							</div>
+						{/if}
 					</div>
 				</div>
 

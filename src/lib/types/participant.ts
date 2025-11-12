@@ -13,5 +13,5 @@ export interface Participant {
 	role: ParticipantRole;
 	bio: string;
 	researchRegions: string[];
-	photoUrl: string;
+	photoUrl?: string;
 }

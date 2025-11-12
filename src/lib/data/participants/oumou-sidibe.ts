@@ -10,6 +10,5 @@ export const oumouSidibe: Participant = {
 	country: 'United States',
 	role: 'Participant',
 	bio: 'Participant information to be added.',
-	researchRegions: [],
-	photoUrl: '/images/participants/oumou-sidibe.jpg'
+	researchRegions: []
 };

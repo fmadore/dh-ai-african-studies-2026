@@ -33,11 +33,11 @@
 			An international three-day working meeting addressing the critical convergence of digital humanities and artificial intelligence within African studies.
 		</p>
 		<div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-			<Button href="/register" size="xl" color="primary">
-				Register Now
+			<Button href="/about" size="xl" color="primary">
+				About
 			</Button>
-			<Button href="/about" size="xl" outline color="secondary">
-				Learn More
+			<Button href="/participants" size="xl" outline color="secondary">
+				Participants
 			</Button>
 		</div>
 	</div>

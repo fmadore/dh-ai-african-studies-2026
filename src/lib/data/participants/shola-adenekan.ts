@@ -10,6 +10,5 @@ export const sholaAdenekan: Participant = {
 	country: 'Belgium',
 	role: 'Participant',
 	bio: 'Participant information to be added.',
-	researchRegions: [],
-	photoUrl: '/images/participants/shola-adenekan.jpg'
+	researchRegions: []
 };
