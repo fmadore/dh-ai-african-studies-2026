@@ -158,22 +158,22 @@
 	/>
 </svelte:head>
 
-<div bind:this={mapContainer} class="w-full h-[600px] rounded-lg overflow-hidden"></div>
+<div bind:this={mapContainer} class="w-full h-[600px] rounded-lg overflow-hidden bg-surface-weak"></div>
 
 <style>
 	:global(.participant-popup .leaflet-popup-content-wrapper) {
 		border-radius: 0.75rem;
 		padding: 0.75rem;
-		background: #ffffff;
-		color: var(--color-gray-900, #0f172a);
-		border: 1px solid rgba(148, 163, 184, 0.4);
+		background: var(--color-surface-strong);
+		color: var(--color-gray-900);
+		border: 1px solid color-mix(in srgb, var(--color-gray-400) 40%, transparent);
 		box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
 	}
 
 	:global(.dark .participant-popup .leaflet-popup-content-wrapper) {
-		background: rgba(8, 11, 19, 0.94);
-		color: var(--color-secondary-50, #f0f9ff);
-		border-color: rgba(148, 163, 184, 0.28);
+		background: var(--color-surface-alt);
+		color: var(--color-secondary-50);
+		border-color: color-mix(in srgb, var(--color-gray-400) 28%, transparent);
 		box-shadow: 0 14px 32px -18px rgba(2, 6, 23, 0.75);
 	}
 
@@ -182,13 +182,13 @@
 	}
 
 	:global(.participant-popup .leaflet-popup-tip) {
-		background: #ffffff;
-		border: 1px solid rgba(148, 163, 184, 0.4);
+		background: var(--color-surface-strong);
+		border: 1px solid color-mix(in srgb, var(--color-gray-400) 40%, transparent);
 	}
 
 	:global(.dark .participant-popup .leaflet-popup-tip) {
-		background: rgba(8, 11, 19, 0.94);
-		border-color: rgba(148, 163, 184, 0.28);
+		background: var(--color-surface-alt);
+		border-color: color-mix(in srgb, var(--color-gray-400) 28%, transparent);
 	}
 
 	/* Custom scrollbar for popup */
@@ -201,17 +201,17 @@
 	}
 
 	:global(.participant-popup .leaflet-popup-content div::-webkit-scrollbar-track) {
-		background: #f1f1f1;
+		background: var(--color-gray-100);
 		border-radius: 3px;
 	}
 
 	:global(.participant-popup .leaflet-popup-content div::-webkit-scrollbar-thumb) {
-		background: #888;
+		background: var(--color-gray-400);
 		border-radius: 3px;
 	}
 
 	:global(.participant-popup .leaflet-popup-content div::-webkit-scrollbar-thumb:hover) {
-		background: #555;
+		background: var(--color-gray-500);
 	}
 
 	:global(.participant-popup .popup-card) {
@@ -235,11 +235,11 @@
 	:global(.participant-popup .popup-meta) {
 		font-size: 0.875rem;
 		margin: 0;
-		color: rgba(71, 85, 105, 0.85);
+		color: color-mix(in srgb, var(--color-gray-600) 85%, transparent);
 	}
 
 	:global(.dark .participant-popup .popup-meta) {
-		color: rgba(226, 232, 240, 0.75);
+		color: color-mix(in srgb, var(--color-gray-200) 75%, transparent);
 	}
 
 	:global(.participant-popup .popup-list) {
@@ -254,7 +254,7 @@
 		display: flex;
 		gap: 0.75rem;
 		padding-bottom: 0.75rem;
-		border-bottom: 1px solid rgba(203, 213, 225, 0.6);
+		border-bottom: 1px solid color-mix(in srgb, var(--color-gray-200) 60%, transparent);
 		align-items: flex-start;
 	}
 
@@ -264,7 +264,7 @@
 	}
 
 	:global(.dark .participant-popup .popup-participant) {
-		border-color: rgba(148, 163, 184, 0.25);
+		border-color: color-mix(in srgb, var(--color-gray-500) 35%, transparent);
 	}
 
 	:global(.participant-popup .popup-avatar) {
@@ -272,12 +272,12 @@
 		height: 3rem;
 		border-radius: 9999px;
 		object-fit: cover;
-		border: 2px solid var(--color-primary-200, #ffe4de);
+		border: 2px solid var(--color-primary-200);
 		flex-shrink: 0;
 	}
 
 	:global(.dark .participant-popup .popup-avatar) {
-		border-color: var(--color-primary-700, #eb4f27);
+		border-color: var(--color-primary-700);
 	}
 
 	:global(.participant-popup .popup-details) {
@@ -289,20 +289,20 @@
 		margin: 0;
 		font-size: 0.95rem;
 		font-weight: 600;
-		color: var(--color-gray-900, #0f172a);
+		color: var(--color-gray-900);
 	}
 
 	:global(.dark .participant-popup .popup-name) {
-		color: var(--color-secondary-50, #f0f9ff);
+		color: var(--color-secondary-50);
 	}
 
 	:global(.participant-popup .popup-country) {
 		margin: 0.15rem 0 0;
 		font-size: 0.75rem;
-		color: rgba(71, 85, 105, 0.75);
+		color: color-mix(in srgb, var(--color-gray-600) 75%, transparent);
 	}
 
 	:global(.dark .participant-popup .popup-country) {
-		color: rgba(203, 213, 225, 0.7);
+		color: color-mix(in srgb, var(--color-gray-200) 70%, transparent);
 	}
 </style>

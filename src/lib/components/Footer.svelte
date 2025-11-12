@@ -39,12 +39,12 @@
 
 			<!-- Footer Links and Copyright -->
 			<div class="sm:flex sm:items-center sm:justify-between px-6 pb-8">
-				<span class="text-sm text-gray-600 dark:text-gray-300">
+				<span class="body-text-muted text-sm">
 					© 2025 <a href="https://www.frederickmadore.com/" target="_blank" rel="noopener noreferrer" class="hover:underline hover:text-primary-600 dark:hover:text-primary-300 transition-colors">Frédérick Madore</a>
 					<span class="mx-1">and</span>
 					<a href="https://www.vincenthiribarren.com/" target="_blank" rel="noopener noreferrer" class="hover:underline hover:text-primary-600 dark:hover:text-primary-300 transition-colors">Vincent Hiribarren</a>
 				</span>
-				<FooterLinkGroup class="flex flex-wrap items-center mt-3 text-sm sm:mt-0 gap-4 text-gray-600 dark:text-gray-300">
+				<FooterLinkGroup class="body-text flex flex-wrap items-center mt-3 text-sm sm:mt-0 gap-4">
 					<FooterLink href="/about" class="hover:text-primary-600 dark:hover:text-primary-300 transition-colors">About</FooterLink>
 				</FooterLinkGroup>
 			</div>
