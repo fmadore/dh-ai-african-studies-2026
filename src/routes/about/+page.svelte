@@ -3,9 +3,21 @@
 	import { UserCircleSolid } from 'flowbite-svelte-icons';
 	import { createSeoMeta } from '$lib/utils/seo';
 	import { participants } from '$lib/data/participants';
+	import { resolveAssetPath } from '$lib/utils/paths';
 
-	const coOrganizers = participants.filter((p) => p.role === 'Co-organizer');
-	const studentAssistants = participants.filter((p) => p.role === 'Student assistant');
+	function decorateWithPhotoUrl(participant: typeof participants[number]) {
+		return {
+			...participant,
+			photoUrl: resolveAssetPath(participant.photoUrl)
+		};
+	}
+
+	const coOrganizers = participants
+		.filter((participant) => participant.role === 'Co-organizer')
+		.map(decorateWithPhotoUrl);
+	const studentAssistants = participants
+		.filter((participant) => participant.role === 'Student assistant')
+		.map(decorateWithPhotoUrl);
 
 	function handleImageError(event: Event) {
 		const img = event.target as HTMLImageElement;

@@ -3,8 +3,12 @@
 	import { CalendarMonthOutline, MapPinAltOutline, UsersGroupOutline } from 'flowbite-svelte-icons';
 	import { createSeoMeta } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
+	import { resolveAppPath } from '$lib/utils/paths';
 
 	const seo = createSeoMeta({ path: '/' });
+	const aboutHref = resolveAppPath('/about');
+	const participantsHref = resolveAppPath('/participants');
+	const positionPaperHref = resolveAppPath('/position-paper');
 </script>
 
 <svelte:head>
@@ -33,13 +37,13 @@
 			This scoping workshop addresses the critical convergence of digital humanities and artificial intelligence within African studies. Through intensive exchange—prioritising discussion over presentations—participants will explore methodological integration, equitable collaboration and ethical frameworks in structured work streams.
 		</p>
 		<div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-			<Button href="/about" size="xl" color="primary">
+			<Button href={aboutHref} size="xl" color="primary">
 				About
 			</Button>
-			<Button href="/participants" size="xl" outline color="secondary">
+			<Button href={participantsHref} size="xl" outline color="secondary">
 				Participants
 			</Button>
-			<Button href="/position-paper" size="xl" outline color="secondary">
+			<Button href={positionPaperHref} size="xl" outline color="secondary">
 				Position Paper
 			</Button>
 		</div>

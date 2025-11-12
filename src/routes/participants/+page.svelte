@@ -1,12 +1,20 @@
+
 <script lang="ts">
 	import { Card, Heading, P, Badge } from 'flowbite-svelte';
 	import { UserCircleSolid } from 'flowbite-svelte-icons';
 	import { participants } from '$lib/data/participants';
 	import { createSeoMeta } from '$lib/utils/seo';
 	import ParticipantsMap from '$lib/components/ParticipantsMap.svelte';
+	import { resolveAssetPath } from '$lib/utils/paths';
 
-	const displayedParticipants = participants.filter((p) => p.role !== 'Student assistant');
-	const uniqueCountries = new Set(displayedParticipants.map((p) => p.country)).size;
+	const displayedParticipants = participants
+		.filter((participant) => participant.role !== 'Student assistant')
+		.map((participant) => ({
+			...participant,
+			photoUrl: resolveAssetPath(participant.photoUrl)
+		}));
+
+	const uniqueCountries = new Set(displayedParticipants.map((participant) => participant.country)).size;
 
 	function handleImageError(event: Event) {
 		const img = event.target as HTMLImageElement;
