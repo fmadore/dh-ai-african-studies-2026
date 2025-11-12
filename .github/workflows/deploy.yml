@@ -36,7 +36,7 @@ jobs:
           BASE_PATH: '/dh-ai-african-studies-2026'
         run: npm run build
 
-      - name: Upload Artifacts
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'build/'
