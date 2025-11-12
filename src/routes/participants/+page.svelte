@@ -39,7 +39,7 @@
 <section class="bg-page py-12 px-4">
 	<div class="mx-auto max-w-5xl surface-panel surface-padding text-center space-y-4">
 		<Heading tag="h1" class="heading-display heading-xl heading-color-light">Participants</Heading>
-		<P class="text-lg text-gray-600 dark:text-gray-300">
+		<P class="body-text text-lg text-center">
 			Meet the {displayedParticipants.length} international experts from {uniqueCountries} countries participating in this scoping workshop on Digital Humanities and AI in African Studies.
 		</P>
 	</div>
@@ -75,7 +75,7 @@
 				</div>
 
 				<!-- Participant Name -->
-				<Heading tag="h3" class="text-xl font-semibold text-gray-900 dark:text-gray-100 text-center mb-2">
+				<Heading tag="h3" class="heading-sub heading-color-light text-xl text-center mb-2">
 					{participant.name}
 				</Heading>
 
@@ -90,14 +90,14 @@
 			</div>
 
 			<!-- Bio -->
-				<P class="text-sm text-gray-700 dark:text-gray-300 mb-4">
+				<P class="body-text text-sm mb-4">
 					{participant.bio}
 				</P>
 
 				<!-- Research Regions -->
 				{#if participant.researchRegions.length > 0}
 					<div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
-						<P class="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2">
+						<P class="body-text-muted text-xs font-semibold mb-2">
 							Research Regions:
 						</P>
 						<div class="flex flex-wrap gap-2">
@@ -115,7 +115,7 @@
 	<!-- Empty State -->
 	{#if displayedParticipants.length === 0}
 		<div class="text-center py-12">
-			<P class="text-gray-500 dark:text-gray-400">
+			<P class="body-text-muted">
 				Participant information will be added soon.
 			</P>
 		</div>
@@ -126,7 +126,7 @@
 <section class="bg-page py-12 px-4">
 	<div class="mx-auto max-w-7xl surface-panel surface-padding space-y-6">
 		<Heading tag="h2" class="heading-section heading-lg heading-color-light text-center">Global Distribution</Heading>
-		<P class="text-center text-gray-600 dark:text-gray-300 mb-6">
+		<P class="body-text text-center mb-6">
 			Explore where our participants are based around the world
 		</P>
 		<ParticipantsMap participants={displayedParticipants} />
