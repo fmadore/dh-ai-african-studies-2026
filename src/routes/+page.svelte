@@ -30,7 +30,7 @@
 			A Scoping Workshop
 		</p>
 		<p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-			An international three-day working meeting addressing the critical convergence of digital humanities and artificial intelligence within African studies.
+			This scoping workshop addresses the critical convergence of digital humanities and artificial intelligence within African studies. Through intensive exchange—prioritising discussion over presentations—participants will explore methodological integration, equitable collaboration and ethical frameworks in structured work streams.
 		</p>
 		<div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
 			<Button href="/about" size="xl" color="primary">
@@ -81,49 +81,51 @@
 <section class="py-12 px-4">
 	<div class="mx-auto max-w-7xl surface-panel surface-padding space-y-12">
 		<div class="space-y-6 text-center">
-			<Heading tag="h2" class="heading-section heading-lg heading-color-light">About the Workshop</Heading>
-			<P class="text-lg text-gray-700 dark:text-gray-300">
-				This scoping workshop addresses the critical convergence of digital humanities (DH) and artificial intelligence (AI) within African studies. While this intersection offers transformative potential, it also poses pressing challenges in terms of equity, linguistic diversity and methodology.
+			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Purpose</Heading>
+			<P class="text-lg text-gray-700 dark:text-gray-300 max-w-4xl mx-auto">
+				The convergence of digital humanities and AI is transforming knowledge production in African studies, offering unprecedented opportunities for innovative analysis and cross-cultural research. However, this transformative potential is intertwined with pressing challenges regarding equitable access, linguistic representation, and methodological approaches. Our goal is to convene experts to assess this emerging interdisciplinary field and develop strategic pathways for its future.
 			</P>
 		</div>
 		
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow space-y-3 text-left">
-				<Heading tag="h3" class="heading-sub">Workshop Format</Heading>
+				<Heading tag="h3" class="heading-sub">Assessment to Action</Heading>
 				<P class="text-base text-gray-700 dark:text-gray-300">
-					Three-day working meeting with international experts from Africa, Europe, and other regions. Prioritising intensive discussion over presentations through structured work streams.
+					Moving beyond describing current conditions to actively charting future pathways and collaborative strategies for ethical, equitable development of DH and AI in African studies.
 				</P>
 			</Card>
 			
 			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow space-y-3 text-left">
-				<Heading tag="h3" class="heading-sub">Key Outcomes</Heading>
+				<Heading tag="h3" class="heading-sub">Structured Work Streams</Heading>
 				<P class="text-base text-gray-700 dark:text-gray-300">
-					Co-authored position paper outlining findings and strategic recommendations to guide future research, policy and funding in this emerging field.
+					Three thematic workstreams focusing on methodological integration, equitable collaboration, and ethical implementation through facilitated discussions and collaborative exercises.
+				</P>
+			</Card>
+
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow space-y-3 text-left">
+				<Heading tag="h3" class="heading-sub">Position Paper</Heading>
+				<P class="text-base text-gray-700 dark:text-gray-300">
+					Co-authored output outlining key findings and strategic recommendations to guide future research, policy, and funding, serving as a foundational reference for the field.
 				</P>
 			</Card>
 		</div>
 
 		<div class="space-y-6">
-			<Heading tag="h3" class="text-center heading-section heading-lg heading-color-light">Core Focus Areas</Heading>
+			<Heading tag="h3" class="text-center heading-section heading-lg heading-color-light">Three Work Streams</Heading>
 			<Timeline>
-				<TimelineItem title="Methodological Integration" date="">
+				<TimelineItem title="Work Stream 1: Methodological Integration" date="">
 					<P class="text-base text-gray-700 dark:text-gray-300">
-						Exploring how digital humanities methodologies can be effectively integrated with AI approaches in African studies research.
+						Enhancing methodological integration and digital preservation—documenting computational methods, developing technical standards, and establishing sustainable digital preservation models, with focus on adapting AI for African languages.
 					</P>
 				</TimelineItem>
-				<TimelineItem title="Equitable Collaboration" date="">
+				<TimelineItem title="Work Stream 2: Equitable Collaboration" date="">
 					<P class="text-base text-gray-700 dark:text-gray-300">
-						Fostering equitable North-South and South-South partnerships that center African voices and priorities in DH/AI development.
+						Fostering inclusive North-South and South-South dialogue—analyzing research relationships to design partnership models that address power imbalances, with African epistemologies at the centre of methodological developments.
 					</P>
 				</TimelineItem>
-				<TimelineItem title="Linguistic Diversity" date="">
+				<TimelineItem title="Work Stream 3: Ethical Implementation" date="">
 					<P class="text-base text-gray-700 dark:text-gray-300">
-						Addressing challenges and opportunities in natural language processing, computational linguistics, and AI for African languages.
-					</P>
-				</TimelineItem>
-				<TimelineItem title="Ethical Frameworks" date="">
-					<P class="text-base text-gray-700 dark:text-gray-300">
-						Developing ethical guidelines for data collection, ownership, algorithmic justice, and sustainable advancement of DH/AI in African contexts.
+						Establishing ethical dissemination and implementation practices—developing frameworks for ethical AI that protect digital sovereignty and promote equitable scholarly exchange, with standards for community co-creation.
 					</P>
 				</TimelineItem>
 			</Timeline>
@@ -136,7 +138,7 @@
 	<div class="mx-auto max-w-4xl surface-panel surface-padding text-center space-y-2">
 		<P class="text-sm text-gray-700 dark:text-gray-300">
 			This scoping workshop is made possible by the generous support of the
-			<span class="font-semibold text-primary-600 dark:text-primary-400">Volkswagen Foundation</span>
+			<a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline">Volkswagen Foundation</a>
 		</P>
 	</div>
 </section>

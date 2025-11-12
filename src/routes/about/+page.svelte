@@ -39,32 +39,66 @@
 		<Heading tag="h1" class="text-center heading-display heading-xl heading-color-light">About the Workshop</Heading>
 		
 		<div class="space-y-6 text-left">
-			<P class="text-lg text-gray-700 dark:text-gray-300">
-				This scoping workshop addresses the critical convergence of digital humanities (DH) and artificial intelligence (AI) within African studies. While this intersection offers transformative potential, it also poses pressing challenges in terms of equity, linguistic diversity and methodology.
+			<P class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+				The convergence of digital humanities (DH) and artificial intelligence (AI) is transforming knowledge production in African studies, offering unprecedented opportunities for innovative analysis, dynamic visualisation, and cross-cultural research. This technological shift holds immense promise for reimagining cultural heritage, democratising access to diverse narratives, and amplifying marginalised voices.
 			</P>
-			<P class="text-lg text-gray-700 dark:text-gray-300">
-				This three-day working meeting will provide a dedicated space for international experts from Africa, Europe, and other regions to assess the current state of the field and collaboratively shape its future.
+			<P class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+				However, this transformative potential is intertwined with pressing challenges regarding equitable access, linguistic representation of African languages, and methodological approaches. To navigate this rapidly evolving terrain and proactively shape the future of the field, a dedicated and focused scoping effort is now essential.
 			</P>
+			<P class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+				The urgency stems not only from rapid advances in AI, but also from the need to prevent the exclusion of African voices, that would perpetuate existing biases. By convening experts from Africa, Europe and beyond in the fields of metadata, AI, linguistics, literature, history, and digital ethics, the workshop will foster North-South and South-South dialogues at the intersection of African epistemologies and digital methodologies.
+			</P>
+		</div>
+
+		<div class="space-y-6">
+			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Context</Heading>
+			
+			<div class="space-y-4">
+				<Heading tag="h3" class="heading-sub">Evolution of Digital Humanities</Heading>
+				<P class="text-gray-700 dark:text-gray-300 leading-relaxed">
+					DH has evolved tremendously from the punch cards of the 1930s to today's AI-driven approaches, expanding the academic toolkit and improving accessibility alongside traditional methods. The pandemic accelerated this digital shift, while advances in Large Language Models (LLMs) mark a significant leap forward. Although current LLMs under-represent African languages, their contextual capabilities have considerable potential. Refining these models to better reflect Africa's linguistic diversity could transform African studies research.
+				</P>
+			</div>
+
+			<div class="space-y-4">
+				<Heading tag="h3" class="heading-sub">Challenges and Inequalities</Heading>
+				<P class="text-gray-700 dark:text-gray-300 leading-relaxed">
+					Implementing AI in African contexts requires balancing computational approaches with interpretive practices amidst infrastructural inequalities. Many African institutions face limited resources, unstable funding and inadequate technical infrastructure. Digitisation is inherently political—decisions about what to digitise, how to catalogue and who controls access reflect and reinforce existing hierarchies. Northern institutions often control historical materials from the Global South and implement digital solutions with little regard for local contexts.
+				</P>
+				<P class="text-gray-700 dark:text-gray-300 leading-relaxed">
+					A major obstacle to inclusivity is the dominance of Anglophone paradigms. African languages, French, Portuguese and Arabic remain underrepresented in digital scholarly spaces, as most tools are optimised for English-language materials. This technological hegemony reinforces Western epistemological frameworks and limits opportunities for truly global dialogue and innovation.
+				</P>
+			</div>
+
+			<div class="space-y-4">
+				<Heading tag="h3" class="heading-sub">Progress and Innovation</Heading>
+				<P class="text-gray-700 dark:text-gray-300 leading-relaxed">
+					Despite these challenges, DH in African studies has transformed the way African histories, cultures and knowledge systems are documented and analysed. Contemporary projects now foreground African experiences and challenge dominant epistemological frameworks. Diverse approaches have emerged—from spatial analyses of historical landscapes and computational literary studies to multilingual ontological frameworks, digital documentation of material culture and community-driven archives that emphasise collaborative knowledge production.
+				</P>
+				<P class="text-gray-700 dark:text-gray-300 leading-relaxed">
+					South African universities have been at the forefront of reshaping digital archival practices, integrating local languages and cultural perspectives while addressing issues of representation, access and epistemic justice. Innovative African-based initiatives such as the <em>African Ajami Library</em> and <em>Open Restitution Africa</em> demonstrate the dynamism of the field, supported by growing institutional infrastructures such as the Centre for Digital Humanities at the University of Lagos and the Network for DH in Africa.
+				</P>
+			</div>
 		</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow border border-primary-100 dark:border-primary-900">
-				<Heading tag="h3" class="mb-3 heading-sub">Objectives</Heading>
+				<Heading tag="h3" class="mb-3 heading-sub">Workshop Goals</Heading>
 				<ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 [&>li::marker]:text-primary-500">
 					<li>Assess the current state of DH/AI in African studies</li>
-					<li>Explore methodological integration</li>
-					<li>Foster equitable collaboration</li>
-					<li>Develop ethical frameworks</li>
+					<li>Chart future pathways for ethical development</li>
+					<li>Create actionable frameworks for next decade</li>
+					<li>Consolidate this emerging interdisciplinary field</li>
 				</ul>
 			</Card>
 
 			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow border border-secondary-100 dark:border-secondary-900">
-				<Heading tag="h3" class="mb-3 heading-sub">Expected Outcomes</Heading>
+				<Heading tag="h3" class="mb-3 heading-sub">Workshop Approach</Heading>
 				<ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 [&>li::marker]:text-secondary-500">
-					<li>Co-authored position paper</li>
-					<li>Strategic recommendations</li>
-					<li>Research network formation</li>
-					<li>Future collaboration pathways</li>
+					<li>Assessment-to-action methodology</li>
+					<li>Facilitated discussions over presentations</li>
+					<li>Daily synthesis sessions across streams</li>
+					<li>Collaborative exercises and structured deliberation</li>
 				</ul>
 			</Card>
 		</div>
@@ -199,6 +233,13 @@
 				</div>
 			</div>
 		{/if}
+
+		<div class="space-y-3">
+			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Outcomes</Heading>
+			<P class="text-gray-700 dark:text-gray-300 leading-relaxed">
+				The workshop will advance the field by identifying ways to consolidate this emerging research area, highlighting intersections between technological innovation and humanistic inquiry, and developing strategic recommendations for science policy and funding actors. This structured, collaborative environment aims to produce a position paper that will serve as a foundational reference for the development of DH and AI in African studies.
+			</P>
+		</div>
 
 		<div class="space-y-3">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Funding</Heading>
