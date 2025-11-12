@@ -168,8 +168,8 @@
 
 								<!-- Research Regions -->
 								{#if assistant.researchRegions.length > 0}
-									<div class="pt-2">
-										<P class="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2">
+									<div class="pt-2 w-full">
+										<P class="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 text-center">
 											Research Regions
 										</P>
 										<div class="flex flex-wrap justify-center gap-2">
