@@ -39,6 +39,9 @@
 			<Button href="/participants" size="xl" outline color="secondary">
 				Participants
 			</Button>
+			<Button href="/position-paper" size="xl" outline color="secondary">
+				Position Paper
+			</Button>
 		</div>
 	</div>
 </section>

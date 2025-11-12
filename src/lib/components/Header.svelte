@@ -22,6 +22,7 @@
 			<NavLi href="/about">About</NavLi>
 			<NavLi href="/participants">Participants</NavLi>
 			<NavLi href="/schedule">Schedule</NavLi>
+			<NavLi href="/position-paper">Position Paper</NavLi>
 		</NavUl>
 	</Navbar>
 </header>
