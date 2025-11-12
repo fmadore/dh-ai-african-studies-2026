@@ -10,6 +10,5 @@ export const calumHouston: Participant = {
 	country: 'Germany',
 	role: 'Student assistant',
 	bio: 'Student assistant for the conference.',
-	researchRegions: [],
-	photoUrl: '/images/participants/calum-houston.jpg'
+	researchRegions: []
 };
