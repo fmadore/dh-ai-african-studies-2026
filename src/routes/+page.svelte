@@ -30,30 +30,35 @@
 </svelte:head>
 
 <!-- Hero Section -->
-<section class="bg-linear-to-br from-primary-50 to-secondary-50 dark:from-gray-900 dark:to-gray-800">
-	<div class="content-width-wide py-16 text-center stack-lg">
+<section class="relative overflow-hidden bg-linear-to-br from-primary-50 via-secondary-50 to-primary-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+	<!-- Decorative background elements -->
+	<div class="absolute inset-0 bg-linear-to-br from-primary-500/5 via-transparent to-secondary-500/5 dark:from-primary-600/10 dark:via-transparent dark:to-secondary-600/10"></div>
+	<div class="absolute top-0 left-1/4 w-96 h-96 bg-primary-400/10 dark:bg-primary-500/5 rounded-full blur-3xl"></div>
+	<div class="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary-400/10 dark:bg-secondary-500/5 rounded-full blur-3xl"></div>
+	
+	<div class="relative content-width-wide py-16 text-center stack-lg">
 		<div class="stack-sm">
-			<h1 class="heading-display heading-xl heading-color-light tracking-tight">
+			<h1 class="heading-display heading-xl heading-color-light tracking-tight drop-shadow-sm">
 				Charting New Territory
 			</h1>
-			<p class="heading-display-compact heading-color-light text-2xl font-light">
+			<p class="heading-display-compact heading-color-light text-2xl font-light drop-shadow-sm">
 				Digital Humanities and AI in African Studies
 			</p>
 			<p class="text-sm font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider">
 				A Scoping Workshop
 			</p>
 		</div>
-		<p class="body-text-muted text-lg lg:text-xl leading-relaxed sm:px-16 xl:px-48">
+		<p class="body-text text-lg lg:text-xl leading-relaxed sm:px-16 xl:px-48 drop-shadow-sm">
 			This scoping workshop addresses the critical convergence of digital humanities and artificial intelligence within African studies. Through intensive exchange—prioritising discussion over presentations—participants will explore methodological integration, equitable collaboration and ethical frameworks in structured work streams.
 		</p>
 		<div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-			<Button href={aboutHref} size="xl" color="primary">
+			<Button href={aboutHref} size="xl" color="primary" class="shadow-lg hover:shadow-primary">
 				About
 			</Button>
-			<Button href={participantsHref} size="xl" outline color="secondary">
+			<Button href={participantsHref} size="xl" outline color="secondary" class="backdrop-blur-sm">
 				Participants
 			</Button>
-			<Button href={positionPaperHref} size="xl" outline color="secondary">
+			<Button href={positionPaperHref} size="xl" outline color="secondary" class="backdrop-blur-sm">
 				Position Paper
 			</Button>
 		</div>
