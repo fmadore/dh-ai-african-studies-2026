@@ -9,6 +9,7 @@ export const calumHouston: Participant = {
 	},
 	country: 'Germany',
 	role: 'Student assistant',
-	bio: 'Student assistant for the conference.',
-	researchRegions: []
+	bio: 'Calum Houston is a researcher and humanitarian practitioner whose work combines academic inquiry and field-based engagement across the Middle East. His interests center on conflict studies and the lived realities of political change, with a particular focus on The Levant and the broader MENA region. He is driven by a broader interest in how communities navigate crisis, displacement, and the politics of humanitarian response.',
+	researchRegions: ['Türkiye', 'Lebanon', 'Syria'],
+	photoUrl: '/images/participants/calum-houston.jpg'
 };
