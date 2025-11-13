@@ -12,18 +12,18 @@
 <footer class="mt-auto bg-page py-16 px-4">
 	<div class="content-width-wide surface-panel surface-padding stack-lg overflow-hidden">
 		<!-- Logos Section -->
-		<div class="surface-padding-xs border-b border-primary-200 dark:border-primary-800 flex flex-wrap items-center justify-center gap-8">
-			<a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-80">
-				<img src={foundationLogo} alt="Volkswagen Foundation" class="h-12 md:h-16" />
+		<div class="surface-padding-xs divider-primary flex flex-wrap items-center justify-center gap-8">
+			<a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="logo-link">
+				<img src={foundationLogo} alt="Volkswagen Foundation" class="logo-image" />
 			</a>
-			<a href="https://www.zmo.de/en" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-80">
-				<img src={zmoLogo} alt="Leibniz-Zentrum Moderner Orient" class="h-12 md:h-16" />
+			<a href="https://www.zmo.de/en" target="_blank" rel="noopener noreferrer" class="logo-link">
+				<img src={zmoLogo} alt="Leibniz-Zentrum Moderner Orient" class="logo-image" />
 			</a>
-			<a href="https://www.kcl.ac.uk/" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-80">
-				<img src={kclLogo} alt="King's College London" class="h-12 md:h-16" />
+			<a href="https://www.kcl.ac.uk/" target="_blank" rel="noopener noreferrer" class="logo-link">
+				<img src={kclLogo} alt="King's College London" class="logo-image" />
 			</a>
-			<a href="https://www.africamultiple.uni-bayreuth.de/en/index.html" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-80">
-				<img src={bayreuthLogo} alt="Africa Multiple Cluster of Excellence" class="h-12 md:h-16" />
+			<a href="https://www.africamultiple.uni-bayreuth.de/en/index.html" target="_blank" rel="noopener noreferrer" class="logo-link">
+				<img src={bayreuthLogo} alt="Africa Multiple Cluster of Excellence" class="logo-image" />
 			</a>
 		</div>
 
