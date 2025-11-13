@@ -30,14 +30,14 @@
 </svelte:head>
 
 <!-- Hero Section -->
-<section class="relative overflow-hidden bg-linear-to-br from-primary-50 via-secondary-50 to-primary-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+<section class="relative overflow-hidden gradient-hero">
 	<!-- Decorative background elements -->
-	<div class="absolute inset-0 bg-linear-to-br from-primary-500/5 via-transparent to-secondary-500/5 dark:from-primary-600/10 dark:via-transparent dark:to-secondary-600/10"></div>
-	<div class="absolute top-0 left-1/4 w-96 h-96 bg-primary-400/10 dark:bg-primary-500/5 rounded-full blur-3xl"></div>
-	<div class="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary-400/10 dark:bg-secondary-500/5 rounded-full blur-3xl"></div>
+	<div class="absolute inset-0 gradient-overlay"></div>
+	<div class="decorative-blob decorative-blob-primary top-0 left-1/4"></div>
+	<div class="decorative-blob decorative-blob-secondary bottom-0 right-1/4"></div>
 	
 	<div class="relative content-width-wide py-16 text-center stack-lg">
-		<div class="stack-sm">
+		<div class="stack-sm animate-fade-in">
 			<h1 class="heading-display heading-xl heading-color-light tracking-tight drop-shadow-sm">
 				Charting New Territory
 			</h1>
@@ -48,10 +48,10 @@
 				A Scoping Workshop
 			</p>
 		</div>
-		<p class="body-text text-lg lg:text-xl leading-relaxed sm:px-16 xl:px-48 drop-shadow-sm">
+		<p class="body-text text-lg lg:text-xl leading-relaxed sm:px-16 xl:px-48 drop-shadow-sm animate-fade-in animate-delay-200">
 			This scoping workshop addresses the critical convergence of digital humanities and artificial intelligence within African studies. Through intensive exchange—prioritising discussion over presentations—participants will explore methodological integration, equitable collaboration and ethical frameworks in structured work streams.
 		</p>
-		<div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+		<div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4 animate-slide-up animate-delay-300">
 			<Button href={aboutHref} size="xl" color="primary" class="shadow-lg hover:shadow-primary">
 				About
 			</Button>
@@ -69,7 +69,7 @@
 <section class="bg-page py-12">
 	<div class="content-width-wide surface-panel surface-padding">
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm">
+			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-100">
 				<div class="flex justify-center">
 					<CalendarMonthOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
@@ -77,7 +77,7 @@
 				<P class="body-text">{workshopInfo.dates.full}</P>
 			</Card>
 
-			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm">
+			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-200">
 				<div class="flex justify-center">
 					<MapPinAltOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
@@ -85,7 +85,7 @@
 				<P class="body-text">{workshopInfo.location.full}</P>
 			</Card>
 
-			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm">
+			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-300">
 				<div class="flex justify-center">
 					<UsersGroupOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
@@ -99,7 +99,7 @@
 <!-- Conference Themes -->
 <section class="bg-page py-16">
 	<div class="content-width-wide surface-panel surface-padding stack-xl">
-		<div class="stack-md text-center">
+		<div class="stack-md text-center animate-fade-in">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Purpose</Heading>
 			<P class="body-text text-lg leading-relaxed max-w-4xl mx-auto">
 				The convergence of digital humanities and AI is transforming knowledge production in African studies, offering unprecedented opportunities for innovative analysis and cross-cultural research. However, this transformative potential is intertwined with pressing challenges regarding equitable access, linguistic representation, and methodological approaches. Our goal is to convene experts to assess this emerging interdisciplinary field and develop strategic pathways for its future.
@@ -107,21 +107,21 @@
 		</div>
 		
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left">
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-100">
 				<Heading tag="h3" class="heading-sub">Assessment to Action</Heading>
 				<P class="body-text text-base leading-relaxed">
 					Moving beyond describing current conditions to actively charting future pathways and collaborative strategies for ethical, equitable development of DH and AI in African studies.
 				</P>
 			</Card>
 			
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left">
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-200">
 				<Heading tag="h3" class="heading-sub">Structured Work Streams</Heading>
 				<P class="body-text text-base leading-relaxed">
 					Three thematic workstreams focusing on methodological integration, equitable collaboration, and ethical implementation through facilitated discussions and collaborative exercises.
 				</P>
 			</Card>
 
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left">
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-300">
 				<Heading tag="h3" class="heading-sub">Position Paper</Heading>
 				<P class="body-text text-base leading-relaxed">
 					Co-authored output outlining key findings and strategic recommendations to guide future research, policy, and funding, serving as a foundational reference for the field.

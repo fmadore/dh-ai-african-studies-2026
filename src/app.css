@@ -423,6 +423,71 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  /* ============================================
+     GRADIENT BACKGROUNDS
+     ============================================ */
+  
+  .gradient-hero {
+    background: linear-gradient(to bottom right,
+      var(--color-primary-50),
+      var(--color-secondary-50),
+      var(--color-primary-100));
+  }
+
+  .dark .gradient-hero {
+    background: linear-gradient(to bottom right,
+      var(--color-gray-950),
+      var(--color-gray-900),
+      var(--color-gray-950));
+  }
+
+  .gradient-overlay {
+    background: linear-gradient(to bottom right,
+      rgba(240, 102, 72, 0.05),
+      transparent,
+      rgba(14, 165, 233, 0.05));
+  }
+
+  .dark .gradient-overlay {
+    background: linear-gradient(to bottom right,
+      rgba(240, 102, 72, 0.1),
+      transparent,
+      rgba(14, 165, 233, 0.1));
+  }
+
+  /* ============================================
+     DECORATIVE ELEMENTS
+     ============================================ */
+  
+  .decorative-blob {
+    position: absolute;
+    width: 24rem;
+    height: 24rem;
+    border-radius: 9999px;
+    filter: blur(3rem);
+    opacity: 0.1;
+  }
+
+  .dark .decorative-blob {
+    opacity: 0.05;
+  }
+
+  .decorative-blob-primary {
+    background-color: var(--color-primary-400);
+  }
+
+  .dark .decorative-blob-primary {
+    background-color: var(--color-primary-500);
+  }
+
+  .decorative-blob-secondary {
+    background-color: var(--color-secondary-400);
+  }
+
+  .dark .decorative-blob-secondary {
+    background-color: var(--color-secondary-500);
+  }
 }
 
 @layer utilities {
@@ -558,6 +623,27 @@
   
   .animate-scale-in {
     animation: scaleIn var(--transition-fast) var(--ease-bounce);
+  }
+
+  /* Animation delay utilities */
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animate-delay-500 {
+    animation-delay: 500ms;
   }
   
   @keyframes fadeIn {
