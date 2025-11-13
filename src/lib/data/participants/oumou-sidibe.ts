@@ -7,8 +7,9 @@ export const oumouSidibe: Participant = {
 		latitude: 12.6392,
 		longitude: -8.0029
 	},
-	country: 'United States',
+	country: 'Mali',
 	role: 'Participant',
-	bio: 'Participant information to be added.',
-	researchRegions: []
+	bio: "Hello! My name is Oumou Sidibe. I was born and raised in Mali. I live in New York since 2013. I am the director of the Project Women's Archives. Outside the project, I am an Elementary Teacher in New York.",
+	researchRegions: ['Mali'],
+	photoUrl: '/images/participants/oumou-sidibe.png'
 };
