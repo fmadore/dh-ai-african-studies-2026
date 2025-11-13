@@ -2,10 +2,10 @@ import type { Participant } from '$lib/types/participant';
 
 export const calumHouston: Participant = {
 	name: 'Calum Houston',
-	affiliation: 'Free University of Berlin',
+	affiliation: 'Leibniz-Zentrum Moderner Orient',
 	affiliationCoordinates: {
-		latitude: 52.4541,
-		longitude: 13.2905
+		latitude: 52.5200,
+		longitude: 13.4050
 	},
 	country: 'Germany',
 	role: 'Student assistant',
