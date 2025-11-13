@@ -36,7 +36,7 @@
 	<div class="decorative-blob decorative-blob-primary top-0 left-1/4"></div>
 	<div class="decorative-blob decorative-blob-secondary bottom-0 right-1/4"></div>
 	
-	<div class="relative content-width-wide py-16 text-center stack-lg">
+	<div class="relative content-width-wide container-responsive py-16 text-center stack-lg">
 		<div class="stack-sm animate-fade-in">
 			<h1 class="heading-display heading-xl heading-color-light tracking-tight drop-shadow-sm">
 				Charting New Territory
@@ -68,8 +68,8 @@
 <!-- Key Information -->
 <section class="bg-page py-12">
 	<div class="content-width-wide surface-panel surface-padding">
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-100">
+		<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+			<Card class="card-surface surface-padding-sm w-full text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-100">
 				<div class="flex justify-center">
 					<CalendarMonthOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
@@ -77,7 +77,7 @@
 				<P class="body-text">{workshopInfo.dates.full}</P>
 			</Card>
 
-			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-200">
+			<Card class="card-surface surface-padding-sm w-full text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-200">
 				<div class="flex justify-center">
 					<MapPinAltOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
@@ -85,7 +85,7 @@
 				<P class="body-text">{workshopInfo.location.full}</P>
 			</Card>
 
-			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-300">
+			<Card class="card-surface surface-padding-sm w-full text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-300">
 				<div class="flex justify-center">
 					<UsersGroupOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
@@ -106,22 +106,22 @@
 			</P>
 		</div>
 		
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-100">
+		<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+			<Card class="card-surface surface-padding-sm w-full hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-100">
 				<Heading tag="h3" class="heading-sub">Assessment to Action</Heading>
 				<P class="body-text text-base leading-relaxed">
 					Moving beyond describing current conditions to actively charting future pathways and collaborative strategies for ethical, equitable development of DH and AI in African studies.
 				</P>
 			</Card>
 			
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-200">
+			<Card class="card-surface surface-padding-sm w-full hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-200">
 				<Heading tag="h3" class="heading-sub">Structured Work Streams</Heading>
 				<P class="body-text text-base leading-relaxed">
 					Three thematic workstreams focusing on methodological integration, equitable collaboration, and ethical implementation through facilitated discussions and collaborative exercises.
 				</P>
 			</Card>
 
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-300">
+			<Card class="card-surface surface-padding-sm w-full hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-300">
 				<Heading tag="h3" class="heading-sub">Position Paper</Heading>
 				<P class="body-text text-base leading-relaxed">
 					Co-authored output outlining key findings and strategic recommendations to guide future research, policy, and funding, serving as a foundational reference for the field.
@@ -161,7 +161,7 @@
 
 		<div class="grid grid-cols-1 gap-6 justify-items-center md:grid-cols-2">
 			{#each organizers as organizer (organizer.name)}
-				<Card class="card-surface surface-padding-sm flex flex-col items-center text-center gap-4 md:h-full md:justify-between">
+				<Card class="card-surface surface-padding-sm w-full flex flex-col items-center text-center gap-4 md:h-full md:justify-between">
 					{#if organizer.photoUrl}
 						<img
 							src={organizer.photoUrl}
