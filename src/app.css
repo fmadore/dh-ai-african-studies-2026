@@ -605,6 +605,51 @@
   .dark .decorative-blob-secondary {
     background-color: var(--color-secondary-500);
   }
+
+  /* ============================================
+     CARD LAYOUT IMPROVEMENTS
+     ============================================ */
+
+  .highlight-card {
+    display: grid;
+    gap: var(--space-md);
+    justify-items: center;
+    text-align: center;
+    height: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .highlight-card {
+      grid-template-columns: auto 1fr;
+      justify-items: start;
+      text-align: left;
+    }
+  }
+
+  .highlight-card__icon {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, rgba(240, 102, 72, 0.12), rgba(14, 165, 233, 0.08));
+    color: var(--color-primary-600);
+  }
+
+  .dark .highlight-card__icon {
+    background: linear-gradient(135deg, rgba(240, 102, 72, 0.16), rgba(14, 165, 233, 0.16));
+    color: var(--color-primary-200);
+  }
+
+  .theme-card {
+    display: grid;
+    gap: var(--space-md);
+    height: 100%;
+  }
+
+  .theme-card:hover {
+    transform: translateY(-2px);
+  }
 }
 
 @layer utilities {

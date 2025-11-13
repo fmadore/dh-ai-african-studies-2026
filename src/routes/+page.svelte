@@ -17,6 +17,44 @@
 			...p,
 			photoUrl: resolveAssetPath(p.photoUrl)
 		}));
+
+	const keyHighlights = [
+		{
+			title: 'Date',
+			description: workshopInfo.dates.full,
+			icon: CalendarMonthOutline
+		},
+		{
+			title: 'Location',
+			description: workshopInfo.location.full,
+			icon: MapPinAltOutline
+		},
+		{
+			title: 'Format',
+			description: workshopInfo.format.type,
+			icon: UsersGroupOutline
+		}
+	];
+
+	const workshopGoals = [
+		{
+			title: 'Assessment to Action',
+			description:
+				'Moving beyond describing current conditions to actively charting future pathways and collaborative strategies for ethical, equitable development of DH and AI in African studies.'
+		},
+		{
+			title: 'Structured Work Streams',
+			description:
+				'Three thematic workstreams focusing on methodological integration, equitable collaboration, and ethical implementation through facilitated discussions and collaborative exercises.'
+		},
+		{
+			title: 'Position Paper',
+			description:
+				'Co-authored output outlining key findings and strategic recommendations to guide future research, policy, and funding, serving as a foundational reference for the field.'
+		}
+	];
+
+	const cardAnimationDelays = ['animate-delay-100', 'animate-delay-200', 'animate-delay-300'];
 </script>
 
 <svelte:head>
@@ -68,30 +106,24 @@
 <!-- Key Information -->
 <section class="bg-page py-12">
 	<div class="content-width-wide surface-panel surface-padding">
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-			<Card class="card-surface surface-padding-sm w-full text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-100">
-				<div class="flex justify-center">
-					<CalendarMonthOutline size="xl" class="text-primary-600 dark:text-primary-400" />
-				</div>
-				<Heading tag="h3" class="heading-sub">Date</Heading>
-				<P class="body-text">{workshopInfo.dates.full}</P>
-			</Card>
-
-			<Card class="card-surface surface-padding-sm w-full text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-200">
-				<div class="flex justify-center">
-					<MapPinAltOutline size="xl" class="text-primary-600 dark:text-primary-400" />
-				</div>
-				<Heading tag="h3" class="heading-sub">Location</Heading>
-				<P class="body-text">{workshopInfo.location.full}</P>
-			</Card>
-
-			<Card class="card-surface surface-padding-sm w-full text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-300">
-				<div class="flex justify-center">
-					<UsersGroupOutline size="xl" class="text-primary-600 dark:text-primary-400" />
-				</div>
-				<Heading tag="h3" class="heading-sub">Format</Heading>
-				<P class="body-text">{workshopInfo.format.type}</P>
-			</Card>
+		<div class="auto-grid auto-grid-sm">
+			{#each keyHighlights as highlight, index (highlight.title)}
+				{@const Icon = highlight.icon}
+				<article
+					class={[
+						'highlight-card card-surface surface-padding-sm animate-scale-in',
+						cardAnimationDelays[index] ?? 'animate-delay-100'
+					]}
+				>
+					<div class="highlight-card__icon" aria-hidden="true">
+						<Icon size="lg" aria-hidden="true" />
+					</div>
+					<div class="stack-sm">
+						<Heading tag="h3" class="heading-sub heading-sm">{highlight.title}</Heading>
+						<P class="body-text text-base sm:text-lg leading-relaxed">{highlight.description}</P>
+					</div>
+				</article>
+			{/each}
 		</div>
 	</div>
 </section>
@@ -106,27 +138,18 @@
 			</P>
 		</div>
 		
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-			<Card class="card-surface surface-padding-sm w-full hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-100">
-				<Heading tag="h3" class="heading-sub">Assessment to Action</Heading>
-				<P class="body-text text-base leading-relaxed">
-					Moving beyond describing current conditions to actively charting future pathways and collaborative strategies for ethical, equitable development of DH and AI in African studies.
-				</P>
-			</Card>
-			
-			<Card class="card-surface surface-padding-sm w-full hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-200">
-				<Heading tag="h3" class="heading-sub">Structured Work Streams</Heading>
-				<P class="body-text text-base leading-relaxed">
-					Three thematic workstreams focusing on methodological integration, equitable collaboration, and ethical implementation through facilitated discussions and collaborative exercises.
-				</P>
-			</Card>
-
-			<Card class="card-surface surface-padding-sm w-full hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-300">
-				<Heading tag="h3" class="heading-sub">Position Paper</Heading>
-				<P class="body-text text-base leading-relaxed">
-					Co-authored output outlining key findings and strategic recommendations to guide future research, policy, and funding, serving as a foundational reference for the field.
-				</P>
-			</Card>
+		<div class="auto-grid auto-grid-lg">
+			{#each workshopGoals as goal, index (goal.title)}
+				<article
+					class={[
+						'theme-card card-surface surface-padding-sm animate-slide-up',
+						cardAnimationDelays[index] ?? 'animate-delay-100'
+					]}
+				>
+					<Heading tag="h3" class="heading-sub heading-sm">{goal.title}</Heading>
+					<P class="body-text text-base sm:text-lg leading-relaxed">{goal.description}</P>
+				</article>
+			{/each}
 		</div>
 
 		<div class="stack-md">
