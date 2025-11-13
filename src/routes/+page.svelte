@@ -68,7 +68,7 @@
 <!-- Key Information -->
 <section class="bg-page py-12">
 	<div class="content-width-wide surface-panel surface-padding">
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
 			<Card class="card-surface surface-padding-sm w-full text-center hover:shadow-lg transition-shadow stack-sm animate-scale-in animate-delay-100">
 				<div class="flex justify-center">
 					<CalendarMonthOutline size="xl" class="text-primary-600 dark:text-primary-400" />
@@ -106,7 +106,7 @@
 			</P>
 		</div>
 		
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
 			<Card class="card-surface surface-padding-sm w-full hover:shadow-lg transition-shadow stack-sm text-left animate-slide-up animate-delay-100">
 				<Heading tag="h3" class="heading-sub">Assessment to Action</Heading>
 				<P class="body-text text-base leading-relaxed">
