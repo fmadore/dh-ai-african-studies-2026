@@ -15,8 +15,8 @@
 	] as const;
 </script>
 
-<header class="bg-white/95 dark:bg-gray-900/92 border-b border-primary-100 dark:border-gray-700 shadow-[0_18px_35px_-30px_rgba(15,23,42,0.65)] dark:shadow-[0_22px_45px_-28px_rgba(0,0,0,0.85)]">
-	<Navbar class="mx-auto max-w-7xl px-4">
+<header class="bg-page py-6 px-4">
+	<Navbar class="content-width-wide surface-panel surface-padding-xs">
 		<NavBrand href={navLinks[0].href} class="hover:opacity-80 transition-opacity">
 			<span class="self-center whitespace-nowrap text-xl font-semibold bg-linear-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent dark:from-primary-400 dark:to-secondary-400">
 				DH & AI in African Studies

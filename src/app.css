@@ -6,7 +6,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Custom primary color (adapt to conference branding) */
+  /* ============================================
+     COLOR SYSTEM
+     ============================================ */
+  
+  /* Primary color - Conference branding */
   --color-primary-50: #fff5f2;
   --color-primary-100: #fff1ee;
   --color-primary-200: #ffe4de;
@@ -17,8 +21,9 @@
   --color-primary-700: #b63b1f;
   --color-primary-800: #8d3019;
   --color-primary-900: #662212;
+  --color-primary-950: #3d140b; /* Add deeper shade for better contrast */
 
-  /* Custom secondary color */
+  /* Secondary color - Complementary accent */
   --color-secondary-50: #f0f9ff;
   --color-secondary-100: #e0f2fe;
   --color-secondary-200: #bae6fd;
@@ -29,8 +34,9 @@
   --color-secondary-700: #0369a1;
   --color-secondary-800: #075985;
   --color-secondary-900: #0c4a6e;
+  --color-secondary-950: #082f49; /* Add deeper shade */
 
-  /* Neutral scale used across typography and surfaces */
+  /* Neutral scale */
   --color-gray-50: #f8fafc;
   --color-gray-100: #f1f5f9;
   --color-gray-200: #e2e8f0;
@@ -41,103 +47,454 @@
   --color-gray-700: #334155;
   --color-gray-800: #1e293b;
   --color-gray-900: #0f172a;
+  --color-gray-950: #020617; /* Add for consistency */
 
-  /* Surface tones for section backgrounds */
+  /* ============================================
+     SEMANTIC COLOR TOKENS
+     ============================================ */
+  
+  /* Success colors */
+  --color-success-light: #10b981;
+  --color-success-dark: #34d399;
+  
+  /* Warning colors */
+  --color-warning-light: #f59e0b;
+  --color-warning-dark: #fbbf24;
+  
+  /* Error colors */
+  --color-error-light: #ef4444;
+  --color-error-dark: #f87171;
+  
+  /* Info colors */
+  --color-info-light: #3b82f6;
+  --color-info-dark: #60a5fa;
+
+  /* ============================================
+     SURFACE & BACKGROUND SYSTEM
+     ============================================ */
+  
   --color-surface-0: #ffffff;
+  --color-surface-50: #fafbfc;
   --color-surface-100: #f8fafc;
+  --color-surface-200: #f1f4f8;
   --color-surface-900: #020617;
+  
+  /* Dark mode surfaces with better hierarchy */
+  --color-surface-dark-base: #0a0f1e;
+  --color-surface-dark-elevated: #131925;
+  --color-surface-dark-overlay: #1a2332;
+
+  /* ============================================
+     TYPOGRAPHY SYSTEM
+     ============================================ */
+  
+  /* Font families */
+  --font-family-display: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-family-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  
+  /* Type scale - Fluid responsive sizing */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.813rem);
+  --text-sm: clamp(0.875rem, 0.825rem + 0.25vw, 0.938rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
+  --text-3xl: clamp(1.875rem, 1.675rem + 1vw, 2.25rem);
+  --text-4xl: clamp(2.25rem, 2rem + 1.25vw, 3rem);
+  --text-5xl: clamp(3rem, 2.5rem + 2.5vw, 3.75rem);
+  
+  /* Line heights */
+  --leading-tight: 1.1;
+  --leading-snug: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.75;
+  
+  /* Letter spacing */
+  --tracking-tighter: -0.04em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+
+  /* ============================================
+     SPACING SYSTEM
+     ============================================ */
+  
+  /* Fluid spacing scale */
+  --space-xs: clamp(0.5rem, 0.45rem + 0.25vw, 0.625rem);
+  --space-sm: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --space-md: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  --space-lg: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
+  --space-xl: clamp(2rem, 1.75rem + 1.25vw, 2.5rem);
+  --space-2xl: clamp(3rem, 2.5rem + 2.5vw, 4rem);
+  --space-3xl: clamp(4rem, 3rem + 5vw, 6rem);
+
+  /* ============================================
+     LAYOUT SYSTEM
+     ============================================ */
+  
+  /* Container widths */
+  --container-xs: 20rem;
+  --container-sm: 24rem;
+  --container-md: 28rem;
+  --container-lg: 32rem;
+  --container-xl: 36rem;
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+  --container-4xl: 56rem;
+  --container-5xl: 64rem;
+  --container-6xl: 72rem;
+  --container-7xl: 80rem;
+  
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-full: 9999px;
+
+  /* ============================================
+     EFFECTS & TRANSITIONS
+     ============================================ */
+  
+  /* Shadows - More nuanced system */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  
+  /* Colored shadows for elevation */
+  --shadow-primary: 0 10px 25px -5px rgba(240, 102, 72, 0.25);
+  --shadow-secondary: 0 10px 25px -5px rgba(14, 165, 233, 0.25);
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slower: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Easing functions */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ============================================
+     Z-INDEX SYSTEM
+     ============================================ */
+  
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-popover: 50;
+  --z-tooltip: 60;
+  --z-notification: 70;
 }
 
 @source "../node_modules/flowbite-svelte/dist";
 @source "../node_modules/flowbite-svelte-icons/dist";
 
 @layer base {
-  button, [role="button"] {
+  /* ============================================
+     BASE RESETS & DEFAULTS
+     ============================================ */
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Focus styles */
+  :focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  
+  /* Selection colors */
+  ::selection {
+    background-color: rgba(240, 102, 72, 0.2);
+    color: var(--color-primary-900);
+  }
+  
+  /* Interactive elements */
+  button, 
+  [role="button"],
+  a,
+  [tabindex]:not([tabindex="-1"]) {
     cursor: pointer;
+    transition: var(--transition-fast);
+  }
+  
+  /* Disabled states */
+  :disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 }
 
 @layer components {
+  /* ============================================
+     TYPOGRAPHY COMPONENTS
+     ============================================ */
+  
   .heading-display {
-    font-weight: var(--font-weight-extrabold, 800);
-    letter-spacing: -0.02em;
+    font-family: var(--font-family-display);
+    font-weight: var(--font-weight-extrabold);
+    font-size: var(--text-5xl);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
     color: var(--color-gray-900);
-    line-height: 1.1;
   }
 
   .heading-section {
-    font-weight: var(--font-weight-extrabold, 800);
-    letter-spacing: -0.015em;
+    font-family: var(--font-family-display);
+    font-weight: var(--font-weight-extrabold);
+    font-size: var(--text-4xl);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-tight);
     color: var(--color-gray-900);
-    line-height: 1.15;
   }
 
   .heading-display-compact {
-    font-weight: var(--font-weight-semibold, 600);
-    letter-spacing: -0.01em;
+    font-family: var(--font-family-display);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-3xl);
+    letter-spacing: var(--tracking-tight);
     color: var(--color-gray-800);
   }
 
   .heading-sub {
-    font-weight: var(--font-weight-semibold, 600);
-    letter-spacing: -0.008em;
+    font-family: var(--font-family-display);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-2xl);
+    letter-spacing: var(--tracking-normal);
     color: var(--color-gray-900);
   }
 
+  .dark .heading-display,
+  .dark .heading-section,
+  .dark .heading-display-compact,
   .dark .heading-sub {
     color: var(--color-secondary-50);
   }
 
+  /* ============================================
+     SURFACE COMPONENTS
+     ============================================ */
+  
   .surface-panel {
-    border-radius: 1.5rem;
+    border-radius: var(--radius-2xl);
     background-color: var(--color-surface-0);
     border: 1px solid rgba(210, 70, 36, 0.16);
-    box-shadow: 0 18px 48px -28px rgba(15, 23, 42, 0.3);
+    box-shadow: var(--shadow-xl);
+    transition: transform var(--transition-base), 
+                box-shadow var(--transition-base);
+  }
+  
+  .surface-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2xl);
   }
 
   .dark .surface-panel {
-    background-color: rgba(8, 11, 19, 0.92);
-    border-color: rgba(148, 163, 184, 0.26);
-    box-shadow: 0 24px 60px -36px rgba(2, 6, 23, 0.65);
+    background-color: var(--color-surface-dark-elevated);
+    border-color: rgba(148, 163, 184, 0.12);
+    box-shadow: 0 24px 60px -36px rgba(2, 6, 23, 0.8);
   }
 
   .card-surface {
-    border-radius: 1rem;
+    border-radius: var(--radius-xl);
     background-color: var(--color-surface-0);
     border: 1px solid rgba(226, 232, 240, 0.7);
-    box-shadow: 0 16px 40px -30px rgba(15, 23, 42, 0.28);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+  }
+  
+  .card-surface:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(210, 70, 36, 0.2);
   }
 
   .dark .card-surface {
-    background-color: rgba(15, 23, 42, 0.9);
-    border-color: rgba(148, 163, 184, 0.2);
-    box-shadow: 0 22px 52px -32px rgba(2, 6, 23, 0.7);
+    background-color: var(--color-surface-dark-base);
+    border-color: rgba(148, 163, 184, 0.1);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .dark .card-surface:hover {
+    border-color: rgba(14, 165, 233, 0.3);
   }
 
+  /* ============================================
+     BUTTON COMPONENTS
+     ============================================ */
+  
+  .btn-primary {
+    background-color: var(--color-primary-600);
+    color: white;
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-semibold);
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--color-primary-700);
+    box-shadow: var(--shadow-primary);
+    transform: translateY(-1px);
+  }
+  
+  .btn-secondary {
+    background-color: var(--color-secondary-600);
+    color: white;
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-semibold);
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--color-secondary-700);
+    box-shadow: var(--shadow-secondary);
+    transform: translateY(-1px);
+  }
+
+  /* ============================================
+     UTILITY COMPONENTS
+     ============================================ */
+  
+  .glass-effect {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark .glass-effect {
+    background-color: rgba(15, 23, 42, 0.7);
+    border-color: rgba(148, 163, 184, 0.1);
+  }
+  
+  .gradient-primary {
+    background: linear-gradient(135deg, 
+      var(--color-primary-500) 0%, 
+      var(--color-primary-700) 100%);
+  }
+  
+  .gradient-secondary {
+    background: linear-gradient(135deg, 
+      var(--color-secondary-400) 0%, 
+      var(--color-secondary-600) 100%);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, 
+      var(--color-primary-500) 0%, 
+      var(--color-secondary-500) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 @layer utilities {
+  /* ============================================
+     RESPONSIVE TYPOGRAPHY UTILITIES
+     ============================================ */
+  
   .heading-xl {
-    font-size: clamp(2.5rem, 4vw + 1rem, 3.5rem);
+    font-size: var(--text-5xl);
   }
 
   .heading-lg {
-    font-size: clamp(2rem, 3vw + 1rem, 2.75rem);
+    font-size: var(--text-4xl);
+  }
+  
+  .heading-md {
+    font-size: var(--text-3xl);
+  }
+  
+  .heading-sm {
+    font-size: var(--text-2xl);
   }
 
+  /* ============================================
+     LAYOUT UTILITIES
+     ============================================ */
+  
   .content-width {
-    width: min(100%, 64rem);
+    width: min(100% - var(--space-lg), var(--container-5xl));
+    margin-inline: auto;
+  }
+  
+  .content-width-narrow {
+    width: min(100% - var(--space-lg), var(--container-3xl));
+    margin-inline: auto;
+  }
+  
+  .content-width-wide {
+    width: min(100% - var(--space-lg), var(--container-7xl));
     margin-inline: auto;
   }
 
   .surface-padding {
-    padding: clamp(2.25rem, 4vw, 3.5rem);
+    padding: var(--space-2xl);
   }
 
   .surface-padding-sm {
-    padding: clamp(1.5rem, 3vw, 2.25rem);
+    padding: var(--space-xl);
+  }
+  
+  .surface-padding-xs {
+    padding: var(--space-lg);
+  }
+  
+  /* ============================================
+     SPACING UTILITIES
+     ============================================ */
+  
+  .stack-sm > * + * {
+    margin-top: var(--space-sm);
+  }
+  
+  .stack-md > * + * {
+    margin-top: var(--space-md);
+  }
+  
+  .stack-lg > * + * {
+    margin-top: var(--space-lg);
+  }
+  
+  .stack-xl > * + * {
+    margin-top: var(--space-xl);
   }
 
+  /* ============================================
+     COLOR UTILITIES
+     ============================================ */
+  
   .bg-page {
     background-color: var(--color-surface-100);
   }
@@ -156,6 +513,7 @@
 
   .body-text {
     color: var(--color-gray-700);
+    line-height: var(--leading-relaxed);
   }
 
   .dark .body-text {
@@ -164,6 +522,7 @@
 
   .body-text-strong {
     color: var(--color-gray-800);
+    font-weight: var(--font-weight-medium);
   }
 
   .dark .body-text-strong {
@@ -172,9 +531,53 @@
 
   .body-text-muted {
     color: var(--color-gray-600);
+    font-size: var(--text-sm);
   }
 
   .dark .body-text-muted {
     color: var(--color-gray-400);
+  }
+  
+  /* ============================================
+     ANIMATION UTILITIES
+     ============================================ */
+  
+  .animate-fade-in {
+    animation: fadeIn var(--transition-slow) var(--ease-out);
+  }
+  
+  .animate-slide-up {
+    animation: slideUp var(--transition-base) var(--ease-out);
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn var(--transition-fast) var(--ease-bounce);
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from { 
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to { 
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }

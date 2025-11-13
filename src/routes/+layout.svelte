@@ -11,12 +11,12 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="min-h-screen flex flex-col">
+<div class="flex min-h-screen flex-col bg-page">
 	<!-- Navigation -->
 	<Header />
 
 	<!-- Main Content -->
-	<main class="flex-1 bg-page">
+	<main class="flex-1 stack-lg">
 		{@render children?.()}
 	</main>
 

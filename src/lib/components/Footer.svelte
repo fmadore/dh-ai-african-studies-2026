@@ -9,52 +9,34 @@
 	const bayreuthLogo = resolveAssetPath('/images/logo/uni-bayreuth-africa-multiple-logo.jpeg');
 </script>
 
-<footer class="mt-auto bg-page">
-	<div class="w-full px-4 py-12">
-		<div class="mx-auto max-w-7xl surface-panel space-y-8 overflow-hidden">
-			<!-- Logos Section -->
-			<div class="flex flex-wrap items-center justify-center gap-8 pb-6 pt-8 px-6 border-b border-primary-200 dark:border-primary-800">
-				<a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity">
-					<img
-						src={foundationLogo}
-						alt="Volkswagen Foundation"
-						class="h-12 md:h-16"
-					/>
-				</a>
-				<a href="https://www.zmo.de/en" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity">
-					<img
-						src={zmoLogo}
-						alt="Leibniz-Zentrum Moderner Orient"
-						class="h-12 md:h-16"
-					/>
-				</a>
-				<a href="https://www.kcl.ac.uk/" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity">
-					<img
-						src={kclLogo}
-						alt="King's College London"
-						class="h-12 md:h-16"
-					/>
-				</a>
-				<a href="https://www.africamultiple.uni-bayreuth.de/en/index.html" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity">
-					<img
-						src={bayreuthLogo}
-						alt="Africa Multiple Cluster of Excellence"
-						class="h-12 md:h-16"
-					/>
-				</a>
-			</div>
+<footer class="mt-auto bg-page py-16 px-4">
+	<div class="content-width-wide surface-panel surface-padding stack-lg overflow-hidden">
+		<!-- Logos Section -->
+		<div class="surface-padding-xs border-b border-primary-200 dark:border-primary-800 flex flex-wrap items-center justify-center gap-8">
+			<a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-80">
+				<img src={foundationLogo} alt="Volkswagen Foundation" class="h-12 md:h-16" />
+			</a>
+			<a href="https://www.zmo.de/en" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-80">
+				<img src={zmoLogo} alt="Leibniz-Zentrum Moderner Orient" class="h-12 md:h-16" />
+			</a>
+			<a href="https://www.kcl.ac.uk/" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-80">
+				<img src={kclLogo} alt="King's College London" class="h-12 md:h-16" />
+			</a>
+			<a href="https://www.africamultiple.uni-bayreuth.de/en/index.html" target="_blank" rel="noopener noreferrer" class="transition-opacity hover:opacity-80">
+				<img src={bayreuthLogo} alt="Africa Multiple Cluster of Excellence" class="h-12 md:h-16" />
+			</a>
+		</div>
 
-			<!-- Footer Links and Copyright -->
-			<div class="sm:flex sm:items-center sm:justify-between px-6 pb-8">
-				<span class="body-text-muted text-sm">
-					© 2025 <a href="https://www.frederickmadore.com/" target="_blank" rel="noopener noreferrer" class="hover:underline hover:text-primary-600 dark:hover:text-primary-300 transition-colors">Frédérick Madore</a>
-					<span class="mx-1">and</span>
-					<a href="https://www.vincenthiribarren.com/" target="_blank" rel="noopener noreferrer" class="hover:underline hover:text-primary-600 dark:hover:text-primary-300 transition-colors">Vincent Hiribarren</a>
-				</span>
-				<FooterLinkGroup class="body-text flex flex-wrap items-center mt-3 text-sm sm:mt-0 gap-4">
-					<FooterLink href={aboutHref} class="hover:text-primary-600 dark:hover:text-primary-300 transition-colors">About</FooterLink>
-				</FooterLinkGroup>
-			</div>
+		<!-- Footer Links -->
+		<div class="surface-padding-xs flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+			<span class="body-text-muted text-sm">
+				© 2025 <a href="https://www.frederickmadore.com/" target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-primary-600 hover:underline dark:hover:text-primary-300">Frédérick Madore</a>
+				<span class="mx-1">and</span>
+				<a href="https://www.vincenthiribarren.com/" target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-primary-600 hover:underline dark:hover:text-primary-300">Vincent Hiribarren</a>
+			</span>
+			<FooterLinkGroup class="body-text flex flex-wrap items-center gap-4 text-sm">
+				<FooterLink href={aboutHref} class="transition-colors hover:text-primary-600 dark:hover:text-primary-300">About</FooterLink>
+			</FooterLinkGroup>
 		</div>
 	</div>
 </footer>

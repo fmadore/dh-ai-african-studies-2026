@@ -1,4 +1,3 @@
-
 <script lang="ts">
 	import { Card, Heading, P, Badge } from 'flowbite-svelte';
 	import { UserCircleSolid } from 'flowbite-svelte-icons';
@@ -44,98 +43,99 @@
 </svelte:head>
 
 <!-- Page Header -->
-<section class="bg-page py-12 px-4">
-	<div class="mx-auto max-w-5xl surface-panel surface-padding text-center space-y-4">
+<section class="bg-page py-16 px-4">
+	<div class="content-width surface-panel surface-padding text-center stack-sm">
 		<Heading tag="h1" class="heading-display heading-xl heading-color-light">Participants</Heading>
-		<P class="body-text text-lg text-center">
+		<P class="body-text text-lg mx-auto max-w-3xl">
 			Meet the {displayedParticipants.length} international experts from {uniqueCountries} countries participating in this scoping workshop on Digital Humanities and AI in African Studies.
 		</P>
 	</div>
 </section>
 
 <!-- Participants Grid -->
-<section class="bg-page py-12 px-4">
-	<div class="mx-auto max-w-7xl surface-panel surface-padding">
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-		{#each displayedParticipants as participant (participant.name)}
-			<Card class="card-surface surface-padding-sm transition-shadow flex flex-col hover:shadow-xl h-full">
-				<!-- Participant Photo -->
-				<div class="flex justify-center mb-4">
-					<div class="relative w-32 h-32">
-						{#if participant.photoUrl}
-							<img
-								src={participant.photoUrl}
-								alt={participant.name}
-								class="w-32 h-32 rounded-full object-cover border-4 border-primary-100 dark:border-primary-900"
-								onerror={handleImageError}
-							/>
-							<!-- Placeholder for missing images -->
-							<div class="w-32 h-32 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-primary-100 dark:border-primary-900 hidden items-center justify-center absolute top-0 left-0">
-								<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
+<section class="bg-page py-16 px-4">
+	<div class="content-width-wide surface-panel surface-padding stack-lg">
+		{#if displayedParticipants.length > 0}
+			<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+				{#each displayedParticipants as participant (participant.name)}
+					<Card class="card-surface surface-padding-sm transition-shadow flex flex-col hover:shadow-xl h-full">
+						<div class="flex flex-col items-center text-center stack-sm">
+							<!-- Participant Photo -->
+							<div class="flex justify-center">
+								<div class="relative w-32 h-32">
+									{#if participant.photoUrl}
+										<img
+											src={participant.photoUrl}
+											alt={participant.name}
+											class="w-32 h-32 rounded-full object-cover border-4 border-primary-100 dark:border-primary-900"
+											onerror={handleImageError}
+										/>
+										<!-- Placeholder for missing images -->
+										<div class="absolute inset-0 hidden items-center justify-center rounded-full border-4 border-primary-100 bg-gray-200 dark:border-primary-900 dark:bg-gray-700">
+											<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
+										</div>
+									{:else}
+										<!-- Placeholder for participants without photo -->
+										<div class="flex h-full w-full items-center justify-center rounded-full border-4 border-primary-100 bg-gray-200 dark:border-primary-900 dark:bg-gray-700">
+											<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
+										</div>
+									{/if}
+								</div>
 							</div>
-						{:else}
-							<!-- Placeholder for participants without photo -->
-							<div class="w-32 h-32 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-primary-100 dark:border-primary-900 flex items-center justify-center">
-								<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
+
+							<!-- Participant Name -->
+							<Heading tag="h3" class="heading-sub heading-color-light text-xl">
+								{participant.name}
+							</Heading>
+
+							<!-- Affiliation -->
+							<P class="body-text-strong text-center text-primary-600 dark:text-primary-400">
+								{participant.affiliation}
+							</P>
+
+							<!-- Country Badge -->
+							<div class="flex justify-center">
+								<Badge color="secondary">{participant.country}</Badge>
+							</div>
+
+							<!-- Bio -->
+							<P class="body-text text-sm leading-relaxed">
+								{participant.bio}
+							</P>
+						</div>
+
+						<!-- Research Regions -->
+						{#if participant.researchRegions.length > 0}
+							<div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700 stack-sm">
+								<P class="body-text-muted text-xs font-semibold uppercase tracking-wide">
+									Research Regions
+								</P>
+								<div class="flex flex-wrap justify-center gap-2">
+									{#each participant.researchRegions.toSorted() as region (region)}
+										<Badge color="secondary" class="text-xs">{region}</Badge>
+									{/each}
+								</div>
 							</div>
 						{/if}
-					</div>
-				</div>
-
-				<!-- Participant Name -->
-				<Heading tag="h3" class="heading-sub heading-color-light text-xl text-center mb-2">
-					{participant.name}
-				</Heading>
-
-			<!-- Affiliation -->
-			<P class="text-center text-primary-600 dark:text-primary-400 font-semibold mb-3">
-				{participant.affiliation}
-			</P>
-
-			<!-- Country Badge -->
-			<div class="flex justify-center mb-4">
-				<Badge color="secondary">{participant.country}</Badge>
+					</Card>
+				{/each}
 			</div>
-
-			<!-- Bio -->
-				<P class="body-text text-sm mb-4">
-					{participant.bio}
+		{:else}
+			<div class="text-center py-12">
+				<P class="body-text-muted">
+					Participant information will be added soon.
 				</P>
-
-				<!-- Research Regions -->
-				{#if participant.researchRegions.length > 0}
-					<div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
-						<P class="body-text-muted text-xs font-semibold mb-2">
-							Research Regions:
-						</P>
-						<div class="flex flex-wrap gap-2">
-							{#each participant.researchRegions.toSorted() as region (region)}
-								<Badge color="secondary" class="text-xs">{region}</Badge>
-							{/each}
-						</div>
-					</div>
-				{/if}
-			</Card>
-		{/each}
+			</div>
+		{/if}
 	</div>
-	</div>
-
-	<!-- Empty State -->
-	{#if displayedParticipants.length === 0}
-		<div class="text-center py-12">
-			<P class="body-text-muted">
-				Participant information will be added soon.
-			</P>
-		</div>
-	{/if}
 </section>
 
 <!-- Interactive Map -->
-<section class="bg-page py-12 px-4">
-	<div class="mx-auto max-w-7xl surface-panel surface-padding space-y-6">
+<section class="bg-page py-16 px-4">
+	<div class="content-width-wide surface-panel surface-padding stack-md">
 		<Heading tag="h2" class="heading-section heading-lg heading-color-light text-center">Global Distribution</Heading>
-		<P class="body-text text-center mb-6">
-			Explore where our participants are based around the world
+		<P class="body-text text-center">
+			Explore where our participants are based around the world.
 		</P>
 		<ParticipantsMap participants={displayedParticipants} />
 	</div>

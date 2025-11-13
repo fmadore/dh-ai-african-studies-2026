@@ -158,20 +158,34 @@
 	/>
 </svelte:head>
 
-<div bind:this={mapContainer} class="w-full h-[600px] rounded-lg overflow-hidden bg-surface-weak"></div>
+<div class="card-surface surface-padding-xs w-full">
+	<div bind:this={mapContainer} class="map-canvas"></div>
+</div>
 
 <style>
+	:global(.map-canvas) {
+		height: clamp(24rem, 55vw, 36rem);
+		width: 100%;
+		border-radius: var(--radius-xl);
+		overflow: hidden;
+		background: var(--color-surface-100);
+	}
+
+	:global(.dark .map-canvas) {
+		background: var(--color-surface-dark-base);
+	}
+
 	:global(.participant-popup .leaflet-popup-content-wrapper) {
-		border-radius: 0.75rem;
-		padding: 0.75rem;
-		background: var(--color-surface-strong);
+		border-radius: var(--radius-lg);
+		padding: var(--space-sm);
+		background: var(--color-surface-0);
 		color: var(--color-gray-900);
 		border: 1px solid color-mix(in srgb, var(--color-gray-400) 40%, transparent);
 		box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
 	}
 
 	:global(.dark .participant-popup .leaflet-popup-content-wrapper) {
-		background: var(--color-surface-alt);
+		background: var(--color-surface-dark-elevated);
 		color: var(--color-secondary-50);
 		border-color: color-mix(in srgb, var(--color-gray-400) 28%, transparent);
 		box-shadow: 0 14px 32px -18px rgba(2, 6, 23, 0.75);
@@ -182,12 +196,12 @@
 	}
 
 	:global(.participant-popup .leaflet-popup-tip) {
-		background: var(--color-surface-strong);
+		background: var(--color-surface-0);
 		border: 1px solid color-mix(in srgb, var(--color-gray-400) 40%, transparent);
 	}
 
 	:global(.dark .participant-popup .leaflet-popup-tip) {
-		background: var(--color-surface-alt);
+		background: var(--color-surface-dark-elevated);
 		border-color: color-mix(in srgb, var(--color-gray-400) 28%, transparent);
 	}
 

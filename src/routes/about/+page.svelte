@@ -46,11 +46,11 @@
 	{/each}
 </svelte:head>
 
-<section class="bg-page py-12 px-4">
-	<div class="surface-panel surface-padding space-y-10 content-width">
+<section class="bg-page py-16">
+	<div class="content-width surface-panel surface-padding stack-xl">
 		<Heading tag="h1" class="text-center heading-display heading-xl heading-color-light">About the Workshop</Heading>
 		
-		<div class="space-y-6 text-left">
+		<div class="stack-md text-left">
 			<P class="body-text text-lg leading-relaxed">
 				The convergence of digital humanities (DH) and artificial intelligence (AI) is transforming knowledge production in African studies, offering unprecedented opportunities for innovative analysis, dynamic visualisation, and cross-cultural research. This technological shift holds immense promise for reimagining cultural heritage, democratising access to diverse narratives, and amplifying marginalised voices.
 			</P>
@@ -62,17 +62,17 @@
 			</P>
 		</div>
 
-		<div class="space-y-6">
+		<div class="stack-md">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Context</Heading>
 			
-			<div class="space-y-4">
+			<div class="stack-sm">
 				<Heading tag="h3" class="heading-sub">Evolution of Digital Humanities</Heading>
 				<P class="body-text leading-relaxed">
 					DH has evolved tremendously from the punch cards of the 1930s to today's AI-driven approaches, expanding the academic toolkit and improving accessibility alongside traditional methods. The pandemic accelerated this digital shift, while advances in Large Language Models (LLMs) mark a significant leap forward. Although current LLMs under-represent African languages, their contextual capabilities have considerable potential. Refining these models to better reflect Africa's linguistic diversity could transform African studies research.
 				</P>
 			</div>
 
-			<div class="space-y-4">
+			<div class="stack-sm">
 				<Heading tag="h3" class="heading-sub">Challenges and Inequalities</Heading>
 				<P class="body-text leading-relaxed">
 					Implementing AI in African contexts requires balancing computational approaches with interpretive practices amidst infrastructural inequalities. Many African institutions face limited resources, unstable funding and inadequate technical infrastructure. Digitisation is inherently political—decisions about what to digitise, how to catalogue and who controls access reflect and reinforce existing hierarchies. Northern institutions often control historical materials from the Global South and implement digital solutions with little regard for local contexts.
@@ -82,7 +82,7 @@
 				</P>
 			</div>
 
-			<div class="space-y-4">
+			<div class="stack-sm">
 				<Heading tag="h3" class="heading-sub">Progress and Innovation</Heading>
 				<P class="body-text leading-relaxed">
 					Despite these challenges, DH in African studies has transformed the way African histories, cultures and knowledge systems are documented and analysed. Contemporary projects now foreground African experiences and challenge dominant epistemological frameworks. Diverse approaches have emerged—from spatial analyses of historical landscapes and computational literary studies to multilingual ontological frameworks, digital documentation of material culture and community-driven archives that emphasise collaborative knowledge production.
@@ -96,7 +96,7 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow border border-primary-100 dark:border-primary-900">
 				<Heading tag="h3" class="mb-3 heading-sub">Workshop Goals</Heading>
-				<ul class="body-text list-disc list-inside space-y-2 [&>li::marker]:text-primary-500">
+				<ul class="body-text list-disc list-inside stack-sm [&>li::marker]:text-primary-500">
 					<li>Assess the current state of DH/AI in African studies</li>
 					<li>Chart future pathways for ethical development</li>
 					<li>Create actionable frameworks for next decade</li>
@@ -106,7 +106,7 @@
 
 			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow border border-secondary-100 dark:border-secondary-900">
 				<Heading tag="h3" class="mb-3 heading-sub">Workshop Approach</Heading>
-				<ul class="body-text list-disc list-inside space-y-2 [&>li::marker]:text-secondary-500">
+				<ul class="body-text list-disc list-inside stack-sm [&>li::marker]:text-secondary-500">
 					<li>Assessment-to-action methodology</li>
 					<li>Facilitated discussions over presentations</li>
 					<li>Daily synthesis sessions across streams</li>
@@ -117,9 +117,9 @@
 
 		<!-- Co-Organizers Section -->
 		{#if coOrganizers.length > 0}
-			<div class="space-y-6">
+			<div class="stack-md">
 				<Heading tag="h2" class="heading-section heading-lg heading-color-light">Co-Organizers</Heading>
-				<div class="space-y-6">
+				<div class="stack-md">
 					{#each coOrganizers as organizer (organizer.name)}
 						<div class="card-surface w-full transition-shadow hover:shadow-2xl">
 							<div class="flex flex-col md:flex-row w-full items-center md:items-start gap-6 md:gap-10 p-6 md:p-10">
@@ -147,7 +147,7 @@
 								</div>
 
 								<!-- Content -->
-								<div class="flex-1 text-center md:text-left space-y-3 md:space-y-4">
+								<div class="flex-1 text-center md:text-left stack-sm">
 									<Heading tag="h3" class="heading-sub heading-color-light text-2xl md:text-3xl">
 										{organizer.name}
 									</Heading>
@@ -182,12 +182,12 @@
 
 		<!-- Student Assistants Section -->
 		{#if studentAssistants.length > 0}
-			<div class="space-y-6">
+			<div class="stack-md">
 				<Heading tag="h2" class="heading-section heading-lg heading-color-light">Student Assistants</Heading>
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 					{#each studentAssistants as assistant (assistant.name)}
 						<Card class="card-surface surface-padding-sm transition-shadow flex flex-col hover:shadow-xl h-full">
-							<div class="flex flex-col items-center text-center space-y-4">
+							<div class="flex flex-col items-center text-center stack-sm">
 								<!-- Photo -->
 								<div class="relative w-24 h-24">
 									{#if assistant.photoUrl}
@@ -246,14 +246,14 @@
 			</div>
 		{/if}
 
-		<div class="space-y-3">
+		<div class="stack-sm">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Outcomes</Heading>
 			<P class="body-text leading-relaxed">
 				The workshop will advance the field by identifying ways to consolidate this emerging research area, highlighting intersections between technological innovation and humanistic inquiry, and developing strategic recommendations for science policy and funding actors. This structured, collaborative environment aims to produce a position paper that will serve as a foundational reference for the development of DH and AI in African studies.
 			</P>
 		</div>
 
-		<div class="space-y-3">
+		<div class="stack-sm">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Funding</Heading>
 			<P class="body-text">
 				This scoping workshop is made possible by the generous support of the <strong class="text-primary-700 dark:text-primary-400">Volkswagen Foundation</strong>.

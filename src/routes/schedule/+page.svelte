@@ -22,8 +22,8 @@
 </svelte:head>
 
 <!-- Page Header -->
-<section class="py-12 px-4">
-	<div class="surface-panel surface-padding text-center space-y-4 content-width">
+<section class="bg-page py-16 px-4">
+	<div class="content-width surface-panel surface-padding text-center stack-sm">
 		<Heading tag="h1" class="heading-display heading-xl heading-color-light">Workshop Schedule</Heading>
 		<P class="body-text text-lg">
 			The detailed schedule for the three-day scoping workshop will be available soon.
@@ -32,30 +32,32 @@
 </section>
 
 <!-- Placeholder Content -->
-<section class="py-12 px-4">
-	<Card class="card-surface surface-padding text-center content-width">
-		<div class="flex justify-center mb-6">
-			<CalendarMonthOutline size="xl" class="w-24 h-24 text-primary-600 dark:text-primary-400" />
+<section class="bg-page py-16 px-4">
+	<Card class="content-width card-surface surface-padding text-center stack-md">
+		<div class="flex justify-center">
+			<CalendarMonthOutline size="xl" class="h-24 w-24 text-primary-600 dark:text-primary-400" />
 		</div>
-		<Heading tag="h2" class="mb-4 heading-section heading-lg heading-color-light">Schedule Coming Soon</Heading>
-		<P class="body-text text-lg mb-6">
+		<Heading tag="h2" class="heading-section heading-lg heading-color-light">
+			Schedule Coming Soon
+		</Heading>
+		<P class="body-text text-lg">
 			We are currently finalizing the workshop program. The detailed schedule will include:
 		</P>
-		<div class="text-left max-w-2xl mx-auto space-y-3 mb-8">
+		<div class="max-w-2xl mx-auto stack-sm">
 			<P class="body-text flex items-start">
-				<span class="text-primary-600 dark:text-primary-400 mr-2">•</span>
+				<span class="mr-2 text-primary-600 dark:text-primary-400">•</span>
 				<span>Keynote presentations and panel discussions</span>
 			</P>
 			<P class="body-text flex items-start">
-				<span class="text-primary-600 dark:text-primary-400 mr-2">•</span>
+				<span class="mr-2 text-primary-600 dark:text-primary-400">•</span>
 				<span>Thematic work streams and collaborative sessions</span>
 			</P>
 			<P class="body-text flex items-start">
-				<span class="text-primary-600 dark:text-primary-400 mr-2">•</span>
+				<span class="mr-2 text-primary-600 dark:text-primary-400">•</span>
 				<span>Networking opportunities and informal discussions</span>
 			</P>
 			<P class="body-text flex items-start">
-				<span class="text-primary-600 dark:text-primary-400 mr-2">•</span>
+				<span class="mr-2 text-primary-600 dark:text-primary-400">•</span>
 				<span>Breakout sessions focused on key research areas</span>
 			</P>
 		</div>
@@ -66,21 +68,23 @@
 </section>
 
 <!-- Key Dates -->
-<section class="py-12 px-4">
-	<div class="mx-auto max-w-5xl surface-panel surface-padding">
-		<Heading tag="h2" class="mb-6 text-center heading-section heading-lg heading-color-light">Important Dates</Heading>
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-			<Card class="card-surface surface-padding-sm text-center space-y-2">
+<section class="bg-page py-16 px-4">
+	<div class="content-width-wide surface-panel surface-padding stack-md">
+		<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">
+			Important Dates
+		</Heading>
+		<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+			<Card class="card-surface surface-padding-sm text-center stack-sm">
 				<P class="text-sm font-semibold text-primary-600 dark:text-primary-400">Workshop Dates</P>
 				<P class="body-text-strong text-2xl font-bold">{workshopInfo.dates.full}</P>
 				<P class="body-text text-sm">{workshopInfo.duration.description}</P>
 			</Card>
-			<Card class="card-surface surface-padding-sm text-center space-y-2">
+			<Card class="card-surface surface-padding-sm text-center stack-sm">
 				<P class="text-sm font-semibold text-primary-600 dark:text-primary-400">Format</P>
 				<P class="body-text-strong text-2xl font-bold">{workshopInfo.format.type}</P>
 				<P class="body-text text-sm">{workshopInfo.format.description}</P>
 			</Card>
-			<Card class="card-surface surface-padding-sm text-center space-y-2">
+			<Card class="card-surface surface-padding-sm text-center stack-sm">
 				<P class="text-sm font-semibold text-primary-600 dark:text-primary-400">Location</P>
 				<P class="body-text-strong text-2xl font-bold">{workshopInfo.location.venue}</P>
 				<P class="body-text text-sm">{workshopInfo.location.city}, {workshopInfo.location.country}</P>

@@ -31,20 +31,22 @@
 
 <!-- Hero Section -->
 <section class="bg-linear-to-br from-primary-50 to-secondary-50 dark:from-gray-900 dark:to-gray-800">
-	<div class="py-8 px-4 mx-auto max-w-7xl text-center lg:py-16 lg:px-12">
-		<h1 class="heading-display heading-xl heading-color-light mb-4 tracking-tight">
-			Charting New Territory
-		</h1>
-		<p class="heading-display-compact heading-color-light text-2xl font-light mb-4">
-			Digital Humanities and AI in African Studies
-		</p>
-		<p class="mb-2 text-sm font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider">
-			A Scoping Workshop
-		</p>
-		<p class="body-text-muted mb-8 text-lg lg:text-xl sm:px-16 xl:px-48 leading-relaxed">
+	<div class="content-width-wide py-16 text-center stack-lg">
+		<div class="stack-sm">
+			<h1 class="heading-display heading-xl heading-color-light tracking-tight">
+				Charting New Territory
+			</h1>
+			<p class="heading-display-compact heading-color-light text-2xl font-light">
+				Digital Humanities and AI in African Studies
+			</p>
+			<p class="text-sm font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider">
+				A Scoping Workshop
+			</p>
+		</div>
+		<p class="body-text-muted text-lg lg:text-xl leading-relaxed sm:px-16 xl:px-48">
 			This scoping workshop addresses the critical convergence of digital humanities and artificial intelligence within African studies. Through intensive exchange—prioritising discussion over presentations—participants will explore methodological integration, equitable collaboration and ethical frameworks in structured work streams.
 		</p>
-		<div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+		<div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
 			<Button href={aboutHref} size="xl" color="primary">
 				About
 			</Button>
@@ -59,10 +61,10 @@
 </section>
 
 <!-- Key Information -->
-<section class="py-12 px-4">
-	<div class="mx-auto max-w-7xl surface-panel surface-padding">
+<section class="bg-page py-12">
+	<div class="content-width-wide surface-panel surface-padding">
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow space-y-3">
+			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm">
 				<div class="flex justify-center">
 					<CalendarMonthOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
@@ -70,7 +72,7 @@
 				<P class="body-text">{workshopInfo.dates.full}</P>
 			</Card>
 
-			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow space-y-3">
+			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm">
 				<div class="flex justify-center">
 					<MapPinAltOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
@@ -78,7 +80,7 @@
 				<P class="body-text">{workshopInfo.location.full}</P>
 			</Card>
 
-			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow space-y-3">
+			<Card class="card-surface surface-padding-sm text-center hover:shadow-lg transition-shadow stack-sm">
 				<div class="flex justify-center">
 					<UsersGroupOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 				</div>
@@ -90,9 +92,9 @@
 </section>
 
 <!-- Conference Themes -->
-<section class="py-12 px-4">
-	<div class="mx-auto max-w-7xl surface-panel surface-padding space-y-12">
-		<div class="space-y-6 text-center">
+<section class="bg-page py-16">
+	<div class="content-width-wide surface-panel surface-padding stack-xl">
+		<div class="stack-md text-center">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Purpose</Heading>
 			<P class="body-text text-lg leading-relaxed max-w-4xl mx-auto">
 				The convergence of digital humanities and AI is transforming knowledge production in African studies, offering unprecedented opportunities for innovative analysis and cross-cultural research. However, this transformative potential is intertwined with pressing challenges regarding equitable access, linguistic representation, and methodological approaches. Our goal is to convene experts to assess this emerging interdisciplinary field and develop strategic pathways for its future.
@@ -100,21 +102,21 @@
 		</div>
 		
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow space-y-3 text-left">
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left">
 				<Heading tag="h3" class="heading-sub">Assessment to Action</Heading>
 				<P class="body-text text-base leading-relaxed">
 					Moving beyond describing current conditions to actively charting future pathways and collaborative strategies for ethical, equitable development of DH and AI in African studies.
 				</P>
 			</Card>
 			
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow space-y-3 text-left">
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left">
 				<Heading tag="h3" class="heading-sub">Structured Work Streams</Heading>
 				<P class="body-text text-base leading-relaxed">
 					Three thematic workstreams focusing on methodological integration, equitable collaboration, and ethical implementation through facilitated discussions and collaborative exercises.
 				</P>
 			</Card>
 
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow space-y-3 text-left">
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm text-left">
 				<Heading tag="h3" class="heading-sub">Position Paper</Heading>
 				<P class="body-text text-base leading-relaxed">
 					Co-authored output outlining key findings and strategic recommendations to guide future research, policy, and funding, serving as a foundational reference for the field.
@@ -122,7 +124,7 @@
 			</Card>
 		</div>
 
-		<div class="space-y-6">
+		<div class="stack-md">
 			<Heading tag="h3" class="text-center heading-section heading-lg heading-color-light">Three Work Streams</Heading>
 			<Timeline>
 				<TimelineItem title="Work Stream 1: Methodological Integration" date="">
@@ -146,9 +148,9 @@
 </section>
 
 <!-- Organizers Section -->
-<section class="py-12 px-4">
-	<div class="mx-auto max-w-7xl surface-panel surface-padding space-y-8">
-		<div class="text-center space-y-3">
+<section class="bg-page py-16">
+	<div class="content-width-wide surface-panel surface-padding stack-lg">
+		<div class="text-center stack-sm">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Organizers</Heading>
 		</div>
 
@@ -162,7 +164,7 @@
 							class="w-28 h-28 rounded-full object-cover border-4 border-primary-100 dark:border-primary-700"
 						/>
 					{/if}
-					<div class="space-y-1">
+					<div class="stack-sm">
 						<Heading tag="h3" class="heading-sub heading-color-light text-xl">
 							{organizer.name}
 						</Heading>
@@ -177,8 +179,8 @@
 </section>
 
 <!-- Funding Acknowledgment -->
-<section class="py-12 px-4">
-	<div class="mx-auto max-w-4xl surface-panel surface-padding text-center space-y-2">
+<section class="bg-page py-16">
+	<div class="content-width-narrow surface-panel surface-padding text-center stack-sm">
 		<P class="body-text-muted text-sm">
 			This scoping workshop is made possible by the generous support of the
 			<a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline">Volkswagen Foundation</a>
