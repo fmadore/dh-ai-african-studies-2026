@@ -77,12 +77,20 @@
   --color-surface-50: #fafbfc;
   --color-surface-100: #f8fafc;
   --color-surface-200: #f1f4f8;
+    --color-surface-300: #e6eaf2;
+    --color-surface-400: #dde3ee;
   --color-surface-900: #020617;
   
   /* Dark mode surfaces with better hierarchy */
   --color-surface-dark-base: #0a0f1e;
   --color-surface-dark-elevated: #131925;
   --color-surface-dark-overlay: #1a2332;
+
+    /* Focus + selection tokens */
+    --focus-ring-color: rgba(240, 102, 72, 0.38);
+    --focus-ring-color-dark: rgba(14, 165, 233, 0.45);
+    --selection-color: rgba(240, 102, 72, 0.18);
+    --selection-color-dark: rgba(14, 165, 233, 0.24);
 
   /* ============================================
      TYPOGRAPHY SYSTEM
@@ -226,6 +234,32 @@
      BASE RESETS & DEFAULTS
      ============================================ */
   
+  :root {
+    color-scheme: light;
+    background-color: var(--color-surface-100);
+    color: var(--color-gray-900);
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  body {
+    font-family: var(--font-family-body);
+    line-height: var(--leading-body);
+    background-color: var(--color-surface-100);
+    color: var(--color-gray-900);
+    min-height: 100vh;
+    text-rendering: optimizeLegibility;
+    accent-color: var(--color-primary-500);
+  }
+
+  .dark body {
+    background-color: var(--color-surface-900);
+    color: var(--color-gray-100);
+    accent-color: var(--color-secondary-400);
+  }
+
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
@@ -235,15 +269,15 @@
   
   /* Focus styles */
   :focus-visible {
-    outline: 2px solid var(--color-primary-500);
-    outline-offset: 2px;
+    outline: 2px solid transparent;
     border-radius: var(--radius-sm);
+    box-shadow: 0 0 0 3px var(--focus-ring-color);
   }
   
   button:focus-visible,
   [role="button"]:focus-visible {
-    outline-width: 3px;
-    outline-offset: 4px;
+    outline: none;
+    box-shadow: 0 0 0 4px var(--focus-ring-color);
   }
   
   input:focus-visible,
@@ -251,18 +285,36 @@
   select:focus-visible {
     outline: 2px solid transparent;
     outline-offset: 0;
-    box-shadow: 0 0 0 3px rgba(240, 102, 72, 0.2);
+    box-shadow: 0 0 0 3px var(--focus-ring-color);
     border-radius: var(--radius-sm);
   }
   
   .dark :focus-visible {
-    outline-color: var(--color-secondary-400);
+    box-shadow: 0 0 0 3px var(--focus-ring-color-dark);
+  }
+
+  .dark button:focus-visible,
+  .dark [role="button"]:focus-visible {
+    box-shadow: 0 0 0 4px var(--focus-ring-color-dark);
+  }
+
+  .dark input:focus-visible,
+  .dark textarea:focus-visible,
+  .dark select:focus-visible {
+    box-shadow: 0 0 0 3px var(--focus-ring-color-dark);
   }
   
   /* Selection colors */
-  ::selection {
-    background-color: rgba(240, 102, 72, 0.2);
+  ::selection,
+  ::-moz-selection {
+    background-color: var(--selection-color);
     color: var(--color-primary-900);
+  }
+
+  .dark ::selection,
+  .dark ::-moz-selection {
+    background-color: var(--selection-color-dark);
+    color: var(--color-secondary-50);
   }
   
   /* Interactive elements */
