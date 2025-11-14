@@ -32,7 +32,7 @@
 </section>
 
 <!-- Placeholder Content -->
-<section class="bg-page py-16 px-4">
+<section class="bg-page-soft py-16 px-4">
 	<Card class="content-width card-surface surface-padding text-center stack-md">
 		<div class="flex justify-center">
 			<CalendarMonthOutline size="xl" class="h-24 w-24 text-primary-600 dark:text-primary-400" />
@@ -68,7 +68,7 @@
 </section>
 
 <!-- Key Dates -->
-<section class="bg-page py-16 px-4">
+<section class="bg-page-strong py-16 px-4">
 	<div class="content-width-wide surface-panel surface-padding stack-md">
 		<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">
 			Important Dates

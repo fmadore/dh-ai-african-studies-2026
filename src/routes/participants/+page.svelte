@@ -53,7 +53,7 @@
 </section>
 
 <!-- Participants Grid -->
-<section class="bg-page py-16 px-4">
+<section class="bg-page-soft py-16 px-4">
 	<div class="content-width-wide surface-panel surface-padding stack-lg">
 		{#if displayedParticipants.length > 0}
 			<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -131,7 +131,7 @@
 </section>
 
 <!-- Interactive Map -->
-<section class="bg-page py-16 px-4">
+<section class="bg-page-strong py-16 px-4">
 	<div class="content-width-wide surface-panel surface-padding stack-md">
 		<Heading tag="h2" class="heading-section heading-lg heading-color-light text-center">Global Distribution</Heading>
 		<P class="body-text text-center">

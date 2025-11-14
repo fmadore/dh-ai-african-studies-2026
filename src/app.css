@@ -812,6 +812,22 @@
     background-color: var(--color-surface-900);
   }
 
+  .bg-page-soft {
+    background-color: var(--color-surface-200);
+  }
+
+  .dark .bg-page-soft {
+    background-color: var(--color-surface-dark-base);
+  }
+
+  .bg-page-strong {
+    background-color: var(--color-surface-300);
+  }
+
+  .dark .bg-page-strong {
+    background-color: var(--color-surface-dark-elevated);
+  }
+
   .heading-color-light {
     color: var(--color-gray-900);
   }

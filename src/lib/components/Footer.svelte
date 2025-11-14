@@ -9,7 +9,7 @@
 	const bayreuthLogo = resolveAssetPath('/images/logo/uni-bayreuth-africa-multiple-logo.jpeg');
 </script>
 
-<footer class="mt-auto bg-page py-16 px-4">
+<footer class="mt-auto bg-page-strong py-16 px-4">
 	<div class="content-width-wide surface-panel surface-padding stack-lg overflow-hidden">
 		<!-- Logos Section -->
 		<div class="surface-padding-xs divider-primary flex flex-wrap items-center justify-center gap-8">

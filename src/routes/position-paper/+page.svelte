@@ -40,7 +40,7 @@
 </section>
 
 <!-- Overview -->
-<section class="bg-page py-16 px-4">
+<section class="bg-page-soft py-16 px-4">
 	<div class="content-width surface-panel surface-padding stack-lg">
 		<div class="stack-md">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">A Strategic Blueprint</Heading>
@@ -74,7 +74,7 @@
 </section>
 
 <!-- Core Themes -->
-<section class="bg-page py-16 px-4">
+<section class="bg-page-strong py-16 px-4">
 	<div class="content-width surface-panel surface-padding stack-lg">
 		<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">Core Themes</Heading>
 		
@@ -131,7 +131,7 @@
 </section>
 
 <!-- Target Audiences & Recommendations -->
-<section class="bg-page py-16 px-4">
+<section class="bg-page-soft py-16 px-4">
 	<div class="content-width surface-panel surface-padding stack-lg">
 		<div class="stack-md">
 			<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">Actionable Recommendations for Stakeholders</Heading>

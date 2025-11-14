@@ -46,7 +46,7 @@
 	{/each}
 </svelte:head>
 
-<section class="bg-page py-16">
+<section class="bg-page-soft py-16">
 	<div class="content-width surface-panel surface-padding stack-xl">
 		<Heading tag="h1" class="text-center heading-display heading-xl heading-color-light">About the Workshop</Heading>
 		

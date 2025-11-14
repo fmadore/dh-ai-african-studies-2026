@@ -16,7 +16,7 @@
 	<Header />
 
 	<!-- Main Content -->
-	<main class="flex-1 stack-lg">
+	<main class="flex-1 stack-lg bg-page-soft">
 		{@render children?.()}
 	</main>
 
