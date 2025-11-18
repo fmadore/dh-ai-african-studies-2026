@@ -76,7 +76,7 @@
 	
 	<div class="relative content-width-wide container-responsive py-16 text-center stack-lg">
 		<div class="stack-sm animate-fade-in">
-			<h1 class="heading-display heading-xl heading-color-light tracking-tight drop-shadow-sm">
+			<h1 class="heading-display heading-xl text-gradient tracking-tight drop-shadow-md pb-2">
 				Charting New Territory
 			</h1>
 			<p class="heading-display-compact heading-color-light text-2xl font-light drop-shadow-sm">
@@ -104,8 +104,9 @@
 </section>
 
 <!-- Key Information -->
-<section class="bg-page py-12">
-	<div class="content-width-wide surface-panel surface-padding">
+<section class="bg-page py-12 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-secondary top-1/2 -left-20 transform -translate-y-1/2"></div>
+	<div class="content-width-wide surface-panel surface-padding relative">
 		<div class="auto-grid auto-grid-sm">
 			{#each keyHighlights as highlight, index (highlight.title)}
 				{@const Icon = highlight.icon}
@@ -129,8 +130,9 @@
 </section>
 
 <!-- Conference Themes -->
-<section class="bg-page py-16">
-	<div class="content-width-wide surface-panel surface-padding stack-xl">
+<section class="bg-page py-16 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-primary bottom-0 -right-20"></div>
+	<div class="content-width-wide surface-panel surface-padding stack-xl relative">
 		<div class="stack-md text-center animate-fade-in">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Purpose</Heading>
 			<P class="body-text text-lg leading-relaxed max-w-4xl mx-auto">

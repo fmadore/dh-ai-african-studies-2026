@@ -10,20 +10,20 @@
      COLOR SYSTEM
      ============================================ */
   
-  /* Primary color - Conference branding */
-  --color-primary-50: #fff5f2;
-  --color-primary-100: #fff1ee;
-  --color-primary-200: #ffe4de;
-  --color-primary-300: #ffd5cc;
-  --color-primary-400: #ffbcad;
-  --color-primary-500: #f06648;
-  --color-primary-600: #d24624;
-  --color-primary-700: #b63b1f;
-  --color-primary-800: #8d3019;
-  --color-primary-900: #662212;
-  --color-primary-950: #3d140b; /* Add deeper shade for better contrast */
+  /* Primary color - Refined Terra Cotta / Coral */
+  --color-primary-50: #fff1f0;
+  --color-primary-100: #ffe4e1;
+  --color-primary-200: #ffc9c2;
+  --color-primary-300: #ffa094;
+  --color-primary-400: #ff705e;
+  --color-primary-500: #f06648; /* Brand Base */
+  --color-primary-600: #de3a21;
+  --color-primary-700: #bb2511;
+  --color-primary-800: #9a2012;
+  --color-primary-900: #7f2015;
+  --color-primary-950: #450d08;
 
-  /* Secondary color - Complementary accent */
+  /* Secondary color - Refined Sky/Ocean */
   --color-secondary-50: #f0f9ff;
   --color-secondary-100: #e0f2fe;
   --color-secondary-200: #bae6fd;
@@ -34,20 +34,20 @@
   --color-secondary-700: #0369a1;
   --color-secondary-800: #075985;
   --color-secondary-900: #0c4a6e;
-  --color-secondary-950: #082f49; /* Add deeper shade */
+  --color-secondary-950: #082f49;
 
-  /* Neutral scale */
-  --color-gray-50: #f8fafc;
-  --color-gray-100: #f1f5f9;
-  --color-gray-200: #e2e8f0;
-  --color-gray-300: #cbd5f5;
-  --color-gray-400: #94a3b8;
-  --color-gray-500: #64748b;
-  --color-gray-600: #475569;
-  --color-gray-700: #334155;
-  --color-gray-800: #1e293b;
-  --color-gray-900: #0f172a;
-  --color-gray-950: #020617; /* Add for consistency */
+  /* Neutral scale - Slate with a hint of warmth */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-gray-950: #030712;
 
   /* ============================================
      SEMANTIC COLOR TOKENS
@@ -187,18 +187,18 @@
      EFFECTS & TRANSITIONS
      ============================================ */
   
-  /* Shadows - More nuanced system */
+  /* Shadows - Modern, diffused, layered */
   --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   
-  /* Colored shadows for elevation */
-  --shadow-primary: 0 10px 25px -5px rgba(240, 102, 72, 0.25);
-  --shadow-secondary: 0 10px 25px -5px rgba(14, 165, 233, 0.25);
+  /* Colored shadows for elevation - slightly reduced opacity for elegance */
+  --shadow-primary: 0 10px 25px -5px rgba(240, 102, 72, 0.3);
+  --shadow-secondary: 0 10px 25px -5px rgba(14, 165, 233, 0.3);
   
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -402,8 +402,10 @@
   
   .surface-panel {
     border-radius: var(--radius-2xl);
-    background-color: var(--color-surface-0);
-    border: 1px solid rgba(210, 70, 36, 0.16);
+    background-color: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(240, 102, 72, 0.12);
     box-shadow: var(--shadow-xl);
     transition: transform var(--transition-base), 
                 box-shadow var(--transition-base);
@@ -416,33 +418,35 @@
   }
 
   .dark .surface-panel {
-    background-color: var(--color-surface-dark-elevated);
-    border-color: rgba(148, 163, 184, 0.12);
-    box-shadow: 0 24px 60px -36px rgba(2, 6, 23, 0.8);
+    background-color: rgba(19, 25, 37, 0.85);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 60px -36px rgba(0, 0, 0, 0.6);
   }
 
   .card-surface {
     border-radius: var(--radius-xl);
     background-color: var(--color-surface-0);
-    border: 1px solid rgba(226, 232, 240, 0.7);
+    border: 1px solid rgba(226, 232, 240, 0.8);
     box-shadow: var(--shadow-md);
     transition: all var(--transition-base);
     will-change: transform, box-shadow;
   }
   
   .card-surface:hover {
+    transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
-    border-color: rgba(210, 70, 36, 0.2);
+    border-color: rgba(240, 102, 72, 0.25);
   }
 
   .dark .card-surface {
     background-color: var(--color-surface-dark-base);
-    border-color: rgba(148, 163, 184, 0.1);
+    border-color: rgba(255, 255, 255, 0.05);
     box-shadow: var(--shadow-lg);
   }
   
   .dark .card-surface:hover {
-    border-color: rgba(14, 165, 233, 0.3);
+    border-color: rgba(14, 165, 233, 0.4);
+    background-color: var(--color-surface-dark-elevated);
   }
 
   /* ============================================
@@ -519,11 +523,12 @@
   
   .text-gradient {
     background: linear-gradient(135deg, 
-      var(--color-primary-500) 0%, 
-      var(--color-secondary-500) 100%);
+      var(--color-primary-600) 0%, 
+      var(--color-secondary-600) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    padding-bottom: 0.1em; /* Prevent descender clipping */
   }
 
   /* ============================================
@@ -531,17 +536,20 @@
      ============================================ */
   
   .gradient-hero {
-    background: linear-gradient(to bottom right,
-      var(--color-primary-50),
-      var(--color-secondary-50),
-      var(--color-primary-100));
+    background: linear-gradient(120deg,
+      var(--color-primary-50) 0%,
+      #ffffff 50%,
+      var(--color-secondary-50) 100%);
   }
 
   .dark .gradient-hero {
-    background: linear-gradient(to bottom right,
-      var(--color-gray-950),
-      var(--color-gray-900),
-      var(--color-gray-950));
+    background: radial-gradient(circle at 15% 15%,
+      rgba(240, 102, 72, 0.08) 0%,
+      transparent 50%),
+      radial-gradient(circle at 85% 85%,
+      rgba(14, 165, 233, 0.08) 0%,
+      transparent 50%),
+      var(--color-gray-950);
   }
 
   .gradient-overlay {
@@ -631,15 +639,17 @@
   
   .decorative-blob {
     position: absolute;
-    width: 24rem;
-    height: 24rem;
+    width: 32rem;
+    height: 32rem;
     border-radius: 9999px;
-    filter: blur(3rem);
-    opacity: 0.1;
+    filter: blur(5rem);
+    opacity: 0.08;
+    pointer-events: none;
   }
 
   .dark .decorative-blob {
-    opacity: 0.05;
+    opacity: 0.04;
+    filter: blur(6rem);
   }
 
   .decorative-blob-primary {
