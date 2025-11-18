@@ -9,8 +9,9 @@
 	const bayreuthLogo = resolveAssetPath('/images/logo/uni-bayreuth-africa-multiple-logo.jpeg');
 </script>
 
-<footer class="mt-auto bg-page-strong py-16 px-4">
-	<div class="content-width-wide surface-panel surface-padding stack-lg overflow-hidden">
+<footer class="mt-auto bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-secondary -right-24 -bottom-24 opacity-50 pointer-events-none"></div>
+	<div class="content-width-wide surface-panel surface-padding stack-lg overflow-hidden relative">
 		<!-- Logos Section -->
 		<div class="surface-padding-xs divider-primary flex flex-wrap items-center justify-center gap-8">
 			<a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="logo-link">
