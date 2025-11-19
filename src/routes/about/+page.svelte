@@ -46,9 +46,12 @@
 	{/each}
 </svelte:head>
 
-<section class="bg-page-soft py-16">
-	<div class="content-width surface-panel surface-padding stack-xl">
-		<Heading tag="h1" class="text-center heading-display heading-xl heading-color-light">About the Workshop</Heading>
+<section class="bg-page py-16 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
+	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
+
+	<div class="content-width surface-panel surface-padding stack-xl relative">
+		<Heading tag="h1" class="text-center heading-display heading-xl text-gradient drop-shadow-md pb-2">About the Workshop</Heading>
 		
 		<div class="stack-md text-left">
 			<P class="body-text text-lg leading-relaxed">

@@ -22,9 +22,11 @@
 </svelte:head>
 
 <!-- Page Header -->
-<section class="bg-page py-16 px-4">
-	<div class="content-width surface-panel surface-padding text-center stack-sm">
-		<Heading tag="h1" class="heading-display heading-xl heading-color-light">Workshop Schedule</Heading>
+<section class="bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
+	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
+	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
+		<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2">Workshop Schedule</Heading>
 		<P class="body-text text-lg">
 			The detailed schedule for the three-day scoping workshop will be available soon.
 		</P>
@@ -32,8 +34,9 @@
 </section>
 
 <!-- Placeholder Content -->
-<section class="bg-page-soft py-16 px-4">
-	<Card class="content-width card-surface surface-padding text-center stack-md">
+<section class="bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-secondary top-0 right-0 opacity-50"></div>
+	<Card class="content-width card-surface surface-padding text-center stack-md relative">
 		<div class="flex justify-center">
 			<CalendarMonthOutline size="xl" class="h-24 w-24 text-primary-600 dark:text-primary-400" />
 		</div>
@@ -68,8 +71,9 @@
 </section>
 
 <!-- Key Dates -->
-<section class="bg-page-strong py-16 px-4">
-	<div class="content-width-wide surface-panel surface-padding stack-md">
+<section class="bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-primary bottom-0 left-0 opacity-50"></div>
+	<div class="content-width-wide surface-panel surface-padding stack-md relative">
 		<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">
 			Important Dates
 		</Heading>

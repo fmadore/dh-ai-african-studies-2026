@@ -23,13 +23,15 @@
 </svelte:head>
 
 <!-- Hero Section -->
-<section class="bg-page py-16 px-4">
-	<div class="content-width surface-panel surface-padding text-center stack-md">
+<section class="bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
+	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
+	<div class="content-width surface-panel surface-padding text-center stack-md relative">
 		<div class="flex justify-center">
 			<FileDocOutline size="xl" class="text-primary-600 dark:text-primary-400 w-16 h-16" />
 		</div>
 		<div class="stack-sm">
-			<Heading tag="h1" class="heading-display heading-xl heading-color-light">
+			<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2">
 				Position Paper
 			</Heading>
 			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto">
@@ -40,8 +42,9 @@
 </section>
 
 <!-- Overview -->
-<section class="bg-page-soft py-16 px-4">
-	<div class="content-width surface-panel surface-padding stack-lg">
+<section class="bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-secondary top-1/4 -right-20"></div>
+	<div class="content-width surface-panel surface-padding stack-lg relative">
 		<div class="stack-md">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">A Strategic Blueprint</Heading>
 			<P class="body-text text-lg leading-relaxed">
@@ -74,8 +77,9 @@
 </section>
 
 <!-- Core Themes -->
-<section class="bg-page-strong py-16 px-4">
-	<div class="content-width surface-panel surface-padding stack-lg">
+<section class="bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-primary bottom-1/4 -left-20"></div>
+	<div class="content-width surface-panel surface-padding stack-lg relative">
 		<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">Core Themes</Heading>
 		
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -131,8 +135,9 @@
 </section>
 
 <!-- Target Audiences & Recommendations -->
-<section class="bg-page-soft py-16 px-4">
-	<div class="content-width surface-panel surface-padding stack-lg">
+<section class="bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-secondary top-0 right-0 opacity-50"></div>
+	<div class="content-width surface-panel surface-padding stack-lg relative">
 		<div class="stack-md">
 			<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">Actionable Recommendations for Stakeholders</Heading>
 			<P class="body-text text-center text-lg max-w-3xl mx-auto">
@@ -176,8 +181,9 @@
 
 <!-- Impact & Purpose -->
 
-<section class="py-16 px-4 bg-linear-to-br from-primary-50 to-secondary-50 dark:from-gray-800 dark:to-gray-900">
-	<div class="content-width surface-panel surface-padding text-center stack-md">
+<section class="bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-primary top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20 w-160 h-160"></div>
+	<div class="content-width surface-panel surface-padding text-center stack-md relative">
 		<Heading tag="h2" class="heading-section heading-lg heading-color-light">A Catalyst for Change</Heading>
 		<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto">
 			As both a workshop record and a catalyst for change, this position paper aims to shape new research directions while promoting a more accessible, equitable and ethical DH & AI landscape in African studies. It will serve as a foundational reference guiding research, policy and funding decisions to consolidate this emerging field.

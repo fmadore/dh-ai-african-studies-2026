@@ -43,9 +43,11 @@
 </svelte:head>
 
 <!-- Page Header -->
-<section class="bg-page py-16 px-4">
-	<div class="content-width surface-panel surface-padding text-center stack-sm">
-		<Heading tag="h1" class="heading-display heading-xl heading-color-light">Participants</Heading>
+<section class="bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
+	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
+	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
+		<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2">Participants</Heading>
 		<P class="body-text text-lg mx-auto max-w-3xl">
 			Meet the {displayedParticipants.length} international experts from {uniqueCountries} countries participating in this scoping workshop on Digital Humanities and AI in African Studies.
 		</P>
@@ -53,8 +55,9 @@
 </section>
 
 <!-- Participants Grid -->
-<section class="bg-page-soft py-16 px-4">
-	<div class="content-width-wide surface-panel surface-padding stack-lg">
+<section class="bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-secondary top-0 right-0 opacity-50"></div>
+	<div class="content-width-wide surface-panel surface-padding stack-lg relative">
 		{#if displayedParticipants.length > 0}
 			<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 				{#each displayedParticipants as participant (participant.name)}
@@ -131,8 +134,9 @@
 </section>
 
 <!-- Interactive Map -->
-<section class="bg-page-strong py-16 px-4">
-	<div class="content-width-wide surface-panel surface-padding stack-md">
+<section class="bg-page py-16 px-4 relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-primary bottom-0 left-0 opacity-50"></div>
+	<div class="content-width-wide surface-panel surface-padding stack-md relative">
 		<Heading tag="h2" class="heading-section heading-lg heading-color-light text-center">Global Distribution</Heading>
 		<P class="body-text text-center">
 			Explore where our participants are based around the world.
