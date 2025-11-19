@@ -79,10 +79,10 @@
 			<h1 class="heading-display heading-xl text-gradient tracking-tight drop-shadow-md pb-2">
 				Charting New Territory
 			</h1>
-			<p class="heading-display-compact heading-color-light text-2xl font-light drop-shadow-sm">
+			<p class="heading-sub drop-shadow-sm opacity-90 max-w-2xl mx-auto">
 				Digital Humanities and AI in African Studies
 			</p>
-			<p class="text-sm font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider">
+			<p class="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest mt-2">
 				A Scoping Workshop
 			</p>
 		</div>
@@ -191,7 +191,7 @@
 						<img
 							src={organizer.photoUrl}
 							alt={organizer.name}
-							class="w-28 h-28 rounded-full object-cover border-4 border-primary-100 dark:border-primary-700"
+							class="w-28 h-28 rounded-full object-cover border-2 border-primary-100 dark:border-primary-700 shadow-md"
 						/>
 					{/if}
 					<div class="stack-sm">
