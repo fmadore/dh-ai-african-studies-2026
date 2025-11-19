@@ -93,8 +93,16 @@
 				markerGroups.forEach((participantsAtLocation, coordsKey) => {
 					const [lat, lng] = coordsKey.split(',').map(Number);
 					
-					// Use default blue marker icon
-					const marker = L.marker([lat, lng]).addTo(map);
+					// Custom marker icon
+					const customIcon = L.divIcon({
+						className: 'custom-map-marker',
+						html: `<div class="marker-pin"></div>`,
+						iconSize: [30, 30],
+						iconAnchor: [15, 30],
+						popupAnchor: [0, -30]
+					});
+
+					const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
 					
 					// Create popup content with profile photos
 					const popupContent = `
@@ -318,5 +326,43 @@
 
 	:global(.dark .participant-popup .popup-country) {
 		color: color-mix(in srgb, var(--color-gray-200) 70%, transparent);
+	}
+
+	/* Custom Marker Styles */
+	:global(.custom-map-marker) {
+		background: transparent;
+		border: none;
+	}
+	
+	:global(.marker-pin) {
+		width: 30px;
+		height: 30px;
+		border-radius: 50% 50% 50% 0;
+		background: var(--color-primary-500);
+		position: absolute;
+		transform: rotate(-45deg);
+		left: 50%;
+		top: 50%;
+		margin: -15px 0 0 -15px;
+		box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+		border: 2px solid white;
+	}
+
+	:global(.marker-pin::after) {
+		content: '';
+		width: 14px;
+		height: 14px;
+		margin: 6px 0 0 6px;
+		background: white;
+		position: absolute;
+		border-radius: 50%;
+	}
+	
+	:global(.dark .marker-pin) {
+		border-color: var(--color-gray-800);
+	}
+	
+	:global(.dark .marker-pin::after) {
+		background: var(--color-gray-800);
 	}
 </style>

@@ -47,7 +47,7 @@
 	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
-		<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2">Participants</Heading>
+		<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">Participants</Heading>
 		<P class="body-text text-lg mx-auto max-w-3xl">
 			Meet the {displayedParticipants.length} international experts from {uniqueCountries} countries participating in this scoping workshop on Digital Humanities and AI in African Studies.
 		</P>
@@ -70,16 +70,16 @@
 										<img
 											src={participant.photoUrl}
 											alt={participant.name}
-											class="w-32 h-32 rounded-full object-cover border-4 border-primary-100 dark:border-primary-900"
+											class="w-32 h-32 rounded-full object-cover border-2 border-primary-100 dark:border-primary-900 shadow-md"
 											onerror={handleImageError}
 										/>
 										<!-- Placeholder for missing images -->
-										<div class="absolute inset-0 hidden items-center justify-center rounded-full border-4 border-primary-100 bg-gray-200 dark:border-primary-900 dark:bg-gray-700">
+										<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-900 dark:bg-gray-700 shadow-md">
 											<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
 										</div>
 									{:else}
 										<!-- Placeholder for participants without photo -->
-										<div class="flex h-full w-full items-center justify-center rounded-full border-4 border-primary-100 bg-gray-200 dark:border-primary-900 dark:bg-gray-700">
+										<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-900 dark:bg-gray-700 shadow-md">
 											<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
 										</div>
 									{/if}

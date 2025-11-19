@@ -51,7 +51,7 @@
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 
 	<div class="content-width surface-panel surface-padding stack-xl relative">
-		<Heading tag="h1" class="text-center heading-display heading-xl text-gradient drop-shadow-md pb-2">About the Workshop</Heading>
+		<Heading tag="h1" class="text-center heading-display heading-xl text-gradient tracking-tight drop-shadow-md pb-2">About the Workshop</Heading>
 		
 		<div class="stack-md text-left">
 			<P class="body-text text-lg leading-relaxed">
@@ -133,16 +133,16 @@
 											<img
 												src={organizer.photoUrl}
 												alt={organizer.name}
-												class="w-full h-full rounded-full object-cover border-4 border-primary-100 dark:border-primary-700 shadow-md"
+												class="w-full h-full rounded-full object-cover border-2 border-primary-100 dark:border-primary-700 shadow-md"
 												onerror={handleImageError}
 											/>
 											<!-- Placeholder for missing images -->
-											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-primary-100 dark:border-primary-700 hidden items-center justify-center absolute top-0 left-0">
+											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-700 hidden items-center justify-center absolute top-0 left-0 shadow-md">
 												<UserCircleSolid class="w-16 h-16 md:w-20 md:h-20 text-gray-400 dark:text-gray-500" />
 											</div>
 										{:else}
 											<!-- Placeholder for organizers without photo -->
-											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-primary-100 dark:border-primary-700 flex items-center justify-center shadow-md">
+											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-700 flex items-center justify-center shadow-md">
 												<UserCircleSolid class="w-16 h-16 md:w-20 md:h-20 text-gray-400 dark:text-gray-500" />
 											</div>
 										{/if}
@@ -197,16 +197,16 @@
 										<img
 											src={assistant.photoUrl}
 											alt={assistant.name}
-											class="w-24 h-24 rounded-full object-cover border-4 border-secondary-100 dark:border-secondary-900"
+											class="w-24 h-24 rounded-full object-cover border-2 border-secondary-100 dark:border-secondary-900 shadow-md"
 											onerror={handleImageError}
 										/>
 										<!-- Placeholder for missing images -->
-										<div class="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-secondary-100 dark:border-secondary-900 hidden items-center justify-center absolute top-0 left-0">
+										<div class="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-900 hidden items-center justify-center absolute top-0 left-0 shadow-md">
 											<UserCircleSolid class="w-16 h-16 text-gray-400 dark:text-gray-500" />
 										</div>
 									{:else}
 										<!-- Placeholder for assistants without photo -->
-										<div class="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 border-4 border-secondary-100 dark:border-secondary-900 flex items-center justify-center">
+										<div class="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-900 flex items-center justify-center shadow-md">
 											<UserCircleSolid class="w-16 h-16 text-gray-400 dark:text-gray-500" />
 										</div>
 									{/if}

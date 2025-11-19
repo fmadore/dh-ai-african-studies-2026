@@ -18,7 +18,7 @@
 <header class="bg-page py-6 px-4 relative z-(--z-overlay)">
 	<Navbar class="content-width-wide surface-panel surface-padding-xs">
 		<NavBrand href={navLinks[0].href} class="logo-link">
-			<span class="self-center whitespace-nowrap text-xl font-semibold text-gradient drop-shadow-md pb-1">
+			<span class="self-center whitespace-nowrap text-xl font-display font-bold tracking-tight text-gradient drop-shadow-md pb-1">
 				DH & AI in African Studies
 			</span>
 		</NavBrand>

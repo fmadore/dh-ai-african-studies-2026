@@ -31,7 +31,7 @@
 			<FileDocOutline size="xl" class="text-primary-600 dark:text-primary-400 w-16 h-16" />
 		</div>
 		<div class="stack-sm">
-			<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2">
+			<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">
 				Position Paper
 			</Heading>
 			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto">

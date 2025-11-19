@@ -26,7 +26,7 @@
 	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
-		<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2">Workshop Schedule</Heading>
+		<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">Workshop Schedule</Heading>
 		<P class="body-text text-lg">
 			The detailed schedule for the three-day scoping workshop will be available soon.
 		</P>
