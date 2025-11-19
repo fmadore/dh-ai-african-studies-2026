@@ -11,6 +11,7 @@
 	let mapContainer: HTMLDivElement;
 	let map: any;
 	let tileLayer: any;
+	let mapReady = $state(false);
 
 	// Create reactive dark mode detection using createSubscriber
 	const darkModeSubscriber = createSubscriber((update) => {
@@ -133,6 +134,8 @@
 						className: 'participant-popup'
 					});
 				});
+
+				mapReady = true;
 			}
 
 			return () => {
@@ -140,6 +143,7 @@
 				if (map) {
 					map.remove();
 					map = null;
+					mapReady = false;
 				}
 			};
 		});
@@ -147,7 +151,7 @@
 
 	// Update tile layer when theme changes
 	$effect(() => {
-		if (map && tileLayer) {
+		if (mapReady && tileLayer) {
 			const lightTiles = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 			const darkTiles = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
 			
