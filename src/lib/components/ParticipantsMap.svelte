@@ -17,11 +17,11 @@
 		if (typeof window === 'undefined') return;
 
 		const observer = new MutationObserver((mutations) => {
-			mutations.forEach((mutation) => {
+			for (const mutation of mutations) {
 				if (mutation.attributeName === 'class') {
 					update();
 				}
-			});
+			}
 		});
 
 		observer.observe(document.documentElement, {
