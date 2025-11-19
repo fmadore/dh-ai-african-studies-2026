@@ -80,8 +80,11 @@ When writing Svelte components, ALWAYS use Svelte 5 runes syntax:
 ### 5. Theming and Styling Best Practices
 
 - Tailwind v4 with `flowbite/plugin` and `@tailwindcss/typography` is configured in `src/app.css`.
-- Custom palette: primary hex f06648 (with 50–900 scale), secondary hex 0ea5e9, neutrals span 0f172a to f8fafc.
-- Use the provided utility classes such as `.surface-panel`, `.card-surface`, `.bg-page`, and typography helpers instead of redefining styles per component.
+- Custom palette: primary hex f06648 (Terra Cotta), secondary hex 0ea5e9 (Sky Blue), and warm slate neutrals.
+- **Use these provided utility classes** instead of arbitrary Tailwind values:
+  - **Surfaces**: `.surface-panel` (glassmorphism), `.card-surface`, `.bg-page`
+  - **Typography**: `.heading-display`, `.heading-section`, `.heading-sub`, `.text-gradient`
+  - **Decoration**: `.decorative-blob`, `.decorative-blob-primary` (for ambient backgrounds)
 
 **Using Theme Values:**
 ```svelte
