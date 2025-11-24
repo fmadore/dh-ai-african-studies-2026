@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { Card, Heading, Label, Input, Checkbox } from 'flowbite-svelte';
+	import { Card, Heading, Label, Input, Checkbox, Select } from 'flowbite-svelte';
 	import { FilterOutline, SearchOutline, CloseOutline } from 'flowbite-svelte-icons';
 
 	interface Props {
@@ -9,6 +9,7 @@
 		selectedTypes: string[];
 		selectedYears: string[];
 		selectedTags: string[];
+		selectedSort: string;
 		showCloseButton?: boolean;
 		closeLabel?: string;
 	}
@@ -21,6 +22,7 @@
 		selectedTypes = $bindable(), 
 		selectedYears = $bindable(), 
 		selectedTags = $bindable(),
+		selectedSort = $bindable(),
 		showCloseButton = false,
 		closeLabel = 'Close filters'
 	}: Props = $props();
@@ -52,11 +54,19 @@
 		selectedTags.length
 	);
 
+	const sortOptions = [
+		{ value: 'newest', name: 'Newest first' },
+		{ value: 'oldest', name: 'Oldest first' },
+		{ value: 'title', name: 'Title (A-Z)' },
+		{ value: 'author', name: 'Author (A-Z)' }
+	];
+
 	function resetFilters() {
 		searchQuery = '';
 		selectedTypes = [];
 		selectedYears = [];
 		selectedTags = [];
+		selectedSort = 'newest';
 	}
 
 	function handleClose() {
@@ -108,6 +118,12 @@
 					class="ps-10 py-3"
 				/>
 			</div>
+		</div>
+
+		<!-- Sort -->
+		<div>
+			<Label class="mb-2 font-semibold body-text">Sort by</Label>
+			<Select items={sortOptions} bind:value={selectedSort} class="body-text" />
 		</div>
 
 		<!-- Type Filter -->

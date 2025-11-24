@@ -20,13 +20,14 @@
 	let selectedTypes = $state<string[]>([]);
 	let selectedYears = $state<string[]>([]);
 	let selectedTags = $state<string[]>([]);
+	let selectedSort = $state('newest');
 	let showMobileFilters = $state(false);
 
 	// Derived values
 	let filteredReferences = $derived.by(() => {
 		if (!references.length) return [];
 
-		return references.filter(ref => {
+		const filtered = references.filter(ref => {
 			// Search filter
 			const searchContent = `${ref.title} ${ref.author?.map((a: any) => a.family).join(' ')}`.toLowerCase();
 			const matchesSearch = searchContent.includes(searchQuery.toLowerCase());
@@ -44,6 +45,28 @@
 
 			return matchesSearch && matchesType && matchesYear && matchesTags;
 		});
+
+		return filtered.sort((a, b) => {
+			if (selectedSort === 'newest') {
+				const yearA = a.issued?.['date-parts']?.[0]?.[0] || 0;
+				const yearB = b.issued?.['date-parts']?.[0]?.[0] || 0;
+				return yearB - yearA;
+			}
+			if (selectedSort === 'oldest') {
+				const yearA = a.issued?.['date-parts']?.[0]?.[0] || 0;
+				const yearB = b.issued?.['date-parts']?.[0]?.[0] || 0;
+				return yearA - yearB;
+			}
+			if (selectedSort === 'title') {
+				return (a.title || '').localeCompare(b.title || '');
+			}
+			if (selectedSort === 'author') {
+				const authorA = a.author?.[0]?.family || '';
+				const authorB = b.author?.[0]?.family || '';
+				return authorA.localeCompare(authorB);
+			}
+			return 0;
+		});
 	});
 
 	let activeFiltersCount = $derived(
@@ -58,6 +81,7 @@
 		selectedTypes = [];
 		selectedYears = [];
 		selectedTags = [];
+		selectedSort = 'newest';
 	}
 
 	function toggleMobileFilters() {
@@ -120,6 +144,7 @@
 						bind:selectedTypes
 						bind:selectedYears
 						bind:selectedTags
+						bind:selectedSort
 						showCloseButton
 						on:close={() => (showMobileFilters = false)}
 					/>
@@ -136,6 +161,7 @@
 					bind:selectedTypes
 					bind:selectedYears
 					bind:selectedTags
+					bind:selectedSort
 				/>
 			</aside>
 
