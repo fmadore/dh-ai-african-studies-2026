@@ -13,5 +13,6 @@ export interface Participant {
 	role: ParticipantRole;
 	bio: string;
 	researchRegions: string[];
+	thematicGroup?: string;
 	photoUrl?: string;
 }
