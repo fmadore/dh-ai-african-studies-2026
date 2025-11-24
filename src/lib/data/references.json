@@ -1,5 +1,56 @@
 [
   {
+    "id": "22500587/RVP3HXY9",
+    "type": "article-journal",
+    "title": "\"We know what we are doing\": the politics and trends in artificial intelligence policies in Africa",
+    "container-title": "Canadian Journal of African Studies / Revue canadienne des études africaines",
+    "page": "437-455",
+    "volume": "59",
+    "issue": "3",
+    "abstract": "In the last decade, several actors have encouraged African countries to establish standards, policies and strategies that maximise the benefits of artificial intelligence (AI) and reduce risks. African countries appear to be adopting this regulatory path, yet their motivations and political contexts for actively engaging in AI policies vary, as do the values, principles and ethical issues woven into these policies. With qualitative evidence from Rwanda and Ghana, the paper explores the complex interplay of politics, power and local ecosystems in policy development on the continent. It unpacks the strategies of mobilising knowledge through stakeholder engagements, agenda setting and valid public and political engagements that lead to the final AI policy. A comparative analysis of the policies in the two countries finds that while reproducing identical initiatives, there are differences in AI vision, practicality and data sovereignty based on political, economic and historical contexts.",
+    "DOI": "10.1080/00083968.2025.2456619",
+    "shortTitle": "“We know what we are doing”",
+    "language": "en",
+    "author": [
+      {
+        "family": "Kwarkye",
+        "given": "Thompson Gyedu"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          3,
+          11
+        ]
+      ]
+    },
+    "tags": [
+      "AI policy",
+      "Ghana",
+      "Non lu",
+      "Responsible AI Office",
+      "Rwanda",
+      "artificial intelligence",
+      "data sovereignty",
+      "digital transformation",
+      "policymaking",
+      "political science",
+      "qualitative research",
+      "stakeholder engagement",
+      "technological colonialism"
+    ],
+    "URL": "https://doi.org/10.1080/00083968.2025.2456619"
+  },
+  {
     "id": "22500587/BUBL8SBQ",
     "type": "article-journal",
     "title": "La Collection Islam Burkina Faso : promesses et défis des humanités numériques",
