@@ -22,6 +22,7 @@
 	let selectedTags = $state<string[]>([]);
 	let selectedSort = $state('newest');
 	let showMobileFilters = $state(false);
+	let expandedReferences = $state(new Set<string>());
 
 	// Derived values
 	let filteredReferences = $derived.by(() => {
@@ -86,6 +87,16 @@
 
 	function toggleMobileFilters() {
 		showMobileFilters = !showMobileFilters;
+	}
+
+	function toggleReference(id: string) {
+		const newSet = new Set(expandedReferences);
+		if (newSet.has(id)) {
+			newSet.delete(id);
+		} else {
+			newSet.add(id);
+		}
+		expandedReferences = newSet;
 	}
 
 	function formatCitation(ref: any) {
@@ -222,7 +233,13 @@
 							return ref.URL || ref.url || '';
 						})()}
 							<div in:slide|local={{ duration: 300 }} out:fade|local={{ duration: 200 }}>
-								<Card class="card-surface w-full max-w-none p-6 sm:p-8 hover:shadow-lg transition-all duration-300 group">
+								<Card 
+									class="card-surface w-full max-w-none p-6 sm:p-8 hover:shadow-lg transition-all duration-300 group cursor-pointer"
+									onclick={(e: MouseEvent) => {
+										if (e.target instanceof Element && (e.target.closest('a') || e.target.closest('button'))) return;
+										toggleReference(ref.id);
+									}}
+								>
 								<div class="stack-sm">
 									<!-- Header: Type & Year -->
 									<div class="flex justify-between items-start text-xs uppercase tracking-wider font-semibold body-text-muted">
@@ -263,7 +280,7 @@
 									
 									<!-- Abstract (Truncated if needed, but showing full for now) -->
 									{#if ref.abstract}
-										<P class="text-sm body-text-muted line-clamp-3 group-hover:line-clamp-none transition-all duration-500">
+										<P class={'text-sm body-text-muted transition-all duration-500 ' + (expandedReferences.has(ref.id) ? '' : 'line-clamp-3 group-hover:line-clamp-none')}>
 											{ref.abstract}
 										</P>
 									{/if}
