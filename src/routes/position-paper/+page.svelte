@@ -29,13 +29,13 @@
 	<div class="content-width surface-panel surface-padding text-center stack-md relative">
 		<div class="stack-sm">
 			<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">
-				The Position Paper: A Strategic Roadmap
+				Position Paper
 			</Heading>
 			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto">
-				The primary output of the "Charting New Territory" workshop will be a co-authored Position Paper. This document is intended to serve as a foundational blueprint for the emerging field of Digital Humanities (DH) and AI in African Studies.
+				The main outcome of the “Charting New Territory” workshop will be a jointly authored position paper. Designed to serve as both a manifesto and a practical blueprint, this document will help define the emerging field at the intersection of digital humanities (DH), artificial intelligence (AI) and African Studies.
 			</P>
 			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto">
-				Moving beyond a summary of discussions, this paper will translate our collective insights into a strategic roadmap, offering concrete guidance for the ethical and sustainable advancement of research, funding, and policy.
+				Moving beyond a summary of our discussions, this paper will translate our collective insights into a strategic roadmap. This will offer concrete guidance on how to advance research, funding and policy in an ethical and sustainable way.
 			</P>
 		</div>
 	</div>
@@ -48,7 +48,7 @@
 		<div class="stack-md">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Core Objectives</Heading>
 			<P class="body-text text-lg leading-relaxed">
-				The paper will articulate a transformative vision informed by decolonial thinking and African knowledge systems. It will map critical intersections of methodological innovation, equitable partnerships, and culturally responsive ethics. Key components will include:
+				The paper will present a transformative vision, informed by decolonial thinking and African knowledge systems. It will identify key intersections between methodological innovation, equitable partnerships and culturally responsive ethics. Key components will include:
 			</P>
 		</div>
 
@@ -105,7 +105,7 @@
 		<div class="stack-md">
 			<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">Targeted Recommendations</Heading>
 			<P class="body-text text-center text-lg max-w-3xl mx-auto">
-				To ensure lasting impact, the position paper will provide specific, actionable recommendations tailored to key stakeholders:
+				To ensure a lasting impact, the position paper will provide specific, actionable recommendations tailored to key stakeholders:
 			</P>
 		</div>
 
