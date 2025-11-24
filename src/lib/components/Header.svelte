@@ -11,7 +11,8 @@
 		{ href: resolveAppPath('/about'), label: 'About' },
 		{ href: resolveAppPath('/participants'), label: 'Participants' },
 		{ href: resolveAppPath('/schedule'), label: 'Schedule' },
-		{ href: resolveAppPath('/position-paper'), label: 'Position Paper' }
+		{ href: resolveAppPath('/position-paper'), label: 'Position Paper' },
+		{ href: resolveAppPath('/references'), label: 'References' }
 	] as const;
 </script>
 

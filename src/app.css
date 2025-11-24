@@ -800,6 +800,10 @@
      SPACING UTILITIES
      ============================================ */
   
+  .stack-xs > * + * {
+    margin-top: var(--space-xs);
+  }
+  
   .stack-sm > * + * {
     margin-top: var(--space-sm);
   }

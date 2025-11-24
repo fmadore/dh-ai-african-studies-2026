@@ -1,5 +1,31 @@
 [
   {
+    "id": "22500587/BUBL8SBQ",
+    "type": "article-journal",
+    "title": "La Collection Islam Burkina Faso : promesses et défis des humanités numériques",
+    "container-title": "Revue d'Histoire Contemporaine de l'Afrique",
+    "issue": "8",
+    "abstract": "Cet article propose une réflexion sur les possibilités inédites qu’offre le numérique pour développer de nouvelles méthodes de recherche et de diffusion de données sur l’histoire de l’islam en Afrique de l’Ouest, ainsi que quelques considérations méthodologiques, technologiques et éthiques soulevées par de telles initiatives. Au centre de ces considérations se trouve la Collection Islam Burkina Faso. Ce projet de base de données numérique en libre accès, que j’ai lancé en 2021 et qui est hébergée par les bibliothèques George A. Smathers de l’Université de Floride (UF), contient actuellement plus de 2 500 documents d’archives, articles de la presse généraliste, publications islamiques sous diverses formes et photographies, en plus de 200 références bibliographiques liées à l’islam et aux musulmans du Burkina Faso (https://islam.domains.uflib.ufl.edu/s/bf-fr). Le texte propose également un bref état des lieux des humanités numériques dans le champ des études africanistes et plus spécifiquement sur l’islam.",
+    "DOI": "10.51185/journals/rhca.2021.e610",
+    "shortTitle": "La Collection Islam Burkina Faso",
+    "language": "fr",
+    "author": [
+      {
+        "family": "Madore",
+        "given": "Frédérick"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.51185/journals/rhca.2021.e610"
+  },
+  {
     "id": "22500587/QGLHJKL6",
     "type": "article-journal",
     "title": "Decolonizing Archival Narratives: Exploring Digital Bias in the Catalogs of Portuguese-Colonized African Territories",
@@ -43,7 +69,6 @@
     "tags": [
       "Angola",
       "Kimbundu",
-      "Lu",
       "Portugal",
       "artificial intelligence",
       "colonial archive",
@@ -51,6 +76,7 @@
       "digital humanities",
       "natural language processing",
       "social network analysis"
-    ]
+    ],
+    "URL": "https://doi.org/10.1017/S0021853725100601"
   }
 ]
