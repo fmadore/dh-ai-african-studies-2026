@@ -1,5 +1,96 @@
 [
   {
+    "id": "22500587/H32L2NAF",
+    "type": "article-journal",
+    "title": "La Collection Islam Burkina Faso : promesses et défis des humanités numériques",
+    "container-title": "Revue d'Histoire Contemporaine de l'Afrique",
+    "issue": "8",
+    "abstract": "Cet article propose une réflexion sur les possibilités inédites qu’offre le numérique pour développer de nouvelles méthodes de recherche et de diffusion de données sur l’histoire de l’islam en Afrique de l’Ouest, ainsi que quelques considérations méthodologiques, technologiques et éthiques soulevées par de telles initiatives. Au centre de ces considérations se trouve la Collection Islam Burkina Faso. Ce projet de base de données numérique en libre accès, que j’ai lancé en 2021 et qui est hébergée par les bibliothèques George A. Smathers de l’Université de Floride (UF), contient actuellement plus de 2 500 documents d’archives, articles de la presse généraliste, publications islamiques sous diverses formes et photographies, en plus de 200 références bibliographiques liées à l’islam et aux musulmans du Burkina Faso (https://islam.domains.uflib.ufl.edu/s/bf-fr). Le texte propose également un bref état des lieux des humanités numériques dans le champ des études africanistes et plus spécifiquement sur l’islam.",
+    "DOI": "10.51185/journals/rhca.2021.e610",
+    "shortTitle": "La Collection Islam Burkina Faso",
+    "language": "fr",
+    "author": [
+      {
+        "family": "Madore",
+        "given": "Frédérick"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "tags": [
+      "Burkina Faso",
+      "Côte d'Ivoire",
+      "Omeka",
+      "West Africa",
+      "archive",
+      "digital humanities",
+      "islam",
+      "muslim community",
+      "religious authority",
+      "salafism"
+    ],
+    "URL": "https://doi.org/10.51185/journals/rhca.2021.e610"
+  },
+  {
+    "id": "22500587/S3NTEQ42",
+    "type": "article-journal",
+    "title": "Archives, the Digital Turn, and Governance in Africa",
+    "container-title": "History in Africa",
+    "page": "101-118",
+    "volume": "47",
+    "abstract": "With the rise of information technology, an increasing proportion of public African archives are being digitized and made accessible on the internet. The same is being done to a certain extent with private archives too. As much as the new technologies are raising enthusiasm, they have prompted discussion among researchers and archivists, on subjects ranging from matters of intellectual property to sovereignty and governance. Digital archiving disrupts archival norms and practices, opening up a field of reflection relatively little explored by historians. This article therefore seeks to reflect on the digital turn of African archives as a subject for study in its own right, located at the crossroads of political and economic interests.",
+    "DOI": "10.1017/hia.2019.26",
+    "language": "en",
+    "author": [
+      {
+        "family": "Chamelot",
+        "given": "Fabienne"
+      },
+      {
+        "family": "Hiribarren",
+        "given": "Vincent"
+      },
+      {
+        "family": "Rodet",
+        "given": "Marie"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "accessed": {
+      "date-parts": [
+        [
+          2019,
+          12,
+          11
+        ]
+      ]
+    },
+    "tags": [
+      "Africa",
+      "archival science",
+      "colonial archive",
+      "digital archive",
+      "digitization",
+      "governance",
+      "history",
+      "information technology",
+      "intellectual property",
+      "sovereignty"
+    ],
+    "URL": "https://doi.org/10.1017/hia.2019.26"
+  },
+  {
     "id": "22500587/RVP3HXY9",
     "type": "article-journal",
     "title": "\"We know what we are doing\": the politics and trends in artificial intelligence policies in Africa",
@@ -36,7 +127,6 @@
     "tags": [
       "AI policy",
       "Ghana",
-      "Non lu",
       "Responsible AI Office",
       "Rwanda",
       "artificial intelligence",
@@ -49,32 +139,6 @@
       "technological colonialism"
     ],
     "URL": "https://doi.org/10.1080/00083968.2025.2456619"
-  },
-  {
-    "id": "22500587/BUBL8SBQ",
-    "type": "article-journal",
-    "title": "La Collection Islam Burkina Faso : promesses et défis des humanités numériques",
-    "container-title": "Revue d'Histoire Contemporaine de l'Afrique",
-    "issue": "8",
-    "abstract": "Cet article propose une réflexion sur les possibilités inédites qu’offre le numérique pour développer de nouvelles méthodes de recherche et de diffusion de données sur l’histoire de l’islam en Afrique de l’Ouest, ainsi que quelques considérations méthodologiques, technologiques et éthiques soulevées par de telles initiatives. Au centre de ces considérations se trouve la Collection Islam Burkina Faso. Ce projet de base de données numérique en libre accès, que j’ai lancé en 2021 et qui est hébergée par les bibliothèques George A. Smathers de l’Université de Floride (UF), contient actuellement plus de 2 500 documents d’archives, articles de la presse généraliste, publications islamiques sous diverses formes et photographies, en plus de 200 références bibliographiques liées à l’islam et aux musulmans du Burkina Faso (https://islam.domains.uflib.ufl.edu/s/bf-fr). Le texte propose également un bref état des lieux des humanités numériques dans le champ des études africanistes et plus spécifiquement sur l’islam.",
-    "DOI": "10.51185/journals/rhca.2021.e610",
-    "shortTitle": "La Collection Islam Burkina Faso",
-    "language": "fr",
-    "author": [
-      {
-        "family": "Madore",
-        "given": "Frédérick"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2021
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.51185/journals/rhca.2021.e610"
   },
   {
     "id": "22500587/QGLHJKL6",
