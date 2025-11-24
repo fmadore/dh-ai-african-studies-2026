@@ -93,6 +93,14 @@
 		const year = ref.issued?.['date-parts']?.[0]?.[0] || 'n.d.';
 		return { authors, year };
 	}
+
+	function toggleTagFilter(tag: string) {
+		if (selectedTags.includes(tag)) {
+			selectedTags = selectedTags.filter(t => t !== tag);
+		} else {
+			selectedTags = [...selectedTags, tag];
+		}
+	}
 </script>
 
 <svelte:head>
@@ -265,9 +273,13 @@
 										<div class="flex flex-wrap gap-2">
 											{#if ref.tags && ref.tags.length > 0}
 												{#each ref.tags as tag}
-													<span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-secondary-50 text-secondary-700 dark:bg-secondary-900/30 dark:text-secondary-300 border border-secondary-100 dark:border-secondary-800">
+													<button
+														type="button"
+														onclick={() => toggleTagFilter(tag)}
+														class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium transition-colors border {selectedTags.includes(tag) ? 'bg-secondary-200 text-secondary-800 border-secondary-300 dark:bg-secondary-800 dark:text-secondary-100 dark:border-secondary-600' : 'bg-secondary-50 text-secondary-700 border-secondary-100 hover:bg-secondary-100 dark:bg-secondary-900/30 dark:text-secondary-300 dark:border-secondary-800 dark:hover:bg-secondary-900/50'}"
+													>
 														#{tag}
-													</span>
+													</button>
 												{/each}
 											{/if}
 										</div>
