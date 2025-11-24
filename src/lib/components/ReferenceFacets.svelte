@@ -128,7 +128,7 @@
 		{#if availableTags.length > 0}
 			<div class="stack-sm pt-2 border-t border-gray-100 dark:border-gray-700">
 				<Label class="font-bold text-gray-700 dark:text-gray-300">Keywords</Label>
-				<div class="max-h-60 overflow-y-auto stack-xs pr-2 custom-scrollbar">
+				<div class="max-h-60 overflow-y-auto stack-xs pr-2 custom-scrollbar keyword-stack">
 					{#each availableTags as tag (tag)}
 						<Checkbox bind:group={selectedTags} value={tag} divClass="facet-option" class="text-gray-600 dark:text-gray-400">
 							<span class="text-sm">{tag}</span>
@@ -192,5 +192,9 @@
 
 	:global(label.facet-option input[type='checkbox']) {
 		margin-right: 0.25rem;
+	}
+
+	:global(.keyword-stack > * + *) {
+		margin-top: 0.2rem;
 	}
 </style>
