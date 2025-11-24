@@ -53,7 +53,7 @@
 	}
 </script>
 
-<Card class="card-surface w-full border-none shadow-lg p-6 sm:p-7">
+<Card class="card-surface w-full p-6 sm:p-7">
 	<div class="stack-md">
 		<div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4">
 			<div class="flex items-center gap-2">
@@ -72,7 +72,7 @@
 		
 		<!-- Search -->
 		<div>
-			<Label for="search" class="mb-2 font-semibold text-gray-700 dark:text-gray-300">Search</Label>
+			<Label for="search" class="mb-2 font-semibold body-text">Search</Label>
 			<div class="relative">
 				<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
 					<SearchOutline class="w-4 h-4 text-gray-500 dark:text-gray-400" />
@@ -82,7 +82,7 @@
 					type="text" 
 					placeholder="Title, author, keyword..." 
 					bind:value={searchQuery}
-					class="ps-10 bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:ring-primary-500 focus:border-primary-500"
+					class="ps-10"
 				/>
 			</div>
 		</div>
@@ -90,10 +90,10 @@
 		<!-- Type Filter -->
 		{#if availableTypes.length > 0}
 			<div class="stack-sm pt-2">
-				<Label class="font-bold text-gray-700 dark:text-gray-300">Type</Label>
+				<Label class="font-bold body-text">Type</Label>
 				<div class="stack-xs">
 					{#each availableTypes as type (type)}
-						<Checkbox bind:group={selectedTypes} value={type} class="text-gray-600 dark:text-gray-400">
+						<Checkbox bind:group={selectedTypes} value={type} class="body-text-muted">
 							<span class="capitalize">{type.replace('-', ' ')}</span>
 						</Checkbox>
 					{/each}

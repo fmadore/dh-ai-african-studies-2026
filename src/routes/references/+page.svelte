@@ -100,8 +100,8 @@
 
 			<!-- Main Content -->
 			<div class="lg:col-span-9 stack-md">
-				<div class="flex justify-between items-center bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
-					<P class="text-sm font-medium text-gray-600 dark:text-gray-300">
+				<div class="flex justify-between items-center card-surface p-4 rounded-lg shadow-sm">
+					<P class="text-sm font-medium body-text">
 						Showing <span class="text-primary-600 dark:text-primary-400 font-bold">{filteredReferences.length}</span> references
 					</P>
 					
@@ -147,17 +147,17 @@
 							return ref.URL || ref.url || '';
 						})()}
 							<div in:slide|local={{ duration: 300 }} out:fade|local={{ duration: 200 }}>
-								<Card class="card-surface w-full max-w-none p-6 sm:p-8 hover:shadow-lg transition-all duration-300 border-l-4 border-l-transparent hover:border-l-primary-500 group">
+								<Card class="card-surface w-full max-w-none p-6 sm:p-8 hover:shadow-lg transition-all duration-300 group">
 								<div class="stack-sm">
 									<!-- Header: Type & Year -->
-									<div class="flex justify-between items-start text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+									<div class="flex justify-between items-start text-xs uppercase tracking-wider font-semibold body-text-muted">
 										<div class="flex items-center gap-2">
 											<span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-700 dark:text-gray-300">
 												{ref.type.replace('-', ' ')}
 											</span>
 											{#if ref['container-title']}
 												<span class="hidden sm:inline text-gray-400">•</span>
-												<span class="hidden sm:inline italic text-gray-600 dark:text-gray-400">
+												<span class="hidden sm:inline italic body-text-muted">
 													{ref['container-title']}
 												</span>
 											{/if}
@@ -171,13 +171,13 @@
 									</Heading>
 									
 									<!-- Authors -->
-									<P class="text-gray-700 dark:text-gray-300 font-medium border-l-2 border-gray-200 dark:border-gray-600 pl-3">
+									<P class="body-text font-medium border-l-2 border-gray-200 dark:border-gray-600 pl-3">
 										{info.authors}
 									</P>
 									
 									<!-- Abstract (Truncated if needed, but showing full for now) -->
 									{#if ref.abstract}
-										<P class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 group-hover:line-clamp-none transition-all duration-500">
+										<P class="text-sm body-text-muted line-clamp-3 group-hover:line-clamp-none transition-all duration-500">
 											{ref.abstract}
 										</P>
 									{/if}
@@ -213,11 +213,11 @@
 					{/each}
 					
 					{#if filteredReferences.length === 0}
-						<div class="text-center py-16 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
+						<div class="text-center py-16 card-surface rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
 							<div class="stack-sm flex flex-col items-center">
 								<SearchOutline class="w-12 h-12 text-gray-300 dark:text-gray-600" />
-								<Heading tag="h4" class="text-lg font-medium text-gray-600 dark:text-gray-400">No references found</Heading>
-								<P class="text-sm text-gray-500 max-w-xs mx-auto">
+								<Heading tag="h4" class="text-lg font-medium body-text-strong">No references found</Heading>
+								<P class="text-sm body-text-muted max-w-xs mx-auto">
 									Try adjusting your search terms or filters to find what you're looking for.
 								</P>
 								<Button color="primary" outline size="sm" onclick={resetFilters} class="mt-2">
