@@ -207,8 +207,19 @@
 									</div>
 
 									<!-- Title -->
-									<Heading tag="h4" class="text-xl font-bold leading-tight group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-										{ref.title}
+									<Heading tag="h4" class="text-xl font-bold leading-tight">
+										{#if accessLink}
+											<a
+												href={accessLink}
+												target="_blank"
+												rel="noopener noreferrer"
+												class="inline-flex items-center gap-1 text-left group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors underline-offset-4 hover:underline"
+											>
+												{ref.title}
+											</a>
+										{:else}
+											<span>{ref.title}</span>
+										{/if}
 									</Heading>
 									
 									<!-- Authors -->
