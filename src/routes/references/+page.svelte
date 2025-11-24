@@ -29,7 +29,7 @@
 
 		const filtered = references.filter(ref => {
 			// Search filter
-			const searchContent = `${ref.title} ${ref.author?.map((a: any) => a.family).join(' ')}`.toLowerCase();
+			const searchContent = `${ref.title} ${ref.author?.map((a: any) => `${a.given} ${a.family}`).join(' ')}`.toLowerCase();
 			const matchesSearch = searchContent.includes(searchQuery.toLowerCase());
 
 			// Type filter
