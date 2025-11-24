@@ -26,14 +26,20 @@ def fetch_references():
         # 2. Fetch Zotero JSON (for tags)
         zotero_data = fetch_url(JSON_URL)
         
-        # Map keys to tags
-        tags_map = {}
+        # Map keys to metadata we need beyond CSL (tags, DOI, URL)
+        metadata_map = {}
         for item in zotero_data:
             key = item.get('key')
             data = item.get('data', {})
             tags = [t.get('tag') for t in data.get('tags', [])]
+            doi = data.get('DOI')
+            url = data.get('url')
             if key:
-                tags_map[key] = tags
+                metadata_map[key] = {
+                    'tags': tags,
+                    'doi': doi,
+                    'url': url
+                }
 
         # 3. Merge
         cleaned_data = []
@@ -43,8 +49,23 @@ def fetch_references():
             csl_id = item.get('id', '')
             key = csl_id.split('/')[-1] if '/' in csl_id else csl_id
             
+            meta = metadata_map.get(key, {})
+
             # Inject tags
-            item['tags'] = tags_map.get(key, [])
+            item['tags'] = meta.get('tags', [])
+
+            # Inject DOI/URL fallbacks
+            doi = meta.get('doi') or item.get('DOI')
+            url = meta.get('url') or item.get('URL')
+
+            if doi:
+                item['DOI'] = doi
+            if url:
+                item['URL'] = url
+            else:
+                # If a DOI exists but URL is missing, build a DOI URL for easier linking later
+                if doi:
+                    item['URL'] = f"https://doi.org/{doi}"
             
             # Ensure type
             if 'type' not in item:
