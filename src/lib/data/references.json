@@ -1,0 +1,56 @@
+[
+  {
+    "id": "22500587/QGLHJKL6",
+    "type": "article-journal",
+    "title": "Decolonizing Archival Narratives: Exploring Digital Bias in the Catalogs of Portuguese-Colonized African Territories",
+    "container-title": "The Journal of African History",
+    "page": "e19",
+    "volume": "66",
+    "abstract": "This study discusses the intersection between Black/African Digital Humanities, and computational methods, including natural language processing (NLP) and generative artificial intelligence (AI). We have structured the narrative around four critical themes: biases in colonial archives; postcolonial digitization; linguistic and representational inequalities in Lusophone digital content; and technical limitations of AI models when applied to the archival records from Portuguese-colonized African territories (1640–1822). Through three case studies relating to the Africana Collection at the Arquivo Histórico Ultramarino, the Dembos Collection, and Sebestyén’s Caculo Cangola Collection, we demonstrate the infrastructural biases inherent in contemporary computational tools. This begins with the systematic underrepresentation of African archives in global digitization efforts and ends with biased AI models that have not been trained on African historical corpora.",
+    "DOI": "10.1017/S0021853725100601",
+    "shortTitle": "Decolonizing Archival Narratives",
+    "language": "en",
+    "author": [
+      {
+        "family": "Błoch",
+        "given": "Agata"
+      },
+      {
+        "family": "Oms",
+        "given": "Guillem Martos"
+      },
+      {
+        "family": "Santana",
+        "given": "Clodomir"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          14
+        ]
+      ]
+    },
+    "tags": [
+      "Angola",
+      "Kimbundu",
+      "Lu",
+      "Portugal",
+      "artificial intelligence",
+      "colonial archive",
+      "decolonization",
+      "digital humanities",
+      "natural language processing",
+      "social network analysis"
+    ]
+  }
+]
