@@ -27,171 +27,112 @@
 	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 	<div class="content-width surface-panel surface-padding text-center stack-md relative">
-		<div class="flex justify-center">
-			<FileDocOutline size="xl" class="text-primary-600 dark:text-primary-400 w-16 h-16" />
-		</div>
 		<div class="stack-sm">
 			<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">
-				Position Paper
+				The Position Paper: A Strategic Roadmap
 			</Heading>
 			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto">
-				A foundational blueprint for Digital Humanities and AI in African Studies, aligning ethical and equitable practices with a transformative agenda shaped by the workshop community.
+				The primary output of the "Charting New Territory" workshop will be a co-authored Position Paper. This document is intended to serve as a foundational blueprint for the emerging field of Digital Humanities (DH) and AI in African Studies.
+			</P>
+			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto">
+				Moving beyond a summary of discussions, this paper will translate our collective insights into a strategic roadmap, offering concrete guidance for the ethical and sustainable advancement of research, funding, and policy.
 			</P>
 		</div>
 	</div>
 </section>
 
-<!-- Overview -->
+<!-- Core Objectives -->
 <section class="bg-page py-16 px-4 relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-secondary top-1/4 -right-20"></div>
 	<div class="content-width surface-panel surface-padding stack-lg relative">
 		<div class="stack-md">
-			<Heading tag="h2" class="heading-section heading-lg heading-color-light">A Strategic Blueprint</Heading>
+			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Core Objectives</Heading>
 			<P class="body-text text-lg leading-relaxed">
-				The position paper will serve as a foundational blueprint for the emerging field of DH and AI in African studies, providing a strategic roadmap based on ethical and equitable practices. Synthesising the concrete outcomes of our workshop, this document will translate collective insights into an actionable vision through daily synthesis sessions and the efforts of a diverse drafting committee.
+				The paper will articulate a transformative vision informed by decolonial thinking and African knowledge systems. It will map critical intersections of methodological innovation, equitable partnerships, and culturally responsive ethics. Key components will include:
 			</P>
 		</div>
 
-		<Hr />
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm h-full">
+				<div class="flex flex-col items-start gap-4">
+					<div class="p-3 rounded-lg bg-primary-50 dark:bg-primary-900/30">
+						<LightbulbOutline size="xl" class="text-primary-600 dark:text-primary-400" />
+					</div>
+					<div class="stack-sm">
+						<Heading tag="h3" class="text-xl font-bold text-gray-900 dark:text-white">Methodological Pathways</Heading>
+						<P class="body-text text-base">
+							Prioritized strategies for integrating AI with African linguistic diversity and historical archives.
+						</P>
+					</div>
+				</div>
+			</Card>
 
-		<div class="stack-md">
-			<Heading tag="h3" class="heading-section heading-color-light">Collaborative Development Process</Heading>
-			<P class="body-text text-base leading-relaxed">
-				In the three months following the workshop, the drafting committee will transform the discussions into a polished document that captures prioritised methodologies, frameworks for equitable collaboration and ethical principles. This process will include:
-			</P>
-			<ul class="body-text list-disc list-inside stack-sm ml-4">
-				<li>Collaborative drafting by a diverse committee</li>
-				<li>Expert review by all workshop participants</li>
-				<li>Professional editing to ensure accessibility</li>
-				<li>Targeted communication for science policy and research funding decision-makers</li>
-			</ul>
-		</div>
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm h-full">
+				<div class="flex flex-col items-start gap-4">
+					<div class="p-3 rounded-lg bg-primary-50 dark:bg-primary-900/30">
+						<UsersGroupOutline size="xl" class="text-primary-600 dark:text-primary-400" />
+					</div>
+					<div class="stack-sm">
+						<Heading tag="h3" class="text-xl font-bold text-gray-900 dark:text-white">Equitable Frameworks</Heading>
+						<P class="body-text text-base">
+							Defined mechanisms for North-South and South-South collaboration that ensure resource sharing and data sovereignty.
+						</P>
+					</div>
+				</div>
+			</Card>
 
-		<div class="stack-md">
-			<Heading tag="h3" class="heading-section heading-color-light">Transformative Vision</Heading>
-			<P class="body-text text-base leading-relaxed">
-				The paper will articulate a transformative vision informed by decolonial thinking and African knowledge systems, mapping critical intersections of methodological innovation, equitable partnerships and culturally responsive ethics. It will outline strategies for effective dissemination and vulgarisation of DH across Africa, addressing barriers to access and proposing frameworks for knowledge translation that respect local contexts.
-			</P>
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm h-full">
+				<div class="flex flex-col items-start gap-4">
+					<div class="p-3 rounded-lg bg-primary-50 dark:bg-primary-900/30">
+						<BookOpenOutline size="xl" class="text-primary-600 dark:text-primary-400" />
+					</div>
+					<div class="stack-sm">
+						<Heading tag="h3" class="text-xl font-bold text-gray-900 dark:text-white">Ethical Principles</Heading>
+						<P class="body-text text-base">
+							A core set of guidelines addressing algorithmic bias, community consent, and digital preservation.
+						</P>
+					</div>
+				</div>
+			</Card>
 		</div>
 	</div>
 </section>
 
-<!-- Core Themes -->
+<!-- Targeted Recommendations -->
 <section class="bg-page py-16 px-4 relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-primary bottom-1/4 -left-20"></div>
 	<div class="content-width surface-panel surface-padding stack-lg relative">
-		<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">Core Themes</Heading>
-		
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm">
-				<div class="flex items-start gap-3">
-					<LightbulbOutline size="lg" class="text-primary-600 dark:text-primary-400 shrink-0 mt-1" />
-					<div class="stack-sm">
-						<Heading tag="h3" class="heading-sub">Decolonial Thinking</Heading>
-						<P class="body-text text-base">
-							Articulating a vision informed by decolonial thinking and African knowledge systems, mapping critical intersections of methodological innovation and culturally responsive ethics.
-						</P>
-					</div>
-				</div>
-			</Card>
-
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm">
-				<div class="flex items-start gap-3">
-					<BookOpenOutline size="lg" class="text-primary-600 dark:text-primary-400 shrink-0 mt-1" />
-					<div class="stack-sm">
-						<Heading tag="h3" class="heading-sub">Knowledge Dissemination</Heading>
-						<P class="body-text text-base">
-							Outlining strategies for effective dissemination and vulgarisation of DH across Africa, addressing barriers to access and proposing frameworks for knowledge translation that respect local contexts.
-						</P>
-					</div>
-				</div>
-			</Card>
-
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm">
-				<div class="flex items-start gap-3">
-					<UsersGroupOutline size="lg" class="text-primary-600 dark:text-primary-400 shrink-0 mt-1" />
-					<div class="stack-sm">
-						<Heading tag="h3" class="heading-sub">Equitable Partnerships</Heading>
-						<P class="body-text text-base">
-							Capturing prioritised methodologies and frameworks for equitable collaboration that center African voices and priorities in DH/AI development.
-						</P>
-					</div>
-				</div>
-			</Card>
-
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm">
-				<div class="flex items-start gap-3">
-					<FileDocOutline size="lg" class="text-primary-600 dark:text-primary-400 shrink-0 mt-1" />
-					<div class="stack-sm">
-						<Heading tag="h3" class="heading-sub">Ethical Principles</Heading>
-						<P class="body-text text-base">
-							Establishing ethical principles for data collection, ownership, algorithmic justice, and sustainable advancement of DH/AI in African contexts.
-						</P>
-					</div>
-				</div>
-			</Card>
-		</div>
-	</div>
-</section>
-
-<!-- Target Audiences & Recommendations -->
-<section class="bg-page py-16 px-4 relative overflow-hidden">
-	<div class="decorative-blob decorative-blob-secondary top-0 right-0 opacity-50"></div>
-	<div class="content-width surface-panel surface-padding stack-lg relative">
 		<div class="stack-md">
-			<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">Actionable Recommendations for Stakeholders</Heading>
+			<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">Targeted Recommendations</Heading>
 			<P class="body-text text-center text-lg max-w-3xl mx-auto">
-				The document will provide actionable recommendations addressing critical needs for key stakeholders across the DH and AI ecosystem in African studies.
+				To ensure lasting impact, the position paper will provide specific, actionable recommendations tailored to key stakeholders:
 			</P>
 		</div>
 
 		<Timeline>
 			<TimelineItem title="Research Funders" date="">
 				<P class="body-text text-base">
-					Sustainable funding models that support long-term DH/AI infrastructure development, capacity building, and equitable partnerships between African and international institutions.
+					Proposals for sustainable funding models that support long-term maintenance and equitable collaboration.
 				</P>
 			</TimelineItem>
 
 			<TimelineItem title="Academic Institutions" date="">
 				<P class="body-text text-base">
-					Decolonised curricula and innovative approaches to digital literacy that bridge academic and community divides, with institutional frameworks for ethical DH/AI research.
+					Strategies for decolonizing curricula and integrating ethical DH training.
 				</P>
 			</TimelineItem>
 
 			<TimelineItem title="Technology Developers" date="">
 				<P class="body-text text-base">
-					Ethical implementation of AI technologies, culturally responsive design principles, and collaborative development practices that center African perspectives and needs.
+					Guidelines for designing tools that are linguistically inclusive and culturally responsive.
 				</P>
 			</TimelineItem>
 
-			<TimelineItem title="Cultural Heritage Organisations" date="">
+			<TimelineItem title="Policymakers" date="">
 				<P class="body-text text-base">
-					Best practices for digital preservation, data sovereignty, community engagement in digitisation projects, and ethical stewardship of cultural materials.
-				</P>
-			</TimelineItem>
-
-			<TimelineItem title="Policy Makers" date="">
-				<P class="body-text text-base">
-					Policy frameworks supporting digital infrastructure development, data protection, intellectual property rights, and equitable access to DH/AI resources across Africa.
+					Frameworks for data governance and digital sovereignty.
 				</P>
 			</TimelineItem>
 		</Timeline>
-	</div>
-</section>
-
-<!-- Impact & Purpose -->
-
-<section class="bg-page py-16 px-4 relative overflow-hidden">
-	<div class="decorative-blob decorative-blob-primary top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20 w-160 h-160"></div>
-	<div class="content-width surface-panel surface-padding text-center stack-md relative">
-		<Heading tag="h2" class="heading-section heading-lg heading-color-light">A Catalyst for Change</Heading>
-		<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto">
-			As both a workshop record and a catalyst for change, this position paper aims to shape new research directions while promoting a more accessible, equitable and ethical DH & AI landscape in African studies. It will serve as a foundational reference guiding research, policy and funding decisions to consolidate this emerging field.
-		</P>
-		<div class="pt-4">
-			<P class="body-text-muted text-sm italic">
-				The position paper will be published in the months following the workshop and made freely available to the global research community.
-			</P>
-		</div>
 	</div>
 </section>
