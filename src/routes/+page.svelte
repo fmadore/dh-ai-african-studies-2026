@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, Card, Heading, P, Timeline, TimelineItem } from 'flowbite-svelte';
-	import { CalendarMonthOutline, MapPinAltOutline, UsersGroupOutline } from 'flowbite-svelte-icons';
+	import { CalendarMonthOutline, MapPinAltOutline } from 'flowbite-svelte-icons';
 	import { createSeoMeta } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
@@ -28,12 +28,8 @@
 		{
 			title: 'Location',
 			description: workshopInfo.location.full,
-			icon: MapPinAltOutline
-		},
-		{
-			title: 'Format',
-			description: workshopInfo.format.type,
-			icon: UsersGroupOutline
+			icon: MapPinAltOutline,
+			href: workshopInfo.location.url
 		}
 	];
 
@@ -122,7 +118,20 @@
 					</div>
 					<div class="stack-sm">
 						<Heading tag="h3" class="heading-sub heading-sm">{highlight.title}</Heading>
-						<P class="body-text text-base sm:text-lg leading-relaxed">{highlight.description}</P>
+						<P class="body-text text-base sm:text-lg leading-relaxed">
+							{#if highlight.href}
+								<a
+									href={highlight.href}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="hover:underline hover:text-primary-600 dark:hover:text-primary-400"
+								>
+									{highlight.description}
+								</a>
+							{:else}
+								{highlight.description}
+							{/if}
+						</P>
 					</div>
 				</article>
 			{/each}

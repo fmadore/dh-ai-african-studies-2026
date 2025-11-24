@@ -17,11 +17,8 @@ export const workshopInfo = {
 		venue: 'Xplanatorium Herrenhausen',
 		city: 'Hanover',
 		country: 'Germany',
-		full: 'Xplanatorium Herrenhausen, Hanover, Germany'
-	},
-	format: {
-		type: 'In-person',
-		description: 'In-person workshop'
+		full: 'Xplanatorium Herrenhausen, Hanover, Germany',
+		url: 'https://www.volkswagenstiftung.de/en/herrenhausen-palace'
 	},
 	duration: {
 		days: 3,

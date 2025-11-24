@@ -77,20 +77,24 @@
 		<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">
 			Important Dates
 		</Heading>
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 			<Card class="card-surface surface-padding-sm text-center stack-sm">
 				<P class="text-sm font-semibold text-primary-600 dark:text-primary-400">Workshop Dates</P>
 				<P class="body-text-strong text-2xl font-bold">{workshopInfo.dates.full}</P>
 				<P class="body-text text-sm">{workshopInfo.duration.description}</P>
 			</Card>
 			<Card class="card-surface surface-padding-sm text-center stack-sm">
-				<P class="text-sm font-semibold text-primary-600 dark:text-primary-400">Format</P>
-				<P class="body-text-strong text-2xl font-bold">{workshopInfo.format.type}</P>
-				<P class="body-text text-sm">{workshopInfo.format.description}</P>
-			</Card>
-			<Card class="card-surface surface-padding-sm text-center stack-sm">
 				<P class="text-sm font-semibold text-primary-600 dark:text-primary-400">Location</P>
-				<P class="body-text-strong text-2xl font-bold">{workshopInfo.location.venue}</P>
+				<P class="body-text-strong text-2xl font-bold">
+					<a
+						href={workshopInfo.location.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="hover:underline hover:text-primary-600 dark:hover:text-primary-400"
+					>
+						{workshopInfo.location.venue}
+					</a>
+				</P>
 				<P class="body-text text-sm">{workshopInfo.location.city}, {workshopInfo.location.country}</P>
 			</Card>
 		</div>
