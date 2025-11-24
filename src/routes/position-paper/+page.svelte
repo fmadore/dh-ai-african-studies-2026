@@ -5,7 +5,7 @@
 
 	const seo = createSeoMeta({
 		path: '/position-paper',
-		title: 'Position Paper for DH & AI in African Studies',
+		title: 'Position Paper',
 		description:
 			'The position paper synthesises workshop insights into a strategic roadmap for Digital Humanities and AI in African studies, foregrounding equitable collaboration, decolonial ethics, and actionable recommendations for stakeholders.',
 		type: 'article'
@@ -44,7 +44,7 @@
 <!-- Core Objectives -->
 <section class="bg-page py-16 px-4 relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-secondary top-1/4 -right-20"></div>
-	<div class="content-width surface-panel surface-padding stack-lg relative">
+	<div class="content-width-wide surface-panel surface-padding stack-lg relative">
 		<div class="stack-md">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Core Objectives</Heading>
 			<P class="body-text text-lg leading-relaxed">

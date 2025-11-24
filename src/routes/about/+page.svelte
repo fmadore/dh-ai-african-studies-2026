@@ -47,7 +47,7 @@
 	{/each}
 </svelte:head>
 
-<section class="bg-page py-16 relative overflow-hidden">
+<section class="bg-page py-16 px-4 relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 
