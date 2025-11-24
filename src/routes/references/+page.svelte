@@ -175,7 +175,7 @@
 
 			<!-- Main Content -->
 			<div class="lg:col-span-9 stack-md">
-				<div class="flex justify-between items-center card-surface p-4 rounded-lg shadow-sm">
+				<div class="flex justify-between items-center card-surface p-4 rounded-lg shadow-sm dark:bg-primary-900/20 dark:border-primary-800/30">
 					<P class="text-sm font-medium body-text">
 						Showing <span class="text-primary-600 dark:text-primary-400 font-bold">{filteredReferences.length}</span> references
 					</P>
