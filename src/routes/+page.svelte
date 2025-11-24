@@ -37,17 +37,17 @@
 		{
 			title: 'Assessment to Action',
 			description:
-				'Moving beyond describing current conditions to actively charting future pathways and collaborative strategies for ethical, equitable development of DH and AI in African studies.'
+				'We prioritize production over presentation. Participants will move from assessing current barriers—infrastructure, language, and bias—to co-designing actionable strategies that ensure African epistemologies remain at the center of technological advancement.'
 		},
 		{
 			title: 'Structured Work Streams',
 			description:
-				'Three thematic workstreams focusing on methodological integration, equitable collaboration, and ethical implementation through facilitated discussions and collaborative exercises.'
+				'Through facilitated dialogue rather than traditional panels, three integrated work streams will tackle critical intersections: Methodological Integration, Equitable North-South/South-South Collaboration, and Ethical Frameworks.'
 		},
 		{
 			title: 'Position Paper',
 			description:
-				'Co-authored output outlining key findings and strategic recommendations to guide future research, policy, and funding, serving as a foundational reference for the field.'
+				"The workshop will culminate in a co-authored strategic roadmap. This document will define the field's direction, offering concrete recommendations to guide future research, funding policies, and institutional decision-making."
 		}
 	];
 
@@ -84,7 +84,7 @@
 			</p>
 		</div>
 		<p class="body-text text-lg lg:text-xl leading-relaxed sm:px-16 xl:px-48 drop-shadow-sm animate-fade-in animate-delay-200">
-			This scoping workshop addresses the critical convergence of digital humanities and artificial intelligence within African studies. Through intensive exchange—prioritising discussion over presentations—participants will explore methodological integration, equitable collaboration and ethical frameworks in structured work streams.
+			A working meeting to shape the future of African Studies at the intersection of Digital Humanities and AI. Prioritizing collaborative dialogue over presentations, we convene to co-design the methodological, equitable, and ethical frameworks for this emerging field.
 		</p>
 		<div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4 animate-slide-up animate-delay-300">
 			<Button href={aboutHref} size="xl" color="primary" class="shadow-lg hover:shadow-primary">
@@ -146,7 +146,7 @@
 		<div class="stack-md text-center animate-fade-in">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Purpose</Heading>
 			<P class="body-text text-lg leading-relaxed max-w-4xl mx-auto">
-				The convergence of digital humanities and AI is transforming knowledge production in African studies, offering unprecedented opportunities for innovative analysis and cross-cultural research. However, this transformative potential is intertwined with pressing challenges regarding equitable access, linguistic representation, and methodological approaches. Our goal is to convene experts to assess this emerging interdisciplinary field and develop strategic pathways for its future.
+				The convergence of digital humanities (DH) and artificial intelligence (AI) offers transformative potential for African studies but risks perpetuating existing inequities in access and representation. This workshop convenes international experts to navigate this terrain, moving beyond observation to design strategic pathways for the field’s ethical and sustainable future.
 			</P>
 		</div>
 		
