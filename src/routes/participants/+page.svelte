@@ -4,16 +4,28 @@
 	import { participants } from '$lib/data/participants';
 	import { createSeoMeta } from '$lib/utils/seo';
 	import ParticipantsMap from '$lib/components/ParticipantsMap.svelte';
+	import SearchFilter from '$lib/components/SearchFilter.svelte';
 	import { resolveAssetPath } from '$lib/utils/paths';
 
-	const displayedParticipants = participants
+	let searchQuery = $state('');
+
+	let displayedParticipants = $derived(participants
 		.filter((participant) => participant.role !== 'Student assistant')
+		.filter((participant) => {
+			const query = searchQuery.toLowerCase();
+			return (
+				participant.name.toLowerCase().includes(query) ||
+				participant.affiliation.toLowerCase().includes(query) ||
+				participant.country.toLowerCase().includes(query) ||
+				participant.researchRegions.some((region) => region.toLowerCase().includes(query))
+			);
+		})
 		.map((participant) => ({
 			...participant,
 			photoUrl: resolveAssetPath(participant.photoUrl)
-		}));
+		})));
 
-	const uniqueCountries = new Set(displayedParticipants.map((participant) => participant.country)).size;
+	let uniqueCountries = $derived(new Set(displayedParticipants.map((participant) => participant.country)).size);
 
 	function handleImageError(event: Event) {
 		const img = event.target as HTMLImageElement;
@@ -51,6 +63,10 @@
 		<P class="body-text text-lg mx-auto max-w-3xl">
 			Meet the {displayedParticipants.length} international experts from {uniqueCountries} countries participating in this scoping workshop on Digital Humanities and AI in African Studies.
 		</P>
+
+		<div class="mt-8 w-full max-w-md mx-auto">
+			<SearchFilter bind:value={searchQuery} placeholder="Search by name, affiliation, or region..." />
+		</div>
 	</div>
 </section>
 
