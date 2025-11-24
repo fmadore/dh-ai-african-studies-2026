@@ -105,7 +105,7 @@
 					type="text" 
 					placeholder="Title, author, keyword..." 
 					bind:value={searchQuery}
-					class="ps-10"
+					class="ps-10 py-3"
 				/>
 			</div>
 		</div>
@@ -116,7 +116,7 @@
 				<Label class="font-bold body-text">Type</Label>
 				<div class="stack-xs">
 					{#each availableTypes as type (type)}
-						<Checkbox bind:group={selectedTypes} value={type} class="body-text-muted">
+						<Checkbox bind:group={selectedTypes} value={type} divClass="facet-option" class="body-text-muted">
 							<span class="capitalize">{type.replace('-', ' ')}</span>
 						</Checkbox>
 					{/each}
@@ -130,7 +130,7 @@
 				<Label class="font-bold text-gray-700 dark:text-gray-300">Keywords</Label>
 				<div class="max-h-60 overflow-y-auto stack-xs pr-2 custom-scrollbar">
 					{#each availableTags as tag (tag)}
-						<Checkbox bind:group={selectedTags} value={tag} class="text-gray-600 dark:text-gray-400">
+						<Checkbox bind:group={selectedTags} value={tag} divClass="facet-option" class="text-gray-600 dark:text-gray-400">
 							<span class="text-sm">{tag}</span>
 						</Checkbox>
 					{/each}
@@ -144,7 +144,7 @@
 				<Label class="font-bold text-gray-700 dark:text-gray-300">Year</Label>
 				<div class="max-h-48 overflow-y-auto stack-xs pr-2 custom-scrollbar">
 					{#each availableYears as year (year)}
-						<Checkbox bind:group={selectedYears} value={year} class="text-gray-600 dark:text-gray-400">
+						<Checkbox bind:group={selectedYears} value={year} divClass="facet-option" class="text-gray-600 dark:text-gray-400">
 							{year}
 						</Checkbox>
 					{/each}
@@ -154,21 +154,43 @@
 	</div>
 </Card>
 
-		<style>
-			.custom-scrollbar::-webkit-scrollbar {
-				width: 6px;
-			}
+<style>
+	.custom-scrollbar::-webkit-scrollbar {
+		width: 6px;
+	}
 
-			.custom-scrollbar::-webkit-scrollbar-track {
-				background: transparent;
-			}
+	.custom-scrollbar::-webkit-scrollbar-track {
+		background: transparent;
+	}
 
-			.custom-scrollbar::-webkit-scrollbar-thumb {
-				background-color: rgba(156, 163, 175, 0.5);
-				border-radius: 20px;
-			}
+	.custom-scrollbar::-webkit-scrollbar-thumb {
+		background-color: rgba(156, 163, 175, 0.5);
+		border-radius: 20px;
+	}
 
-			.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-				background-color: rgba(107, 114, 128, 0.8);
-			}
-		</style>
+	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+		background-color: rgba(107, 114, 128, 0.8);
+	}
+
+	:global(label.facet-option) {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		width: 100%;
+		padding: 0.45rem 0.85rem;
+		border-radius: var(--radius-lg);
+		transition: background-color var(--transition-base), color var(--transition-base);
+	}
+
+	:global(label.facet-option:hover) {
+		background-color: rgba(15, 23, 42, 0.05);
+	}
+
+	:global(.dark label.facet-option:hover) {
+		background-color: rgba(255, 255, 255, 0.06);
+	}
+
+	:global(label.facet-option input[type='checkbox']) {
+		margin-right: 0.25rem;
+	}
+</style>
