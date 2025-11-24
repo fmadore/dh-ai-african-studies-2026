@@ -9,8 +9,11 @@
 
 	let searchQuery = $state('');
 
-	let displayedParticipants = $derived(participants
-		.filter((participant) => participant.role !== 'Student assistant')
+	const baseParticipants = participants.filter((participant) => participant.role !== 'Student assistant');
+	const totalParticipants = baseParticipants.length;
+	const totalCountries = new Set(baseParticipants.map((participant) => participant.country)).size;
+
+	let displayedParticipants = $derived(baseParticipants
 		.filter((participant) => {
 			const query = searchQuery.toLowerCase();
 			return (
@@ -24,8 +27,6 @@
 			...participant,
 			photoUrl: resolveAssetPath(participant.photoUrl)
 		})));
-
-	let uniqueCountries = $derived(new Set(displayedParticipants.map((participant) => participant.country)).size);
 
 	function handleImageError(event: Event) {
 		const img = event.target as HTMLImageElement;
@@ -61,7 +62,7 @@
 	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
 		<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">Participants</Heading>
 		<P class="body-text text-lg mx-auto max-w-3xl">
-			Meet the {displayedParticipants.length} international experts from {uniqueCountries} countries participating in this scoping workshop on Digital Humanities and AI in African Studies.
+			Meet the {totalParticipants} international experts from {totalCountries} countries participating in this scoping workshop on Digital Humanities and AI in African Studies.
 		</P>
 
 		<div class="mt-8 w-full max-w-md mx-auto">
