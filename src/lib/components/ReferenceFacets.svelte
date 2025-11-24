@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import { Card, Heading, Label, Input, Checkbox } from 'flowbite-svelte';
-	import { FilterOutline, SearchOutline } from 'flowbite-svelte-icons';
+	import { FilterOutline, SearchOutline, CloseOutline } from 'flowbite-svelte-icons';
 
 	interface Props {
 		references: any[];
@@ -8,14 +9,20 @@
 		selectedTypes: string[];
 		selectedYears: string[];
 		selectedTags: string[];
+		showCloseButton?: boolean;
+		closeLabel?: string;
 	}
+
+	const dispatch = createEventDispatcher<{ close: void }>();
 
 	let { 
 		references, 
 		searchQuery = $bindable(), 
 		selectedTypes = $bindable(), 
 		selectedYears = $bindable(), 
-		selectedTags = $bindable() 
+		selectedTags = $bindable(),
+		showCloseButton = false,
+		closeLabel = 'Close filters'
 	}: Props = $props();
 
 	let availableTypes = $derived.by(() => {
@@ -51,11 +58,15 @@
 		selectedYears = [];
 		selectedTags = [];
 	}
+
+	function handleClose() {
+		dispatch('close');
+	}
 </script>
 
 <Card class="card-surface w-full p-6 sm:p-7">
 	<div class="stack-md">
-		<div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4">
+		<div class="flex flex-wrap gap-3 justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4">
 			<div class="flex items-center gap-2">
 				<FilterOutline class="w-5 h-5 text-primary-600" />
 				<Heading tag="h3" class="heading-sub text-lg m-0">Filters</Heading>
@@ -66,6 +77,18 @@
 					class="text-xs font-medium text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors"
 				>
 					Reset ({activeFiltersCount})
+				</button>
+			{/if}
+
+			{#if showCloseButton}
+				<button
+					type="button"
+					onclick={handleClose}
+					class="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors"
+					aria-label={closeLabel}
+				>
+					<CloseOutline class="w-3.5 h-3.5" />
+					<span>{closeLabel}</span>
 				</button>
 			{/if}
 		</div>

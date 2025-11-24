@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Heading, P, Card, Badge, Button } from 'flowbite-svelte';
-	import { SearchOutline, CloseOutline } from 'flowbite-svelte-icons';
+	import { SearchOutline, CloseOutline, FilterOutline } from 'flowbite-svelte-icons';
 	import { createSeoMeta } from '$lib/utils/seo';
 	import referencesData from '$lib/data/references.json';
 	import { fade, slide } from 'svelte/transition';
@@ -20,6 +20,7 @@
 	let selectedTypes = $state<string[]>([]);
 	let selectedYears = $state<string[]>([]);
 	let selectedTags = $state<string[]>([]);
+	let showMobileFilters = $state(false);
 
 	// Derived values
 	let filteredReferences = $derived.by(() => {
@@ -59,6 +60,10 @@
 		selectedTags = [];
 	}
 
+	function toggleMobileFilters() {
+		showMobileFilters = !showMobileFilters;
+	}
+
 	function formatCitation(ref: any) {
 		const authors = ref.author?.map((a: any) => `${a.given} ${a.family}`).join(', ') || 'Unknown Author';
 		const year = ref.issued?.['date-parts']?.[0]?.[0] || 'n.d.';
@@ -86,9 +91,45 @@
 			</P>
 		</div>
 
+		<div class="lg:hidden">
+			<Button 
+				color="light"
+				onclick={toggleMobileFilters}
+				class="w-full justify-between items-center text-left"
+				aria-expanded={showMobileFilters}
+			>
+				<span class="flex items-center gap-2 font-semibold">
+					<FilterOutline class="w-4 h-4" />
+					Filters
+				</span>
+				<span class="flex items-center gap-1 text-xs font-medium text-gray-600 dark:text-gray-300">
+					{#if activeFiltersCount > 0}
+						<span class="inline-flex items-center justify-center rounded-full bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200 px-2 py-0.5">
+							{activeFiltersCount}
+						</span>
+					{/if}
+					<span>{showMobileFilters ? 'Hide' : 'Show'}</span>
+				</span>
+			</Button>
+
+			{#if showMobileFilters}
+				<div class="mt-4" in:slide={{ duration: 200 }} out:fade={{ duration: 150 }}>
+					<ReferenceFacets 
+						{references}
+						bind:searchQuery
+						bind:selectedTypes
+						bind:selectedYears
+						bind:selectedTags
+						showCloseButton
+						on:close={() => (showMobileFilters = false)}
+					/>
+				</div>
+			{/if}
+		</div>
+
 		<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 			<!-- Sidebar / Facets -->
-			<aside class="lg:col-span-3 stack-md sticky top-24">
+			<aside class="hidden lg:block lg:col-span-3 stack-md sticky top-24">
 				<ReferenceFacets 
 					{references}
 					bind:searchQuery
