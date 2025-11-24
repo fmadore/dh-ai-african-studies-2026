@@ -259,7 +259,7 @@
 		<div class="stack-sm">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Funding</Heading>
 			<P class="body-text">
-				This scoping workshop is made possible by the generous support of the <strong class="text-primary-700 dark:text-primary-400">Volkswagen Foundation</strong>.
+				This scoping workshop is made possible by the generous support of the <a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="font-bold text-primary-700 dark:text-primary-400 hover:underline">Volkswagen Foundation</a>.
 			</P>
 		</div>
 	</div>
