@@ -79,9 +79,9 @@
 
 	<div class="content-width-wide surface-panel surface-padding stack-lg relative">
 		<!-- Header -->
-		<div class="stack-sm relative z-10">
-			<Heading tag="h1" class="heading-display heading-xl text-gradient">References</Heading>
-			<P class="heading-sub opacity-80 w-full">
+		<div class="stack-sm relative z-10 text-center">
+			<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">References</Heading>
+			<P class="body-text text-lg mx-auto max-w-3xl">
 				A curated bibliography of works at the intersection of Digital Humanities, Artificial Intelligence, and African Studies. This index is actively curated and will continue to expand over the coming weeks.
 			</P>
 		</div>
