@@ -5,6 +5,7 @@
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
 	import { participants } from '$lib/data/participants';
+	import { workStreams } from '$lib/data/work-streams';
 
 	const seo = createSeoMeta({ path: '/' });
 	const aboutHref = resolveAppPath('/about');
@@ -157,21 +158,13 @@
 		<div class="stack-md">
 			<Heading tag="h3" class="text-center heading-section heading-lg heading-color-light">Three Work Streams</Heading>
 			<Timeline>
-				<TimelineItem title="Work Stream 1: Methodological Integration" date="">
-					<P class="body-text text-base leading-relaxed">
-						Enhancing methodological integration and digital preservation—documenting computational methods, developing technical standards, and establishing sustainable digital preservation models, with focus on adapting AI for African languages.
-					</P>
-				</TimelineItem>
-				<TimelineItem title="Work Stream 2: Equitable Collaboration" date="">
-					<P class="body-text text-base leading-relaxed">
-						Fostering inclusive North-South and South-South dialogue—analyzing research relationships to design partnership models that address power imbalances, with African epistemologies at the centre of methodological developments.
-					</P>
-				</TimelineItem>
-				<TimelineItem title="Work Stream 3: Ethical Implementation" date="">
-					<P class="body-text text-base leading-relaxed">
-						Establishing ethical dissemination and implementation practices—developing frameworks for ethical AI that protect digital sovereignty and promote equitable scholarly exchange, with standards for community co-creation.
-					</P>
-				</TimelineItem>
+				{#each workStreams as stream}
+					<TimelineItem title={`Work Stream ${stream.id}: ${stream.title}`} date="">
+						<P class="body-text text-base leading-relaxed">
+							{stream.description}
+						</P>
+					</TimelineItem>
+				{/each}
 			</Timeline>
 		</div>
 	</div>
