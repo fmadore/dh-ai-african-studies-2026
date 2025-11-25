@@ -2,12 +2,15 @@
 	import { Heading, P, Card, Tabs, TabItem } from 'flowbite-svelte';
 	import {
 		CalendarMonthOutline,
-		ClockOutline,
 		MapPinAltOutline,
 		UsersGroupOutline,
 		LightbulbOutline,
 		MessageCaptionOutline,
-		FileLinesSolid
+		MugSaucerOutline,
+		BowlFoodOutline,
+		BurgerOutline,
+		FileLinesSolid,
+		ClipboardCheckOutline
 	} from 'flowbite-svelte-icons';
 	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
@@ -35,7 +38,19 @@
 		url: seo.canonical
 	});
 
-	function getItemIcon(type: SessionType) {
+	function getItemIcon(type: SessionType, title: string) {
+		// Check title for specific meal/break types
+		const lowerTitle = title.toLowerCase();
+		if (lowerTitle.includes('lunch')) {
+			return BowlFoodOutline;
+		}
+		if (lowerTitle.includes('coffee') || lowerTitle.includes('registration')) {
+			return MugSaucerOutline;
+		}
+		if (lowerTitle.includes('dinner')) {
+			return BurgerOutline;
+		}
+		
 		switch (type) {
 			case 'plenary':
 				return UsersGroupOutline;
@@ -44,7 +59,7 @@
 			case 'world-cafe':
 				return LightbulbOutline;
 			case 'break':
-				return ClockOutline;
+				return MugSaucerOutline;
 			case 'social':
 				return CalendarMonthOutline;
 			default:
@@ -124,6 +139,7 @@
 				<span>{workshopInfo.location.venue}, {workshopInfo.location.city}</span>
 			</div>
 		</div>
+		<P class="text-caption mt-4">Last updated: 25 November 2025</P>
 	</div>
 </section>
 
@@ -161,7 +177,7 @@
 					<div class="stack-md">
 						{#each day.items as item (item.time + item.title)}
 							{@const styles = getItemStyles(item.type)}
-							{@const Icon = getItemIcon(item.type)}
+							{@const Icon = getItemIcon(item.type, item.title)}
 							<article class="card-surface {styles.border} {styles.bg} surface-padding-sm rounded-lg transition-all hover:shadow-md">
 								<div class="flex flex-col sm:flex-row gap-4">
 									<!-- Time Column -->
@@ -184,12 +200,12 @@
 												{item.description}
 											</P>
 										{/if}
-										{#if item.facilitator || item.room}
+										{#if (item.facilitators && item.facilitators.length > 0) || item.room}
 											<div class="flex flex-wrap gap-4 text-sm">
-												{#if item.facilitator}
+												{#if item.facilitators && item.facilitators.length > 0}
 													<span class="inline-flex items-center gap-1.5 text-gray-600 dark:text-gray-400">
 														<UsersGroupOutline class="w-4 h-4" />
-														<span class="font-medium">Facilitator:</span> {item.facilitator}
+														<span class="font-medium">Facilitator(s):</span> {item.facilitators.join(', ')}
 													</span>
 												{/if}
 												{#if item.room}
@@ -209,6 +225,30 @@
 													</li>
 												{/each}
 											</ul>
+										{/if}
+										{#if item.deliverables && item.deliverables.length > 0}
+											<div class="mt-3 p-3 rounded-lg bg-secondary-50 dark:bg-secondary-900/20 border border-secondary-200 dark:border-secondary-700/50">
+												<div class="flex items-start gap-2">
+													<ClipboardCheckOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400 shrink-0 mt-0.5" />
+													<div>
+														<span class="font-semibold text-secondary-700 dark:text-secondary-300 text-sm">
+															{item.deliverables.length > 1 ? 'Deliverables:' : 'Deliverable:'}
+														</span>
+														{#if item.deliverables.length === 1}
+															<p class="text-sm text-secondary-600 dark:text-secondary-400 mt-1">{item.deliverables[0]}</p>
+														{:else}
+															<ul class="mt-1 space-y-1">
+																{#each item.deliverables as deliverable}
+																	<li class="text-sm text-secondary-600 dark:text-secondary-400 flex items-baseline gap-2">
+																		<span class="text-secondary-500 shrink-0">•</span>
+																		<span>{deliverable}</span>
+																	</li>
+																{/each}
+															</ul>
+														{/if}
+													</div>
+												</div>
+											</div>
 										{/if}
 									</div>
 								</div>

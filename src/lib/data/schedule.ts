@@ -12,9 +12,9 @@ export interface ScheduleItem {
 	title: string;
 	description?: string;
 	details?: string[];
-	deliverable?: string;
+	deliverables?: string[];
 	type: SessionType;
-	facilitator?: string;
+	facilitators?: string[];
 	room?: string;
 }
 
@@ -43,7 +43,7 @@ export const schedule: DaySchedule[] = [
 				time: '09:00–09:45',
 				title: 'Opening and Introduction',
 				type: 'plenary',
-				facilitator: 'Frédérick Madore & Vincent Hiribarren',
+				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
 				room: 'SR 6',
 				details: [
 					'Welcome remarks and overview of workshop format and goals (position paper)',
@@ -55,7 +55,7 @@ export const schedule: DaySchedule[] = [
 				time: '09:45–11:00',
 				title: 'Digital Humanities, AI and African Linguistic Diversity',
 				type: 'plenary',
-				facilitator: 'To be determined',
+				facilitators: ['To be determined'],
 				room: 'SR 6'
 			},
 			{
@@ -68,7 +68,7 @@ export const schedule: DaySchedule[] = [
 				title: 'Working Groups Session',
 				description: 'Working groups convene to discuss',
 				type: 'subgroups',
-				deliverable: 'Keywords and key pointers in preparation for the World Café session'
+				deliverables: ['Keywords and key pointers in preparation for the World Café session']
 			},
 			{
 				time: '13:00–14:30',
@@ -91,13 +91,17 @@ export const schedule: DaySchedule[] = [
 				type: 'break'
 			},
 			{
-				time: '16:30–18:00',
-				title: 'Day One Synthesis',
+				time: '16:30–17:15',
+				title: 'Day One Synthesis: Group Work',
+				description: 'Small groups gather and prepare a short summary of key findings from World Café conversations',
+				type: 'subgroups'
+			},
+			{
+				time: '17:15–18:00',
+				title: 'Day One Synthesis: Presentations',
+				description: 'Rapporteurs present key insights from each working groups',
 				type: 'plenary',
-				details: [
-					'Small groups gather and prepare a short summary of key findings from World Café conversations (45 minutes)',
-					'Rapporteurs present key insights from each session, highlighting key deliverables (45 minutes)'
-				]
+				room: 'SR 6'
 			},
 			{
 				time: '18:30',
@@ -118,6 +122,7 @@ export const schedule: DaySchedule[] = [
 				time: '09:30–10:00',
 				title: 'Reflection on Day One',
 				type: 'plenary',
+				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
 				room: 'SR 6',
 				details: [
 					'Housekeeping',
@@ -129,7 +134,7 @@ export const schedule: DaySchedule[] = [
 				time: '10:00–11:00',
 				title: 'Mapping Digital Inequalities: Assessing Resource Distribution and Access in DH and AI for African Studies',
 				type: 'plenary',
-				facilitator: 'To be determined',
+				facilitators: ['To be determined'],
 				room: 'SR 6'
 			},
 			{
@@ -143,9 +148,10 @@ export const schedule: DaySchedule[] = [
 				type: 'subgroups',
 				description:
 					'The 4 groups reconvene in preparation for the World Café, focusing on concrete mechanisms for equitable partnerships, resource sharing, and knowledge exchange in DH and AI projects involving African contexts.',
-				details: [
-					'Each group works on exploring models for equitable research collaboration',
-					'Deliverable: Collection of key principles and practical mechanisms for equitable collaboration models, captured from each World Café table and synthesised into a shared document'
+				details: ['Each group works on exploring models for equitable research collaboration'],
+				deliverables: [
+					'Collection of key principles and practical mechanisms for equitable collaboration models',
+					'Key pointers for the World Café session'
 				]
 			},
 			{
@@ -170,13 +176,20 @@ export const schedule: DaySchedule[] = [
 				type: 'break'
 			},
 			{
-				time: '16:30–18:00',
-				title: 'Day Two Synthesis',
-				type: 'plenary',
-				details: [
+				time: '16:30–17:15',
+				title: 'Day Two Synthesis: Group Work',
+				description:
 					'Small groups gather and prepare a short summary of key findings from World Café conversations',
-					'Rapporteurs present key insights from each session, highlighting key deliverables related to equitable collaboration'
-				]
+				type: 'subgroups',
+				room: 'SR 6'
+			},
+			{
+				time: '17:15–18:00',
+				title: 'Day Two Synthesis: Presentations',
+				description:
+					'Rapporteurs present key insights from each session, highlighting key deliverables related to equitable collaboration',
+				type: 'plenary',
+				room: 'SR 6'
 			},
 			{
 				time: '18:30',
@@ -197,13 +210,14 @@ export const schedule: DaySchedule[] = [
 				time: '09:00–09:10',
 				title: 'Aims of Day 3',
 				type: 'plenary',
+				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
 				room: 'SR 6'
 			},
 			{
 				time: '09:10–11:00',
 				title: 'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Institutions and Archives 1/2',
 				type: 'world-cafe',
-				facilitator: 'To be determined',
+				facilitators: ['To be determined'],
 				room: 'SR 6'
 			},
 			{
@@ -215,7 +229,7 @@ export const schedule: DaySchedule[] = [
 				time: '11:30–13:00',
 				title: 'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Studies 2/2',
 				type: 'world-cafe',
-				facilitator: 'To be determined',
+				facilitators: ['To be determined'],
 				room: 'SR 6'
 			},
 			{
@@ -227,6 +241,7 @@ export const schedule: DaySchedule[] = [
 				time: '14:15–14:45',
 				title: 'Slides and Instructions for the Position Paper',
 				type: 'plenary',
+				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
 				room: 'SR 6',
 				details: [
 					'Establishment of a clear timeline for post-workshop drafting, review, editing, and dissemination of the position paper'
@@ -245,12 +260,17 @@ export const schedule: DaySchedule[] = [
 				details: [
 					'Structured session focused on finalising the framework and key recommendations for the position paper, incorporating the ethical principles and policy recommendations developed during Day Three',
 					'Review and refinement of the position paper outline and key messages'
+				],
+				deliverables: [
+					'Draft sections of the position paper with key recommendations',
+					'Refined position paper outline and key messages'
 				]
 			},
 			{
 				time: '16:30–17:00',
 				title: "What's Next / Conclusion",
 				type: 'plenary',
+				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
 				room: 'SR 6',
 				details: [
 					'Discussion and commitment to concrete follow-up activities and collaborative actions beyond the workshop to implement workshop recommendations',
