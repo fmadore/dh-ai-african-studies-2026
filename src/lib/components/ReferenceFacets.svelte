@@ -130,9 +130,9 @@
 		{#if availableTypes.length > 0}
 			<div class="stack-sm pt-2">
 				<Label class="font-bold body-text-strong">Type</Label>
-				<div class="stack-xs">
+				<div class="stack-xs pl-1">
 					{#each availableTypes as type (type)}
-						<Checkbox bind:group={selectedTypes} value={type} divClass="facet-option" class="body-text-muted">
+						<Checkbox bind:group={selectedTypes} value={type} class="body-text-muted">
 							<span class="capitalize">{type.replace('-', ' ')}</span>
 						</Checkbox>
 					{/each}
@@ -144,9 +144,9 @@
 		{#if availableTags.length > 0}
 			<div class="stack-sm pt-2 border-t border-surface-200 dark:border-surface-dark-elevated">
 				<Label class="font-bold body-text-strong">Keywords</Label>
-				<div class="max-h-60 overflow-y-auto stack-xs pr-2 custom-scrollbar keyword-stack">
+				<div class="max-h-60 overflow-y-auto stack-xs pl-1 pr-2 custom-scrollbar keyword-stack">
 					{#each availableTags as tag (tag)}
-						<Checkbox bind:group={selectedTags} value={tag} divClass="facet-option" class="body-text-muted">
+						<Checkbox bind:group={selectedTags} value={tag} class="body-text-muted">
 							<span class="text-sm">{tag}</span>
 						</Checkbox>
 					{/each}
@@ -158,9 +158,9 @@
 		{#if availableYears.length > 0}
 			<div class="stack-sm pt-2 border-t border-surface-200 dark:border-surface-dark-elevated">
 				<Label class="font-bold body-text-strong">Year</Label>
-				<div class="max-h-48 overflow-y-auto stack-xs pr-2 custom-scrollbar">
+				<div class="max-h-48 overflow-y-auto stack-xs pl-1 pr-2 custom-scrollbar">
 					{#each availableYears as year (year)}
-						<Checkbox bind:group={selectedYears} value={year} divClass="facet-option" class="body-text-muted">
+						<Checkbox bind:group={selectedYears} value={year} class="body-text-muted">
 							{year}
 						</Checkbox>
 					{/each}
@@ -188,28 +188,6 @@
 	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
 		background-color: var(--color-gray-500);
 		opacity: 0.8;
-	}
-
-	:global(label.facet-option) {
-		display: flex;
-		align-items: center;
-		gap: var(--space-xs);
-		width: 100%;
-		padding: var(--space-xs) var(--space-sm);
-		border-radius: var(--radius-lg);
-		transition: background-color var(--transition-fast), color var(--transition-fast);
-	}
-
-	:global(label.facet-option:hover) {
-		background-color: var(--color-primary-50);
-	}
-
-	:global(.dark label.facet-option:hover) {
-		background-color: rgba(255, 255, 255, 0.06);
-	}
-
-	:global(label.facet-option input[type='checkbox']) {
-		margin-right: var(--space-xs);
 	}
 
 	:global(.keyword-stack > * + *) {

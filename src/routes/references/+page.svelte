@@ -129,7 +129,7 @@
 		<!-- Header -->
 		<div class="stack-sm relative z-10 text-center">
 			<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">References</Heading>
-			<P class="body-text text-lg mx-auto max-w-3xl">
+			<P class="text-lead mx-auto max-w-3xl">
 				A curated bibliography of works at the intersection of Digital Humanities, Artificial Intelligence, and African Studies. This index is actively curated and will continue to expand over the coming weeks.
 			</P>
 		</div>
@@ -186,7 +186,7 @@
 
 			<!-- Main Content -->
 			<div class="lg:col-span-9 stack-md">
-				<div class="flex justify-between items-center card-surface p-4 rounded-lg shadow-sm dark:bg-primary-900/20 dark:border-primary-800/30">
+				<div class="flex justify-between items-center card-surface surface-padding-sm">
 					<P class="text-sm font-medium body-text">
 						Showing <span class="text-primary-600 dark:text-primary-400 font-bold">{filteredReferences.length}</span> references
 					</P>
@@ -320,7 +320,7 @@
 					{/each}
 					
 					{#if filteredReferences.length === 0}
-						<div class="text-center padding-block-xl card-surface rounded-xl border border-dashed border-surface-400 dark:border-surface-dark-overlay">
+						<div class="text-center padding-block-xl card-surface surface-padding border border-dashed border-gray-300 dark:border-gray-700">
 							<div class="stack-sm flex flex-col items-center">
 								<SearchOutline class="w-12 h-12 text-surface-400 dark:text-surface-dark-overlay" />
 								<Heading tag="h4" class="text-lg font-medium body-text-strong">No references found</Heading>

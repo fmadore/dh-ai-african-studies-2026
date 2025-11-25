@@ -100,7 +100,7 @@
 
 <!-- Targeted Recommendations -->
 <section class="bg-page py-16 px-4 relative overflow-hidden">
-	<div class="decorative-blob decorative-blob-primary bottom-1/4 -left-20"></div>
+	<div class="decorative-blob decorative-blob-primary bottom-20 -left-20"></div>
 	<div class="content-width surface-panel surface-padding stack-lg relative">
 		<div class="stack-md">
 			<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">Targeted Recommendations</Heading>

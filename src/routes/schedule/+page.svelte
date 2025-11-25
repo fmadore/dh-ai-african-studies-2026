@@ -72,7 +72,7 @@
 
 <!-- Key Dates -->
 <section class="bg-page py-16 px-4 relative overflow-hidden">
-	<div class="decorative-blob decorative-blob-primary bottom-0 left-0 opacity-50"></div>
+	<div class="decorative-blob decorative-blob-primary bottom-20 -left-20"></div>
 	<div class="content-width-wide surface-panel surface-padding stack-md relative">
 		<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">
 			Important Dates
