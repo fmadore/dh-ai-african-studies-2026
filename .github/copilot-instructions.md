@@ -4,12 +4,17 @@
 
 This repository hosts a static GitHub Pages website for the conference **"Charting New Territory: Digital Humanities and AI in African Studies"**, funded by Volkswagen Foundation.
 
+- **Conference Dates**: 18-20 February 2026
+- **Location**: Xplanatorium Herrenhausen, Hanover, Germany
+- **Base URL**: `https://fmadore.github.io/dh-ai-african-studies-2026`
+
 ## Technology Stack
 
 - **Framework**: SvelteKit with Svelte 5 (using runes syntax)
 - **UI Library**: Flowbite Svelte
-- **Styling**: Tailwind CSS with Flowbite plugin
+- **Styling**: Tailwind CSS v4 with Flowbite plugin
 - **Deployment**: GitHub Pages (static site generation)
+- **Package Manager**: npm
 
 ## Code Generation Guidelines
 
@@ -39,7 +44,37 @@ When writing Svelte components, ALWAYS use Svelte 5 runes syntax:
 - `$bindable()` for two-way binding
 - `{#snippet}` and `{@render}` for reusable markup instead of slots
 
-### 2. Using MCP Tools
+### 2. Page Data and SEO Pattern
+
+Every page should follow this pattern for SEO and structured data:
+
+```svelte
+<script lang="ts">
+  import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
+  
+  const seo = createSeoMeta({
+    title: 'Page Title',
+    description: 'Page description for SEO',
+    path: '/current-route'
+  });
+  
+  // For event-related pages, add JSON-LD structured data
+  const eventJsonLd = createEventJsonLd({ /* options */ });
+</script>
+
+<svelte:head>
+  <title>{seo.title}</title>
+  {#each seo.meta as attributes, index (attributes.name ?? attributes.property ?? `meta-${index}`)}
+    <meta {...attributes} />
+  {/each}
+  {#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
+    <link {...attributes} />
+  {/each}
+  {@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
+</svelte:head>
+```
+
+### 3. Using MCP Tools
 
 **For Svelte documentation:**
 - Use the Svelte MCP server tools to get the latest Svelte 5 documentation
@@ -47,14 +82,14 @@ When writing Svelte components, ALWAYS use Svelte 5 runes syntax:
 - Use `mcp_svelte_svelte-autofixer` to validate Svelte code before presenting it
 
 **For library documentation:**
-- Use Context7 MCP tools (`mcp_context7_resolve-library-id` and `mcp_context7_get-library-docs`) for up-to-date documentation on Flowbite Svelte and other libraries
+- Use Context7 MCP tools (`mcp_upstash_conte_resolve-library-id` and `mcp_upstash_conte_get-library-docs`) for up-to-date documentation on Flowbite Svelte and other libraries
 
-### 3. Routing & Asset Helpers
+### 4. Routing & Asset Helpers
 
 - Internal links and static assets must respect the GitHub Pages base path. Use `resolveAppPath('/route')` and `resolveAssetPath('/images/foo.png')` from `$lib/utils/paths` for any `href`, `src`, or Flowbite component `href` props.
 - Derive navigation collections once in `<script>` blocks so they can be reused and stay type-safe.
 
-### 4. Flowbite Svelte Components
+### 5. Flowbite Svelte Components
 
 **Import Pattern:**
 ```svelte
@@ -77,7 +112,7 @@ When writing Svelte components, ALWAYS use Svelte 5 runes syntax:
 </Card>
 ```
 
-### 5. Theming and Styling Best Practices
+### 6. Theming and Styling Best Practices
 
 - Tailwind v4 with `flowbite/plugin` and `@tailwindcss/typography` is configured in `src/app.css`.
 - **Typography**: 'Outfit' for headings, 'Plus Jakarta Sans' for body text.
@@ -121,11 +156,12 @@ When writing Svelte components, ALWAYS use Svelte 5 runes syntax:
 </ThemeProvider>
 ```
 
-### 6. SEO Utilities
+### 7. SEO Utilities
 
 - Use `createSeoMeta` from `$lib/utils/seo` for every page to populate `<svelte:head>` with canonical metadata.
+- See **Section 2** for the full page SEO pattern.
 
-### 7. Custom Component Wrapper Pattern
+### 8. Custom Component Wrapper Pattern
 
 Create reusable themed components:
 
@@ -141,7 +177,7 @@ Create reusable themed components:
 </Button>
 ```
 
-### 8. Static Site Generation Configuration
+### 9. Static Site Generation Configuration
 
 **SvelteKit Configuration (svelte.config.js):**
 ```javascript
@@ -173,7 +209,7 @@ export default config;
 </script>
 ```
 
-### 9. Accessibility Best Practices
+### 10. Accessibility Best Practices
 
 - Always include meaningful alt text for images
 - Use semantic HTML elements
@@ -194,25 +230,36 @@ export default config;
 </nav>
 ```
 
-### 10. File Structure
+### 11. File Structure
 
 ```
 src/
 ├── lib/
 │   ├── components/     # Reusable components
 │   ├── assets/         # Images, fonts, etc.
-│   └── utils/          # Helper functions
+│   ├── data/           # Centralized data (participants, workshop-info, work-streams)
+│   │   └── participants/  # Individual participant files with auto-import
+│   ├── types/          # TypeScript type definitions
+│   └── utils/          # Helper functions (paths, seo)
 ├── routes/
 │   ├── +layout.svelte  # Global layout
 │   ├── +page.svelte    # Homepage
 │   ├── about/          # About page
 │   ├── participants/   # Participants page
 │   ├── position-paper/ # Position paper page
+│   ├── references/     # References page (Zotero integration)
 │   └── schedule/       # Schedule page
-└── app.css             # Global styles
+├── app.css             # Global styles with custom theme
+└── app.html            # HTML template
+static/
+├── images/             # Static images
+├── robots.txt          # SEO robots file
+└── sitemap.xml         # SEO sitemap
+scripts/
+└── fetch_references.py # Zotero API data fetcher
 ```
 
-### 11. Common Component Patterns
+### 12. Common Component Patterns
 
 **Navigation:**
 ```svelte
@@ -257,7 +304,7 @@ src/
 </Footer>
 ```
 
-### 10. TypeScript Usage
+### 13. TypeScript Usage
 
 Always use TypeScript for type safety:
 
@@ -278,7 +325,7 @@ Always use TypeScript for type safety:
 </script>
 ```
 
-### 12. Dark Mode Support
+### 14. Dark Mode Support
 
 ```svelte
 <script lang="ts">
@@ -293,6 +340,56 @@ Always use TypeScript for type safety:
   Content adapts to theme
 </div>
 ```
+
+### 15. Centralized Data Patterns
+
+**Workshop Information (`$lib/data/workshop-info.ts`):**
+```typescript
+// Always use workshopInfo for dates, location, and organizer info
+import { workshopInfo } from '$lib/data/workshop-info';
+
+// Access properties like:
+workshopInfo.dates.full         // "18-20 February 2026"
+workshopInfo.dates.startISO     // "2026-02-18" (for structured data)
+workshopInfo.location.venue     // "Xplanatorium Herrenhausen"
+workshopInfo.funder.name        // "Volkswagen Foundation"
+```
+
+**Work Streams (`$lib/data/work-streams.ts`):**
+```typescript
+import { workStreams } from '$lib/data/work-streams';
+// Array of { id, title, description }
+```
+
+### 16. Adding New Participants
+
+To add a new participant:
+
+1. Create a new file in `src/lib/data/participants/` (e.g., `jane-doe.ts`)
+2. Use the `Participant` type from `$lib/types/participant`
+3. Export a named constant (camelCase version of the name)
+
+```typescript
+// src/lib/data/participants/jane-doe.ts
+import type { Participant } from '$lib/types/participant';
+
+export const janeDoe: Participant = {
+  name: 'Jane Doe',
+  affiliation: 'University Name',
+  affiliationCoordinates: {
+    latitude: 0.0,
+    longitude: 0.0
+  },
+  country: 'Country',
+  role: 'Participant', // 'Participant' | 'Co-organizer' | 'Student assistant'
+  bio: 'Biography text...',
+  researchRegions: ['Region 1', 'Region 2'],
+  thematicGroup?: 'Optional group name',
+  photoUrl: '/images/participants/jane-doe.jpg' // Optional
+};
+```
+
+The participant is **automatically imported** via `import.meta.glob` in the index file—no manual registration needed.
 
 ## Code Quality Standards
 
