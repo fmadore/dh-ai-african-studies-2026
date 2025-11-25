@@ -61,11 +61,11 @@
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
 		<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">Participants</Heading>
-		<P class="body-text text-lg mx-auto max-w-3xl">
+		<P class="text-lead mx-auto max-w-3xl">
 			Meet the {totalParticipants} international experts from {totalCountries} countries participating in this scoping workshop on Digital Humanities and AI in African Studies.
 		</P>
 
-		<div class="mt-8 w-full max-w-md mx-auto">
+		<div class="mt-6 w-full max-w-md mx-auto">
 			<SearchFilter bind:value={searchQuery} placeholder="Search by name, affiliation, or region..." />
 		</div>
 	</div>
@@ -76,58 +76,54 @@
 	<div class="decorative-blob decorative-blob-secondary top-0 right-0 opacity-50"></div>
 	<div class="content-width-wide surface-panel surface-padding stack-lg relative">
 		{#if displayedParticipants.length > 0}
-			<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 				{#each displayedParticipants as participant (participant.name)}
-					<Card class="card-surface surface-padding-sm transition-shadow flex flex-col hover:shadow-xl h-full">
-						<div class="flex flex-col items-center text-center stack-sm">
+					<Card class="card-surface surface-padding-sm h-full">
+						<div class="flex flex-col items-center text-center stack-xs">
 							<!-- Participant Photo -->
-							<div class="flex justify-center">
-								<div class="relative w-32 h-32">
-									{#if participant.photoUrl}
-										<img
-											src={participant.photoUrl}
-											alt={participant.name}
-											class="w-32 h-32 rounded-full object-cover border-2 border-primary-100 dark:border-primary-900 shadow-md"
-											onerror={handleImageError}
-										/>
-										<!-- Placeholder for missing images -->
-										<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-900 dark:bg-gray-700 shadow-md">
-											<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
-										</div>
-									{:else}
-										<!-- Placeholder for participants without photo -->
-										<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-900 dark:bg-gray-700 shadow-md">
-											<UserCircleSolid class="w-20 h-20 text-gray-400 dark:text-gray-500" />
-										</div>
-									{/if}
-								</div>
+							<div class="relative w-24 h-24">
+								{#if participant.photoUrl}
+									<img
+										src={participant.photoUrl}
+										alt={participant.name}
+										class="w-24 h-24 rounded-full object-cover border-2 border-primary-100 dark:border-primary-800 shadow-md"
+										onerror={handleImageError}
+									/>
+									<!-- Placeholder for missing images -->
+									<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700 shadow-md">
+										<UserCircleSolid class="w-14 h-14 text-gray-400 dark:text-gray-500" />
+									</div>
+								{:else}
+									<!-- Placeholder for participants without photo -->
+									<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700 shadow-md">
+										<UserCircleSolid class="w-14 h-14 text-gray-400 dark:text-gray-500" />
+									</div>
+								{/if}
 							</div>
 
 							<!-- Participant Name -->
-							<Heading tag="h3" class="heading-sub heading-color-light text-xl">
+							<Heading tag="h3" class="heading-sub heading-color-light heading-sm">
 								{participant.name}
 							</Heading>
 
 							<!-- Affiliation -->
-							<P class="body-text-strong text-center text-primary-600 dark:text-primary-400">
+							<P class="text-body-sm text-primary-600 dark:text-primary-400 font-medium">
 								{participant.affiliation}
 							</P>
 
 							<!-- Country Badge -->
-							<div class="flex justify-center">
-								<Badge color="secondary">{participant.country}</Badge>
-							</div>
+							<Badge color="secondary">{participant.country}</Badge>
 
 							<!-- Bio -->
-							<P class="body-text text-sm leading-relaxed">
+							<P class="text-body-sm">
 								{participant.bio}
 							</P>
 						</div>
 
 						<!-- Research Regions -->
 						{#if participant.researchRegions.length > 0}
-							<div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700 stack-sm">
-								<P class="body-text-muted text-xs font-semibold uppercase tracking-wide">
+							<div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700/50 stack-xs">
+								<P class="text-caption font-medium uppercase tracking-wider text-center">
 									Research Regions
 								</P>
 								<div class="flex flex-wrap justify-center gap-2">
@@ -142,8 +138,8 @@
 			</div>
 		{:else}
 			<div class="text-center py-12">
-				<P class="body-text-muted">
-					Participant information will be added soon.
+				<P class="text-lead">
+					No participants found matching your search.
 				</P>
 			</div>
 		{/if}
@@ -155,7 +151,7 @@
 	<div class="decorative-blob decorative-blob-primary bottom-0 left-0 opacity-50"></div>
 	<div class="content-width-wide surface-panel surface-padding stack-md relative">
 		<Heading tag="h2" class="heading-section heading-lg heading-color-light text-center">Global Distribution</Heading>
-		<P class="body-text text-center">
+		<P class="text-lead text-center max-w-2xl mx-auto">
 			Explore where our participants are based around the world.
 		</P>
 		<ParticipantsMap participants={displayedParticipants} />

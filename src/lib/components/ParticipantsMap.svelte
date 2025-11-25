@@ -227,13 +227,13 @@
 	}
 
 	:global(.participant-popup .leaflet-popup-content div::-webkit-scrollbar-track) {
-		background: var(--color-gray-100);
-		border-radius: 3px;
+		background: var(--color-surface-100);
+		border-radius: var(--radius-sm);
 	}
 
 	:global(.participant-popup .leaflet-popup-content div::-webkit-scrollbar-thumb) {
 		background: var(--color-gray-400);
-		border-radius: 3px;
+		border-radius: var(--radius-sm);
 	}
 
 	:global(.participant-popup .leaflet-popup-content div::-webkit-scrollbar-thumb:hover) {
@@ -244,12 +244,12 @@
 		min-width: 260px;
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--space-sm);
 	}
 
 	:global(.participant-popup .popup-title) {
-		font-size: 1.125rem;
-		font-weight: 700;
+		font-size: var(--text-lg);
+		font-weight: var(--font-weight-bold);
 		margin: 0;
 		color: inherit;
 	}
@@ -259,28 +259,28 @@
 	}
 
 	:global(.participant-popup .popup-meta) {
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 		margin: 0;
-		color: color-mix(in srgb, var(--color-gray-600) 85%, transparent);
+		color: var(--color-gray-600);
 	}
 
 	:global(.dark .participant-popup .popup-meta) {
-		color: color-mix(in srgb, var(--color-gray-200) 75%, transparent);
+		color: var(--color-gray-300);
 	}
 
 	:global(.participant-popup .popup-list) {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--space-sm);
 		max-height: 300px;
 		overflow-y: auto;
 	}
 
 	:global(.participant-popup .popup-participant) {
 		display: flex;
-		gap: 0.75rem;
-		padding-bottom: 0.75rem;
-		border-bottom: 1px solid color-mix(in srgb, var(--color-gray-200) 60%, transparent);
+		gap: var(--space-sm);
+		padding-bottom: var(--space-sm);
+		border-bottom: 1px solid var(--color-surface-300);
 		align-items: flex-start;
 	}
 
@@ -290,13 +290,13 @@
 	}
 
 	:global(.dark .participant-popup .popup-participant) {
-		border-color: color-mix(in srgb, var(--color-gray-500) 35%, transparent);
+		border-color: var(--color-surface-dark-overlay);
 	}
 
 	:global(.participant-popup .popup-avatar) {
 		width: 3rem;
 		height: 3rem;
-		border-radius: 9999px;
+		border-radius: var(--radius-full);
 		object-fit: cover;
 		border: 2px solid var(--color-primary-200);
 		flex-shrink: 0;
@@ -313,8 +313,8 @@
 
 	:global(.participant-popup .popup-name) {
 		margin: 0;
-		font-size: 0.95rem;
-		font-weight: 600;
+		font-size: var(--text-sm);
+		font-weight: var(--font-weight-semibold);
 		color: var(--color-gray-900);
 	}
 
@@ -323,13 +323,13 @@
 	}
 
 	:global(.participant-popup .popup-country) {
-		margin: 0.15rem 0 0;
-		font-size: 0.75rem;
-		color: color-mix(in srgb, var(--color-gray-600) 75%, transparent);
+		margin: 0.125rem 0 0;
+		font-size: var(--text-xs);
+		color: var(--color-gray-500);
 	}
 
 	:global(.dark .participant-popup .popup-country) {
-		color: color-mix(in srgb, var(--color-gray-200) 70%, transparent);
+		color: var(--color-gray-400);
 	}
 
 	/* Custom Marker Styles */
@@ -348,7 +348,7 @@
 		left: 50%;
 		top: 50%;
 		margin: -15px 0 0 -15px;
-		box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+		box-shadow: var(--shadow-md);
 		border: 2px solid white;
 	}
 

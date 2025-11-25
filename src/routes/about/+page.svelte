@@ -56,38 +56,38 @@
 		
 		<div class="stack-md text-left">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">The Convergence of Technology and Epistemology</Heading>
-			<P class="body-text text-lg leading-relaxed">
+			<P class="text-lead">
 				The intersection of Digital Humanities (DH) and Artificial Intelligence (AI) is rapidly transforming knowledge production within African Studies. This technological shift offers unprecedented opportunities for innovative analysis, dynamic visualization, and the democratization of diverse narratives. However, this potential is inextricably linked to pressing challenges regarding equitable access, the representation of African languages, and the ethics of digital sovereignty.
 			</P>
-			<P class="body-text text-lg leading-relaxed">
+			<P class="text-lead">
 				"Charting New Territory" is a dedicated scoping workshop designed to navigate this evolving terrain. We are convening international experts to move beyond describing current conditions and instead actively chart future pathways for the ethical, equitable development of DH and AI in African contexts.
 			</P>
 		</div>
 
 		<div class="stack-md">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Beyond the Hype: Addressing Structural Inequalities</Heading>
-			<P class="body-text leading-relaxed">
+			<P class="body-text">
 				While Large Language Models (LLMs) and digitization efforts hold immense promise, their implementation often outpaces the necessary ethical frameworks. Digitization is inherently political; decisions about what is archived, how it is cataloged, and who controls access often reinforce existing global hierarchies.
 			</P>
-			<P class="body-text leading-relaxed">
+			<P class="body-text">
 				This workshop addresses the urgent need to prevent the exclusion of African voices and the reproduction of colonial biases in algorithmic systems. We recognize that Northern institutions often control the digital infrastructure and historical materials of the Global South. As such, our focus is on countering "techno-solutionism" by balancing computational innovation with critical humanistic inquiry and robust preservation protocols for born-digital records.
 			</P>
 		</div>
 
 		<div class="stack-md">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Format: A Working Meeting</Heading>
-			<P class="body-text leading-relaxed">
+			<P class="body-text">
 				Unlike a traditional academic conference, this event prioritizes discussion over presentation. It is designed as a high-intensity scoping workshop employing an "assessment-to-action" methodology.
 			</P>
-			<P class="body-text leading-relaxed">
+			<P class="body-text">
 				Over the course of three days, participants will engage in facilitated discussions, collaborative exercises, and structured deliberation across three core work streams:
 			</P>
 			
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
 				{#each workStreams as stream (stream.id)}
-					<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow border border-primary-100 dark:border-primary-900 h-full">
-						<Heading tag="h3" class="mb-3 heading-sub text-lg">{stream.title}</Heading>
-						<P class="body-text text-sm leading-relaxed">
+					<Card class="card-surface surface-padding-sm h-full stack-xs">
+						<Heading tag="h3" class="heading-sub text-lg">{stream.title}</Heading>
+						<P class="text-body-sm">
 							{stream.description}
 						</P>
 					</Card>
@@ -97,13 +97,13 @@
 
 		<div class="stack-sm">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Key Outcome: The Position Paper</Heading>
-			<P class="body-text leading-relaxed">
+			<P class="body-text">
 				The primary goal of this workshop is to produce a co-authored Position Paper.
 			</P>
-			<P class="body-text leading-relaxed">
+			<P class="body-text">
 				Synthesizing the insights from our daily sessions, this document will serve as a foundational blueprint for the field. It will provide actionable recommendations for research funders, academic institutions, technology developers, and policymakers.
 			</P>
-			<P class="body-text leading-relaxed">
+			<P class="body-text">
 				By defining sustainable funding models, ethical protocols, and decolonized curricula, we aim to consolidate this emerging field and guide the next decade of DH and AI research in African Studies.
 			</P>
 		</div>
@@ -114,48 +114,48 @@
 				<Heading tag="h2" class="heading-section heading-lg heading-color-light">Co-Organizers</Heading>
 				<div class="stack-md">
 					{#each coOrganizers as organizer (organizer.name)}
-						<div class="card-surface w-full transition-shadow hover:shadow-2xl">
-							<div class="flex flex-col md:flex-row w-full items-center md:items-start gap-6 md:gap-10 p-6 md:p-10">
+						<div class="card-surface w-full">
+							<div class="flex flex-col md:flex-row w-full items-center md:items-start gap-6 md:gap-8 p-6 md:p-8">
 								<!-- Photo -->
-								<div class="w-32 h-32 md:w-40 md:h-40 shrink-0">
+								<div class="w-28 h-28 md:w-36 md:h-36 shrink-0">
 									<div class="relative w-full h-full">
 										{#if organizer.photoUrl}
 											<img
 												src={organizer.photoUrl}
 												alt={organizer.name}
-												class="w-full h-full rounded-full object-cover border-2 border-primary-100 dark:border-primary-700 shadow-md"
+												class="w-full h-full rounded-full object-cover border-2 border-primary-100 dark:border-primary-800 shadow-md"
 												onerror={handleImageError}
 											/>
 											<!-- Placeholder for missing images -->
-											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-700 hidden items-center justify-center absolute top-0 left-0 shadow-md">
-												<UserCircleSolid class="w-16 h-16 md:w-20 md:h-20 text-gray-400 dark:text-gray-500" />
+											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-800 hidden items-center justify-center absolute top-0 left-0 shadow-md">
+												<UserCircleSolid class="w-14 h-14 md:w-16 md:h-16 text-gray-400 dark:text-gray-500" />
 											</div>
 										{:else}
 											<!-- Placeholder for organizers without photo -->
-											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-700 flex items-center justify-center shadow-md">
-												<UserCircleSolid class="w-16 h-16 md:w-20 md:h-20 text-gray-400 dark:text-gray-500" />
+											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-800 flex items-center justify-center shadow-md">
+												<UserCircleSolid class="w-14 h-14 md:w-16 md:h-16 text-gray-400 dark:text-gray-500" />
 											</div>
 										{/if}
 									</div>
 								</div>
 
 								<!-- Content -->
-								<div class="flex-1 text-center md:text-left stack-sm">
-									<Heading tag="h3" class="heading-sub heading-color-light text-2xl md:text-3xl">
+								<div class="flex-1 text-center md:text-left stack-xs">
+									<Heading tag="h3" class="heading-sub heading-color-light heading-md">
 										{organizer.name}
 									</Heading>
-									<P class="text-primary-600 dark:text-primary-300 font-semibold">
+									<P class="text-primary-600 dark:text-primary-400 font-medium">
 										{organizer.affiliation}
 									</P>
 									{#if organizer.bio}
-										<P class="body-text text-base md:text-lg leading-relaxed">
+										<P class="body-text mt-2">
 											{organizer.bio}
 										</P>
 									{/if}
 
 									{#if organizer.researchRegions.length > 0}
-										<div class="pt-2">
-											<P class="body-text-muted text-sm font-semibold mb-2">
+										<div class="pt-3">
+											<P class="text-caption font-medium mb-2">
 												Research Regions
 											</P>
 											<div class="flex flex-wrap justify-center md:justify-start gap-2">
@@ -177,44 +177,44 @@
 		{#if studentAssistants.length > 0}
 			<div class="stack-md">
 				<Heading tag="h2" class="heading-section heading-lg heading-color-light">Student Assistants</Heading>
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
 					{#each studentAssistants as assistant (assistant.name)}
-						<Card class="card-surface surface-padding-sm transition-shadow flex flex-col hover:shadow-xl h-full">
-							<div class="flex flex-col items-center text-center stack-sm">
+						<Card class="card-surface surface-padding-sm h-full">
+							<div class="flex flex-col items-center text-center stack-xs">
 								<!-- Photo -->
-								<div class="relative w-24 h-24">
+								<div class="relative w-20 h-20">
 									{#if assistant.photoUrl}
 										<img
 											src={assistant.photoUrl}
 											alt={assistant.name}
-											class="w-24 h-24 rounded-full object-cover border-2 border-secondary-100 dark:border-secondary-900 shadow-md"
+											class="w-20 h-20 rounded-full object-cover border-2 border-secondary-100 dark:border-secondary-800 shadow-md"
 											onerror={handleImageError}
 										/>
 										<!-- Placeholder for missing images -->
-										<div class="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-900 hidden items-center justify-center absolute top-0 left-0 shadow-md">
-											<UserCircleSolid class="w-16 h-16 text-gray-400 dark:text-gray-500" />
+										<div class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-800 hidden items-center justify-center absolute top-0 left-0 shadow-md">
+											<UserCircleSolid class="w-12 h-12 text-gray-400 dark:text-gray-500" />
 										</div>
 									{:else}
 										<!-- Placeholder for assistants without photo -->
-										<div class="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-900 flex items-center justify-center shadow-md">
-											<UserCircleSolid class="w-16 h-16 text-gray-400 dark:text-gray-500" />
+										<div class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-800 flex items-center justify-center shadow-md">
+											<UserCircleSolid class="w-12 h-12 text-gray-400 dark:text-gray-500" />
 										</div>
 									{/if}
 								</div>
 
 								<!-- Name -->
-								<Heading tag="h3" class="heading-sub heading-color-light text-lg">
+								<Heading tag="h3" class="heading-sub heading-color-light heading-sm">
 									{assistant.name}
 								</Heading>
 
 								<!-- Affiliation -->
-								<P class="text-secondary-600 dark:text-secondary-400 text-sm font-semibold">
+								<P class="text-secondary-600 dark:text-secondary-400 text-body-sm font-medium">
 									{assistant.affiliation}
 								</P>
 
 								<!-- Bio -->
 								{#if assistant.bio}
-									<P class="body-text text-sm leading-relaxed">
+									<P class="text-body-sm">
 										{assistant.bio}
 									</P>
 								{/if}
@@ -222,7 +222,7 @@
 								<!-- Research Regions -->
 								{#if assistant.researchRegions.length > 0}
 									<div class="pt-2 w-full">
-										<P class="body-text-muted text-xs font-semibold mb-2 text-center">
+										<P class="text-caption font-medium mb-2 text-center">
 											Research Regions
 										</P>
 										<div class="flex flex-wrap justify-center gap-2">
@@ -242,7 +242,7 @@
 		<div class="stack-sm">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Funding</Heading>
 			<P class="body-text">
-				This scoping workshop is made possible by the generous support of the <a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="font-bold text-primary-700 dark:text-primary-400 hover:underline">Volkswagen Foundation</a>.
+				This scoping workshop is made possible by the generous support of the <a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary-600 dark:text-primary-400 underline decoration-primary-300 dark:decoration-primary-600 underline-offset-2 hover:decoration-primary-500 dark:hover:decoration-primary-400 transition-colors">Volkswagen Foundation</a>.
 			</P>
 		</div>
 	</div>

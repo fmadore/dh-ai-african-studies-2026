@@ -27,7 +27,7 @@
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
 		<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">Workshop Schedule</Heading>
-		<P class="body-text text-lg">
+		<P class="text-lead">
 			The detailed schedule for the three-day scoping workshop will be available soon.
 		</P>
 	</div>
@@ -43,27 +43,27 @@
 		<Heading tag="h2" class="heading-section heading-lg heading-color-light">
 			Schedule Coming Soon
 		</Heading>
-		<P class="body-text text-lg">
+		<P class="text-lead">
 			We are currently finalizing the workshop program. The detailed schedule will include:
 		</P>
-		<div class="max-w-2xl mx-auto stack-sm">
-			<P class="body-text flex items-start">
-				<span class="mr-2 text-primary-600 dark:text-primary-400">•</span>
+		<ul class="max-w-2xl mx-auto stack-xs text-left">
+			<li class="body-text flex items-start gap-2">
+				<span class="text-primary-500 dark:text-primary-400 mt-1">•</span>
 				<span>Keynote presentations and panel discussions</span>
-			</P>
-			<P class="body-text flex items-start">
-				<span class="mr-2 text-primary-600 dark:text-primary-400">•</span>
+			</li>
+			<li class="body-text flex items-start gap-2">
+				<span class="text-primary-500 dark:text-primary-400 mt-1">•</span>
 				<span>Thematic work streams and collaborative sessions</span>
-			</P>
-			<P class="body-text flex items-start">
-				<span class="mr-2 text-primary-600 dark:text-primary-400">•</span>
+			</li>
+			<li class="body-text flex items-start gap-2">
+				<span class="text-primary-500 dark:text-primary-400 mt-1">•</span>
 				<span>Networking opportunities and informal discussions</span>
-			</P>
-			<P class="body-text flex items-start">
-				<span class="mr-2 text-primary-600 dark:text-primary-400">•</span>
+			</li>
+			<li class="body-text flex items-start gap-2">
+				<span class="text-primary-500 dark:text-primary-400 mt-1">•</span>
 				<span>Breakout sessions focused on key research areas</span>
-			</P>
-		</div>
+			</li>
+		</ul>
 		<P class="body-text-muted">
 			Please check back soon for the complete schedule of events.
 		</P>
@@ -77,25 +77,25 @@
 		<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">
 			Important Dates
 		</Heading>
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-			<Card class="card-surface surface-padding-sm text-center stack-sm">
-				<P class="text-sm font-semibold text-primary-600 dark:text-primary-400">Workshop Dates</P>
-				<P class="body-text-strong text-2xl font-bold">{workshopInfo.dates.full}</P>
-				<P class="body-text text-sm">{workshopInfo.duration.description}</P>
+		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
+			<Card class="card-surface surface-padding-sm text-center stack-xs">
+				<P class="text-label text-primary-600 dark:text-primary-400">Workshop Dates</P>
+				<P class="heading-sub heading-sm">{workshopInfo.dates.full}</P>
+				<P class="text-body-sm">{workshopInfo.duration.description}</P>
 			</Card>
-			<Card class="card-surface surface-padding-sm text-center stack-sm">
-				<P class="text-sm font-semibold text-primary-600 dark:text-primary-400">Location</P>
-				<P class="body-text-strong text-2xl font-bold">
+			<Card class="card-surface surface-padding-sm text-center stack-xs">
+				<P class="text-label text-primary-600 dark:text-primary-400">Location</P>
+				<P class="heading-sub heading-sm">
 					<a
 						href={workshopInfo.location.url}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="hover:underline hover:text-primary-600 dark:hover:text-primary-400"
+						class="underline decoration-primary-300 dark:decoration-primary-600 underline-offset-2 hover:decoration-primary-500 dark:hover:decoration-primary-400 transition-colors"
 					>
 						{workshopInfo.location.venue}
 					</a>
 				</P>
-				<P class="body-text text-sm">{workshopInfo.location.city}, {workshopInfo.location.country}</P>
+				<P class="text-body-sm">{workshopInfo.location.city}, {workshopInfo.location.country}</P>
 			</Card>
 		</div>
 	</div>

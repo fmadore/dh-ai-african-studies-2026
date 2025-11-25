@@ -10,10 +10,10 @@
 		bind:value
 		{placeholder}
 		size="lg"
-		class="pl-12! py-3! text-lg! rounded-xl! shadow-sm focus:ring-primary-500! focus:border-primary-500! dark:focus:ring-primary-500! dark:focus:border-primary-500!"
+		class="pl-12! py-3! text-lg! rounded-xl! shadow-sm"
 	>
 		<svelte:fragment slot="left">
-			<SearchOutline class="w-6 h-6 text-gray-500 dark:text-gray-400" />
+			<SearchOutline class="w-6 h-6 body-text-muted" />
 		</svelte:fragment>
 	</Input>
 </div>

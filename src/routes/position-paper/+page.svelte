@@ -47,48 +47,48 @@
 	<div class="content-width-wide surface-panel surface-padding stack-lg relative">
 		<div class="stack-md">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Core Objectives</Heading>
-			<P class="body-text text-lg leading-relaxed">
+			<P class="text-lead">
 				The paper will present a transformative vision, informed by decolonial thinking and African knowledge systems. It will identify key intersections between methodological innovation, equitable partnerships and culturally responsive ethics. Key components will include:
 			</P>
 		</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm h-full">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full">
 				<div class="flex flex-col items-start gap-4">
 					<div class="p-3 rounded-lg bg-primary-50 dark:bg-primary-900/30">
 						<LightbulbOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 					</div>
 					<div class="stack-sm">
-						<Heading tag="h3" class="text-xl font-bold text-gray-900 dark:text-white">Methodological Pathways</Heading>
-						<P class="body-text text-base">
+						<Heading tag="h3" class="heading-sub heading-sm">Methodological Pathways</Heading>
+						<P class="text-body-sm">
 							Prioritized strategies for integrating AI with African linguistic diversity and historical archives.
 						</P>
 					</div>
 				</div>
 			</Card>
 
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm h-full">
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full">
 				<div class="flex flex-col items-start gap-4">
 					<div class="p-3 rounded-lg bg-primary-50 dark:bg-primary-900/30">
 						<UsersGroupOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 					</div>
 					<div class="stack-sm">
-						<Heading tag="h3" class="text-xl font-bold text-gray-900 dark:text-white">Equitable Frameworks</Heading>
-						<P class="body-text text-base">
+						<Heading tag="h3" class="heading-sub heading-sm">Equitable Frameworks</Heading>
+						<P class="text-body-sm">
 							Defined mechanisms for North-South and South-South collaboration that ensure resource sharing and data sovereignty.
 						</P>
 					</div>
 				</div>
 			</Card>
 
-			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow stack-sm h-full">
+			<Card class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full">
 				<div class="flex flex-col items-start gap-4">
 					<div class="p-3 rounded-lg bg-primary-50 dark:bg-primary-900/30">
 						<BookOpenOutline size="xl" class="text-primary-600 dark:text-primary-400" />
 					</div>
 					<div class="stack-sm">
-						<Heading tag="h3" class="text-xl font-bold text-gray-900 dark:text-white">Ethical Principles</Heading>
-						<P class="body-text text-base">
+						<Heading tag="h3" class="heading-sub heading-sm">Ethical Principles</Heading>
+						<P class="text-body-sm">
 							A core set of guidelines addressing algorithmic bias, community consent, and digital preservation.
 						</P>
 					</div>
@@ -104,32 +104,32 @@
 	<div class="content-width surface-panel surface-padding stack-lg relative">
 		<div class="stack-md">
 			<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">Targeted Recommendations</Heading>
-			<P class="body-text text-center text-lg max-w-3xl mx-auto">
+			<P class="text-lead text-center max-w-3xl mx-auto">
 				To ensure a lasting impact, the position paper will provide specific, actionable recommendations tailored to key stakeholders:
 			</P>
 		</div>
 
 		<Timeline>
 			<TimelineItem title="Research Funders" date="">
-				<P class="body-text text-base">
+				<P class="text-body-lg">
 					Proposals for sustainable funding models that support long-term maintenance and equitable collaboration.
 				</P>
 			</TimelineItem>
 
 			<TimelineItem title="Academic Institutions" date="">
-				<P class="body-text text-base">
+				<P class="text-body-lg">
 					Strategies for decolonizing curricula and integrating ethical DH training.
 				</P>
 			</TimelineItem>
 
 			<TimelineItem title="Technology Developers" date="">
-				<P class="body-text text-base">
+				<P class="text-body-lg">
 					Guidelines for designing tools that are linguistically inclusive and culturally responsive.
 				</P>
 			</TimelineItem>
 
 			<TimelineItem title="Policymakers" date="">
-				<P class="body-text text-base">
+				<P class="text-body-lg">
 					Frameworks for data governance and digital sovereignty.
 				</P>
 			</TimelineItem>

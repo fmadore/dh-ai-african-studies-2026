@@ -121,7 +121,7 @@
 	{/each}
 </svelte:head>
 
-<section class="bg-page min-h-screen py-16 px-4 relative overflow-hidden">
+<section class="bg-page min-h-screen padding-block-xl padding-inline-lg relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 
@@ -195,17 +195,17 @@
 					{#if activeFiltersCount > 0}
 						<div class="hidden sm:flex gap-2 flex-wrap justify-end">
 							{#each selectedTypes as type}
-								<Badge color="indigo" class="flex items-center gap-1 pr-1">
+								<Badge color="primary" class="flex items-center gap-1 pr-1">
 									{type.replace('-', ' ')}
-									<button type="button" onclick={() => selectedTypes = selectedTypes.filter(t => t !== type)} class="text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">
+									<button type="button" onclick={() => selectedTypes = selectedTypes.filter(t => t !== type)} class="text-primary-300 hover:text-primary-700 dark:hover:text-primary-200">
 										<CloseOutline class="w-3 h-3" />
 									</button>
 								</Badge>
 							{/each}
 							{#each selectedTags as tag}
-								<Badge color="green" class="flex items-center gap-1 pr-1">
+								<Badge color="teal" class="flex items-center gap-1 pr-1">
 									{tag}
-									<button type="button" onclick={() => selectedTags = selectedTags.filter(t => t !== tag)} class="text-green-400 hover:text-green-900 dark:hover:text-green-300">
+									<button type="button" onclick={() => selectedTags = selectedTags.filter(t => t !== tag)} class="text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-200">
 										<CloseOutline class="w-3 h-3" />
 									</button>
 								</Badge>
@@ -213,7 +213,7 @@
 							{#each selectedYears as year}
 								<Badge color="gray" class="flex items-center gap-1 pr-1">
 									{year}
-									<button type="button" onclick={() => selectedYears = selectedYears.filter(y => y !== year)} class="text-gray-400 hover:text-gray-900 dark:hover:text-gray-300">
+									<button type="button" onclick={() => selectedYears = selectedYears.filter(y => y !== year)} class="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
 										<CloseOutline class="w-3 h-3" />
 									</button>
 								</Badge>
@@ -244,7 +244,7 @@
 									<!-- Header: Type & Year -->
 									<div class="flex justify-between items-start text-xs uppercase tracking-wider font-semibold body-text-muted">
 										<div class="flex items-center gap-2">
-											<span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-700 dark:text-gray-300">
+											<span class="bg-primary-50 dark:bg-primary-900/30 px-2 py-1 rounded-md text-primary-700 dark:text-primary-300">
 												{ref.type.replace('-', ' ')}
 											</span>
 											{#if ref['container-title']}
@@ -274,7 +274,7 @@
 									</Heading>
 									
 									<!-- Authors -->
-									<P class="body-text font-medium border-l-2 border-gray-200 dark:border-gray-600 pl-3">
+									<P class="body-text font-medium border-l-2 border-primary-200 dark:border-secondary-700 pl-3">
 										{info.authors}
 									</P>
 									
@@ -286,7 +286,7 @@
 									{/if}
 
 									<!-- Tags & Actions -->
-									<div class="pt-4 mt-2 border-t border-gray-100 dark:border-gray-700 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+									<div class="pt-4 mt-2 border-t border-surface-300 dark:border-surface-dark-elevated flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 										<div class="flex flex-wrap gap-2">
 											{#if ref.tags && ref.tags.length > 0}
 												{#each ref.tags as tag}
@@ -320,9 +320,9 @@
 					{/each}
 					
 					{#if filteredReferences.length === 0}
-						<div class="text-center py-16 card-surface rounded-xl border border-dashed border-gray-300 dark:border-gray-700">
+						<div class="text-center padding-block-xl card-surface rounded-xl border border-dashed border-surface-400 dark:border-surface-dark-overlay">
 							<div class="stack-sm flex flex-col items-center">
-								<SearchOutline class="w-12 h-12 text-gray-300 dark:text-gray-600" />
+								<SearchOutline class="w-12 h-12 text-surface-400 dark:text-surface-dark-overlay" />
 								<Heading tag="h4" class="text-lg font-medium body-text-strong">No references found</Heading>
 								<P class="text-sm body-text-muted max-w-xs mx-auto">
 									Try adjusting your search terms or filters to find what you're looking for.
@@ -348,10 +348,12 @@
 		background: transparent;
 	}
 	.custom-scrollbar::-webkit-scrollbar-thumb {
-		background-color: rgba(156, 163, 175, 0.5);
-		border-radius: 20px;
+		background-color: var(--color-gray-400);
+		border-radius: var(--radius-full);
+		opacity: 0.5;
 	}
 	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-		background-color: rgba(107, 114, 128, 0.8);
+		background-color: var(--color-gray-500);
+		opacity: 0.8;
 	}
 </style>

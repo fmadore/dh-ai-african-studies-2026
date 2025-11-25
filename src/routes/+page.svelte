@@ -83,10 +83,10 @@
 				A Scoping Workshop
 			</p>
 		</div>
-		<p class="body-text text-lg lg:text-xl leading-relaxed sm:px-16 xl:px-48 drop-shadow-sm animate-fade-in animate-delay-200">
+		<p class="text-lead sm:px-16 xl:px-48 drop-shadow-sm animate-fade-in animate-delay-200">
 			A working meeting to shape the future of African Studies at the intersection of Digital Humanities and AI. Prioritizing collaborative dialogue over presentations, we convene to co-design the methodological, equitable, and ethical frameworks for this emerging field.
 		</p>
-		<div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4 animate-slide-up animate-delay-300">
+		<div class="flex flex-col gap-4 sm:flex-row sm:justify-center animate-slide-up animate-delay-300">
 			<Button href={aboutHref} size="xl" color="primary" class="shadow-lg hover:shadow-primary">
 				About
 			</Button>
@@ -101,7 +101,7 @@
 </section>
 
 <!-- Key Information -->
-<section class="bg-page py-12 px-4 relative overflow-hidden">
+<section class="bg-page py-16 px-4 relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-secondary top-1/2 -left-20 transform -translate-y-1/2"></div>
 	<div class="content-width-wide surface-panel surface-padding relative">
 		<div class="auto-grid auto-grid-sm">
@@ -118,13 +118,13 @@
 					</div>
 					<div class="stack-sm">
 						<Heading tag="h3" class="heading-sub heading-sm">{highlight.title}</Heading>
-						<P class="body-text text-base sm:text-lg leading-relaxed">
+						<P class="text-body-lg">
 							{#if highlight.href}
 								<a
 									href={highlight.href}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="hover:underline hover:text-primary-600 dark:hover:text-primary-400"
+									class="underline decoration-primary-300 dark:decoration-primary-600 underline-offset-2 hover:decoration-primary-500 dark:hover:decoration-primary-400 transition-colors"
 								>
 									{highlight.description}
 								</a>
@@ -145,7 +145,7 @@
 	<div class="content-width-wide surface-panel surface-padding stack-xl relative">
 		<div class="stack-md text-center animate-fade-in">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Purpose</Heading>
-			<P class="body-text text-lg leading-relaxed max-w-4xl mx-auto">
+			<P class="text-lead max-w-4xl mx-auto">
 				The convergence of digital humanities (DH) and artificial intelligence (AI) offers transformative potential for African studies but risks perpetuating existing inequities in access and representation. This workshop convenes international experts to navigate this terrain, moving beyond observation to design strategic pathways for the field’s ethical and sustainable future.
 			</P>
 		</div>
@@ -159,17 +159,17 @@
 					]}
 				>
 					<Heading tag="h3" class="heading-sub heading-sm">{goal.title}</Heading>
-					<P class="body-text text-base sm:text-lg leading-relaxed">{goal.description}</P>
+					<P class="body-text">{goal.description}</P>
 				</article>
 			{/each}
 		</div>
 
 		<div class="stack-md">
-			<Heading tag="h3" class="text-center heading-section heading-lg heading-color-light">Three Work Streams</Heading>
+			<Heading tag="h3" class="text-center heading-sub heading-lg heading-color-light">Three Work Streams</Heading>
 			<Timeline>
 				{#each workStreams as stream}
 					<TimelineItem title={`Work Stream ${stream.id}: ${stream.title}`} date="">
-						<P class="body-text text-base leading-relaxed">
+						<P class="body-text">
 							{stream.description}
 						</P>
 					</TimelineItem>
@@ -186,9 +186,9 @@
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Organizers</Heading>
 		</div>
 
-		<div class="grid grid-cols-1 gap-6 justify-items-center md:grid-cols-2">
+		<div class="grid grid-cols-1 gap-6 justify-items-center sm:grid-cols-2 max-w-3xl mx-auto">
 			{#each organizers as organizer (organizer.name)}
-				<Card class="card-surface surface-padding-sm w-full flex flex-col items-center text-center gap-4 md:h-full md:justify-between">
+				<Card class="card-surface surface-padding-sm w-full flex flex-col items-center text-center gap-4">
 					{#if organizer.photoUrl}
 						<img
 							src={organizer.photoUrl}
@@ -196,11 +196,11 @@
 							class="w-28 h-28 rounded-full object-cover border-2 border-primary-100 dark:border-primary-700 shadow-md"
 						/>
 					{/if}
-					<div class="stack-sm">
+					<div class="stack-xs">
 						<Heading tag="h3" class="heading-sub heading-color-light text-xl">
 							{organizer.name}
 						</Heading>
-						<P class="text-primary-600 dark:text-primary-400 font-semibold">
+						<P class="text-body-sm text-primary-600 dark:text-primary-400 font-medium">
 							{organizer.affiliation}
 						</P>
 					</div>
@@ -211,8 +211,8 @@
 </section>
 
 <!-- Funding Acknowledgment -->
-<section class="bg-page py-16 px-4">
-	<div class="content-width-narrow surface-panel surface-padding text-center stack-sm">
+<section class="bg-page py-12 px-4">
+	<div class="content-width-narrow surface-panel surface-padding-sm text-center">
 		<P class="body-text-muted text-sm">
 			This scoping workshop is made possible by the generous support of the
 			<a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline">Volkswagen Foundation</a>

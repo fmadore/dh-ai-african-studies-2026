@@ -76,7 +76,7 @@
 
 <Card class="card-surface w-full p-6 sm:p-7">
 	<div class="stack-md">
-		<div class="flex flex-wrap gap-3 justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4">
+		<div class="flex flex-wrap gap-3 justify-between items-center border-b border-surface-300 dark:border-surface-dark-overlay pb-4">
 			<div class="flex items-center gap-2">
 				<FilterOutline class="w-5 h-5 text-primary-600" />
 				<Heading tag="h3" class="heading-sub text-lg m-0">Filters</Heading>
@@ -129,7 +129,7 @@
 		<!-- Type Filter -->
 		{#if availableTypes.length > 0}
 			<div class="stack-sm pt-2">
-				<Label class="font-bold body-text">Type</Label>
+				<Label class="font-bold body-text-strong">Type</Label>
 				<div class="stack-xs">
 					{#each availableTypes as type (type)}
 						<Checkbox bind:group={selectedTypes} value={type} divClass="facet-option" class="body-text-muted">
@@ -142,11 +142,11 @@
 
 		<!-- Tags Filter -->
 		{#if availableTags.length > 0}
-			<div class="stack-sm pt-2 border-t border-gray-100 dark:border-gray-700">
-				<Label class="font-bold text-gray-700 dark:text-gray-300">Keywords</Label>
+			<div class="stack-sm pt-2 border-t border-surface-200 dark:border-surface-dark-elevated">
+				<Label class="font-bold body-text-strong">Keywords</Label>
 				<div class="max-h-60 overflow-y-auto stack-xs pr-2 custom-scrollbar keyword-stack">
 					{#each availableTags as tag (tag)}
-						<Checkbox bind:group={selectedTags} value={tag} divClass="facet-option" class="text-gray-600 dark:text-gray-400">
+						<Checkbox bind:group={selectedTags} value={tag} divClass="facet-option" class="body-text-muted">
 							<span class="text-sm">{tag}</span>
 						</Checkbox>
 					{/each}
@@ -156,11 +156,11 @@
 
 		<!-- Year Filter -->
 		{#if availableYears.length > 0}
-			<div class="stack-sm pt-2 border-t border-gray-100 dark:border-gray-700">
-				<Label class="font-bold text-gray-700 dark:text-gray-300">Year</Label>
+			<div class="stack-sm pt-2 border-t border-surface-200 dark:border-surface-dark-elevated">
+				<Label class="font-bold body-text-strong">Year</Label>
 				<div class="max-h-48 overflow-y-auto stack-xs pr-2 custom-scrollbar">
 					{#each availableYears as year (year)}
-						<Checkbox bind:group={selectedYears} value={year} divClass="facet-option" class="text-gray-600 dark:text-gray-400">
+						<Checkbox bind:group={selectedYears} value={year} divClass="facet-option" class="body-text-muted">
 							{year}
 						</Checkbox>
 					{/each}
@@ -180,26 +180,28 @@
 	}
 
 	.custom-scrollbar::-webkit-scrollbar-thumb {
-		background-color: rgba(156, 163, 175, 0.5);
-		border-radius: 20px;
+		background-color: var(--color-gray-400);
+		border-radius: var(--radius-full);
+		opacity: 0.5;
 	}
 
 	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-		background-color: rgba(107, 114, 128, 0.8);
+		background-color: var(--color-gray-500);
+		opacity: 0.8;
 	}
 
 	:global(label.facet-option) {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--space-xs);
 		width: 100%;
-		padding: 0.45rem 0.85rem;
+		padding: var(--space-xs) var(--space-sm);
 		border-radius: var(--radius-lg);
-		transition: background-color var(--transition-base), color var(--transition-base);
+		transition: background-color var(--transition-fast), color var(--transition-fast);
 	}
 
 	:global(label.facet-option:hover) {
-		background-color: rgba(15, 23, 42, 0.05);
+		background-color: var(--color-primary-50);
 	}
 
 	:global(.dark label.facet-option:hover) {
@@ -207,10 +209,10 @@
 	}
 
 	:global(label.facet-option input[type='checkbox']) {
-		margin-right: 0.25rem;
+		margin-right: var(--space-xs);
 	}
 
 	:global(.keyword-stack > * + *) {
-		margin-top: 0.2rem;
+		margin-top: 0.125rem;
 	}
 </style>

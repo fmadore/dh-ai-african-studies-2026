@@ -76,18 +76,20 @@
      SURFACE & BACKGROUND SYSTEM
      ============================================ */
   
+  /* Light mode surfaces - warm tones matching gray scale */
   --color-surface-0: #ffffff;
-  --color-surface-50: #fafbfc;
-  --color-surface-100: #f8fafc;
-  --color-surface-200: #f1f4f8;
-    --color-surface-300: #e6eaf2;
-    --color-surface-400: #dde3ee;
-  --color-surface-900: #020617;
+  --color-surface-50: #fbfaf9;  /* matches gray-50 */
+  --color-surface-100: #f5f4f2; /* matches gray-100 */
+  --color-surface-200: #eeece9; /* warm mid-tone */
+  --color-surface-300: #e8e6e3; /* matches gray-200 */
+  --color-surface-400: #dfdcd8; /* warm separator */
+  --color-surface-500: #d6d3ce; /* matches gray-300 */
+  --color-surface-900: #1c1917; /* matches gray-900 */
   
-  /* Dark mode surfaces with better hierarchy */
-  --color-surface-dark-base: #0a0f1e;
-  --color-surface-dark-elevated: #131925;
-  --color-surface-dark-overlay: #1a2332;
+  /* Dark mode surfaces - warm slate hierarchy */
+  --color-surface-dark-base: #141211;     /* warmer than pure blue-black */
+  --color-surface-dark-elevated: #1e1c1a; /* elevated cards */
+  --color-surface-dark-overlay: #28251f;  /* modals, dropdowns */
 
     /* Focus + selection tokens */
     --focus-ring-color: rgba(224, 93, 68, 0.38);
@@ -145,14 +147,16 @@
      SPACING SYSTEM
      ============================================ */
   
-  /* Fluid spacing scale */
+  /* Fluid spacing scale - smooth progression */
   --space-xs: clamp(0.5rem, 0.45rem + 0.25vw, 0.625rem);
   --space-sm: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
   --space-md: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
-  --space-lg: clamp(1.125rem, 1rem + 0.4vw, 1.4rem);
+  --space-lg: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
   --space-xl: clamp(1.5rem, 1.35rem + 0.6vw, 2rem);
-  --space-2xl: clamp(2.125rem, 1.9rem + 1vw, 2.75rem);
-  --space-3xl: clamp(2.75rem, 2.2rem + 3.5vw, 4rem);
+  --space-1\.5xl: clamp(1.75rem, 1.6rem + 0.75vw, 2.25rem); /* bridge gap */
+  --space-2xl: clamp(2rem, 1.8rem + 1vw, 2.5rem);
+  --space-3xl: clamp(2.5rem, 2.2rem + 1.5vw, 3.5rem);
+  --space-4xl: clamp(3rem, 2.5rem + 2.5vw, 4.5rem); /* section spacing */
 
   /* Tailwind spacing overrides to further tighten vertical rhythm */
   --spacing-6: clamp(0.875rem, 0.8rem + 0.15vw, 1.125rem);
@@ -203,6 +207,14 @@
   --shadow-primary: 0 10px 25px -5px rgba(224, 93, 68, 0.3);
   --shadow-secondary: 0 10px 25px -5px rgba(13, 148, 136, 0.3);
   
+  /* Dark mode shadows - lighter glows instead of black shadows */
+  --shadow-dark-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --shadow-dark-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-dark-lg: 0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-dark-xl: 0 16px 40px -8px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-dark-glow-primary: 0 0 30px -5px rgba(224, 93, 68, 0.25), 0 0 0 1px rgba(224, 93, 68, 0.1);
+  --shadow-dark-glow-secondary: 0 0 30px -5px rgba(13, 148, 136, 0.25), 0 0 0 1px rgba(13, 148, 136, 0.1);
+  
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -239,7 +251,7 @@
   
   :root {
     color-scheme: light;
-    background-color: var(--color-surface-100);
+    background-color: var(--color-surface-50);
     color: var(--color-gray-900);
   }
 
@@ -250,7 +262,7 @@
   body {
     font-family: var(--font-family-body);
     line-height: var(--leading-body);
-    background-color: var(--color-surface-100);
+    background-color: var(--color-surface-50);
     color: var(--color-gray-900);
     min-height: 100vh;
     text-rendering: optimizeLegibility;
@@ -380,6 +392,7 @@
     font-family: var(--font-family-display);
     font-weight: var(--font-weight-semibold);
     font-size: var(--text-3xl);
+    line-height: var(--leading-snug);
     letter-spacing: var(--tracking-tight);
     color: var(--color-gray-800);
   }
@@ -388,6 +401,7 @@
     font-family: var(--font-family-display);
     font-weight: var(--font-weight-semibold);
     font-size: var(--text-2xl);
+    line-height: var(--leading-subheading);
     letter-spacing: var(--tracking-normal);
     color: var(--color-gray-900);
   }
@@ -446,13 +460,14 @@
 
   .dark .card-surface {
     background-color: var(--color-surface-dark-base);
-    border-color: rgba(255, 255, 255, 0.05);
-    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: var(--shadow-dark-md);
   }
   
   .dark .card-surface:hover {
     border-color: rgba(13, 148, 136, 0.4);
     background-color: var(--color-surface-dark-elevated);
+    box-shadow: var(--shadow-dark-glow-secondary);
   }
 
   /* ============================================
@@ -825,7 +840,7 @@
      ============================================ */
   
   .bg-page {
-    background-color: var(--color-surface-100);
+    background-color: var(--color-surface-50);
   }
 
   .dark .bg-page {
@@ -833,7 +848,7 @@
   }
 
   .bg-page-soft {
-    background-color: var(--color-surface-200);
+    background-color: var(--color-surface-100);
   }
 
   .dark .bg-page-soft {
@@ -841,7 +856,7 @@
   }
 
   .bg-page-strong {
-    background-color: var(--color-surface-300);
+    background-color: var(--color-surface-200);
   }
 
   .dark .bg-page-strong {
@@ -881,6 +896,62 @@
 
   .dark .body-text-muted {
     color: var(--color-gray-400);
+  }
+
+  /* Body typography variants */
+  .text-body-lg {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-gray-700);
+  }
+
+  .dark .text-body-lg {
+    color: var(--color-gray-300);
+  }
+
+  .text-body-sm {
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-gray-600);
+  }
+
+  .dark .text-body-sm {
+    color: var(--color-gray-400);
+  }
+
+  .text-lead {
+    font-size: var(--text-xl);
+    line-height: var(--leading-relaxed);
+    color: var(--color-gray-600);
+    font-weight: var(--font-weight-regular);
+  }
+
+  .dark .text-lead {
+    color: var(--color-gray-300);
+  }
+
+  .text-caption {
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    color: var(--color-gray-500);
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .dark .text-caption {
+    color: var(--color-gray-400);
+  }
+
+  .text-label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--leading-ui);
+    color: var(--color-gray-700);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+
+  .dark .text-label {
+    color: var(--color-gray-300);
   }
   
   /* ============================================
