@@ -121,7 +121,7 @@
 </svelte:head>
 
 <!-- Page Header -->
-<section class="bg-page py-16 px-4 relative overflow-hidden">
+<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
@@ -129,41 +129,41 @@
 		<P class="text-lead max-w-3xl mx-auto">
 			Three days of collaborative dialogue, knowledge sharing, and strategic planning at the intersection of Digital Humanities and AI in African Studies.
 		</P>
-		<div class="flex flex-wrap justify-center gap-4 mt-4">
-			<div class="flex items-center gap-2 text-body-sm">
-				<CalendarMonthOutline class="w-5 h-5 text-primary-600 dark:text-primary-400" />
+		<div class="flex flex-wrap justify-center gap-md stack-item-md">
+			<div class="flex items-center gap-sm text-body-sm">
+				<CalendarMonthOutline class="size-icon-md text-primary-600 dark:text-primary-400" />
 				<span>{workshopInfo.dates.full}</span>
 			</div>
-			<div class="flex items-center gap-2 text-body-sm">
-				<MapPinAltOutline class="w-5 h-5 text-primary-600 dark:text-primary-400" />
+			<div class="flex items-center gap-sm text-body-sm">
+				<MapPinAltOutline class="size-icon-md text-primary-600 dark:text-primary-400" />
 				<span>{workshopInfo.location.venue}, {workshopInfo.location.city}</span>
 			</div>
 		</div>
-		<P class="text-caption mt-4">Last updated: 25 November 2025</P>
+		<P class="text-caption stack-item-md">Last updated: 25 November 2025</P>
 	</div>
 </section>
 
 <!-- Schedule Tabs -->
-<section class="bg-page py-12 px-4 relative overflow-hidden">
+<section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-secondary top-0 right-0 opacity-50"></div>
 	<div class="content-width-wide relative">
 		<Tabs 
 			tabStyle="pill" 
-			class="mb-4"
-			contentClass="mt-4"
+			class="stack-item-md schedule-tabs"
+			contentClass="stack-item-md"
 		>
 			{#each schedule as day (day.dayNumber)}
 				<TabItem open={day.dayNumber === 1}>
 					{#snippet titleSlot()}
-						<div class="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-2 py-1">
-							<span class="font-bold">Day {day.dayNumber}</span>
-							<span class="hidden sm:inline text-gray-400 dark:text-gray-500">•</span>
-							<span class="text-xs sm:text-sm opacity-80">{day.theme}</span>
+						<div class="flex flex-col sm:flex-row items-center gap-xs sm:gap-sm px-sm py-xs">
+							<span class="font-semibold">Day {day.dayNumber}</span>
+							<span class="hidden sm:inline text-gray-500 dark:text-gray-400">•</span>
+							<span class="text-body-sm">{day.theme}</span>
 						</div>
 					{/snippet}
 					
 					<!-- Day Header with integrated legend -->
-					<div class="surface-panel surface-padding mb-6 stack-sm">
+					<div class="surface-panel surface-padding mb-lg stack-sm">
 						<div class="text-center stack-sm">
 							<P class="text-label text-primary-600 dark:text-primary-400">{day.date}</P>
 							<Heading tag="h2" class="heading-section heading-lg heading-color-light">
@@ -174,11 +174,11 @@
 							</P>
 						</div>
 						<!-- Session type legend -->
-						<div class="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+						<div class="flex flex-wrap justify-center gap-x-lg gap-y-sm pt-md stack-item-md border-t border-gray-200 dark:border-gray-700">
 							{#each Object.entries(sessionTypes) as [type, meta] (type)}
-								<div class="flex items-center gap-1.5">
-									<div class="w-2.5 h-2.5 rounded-sm {meta.colorClass}"></div>
-									<span class="text-xs text-gray-600 dark:text-gray-400">{meta.label}</span>
+								<div class="flex items-center gap-xs">
+									<div class="size-legend-dot rounded-sm {meta.colorClass}"></div>
+									<span class="text-caption">{meta.label}</span>
 								</div>
 							{/each}
 						</div>
@@ -189,19 +189,17 @@
 						{#each day.items as item (item.time + item.title)}
 							{@const styles = getItemStyles(item.type)}
 							{@const Icon = getItemIcon(item.type, item.title)}
-							<article class="card-surface {styles.border} {styles.bg} surface-padding-sm rounded-lg transition-all hover:shadow-md">
-								<div class="flex flex-col sm:flex-row gap-4">
+								<article class="card-surface {styles.border} {styles.bg} surface-padding-sm rounded-lg transition-base hover:shadow-md">
+								<div class="flex flex-col sm:flex-row gap-md">
 									<!-- Time Column -->
-									<div class="flex items-start gap-3 sm:w-40 shrink-0">
-										<div class="p-2 rounded-lg bg-white/50 dark:bg-gray-800/50">
-											<Icon class="w-5 h-5 {styles.icon}" />
+									<div class="flex items-start gap-sm sm:w-40 shrink-0">
+										<div class="p-sm rounded-lg bg-white/50 dark:bg-gray-800/50">
+											<Icon class="size-icon-md {styles.icon}" />
 										</div>
-										<span class="font-mono text-sm font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">
+										<span class="font-mono text-body-sm font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">
 											{item.time}
 										</span>
-									</div>
-									
-									<!-- Content Column -->
+									</div>									<!-- Content Column -->
 									<div class="flex-1 stack-xs">
 										<Heading tag="h3" class="heading-sub text-lg heading-color-light">
 											{item.title}
@@ -212,25 +210,25 @@
 											</P>
 										{/if}
 										{#if (item.facilitators && item.facilitators.length > 0) || item.room}
-											<div class="flex flex-wrap gap-4 text-sm">
+											<div class="flex flex-wrap gap-md text-body-sm">
 												{#if item.facilitators && item.facilitators.length > 0}
-													<span class="inline-flex items-center gap-1.5 text-gray-600 dark:text-gray-400">
-														<UsersGroupOutline class="w-4 h-4" />
+													<span class="inline-flex items-center gap-xs text-gray-600 dark:text-gray-400">
+														<UsersGroupOutline class="size-icon-sm" />
 														<span class="font-medium">Facilitator(s):</span> {item.facilitators.join(', ')}
 													</span>
 												{/if}
 												{#if item.room}
-													<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300">
-														<MapPinAltOutline class="w-4 h-4 text-primary-500 dark:text-primary-400" />
+													<span class="inline-flex items-center gap-xs px-sm py-xs rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300">
+														<MapPinAltOutline class="size-icon-sm text-primary-500 dark:text-primary-400" />
 														<span>{item.room}</span>
 													</span>
 												{/if}
 											</div>
 										{/if}
 										{#if item.details && item.details.length > 0}
-											<ul class="stack-xs mt-2">
+											<ul class="stack-xs stack-item-sm">
 												{#each item.details as detail}
-													<li class="body-text flex items-baseline gap-2 text-sm">
+													<li class="body-text flex items-baseline gap-sm text-body-sm">
 														<span class="text-primary-500 dark:text-primary-400 shrink-0">•</span>
 														<span>{detail}</span>
 													</li>
@@ -238,19 +236,19 @@
 											</ul>
 										{/if}
 										{#if item.deliverables && item.deliverables.length > 0}
-											<div class="mt-3 p-3 rounded-lg bg-secondary-50 dark:bg-secondary-900/20 border border-secondary-200 dark:border-secondary-700/50">
-												<div class="flex items-start gap-2">
-													<ClipboardCheckOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400 shrink-0 mt-0.5" />
+											<div class="stack-item-sm p-sm rounded-lg bg-secondary-50 dark:bg-secondary-900/20 border border-secondary-200 dark:border-secondary-700/50">
+												<div class="flex items-start gap-sm">
+													<ClipboardCheckOutline class="size-icon-md text-secondary-600 dark:text-secondary-400 shrink-0 mt-0.5" />
 													<div>
-														<span class="font-semibold text-secondary-700 dark:text-secondary-300 text-sm">
+														<span class="font-semibold text-secondary-700 dark:text-secondary-300 text-body-sm">
 															{item.deliverables.length > 1 ? 'Deliverables:' : 'Deliverable:'}
 														</span>
 														{#if item.deliverables.length === 1}
-															<p class="text-sm text-secondary-600 dark:text-secondary-400 mt-1">{item.deliverables[0]}</p>
+															<p class="text-body-sm text-secondary-600 dark:text-secondary-400 stack-item-xs">{item.deliverables[0]}</p>
 														{:else}
-															<ul class="mt-1 space-y-1">
+															<ul class="stack-item-xs stack-xs">
 																{#each item.deliverables as deliverable}
-																	<li class="text-sm text-secondary-600 dark:text-secondary-400 flex items-baseline gap-2">
+																	<li class="text-body-sm text-secondary-600 dark:text-secondary-400 flex items-baseline gap-sm">
 																		<span class="text-secondary-500 shrink-0">•</span>
 																		<span>{deliverable}</span>
 																	</li>
@@ -273,24 +271,24 @@
 </section>
 
 <!-- Important Information -->
-<section class="bg-page py-16 px-4 relative overflow-hidden">
+<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-primary bottom-20 -left-20"></div>
 	<div class="content-width-wide surface-panel surface-padding stack-md relative">
 		<Heading tag="h2" class="text-center heading-section heading-lg heading-color-light">
 			Important Information
 		</Heading>
-		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+		<div class="grid grid-cols-1 gap-lg sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
 			<Card class="card-surface surface-padding-sm text-center stack-xs">
-				<div class="flex justify-center mb-2">
-					<CalendarMonthOutline class="w-8 h-8 text-primary-600 dark:text-primary-400" />
+				<div class="flex justify-center stack-item-sm">
+					<CalendarMonthOutline class="size-icon-lg text-primary-600 dark:text-primary-400" />
 				</div>
 				<P class="text-label text-primary-600 dark:text-primary-400">Workshop Dates</P>
 				<P class="heading-sub heading-sm">{workshopInfo.dates.full}</P>
 				<P class="text-body-sm">{workshopInfo.duration.description}</P>
 			</Card>
 			<Card class="card-surface surface-padding-sm text-center stack-xs">
-				<div class="flex justify-center mb-2">
-					<MapPinAltOutline class="w-8 h-8 text-primary-600 dark:text-primary-400" />
+				<div class="flex justify-center stack-item-sm">
+					<MapPinAltOutline class="size-icon-lg text-primary-600 dark:text-primary-400" />
 				</div>
 				<P class="text-label text-primary-600 dark:text-primary-400">Venue</P>
 				<P class="heading-sub heading-sm">
@@ -306,8 +304,8 @@
 				<P class="text-body-sm">{workshopInfo.location.city}, {workshopInfo.location.country}</P>
 			</Card>
 			<Card class="card-surface surface-padding-sm text-center stack-xs sm:col-span-2 lg:col-span-1">
-				<div class="flex justify-center mb-2">
-					<FileLinesSolid class="w-8 h-8 text-primary-600 dark:text-primary-400" />
+				<div class="flex justify-center stack-item-sm">
+					<FileLinesSolid class="size-icon-lg text-primary-600 dark:text-primary-400" />
 				</div>
 				<P class="text-label text-primary-600 dark:text-primary-400">Note</P>
 				<P class="text-body-sm">
