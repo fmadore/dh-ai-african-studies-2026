@@ -64,7 +64,7 @@
 	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
 </svelte:head>
 
-<section class="bg-page py-16 px-4 relative overflow-hidden">
+<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 
@@ -73,10 +73,10 @@
 		
 		<div class="stack-md text-left">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">The Convergence of Technology and Epistemology</Heading>
-			<P class="text-lead">
+			<P class="body-text">
 				The intersection of Digital Humanities (DH) and Artificial Intelligence (AI) is rapidly transforming knowledge production within African Studies. This technological shift offers unprecedented opportunities for innovative analysis, dynamic visualization, and the democratization of diverse narratives. However, this potential is inextricably linked to pressing challenges regarding equitable access, the representation of African languages, and the ethics of digital sovereignty.
 			</P>
-			<P class="text-lead">
+			<P class="body-text">
 				"Charting New Territory" is a dedicated scoping workshop designed to navigate this evolving terrain. We are convening international experts to move beyond describing current conditions and instead actively chart future pathways for the ethical, equitable development of DH and AI in African contexts.
 			</P>
 		</div>

@@ -73,7 +73,7 @@
 </svelte:head>
 
 <!-- Page Header -->
-<section class="bg-page py-16 px-4 relative overflow-hidden">
+<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
@@ -89,7 +89,7 @@
 </section>
 
 <!-- Participants Grid -->
-<section class="bg-page py-16 px-4 relative overflow-hidden">
+<section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-secondary top-0 right-0 opacity-50"></div>
 	<div class="content-width-wide surface-panel surface-padding stack-lg relative">
 		{#if displayedParticipants.length > 0}
@@ -164,7 +164,7 @@
 </section>
 
 <!-- Interactive Map -->
-<section class="bg-page py-16 px-4 relative overflow-hidden">
+<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-primary bottom-0 left-0 opacity-50"></div>
 	<div class="content-width-wide surface-panel surface-padding stack-md relative">
 		<Heading tag="h2" class="heading-section heading-lg heading-color-light text-center">Global Distribution</Heading>

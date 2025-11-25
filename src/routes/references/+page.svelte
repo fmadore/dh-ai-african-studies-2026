@@ -141,7 +141,7 @@
 	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
 </svelte:head>
 
-<section class="bg-page min-h-screen padding-block-xl padding-inline-lg relative overflow-hidden">
+<section class="bg-page min-h-screen padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
 	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
 

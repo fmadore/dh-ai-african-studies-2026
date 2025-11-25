@@ -118,7 +118,7 @@
 </section>
 
 <!-- Key Information -->
-<section class="bg-page py-16 px-4 relative overflow-hidden">
+<section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-secondary top-1/2 -left-20 transform -translate-y-1/2"></div>
 	<div class="content-width-wide surface-panel surface-padding relative">
 		<div class="auto-grid auto-grid-sm">
@@ -157,7 +157,7 @@
 </section>
 
 <!-- Conference Themes -->
-<section class="bg-page py-16 px-4 relative overflow-hidden">
+<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-primary bottom-0 -right-20"></div>
 	<div class="content-width-wide surface-panel surface-padding stack-xl relative">
 		<div class="stack-md text-center animate-fade-in">
@@ -197,7 +197,7 @@
 </section>
 
 <!-- Organizers Section -->
-<section class="bg-page py-16 px-4">
+<section class="bg-page padding-block-section padding-inline-section">
 	<div class="content-width-wide surface-panel surface-padding stack-lg">
 		<div class="text-center stack-sm">
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Organizers</Heading>
@@ -228,7 +228,7 @@
 </section>
 
 <!-- Funding Acknowledgment -->
-<section class="bg-page py-12 px-4">
+<section class="bg-page padding-block-section-sm padding-inline-section">
 	<div class="content-width-narrow surface-panel surface-padding-sm text-center">
 		<P class="body-text-muted text-sm">
 			This scoping workshop is made possible by the generous support of the

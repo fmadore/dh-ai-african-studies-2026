@@ -16,7 +16,7 @@
 	] as const;
 </script>
 
-<header class="bg-page padding-block-xl padding-inline-lg relative z-(--z-overlay)">
+<header class="bg-page py-3 padding-inline-lg relative z-(--z-overlay)">
 	<Navbar class="content-width-wide surface-panel surface-padding-xs">
 		<NavBrand href={navLinks[0].href} class="logo-link">
 			<span class="self-center whitespace-nowrap text-xl font-display font-bold tracking-tight text-gradient drop-shadow-md pb-1">
