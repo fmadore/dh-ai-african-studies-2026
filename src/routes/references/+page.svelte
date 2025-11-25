@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { Heading, P, Card, Badge, Button } from 'flowbite-svelte';
 	import { SearchOutline, CloseOutline, FilterOutline } from 'flowbite-svelte-icons';
-	import { createSeoMeta } from '$lib/utils/seo';
+	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
+	import { workshopInfo } from '$lib/data/workshop-info';
 	import referencesData from '$lib/data/references.json';
 	import { fade, slide } from 'svelte/transition';
 	import ReferenceFacets from '$lib/components/ReferenceFacets.svelte';
@@ -10,6 +11,17 @@
 		title: 'References - DH & AI in African Studies',
 		description: 'Bibliography and references for the Digital Humanities and AI in African Studies workshop.',
 		path: '/references'
+	});
+
+	const eventJsonLd = createEventJsonLd({
+		startDate: workshopInfo.dates.startISO,
+		endDate: workshopInfo.dates.endISO,
+		locationName: workshopInfo.location.venue,
+		locationAddress: workshopInfo.location.full,
+		organizerName: workshopInfo.organizers.full,
+		funderName: workshopInfo.funder.name,
+		funderUrl: workshopInfo.funder.url,
+		url: seo.canonical
 	});
 
 	// State
@@ -116,9 +128,13 @@
 
 <svelte:head>
 	<title>{seo.title}</title>
-	{#each seo.meta as attributes}
+	{#each seo.meta as attributes, index (attributes.name ?? attributes.property ?? `meta-${index}`)}
 		<meta {...attributes} />
 	{/each}
+	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
+		<link {...attributes} />
+	{/each}
+	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
 </svelte:head>
 
 <section class="bg-page min-h-screen padding-block-xl padding-inline-lg relative overflow-hidden">

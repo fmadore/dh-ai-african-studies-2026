@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Card, Heading, P, Timeline, TimelineItem } from 'flowbite-svelte';
 	import { CalendarMonthOutline, MapPinAltOutline } from 'flowbite-svelte-icons';
-	import { createSeoMeta } from '$lib/utils/seo';
+	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
 	import { participants } from '$lib/data/participants';
@@ -10,6 +10,16 @@
 	import SecondaryButton from '$lib/components/SecondaryButton.svelte';
 
 	const seo = createSeoMeta({ path: '/' });
+	const eventJsonLd = createEventJsonLd({
+		startDate: workshopInfo.dates.startISO,
+		endDate: workshopInfo.dates.endISO,
+		locationName: workshopInfo.location.venue,
+		locationAddress: workshopInfo.location.full,
+		organizerName: workshopInfo.organizers.full,
+		funderName: workshopInfo.funder.name,
+		funderUrl: workshopInfo.funder.url,
+		url: seo.canonical
+	});
 	const aboutHref = resolveAppPath('/about');
 	const participantsHref = resolveAppPath('/participants');
 	const positionPaperHref = resolveAppPath('/position-paper');
@@ -64,6 +74,7 @@
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
+	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
 </svelte:head>
 
 <!-- Hero Section -->

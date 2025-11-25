@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { Card, Heading, P, Timeline, TimelineItem, Hr } from 'flowbite-svelte';
 	import { FileDocOutline, UsersGroupOutline, LightbulbOutline, BookOpenOutline } from 'flowbite-svelte-icons';
-	import { createSeoMeta } from '$lib/utils/seo';
+	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
+	import { workshopInfo } from '$lib/data/workshop-info';
 
 	const seo = createSeoMeta({
 		path: '/position-paper',
@@ -9,6 +10,17 @@
 		description:
 			'The position paper synthesises workshop insights into a strategic roadmap for Digital Humanities and AI in African studies, foregrounding equitable collaboration, decolonial ethics, and actionable recommendations for stakeholders.',
 		type: 'article'
+	});
+
+	const eventJsonLd = createEventJsonLd({
+		startDate: workshopInfo.dates.startISO,
+		endDate: workshopInfo.dates.endISO,
+		locationName: workshopInfo.location.venue,
+		locationAddress: workshopInfo.location.full,
+		organizerName: workshopInfo.organizers.full,
+		funderName: workshopInfo.funder.name,
+		funderUrl: workshopInfo.funder.url,
+		url: seo.canonical
 	});
 </script>
 
@@ -20,6 +32,7 @@
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
+	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
 </svelte:head>
 
 <!-- Hero Section -->

@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { Heading, P, Card, Badge } from 'flowbite-svelte';
 	import { UserCircleSolid } from 'flowbite-svelte-icons';
-	import { createSeoMeta } from '$lib/utils/seo';
+	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
 	import { participants } from '$lib/data/participants';
 	import { workStreams } from '$lib/data/work-streams';
+	import { workshopInfo } from '$lib/data/workshop-info';
 	import { resolveAssetPath } from '$lib/utils/paths';
 
 	function decorateWithPhotoUrl(participant: typeof participants[number]) {
@@ -35,6 +36,17 @@
 			'This scoping workshop convenes international experts to map the intersection of digital humanities and AI within African studies, highlighting opportunities and challenges across equity, linguistics, and methodology.',
 		path: '/about'
 	});
+
+	const eventJsonLd = createEventJsonLd({
+		startDate: workshopInfo.dates.startISO,
+		endDate: workshopInfo.dates.endISO,
+		locationName: workshopInfo.location.venue,
+		locationAddress: workshopInfo.location.full,
+		organizerName: workshopInfo.organizers.full,
+		funderName: workshopInfo.funder.name,
+		funderUrl: workshopInfo.funder.url,
+		url: seo.canonical
+	});
 </script>
 
 <svelte:head>
@@ -45,6 +57,7 @@
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
+	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
 </svelte:head>
 
 <section class="bg-page py-16 px-4 relative overflow-hidden">

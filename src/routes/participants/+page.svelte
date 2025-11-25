@@ -2,7 +2,8 @@
 	import { Card, Heading, P, Badge } from 'flowbite-svelte';
 	import { UserCircleSolid } from 'flowbite-svelte-icons';
 	import { participants } from '$lib/data/participants';
-	import { createSeoMeta } from '$lib/utils/seo';
+	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
+	import { workshopInfo } from '$lib/data/workshop-info';
 	import ParticipantsMap from '$lib/components/ParticipantsMap.svelte';
 	import SearchFilter from '$lib/components/SearchFilter.svelte';
 	import { resolveAssetPath } from '$lib/utils/paths';
@@ -43,6 +44,17 @@
 			'Meet the international experts shaping the Digital Humanities and AI in African Studies scoping workshop.',
 		path: '/participants'
 	});
+
+	const eventJsonLd = createEventJsonLd({
+		startDate: workshopInfo.dates.startISO,
+		endDate: workshopInfo.dates.endISO,
+		locationName: workshopInfo.location.venue,
+		locationAddress: workshopInfo.location.full,
+		organizerName: workshopInfo.organizers.full,
+		funderName: workshopInfo.funder.name,
+		funderUrl: workshopInfo.funder.url,
+		url: seo.canonical
+	});
 </script>
 
 <svelte:head>
@@ -53,6 +65,7 @@
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
+	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
 </svelte:head>
 
 <!-- Page Header -->

@@ -1,13 +1,24 @@
 <script lang="ts">
 	import { Heading, P, Card } from 'flowbite-svelte';
 	import { CalendarMonthOutline } from 'flowbite-svelte-icons';
-	import { createSeoMeta } from '$lib/utils/seo';
+	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
 
 	const seo = createSeoMeta({
 		title: 'Workshop Schedule',
 		description: 'Explore workshop timings, sessions, and key moments for the Digital Humanities and AI in African Studies scoping event.',
 		path: '/schedule'
+	});
+
+	const eventJsonLd = createEventJsonLd({
+		startDate: workshopInfo.dates.startISO,
+		endDate: workshopInfo.dates.endISO,
+		locationName: workshopInfo.location.venue,
+		locationAddress: workshopInfo.location.full,
+		organizerName: workshopInfo.organizers.full,
+		funderName: workshopInfo.funder.name,
+		funderUrl: workshopInfo.funder.url,
+		url: seo.canonical
 	});
 </script>
 
@@ -19,6 +30,7 @@
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
+	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
 </svelte:head>
 
 <!-- Page Header -->
