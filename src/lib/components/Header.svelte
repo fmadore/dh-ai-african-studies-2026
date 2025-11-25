@@ -25,12 +25,56 @@
 		</NavBrand>
 		<div class="flex md:order-2 gap-2">
 			<ThemeToggle />
-			<NavHamburger />
+			<NavHamburger class="nav-hamburger" />
 		</div>
-		<NavUl {activeUrl} class="nav-links">
+		<NavUl {activeUrl} class="nav-links nav-menu">
 			{#each navLinks as link (link.href)}
 				<NavLi href={link.href}>{link.label}</NavLi>
 			{/each}
 		</NavUl>
 	</Navbar>
 </header>
+
+<style>
+	/* Mobile menu animation */
+	:global(.nav-hamburger) {
+		transition: transform var(--transition-fast), opacity var(--transition-fast);
+	}
+
+	:global(.nav-hamburger:hover) {
+		transform: scale(1.05);
+	}
+
+	:global(.nav-hamburger:active) {
+		transform: scale(0.95);
+	}
+
+	/* Animate mobile menu appearance */
+	:global(.nav-menu) {
+		transition: opacity var(--transition-base), transform var(--transition-base);
+	}
+
+	@media (max-width: 767px) {
+		:global(.nav-menu[hidden]) {
+			opacity: 0;
+			transform: translateY(-0.5rem);
+		}
+
+		:global(.nav-menu:not([hidden])) {
+			opacity: 1;
+			transform: translateY(0);
+			animation: slideDown 0.2s ease-out;
+		}
+	}
+
+	@keyframes slideDown {
+		from {
+			opacity: 0;
+			transform: translateY(-0.5rem);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>

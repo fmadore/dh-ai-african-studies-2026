@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { Button, Card, Heading, P, Timeline, TimelineItem } from 'flowbite-svelte';
+	import { Card, Heading, P, Timeline, TimelineItem } from 'flowbite-svelte';
 	import { CalendarMonthOutline, MapPinAltOutline } from 'flowbite-svelte-icons';
 	import { createSeoMeta } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
 	import { participants } from '$lib/data/participants';
 	import { workStreams } from '$lib/data/work-streams';
+	import PrimaryButton from '$lib/components/PrimaryButton.svelte';
+	import SecondaryButton from '$lib/components/SecondaryButton.svelte';
 
 	const seo = createSeoMeta({ path: '/' });
 	const aboutHref = resolveAppPath('/about');
@@ -87,15 +89,15 @@
 			A working meeting to shape the future of African Studies at the intersection of Digital Humanities and AI. Prioritizing collaborative dialogue over presentations, we convene to co-design the methodological, equitable, and ethical frameworks for this emerging field.
 		</p>
 		<div class="flex flex-col gap-4 sm:flex-row sm:justify-center animate-slide-up animate-delay-300">
-			<Button href={aboutHref} size="xl" color="primary" class="shadow-lg hover:shadow-primary">
+			<PrimaryButton href={aboutHref} size="xl">
 				About
-			</Button>
-			<Button href={participantsHref} size="xl" outline color="secondary" class="backdrop-blur-sm">
+			</PrimaryButton>
+			<SecondaryButton href={participantsHref} size="xl">
 				Participants
-			</Button>
-			<Button href={positionPaperHref} size="xl" outline color="secondary" class="backdrop-blur-sm">
+			</SecondaryButton>
+			<SecondaryButton href={positionPaperHref} size="xl">
 				Position Paper
-			</Button>
+			</SecondaryButton>
 		</div>
 	</div>
 </section>
@@ -165,7 +167,7 @@
 		</div>
 
 		<div class="stack-md">
-			<Heading tag="h3" class="text-center heading-sub heading-lg heading-color-light">Three Work Streams</Heading>
+			<Heading tag="h2" class="text-center heading-sub heading-lg heading-color-light">Three Work Streams</Heading>
 			<Timeline>
 				{#each workStreams as stream}
 					<TimelineItem title={`Work Stream ${stream.id}: ${stream.title}`} date="">
