@@ -1,10 +1,10 @@
+/* Import Google Fonts: Outfit (Display) and Plus Jakarta Sans (Body) */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
 @import 'tailwindcss';
 
 @plugin 'flowbite/plugin';
 @plugin '@tailwindcss/typography';
-
-/* Import Google Fonts: Outfit (Display) and Plus Jakarta Sans (Body) */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 @custom-variant dark (&:where(.dark, .dark *));
 
