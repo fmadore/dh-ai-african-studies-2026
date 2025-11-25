@@ -36,6 +36,20 @@ export interface JsonLdOrganization {
   logo?: string;
 }
 
+export interface JsonLdPostalAddress {
+  '@type': 'PostalAddress';
+  streetAddress?: string;
+  addressLocality?: string;
+  addressCountry?: string;
+  postalCode?: string;
+}
+
+export interface JsonLdPlace {
+  '@type': 'Place';
+  name: string;
+  address?: JsonLdPostalAddress | string;
+}
+
 export interface JsonLdEvent {
   '@context': 'https://schema.org';
   '@type': 'Event';
@@ -43,11 +57,7 @@ export interface JsonLdEvent {
   description?: string;
   startDate?: string;
   endDate?: string;
-  location?: {
-    '@type': 'Place';
-    name: string;
-    address?: string;
-  };
+  location?: JsonLdPlace;
   organizer?: JsonLdOrganization;
   funder?: JsonLdOrganization;
   image?: string;
@@ -169,6 +179,9 @@ export interface CreateEventJsonLdOptions {
   endDate?: string;
   locationName?: string;
   locationAddress?: string;
+  locationCity?: string;
+  locationCountry?: string;
+  locationPostalCode?: string;
   image?: string;
   url?: string;
   organizerName?: string;
@@ -187,27 +200,44 @@ export function createEventJsonLd(options: CreateEventJsonLdOptions = {}): JsonL
   const jsonLd: JsonLdEvent = {
     '@context': 'https://schema.org',
     '@type': 'Event',
-    name: options.name ?? SITE_NAME,
+    name: options.name ?? 'Charting New Territory: Digital Humanities and AI in African Studies',
     description: options.description ?? SITE_DESCRIPTION,
     url: options.url ?? SITE_BASE_URL,
     eventStatus: options.eventStatus ?? 'EventScheduled',
     eventAttendanceMode: options.eventAttendanceMode ?? 'OfflineEventAttendanceMode'
   };
 
+  // Add dates with time component for better Google compatibility
   if (options.startDate) {
-    jsonLd.startDate = options.startDate;
+    // If date doesn't include time, add a default time (09:00)
+    jsonLd.startDate = options.startDate.includes('T') ? options.startDate : `${options.startDate}T09:00:00+01:00`;
   }
 
   if (options.endDate) {
-    jsonLd.endDate = options.endDate;
+    // If date doesn't include time, add a default time (17:00)
+    jsonLd.endDate = options.endDate.includes('T') ? options.endDate : `${options.endDate}T17:00:00+01:00`;
   }
 
   if (options.locationName) {
-    jsonLd.location = {
+    const location: JsonLdPlace = {
       '@type': 'Place',
-      name: options.locationName,
-      address: options.locationAddress
+      name: options.locationName
     };
+
+    // Use structured PostalAddress if city/country provided
+    if (options.locationCity || options.locationCountry) {
+      location.address = {
+        '@type': 'PostalAddress',
+        streetAddress: options.locationAddress,
+        addressLocality: options.locationCity,
+        addressCountry: options.locationCountry,
+        postalCode: options.locationPostalCode
+      };
+    } else if (options.locationAddress) {
+      location.address = options.locationAddress;
+    }
+
+    jsonLd.location = location;
   }
 
   if (options.organizerName) {

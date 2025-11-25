@@ -14,10 +14,14 @@
 	});
 
 	const eventJsonLd = createEventJsonLd({
+		name: 'Charting New Territory: Digital Humanities and AI in African Studies',
+		description: seo.description,
 		startDate: workshopInfo.dates.startISO,
 		endDate: workshopInfo.dates.endISO,
 		locationName: workshopInfo.location.venue,
-		locationAddress: workshopInfo.location.full,
+		locationAddress: workshopInfo.location.venue,
+		locationCity: workshopInfo.location.city,
+		locationCountry: workshopInfo.location.country,
 		organizerName: workshopInfo.organizers.full,
 		funderName: workshopInfo.funder.name,
 		funderUrl: workshopInfo.funder.url,
