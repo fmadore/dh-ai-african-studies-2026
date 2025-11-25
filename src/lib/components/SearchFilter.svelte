@@ -5,15 +5,16 @@
 	let { value = $bindable(''), placeholder = 'Search...' } = $props();
 </script>
 
+{#snippet leftIcon()}
+	<SearchOutline class="w-6 h-6 body-text-muted" />
+{/snippet}
+
 <div class="w-full max-w-md mx-auto">
 	<Input
 		bind:value
 		{placeholder}
 		size="lg"
 		class="pl-12! py-3! text-lg! rounded-xl! shadow-sm"
-	>
-		<svelte:fragment slot="left">
-			<SearchOutline class="w-6 h-6 body-text-muted" />
-		</svelte:fragment>
-	</Input>
+		left={leftIcon}
+	/>
 </div>
