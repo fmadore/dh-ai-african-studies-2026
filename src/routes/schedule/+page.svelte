@@ -144,13 +144,13 @@
 </section>
 
 <!-- Schedule Tabs -->
-<section class="bg-page py-16 px-4 relative overflow-hidden">
+<section class="bg-page py-12 px-4 relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-secondary top-0 right-0 opacity-50"></div>
 	<div class="content-width-wide relative">
 		<Tabs 
 			tabStyle="pill" 
-			class="mb-8"
-			contentClass="mt-8"
+			class="mb-4"
+			contentClass="mt-4"
 		>
 			{#each schedule as day (day.dayNumber)}
 				<TabItem open={day.dayNumber === 1}>
@@ -162,15 +162,26 @@
 						</div>
 					{/snippet}
 					
-					<!-- Day Header -->
-					<div class="surface-panel surface-padding mb-8 text-center stack-sm">
-						<P class="text-label text-primary-600 dark:text-primary-400">{day.date}</P>
-						<Heading tag="h2" class="heading-section heading-lg heading-color-light">
-							{day.theme}
-						</Heading>
-						<P class="text-lead max-w-2xl mx-auto">
-							{day.themeDescription}
-						</P>
+					<!-- Day Header with integrated legend -->
+					<div class="surface-panel surface-padding mb-6 stack-sm">
+						<div class="text-center stack-sm">
+							<P class="text-label text-primary-600 dark:text-primary-400">{day.date}</P>
+							<Heading tag="h2" class="heading-section heading-lg heading-color-light">
+								{day.theme}
+							</Heading>
+							<P class="text-lead max-w-2xl mx-auto">
+								{day.themeDescription}
+							</P>
+						</div>
+						<!-- Session type legend -->
+						<div class="flex flex-wrap justify-center gap-x-5 gap-y-2 pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+							{#each Object.entries(sessionTypes) as [type, meta] (type)}
+								<div class="flex items-center gap-1.5">
+									<div class="w-2.5 h-2.5 rounded-sm {meta.colorClass}"></div>
+									<span class="text-xs text-gray-600 dark:text-gray-400">{meta.label}</span>
+								</div>
+							{/each}
+						</div>
 					</div>
 
 					<!-- Schedule Items -->
@@ -258,23 +269,6 @@
 				</TabItem>
 			{/each}
 		</Tabs>
-	</div>
-</section>
-
-<!-- Schedule Legend -->
-<section class="bg-page py-8 px-4">
-	<div class="content-width">
-		<Card class="card-surface surface-padding-sm">
-			<Heading tag="h3" class="heading-sub text-base mb-4 heading-color-light">Session Types</Heading>
-			<div class="flex flex-wrap gap-6">
-				{#each Object.entries(sessionTypes) as [type, meta] (type)}
-					<div class="flex items-center gap-2">
-						<div class="w-4 h-4 rounded {meta.colorClass}"></div>
-						<span class="text-body-sm">{meta.label}</span>
-					</div>
-				{/each}
-			</div>
-		</Card>
 	</div>
 </section>
 
