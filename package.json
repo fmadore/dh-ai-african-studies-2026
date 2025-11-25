@@ -22,7 +22,7 @@
 		"@tailwindcss/vite": "^4.1.13",
 		"eslint": "^9.39.1",
 		"eslint-plugin-svelte": "^3.13.0",
-		"flowbite": "^3.1.2",
+		"flowbite": "^4.0.1",
 		"flowbite-svelte": "^1.17.4",
 		"flowbite-svelte-icons": "^3.0.0",
 		"svelte": "^5.39.5",
