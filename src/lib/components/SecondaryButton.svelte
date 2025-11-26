@@ -28,16 +28,28 @@
 	}: Props = $props();
 </script>
 
-<Button 
-	{href}
-	{size}
-	{outline}
-	{disabled}
-	{onclick}
-	{target}
-	{rel}
-	color="secondary" 
-	class="backdrop-blur-sm transition-all {className}"
->
-	{@render children()}
-</Button>
+{#if href}
+	<Button 
+		{href}
+		{size}
+		{outline}
+		{disabled}
+		{target}
+		{rel}
+		color="secondary" 
+		class="backdrop-blur-sm transition-all {className}"
+	>
+		{@render children()}
+	</Button>
+{:else}
+	<Button 
+		{size}
+		{outline}
+		{disabled}
+		{onclick}
+		color="secondary" 
+		class="backdrop-blur-sm transition-all {className}"
+	>
+		{@render children()}
+	</Button>
+{/if}

@@ -26,15 +26,26 @@
 	}: Props = $props();
 </script>
 
-<Button 
-	{href}
-	{size}
-	{disabled}
-	{onclick}
-	{target}
-	{rel}
-	color="primary" 
-	class="shadow-lg hover:shadow-primary transition-shadow {className}"
->
-	{@render children()}
-</Button>
+{#if href}
+	<Button 
+		{href}
+		{size}
+		{disabled}
+		{target}
+		{rel}
+		color="primary" 
+		class="shadow-lg hover:shadow-primary transition-shadow {className}"
+	>
+		{@render children()}
+	</Button>
+{:else}
+	<Button 
+		{size}
+		{disabled}
+		{onclick}
+		color="primary" 
+		class="shadow-lg hover:shadow-primary transition-shadow {className}"
+	>
+		{@render children()}
+	</Button>
+{/if}
