@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Heading, P, Card, Tabs, TabItem } from 'flowbite-svelte';
+	import { Heading, P, Card } from 'flowbite-svelte';
 	import {
 		CalendarMonthOutline,
 		MapPinAltOutline,
@@ -14,7 +14,17 @@
 	} from 'flowbite-svelte-icons';
 	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
-	import { schedule, sessionTypes, type SessionType } from '$lib/data/schedule';
+	import { schedule, sessionTypes, type SessionType, type ScheduleItem } from '$lib/data/schedule';
+	import UrlTabs, { type Tab } from '$lib/components/UrlTabs.svelte';
+
+	// Extended tab interface for schedule days
+	interface DayTab extends Tab {
+		dayNumber: number;
+		date: string;
+		theme: string;
+		themeDescription: string;
+		items: ScheduleItem[];
+	}
 
 	const seo = createSeoMeta({
 		title: 'Workshop Schedule',
@@ -37,6 +47,17 @@
 		funderUrl: workshopInfo.funder.url,
 		url: seo.canonical
 	});
+
+	// Transform schedule data to tabs format
+	const dayTabs = schedule.map(day => ({
+		id: `day${day.dayNumber}`,
+		label: `Day ${day.dayNumber}`,
+		dayNumber: day.dayNumber,
+		date: day.date,
+		theme: day.theme,
+		themeDescription: day.themeDescription,
+		items: day.items
+	}));
 
 	function getItemIcon(type: SessionType, title: string) {
 		// Check title for specific meal/break types
@@ -147,126 +168,129 @@
 <section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
 	<div class="decorative-blob decorative-blob-secondary top-0 right-0 opacity-50"></div>
 	<div class="content-width-wide relative">
-		<Tabs 
+		<UrlTabs 
+			tabs={dayTabs} 
+			paramName="day" 
+			defaultTab="day1"
 			tabStyle="pill" 
 			class="stack-item-md schedule-tabs"
 			contentClass="stack-item-md"
 		>
-			{#each schedule as day (day.dayNumber)}
-				<TabItem open={day.dayNumber === 1}>
-					{#snippet titleSlot()}
-						<div class="flex flex-col sm:flex-row items-center gap-xs sm:gap-sm px-sm py-xs">
-							<span class="font-semibold">Day {day.dayNumber}</span>
-							<span class="hidden sm:inline text-gray-500 dark:text-gray-400">•</span>
-							<span class="text-body-sm">{day.theme}</span>
-						</div>
-					{/snippet}
-					
-					<!-- Day Header with integrated legend -->
-					<div class="surface-panel surface-padding mb-lg stack-sm">
-						<div class="text-center stack-sm">
-							<P class="text-label text-primary-600 dark:text-primary-400">{day.date}</P>
-							<Heading tag="h2" class="heading-section heading-lg heading-color-light">
-								{day.theme}
-							</Heading>
-							<P class="text-lead max-w-2xl mx-auto">
-								{day.themeDescription}
-							</P>
-						</div>
-						<!-- Session type legend -->
-						<div class="flex flex-wrap justify-center gap-x-lg gap-y-sm pt-md stack-item-md border-t border-gray-200 dark:border-gray-700">
-							{#each Object.entries(sessionTypes) as [type, meta] (type)}
-								<div class="flex items-center gap-xs">
-									<div class="size-legend-dot rounded-sm {meta.colorClass}"></div>
-									<span class="text-caption">{meta.label}</span>
-								</div>
-							{/each}
-						</div>
+			{#snippet tabTitle(tab)}
+				{@const day = tab as DayTab}
+				<div class="flex flex-col sm:flex-row items-center gap-xs sm:gap-sm px-sm py-xs">
+					<span class="font-semibold">{day.label}</span>
+					<span class="hidden sm:inline text-gray-500 dark:text-gray-400">•</span>
+					<span class="text-body-sm">{day.theme}</span>
+				</div>
+			{/snippet}
+			{#snippet children(activeTabId, tab)}
+				{@const day = tab as DayTab}
+				<!-- Day Header with integrated legend -->
+				<div class="surface-panel surface-padding mb-lg stack-sm">
+					<div class="text-center stack-sm">
+						<P class="text-label text-primary-600 dark:text-primary-400">{day.date}</P>
+						<Heading tag="h2" class="heading-section heading-lg heading-color-light">
+							{day.theme}
+						</Heading>
+						<P class="text-lead max-w-2xl mx-auto">
+							{day.themeDescription}
+						</P>
 					</div>
-
-					<!-- Schedule Items -->
-					<div class="stack-md">
-						{#each day.items as item (item.time + item.title)}
-							{@const styles = getItemStyles(item.type)}
-							{@const Icon = getItemIcon(item.type, item.title)}
-								<article class="card-surface {styles.border} {styles.bg} surface-padding-sm rounded-lg transition-base hover:shadow-md">
-								<div class="flex flex-col sm:flex-row gap-md">
-									<!-- Time Column -->
-									<div class="flex items-start gap-sm sm:w-40 shrink-0">
-										<div class="p-sm rounded-lg bg-white/50 dark:bg-gray-800/50">
-											<Icon class="size-icon-md {styles.icon}" />
-										</div>
-										<span class="font-mono text-body-sm font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">
-											{item.time}
-										</span>
-									</div>									<!-- Content Column -->
-									<div class="flex-1 stack-xs">
-										<Heading tag="h3" class="heading-sub text-lg heading-color-light">
-											{item.title}
-										</Heading>
-										{#if item.description}
-											<P class="body-text">
-												{item.description}
-											</P>
-										{/if}
-										{#if (item.facilitators && item.facilitators.length > 0) || item.room}
-											<div class="flex flex-wrap gap-md text-body-sm">
-												{#if item.facilitators && item.facilitators.length > 0}
-													<span class="inline-flex items-center gap-xs text-gray-600 dark:text-gray-400">
-														<UsersGroupOutline class="size-icon-sm" />
-														<span class="font-medium">Facilitator(s):</span> {item.facilitators.join(', ')}
-													</span>
-												{/if}
-												{#if item.room}
-													<span class="inline-flex items-center gap-xs px-sm py-xs rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300">
-														<MapPinAltOutline class="size-icon-sm text-primary-500 dark:text-primary-400" />
-														<span>{item.room}</span>
-													</span>
-												{/if}
-											</div>
-										{/if}
-										{#if item.details && item.details.length > 0}
-											<ul class="stack-xs stack-item-sm">
-												{#each item.details as detail}
-													<li class="body-text flex items-baseline gap-sm text-body-sm">
-														<span class="text-primary-500 dark:text-primary-400 shrink-0">•</span>
-														<span>{detail}</span>
-													</li>
-												{/each}
-											</ul>
-										{/if}
-										{#if item.deliverables && item.deliverables.length > 0}
-											<div class="stack-item-sm p-sm rounded-lg bg-secondary-50 dark:bg-secondary-900/20 border border-secondary-200 dark:border-secondary-700/50">
-												<div class="flex items-start gap-sm">
-													<ClipboardCheckOutline class="size-icon-md text-secondary-600 dark:text-secondary-400 shrink-0 mt-0.5" />
-													<div>
-														<span class="font-semibold text-secondary-700 dark:text-secondary-300 text-body-sm">
-															{item.deliverables.length > 1 ? 'Deliverables:' : 'Deliverable:'}
-														</span>
-														{#if item.deliverables.length === 1}
-															<p class="text-body-sm text-secondary-600 dark:text-secondary-400 stack-item-xs">{item.deliverables[0]}</p>
-														{:else}
-															<ul class="stack-item-xs stack-xs">
-																{#each item.deliverables as deliverable}
-																	<li class="text-body-sm text-secondary-600 dark:text-secondary-400 flex items-baseline gap-sm">
-																		<span class="text-secondary-500 shrink-0">•</span>
-																		<span>{deliverable}</span>
-																	</li>
-																{/each}
-															</ul>
-														{/if}
-													</div>
-												</div>
-											</div>
-										{/if}
-									</div>
-								</div>
-							</article>
+					<!-- Session type legend -->
+					<div class="flex flex-wrap justify-center gap-x-lg gap-y-sm pt-md stack-item-md border-t border-gray-200 dark:border-gray-700">
+						{#each Object.entries(sessionTypes) as [type, meta] (type)}
+							<div class="flex items-center gap-xs">
+								<div class="size-legend-dot rounded-sm {meta.colorClass}"></div>
+								<span class="text-caption">{meta.label}</span>
+							</div>
 						{/each}
 					</div>
-				</TabItem>
-			{/each}
-		</Tabs>
+				</div>
+
+				<!-- Schedule Items -->
+				<div class="stack-md">
+					{#each day.items as item (item.time + item.title)}
+						{@const styles = getItemStyles(item.type)}
+						{@const Icon = getItemIcon(item.type, item.title)}
+						<article class="card-surface {styles.border} {styles.bg} surface-padding-sm rounded-lg transition-base hover:shadow-md">
+							<div class="flex flex-col sm:flex-row gap-md">
+								<!-- Time Column -->
+								<div class="flex items-start gap-sm sm:w-40 shrink-0">
+									<div class="p-sm rounded-lg bg-white/50 dark:bg-gray-800/50">
+										<Icon class="size-icon-md {styles.icon}" />
+									</div>
+									<span class="font-mono text-body-sm font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">
+										{item.time}
+									</span>
+								</div>
+								<!-- Content Column -->
+								<div class="flex-1 stack-xs">
+									<Heading tag="h3" class="heading-sub text-lg heading-color-light">
+										{item.title}
+									</Heading>
+									{#if item.description}
+										<P class="body-text">
+											{item.description}
+										</P>
+									{/if}
+									{#if (item.facilitators && item.facilitators.length > 0) || item.room}
+										<div class="flex flex-wrap gap-md text-body-sm">
+											{#if item.facilitators && item.facilitators.length > 0}
+												<span class="inline-flex items-center gap-xs text-gray-600 dark:text-gray-400">
+													<UsersGroupOutline class="size-icon-sm" />
+													<span class="font-medium">Facilitator(s):</span> {item.facilitators.join(', ')}
+												</span>
+											{/if}
+											{#if item.room}
+												<span class="inline-flex items-center gap-xs px-sm py-xs rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300">
+													<MapPinAltOutline class="size-icon-sm text-primary-500 dark:text-primary-400" />
+													<span>{item.room}</span>
+												</span>
+											{/if}
+										</div>
+									{/if}
+									{#if item.details && item.details.length > 0}
+										<ul class="stack-xs stack-item-sm">
+											{#each item.details as detail}
+												<li class="body-text flex items-baseline gap-sm text-body-sm">
+													<span class="text-primary-500 dark:text-primary-400 shrink-0">•</span>
+													<span>{detail}</span>
+												</li>
+											{/each}
+										</ul>
+									{/if}
+									{#if item.deliverables && item.deliverables.length > 0}
+										<div class="stack-item-sm p-sm rounded-lg bg-secondary-50 dark:bg-secondary-900/20 border border-secondary-200 dark:border-secondary-700/50">
+											<div class="flex items-start gap-sm">
+												<ClipboardCheckOutline class="size-icon-md text-secondary-600 dark:text-secondary-400 shrink-0 mt-0.5" />
+												<div>
+													<span class="font-semibold text-secondary-700 dark:text-secondary-300 text-body-sm">
+														{item.deliverables.length > 1 ? 'Deliverables:' : 'Deliverable:'}
+													</span>
+													{#if item.deliverables.length === 1}
+														<p class="text-body-sm text-secondary-600 dark:text-secondary-400 stack-item-xs">{item.deliverables[0]}</p>
+													{:else}
+														<ul class="stack-item-xs stack-xs">
+															{#each item.deliverables as deliverable}
+																<li class="text-body-sm text-secondary-600 dark:text-secondary-400 flex items-baseline gap-sm">
+																	<span class="text-secondary-500 shrink-0">•</span>
+																	<span>{deliverable}</span>
+																</li>
+															{/each}
+														</ul>
+													{/if}
+												</div>
+											</div>
+										</div>
+									{/if}
+								</div>
+							</div>
+						</article>
+					{/each}
+				</div>
+			{/snippet}
+		</UrlTabs>
 	</div>
 </section>
 

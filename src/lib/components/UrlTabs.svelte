@@ -1,15 +1,20 @@
+<script lang="ts" module>
+	import type { Component } from 'svelte';
+	
+	export interface Tab {
+		id: string;
+		label: string;
+		icon?: Component<{ class?: string }>;
+		[key: string]: unknown;
+	}
+</script>
+
 <script lang="ts">
 	import { Tabs, TabItem } from 'flowbite-svelte';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { resolveAppPath } from '$lib/utils/paths';
-	import type { Component, Snippet } from 'svelte';
-
-	interface Tab {
-		id: string;
-		label: string;
-		icon?: Component<{ class?: string }>;
-	}
+	import type { Snippet } from 'svelte';
 
 	interface Props {
 		tabs: Tab[];
@@ -18,7 +23,7 @@
 		tabStyle?: 'underline' | 'pill' | 'full';
 		class?: string;
 		contentClass?: string;
-		children: Snippet<[string]>;
+		children: Snippet<[string, Tab]>;
 		tabTitle?: Snippet<[Tab]>;
 	}
 
@@ -75,7 +80,7 @@
 					</div>
 				{/if}
 			{/snippet}
-			{@render children(tab.id)}
+			{@render children(tab.id, tab)}
 		</TabItem>
 	{/each}
 </Tabs>
