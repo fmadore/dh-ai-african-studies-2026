@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { resolveAppPath } from '$lib/utils/paths';
-	import type { Component } from 'svelte';
+	import type { Component, Snippet } from 'svelte';
 
 	interface Tab {
 		id: string;
@@ -18,7 +18,8 @@
 		tabStyle?: 'underline' | 'pill' | 'full';
 		class?: string;
 		contentClass?: string;
-		children: import('svelte').Snippet<[string]>;
+		children: Snippet<[string]>;
+		tabTitle?: Snippet<[Tab]>;
 	}
 
 	let { 
@@ -28,7 +29,8 @@
 		tabStyle = 'underline',
 		class: className = '',
 		contentClass = '',
-		children
+		children,
+		tabTitle
 	}: Props = $props();
 
 	// Get current tab from URL or use default
@@ -62,12 +64,16 @@
 			onclick={() => setActiveTab(tab.id)}
 		>
 			{#snippet titleSlot()}
-				<div class="flex items-center gap-2">
-					{#if Icon}
-						<Icon class="w-5 h-5" />
-					{/if}
-					<span>{tab.label}</span>
-				</div>
+				{#if tabTitle}
+					{@render tabTitle(tab)}
+				{:else}
+					<div class="flex items-center gap-2">
+						{#if Icon}
+							<Icon class="w-5 h-5" />
+						{/if}
+						<span>{tab.label}</span>
+					</div>
+				{/if}
 			{/snippet}
 			{@render children(tab.id)}
 		</TabItem>
