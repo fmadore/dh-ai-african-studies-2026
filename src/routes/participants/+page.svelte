@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card, Heading, P, Badge, Tabs, TabItem, Accordion, AccordionItem } from 'flowbite-svelte';
+	import { Card, Heading, P, Badge, Accordion, AccordionItem } from 'flowbite-svelte';
 	import { UserCircleSolid, UsersGroupSolid, UsersGroupOutline } from 'flowbite-svelte-icons';
 	import { participants } from '$lib/data/participants';
 	import { thematicGroups } from '$lib/data/thematic-groups';
@@ -7,10 +7,16 @@
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import ParticipantsMap from '$lib/components/ParticipantsMap.svelte';
 	import SearchFilter from '$lib/components/SearchFilter.svelte';
+	import UrlTabs from '$lib/components/UrlTabs.svelte';
 	import { resolveAssetPath } from '$lib/utils/paths';
 
 	let searchQuery = $state('');
-	let activeTab = $state<'all' | 'groups'>('all');
+
+	// Define tabs for URL-synced navigation
+	const viewTabs = [
+		{ id: 'all', label: 'All Participants', icon: UsersGroupOutline },
+		{ id: 'groups', label: 'By Thematic Group', icon: UsersGroupSolid }
+	];
 
 	const baseParticipants = participants.filter((participant) => participant.role !== 'Student assistant');
 	const totalParticipants = baseParticipants.length;
@@ -99,188 +105,173 @@
 <!-- Tabs Section -->
 <section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
 	<div class="content-width-wide">
-		<Tabs tabStyle="underline" class="mb-xl">
-			<TabItem open={activeTab === 'all'} onclick={() => activeTab = 'all'}>
-				{#snippet titleSlot()}
-					<div class="flex items-center gap-2">
-						<UsersGroupOutline class="w-5 h-5" />
-						<span>All Participants</span>
-					</div>
-				{/snippet}
-			</TabItem>
-			<TabItem open={activeTab === 'groups'} onclick={() => activeTab = 'groups'}>
-				{#snippet titleSlot()}
-					<div class="flex items-center gap-2">
-						<UsersGroupSolid class="w-5 h-5" />
-						<span>By Thematic Group</span>
-					</div>
-				{/snippet}
-			</TabItem>
-		</Tabs>
+		<UrlTabs tabs={viewTabs} paramName="view" defaultTab="all" tabStyle="underline" class="mb-xl">
+			{#snippet children(activeTab)}
+				{#if activeTab === 'all'}
+					<!-- All Participants View -->
+					<div class="surface-panel surface-padding stack-lg relative">
+						<div class="w-full max-w-md mx-auto mb-lg">
+							<SearchFilter bind:value={searchQuery} placeholder="Search by name, affiliation, or region..." />
+						</div>
 
-		{#if activeTab === 'all'}
-			<!-- All Participants View -->
-			<div class="surface-panel surface-padding stack-lg relative">
-				<div class="w-full max-w-md mx-auto mb-lg">
-					<SearchFilter bind:value={searchQuery} placeholder="Search by name, affiliation, or region..." />
-				</div>
-
-				{#if displayedParticipants.length > 0}
-					<div class="grid grid-cols-1 gap-lg sm:grid-cols-2 lg:grid-cols-3">
-						{#each displayedParticipants as participant (participant.name)}
-							<Card class="card-surface surface-padding-sm h-full">
-								<div class="flex flex-col items-center text-center stack-xs">
-									<!-- Participant Photo -->
-									<div class="relative w-24 h-24">
-										{#if participant.photoUrl}
-											<img
-												src={participant.photoUrl}
-												alt={participant.name}
-												class="w-24 h-24 rounded-full object-cover border-2 border-primary-100 dark:border-primary-800 shadow-md"
-												onerror={handleImageError}
-											/>
-											<!-- Placeholder for missing images -->
-											<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700 shadow-md">
-												<UserCircleSolid class="w-14 h-14 text-gray-400 dark:text-gray-500" />
+						{#if displayedParticipants.length > 0}
+							<div class="grid grid-cols-1 gap-lg sm:grid-cols-2 lg:grid-cols-3">
+								{#each displayedParticipants as participant (participant.name)}
+									<Card class="card-surface surface-padding-sm h-full">
+										<div class="flex flex-col items-center text-center stack-xs">
+											<!-- Participant Photo -->
+											<div class="relative w-24 h-24">
+												{#if participant.photoUrl}
+													<img
+														src={participant.photoUrl}
+														alt={participant.name}
+														class="w-24 h-24 rounded-full object-cover border-2 border-primary-100 dark:border-primary-800 shadow-md"
+														onerror={handleImageError}
+													/>
+													<!-- Placeholder for missing images -->
+													<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700 shadow-md">
+														<UserCircleSolid class="w-14 h-14 text-gray-400 dark:text-gray-500" />
+													</div>
+												{:else}
+													<!-- Placeholder for participants without photo -->
+													<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700 shadow-md">
+														<UserCircleSolid class="w-14 h-14 text-gray-400 dark:text-gray-500" />
+													</div>
+												{/if}
 											</div>
-										{:else}
-											<!-- Placeholder for participants without photo -->
-											<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700 shadow-md">
-												<UserCircleSolid class="w-14 h-14 text-gray-400 dark:text-gray-500" />
+
+											<!-- Participant Name -->
+											<Heading tag="h3" class="heading-sub heading-color-light heading-sm">
+												{participant.name}
+											</Heading>
+
+											<!-- Affiliation -->
+											<P class="text-body-sm text-primary-600 dark:text-primary-400 font-medium">
+												{participant.affiliation}
+											</P>
+
+											<!-- Country Badge -->
+											<Badge color="secondary">{participant.country}</Badge>
+
+											<!-- Bio -->
+											<P class="text-body-sm">
+												{participant.bio}
+											</P>
+										</div>
+
+										<!-- Research Regions -->
+										{#if participant.researchRegions.length > 0}
+											<div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700/50 stack-xs">
+												<P class="text-caption font-medium uppercase tracking-wider text-center">
+													Research Regions
+												</P>
+												<div class="flex flex-wrap justify-center gap-2">
+													{#each participant.researchRegions.toSorted() as region (region)}
+														<Badge color="secondary" class="text-xs">{region}</Badge>
+													{/each}
+												</div>
 											</div>
 										{/if}
+									</Card>
+								{/each}
+							</div>
+						{:else}
+							<div class="text-center py-lg">
+								<P class="text-lead">
+									No participants found matching your search.
+								</P>
+							</div>
+						{/if}
+					</div>
+				{:else if activeTab === 'groups'}
+					<!-- Thematic Groups View -->
+					<div class="stack-xl">
+						{#each thematicGroups as group, index (group.id)}
+							{@const groupParticipants = getGroupParticipants(group.name)}
+							<div class="surface-panel surface-padding stack-md">
+								<!-- Group Header -->
+								<div class="stack-sm">
+									<div class="flex flex-wrap items-center gap-sm">
+										<Badge color="primary" class="text-sm font-semibold">Group {index + 1}</Badge>
+										<Heading tag="h2" class="heading-section heading-md heading-color-light">
+											{group.name}
+										</Heading>
 									</div>
-
-									<!-- Participant Name -->
-									<Heading tag="h3" class="heading-sub heading-color-light heading-sm">
-										{participant.name}
-									</Heading>
-
-									<!-- Affiliation -->
-									<P class="text-body-sm text-primary-600 dark:text-primary-400 font-medium">
-										{participant.affiliation}
-									</P>
-
-									<!-- Country Badge -->
-									<Badge color="secondary">{participant.country}</Badge>
-
-									<!-- Bio -->
-									<P class="text-body-sm">
-										{participant.bio}
+									<P class="body-text max-w-4xl">
+										{group.description}
 									</P>
 								</div>
 
-								<!-- Research Regions -->
-								{#if participant.researchRegions.length > 0}
-									<div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700/50 stack-xs">
-										<P class="text-caption font-medium uppercase tracking-wider text-center">
-											Research Regions
-										</P>
-										<div class="flex flex-wrap justify-center gap-2">
-											{#each participant.researchRegions.toSorted() as region (region)}
-												<Badge color="secondary" class="text-xs">{region}</Badge>
+								<!-- Guiding Questions -->
+								<div class="stack-sm">
+									<Heading tag="h3" class="heading-sub heading-sm heading-color-light">
+										Guiding Questions
+									</Heading>
+									<Accordion class="guiding-questions">
+										{#each group.guidingQuestions as question (question.category)}
+											<AccordionItem>
+												{#snippet header()}
+													<span class="font-medium text-primary-700 dark:text-primary-300">{question.category}</span>
+												{/snippet}
+												<P class="text-body-sm">{question.question}</P>
+											</AccordionItem>
+										{/each}
+									</Accordion>
+								</div>
+
+								<!-- Group Participants -->
+								<div class="stack-sm">
+									<Heading tag="h3" class="heading-sub heading-sm heading-color-light">
+										Participants ({groupParticipants.length})
+									</Heading>
+									{#if groupParticipants.length > 0}
+										<div class="grid grid-cols-1 gap-md sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+											{#each groupParticipants as participant (participant.name)}
+												<Card class="card-surface surface-padding-sm">
+													<div class="flex items-center gap-sm">
+														<!-- Participant Photo (smaller) -->
+														<div class="relative w-12 h-12 shrink-0">
+															{#if participant.photoUrl}
+																<img
+																	src={participant.photoUrl}
+																	alt={participant.name}
+																	class="w-12 h-12 rounded-full object-cover border-2 border-primary-100 dark:border-primary-800"
+																	onerror={handleImageError}
+																/>
+																<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700">
+																	<UserCircleSolid class="w-8 h-8 text-gray-400 dark:text-gray-500" />
+																</div>
+															{:else}
+																<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700">
+																	<UserCircleSolid class="w-8 h-8 text-gray-400 dark:text-gray-500" />
+																</div>
+															{/if}
+														</div>
+														<!-- Participant Info -->
+														<div class="min-w-0">
+															<P class="font-semibold heading-color-light truncate">
+																{participant.name}
+															</P>
+															<P class="text-body-sm text-primary-600 dark:text-primary-400 truncate">
+																{participant.affiliation}
+															</P>
+														</div>
+													</div>
+												</Card>
 											{/each}
 										</div>
-									</div>
-								{/if}
-							</Card>
+									{:else}
+										<P class="text-body-sm text-gray-500 dark:text-gray-400 italic">
+											No participants assigned to this group yet.
+										</P>
+									{/if}
+								</div>
+							</div>
 						{/each}
 					</div>
-				{:else}
-					<div class="text-center py-lg">
-						<P class="text-lead">
-							No participants found matching your search.
-						</P>
-					</div>
 				{/if}
-			</div>
-		{:else}
-			<!-- Thematic Groups View -->
-			<div class="stack-xl">
-				{#each thematicGroups as group, index (group.id)}
-					{@const groupParticipants = getGroupParticipants(group.name)}
-					<div class="surface-panel surface-padding stack-md">
-						<!-- Group Header -->
-						<div class="stack-sm">
-							<div class="flex flex-wrap items-center gap-sm">
-								<Badge color="primary" class="text-sm font-semibold">Group {index + 1}</Badge>
-								<Heading tag="h2" class="heading-section heading-md heading-color-light">
-									{group.name}
-								</Heading>
-							</div>
-							<P class="body-text max-w-4xl">
-								{group.description}
-							</P>
-						</div>
-
-						<!-- Guiding Questions -->
-						<div class="stack-sm">
-							<Heading tag="h3" class="heading-sub heading-sm heading-color-light">
-								Guiding Questions
-							</Heading>
-							<Accordion class="guiding-questions">
-								{#each group.guidingQuestions as question (question.category)}
-									<AccordionItem>
-										{#snippet header()}
-											<span class="font-medium text-primary-700 dark:text-primary-300">{question.category}</span>
-										{/snippet}
-										<P class="text-body-sm">{question.question}</P>
-									</AccordionItem>
-								{/each}
-							</Accordion>
-						</div>
-
-						<!-- Group Participants -->
-						<div class="stack-sm">
-							<Heading tag="h3" class="heading-sub heading-sm heading-color-light">
-								Participants ({groupParticipants.length})
-							</Heading>
-							{#if groupParticipants.length > 0}
-								<div class="grid grid-cols-1 gap-md sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-									{#each groupParticipants as participant (participant.name)}
-										<Card class="card-surface surface-padding-sm">
-											<div class="flex items-center gap-sm">
-												<!-- Participant Photo (smaller) -->
-												<div class="relative w-12 h-12 shrink-0">
-													{#if participant.photoUrl}
-														<img
-															src={participant.photoUrl}
-															alt={participant.name}
-															class="w-12 h-12 rounded-full object-cover border-2 border-primary-100 dark:border-primary-800"
-															onerror={handleImageError}
-														/>
-														<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700">
-															<UserCircleSolid class="w-8 h-8 text-gray-400 dark:text-gray-500" />
-														</div>
-													{:else}
-														<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700">
-															<UserCircleSolid class="w-8 h-8 text-gray-400 dark:text-gray-500" />
-														</div>
-													{/if}
-												</div>
-												<!-- Participant Info -->
-												<div class="min-w-0">
-													<P class="font-semibold heading-color-light truncate">
-														{participant.name}
-													</P>
-													<P class="text-body-sm text-primary-600 dark:text-primary-400 truncate">
-														{participant.affiliation}
-													</P>
-												</div>
-											</div>
-										</Card>
-									{/each}
-								</div>
-							{:else}
-								<P class="text-body-sm text-gray-500 dark:text-gray-400 italic">
-									No participants assigned to this group yet.
-								</P>
-							{/if}
-						</div>
-					</div>
-				{/each}
-			</div>
-		{/if}
+			{/snippet}
+		</UrlTabs>
 	</div>
 </section>
 
