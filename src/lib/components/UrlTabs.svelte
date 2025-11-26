@@ -11,6 +11,7 @@
 
 <script lang="ts">
 	import { Tabs, TabItem } from 'flowbite-svelte';
+	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { resolveAppPath } from '$lib/utils/paths';
@@ -39,14 +40,17 @@
 	}: Props = $props();
 
 	// Get current tab from URL or use default
+	// During SSR/prerendering, always use defaultTab since URL params aren't available
 	let activeTab = $derived.by(() => {
+		if (!browser) return defaultTab;
 		const urlParam = page.url.searchParams.get(paramName);
 		const validIds = tabs.map(t => t.id);
 		return urlParam && validIds.includes(urlParam) ? urlParam : defaultTab;
 	});
 
-	// Update URL when tab changes
+	// Update URL when tab changes (only runs in browser)
 	function setActiveTab(tabId: string) {
+		if (!browser) return;
 		const url = new URL(page.url);
 		if (tabId === defaultTab) {
 			url.searchParams.delete(paramName);
