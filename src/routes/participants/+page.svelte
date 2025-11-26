@@ -99,7 +99,7 @@
 <!-- Tabs Section -->
 <section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
 	<div class="content-width-wide">
-		<Tabs tabStyle="underline" class="mb-8">
+		<Tabs tabStyle="underline" class="mb-xl">
 			<TabItem open={activeTab === 'all'} onclick={() => activeTab = 'all'}>
 				{#snippet titleSlot()}
 					<div class="flex items-center gap-2">
@@ -121,12 +121,12 @@
 		{#if activeTab === 'all'}
 			<!-- All Participants View -->
 			<div class="surface-panel surface-padding stack-lg relative">
-				<div class="w-full max-w-md mx-auto mb-6">
+				<div class="w-full max-w-md mx-auto mb-lg">
 					<SearchFilter bind:value={searchQuery} placeholder="Search by name, affiliation, or region..." />
 				</div>
 
 				{#if displayedParticipants.length > 0}
-					<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+					<div class="grid grid-cols-1 gap-lg sm:grid-cols-2 lg:grid-cols-3">
 						{#each displayedParticipants as participant (participant.name)}
 							<Card class="card-surface surface-padding-sm h-full">
 								<div class="flex flex-col items-center text-center stack-xs">
@@ -187,7 +187,7 @@
 						{/each}
 					</div>
 				{:else}
-					<div class="text-center py-12">
+					<div class="text-center py-lg">
 						<P class="text-lead">
 							No participants found matching your search.
 						</P>
@@ -202,13 +202,13 @@
 					<div class="surface-panel surface-padding stack-md">
 						<!-- Group Header -->
 						<div class="stack-sm">
-							<div class="flex flex-wrap items-center gap-3">
+							<div class="flex flex-wrap items-center gap-sm">
 								<Badge color="primary" class="text-sm font-semibold">Group {index + 1}</Badge>
 								<Heading tag="h2" class="heading-section heading-md heading-color-light">
 									{group.name}
 								</Heading>
 							</div>
-							<P class="text-body max-w-4xl">
+							<P class="body-text max-w-4xl">
 								{group.description}
 							</P>
 						</div>
@@ -236,10 +236,10 @@
 								Participants ({groupParticipants.length})
 							</Heading>
 							{#if groupParticipants.length > 0}
-								<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+								<div class="grid grid-cols-1 gap-md sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 									{#each groupParticipants as participant (participant.name)}
 										<Card class="card-surface surface-padding-sm">
-											<div class="flex items-center gap-3">
+											<div class="flex items-center gap-sm">
 												<!-- Participant Photo (smaller) -->
 												<div class="relative w-12 h-12 shrink-0">
 													{#if participant.photoUrl}
@@ -260,7 +260,7 @@
 												</div>
 												<!-- Participant Info -->
 												<div class="min-w-0">
-													<P class="font-semibold text-gray-900 dark:text-white truncate">
+													<P class="font-semibold heading-color-light truncate">
 														{participant.name}
 													</P>
 													<P class="text-body-sm text-primary-600 dark:text-primary-400 truncate">
