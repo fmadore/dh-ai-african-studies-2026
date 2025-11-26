@@ -11,5 +11,6 @@ export const vincentHiribarren: Participant = {
 	role: 'Co-organizer',
 	bio: 'Vincent Hiribarren is a historian of West Africa and has worked on several digitisation programmes on the African continent. He has recently created an undergraduate module on Digital History and is interested in the relationship between African Studies, Digital Humanities and AI.',
 	researchRegions: ['West Africa', 'Nigeria', 'Cameroon'],
+	thematicGroup: 'Infrastructure, Governance & Access',
 	photoUrl: '/images/participants/vincent-hiribarren.png'
 };

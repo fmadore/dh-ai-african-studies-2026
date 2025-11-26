@@ -11,5 +11,6 @@ export const fallouNgom: Participant = {
 	role: 'Participant',
 	bio: 'Dr. Ngom is a Professor of Anthropology at Boston University. His research interests include the interactions between African languages and non-African languages, the adaptations of Islam in Africa, and Ajami literatures (records of African languages written in Arabic script).',
 	researchRegions: ['Senegal', 'Gambia', 'Guinea', 'Guinea Bissau', 'Mali'],
+	thematicGroup: 'Epistemologies, Decoloniality & Ethical Frameworks',
 	photoUrl: '/images/participants/fallou-ngom.jpg'
 };

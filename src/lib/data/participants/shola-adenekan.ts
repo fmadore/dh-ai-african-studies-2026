@@ -10,5 +10,6 @@ export const sholaAdenekan: Participant = {
 	country: 'Belgium',
 	role: 'Participant',
 	bio: 'Participant information to be added.',
-	researchRegions: []
+	researchRegions: [],
+	thematicGroup: 'Epistemologies, Decoloniality & Ethical Frameworks'
 };

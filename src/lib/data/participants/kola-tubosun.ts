@@ -11,5 +11,6 @@ export const kolaTubosun: Participant = {
 	role: 'Participant',
 	bio: "Kọ́lá Túbọ̀ṣún is a Nigerian writer and linguist, author of three volumes of poetry, and the Africa editor of Best Literary Translations anthology. Fulbright writer and former Research Fellow at the British Library, Tubosun's work has been published in World Literature Today, PEN Transmissions, African Writer, Brittle Paper, etc. His work of translation and language advocacy earned him the Premio Ostana Special Prize in 2016.",
 	researchRegions: ['Nigeria'],
+	thematicGroup: 'Language Technologies, NLP & Corpora',
 	photoUrl: '/images/participants/kola-tubosun.jpg'
 };
