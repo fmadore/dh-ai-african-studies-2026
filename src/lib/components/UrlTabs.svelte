@@ -14,7 +14,6 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
-	import { resolveAppPath } from '$lib/utils/paths';
 	import type { Snippet } from 'svelte';
 
 	interface Props {
@@ -51,13 +50,15 @@
 	// Update URL when tab changes (only runs in browser)
 	function setActiveTab(tabId: string) {
 		if (!browser) return;
+		// page.url already contains the full path including base, so use it directly
 		const url = new URL(page.url);
 		if (tabId === defaultTab) {
 			url.searchParams.delete(paramName);
 		} else {
 			url.searchParams.set(paramName, tabId);
 		}
-		goto(resolveAppPath(url.pathname + url.search), { 
+		// Use pathname + search directly since it already includes the base path
+		goto(url.pathname + url.search, { 
 			replaceState: true, 
 			noScroll: true,
 			keepFocus: true
