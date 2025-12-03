@@ -15,4 +15,6 @@ export interface Participant {
 	researchRegions: string[];
 	thematicGroup?: string;
 	photoUrl?: string;
+	/** Up to 3 questions or topics of interest submitted by the participant */
+	questionsOfInterest?: string[];
 }

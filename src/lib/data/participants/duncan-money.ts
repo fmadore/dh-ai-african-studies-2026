@@ -12,5 +12,10 @@ export const duncanMoney: Participant = {
 	bio: 'Duncan Money is an independent historian and consultant whose work focuses on the mining industry and Southern Africa. He has managed digitisation projects to identify and digitise at-risk archival material in the region in collaboration with the International Institute of Social History, Amsterdam. Currently, he is working with the Zambia Congress of Trade Unions (ZCTU) to organise and digitise historical material held by the organisation.',
 	researchRegions: ['Southern Africa'],
 	thematicGroup: 'The Archive: Preservation, Community Custody & Visual Heritage',
-	photoUrl: ''
+	photoUrl: '',
+	questionsOfInterest: [
+		'Will African organisations and partners be relegated to suppliers of raw data for digital humanities projects?',
+		'How can African organisations retain ownership over digitised material or material contributed to AI projects?',
+		'Continued reliance on external expertise'
+	]
 };
