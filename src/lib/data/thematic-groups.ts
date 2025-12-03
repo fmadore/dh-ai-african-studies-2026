@@ -13,17 +13,22 @@ export const thematicGroups: ThematicGroup[] = [
 		id: 'language-technologies-nlp-corpora',
 		name: 'Language Technologies, NLP & Corpora',
 		description:
-			'This group addresses the most pressing technical barrier in African DH: the dominance of Anglophone and, to a lesser extent, Francophone models. By bringing together computational linguists, literary scholars, and sociolinguists, this group moves beyond simple "translation." They are well-placed to challenge the "inclusion" narrative, arguing not just for the addition of African data to Western models, but also for the development of new computational architectures that respect diverse linguistic structures.',
+			'This group addresses the critical intersection of computational linguistics and data sovereignty, aiming to build sovereign computational infrastructures for African languages. Spanning the technical lifecycle from speech technologies and audio corpora to the high-level architecture of Large Language Models (LLMs), this group seeks to resolve the structural biases inherent in current AI development. By prioritizing epistemic fit, the participants aim to establish robust benchmarking standards and dataset designs that defy Anglophone dominance. The objective is to prevent "category loss" through conceptual engineering, ensuring that NLP tools, user interfaces, and training data are not merely translated, but are architecturally grounded in African linguistic structures and indigenous ontologies.',
 		guidingQuestions: [
 			{
-				category: 'Structural',
+				category: 'On Sovereignty',
 				question:
-					'Can we build "sovereign" language models that function effectively offline or in low-compute environments, or are we perpetually dependent on API calls to Northern tech giants?'
+					'How can we ensure African communities retain ownership of their language data and prevent exploitation when contributing to global AI models?'
 			},
 			{
-				category: 'Data',
+				category: 'On Modality',
 				question:
-					'How do we ethically source training data from oral histories without engaging in data extractivism?'
+					'Since many African languages have strong oral traditions, how can we prioritize speech and audio technologies over text-centric approaches?'
+			},
+			{
+				category: 'On Design',
+				question:
+					'How do we create technical standards and user interfaces that respect African linguistic structures, rather than simply translating Western concepts?'
 			}
 		]
 	},
