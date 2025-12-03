@@ -15,7 +15,7 @@ export interface ScheduleItem {
 	deliverables?: string[];
 	type: SessionType;
 	facilitators?: string[];
-	room?: string;
+	rooms?: string[];
 }
 
 export interface DaySchedule {
@@ -44,7 +44,7 @@ export const schedule: DaySchedule[] = [
 				title: 'Opening and Introduction',
 				type: 'plenary',
 				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
-				room: 'SR 6',
+				rooms: ['SR 6'],
 				details: [
 					'Welcome remarks and overview of workshop format and goals (position paper)',
 					'Brief participant introductions',
@@ -56,7 +56,7 @@ export const schedule: DaySchedule[] = [
 				title: 'Digital Humanities, AI and African Linguistic Diversity',
 				type: 'plenary',
 				facilitators: ['To be determined'],
-				room: 'SR 6'
+				rooms: ['SR 6']
 			},
 			{
 				time: '11:00–11:30',
@@ -68,6 +68,7 @@ export const schedule: DaySchedule[] = [
 				title: 'Working Groups Session',
 				description: 'Working groups convene to discuss',
 				type: 'subgroups',
+				rooms: ['SR 5', 'SR 6', 'BRDT', '4 AG'],
 				deliverables: ['Keywords and key pointers in preparation for the World Café session']
 			},
 			{
@@ -79,6 +80,7 @@ export const schedule: DaySchedule[] = [
 				time: '14:30–16:00',
 				title: 'World Café',
 				type: 'world-cafe',
+				rooms: ['SR 5'],
 				details: [
 					'Setup: 4 tables, each hosted by one work group',
 					'Hosts: 2 members of each work group stay at their table as "Hosts"',
@@ -101,13 +103,13 @@ export const schedule: DaySchedule[] = [
 				title: 'Day One Synthesis: Presentations',
 				description: 'Rapporteurs present key insights from each working groups',
 				type: 'plenary',
-				room: 'SR 6'
+				rooms: ['SR 6']
 			},
 			{
 				time: '18:30',
 				title: 'Dinner',
 				type: 'social',
-				room: 'Festsaal'
+				rooms: ['Festsaal']
 			}
 		]
 	},
@@ -123,7 +125,7 @@ export const schedule: DaySchedule[] = [
 				title: 'Reflection on Day One',
 				type: 'plenary',
 				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
-				room: 'SR 6',
+				rooms: ['SR 6'],
 				details: [
 					'Housekeeping',
 					'Recap of key insights and deliverables from Day One, emphasising the link between methodological development and issues of equity and access',
@@ -135,7 +137,7 @@ export const schedule: DaySchedule[] = [
 				title: 'Mapping Digital Inequalities: Assessing Resource Distribution and Access in DH and AI for African Studies',
 				type: 'plenary',
 				facilitators: ['To be determined'],
-				room: 'SR 6'
+				rooms: ['SR 6']
 			},
 			{
 				time: '11:00–11:30',
@@ -146,6 +148,7 @@ export const schedule: DaySchedule[] = [
 				time: '11:30–13:00',
 				title: 'Exploring Models for Equitable Research Collaboration',
 				type: 'subgroups',
+				rooms: ['SR 5', 'SR 6', 'BRDT'],
 				description:
 					'The 4 groups reconvene in preparation for the World Café, focusing on concrete mechanisms for equitable partnerships, resource sharing, and knowledge exchange in DH and AI projects involving African contexts.',
 				details: ['Each group works on exploring models for equitable research collaboration'],
@@ -158,7 +161,7 @@ export const schedule: DaySchedule[] = [
 				time: '13:00–14:30',
 				title: 'Lunch Break',
 				type: 'break',
-				room: 'Festsaal'
+				rooms: ['Festsaal']
 			},
 			{
 				time: '14:30–16:00',
@@ -181,7 +184,7 @@ export const schedule: DaySchedule[] = [
 				description:
 					'Small groups gather and prepare a short summary of key findings from World Café conversations',
 				type: 'subgroups',
-				room: 'SR 6'
+				rooms: ['SR 6']
 			},
 			{
 				time: '17:15–18:00',
@@ -189,13 +192,13 @@ export const schedule: DaySchedule[] = [
 				description:
 					'Rapporteurs present key insights from each session, highlighting key deliverables related to equitable collaboration',
 				type: 'plenary',
-				room: 'SR 6'
+				rooms: ['SR 6']
 			},
 			{
 				time: '18:30',
 				title: 'Dinner',
 				type: 'social',
-				room: 'Festsaal'
+				rooms: ['Festsaal']
 			}
 		]
 	},
@@ -211,14 +214,14 @@ export const schedule: DaySchedule[] = [
 				title: 'Aims of Day 3',
 				type: 'plenary',
 				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
-				room: 'SR 6'
+				rooms: ['SR 6']
 			},
 			{
 				time: '09:10–11:00',
 				title: 'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Institutions and Archives 1/2',
 				type: 'world-cafe',
 				facilitators: ['To be determined'],
-				room: 'SR 6'
+				rooms: ['SR 6']
 			},
 			{
 				time: '11:00–11:30',
@@ -230,7 +233,7 @@ export const schedule: DaySchedule[] = [
 				title: 'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Studies 2/2',
 				type: 'world-cafe',
 				facilitators: ['To be determined'],
-				room: 'SR 6'
+				rooms: ['SR 6']
 			},
 			{
 				time: '13:00–14:15',
@@ -242,7 +245,7 @@ export const schedule: DaySchedule[] = [
 				title: 'Slides and Instructions for the Position Paper',
 				type: 'plenary',
 				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
-				room: 'SR 6',
+				rooms: ['SR 6'],
 				details: [
 					'Establishment of a clear timeline for post-workshop drafting, review, editing, and dissemination of the position paper'
 				]
@@ -256,7 +259,7 @@ export const schedule: DaySchedule[] = [
 				time: '15:00–16:30',
 				title: 'Writing Session',
 				type: 'subgroups',
-				room: 'SR 6',
+				rooms: ['SR 5', 'SR 6', 'BRDT', 'Bar OG'],
 				details: [
 					'Structured session focused on finalising the framework and key recommendations for the position paper, incorporating the ethical principles and policy recommendations developed during Day Three',
 					'Review and refinement of the position paper outline and key messages'
@@ -271,7 +274,7 @@ export const schedule: DaySchedule[] = [
 				title: "What's Next / Conclusion",
 				type: 'plenary',
 				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
-				room: 'SR 6',
+				rooms: ['SR 6'],
 				details: [
 					'Discussion and commitment to concrete follow-up activities and collaborative actions beyond the workshop to implement workshop recommendations',
 					'Deliverable: Finalised outline of the position paper, agreed-upon writing responsibilities and timeline, and a preliminary list of concrete follow-up actions and commitments from workshop participants',
@@ -284,7 +287,7 @@ export const schedule: DaySchedule[] = [
 				time: '18:00',
 				title: 'Dinner',
 				type: 'social',
-				room: 'Festsaal'
+				rooms: ['Festsaal']
 			}
 		]
 	}

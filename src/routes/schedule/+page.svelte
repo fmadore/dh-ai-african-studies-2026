@@ -234,7 +234,7 @@
 											{item.description}
 										</P>
 									{/if}
-									{#if (item.facilitators && item.facilitators.length > 0) || item.room}
+									{#if (item.facilitators && item.facilitators.length > 0) || (item.rooms && item.rooms.length > 0)}
 										<div class="flex flex-wrap gap-md text-body-sm">
 											{#if item.facilitators && item.facilitators.length > 0}
 												<span class="inline-flex items-center gap-xs text-gray-600 dark:text-gray-400">
@@ -242,11 +242,15 @@
 													<span class="font-medium">Facilitator(s):</span> {item.facilitators.join(', ')}
 												</span>
 											{/if}
-											{#if item.room}
-												<span class="inline-flex items-center gap-xs px-sm py-xs rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300">
+											{#if item.rooms && item.rooms.length > 0}
+												<div class="inline-flex items-center gap-xs">
 													<MapPinAltOutline class="size-icon-sm text-primary-500 dark:text-primary-400" />
-													<span>{item.room}</span>
-												</span>
+													{#each item.rooms as room, i}
+														<span class="px-sm py-xs rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300">
+															{room}
+														</span>
+													{/each}
+												</div>
 											{/if}
 										</div>
 									{/if}
