@@ -59,22 +59,22 @@ export const thematicGroups: ThematicGroup[] = [
 		id: 'infrastructure-governance-access',
 		name: 'Infrastructure, Governance & Access',
 		description:
-			'This group grounds the workshop in reality. While other groups discuss what AI could do, this group discusses what is possible given the constraints of power, bandwidth, and funding. Merging legal/policy experts with infrastructure builders creates a powerhouse for discussing "Digital Sobriety." They are best suited to draft the policy recommendations for funders regarding sustainable infrastructure.',
+			'This workstream serves to ground the workshop in practical reality. While other sessions may explore the theoretical potential of AI, this group confronts what is actually achievable given the daily constraints of electricity, bandwidth, and funding. By uniting participants building these systems, the group creates a powerhouse for discussing "Digital Sobriety"—the urgent need for technology that works within local limitations rather than ignoring them. This team is uniquely positioned to draft concrete policy recommendations, guiding funders toward supporting infrastructure that is not just innovative, but sustainable, equitable, and built to last.',
 		guidingQuestions: [
 			{
-				category: 'Infrastructural',
+				category: 'On Access',
 				question:
-					'How can we implement "Minimal Computing" strategies that allow sophisticated DH work to proceed in environments with unstable electricity and data poverty?'
+					'How can we build digital tools that actually work in environments with unstable electricity and expensive data, rather than assuming everyone has high-speed internet?'
 			},
 			{
-				category: 'Political',
+				category: 'On Regulation',
 				question:
-					'How do we move from a model of "extracting raw data" (from the South) and "exporting analysis" (from the North) to a true circular value chain?'
+					'What rules must be put in place to ensure AI development respects African labor rights and benefits local citizens, rather than just extracting data for foreign profit?'
 			},
 			{
-				category: 'Governance',
+				category: 'On Sovereignty',
 				question:
-					'What legal frameworks are needed to ensure African nations retain sovereignty over the datasets created by mass digitization projects?'
+					'How can African institutions build and own the basic infrastructure—like servers and databases—needed to stop relying on expensive technology rented from the Global North?'
 			}
 		]
 	},
