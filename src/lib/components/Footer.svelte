@@ -3,7 +3,7 @@
 	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
 
 	const aboutHref = resolveAppPath('/about');
-	const foundationLogo = resolveAssetPath('/images/logo/VWST-logo.png');
+	const foundationLogo = resolveAssetPath('/images/logo/VWST-logo.jpg');
 	const zmoLogo = resolveAssetPath('/images/logo/ZMO-logo.png');
 	const kclLogo = resolveAssetPath("/images/logo/King's_College_London_logo.svg");
 	const bayreuthLogo = resolveAssetPath('/images/logo/uni-bayreuth-africa-multiple-logo.jpeg');
