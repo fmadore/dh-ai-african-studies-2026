@@ -82,22 +82,22 @@ export const thematicGroups: ThematicGroup[] = [
 		id: 'epistemologies-decoloniality-ethical-frameworks',
 		name: 'Epistemologies, Decoloniality & Ethical Frameworks',
 		description:
-			'This will challenge the ontological assumptions embedded in digital tools. By bringing together scholars of "epistemic dominance" with those working on indigenous knowledge systems, this group will define the philosophical framework that the Position Paper must adopt. They ensure the workshop does not fall into "techno-solutionism."',
+			'This group addresses the risk that new digital tools might simply repeat historical inequalities. By combining expertise in African languages, digital restitution, and data ethics, these scholars will examine the hidden biases often built into AI and archival systems. Their work will define the core ethical principles for the Position Paper, ensuring the workshop avoids empty "techno-solutionism"—the belief that technology alone can solve complex cultural problems—and instead prioritizes African ownership and ways of knowing.',
 		guidingQuestions: [
 			{
-				category: 'Epistemic',
+				category: 'On Knowledge Systems',
 				question:
-					'How do we translate indigenous theories into metadata fields and UI patterns so that the digital tool achieves "epistemic fit" rather than forcing African concepts into Western boxes?'
+					'How can we design digital tools that recognize African languages, scripts, and oral traditions, rather than forcing them into rigid Western categories that fail to capture their true meaning?'
 			},
 			{
-				category: 'Critical',
+				category: 'On Data Justice',
 				question:
-					'In what ways do current AI models function as "WEIRD" (Western, Educated, Industrialized, Rich, Democratic) tools, and how can we actively de-bias them in an African context?'
+					'What specific safeguards must be established to prevent African cultural heritage from being treated as "raw material" for AI models, ensuring that communities retain ownership of their own stories?'
 			},
 			{
-				category: 'Future-Looking',
+				category: 'On Relevance',
 				question:
-					'How can Black and African DH establish autonomous frameworks for knowledge production that do not rely on validation from the Global North?'
+					'How do we ensure that digital projects address actual social needs and literacy gaps, rather than prioritizing "flashy" technology that ignores the daily realities of the people it claims to serve?'
 			}
 		]
 	}
