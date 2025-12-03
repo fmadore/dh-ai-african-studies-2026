@@ -36,27 +36,22 @@ export const thematicGroups: ThematicGroup[] = [
 		id: 'archive-preservation-community-custody-visual-heritage',
 		name: 'The Archive: Preservation, Community Custody & Visual Heritage',
 		description:
-			'This group moves the conversation beyond "how to digitize" to "who owns the digital twin?", bridging the gap between high-tech AI pipelines and community-centred memory work. The critical intervention for this group is to challenge the "extraction" model, in which African communities supply raw data for Global North DH projects. They must explore post-custodial models where AI tools assist communities in organising their own archives according to their own epistemologies, rather than feeding a centralised external database.',
+			'This group centers the "politics of the archive," moving the conversation beyond digitization as a technical task to a question of sovereignty: "who owns the digital twin?" Uniting expertise in Ethiopian and Arabic manuscript cultures, West African art history, women\'s archives, and labor records, the participants are critically focused on the gap between global digital infrastructures and local community needs. Their intervention challenges the "extraction" model—where African history is mined for raw data—by advocating for post-custodial frameworks that respect indigenous knowledge systems and linguistic diversity. Whether preserving fragile manuscripts or mapping visual culture, the group aims to define how digital tools can support sustainable, community-led stewardship rather than displacing local ownership.',
 		guidingQuestions: [
 			{
-				category: 'The Ownership Question',
+				category: 'On Custody',
 				question:
-					'How do we design legal and technical frameworks so that African organizations retain ownership over digitized material contributed to AI projects, rather than acting as passive "suppliers"?'
+					'How can partnerships be designed so that African communities retain control over their digital archives, rather than serving as raw data suppliers for external researchers?'
 			},
 			{
-				category: 'The "Digital Twin" Ethics',
+				category: 'On Context',
 				question:
-					'When creating a "digital twin" of a physical object or manuscript, how do we ensure the metadata reflects the local context and community values, rather than stripping it bare for global interoperability?'
+					'How do we digitize visual heritage and manuscripts without stripping away their cultural meaning or hiding the human labor involved in preserving them?'
 			},
 			{
-				category: 'The "Right to Refusal"',
+				category: 'On Sustainability',
 				question:
-					'In the rush to preserve "at-risk" heritage, how do we encode a community\'s right to refuse digitization or restrict access to sacred materials within the architecture of the database itself?'
-			},
-			{
-				category: 'The Feedback Loop',
-				question:
-					'How can AI pipelines be used specifically to process "backlogs" of private collections for the purpose of returning them to the community, rather than for external academic extraction?'
+					'How can we prioritize tools that are simple and affordable enough to be maintained locally, ensuring the archive survives without constant foreign aid?'
 			}
 		]
 	},
