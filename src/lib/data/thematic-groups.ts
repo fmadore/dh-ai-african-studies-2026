@@ -36,7 +36,7 @@ export const thematicGroups: ThematicGroup[] = [
 		id: 'archive-preservation-community-custody-visual-heritage',
 		name: 'The Archive: Preservation, Community Custody & Visual Heritage',
 		description:
-			'This group looks beyond digitization to ask: who owns African history in the digital age? Participants examine how to preserve manuscripts and visual culture in ways that respect local context and community rights. The goal is to support sustainable, community-led archives rather than "extracting" heritage for external use.',
+			'This group looks beyond digitization to ask: who owns African history in the digital age? Participants examine how to preserve manuscripts and visual culture in ways that respect local context and community rights. The goal is to support sustainable, community-led archives rather than "extracting" heritage for external AI training.',
 		guidingQuestions: [
 			{
 				category: 'On Custody',
@@ -46,7 +46,7 @@ export const thematicGroups: ThematicGroup[] = [
 			{
 				category: 'On Context',
 				question:
-					'How do we digitize heritage without stripping away its cultural meaning or hiding the human labor involved?'
+					'How do we apply AI analysis to heritage materials without stripping away their cultural meaning or hiding the human labor involved?'
 			},
 			{
 				category: 'On Sustainability',
@@ -97,7 +97,7 @@ export const thematicGroups: ThematicGroup[] = [
 			{
 				category: 'On Relevance',
 				question:
-					'How do we ensure digital projects address actual social needs rather than just showcasing flashy technology?'
+					'How do we ensure digital projects address actual social needs rather than prioritizing flashy technology or speculative AI hype?'
 			}
 		]
 	}
