@@ -1,5 +1,196 @@
 [
   {
+    "id": "3005271/3UEWT2EQ",
+    "type": "paper-conference",
+    "title": "Googling African History: Using digital primary sources to connect students to Africa's past",
+    "publisher-place": "Edinburgh",
+    "event": "ECAS 2019. Africa: Connections and Disruptions",
+    "event-place": "Edinburgh",
+    "abstract": "Increasingly undergraduate history course outcomes emphasize historical thinking, lessons are inquiry based and students are required to apply evidence-based reasoning in answering historical questions. Studies have also shown that students become more engaged and interested in coursework with improved academic skills and course outcomes when primary source research is integrated in the curriculum. Other studies reflect a trend towards increased use of online primary sources instead of published sources by faculty in their teaching. The growth of digital primary sources related to Africa through subscription databases and freely available repositories online has vastly expanded access to rare materials making it possible to integrate such materials in teaching historical research on Africa. African history and culture transmitted broadly through language, documents, material objects, images, rituals and oral traditions, which preserved are used to engage with the African past. The materials used to be only housed in archives, libraries, museums, privately owned, published or at times in precarious conditions in Africa, restricting access and visibility to users outside the country, region or institutions of origin. Advent of digital technologies have transformed access by removing barriers, allowing access in transnational spaces. Selected freely accessible online collections of African primary sources will be examined as well as their discovery and access. The role of faculty, librarians and archivists in driving adoption in an African history classroom will be explored.",
+    "language": "en",
+    "author": [
+      {
+        "family": "Dawson-Andoh",
+        "given": "Araba"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2019,
+          6,
+          12
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/VPKPLUI2",
+    "type": "report",
+    "title": "Toward an African Agenda for AI Safety",
+    "publisher": "Global Center on AI Governance",
+    "abstract": "Artificial intelligence is reshaping economies, politics, and societies worldwide, and Africa is no exception. While AI promises benefits for health, education, agriculture, and economic growth, this report highlights how its risks are especially acute on the continent given fragile institutions, limited infrastructure, and geopolitical dependencies.",
+    "URL": "https://www.globalcenter.ai/research/toward-an-african-agenda-for-ai-safety",
+    "language": "en",
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          8
+        ]
+      ]
+    },
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/YVWCPRW5",
+    "type": "report",
+    "title": "Implications of Open-Source Large Language Models for Responsible AI Development in Africa",
+    "publisher": "Global Center on AI Governance",
+    "abstract": "Open-source Large Language Models (LLMs) have emerged as powerful tools capable of advancing Africa’s socio-economic development and bridging global AI disparities. This executive brief provides a comprehensive overview of the opportunities these models present. particularly their ability to enable African-led innovation, support local language inclusion, and reduce dependence on proprietary systems.\n\nAt the same time, the paper addresses pressing challenges, such as inadequate computing infrastructure, lack of inclusive datasets, opacity in training data, and gaps in national and regional AI governance frameworks. It aligns the discourse with key African policy instruments including the AU’s Continental AI Strategy, Agenda 2063, and data governance frameworks like the Malabo Convention.\n\nTo support responsible adoption, the brief offers ten strategic recommendations. These include building pan-African AI infrastructure, improving transparency in AI model development, creating inclusive AI education programs, forming an ethics board, and leveraging regional networks such as the African Observatory on Responsible AI. The authors call for coordinated efforts by governments, civil society, research institutions, and the private sector to develop AI ecosystems that reflect African values and priorities.\n\nBy framing open-source LLMs as both a technical and governance challenge, this brief makes a strong case for Africa’s proactive engagement in shaping the future of AI globally.",
+    "URL": "https://www.globalcenter.ai/research/implications-of-open-source-large-language-models-for-responsible-ai-development-in-africa",
+    "language": "en",
+    "author": [
+      {
+        "family": "Mahoney",
+        "given": "Scott"
+      },
+      {
+        "family": "Adams",
+        "given": "Rachel"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          4,
+          14
+        ]
+      ]
+    },
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/64CURMSN",
+    "type": "report",
+    "title": "Strengthening Africa's AI Ecosystem Through Open-Source Innovation and Policy Alignment",
+    "publisher": "Global Center on AI Governance",
+    "abstract": "This executive brief presents a strategic analysis of how open-source innovation can serve as a powerful lever for building a robust and inclusive AI ecosystem across Africa. Drawing on global and regional trends, the brief outlines the practical ways in which governments, civil society, and the private sector can collaborate to align open-source technologies with local policy goals. It argues that by adopting open-source approaches, African countries can accelerate AI development in ways that promote transparency, reduce dependency on proprietary tools, and strengthen regional knowledge production.\n\nThe brief highlights the role of harmonized policy frameworks, inclusive standards, and cross-sector partnerships in enabling Africa to chart a sovereign path toward responsible and equitable AI innovation. This work forms part of a wider research effort under the African Observatory on Responsible AI (AORAI), supported by Meta.",
+    "URL": "https://www.globalcenter.ai/research/strengthening-africa-s-ai-ecosystem-through-open-source-innovation-and-policy-alignment",
+    "language": "en",
+    "author": [
+      {
+        "family": "Adan",
+        "given": "Sumaya Nur"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          4,
+          14
+        ]
+      ]
+    },
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/J2GZX4DX",
+    "type": "report",
+    "title": "The State of AI in Africa: A Landscape Study",
+    "publisher": "Global Center on AI Governance",
+    "abstract": "Africa is uniquely positioned to benefit from the rapid rise of Artificial Intelligence, but realizing its full potential requires addressing complex socio-economic challenges. In the report, AI in Africa: A Landscape Study, the Global Center on AI Governance (GCG), through the African Observatory on Responsible AI, takes a closer look at the continent’s AI ecosystem. This study outlines the significant opportunities AI holds for Africa’s growth, identifying immense opportunities for AI to drive economic growth, improve public services, and create new socio-economic opportunities. The study also highlights challenges that require thoughtful, context-driven solutions. It identifies key drivers and actionable recommendations to ensure AI serves Africa’s development goals while safeguarding its social, economic, and cultural landscapes.\n\nFor AI to truly benefit Africa, it must be built for Africa. The continent’s dynamic, youthful, and increasingly tech-savvy population presents an opportunity to develop AI solutions that are not just imported but designed with African realities in mind. Achieving this requires robust investments in local talent, infrastructure, and policies that ensure AI serves Africa’s needs rather than reinforcing global inequalities.\n\nOne of the major takeaways from the study is that AI’s increasing role in key sectors—such as health, education, finance, agriculture, and public services—demands a collaborative approach to governance. AI’s transformative potential can only be fully realized if the governance frameworks around it are well-developed, regionally relevant, and uphold ethical standards. Yet, Africa faces persistent challenges such as infrastructure deficits, limited regulatory frameworks, and a shortage of skilled professionals.\n\nThe power of open-source AI lies in its ability to democratize innovation, especially in Africa, where local startups can leverage it to build solutions that address pressing societal challenges. However, to fully harness its potential, it is crucial to tackle challenges related to data governance, privacy, and responsible AI deployment.",
+    "URL": "https://www.globalcenter.ai/research/ai-in-africa-landscape-study",
+    "shortTitle": "The State of AI in Africa",
+    "language": "en",
+    "author": [
+      {
+        "family": "Adams",
+        "given": "Rachel"
+      },
+      {
+        "family": "Adeleke",
+        "given": "Fola"
+      },
+      {
+        "family": "Junck",
+        "given": "Leah"
+      },
+      {
+        "family": "Segun",
+        "given": "Samuel"
+      },
+      {
+        "family": "Alayande",
+        "given": "Ayantola"
+      },
+      {
+        "family": "Abdella",
+        "given": "Selamawit Engida"
+      },
+      {
+        "family": "Gaffley",
+        "given": "Mark"
+      },
+      {
+        "family": "Díaz Pabón",
+        "given": "Fabio Andrés"
+      },
+      {
+        "family": "Salami",
+        "given": "Funbi"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          4
+        ]
+      ]
+    },
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
     "id": "3005271/M8ZQF5HL",
     "type": "song",
     "title": "Artificial Intelligence (AI) in African and Islamic Studies",
@@ -63,106 +254,6 @@
     "tags": []
   },
   {
-    "id": "3005271/YVWCPRW5",
-    "type": "report",
-    "title": "Implications of Open-Source Large Language Models for Responsible AI Development in Africa",
-    "publisher": "Global Center on AI Governance",
-    "abstract": "Africa's leading voice in AI policy and governance, working globally to shape fair and inclusive technologies.",
-    "URL": "https://www.globalcenter.ai/research/implications-of-open-source-large-language-models-for-responsible-ai-development-in-africa",
-    "language": "en",
-    "author": [
-      {
-        "family": "Mahoney",
-        "given": "Scott"
-      },
-      {
-        "family": "Adams",
-        "given": "Rachel"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          4,
-          14
-        ]
-      ]
-    },
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/64CURMSN",
-    "type": "report",
-    "title": "Strengthening Africa's AI Ecosystem Through Open-Source Innovation and Policy Alignment",
-    "publisher": "Global Center on AI Governance",
-    "abstract": "Africa's leading voice in AI policy and governance, working globally to shape fair and inclusive technologies.",
-    "URL": "https://www.globalcenter.ai/research/strengthening-africa-s-ai-ecosystem-through-open-source-innovation-and-policy-alignment",
-    "language": "en",
-    "author": [
-      {
-        "family": "Adan",
-        "given": "Sumaya Nur"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          4,
-          14
-        ]
-      ]
-    },
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/J2GZX4DX",
-    "type": "report",
-    "title": "The State of AI in Africa: A Landscape Study",
-    "publisher": "Global Center on AI Governance",
-    "abstract": "Africa's leading voice in AI policy and governance, working globally to shape fair and inclusive technologies.",
-    "URL": "https://www.globalcenter.ai/research/ai-in-africa-landscape-study",
-    "shortTitle": "The State of AI in Africa",
-    "language": "en",
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          4
-        ]
-      ]
-    },
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
     "id": "3005271/5EUM9X95",
     "type": "report",
     "title": "Artificial Intelligence and Religion: Investigating Perceptions: Ethics, Practices and the Role of Religious Actors in Senegal",
@@ -205,32 +296,6 @@
     "type": "article",
     "title": "The Africa Declaration on Artificial Intelligence",
     "URL": "https://c4ir.rw/docs/Africa-Declaration-on-Artificial-Intelligence.pdf",
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/VPKPLUI2",
-    "type": "report",
-    "title": "Toward an African Agenda for AI Safety",
-    "publisher": "Global Center on AI Governance",
-    "URL": "https://www.globalcenter.ai/research/toward-an-african-agenda-for-ai-safety",
-    "language": "en",
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          8
-        ]
-      ]
-    },
     "accessed": {
       "date-parts": [
         [
@@ -4550,31 +4615,5 @@
       "Lu"
     ],
     "URL": "https://doi.org/10.1017/hia.2021.6"
-  },
-  {
-    "id": "3005271/3UEWT2EQ",
-    "type": "paper-conference",
-    "title": "Googling African History: Using digital primary sources to connect students to Africa's past",
-    "publisher-place": "Edinburgh",
-    "event": "ECAS 2019. Africa: Connections and Disruptions",
-    "event-place": "Edinburgh",
-    "abstract": "Increasingly undergraduate history course outcomes emphasize historical thinking, lessons are inquiry based and students are required to apply evidence-based reasoning in answering historical questions. Studies have also shown that students become more engaged and interested in coursework with improved academic skills and course outcomes when primary source research is integrated in the curriculum. Other studies reflect a trend towards increased use of online primary sources instead of published sources by faculty in their teaching. The growth of digital primary sources related to Africa through subscription databases and freely available repositories online has vastly expanded access to rare materials making it possible to integrate such materials in teaching historical research on Africa. African history and culture transmitted broadly through language, documents, material objects, images, rituals and oral traditions, which preserved are used to engage with the African past. The materials used to be only housed in archives, libraries, museums, privately owned, published or at times in precarious conditions in Africa, restricting access and visibility to users outside the country, region or institutions of origin. Advent of digital technologies have transformed access by removing barriers, allowing access in transnational spaces. Selected freely accessible online collections of African primary sources will be examined as well as their discovery and access. The role of faculty, librarians and archivists in driving adoption in an African history classroom will be explored.",
-    "language": "e",
-    "author": [
-      {
-        "family": "Dawson-Andoh",
-        "given": "Araba"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2019,
-          6,
-          12
-        ]
-      ]
-    },
-    "tags": []
   }
 ]
