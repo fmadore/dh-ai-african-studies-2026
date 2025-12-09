@@ -9,6 +9,7 @@
 		selectedTypes: string[];
 		selectedYears: string[];
 		selectedTags: string[];
+		selectedLanguages: string[];
 		selectedSort: string;
 		showCloseButton?: boolean;
 		closeLabel?: string;
@@ -22,6 +23,7 @@
 		selectedTypes = $bindable(), 
 		selectedYears = $bindable(), 
 		selectedTags = $bindable(),
+		selectedLanguages = $bindable(),
 		selectedSort = $bindable(),
 		showCloseButton = false,
 		closeLabel = 'Close filters'
@@ -53,6 +55,11 @@
 		return Array.from(years).sort().reverse();
 	});
 
+	let availableLanguages = $derived.by(() => {
+		const languages = new Set(references.map(r => r.language).filter(Boolean));
+		return Array.from(languages).sort();
+	});
+
 	let availableTags = $derived.by(() => {
 		const tags = new Set<string>();
 		references.forEach(r => {
@@ -71,7 +78,8 @@
 		(searchQuery ? 1 : 0) + 
 		selectedTypes.length + 
 		selectedYears.length + 
-		selectedTags.length
+		selectedTags.length + 
+		selectedLanguages.length
 	);
 
 	const sortOptions = [
@@ -86,11 +94,25 @@
 		selectedTypes = [];
 		selectedYears = [];
 		selectedTags = [];
+		selectedLanguages = [];
 		selectedSort = 'newest';
 	}
 
 	function handleClose() {
 		dispatch('close');
+	}
+
+	function formatLanguage(langCode: string): string {
+		const languageMap: Record<string, string> = {
+			'en': 'English',
+			'fr': 'French',
+			'es': 'Spanish',
+			'pt': 'Portuguese',
+			'ar': 'Arabic',
+			'sw': 'Swahili',
+			'de': 'German'
+		};
+		return languageMap[langCode.toLowerCase()] || langCode.toUpperCase();
 	}
 </script>
 
@@ -168,6 +190,20 @@
 					{#each availableTags as tag (tag)}
 						<Checkbox bind:group={selectedTags} value={tag} class="body-text-muted">
 							<span class="text-sm">{tag}</span>
+						</Checkbox>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Language Filter -->
+		{#if availableLanguages.length > 0}
+			<div class="stack-sm pt-2 border-t border-surface-200 dark:border-surface-dark-elevated">
+				<Label class="font-bold body-text-strong">Language</Label>
+				<div class="stack-xs pl-1">
+					{#each availableLanguages as language (language)}
+						<Checkbox bind:group={selectedLanguages} value={language} class="body-text-muted">
+							<span>{formatLanguage(language)}</span>
 						</Checkbox>
 					{/each}
 				</div>

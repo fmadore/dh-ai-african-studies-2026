@@ -36,6 +36,7 @@
 	let selectedTypes = $state<string[]>([]);
 	let selectedYears = $state<string[]>([]);
 	let selectedTags = $state<string[]>([]);
+	let selectedLanguages = $state<string[]>([]);
 	let selectedSort = $state('newest');
 	let showMobileFilters = $state(false);
 	let expandedReferences = $state(new Set<string>());
@@ -60,7 +61,11 @@
 			const refTags = ref.tags || [];
 			const matchesTags = selectedTags.length === 0 || selectedTags.some(tag => refTags.includes(tag));
 
-			return matchesSearch && matchesType && matchesYear && matchesTags;
+			// Language filter
+			const language = ref.language;
+			const matchesLanguage = selectedLanguages.length === 0 || (language && selectedLanguages.includes(language));
+
+			return matchesSearch && matchesType && matchesYear && matchesTags && matchesLanguage;
 		});
 
 		return filtered.sort((a, b) => {
@@ -90,7 +95,8 @@
 		(searchQuery ? 1 : 0) + 
 		selectedTypes.length + 
 		selectedYears.length + 
-		selectedTags.length
+		selectedTags.length + 
+		selectedLanguages.length
 	);
 
 	function resetFilters() {
@@ -98,6 +104,7 @@
 		selectedTypes = [];
 		selectedYears = [];
 		selectedTags = [];
+		selectedLanguages = [];
 		selectedSort = 'newest';
 	}
 
@@ -151,6 +158,19 @@
 			'article': 'Preprint'
 		};
 		return typeMap[type] || type.replace(/-|_/g, ' ');
+	}
+
+	function formatLanguage(langCode: string): string {
+		const languageMap: Record<string, string> = {
+			'en': 'English',
+			'fr': 'French',
+			'es': 'Spanish',
+			'pt': 'Portuguese',
+			'ar': 'Arabic',
+			'sw': 'Swahili',
+			'de': 'German'
+		};
+		return languageMap[langCode.toLowerCase()] || langCode.toUpperCase();
 	}
 </script>
 
@@ -207,6 +227,7 @@
 						bind:selectedTypes
 						bind:selectedYears
 						bind:selectedTags
+						bind:selectedLanguages
 						bind:selectedSort
 						showCloseButton
 						on:close={() => (showMobileFilters = false)}
@@ -224,6 +245,7 @@
 					bind:selectedTypes
 					bind:selectedYears
 					bind:selectedTags
+					bind:selectedLanguages
 					bind:selectedSort
 				/>
 			</aside>
@@ -254,15 +276,23 @@
 									</button>
 								</Badge>
 							{/each}
-							{#each selectedYears as year}
-								<Badge color="gray" class="flex items-center gap-1 pr-1">
-									{year}
-									<button type="button" onclick={() => selectedYears = selectedYears.filter(y => y !== year)} class="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
-										<CloseOutline class="w-3 h-3" />
-									</button>
-								</Badge>
-							{/each}
-						</div>
+						{#each selectedYears as year}
+							<Badge color="gray" class="flex items-center gap-1 pr-1">
+								{year}
+								<button type="button" onclick={() => selectedYears = selectedYears.filter(y => y !== year)} class="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+									<CloseOutline class="w-3 h-3" />
+								</button>
+							</Badge>
+						{/each}
+						{#each selectedLanguages as lang}
+							<Badge color="purple" class="flex items-center gap-1 pr-1">
+								{formatLanguage(lang)}
+								<button type="button" onclick={() => selectedLanguages = selectedLanguages.filter(l => l !== lang)} class="text-purple-400 hover:text-purple-700 dark:hover:text-purple-300">
+									<CloseOutline class="w-3 h-3" />
+								</button>
+							</Badge>
+						{/each}
+					</div>
 					{/if}
 				</div>
 
