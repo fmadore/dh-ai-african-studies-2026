@@ -27,9 +27,25 @@
 		closeLabel = 'Close filters'
 	}: Props = $props();
 
+	function formatType(type: string): string {
+		const typeMap: Record<string, string> = {
+			'article-magazine': 'Magazine article',
+			'article-newspaper': 'Newspaper article',
+			'article-journal': 'Journal article',
+			'entry-encyclopedia': 'Encyclopedia entry',
+			'motion_picture': 'Video',
+			'paper-conference': 'Conference paper',
+			'post-weblog': 'Blog post',
+			'song': 'Podcast',
+			'speech': 'Presentation',
+			'article': 'Preprint'
+		};
+		return typeMap[type] || type.replace(/-|_/g, ' ');
+	}
+
 	let availableTypes = $derived.by(() => {
 		const types = new Set(references.map(r => r.type).filter(Boolean));
-		return Array.from(types).sort();
+		return Array.from(types).sort((a, b) => formatType(a).localeCompare(formatType(b)));
 	});
 
 	let availableYears = $derived.by(() => {
@@ -41,10 +57,14 @@
 		const tags = new Set<string>();
 		references.forEach(r => {
 			if (r.tags && Array.isArray(r.tags)) {
-				r.tags.forEach((t: string) => tags.add(t));
+				r.tags.forEach((t: string) => {
+					if (t !== 'Non lu') {
+						tags.add(t);
+					}
+				});
 			}
 		});
-		return Array.from(tags).sort();
+		return Array.from(tags).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 	});
 
 	let activeFiltersCount = $derived(
@@ -133,7 +153,7 @@
 				<div class="stack-xs pl-1">
 					{#each availableTypes as type (type)}
 						<Checkbox bind:group={selectedTypes} value={type} class="body-text-muted">
-							<span class="capitalize">{type.replace('-', ' ')}</span>
+							<span class="capitalize">{formatType(type)}</span>
 						</Checkbox>
 					{/each}
 				</div>

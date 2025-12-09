@@ -116,7 +116,15 @@
 	}
 
 	function formatCitation(ref: any) {
-		const authors = ref.author?.map((a: any) => `${a.given} ${a.family}`).join(', ') || 'Unknown Author';
+		let authors = 'Unknown Author';
+		
+		if (ref.author && ref.author.length > 0) {
+			authors = ref.author.map((a: any) => `${a.given} ${a.family}`).join(', ');
+		} else if (ref.editor && ref.editor.length > 0) {
+			const editorNames = ref.editor.map((e: any) => `${e.given} ${e.family}`).join(', ');
+			authors = `${editorNames} (ed${ref.editor.length > 1 ? 's' : ''})`;
+		}
+		
 		const year = ref.issued?.['date-parts']?.[0]?.[0] || 'n.d.';
 		return { authors, year };
 	}
@@ -127,6 +135,22 @@
 		} else {
 			selectedTags = [...selectedTags, tag];
 		}
+	}
+
+	function formatType(type: string): string {
+		const typeMap: Record<string, string> = {
+			'article-magazine': 'Magazine article',
+			'article-newspaper': 'Newspaper article',
+			'article-journal': 'Journal article',
+			'entry-encyclopedia': 'Encyclopedia entry',
+			'motion_picture': 'Video',
+			'paper-conference': 'Conference paper',
+			'post-weblog': 'Blog post',
+			'song': 'Podcast',
+			'speech': 'Presentation',
+			'article': 'Preprint'
+		};
+		return typeMap[type] || type.replace(/-|_/g, ' ');
 	}
 </script>
 
@@ -265,7 +289,7 @@
 									<div class="flex justify-between items-start text-xs uppercase tracking-wider font-semibold body-text-muted">
 										<div class="flex items-center gap-2">
 											<span class="bg-primary-50 dark:bg-primary-900/30 px-2 py-1 rounded-md text-primary-700 dark:text-primary-300">
-												{ref.type.replace('-', ' ')}
+												{formatType(ref.type)}
 											</span>
 											{#if ref['container-title']}
 												<span class="hidden sm:inline text-gray-400">•</span>
