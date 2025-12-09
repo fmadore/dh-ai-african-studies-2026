@@ -1,25 +1,144 @@
 [
   {
-    "id": "3005271/3UEWT2EQ",
-    "type": "paper-conference",
-    "title": "Googling African History: Using digital primary sources to connect students to Africa's past",
-    "publisher-place": "Edinburgh",
-    "event": "ECAS 2019. Africa: Connections and Disruptions",
-    "event-place": "Edinburgh",
-    "abstract": "Increasingly undergraduate history course outcomes emphasize historical thinking, lessons are inquiry based and students are required to apply evidence-based reasoning in answering historical questions. Studies have also shown that students become more engaged and interested in coursework with improved academic skills and course outcomes when primary source research is integrated in the curriculum. Other studies reflect a trend towards increased use of online primary sources instead of published sources by faculty in their teaching. The growth of digital primary sources related to Africa through subscription databases and freely available repositories online has vastly expanded access to rare materials making it possible to integrate such materials in teaching historical research on Africa. African history and culture transmitted broadly through language, documents, material objects, images, rituals and oral traditions, which preserved are used to engage with the African past. The materials used to be only housed in archives, libraries, museums, privately owned, published or at times in precarious conditions in Africa, restricting access and visibility to users outside the country, region or institutions of origin. Advent of digital technologies have transformed access by removing barriers, allowing access in transnational spaces. Selected freely accessible online collections of African primary sources will be examined as well as their discovery and access. The role of faculty, librarians and archivists in driving adoption in an African history classroom will be explored.",
+    "id": "3005271/RK2HBQTR",
+    "type": "post-weblog",
+    "title": "The Outsized Role of African Civil Society and Universities in Advancing Responsible AI",
+    "container-title": "Global Center on AI Governance",
+    "abstract": "Across Africa, civil society organizations working on AI are taking on an outsized role in advancing responsible AI practices despite facing significant challenges. This article presents findings from the Global Index on Responsible AI, showcasing the efforts of African civil society groups and academic institutions in the AI sector. We also examine the unique challenges these groups encounter in scaling their work and amplifying their impact.",
+    "URL": "https://www.globalcenter.ai/research/the-outsized-role-of-african-civil-society-and-universities-in-advancing-responsible-ai",
     "language": "en",
     "author": [
       {
-        "family": "Dawson-Andoh",
-        "given": "Araba"
+        "family": "Adams",
+        "given": "Rachel"
+      },
+      {
+        "family": "Florido",
+        "given": "Ana"
       }
     ],
     "issued": {
       "date-parts": [
         [
-          2019,
-          6,
-          12
+          2024,
+          10,
+          28
+        ]
+      ]
+    },
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/DPKZYP6G",
+    "type": "post-weblog",
+    "title": "Africa and the Big Debates in AI",
+    "container-title": "Global Center on AI Governance",
+    "abstract": "For some years a debate has ensued among the AI community regarding how seriously we should be taking the risk of AI systems usurping human control. Experts wildly disagree about the potential of a super-intelligence going rogue and removing human oversight and control. Yet, in recent months, this debate has taken on a greater urgency with the release of AI models seemingly demonstrating new capabilities and human-like behaviour.",
+    "URL": "https://www.globalcenter.ai/research/africa-and-the-big-debates-in-ai",
+    "language": "en",
+    "author": [
+      {
+        "family": "Adams",
+        "given": "Rachel"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          13
+        ]
+      ]
+    },
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/VES42YMF",
+    "type": "post-weblog",
+    "title": "Geopolitics of AI: Africa's Role in a Shifting Global Landscape",
+    "container-title": "Global Center on AI Governance",
+    "abstract": "The geopolitics of Artificial Intelligence (AI) is shaping the future of global power, economic development, and international relations. As AI becomes an increasingly critical tool for technological advancement, economic growth, and geopolitical influence, countries are racing to establish dominance in this space. Central to this competition are the United States and China, two global superpowers locked in an ongoing AI arms race. What are the impacts for Africa of this AI arms race, and what place does Africa hold in the geopolitics of AI?\n\nThese issues are explored in detail in my new book The New Empire of AI: The Future of Global Inequality. Some key points are set out below, and were highlighted in a recent webinar on Africa and the Geopolitics of AI, organised by the Oxford University Blavatnik School of Governance and the Centre for International Governance Innovation.",
+    "URL": "https://www.globalcenter.ai/research/geopolitics-of-ai-africas-role-in-a-shifting-global-landscape",
+    "shortTitle": "Research - Geopolitics of AI",
+    "language": "en",
+    "author": [
+      {
+        "family": "Adams",
+        "given": "Rachel"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2024,
+          11,
+          28
+        ]
+      ]
+    },
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/5XNZHXNJ",
+    "type": "post-weblog",
+    "title": "African Countries Are Racing to Create AI Strategies - But Are They Putting the Cart Before the Horse?",
+    "container-title": "Global Center on AI Governance",
+    "abstract": "African countries are increasingly establishing policy frameworks for emerging technologies such as Artificial Intelligence (AI). In the last seven years, at least eight African countries have adopted national AI strategies, while five have either completed a draft or are in the process of developing one (Figure 1). Our recently published report with the Atlantic Council’s Digital Forensic Research Lab (DFRLab) discusses in detail the key trends in emerging tech governance on the continent, focusing on AI, digital public infrastructure (DPI) and connectivity in five countries — South Africa, Kenya, Nigeria, Ghana, and Zambia.",
+    "URL": "https://www.globalcenter.ai/research/african-countries-are-racing-to-create-ai-strategies-but-are-they-putting-the-cart-before-the-horse",
+    "language": "en",
+    "author": [
+      {
+        "family": "Abdella",
+        "given": "Selamawit Engida"
+      },
+      {
+        "family": "Alayande",
+        "given": "Ayantola"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          4,
+          3
+        ]
+      ]
+    },
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
         ]
       ]
     },
@@ -308,115 +427,6 @@
     "tags": []
   },
   {
-    "id": "3005271/RK2HBQTR",
-    "type": "post-weblog",
-    "title": "The Outsized Role of African Civil Society and Universities in Advancing Responsible AI",
-    "container-title": "Global Center on AI Governance",
-    "abstract": "Africa's leading voice in AI policy and governance, working globally to shape fair and inclusive technologies.",
-    "URL": "https://www.globalcenter.ai/research/the-outsized-role-of-african-civil-society-and-universities-in-advancing-responsible-ai",
-    "language": "en",
-    "author": [
-      {
-        "family": "Adams",
-        "given": "Rachel"
-      },
-      {
-        "family": "Florido",
-        "given": "Ana"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2024,
-          10,
-          28
-        ]
-      ]
-    },
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/VES42YMF",
-    "type": "post-weblog",
-    "title": "Geopolitics of AI: Africa's Role in a Shifting Global Landscape",
-    "container-title": "Global Center on AI Governance",
-    "URL": "https://www.globalcenter.ai/research/geopolitics-of-ai-africas-role-in-a-shifting-global-landscape",
-    "shortTitle": "Research - Geopolitics of AI",
-    "language": "en",
-    "author": [
-      {
-        "family": "Adams",
-        "given": "Rachel"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2024,
-          11,
-          28
-        ]
-      ]
-    },
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/5XNZHXNJ",
-    "type": "post-weblog",
-    "title": "African Countries Are Racing to Create AI Strategies - But Are They Putting the Cart Before the Horse?",
-    "container-title": "Global Center on AI Governance",
-    "URL": "https://www.globalcenter.ai/research/african-countries-are-racing-to-create-ai-strategies-but-are-they-putting-the-cart-before-the-horse",
-    "language": "en",
-    "author": [
-      {
-        "family": "Abdella",
-        "given": "Selamawit Engida"
-      },
-      {
-        "family": "Alayande",
-        "given": "Ayantola"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          4,
-          3
-        ]
-      ]
-    },
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
     "id": "3005271/WLGKXAFB",
     "type": "report",
     "title": "Beyond the Hype: South African Attitudes to AI and the Future",
@@ -548,40 +558,6 @@
           2025,
           11,
           19
-        ]
-      ]
-    },
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/DPKZYP6G",
-    "type": "post-weblog",
-    "title": "Africa and the Big Debates in AI",
-    "container-title": "Global Center on AI Governance",
-    "abstract": "Africa's leading voice in AI policy and governance, working globally to shape fair and inclusive technologies.",
-    "URL": "https://www.globalcenter.ai/research/africa-and-the-big-debates-in-ai",
-    "language": "en",
-    "author": [
-      {
-        "family": "Adams",
-        "given": "Rachel"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          13
         ]
       ]
     },
@@ -3898,51 +3874,6 @@
       "Lu"
     ],
     "URL": "https://doi.org/10.21428/3e88f64f.e16773b2"
-  },
-  {
-    "id": "3005271/WN4QDMWB",
-    "type": "article-journal",
-    "title": "Pourquoi Sources ? Rigueur empirique, réflexivité et archivage en sciences humaines et sociales et dans les études africaines",
-    "container-title": "Sources",
-    "page": "1-21",
-    "issue": "1",
-    "abstract": "Sources. Matériaux & Terrains en études africaines se donne une mission originale au sein des revues universitaires en sciences humaines et sociales : placer au cœur de la réflexion les matériaux de terrain, c’est-à-dire les objets empiriques produits – et le plus souvent coproduits – par les chercheur·e·s dans une situation particulière d’enquête et selon des méthodes spécifiques qui conditionnent le raisonnement et l’élaboration d’énoncés théoriques. Ces matériaux sont de nature très diverse. Il peut s’agir d’archives publiques ou privées – anciennes ou récentes – consultées dans des institutions ou collectées pendant l’enquête ; de productions écrites locales (cahiers, lettres, journaux intimes, autobiographies, tracts, pamphlets, écrits religieux, etc.) ; d’extraits d’entretiens, de conversations, de récits de vie ; de notes, notamment issues d’observations participantes ; de cartes, de schémas, de croquis des chercheur·e·s ou de leurs interlocuteur·trice·s ; d’objets familiers, d’expôts muséographiques ou de regalia ; d’affiches électorales, de pagnes et de chants de campagne ; de photographies, d’enregistrements audio, de films ou de vidéos ; d’extraits de littérature « grise » (rapports, évaluations) ou de presse ; de données tirées d’Internet ou de médias sociaux, etc. Les exemples abondent, toujours relatifs à un objet d’étude, aux questions de recherche qui s’élaborent et se réélaborent à son propos et aux conditions contingentes de l’enquête.",
-    "DOI": "10.4000/11t9y",
-    "note": "QID: Q114056462",
-    "shortTitle": "Pourquoi Sources ?",
-    "language": "fr",
-    "author": [
-      {
-        "family": "Fouéré",
-        "given": "Marie-Aude"
-      },
-      {
-        "family": "Rillon",
-        "given": "Ophélie"
-      },
-      {
-        "family": "Pommerolle",
-        "given": "Marie-Emmanuelle"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2020
-        ]
-      ]
-    },
-    "accessed": {
-      "date-parts": [
-        [
-          2020,
-          6,
-          20
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.4000/11t9y"
   },
   {
     "id": "3005271/248PL79G",
