@@ -121,7 +121,7 @@ export const schedule: DaySchedule[] = [
 			'Centers African epistemologies to redesign research partnerships and resource distribution. This stream aims to create concrete mechanisms for North-South and South-South collaboration that dismantle power imbalances and promote genuine reciprocity.',
 		items: [
 			{
-				time: '09:00–09:30',
+				time: '08:30–09:30',
 				title: 'Welcome Coffee',
 				type: 'break'
 			},
@@ -172,6 +172,7 @@ export const schedule: DaySchedule[] = [
 				time: '14:30–16:00',
 				title: 'World Café',
 				type: 'world-cafe',
+				rooms: ['SR 6'],
 				details: [
 					'Setup: 4 tables, each hosted by one Work Stream',
 					'Hosts: 2 members of each Work Stream stay at their table as "Hosts"',
