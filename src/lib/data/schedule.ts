@@ -248,7 +248,8 @@ export const schedule: DaySchedule[] = [
 			{
 				time: '13:00–14:15',
 				title: 'Lunch Break',
-				type: 'break'
+				type: 'break',
+				rooms: ['Festsaal']
 			},
 			{
 				time: '14:15–14:45',
