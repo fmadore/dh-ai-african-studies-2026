@@ -121,6 +121,11 @@ export const schedule: DaySchedule[] = [
 			'Centers African epistemologies to redesign research partnerships and resource distribution. This stream aims to create concrete mechanisms for North-South and South-South collaboration that dismantle power imbalances and promote genuine reciprocity.',
 		items: [
 			{
+				time: '09:00–09:30',
+				title: 'Welcome Coffee',
+				type: 'break'
+			},
+			{
 				time: '09:30–10:00',
 				title: 'Reflection on Day One',
 				type: 'plenary',
@@ -209,6 +214,11 @@ export const schedule: DaySchedule[] = [
 		themeDescription:
 			'Develops guidelines for data governance and responsible AI implementation. The focus shifts from passive consultation to active co-creation, establishing standards that protect digital sovereignty and ensure equitable knowledge dissemination.',
 		items: [
+			{
+				time: '08:30–09:00',
+				title: 'Welcome Coffee',
+				type: 'break'
+			},
 			{
 				time: '09:00–09:10',
 				title: 'Aims of Day 3',
