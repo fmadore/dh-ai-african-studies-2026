@@ -160,7 +160,7 @@
 				<span>{workshopInfo.location.venue}, {workshopInfo.location.city}</span>
 			</div>
 		</div>
-		<P class="text-caption stack-item-md">Last updated: 25 November 2025</P>
+		<P class="text-caption stack-item-md">Last updated: 10 December 2025</P>
 	</div>
 </section>
 
