@@ -220,14 +220,14 @@ export const schedule: DaySchedule[] = [
 				type: 'break'
 			},
 			{
-				time: '09:00–09:10',
+				time: '09:00–09:30',
 				title: 'Aims of Day 3',
 				type: 'plenary',
 				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
 				rooms: ['SR 6']
 			},
 			{
-				time: '09:10–11:00',
+				time: '09:30–11:00',
 				title: 'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Institutions and Archives 1/2',
 				type: 'world-cafe',
 				facilitators: ['To be determined'],
