@@ -293,12 +293,6 @@ export const schedule: DaySchedule[] = [
 					'Formal commitments from participants to specific actions and collaborations following the workshop',
 					'Formal closing remarks'
 				]
-			},
-			{
-				time: '18:00',
-				title: 'Dinner',
-				type: 'social',
-				rooms: ['Festsaal']
 			}
 		]
 	}
