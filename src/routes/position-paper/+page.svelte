@@ -153,3 +153,28 @@
 		</Timeline>
 	</div>
 </section>
+
+<!-- Publication -->
+<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
+	<div class="decorative-blob decorative-blob-secondary top-20 -right-20"></div>
+	<div class="content-width surface-panel surface-padding stack-lg relative">
+		<div class="stack-md text-center">
+			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Publication</Heading>
+			<P class="text-lead max-w-3xl mx-auto">
+				The position paper will be published in open access in the <a href="https://www.zmo.de/en/publications/translate-to-english-zmo-programmatic-texts" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline dark:text-primary-400">ZMO Programmatic Texts</a>.
+			</P>
+		</div>
+
+		<Card class="card-surface surface-padding-sm mx-auto! max-w-3xl!">
+			<div class="flex flex-col gap-4">
+				<div class="flex items-center justify-center gap-3">
+					<FileDocOutline size="xl" class="text-primary-600 dark:text-primary-400" />
+					<Heading tag="h3" class="heading-sub heading-md">About the Series</Heading>
+				</div>
+				<P class="text-body-lg text-center">
+					The series <strong>ZMO Programmatic Texts</strong> publish wider conceptual articles engaging with the interdisciplinary and inter-regional research conducted at ZMO. The series provide a platform for authors to present and discuss innovative contributions to current theoretical and comparative debates, in relation to ZMO's programmatic research agenda.
+				</P>
+			</div>
+		</Card>
+	</div>
+</section>
