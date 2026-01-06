@@ -2,10 +2,10 @@ import type { Participant } from '$lib/types/participant';
 
 export const frederickMadore: Participant = {
 	name: 'Frédérick Madore',
-	affiliation: 'Leibniz-Zentrum Moderner Orient',
+	affiliation: 'University of Bayreuth',
 	affiliationCoordinates: {
-		latitude: 52.5200,
-		longitude: 13.4050
+		latitude: 49.9442,
+		longitude: 11.5754
 	},
 	country: 'Germany',
 	role: 'Co-organizer',
