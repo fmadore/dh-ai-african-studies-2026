@@ -1,25 +1,33 @@
 <script lang="ts">
-	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
-	import { page } from '$app/state';
-	import ThemeToggle from './ThemeToggle.svelte';
-	import { resolveAppPath } from '$lib/utils/paths';
+	import {
+		Navbar,
+		NavBrand,
+		NavLi,
+		NavUl,
+		NavHamburger,
+	} from "flowbite-svelte";
+	import { page } from "$app/state";
+	import ThemeToggle from "./ThemeToggle.svelte";
+	import { resolveAppPath } from "$lib/utils/paths";
 
 	let activeUrl = $derived(page.url.pathname);
 
 	const navLinks = [
-		{ href: resolveAppPath('/'), label: 'Home' },
-		{ href: resolveAppPath('/about'), label: 'About' },
-		{ href: resolveAppPath('/participants'), label: 'Participants' },
-		{ href: resolveAppPath('/schedule'), label: 'Schedule' },
-		{ href: resolveAppPath('/position-paper'), label: 'Position Paper' },
-		{ href: resolveAppPath('/references'), label: 'References' }
+		{ href: resolveAppPath("/"), label: "Home" },
+		{ href: resolveAppPath("/about"), label: "About" },
+		{ href: resolveAppPath("/participants"), label: "Participants" },
+		{ href: resolveAppPath("/schedule"), label: "Schedule" },
+		{ href: resolveAppPath("/position-paper"), label: "Position Paper" },
+		{ href: resolveAppPath("/references"), label: "References" },
 	] as const;
 </script>
 
 <header class="bg-page py-3 padding-inline-lg relative z-(--z-overlay)">
 	<Navbar class="content-width-wide surface-panel surface-padding-xs">
 		<NavBrand href={navLinks[0].href} class="logo-link">
-			<span class="self-center whitespace-nowrap text-xl font-display font-bold tracking-tight text-gradient drop-shadow-md pb-1">
+			<span
+				class="self-center whitespace-nowrap text-xl font-display font-bold tracking-tight text-gradient drop-shadow-md pb-1"
+			>
 				DH & AI in African Studies
 			</span>
 		</NavBrand>
@@ -38,7 +46,9 @@
 <style>
 	/* Mobile menu animation */
 	:global(.nav-hamburger) {
-		transition: transform var(--transition-fast), opacity var(--transition-fast);
+		transition:
+			transform var(--transition-fast),
+			opacity var(--transition-fast);
 	}
 
 	:global(.nav-hamburger:hover) {
@@ -51,7 +61,9 @@
 
 	/* Animate mobile menu appearance */
 	:global(.nav-menu) {
-		transition: opacity var(--transition-base), transform var(--transition-base);
+		transition:
+			opacity var(--transition-base),
+			transform var(--transition-base);
 	}
 
 	@media (max-width: 767px) {
@@ -63,7 +75,7 @@
 		:global(.nav-menu:not([hidden])) {
 			opacity: 1;
 			transform: translateY(0);
-			animation: slideDown 0.2s ease-out;
+			animation: slideDown 0.25s var(--ease-spring);
 		}
 	}
 

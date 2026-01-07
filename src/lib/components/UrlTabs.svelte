@@ -1,6 +1,6 @@
 <script lang="ts" module>
-	import type { Component } from 'svelte';
-	
+	import type { Component } from "svelte";
+
 	export interface Tab {
 		id: string;
 		label: string;
@@ -10,32 +10,32 @@
 </script>
 
 <script lang="ts">
-	import { Tabs, TabItem } from 'flowbite-svelte';
-	import { browser } from '$app/environment';
-	import { page } from '$app/state';
-	import { goto } from '$app/navigation';
-	import type { Snippet } from 'svelte';
+	import { Tabs, TabItem } from "flowbite-svelte";
+	import { browser } from "$app/environment";
+	import { page } from "$app/state";
+	import { goto } from "$app/navigation";
+	import type { Snippet } from "svelte";
 
 	interface Props {
 		tabs: Tab[];
 		paramName?: string;
 		defaultTab?: string;
-		tabStyle?: 'underline' | 'pill' | 'full';
+		tabStyle?: "underline" | "pill" | "full";
 		class?: string;
 		contentClass?: string;
 		children: Snippet<[string, Tab]>;
 		tabTitle?: Snippet<[Tab]>;
 	}
 
-	let { 
-		tabs, 
-		paramName = 'view', 
-		defaultTab = tabs[0]?.id ?? '',
-		tabStyle = 'underline',
-		class: className = '',
-		contentClass = '',
+	let {
+		tabs,
+		paramName = "view",
+		defaultTab = tabs[0]?.id ?? "",
+		tabStyle = "underline",
+		class: className = "",
+		contentClass = "",
 		children,
-		tabTitle
+		tabTitle,
 	}: Props = $props();
 
 	// Get current tab from URL or use default
@@ -43,7 +43,7 @@
 	let activeTab = $derived.by(() => {
 		if (!browser) return defaultTab;
 		const urlParam = page.url.searchParams.get(paramName);
-		const validIds = tabs.map(t => t.id);
+		const validIds = tabs.map((t) => t.id);
 		return urlParam && validIds.includes(urlParam) ? urlParam : defaultTab;
 	});
 
@@ -58,10 +58,10 @@
 			url.searchParams.set(paramName, tabId);
 		}
 		// Use pathname + search directly since it already includes the base path
-		goto(url.pathname + url.search, { 
-			replaceState: true, 
+		goto(url.pathname + url.search, {
+			replaceState: true,
 			noScroll: true,
-			keepFocus: true
+			keepFocus: true,
 		});
 	}
 </script>
@@ -69,8 +69,8 @@
 <Tabs {tabStyle} class={className} {contentClass}>
 	{#each tabs as tab (tab.id)}
 		{@const Icon = tab.icon}
-		<TabItem 
-			open={activeTab === tab.id} 
+		<TabItem
+			open={activeTab === tab.id}
 			onclick={() => setActiveTab(tab.id)}
 		>
 			{#snippet titleSlot()}
@@ -79,7 +79,7 @@
 				{:else}
 					<div class="flex items-center gap-2">
 						{#if Icon}
-							<Icon class="w-5 h-5" />
+							<Icon class="size-icon-md" />
 						{/if}
 						<span>{tab.label}</span>
 					</div>

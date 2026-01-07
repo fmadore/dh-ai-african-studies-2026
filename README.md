@@ -162,4 +162,4 @@ This is a conference website project. For questions or contributions, please con
 
 ## License
 
-Copyright © 2025 - Workshop funded by the Volkswagen Foundation
+Copyright © 2026 - Workshop funded by the Volkswagen Foundation

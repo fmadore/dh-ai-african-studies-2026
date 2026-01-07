@@ -1,44 +1,48 @@
 <script lang="ts">
-	import { Heading, P, Card, Badge } from 'flowbite-svelte';
-	import { UserCircleSolid } from 'flowbite-svelte-icons';
-	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
-	import { participants } from '$lib/data/participants';
-	import { workStreams } from '$lib/data/work-streams';
-	import { workshopInfo } from '$lib/data/workshop-info';
-	import { resolveAssetPath } from '$lib/utils/paths';
+	import { Heading, P, Card, Badge } from "flowbite-svelte";
+	import { UserCircleSolid } from "flowbite-svelte-icons";
+	import {
+		createSeoMeta,
+		createEventJsonLd,
+		serializeJsonLd,
+	} from "$lib/utils/seo";
+	import { participants } from "$lib/data/participants";
+	import { workStreams } from "$lib/data/work-streams";
+	import { workshopInfo } from "$lib/data/workshop-info";
+	import { resolveAssetPath } from "$lib/utils/paths";
 
-	function decorateWithPhotoUrl(participant: typeof participants[number]) {
+	function decorateWithPhotoUrl(participant: (typeof participants)[number]) {
 		return {
 			...participant,
-			photoUrl: resolveAssetPath(participant.photoUrl)
+			photoUrl: resolveAssetPath(participant.photoUrl),
 		};
 	}
 
 	const coOrganizers = participants
-		.filter((participant) => participant.role === 'Co-organizer')
+		.filter((participant) => participant.role === "Co-organizer")
 		.map(decorateWithPhotoUrl);
 	const studentAssistants = participants
-		.filter((participant) => participant.role === 'Student assistant')
+		.filter((participant) => participant.role === "Student assistant")
 		.map(decorateWithPhotoUrl);
 
 	function handleImageError(event: Event) {
 		const img = event.target as HTMLImageElement;
-		img.style.display = 'none';
+		img.style.display = "none";
 		const placeholder = img.nextElementSibling as HTMLElement;
 		if (placeholder) {
-			placeholder.style.display = 'flex';
+			placeholder.style.display = "flex";
 		}
 	}
 
 	const seo = createSeoMeta({
-		title: 'About the Workshop',
+		title: "About the Workshop",
 		description:
-			'This scoping workshop convenes international experts to map the intersection of digital humanities and AI within African studies, highlighting opportunities and challenges across equity, linguistics, and methodology.',
-		path: '/about'
+			"This scoping workshop convenes international experts to map the intersection of digital humanities and AI within African studies, highlighting opportunities and challenges across equity, linguistics, and methodology.",
+		path: "/about",
 	});
 
 	const eventJsonLd = createEventJsonLd({
-		name: 'Charting New Territory: Digital Humanities and AI in African Studies',
+		name: "Charting New Territory: Digital Humanities and AI in African Studies",
 		description: seo.description,
 		startDate: workshopInfo.dates.startISO,
 		endDate: workshopInfo.dates.endISO,
@@ -49,7 +53,7 @@
 		organizerName: workshopInfo.organizers.full,
 		funderName: workshopInfo.funder.name,
 		funderUrl: workshopInfo.funder.url,
-		url: seo.canonical
+		url: seo.canonical,
 	});
 </script>
 
@@ -64,46 +68,100 @@
 	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
 </svelte:head>
 
-<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
+<section
+	class="bg-page padding-block-section padding-inline-section relative overflow-hidden"
+>
 	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
-	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
+	<div
+		class="decorative-blob decorative-blob-secondary bottom-20 -right-20"
+	></div>
 
 	<div class="content-width surface-panel surface-padding stack-xl relative">
-		<Heading tag="h1" class="text-center heading-display heading-xl text-gradient tracking-tight drop-shadow-md pb-2">About the Workshop</Heading>
-		
+		<Heading
+			tag="h1"
+			class="text-center heading-display heading-xl text-gradient tracking-tight drop-shadow-md pb-2"
+			>About the Workshop</Heading
+		>
+
 		<div class="stack-md text-left">
-			<Heading tag="h2" class="heading-section heading-lg heading-color-light">The Convergence of Technology and Epistemology</Heading>
+			<Heading
+				tag="h2"
+				class="heading-section heading-lg heading-color-light"
+				>The Convergence of Technology and Epistemology</Heading
+			>
 			<P class="body-text">
-				The intersection of Digital Humanities (DH) and Artificial Intelligence (AI) is rapidly transforming knowledge production within African Studies. This technological shift offers unprecedented opportunities for innovative analysis, dynamic visualization, and the democratization of diverse narratives. However, this potential is inextricably linked to pressing challenges regarding equitable access, the representation of African languages, and the ethics of digital sovereignty.
+				The intersection of Digital Humanities (DH) and Artificial
+				Intelligence (AI) is rapidly transforming knowledge production
+				within African Studies. This technological shift offers
+				unprecedented opportunities for innovative analysis, dynamic
+				visualization, and the democratization of diverse narratives.
+				However, this potential is inextricably linked to pressing
+				challenges regarding equitable access, the representation of
+				African languages, and the ethics of digital sovereignty.
 			</P>
 			<P class="body-text">
-				"Charting New Territory" is a dedicated scoping workshop designed to navigate this evolving terrain. We are convening international experts to move beyond describing current conditions and instead actively chart future pathways for the ethical, equitable development of DH and AI in African contexts.
+				"Charting New Territory" is a dedicated scoping workshop
+				designed to navigate this evolving terrain. We are convening
+				international experts to move beyond describing current
+				conditions and instead actively chart future pathways for the
+				ethical, equitable development of DH and AI in African contexts.
 			</P>
 		</div>
 
 		<div class="stack-md">
-			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Beyond the Hype: Addressing Structural Inequalities</Heading>
+			<Heading
+				tag="h2"
+				class="heading-section heading-lg heading-color-light"
+				>Beyond the Hype: Addressing Structural Inequalities</Heading
+			>
 			<P class="body-text">
-				While Large Language Models (LLMs) and digitization efforts hold immense promise, their implementation often outpaces the necessary ethical frameworks. Digitization is inherently political; decisions about what is archived, how it is cataloged, and who controls access often reinforce existing global hierarchies.
+				While Large Language Models (LLMs) and digitization efforts hold
+				immense promise, their implementation often outpaces the
+				necessary ethical frameworks. Digitization is inherently
+				political; decisions about what is archived, how it is
+				cataloged, and who controls access often reinforce existing
+				global hierarchies.
 			</P>
 			<P class="body-text">
-				This workshop addresses the urgent need to prevent the exclusion of African voices and the reproduction of colonial biases in algorithmic systems. We recognize that Northern institutions often control the digital infrastructure and historical materials of the Global South. As such, our focus is on countering "techno-solutionism" by balancing computational innovation with critical humanistic inquiry and robust preservation protocols for born-digital records.
+				This workshop addresses the urgent need to prevent the exclusion
+				of African voices and the reproduction of colonial biases in
+				algorithmic systems. We recognize that Northern institutions
+				often control the digital infrastructure and historical
+				materials of the Global South. As such, our focus is on
+				countering "techno-solutionism" by balancing computational
+				innovation with critical humanistic inquiry and robust
+				preservation protocols for born-digital records.
 			</P>
 		</div>
 
 		<div class="stack-md">
-			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Workshop Format: A Working Meeting</Heading>
+			<Heading
+				tag="h2"
+				class="heading-section heading-lg heading-color-light"
+				>Workshop Format: A Working Meeting</Heading
+			>
 			<P class="body-text">
-				Unlike a traditional academic conference, this event prioritizes discussion over presentation. It is designed as a high-intensity scoping workshop employing an "assessment-to-action" methodology.
+				Unlike a traditional academic conference, this event prioritizes
+				discussion over presentation. It is designed as a high-intensity
+				scoping workshop employing an "assessment-to-action"
+				methodology.
 			</P>
 			<P class="body-text">
-				Over the course of three days, participants will engage in facilitated discussions, collaborative exercises, and structured deliberation across three core work streams:
+				Over the course of three days, participants will engage in
+				facilitated discussions, collaborative exercises, and structured
+				deliberation across three core work streams:
 			</P>
-			
-			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+
+			<div
+				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4"
+			>
 				{#each workStreams as stream (stream.id)}
-					<Card class="card-surface surface-padding-sm h-full stack-xs">
-						<Heading tag="h3" class="heading-sub text-lg">{stream.title}</Heading>
+					<Card
+						class="card-surface surface-padding-sm h-full stack-xs"
+					>
+						<Heading tag="h3" class="heading-sub text-lg"
+							>{stream.title}</Heading
+						>
 						<P class="text-body-sm">
 							{stream.description}
 						</P>
@@ -113,26 +171,43 @@
 		</div>
 
 		<div class="stack-sm">
-			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Key Outcome: The Position Paper</Heading>
+			<Heading
+				tag="h2"
+				class="heading-section heading-lg heading-color-light"
+				>Key Outcome: The Position Paper</Heading
+			>
 			<P class="body-text">
-				The primary goal of this workshop is to produce a co-authored Position Paper.
+				The primary goal of this workshop is to produce a co-authored
+				Position Paper.
 			</P>
 			<P class="body-text">
-				Synthesizing the insights from our daily sessions, this document will serve as a foundational blueprint for the field. It will provide actionable recommendations for research funders, academic institutions, technology developers, and policymakers.
+				Synthesizing the insights from our daily sessions, this document
+				will serve as a foundational blueprint for the field. It will
+				provide actionable recommendations for research funders,
+				academic institutions, technology developers, and policymakers.
 			</P>
 			<P class="body-text">
-				By defining sustainable funding models, ethical protocols, and decolonized curricula, we aim to consolidate this emerging field and guide the next decade of DH and AI research in African Studies.
+				By defining sustainable funding models, ethical protocols, and
+				decolonized curricula, we aim to consolidate this emerging field
+				and guide the next decade of DH and AI research in African
+				Studies.
 			</P>
 		</div>
 
 		<!-- Co-Organizers Section -->
 		{#if coOrganizers.length > 0}
 			<div class="stack-md">
-				<Heading tag="h2" class="heading-section heading-lg heading-color-light">Co-Organizers</Heading>
+				<Heading
+					tag="h2"
+					class="heading-section heading-lg heading-color-light"
+					>Co-Organizers</Heading
+				>
 				<div class="stack-md">
 					{#each coOrganizers as organizer (organizer.name)}
 						<div class="card-surface w-full">
-							<div class="flex flex-col md:flex-row w-full items-center md:items-start gap-6 md:gap-8 p-6 md:p-8">
+							<div
+								class="flex flex-col md:flex-row w-full items-center md:items-start gap-6 md:gap-8 p-6 md:p-8"
+							>
 								<!-- Photo -->
 								<div class="w-28 h-28 md:w-36 md:h-36 shrink-0">
 									<div class="relative w-full h-full">
@@ -144,24 +219,39 @@
 												onerror={handleImageError}
 											/>
 											<!-- Placeholder for missing images -->
-											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-800 hidden items-center justify-center absolute top-0 left-0 shadow-md">
-												<UserCircleSolid class="w-14 h-14 md:w-16 md:h-16 text-gray-400 dark:text-gray-500" />
+											<div
+												class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-800 hidden items-center justify-center absolute top-0 left-0 shadow-md"
+											>
+												<UserCircleSolid
+													class="w-14 h-14 md:w-16 md:h-16 text-gray-400 dark:text-gray-500"
+												/>
 											</div>
 										{:else}
 											<!-- Placeholder for organizers without photo -->
-											<div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-800 flex items-center justify-center shadow-md">
-												<UserCircleSolid class="w-14 h-14 md:w-16 md:h-16 text-gray-400 dark:text-gray-500" />
+											<div
+												class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-800 flex items-center justify-center shadow-md"
+											>
+												<UserCircleSolid
+													class="w-14 h-14 md:w-16 md:h-16 text-gray-400 dark:text-gray-500"
+												/>
 											</div>
 										{/if}
 									</div>
 								</div>
 
 								<!-- Content -->
-								<div class="flex-1 text-center md:text-left stack-xs">
-									<Heading tag="h3" class="heading-sub heading-color-light heading-md">
+								<div
+									class="flex-1 text-center md:text-left stack-xs"
+								>
+									<Heading
+										tag="h3"
+										class="heading-sub heading-color-light heading-md"
+									>
 										{organizer.name}
 									</Heading>
-									<P class="text-primary-600 dark:text-primary-400 font-medium">
+									<P
+										class="text-primary-600 dark:text-primary-400 font-medium"
+									>
 										{organizer.affiliation}
 									</P>
 									{#if organizer.bio}
@@ -172,12 +262,20 @@
 
 									{#if organizer.researchRegions.length > 0}
 										<div class="pt-3">
-											<P class="text-caption font-medium mb-2">
+											<P
+												class="text-caption font-medium mb-2"
+											>
 												Research Regions
 											</P>
-											<div class="flex flex-wrap justify-center md:justify-start gap-2">
+											<div
+												class="flex flex-wrap justify-center md:justify-start gap-2"
+											>
 												{#each organizer.researchRegions.toSorted() as region (region)}
-													<Badge color="secondary" class="text-xs">{region}</Badge>
+													<Badge
+														color="secondary"
+														class="text-xs"
+														>{region}</Badge
+													>
 												{/each}
 											</div>
 										</div>
@@ -193,11 +291,19 @@
 		<!-- Student Assistants Section -->
 		{#if studentAssistants.length > 0}
 			<div class="stack-md">
-				<Heading tag="h2" class="heading-section heading-lg heading-color-light">Student Assistants</Heading>
-				<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+				<Heading
+					tag="h2"
+					class="heading-section heading-lg heading-color-light"
+					>Student Assistants</Heading
+				>
+				<div
+					class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto"
+				>
 					{#each studentAssistants as assistant (assistant.name)}
 						<Card class="card-surface surface-padding-sm h-full">
-							<div class="flex flex-col items-center text-center stack-xs">
+							<div
+								class="flex flex-col items-center text-center stack-xs"
+							>
 								<!-- Photo -->
 								<div class="relative w-20 h-20">
 									{#if assistant.photoUrl}
@@ -208,24 +314,37 @@
 											onerror={handleImageError}
 										/>
 										<!-- Placeholder for missing images -->
-										<div class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-800 hidden items-center justify-center absolute top-0 left-0 shadow-md">
-											<UserCircleSolid class="w-12 h-12 text-gray-400 dark:text-gray-500" />
+										<div
+											class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-800 hidden items-center justify-center absolute top-0 left-0 shadow-md"
+										>
+											<UserCircleSolid
+												class="w-12 h-12 text-gray-400 dark:text-gray-500"
+											/>
 										</div>
 									{:else}
 										<!-- Placeholder for assistants without photo -->
-										<div class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-800 flex items-center justify-center shadow-md">
-											<UserCircleSolid class="w-12 h-12 text-gray-400 dark:text-gray-500" />
+										<div
+											class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-800 flex items-center justify-center shadow-md"
+										>
+											<UserCircleSolid
+												class="w-12 h-12 text-gray-400 dark:text-gray-500"
+											/>
 										</div>
 									{/if}
 								</div>
 
 								<!-- Name -->
-								<Heading tag="h3" class="heading-sub heading-color-light heading-sm">
+								<Heading
+									tag="h3"
+									class="heading-sub heading-color-light heading-sm"
+								>
 									{assistant.name}
 								</Heading>
 
 								<!-- Affiliation -->
-								<P class="text-secondary-600 dark:text-secondary-400 text-body-sm font-medium">
+								<P
+									class="text-secondary-600 dark:text-secondary-400 text-body-sm font-medium"
+								>
 									{assistant.affiliation}
 								</P>
 
@@ -239,12 +358,20 @@
 								<!-- Research Regions -->
 								{#if assistant.researchRegions.length > 0}
 									<div class="pt-2 w-full">
-										<P class="text-caption font-medium mb-2 text-center">
+										<P
+											class="text-caption font-medium mb-2 text-center"
+										>
 											Research Regions
 										</P>
-										<div class="flex flex-wrap justify-center gap-2">
+										<div
+											class="flex flex-wrap justify-center gap-2"
+										>
 											{#each assistant.researchRegions.toSorted() as region (region)}
-												<Badge color="secondary" class="text-xs">{region}</Badge>
+												<Badge
+													color="secondary"
+													class="text-xs"
+													>{region}</Badge
+												>
 											{/each}
 										</div>
 									</div>
@@ -257,9 +384,19 @@
 		{/if}
 
 		<div class="stack-sm">
-			<Heading tag="h2" class="heading-section heading-lg heading-color-light">Funding</Heading>
+			<Heading
+				tag="h2"
+				class="heading-section heading-lg heading-color-light"
+				>Funding</Heading
+			>
 			<P class="body-text">
-				This scoping workshop is made possible by the generous support of the <a href="https://www.volkswagenstiftung.de/en" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary-600 dark:text-primary-400 underline decoration-primary-300 dark:decoration-primary-600 underline-offset-2 hover:decoration-primary-500 dark:hover:decoration-primary-400 transition-colors">Volkswagen Foundation</a>.
+				This scoping workshop is made possible by the generous support
+				of the <a
+					href="https://www.volkswagenstiftung.de/en"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="link-primary font-semibold">Volkswagen Foundation</a
+				>.
 			</P>
 		</div>
 	</div>

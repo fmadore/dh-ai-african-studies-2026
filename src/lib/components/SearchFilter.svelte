@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { Input } from 'flowbite-svelte';
-	import { SearchOutline } from 'flowbite-svelte-icons';
+	import { Input } from "flowbite-svelte";
+	import { SearchOutline } from "flowbite-svelte-icons";
 
-	let { value = $bindable(''), placeholder = 'Search...' } = $props();
+	let { value = $bindable(""), placeholder = "Search..." } = $props();
 </script>
 
 {#snippet leftIcon()}
-	<SearchOutline class="w-6 h-6 body-text-muted" />
+	<SearchOutline class="size-icon-md body-text-muted" />
 {/snippet}
 
 <div class="w-full max-w-md mx-auto">
@@ -14,7 +14,7 @@
 		bind:value
 		{placeholder}
 		size="lg"
-		class="pl-12! py-3! text-lg! rounded-xl! shadow-sm"
+		class="pl-12! py-3! text-lg! rounded-card shadow-sm"
 		left={leftIcon}
 	/>
 </div>
