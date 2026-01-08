@@ -85,7 +85,7 @@
 
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 			<!-- Venue Details Card -->
-			<Card class="card-surface surface-padding h-full">
+			<Card size="xl" class="w-full max-w-none card-surface surface-padding h-full">
 				<div class="stack-md">
 					<Heading tag="h3" class="heading-sub heading-md heading-color-light">
 						{venue.name}
@@ -158,7 +158,7 @@
 
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 			<!-- Hotel Details Card -->
-			<Card class="card-surface surface-padding h-full">
+			<Card size="xl" class="w-full max-w-none card-surface surface-padding h-full">
 				<div class="stack-md">
 					<Heading tag="h3" class="heading-sub heading-md heading-color-light">
 						{accommodation.name}
@@ -251,7 +251,7 @@
 
 		<!-- Airport to Hotel (Details + Map) -->
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-			<Card class="card-surface surface-padding h-full">
+			<Card size="xl" class="w-full max-w-none card-surface surface-padding h-full">
 				<div class="stack-md">
 					<div class="flex items-center gap-3">
 						<div
@@ -325,7 +325,7 @@
 		<!-- Hotel ↔ Venue -->
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 			<!-- Hotel to Venue Card -->
-			<Card class="card-surface surface-padding h-full">
+			<Card size="xl" class="w-full max-w-none card-surface surface-padding h-full">
 				<div class="stack-md">
 					<div class="flex items-center gap-3">
 						<div
@@ -369,7 +369,7 @@
 			</Card>
 
 			<!-- Venue to Hotel Card -->
-			<Card class="card-surface surface-padding h-full">
+			<Card size="xl" class="w-full max-w-none card-surface surface-padding h-full">
 				<div class="stack-md">
 					<div class="flex items-center gap-3">
 						<div
@@ -426,23 +426,25 @@
 		</div>
 
 		<!-- Ticket Information -->
-		<Card class="card-surface surface-padding-sm bg-primary-50 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800">
-			<div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-				<div class="flex items-center gap-3">
+		<Card size="xl" class="w-full max-w-none card-surface surface-padding-sm bg-primary-50 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800">
+			<div class="flex flex-col sm:flex-row items-center gap-4">
+				<div class="flex items-center gap-3 shrink-0">
 					<TicketOutline class="w-6 h-6 text-primary-600 dark:text-primary-400" />
-					<Heading tag="h3" class="heading-sub text-base heading-color-light">
+					<Heading tag="h3" class="heading-sub text-base heading-color-light whitespace-nowrap">
 						Ticket Information
 					</Heading>
 				</div>
-				<div class="flex-1">
-					<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Conference days</p>
-					<p class="body-text font-semibold">{transport.hotelToVenue.ticketRecommendation}</p>
+				<div class="hidden sm:block w-px h-6 bg-primary-200 dark:bg-primary-700"></div>
+				<div class="flex-1 text-center sm:text-left">
+					<p class="body-text font-semibold">
+						Day-Ticket (AB Zone) — provided to all guests at check-in
+					</p>
 				</div>
 				<a
 					href={transport.publicTransportUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:underline font-medium sm:ml-auto"
+					class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:underline font-medium whitespace-nowrap"
 				>
 					<GlobeOutline class="w-4 h-4" />
 					üstra Public Transport
