@@ -8,10 +8,12 @@
 		EnvelopeOutline,
 		GlobeOutline,
 		ClockOutline,
-		ArrowRightOutline
+		ArrowRightOutline,
+		FilePdfOutline
 	} from 'flowbite-svelte-icons';
 	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
+	import { resolveAssetPath } from '$lib/utils/paths';
 
 	const seo = createSeoMeta({
 		title: 'Practical Information',
@@ -137,6 +139,41 @@
 				></iframe>
 			</div>
 		</div>
+
+		<!-- Venue Access PDF -->
+		<Card size="xl" class="w-full max-w-none card-surface surface-padding">
+			<div class="stack-md">
+				<div class="flex items-center gap-3">
+					<FilePdfOutline class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+					<Heading tag="h3" class="heading-sub heading-md heading-color-light">
+						Detailed Directions (PDF)
+					</Heading>
+				</div>
+				<P class="body-text">
+					You can view or download the detailed directions map provided by the venue below.
+				</P>
+				<div class="h-[600px] w-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-800">
+					<iframe
+						src={resolveAssetPath('/documents/Schloss_Anfahrt.pdf')}
+						width="100%"
+						height="100%"
+						title="Detailed directions to Herrenhausen Palace"
+						class="w-full h-full"
+					>
+					</iframe>
+				</div>
+				<div class="flex justify-end">
+					<a
+						href={resolveAssetPath('/documents/Schloss_Anfahrt.pdf')}
+						download
+						class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:underline font-medium"
+					>
+						<FilePdfOutline class="w-4 h-4" />
+						Download Map PDF
+					</a>
+				</div>
+			</div>
+		</Card>
 	</div>
 </section>
 
