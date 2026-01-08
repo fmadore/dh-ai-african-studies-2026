@@ -259,16 +259,12 @@
 						>
 							<svg
 								class="w-5 h-5 text-secondary-600 dark:text-secondary-400"
-								fill="none"
-								stroke="currentColor"
+								fill="currentColor"
 								viewBox="0 0 24 24"
 								xmlns="http://www.w3.org/2000/svg"
 							>
 								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+									d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"
 								></path>
 							</svg>
 						</div>
@@ -447,7 +443,7 @@
 					class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:underline font-medium whitespace-nowrap"
 				>
 					<GlobeOutline class="w-4 h-4" />
-					üstra Public Transport
+					ÜSTRA Public Transport
 					<ArrowRightOutline class="w-4 h-4" />
 				</a>
 			</div>
