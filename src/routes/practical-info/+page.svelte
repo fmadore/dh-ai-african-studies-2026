@@ -152,7 +152,7 @@
 				<P class="body-text">
 					You can view or download the detailed directions map provided by the venue below.
 				</P>
-				<div class="h-[600px] w-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-800">
+				<div class="h-150 w-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-800">
 					<iframe
 						src={resolveAssetPath('/documents/Schloss_Anfahrt.pdf')}
 						width="100%"
