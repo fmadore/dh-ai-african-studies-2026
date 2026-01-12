@@ -55,7 +55,7 @@ export const schedule: DaySchedule[] = [
 				time: '09:45–11:00',
 				title: 'Digital Humanities, AI and African Linguistic Diversity',
 				type: 'plenary',
-				facilitators: ['To be determined'],
+				facilitators: ['Kọ́lá Túbọ̀sún', 'To be determined'],
 				rooms: ['SR 6']
 			},
 			{
@@ -231,7 +231,7 @@ export const schedule: DaySchedule[] = [
 				time: '09:30–11:00',
 				title: 'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Institutions and Archives 1/2',
 				type: 'world-cafe',
-				facilitators: ['To be determined'],
+				facilitators: ['Fallou Ngom', 'To be determined'],
 				rooms: ['SR 6']
 			},
 			{
@@ -243,7 +243,7 @@ export const schedule: DaySchedule[] = [
 				time: '11:30–13:00',
 				title: 'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Studies 2/2',
 				type: 'world-cafe',
-				facilitators: ['To be determined'],
+				facilitators: ['Cassandra Mark-Thiesen', 'James Yékú'],
 				rooms: ['SR 6']
 			},
 			{
