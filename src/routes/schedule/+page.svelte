@@ -68,6 +68,11 @@
 		items: day.items,
 	}));
 
+	const listFormatter = new Intl.ListFormat("en", {
+		style: "long",
+		type: "conjunction",
+	});
+
 	function getItemIcon(type: SessionType, title: string) {
 		// Check title for specific meal/break types
 		const lowerTitle = title.toLowerCase();
@@ -309,10 +314,10 @@
 														class="size-icon-sm"
 													/>
 													<span class="font-medium"
-														>Facilitator(s):</span
+														>Facilitators:</span
 													>
-													{item.facilitators.join(
-														", ",
+													{listFormatter.format(
+														item.facilitators,
 													)}
 												</span>
 											{/if}
