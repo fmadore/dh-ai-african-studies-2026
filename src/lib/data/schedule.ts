@@ -141,7 +141,7 @@ export const schedule: DaySchedule[] = [
 				time: '10:00–11:00',
 				title: 'Mapping Digital Inequalities: Assessing Resource Distribution and Access in DH and AI for African Studies',
 				type: 'plenary',
-				facilitators: ['Karen Ijumba', 'To be determined'],
+				facilitators: ['Karen Ijumba', 'Menno van Zaanen'],
 				rooms: ['SR 6']
 			},
 			{
