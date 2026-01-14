@@ -55,7 +55,7 @@ export const schedule: DaySchedule[] = [
 				time: '09:45–11:00',
 				title: 'Digital Humanities, AI and African Linguistic Diversity',
 				type: 'plenary',
-				facilitators: ['Kọ́lá Túbọ̀sún', 'To be determined'],
+				facilitators: ['Kọ́lá Túbọ̀sún', 'Ashleigh Harris'],
 				rooms: ['SR 6']
 			},
 			{
