@@ -195,7 +195,7 @@
 				>
 			</div>
 		</div>
-		<P class="text-caption stack-item-md">Last updated: 10 December 2025</P>
+		<P class="text-caption stack-item-md">Last updated: 28 January 2026</P>
 	</div>
 </section>
 
