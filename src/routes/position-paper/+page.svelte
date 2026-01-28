@@ -5,7 +5,6 @@
 		P,
 		Timeline,
 		TimelineItem,
-		Hr,
 	} from "flowbite-svelte";
 	import {
 		FileDocOutline,
@@ -19,6 +18,7 @@
 		serializeJsonLd,
 	} from "$lib/utils/seo";
 	import { workshopInfo } from "$lib/data/workshop-info";
+	import { reveal } from "$lib/utils/reveal";
 
 	const seo = createSeoMeta({
 		path: "/position-paper",
@@ -59,29 +59,27 @@
 <section
 	class="bg-page padding-block-section padding-inline-section relative overflow-hidden"
 >
-	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
-	<div
-		class="decorative-blob decorative-blob-secondary bottom-20 -right-20"
-	></div>
+	<div class="bg-grid-mesh"></div>
+	<div class="bg-radial-glow"></div>
 	<div
 		class="content-width surface-panel surface-padding text-center stack-md relative"
 	>
 		<div class="stack-sm">
 			<Heading
 				tag="h1"
-				class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight"
+				class="heading-display heading-xl text-gradient-teal drop-shadow-md pb-2 tracking-tight animate-hero-title"
 			>
 				Position Paper
 			</Heading>
-			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto">
-				The main outcome of the “Charting New Territory” workshop will
+			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto animate-hero-subtitle">
+				The main outcome of the "Charting New Territory" workshop will
 				be a jointly authored position paper. Designed to serve as both
 				a manifesto and a practical blueprint, this document will help
 				define the emerging field at the intersection of digital
 				humanities (DH), artificial intelligence (AI) and African
 				Studies.
 			</P>
-			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto">
+			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto animate-hero-subtitle" style="animation-delay: 200ms;">
 				Moving beyond a summary of our discussions, this paper will
 				translate our collective insights into a strategic roadmap. This
 				will offer concrete guidance on how to advance research, funding
@@ -95,19 +93,18 @@
 <section
 	class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden"
 >
+	<div class="bg-grid-mesh opacity-30"></div>
 	<div
-		class="decorative-blob decorative-blob-secondary top-1/4 -right-20"
-	></div>
-	<div
-		class="content-width-wide surface-panel surface-padding stack-lg relative"
+		class="content-width-wide surface-panel surface-padding stack-lg relative animate-section-reveal"
+		use:reveal
 	>
 		<div class="stack-md">
 			<Heading
 				tag="h2"
-				class="heading-section heading-lg heading-color-light"
+				class="heading-section heading-lg heading-color-light accent-underline"
 				>Core Objectives</Heading
 			>
-			<P class="text-lead">
+			<P class="text-lead mt-4">
 				The paper will present a transformative vision, informed by
 				decolonial thinking and African knowledge systems. It will
 				identify key intersections between methodological innovation,
@@ -116,17 +113,17 @@
 			</P>
 		</div>
 
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children" use:reveal>
 			<Card
-				class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full"
+				class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full glow-border"
 			>
 				<div class="flex flex-col items-start gap-4">
 					<div
-						class="p-3 rounded-lg bg-primary-50 dark:bg-primary-900/30"
+						class="p-3 rounded-lg bg-secondary-50 dark:bg-secondary-900/30 glow-teal"
 					>
 						<LightbulbOutline
 							size="xl"
-							class="text-primary-600 dark:text-primary-400"
+							class="text-secondary-600 dark:text-secondary-400"
 						/>
 					</div>
 					<div class="stack-sm">
@@ -143,15 +140,15 @@
 			</Card>
 
 			<Card
-				class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full"
+				class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full glow-border"
 			>
 				<div class="flex flex-col items-start gap-4">
 					<div
-						class="p-3 rounded-lg bg-primary-50 dark:bg-primary-900/30"
+						class="p-3 rounded-lg bg-secondary-50 dark:bg-secondary-900/30 glow-teal"
 					>
 						<UsersGroupOutline
 							size="xl"
-							class="text-primary-600 dark:text-primary-400"
+							class="text-secondary-600 dark:text-secondary-400"
 						/>
 					</div>
 					<div class="stack-sm">
@@ -168,15 +165,15 @@
 			</Card>
 
 			<Card
-				class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full"
+				class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full glow-border"
 			>
 				<div class="flex flex-col items-start gap-4">
 					<div
-						class="p-3 rounded-lg bg-primary-50 dark:bg-primary-900/30"
+						class="p-3 rounded-lg bg-secondary-50 dark:bg-secondary-900/30 glow-teal"
 					>
 						<BookOpenOutline
 							size="xl"
-							class="text-primary-600 dark:text-primary-400"
+							class="text-secondary-600 dark:text-secondary-400"
 						/>
 					</div>
 					<div class="stack-sm">
@@ -198,17 +195,15 @@
 <section
 	class="bg-page padding-block-section padding-inline-section relative overflow-hidden"
 >
-	<div
-		class="decorative-blob decorative-blob-primary bottom-20 -left-20"
-	></div>
-	<div class="content-width surface-panel surface-padding stack-lg relative">
+	<div class="bg-radial-glow-bottom"></div>
+	<div class="content-width surface-panel surface-padding stack-lg relative animate-section-reveal" use:reveal>
 		<div class="stack-md">
 			<Heading
 				tag="h2"
-				class="text-center heading-section heading-lg heading-color-light"
+				class="text-center heading-section heading-lg heading-color-light accent-underline"
 				>Targeted Recommendations</Heading
 			>
-			<P class="text-lead text-center max-w-3xl mx-auto">
+			<P class="text-lead text-center max-w-3xl mx-auto mt-4">
 				To ensure a lasting impact, the position paper will provide
 				specific, actionable recommendations tailored to key
 				stakeholders:
@@ -250,32 +245,30 @@
 <section
 	class="bg-page padding-block-section padding-inline-section relative overflow-hidden"
 >
-	<div
-		class="decorative-blob decorative-blob-secondary top-20 -right-20"
-	></div>
-	<div class="content-width surface-panel surface-padding stack-lg relative">
+	<div class="bg-grid-mesh opacity-30"></div>
+	<div class="content-width surface-panel surface-padding stack-lg relative animate-section-reveal" use:reveal>
 		<div class="stack-md text-center">
 			<Heading
 				tag="h2"
-				class="heading-section heading-lg heading-color-light"
+				class="heading-section heading-lg heading-color-light accent-underline"
 				>Publication</Heading
 			>
-			<P class="text-lead max-w-3xl mx-auto">
+			<P class="text-lead max-w-3xl mx-auto mt-4">
 				The position paper will be published in open access in the <a
 					href="https://www.zmo.de/en/publications/translate-to-english-zmo-programmatic-texts"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="link-primary">ZMO Programmatic Texts</a
+					class="link-secondary">ZMO Programmatic Texts</a
 				>.
 			</P>
 		</div>
 
-		<Card class="card-surface surface-padding-sm mx-auto! max-w-3xl!">
+		<Card class="card-surface surface-padding-sm mx-auto! max-w-3xl! glow-border">
 			<div class="flex flex-col gap-4">
 				<div class="flex items-center justify-center gap-3">
 					<FileDocOutline
 						size="xl"
-						class="text-primary-600 dark:text-primary-400"
+						class="text-secondary-600 dark:text-secondary-400"
 					/>
 					<Heading tag="h3" class="heading-sub heading-md"
 						>About the Series</Heading

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Heading, P, Card, Badge, Button } from 'flowbite-svelte';
+	import { Heading, P, Badge, Button } from 'flowbite-svelte';
 	import { SearchOutline, CloseOutline, FilterOutline } from 'flowbite-svelte-icons';
 	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
@@ -31,7 +31,7 @@
 	// State
 	let references = $state<any[]>(referencesData);
 	let searchQuery = $state('');
-	
+
 	// Facets state
 	let selectedTypes = $state<string[]>([]);
 	let selectedYears = $state<string[]>([]);
@@ -92,10 +92,10 @@
 	});
 
 	let activeFiltersCount = $derived(
-		(searchQuery ? 1 : 0) + 
-		selectedTypes.length + 
-		selectedYears.length + 
-		selectedTags.length + 
+		(searchQuery ? 1 : 0) +
+		selectedTypes.length +
+		selectedYears.length +
+		selectedTags.length +
 		selectedLanguages.length
 	);
 
@@ -124,14 +124,14 @@
 
 	function formatCitation(ref: any) {
 		let authors = 'Unknown Author';
-		
+
 		if (ref.author && ref.author.length > 0) {
 			authors = ref.author.map((a: any) => `${a.given} ${a.family}`).join(', ');
 		} else if (ref.editor && ref.editor.length > 0) {
 			const editorNames = ref.editor.map((e: any) => `${e.given} ${e.family}`).join(', ');
 			authors = `${editorNames} (ed${ref.editor.length > 1 ? 's' : ''})`;
 		}
-		
+
 		const year = ref.issued?.['date-parts']?.[0]?.[0] || 'n.d.';
 		return { authors, year };
 	}
@@ -186,20 +186,20 @@
 </svelte:head>
 
 <section class="bg-page min-h-screen padding-block-section padding-inline-section relative overflow-hidden">
-	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
-	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
+	<div class="bg-grid-mesh"></div>
+	<div class="bg-radial-glow"></div>
 
 	<div class="content-width-wide surface-panel surface-padding stack-lg relative">
 		<!-- Header -->
 		<div class="stack-sm relative z-10 text-center">
-			<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">References</Heading>
-			<P class="text-lead mx-auto max-w-3xl">
+			<Heading tag="h1" class="heading-display heading-xl text-gradient-teal drop-shadow-md pb-2 tracking-tight animate-hero-title">References</Heading>
+			<P class="text-lead mx-auto max-w-3xl animate-hero-subtitle">
 				A curated bibliography of works at the intersection of Digital Humanities, Artificial Intelligence, and African Studies. This index is actively curated and will continue to expand over the coming weeks.
 			</P>
 		</div>
 
 		<div class="lg:hidden">
-			<Button 
+			<Button
 				color="light"
 				onclick={toggleMobileFilters}
 				class="w-full justify-between items-center text-left"
@@ -211,7 +211,7 @@
 				</span>
 				<span class="flex items-center gap-1 text-xs font-medium text-gray-600 dark:text-gray-300">
 					{#if activeFiltersCount > 0}
-						<span class="inline-flex items-center justify-center rounded-full bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200 px-2 py-0.5">
+						<span class="inline-flex items-center justify-center rounded-full bg-secondary-100 text-secondary-700 dark:bg-secondary-900/40 dark:text-secondary-200 px-2 py-0.5">
 							{activeFiltersCount}
 						</span>
 					{/if}
@@ -221,7 +221,7 @@
 
 			{#if showMobileFilters}
 				<div class="mt-4" in:slide={{ duration: 200 }} out:fade={{ duration: 150 }}>
-					<ReferenceFacets 
+					<ReferenceFacets
 						{references}
 						bind:searchQuery
 						bind:selectedTypes
@@ -239,7 +239,7 @@
 		<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 			<!-- Sidebar / Facets -->
 			<aside class="hidden lg:block lg:col-span-3 stack-md sticky top-24">
-				<ReferenceFacets 
+				<ReferenceFacets
 					{references}
 					bind:searchQuery
 					bind:selectedTypes
@@ -254,9 +254,9 @@
 			<div class="lg:col-span-9 stack-md">
 				<div class="flex justify-between items-center card-surface surface-padding-sm">
 					<P class="text-sm font-medium body-text">
-						Showing <span class="text-primary-600 dark:text-primary-400 font-bold">{filteredReferences.length}</span> references
+						Showing <span class="text-secondary-600 dark:text-secondary-400 font-bold">{filteredReferences.length}</span> references
 					</P>
-					
+
 					<!-- Active Filters Display (Mobile/Desktop) -->
 					{#if activeFiltersCount > 0}
 						<div class="hidden sm:flex gap-2 flex-wrap justify-end">
@@ -307,18 +307,26 @@
 							return ref.URL || ref.url || '';
 						})()}
 							<div in:slide|local={{ duration: 300 }} out:fade|local={{ duration: 200 }}>
-								<Card 
-									class="card-surface w-full max-w-none p-6 sm:p-8 hover:shadow-lg transition-all duration-300 group cursor-pointer"
+								<div
+									class="card-surface w-full max-w-none p-6 sm:p-8 hover:shadow-lg transition-all duration-300 group cursor-pointer glow-border"
 									onclick={(e: MouseEvent) => {
 										if (e.target instanceof Element && (e.target.closest('a') || e.target.closest('button'))) return;
 										toggleReference(ref.id);
+									}}
+									role="button"
+									tabindex="0"
+									onkeydown={(e: KeyboardEvent) => {
+										if (e.key === 'Enter' || e.key === ' ') {
+											e.preventDefault();
+											toggleReference(ref.id);
+										}
 									}}
 								>
 								<div class="stack-sm">
 									<!-- Header: Type & Year -->
 									<div class="flex justify-between items-start text-xs uppercase tracking-wider font-semibold body-text-muted">
 										<div class="flex items-center gap-2">
-											<span class="bg-primary-50 dark:bg-primary-900/30 px-2 py-1 rounded-md text-primary-700 dark:text-primary-300">
+											<span class="bg-secondary-50 dark:bg-secondary-900/30 px-2 py-1 rounded-md text-secondary-700 dark:text-secondary-300">
 												{formatType(ref.type)}
 											</span>
 											{#if ref['container-title']}
@@ -338,7 +346,7 @@
 												href={accessLink}
 												target="_blank"
 												rel="noopener noreferrer"
-												class="inline-flex items-center gap-1 text-left group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors underline-offset-4 hover:underline"
+												class="inline-flex items-center gap-1 text-left group-hover:text-secondary-600 dark:group-hover:text-secondary-400 transition-colors underline-offset-4 hover:underline"
 											>
 												{ref.title}
 											</a>
@@ -346,12 +354,12 @@
 											<span>{ref.title}</span>
 										{/if}
 									</Heading>
-									
+
 									<!-- Authors -->
-									<P class="body-text font-medium border-l-2 border-primary-200 dark:border-secondary-700 pl-3">
+									<P class="body-text font-medium border-l-2 border-secondary-200 dark:border-secondary-700 pl-3">
 										{info.authors}
 									</P>
-									
+
 									<!-- Abstract (Truncated if needed, but showing full for now) -->
 									{#if ref.abstract}
 										<P class={'text-sm body-text-muted transition-all duration-500 ' + (expandedReferences.has(ref.id) ? '' : 'line-clamp-3 group-hover:line-clamp-none')}>
@@ -376,23 +384,23 @@
 										</div>
 
 										{#if accessLink}
-											<Button 
-												href={accessLink} 
-												target="_blank" 
+											<Button
+												href={accessLink}
+												target="_blank"
 												rel="noopener noreferrer"
 												size="xs"
 												color="light"
-												class="font-medium hover:text-primary-600 dark:hover:text-primary-400 sm:ml-auto"
+												class="font-medium hover:text-secondary-600 dark:hover:text-secondary-400 sm:ml-auto"
 											>
 												Access publication
 											</Button>
 										{/if}
 									</div>
 								</div>
-							</Card>
+							</div>
 						</div>
 					{/each}
-					
+
 					{#if filteredReferences.length === 0}
 						<div class="text-center padding-block-xl card-surface surface-padding border border-dashed border-gray-300 dark:border-gray-700">
 							<div class="stack-sm flex flex-col items-center">

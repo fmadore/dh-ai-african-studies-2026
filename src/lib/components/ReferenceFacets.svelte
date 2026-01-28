@@ -137,13 +137,13 @@
 	}
 </script>
 
-<Card class="card-surface w-full p-6 sm:p-7">
+<Card class="card-surface w-full p-6 sm:p-7 glow-border">
 	<div class="stack-md">
 		<div
 			class="flex flex-wrap gap-3 justify-between items-center border-b border-surface-300 dark:border-surface-dark-overlay pb-4"
 		>
 			<div class="flex items-center gap-2">
-				<FilterOutline class="size-icon-md text-primary-600" />
+				<FilterOutline class="size-icon-md text-secondary-600 dark:text-secondary-400" />
 				<Heading tag="h3" class="heading-sub text-lg m-0"
 					>Filters</Heading
 				>

@@ -16,9 +16,10 @@
 <footer
 	class="mt-auto bg-page padding-block-xl padding-inline-lg relative overflow-hidden"
 >
-	<div
-		class="decorative-blob decorative-blob-secondary -right-24 -bottom-24 opacity-50 pointer-events-none"
-	></div>
+	<!-- Grid mesh background -->
+	<div class="bg-grid-mesh opacity-40"></div>
+	<!-- Subtle radial glow accent -->
+	<div class="bg-radial-glow-bottom"></div>
 	<div
 		class="content-width-wide surface-panel surface-padding stack-lg overflow-hidden relative"
 	>

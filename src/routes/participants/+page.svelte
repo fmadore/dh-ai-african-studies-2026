@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card, Heading, P, Badge, Accordion, AccordionItem } from 'flowbite-svelte';
+	import { Heading, P, Badge, Accordion, AccordionItem } from 'flowbite-svelte';
 	import { UserCircleSolid, UsersGroupSolid, UsersGroupOutline } from 'flowbite-svelte-icons';
 	import { participants } from '$lib/data/participants';
 	import { thematicGroups } from '$lib/data/thematic-groups';
@@ -92,11 +92,11 @@
 
 <!-- Page Header -->
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
-	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
-	<div class="decorative-blob decorative-blob-secondary bottom-20 -right-20"></div>
+	<div class="bg-grid-mesh"></div>
+	<div class="bg-radial-glow"></div>
 	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
-		<Heading tag="h1" class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight">Participants</Heading>
-		<P class="text-lead mx-auto max-w-3xl">
+		<Heading tag="h1" class="heading-display heading-xl text-gradient-teal drop-shadow-md pb-2 tracking-tight animate-hero-title">Participants</Heading>
+		<P class="text-lead mx-auto max-w-3xl animate-hero-subtitle">
 			Meet the {totalParticipants} international experts from {totalCountries} countries participating in this scoping workshop on Digital Humanities and AI in African Studies.
 		</P>
 	</div>
@@ -104,7 +104,8 @@
 
 <!-- Tabs Section -->
 <section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
-	<div class="content-width-wide">
+	<div class="bg-grid-mesh opacity-30"></div>
+	<div class="content-width-wide relative">
 		<UrlTabs tabs={viewTabs} paramName="view" defaultTab="all" tabStyle="underline" class="mb-xl">
 			{#snippet children(activeTab)}
 				{#if activeTab === 'all'}
@@ -117,7 +118,7 @@
 						{#if displayedParticipants.length > 0}
 							<div class="grid grid-cols-1 gap-lg sm:grid-cols-2 lg:grid-cols-3">
 								{#each displayedParticipants as participant (participant.name)}
-									<Card class="card-surface surface-padding-sm h-full">
+									<div class="card-surface surface-padding-sm h-full glow-border">
 										<div class="flex flex-col items-center text-center stack-xs">
 											<!-- Participant Photo -->
 											<div class="relative w-24 h-24">
@@ -125,16 +126,16 @@
 													<img
 														src={participant.photoUrl}
 														alt={participant.name}
-														class="w-24 h-24 rounded-full object-cover border-2 border-primary-100 dark:border-primary-800 shadow-md"
+														class="w-24 h-24 rounded-full object-cover border-2 border-secondary-200 dark:border-secondary-700 shadow-md"
 														onerror={handleImageError}
 													/>
 													<!-- Placeholder for missing images -->
-													<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700 shadow-md">
+													<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-secondary-200 bg-gray-200 dark:border-secondary-700 dark:bg-gray-700 shadow-md">
 														<UserCircleSolid class="w-14 h-14 text-gray-400 dark:text-gray-500" />
 													</div>
 												{:else}
 													<!-- Placeholder for participants without photo -->
-													<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700 shadow-md">
+													<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-secondary-200 bg-gray-200 dark:border-secondary-700 dark:bg-gray-700 shadow-md">
 														<UserCircleSolid class="w-14 h-14 text-gray-400 dark:text-gray-500" />
 													</div>
 												{/if}
@@ -146,7 +147,7 @@
 											</Heading>
 
 											<!-- Affiliation -->
-											<P class="text-body-sm text-primary-600 dark:text-primary-400 font-medium">
+											<P class="text-body-sm text-secondary-600 dark:text-secondary-400 font-medium">
 												{participant.affiliation}
 											</P>
 
@@ -172,7 +173,7 @@
 												</div>
 											</div>
 										{/if}
-									</Card>
+									</div>
 								{/each}
 							</div>
 						{:else}
@@ -188,7 +189,7 @@
 					<div class="stack-xl">
 						{#each thematicGroups as group, index (group.id)}
 							{@const groupParticipants = getGroupParticipants(group.name)}
-							<div class="surface-panel surface-padding stack-md">
+							<div class="surface-panel surface-padding stack-md ">
 								<!-- Group Header -->
 								<div class="stack-sm">
 									<div class="flex flex-wrap items-center gap-sm">
@@ -211,7 +212,7 @@
 										{#each group.guidingQuestions as question (question.category)}
 											<AccordionItem>
 												{#snippet header()}
-													<span class="font-medium text-primary-700 dark:text-primary-300">{question.category}</span>
+													<span class="font-medium text-secondary-700 dark:text-secondary-300">{question.category}</span>
 												{/snippet}
 												<P class="text-body-sm">{question.question}</P>
 											</AccordionItem>
@@ -227,7 +228,7 @@
 									{#if groupParticipants.length > 0}
 										<div class="grid grid-cols-1 gap-md sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 											{#each groupParticipants as participant (participant.name)}
-												<Card class="card-surface surface-padding-sm">
+												<div class="card-surface surface-padding-sm glow-border">
 													<div class="flex items-center gap-sm">
 														<!-- Participant Photo (smaller) -->
 														<div class="relative w-12 h-12 shrink-0">
@@ -235,14 +236,14 @@
 																<img
 																	src={participant.photoUrl}
 																	alt={participant.name}
-																	class="w-12 h-12 rounded-full object-cover border-2 border-primary-100 dark:border-primary-800"
+																	class="w-12 h-12 rounded-full object-cover border-2 border-secondary-200 dark:border-secondary-700"
 																	onerror={handleImageError}
 																/>
-																<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700">
+																<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-secondary-200 bg-gray-200 dark:border-secondary-700 dark:bg-gray-700">
 																	<UserCircleSolid class="w-8 h-8 text-gray-400 dark:text-gray-500" />
 																</div>
 															{:else}
-																<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-primary-100 bg-gray-200 dark:border-primary-800 dark:bg-gray-700">
+																<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-secondary-200 bg-gray-200 dark:border-secondary-700 dark:bg-gray-700">
 																	<UserCircleSolid class="w-8 h-8 text-gray-400 dark:text-gray-500" />
 																</div>
 															{/if}
@@ -252,12 +253,12 @@
 															<P class="font-semibold heading-color-light truncate">
 																{participant.name}
 															</P>
-															<P class="text-body-sm text-primary-600 dark:text-primary-400 truncate">
+															<P class="text-body-sm text-secondary-600 dark:text-secondary-400 truncate">
 																{participant.affiliation}
 															</P>
 														</div>
 													</div>
-												</Card>
+												</div>
 											{/each}
 										</div>
 									{:else}
@@ -277,10 +278,11 @@
 
 <!-- Interactive Map -->
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
-	<div class="decorative-blob decorative-blob-primary bottom-0 left-0 opacity-50"></div>
-	<div class="content-width-wide surface-panel surface-padding stack-md relative">
-		<Heading tag="h2" class="heading-section heading-lg heading-color-light text-center">Global Distribution</Heading>
-		<P class="text-lead text-center max-w-2xl mx-auto">
+	<div class="bg-grid-mesh opacity-30"></div>
+	<div class="bg-radial-glow-bottom"></div>
+	<div class="content-width-wide surface-panel surface-padding stack-md relative ">
+		<Heading tag="h2" class="heading-section heading-lg heading-color-light text-center accent-underline">Global Distribution</Heading>
+		<P class="text-lead text-center max-w-2xl mx-auto mt-4">
 			Explore where our participants are based around the world.
 		</P>
 		<ParticipantsMap participants={displayedParticipants} />

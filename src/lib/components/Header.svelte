@@ -90,4 +90,17 @@
 			transform: translateY(0);
 		}
 	}
+
+	/* Future Forward: Active nav glow */
+	:global(.nav-links > li > a.active) {
+		background-color: var(--color-secondary-100);
+		color: var(--color-secondary-700);
+		box-shadow: 0 0 12px -3px rgba(13, 148, 136, 0.3);
+	}
+
+	:global(.dark .nav-links > li > a.active) {
+		background-color: rgba(13, 148, 136, 0.15);
+		color: var(--color-secondary-300);
+		box-shadow: 0 0 16px -4px rgba(13, 148, 136, 0.4);
+	}
 </style>

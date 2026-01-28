@@ -14,7 +14,7 @@
 		bind:value
 		{placeholder}
 		size="lg"
-		class="pl-12! py-3! text-lg! rounded-card shadow-sm"
+		class="pl-12! py-3! text-lg! rounded-card shadow-sm transition-all focus-within:shadow-secondary focus-within:ring-2 focus-within:ring-secondary-300 dark:focus-within:ring-secondary-600"
 		left={leftIcon}
 	/>
 </div>

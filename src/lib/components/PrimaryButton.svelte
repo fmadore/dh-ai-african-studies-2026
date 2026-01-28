@@ -33,8 +33,8 @@
 		{disabled}
 		{target}
 		{rel}
-		color="primary" 
-		class="shadow-lg hover:shadow-primary transition-shadow {className}"
+		color="primary"
+		class="shadow-lg hover:shadow-primary transition-all hover:scale-[1.02] active:scale-[0.98] {className}"
 	>
 		{@render children()}
 	</Button>
@@ -43,8 +43,8 @@
 		{size}
 		{disabled}
 		{onclick}
-		color="primary" 
-		class="shadow-lg hover:shadow-primary transition-shadow {className}"
+		color="primary"
+		class="shadow-lg hover:shadow-primary transition-all hover:scale-[1.02] active:scale-[0.98] {className}"
 	>
 		{@render children()}
 	</Button>

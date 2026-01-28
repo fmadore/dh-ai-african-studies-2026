@@ -25,6 +25,7 @@
 		type ScheduleItem,
 	} from "$lib/data/schedule";
 	import UrlTabs, { type Tab } from "$lib/components/UrlTabs.svelte";
+	import { reveal } from "$lib/utils/reveal";
 
 	// Extended tab interface for schedule days
 	interface DayTab extends Tab {
@@ -162,33 +163,31 @@
 <section
 	class="bg-page padding-block-section padding-inline-section relative overflow-hidden"
 >
-	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
-	<div
-		class="decorative-blob decorative-blob-secondary bottom-20 -right-20"
-	></div>
+	<div class="bg-grid-mesh"></div>
+	<div class="bg-radial-glow"></div>
 	<div
 		class="content-width surface-panel surface-padding text-center stack-sm relative"
 	>
 		<Heading
 			tag="h1"
-			class="heading-display heading-xl text-gradient drop-shadow-md pb-2 tracking-tight"
+			class="heading-display heading-xl text-gradient-teal drop-shadow-md pb-2 tracking-tight animate-hero-title"
 			>Workshop Schedule</Heading
 		>
-		<P class="text-lead max-w-3xl mx-auto">
+		<P class="text-lead max-w-3xl mx-auto animate-hero-subtitle">
 			Three days of collaborative dialogue, knowledge sharing, and
 			strategic planning at the intersection of Digital Humanities and AI
 			in African Studies.
 		</P>
-		<div class="flex flex-wrap justify-center gap-md stack-item-md">
+		<div class="flex flex-wrap justify-center gap-md stack-item-md animate-hero-subtitle" style="animation-delay: 200ms;">
 			<div class="flex items-center gap-sm text-body-sm">
 				<CalendarMonthOutline
-					class="size-icon-md text-primary-600 dark:text-primary-400"
+					class="size-icon-md text-secondary-600 dark:text-secondary-400"
 				/>
 				<span>{workshopInfo.dates.full}</span>
 			</div>
 			<div class="flex items-center gap-sm text-body-sm">
 				<MapPinAltOutline
-					class="size-icon-md text-primary-600 dark:text-primary-400"
+					class="size-icon-md text-secondary-600 dark:text-secondary-400"
 				/>
 				<span
 					>{workshopInfo.location.venue}, {workshopInfo.location
@@ -204,9 +203,7 @@
 <section
 	class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden"
 >
-	<div
-		class="decorative-blob decorative-blob-secondary top-0 right-0 opacity-50"
-	></div>
+	<div class="bg-grid-mesh opacity-30"></div>
 	<div class="content-width-wide relative">
 		<UrlTabs
 			tabs={dayTabs}
@@ -232,19 +229,19 @@
 			{#snippet children(activeTabId, tab)}
 				{@const day = tab as DayTab}
 				<!-- Day Header with integrated legend -->
-				<div class="surface-panel surface-padding mb-lg stack-sm">
+				<div class="surface-panel surface-padding mb-lg stack-sm animate-section-reveal" use:reveal>
 					<div class="text-center stack-sm">
 						<P
-							class="text-label text-primary-600 dark:text-primary-400"
+							class="text-label text-secondary-600 dark:text-secondary-400"
 							>{day.date}</P
 						>
 						<Heading
 							tag="h2"
-							class="heading-section heading-lg heading-color-light"
+							class="heading-section heading-lg heading-color-light accent-underline"
 						>
 							{day.theme}
 						</Heading>
-						<P class="text-lead max-w-2xl mx-auto">
+						<P class="text-lead max-w-2xl mx-auto mt-4">
 							{day.themeDescription}
 						</P>
 					</div>
@@ -264,12 +261,12 @@
 				</div>
 
 				<!-- Schedule Items -->
-				<div class="stack-md">
+				<div class="stack-md stagger-children" use:reveal>
 					{#each day.items as item (item.time + item.title)}
 						{@const styles = getItemStyles(item.type)}
 						{@const Icon = getItemIcon(item.type, item.title)}
 						<article
-							class="card-surface {styles.border} {styles.bg} surface-padding-sm rounded-lg transition-base hover:shadow-md"
+							class="card-surface {styles.border} {styles.bg} surface-padding-sm rounded-lg transition-base hover:shadow-md glow-border"
 						>
 							<div class="flex flex-col sm:flex-row gap-md">
 								<!-- Time Column -->
@@ -326,7 +323,7 @@
 													class="inline-flex items-center gap-xs"
 												>
 													<MapPinAltOutline
-														class="size-icon-sm text-primary-500 dark:text-primary-400"
+														class="size-icon-sm text-secondary-500 dark:text-secondary-400"
 													/>
 													{#each item.rooms as room, i}
 														<span
@@ -346,7 +343,7 @@
 													class="body-text flex items-baseline gap-sm text-body-sm"
 												>
 													<span
-														class="text-primary-500 dark:text-primary-400 shrink-0"
+														class="text-secondary-500 dark:text-secondary-400 shrink-0"
 														>•</span
 													>
 													<span>{detail}</span>
@@ -417,40 +414,41 @@
 <section
 	class="bg-page padding-block-section padding-inline-section relative overflow-hidden"
 >
+	<div class="bg-grid-mesh opacity-30"></div>
+	<div class="bg-radial-glow-bottom"></div>
 	<div
-		class="decorative-blob decorative-blob-primary bottom-20 -left-20"
-	></div>
-	<div
-		class="content-width-wide surface-panel surface-padding stack-md relative"
+		class="content-width-wide surface-panel surface-padding stack-md relative animate-section-reveal"
+		use:reveal
 	>
 		<Heading
 			tag="h2"
-			class="text-center heading-section heading-lg heading-color-light"
+			class="text-center heading-section heading-lg heading-color-light accent-underline"
 		>
 			Important Information
 		</Heading>
 		<div
-			class="grid grid-cols-1 gap-lg sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto"
+			class="grid grid-cols-1 gap-lg sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto mt-6 stagger-children"
+			use:reveal
 		>
-			<Card class="card-surface surface-padding-sm text-center stack-xs">
+			<Card class="card-surface surface-padding-sm text-center stack-xs glow-border">
 				<div class="flex justify-center stack-item-sm">
 					<CalendarMonthOutline
-						class="size-icon-lg text-primary-600 dark:text-primary-400"
+						class="size-icon-lg text-secondary-600 dark:text-secondary-400"
 					/>
 				</div>
-				<P class="text-label text-primary-600 dark:text-primary-400"
+				<P class="text-label text-secondary-600 dark:text-secondary-400"
 					>Workshop Dates</P
 				>
 				<P class="heading-sub heading-sm">{workshopInfo.dates.full}</P>
 				<P class="text-body-sm">{workshopInfo.duration.description}</P>
 			</Card>
-			<Card class="card-surface surface-padding-sm text-center stack-xs">
+			<Card class="card-surface surface-padding-sm text-center stack-xs glow-border">
 				<div class="flex justify-center stack-item-sm">
 					<MapPinAltOutline
-						class="size-icon-lg text-primary-600 dark:text-primary-400"
+						class="size-icon-lg text-secondary-600 dark:text-secondary-400"
 					/>
 				</div>
-				<P class="text-label text-primary-600 dark:text-primary-400"
+				<P class="text-label text-secondary-600 dark:text-secondary-400"
 					>Venue</P
 				>
 				<P class="heading-sub heading-sm">
@@ -458,7 +456,7 @@
 						href={workshopInfo.location.url}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="link-primary"
+						class="link-secondary"
 					>
 						{workshopInfo.location.venue}
 					</a>
@@ -469,14 +467,14 @@
 				>
 			</Card>
 			<Card
-				class="card-surface surface-padding-sm text-center stack-xs sm:col-span-2 lg:col-span-1"
+				class="card-surface surface-padding-sm text-center stack-xs sm:col-span-2 lg:col-span-1 glow-border"
 			>
 				<div class="flex justify-center stack-item-sm">
 					<FileLinesSolid
-						class="size-icon-lg text-primary-600 dark:text-primary-400"
+						class="size-icon-lg text-secondary-600 dark:text-secondary-400"
 					/>
 				</div>
-				<P class="text-label text-primary-600 dark:text-primary-400"
+				<P class="text-label text-secondary-600 dark:text-secondary-400"
 					>Note</P
 				>
 				<P class="text-body-sm">

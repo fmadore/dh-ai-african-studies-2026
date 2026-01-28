@@ -40,7 +40,7 @@
 		{target}
 		{rel}
 		color="secondary"
-		class="backdrop-blur-sm transition-base {className}"
+		class="backdrop-blur-sm transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-secondary {className}"
 	>
 		{@render children()}
 	</Button>
@@ -51,7 +51,7 @@
 		{disabled}
 		{onclick}
 		color="secondary"
-		class="backdrop-blur-sm transition-base {className}"
+		class="backdrop-blur-sm transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-secondary {className}"
 	>
 		{@render children()}
 	</Button>

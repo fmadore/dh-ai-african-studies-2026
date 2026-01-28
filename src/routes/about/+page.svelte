@@ -10,6 +10,7 @@
 	import { workStreams } from "$lib/data/work-streams";
 	import { workshopInfo } from "$lib/data/workshop-info";
 	import { resolveAssetPath } from "$lib/utils/paths";
+	import { reveal } from "$lib/utils/reveal";
 
 	function decorateWithPhotoUrl(participant: (typeof participants)[number]) {
 		return {
@@ -68,28 +69,27 @@
 	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
 </svelte:head>
 
+<!-- Page Header -->
 <section
 	class="bg-page padding-block-section padding-inline-section relative overflow-hidden"
 >
-	<div class="decorative-blob decorative-blob-primary top-20 -left-20"></div>
-	<div
-		class="decorative-blob decorative-blob-secondary bottom-20 -right-20"
-	></div>
+	<div class="bg-grid-mesh"></div>
+	<div class="bg-radial-glow"></div>
 
 	<div class="content-width surface-panel surface-padding stack-xl relative">
 		<Heading
 			tag="h1"
-			class="text-center heading-display heading-xl text-gradient tracking-tight drop-shadow-md pb-2"
+			class="text-center heading-display heading-xl text-gradient-teal tracking-tight drop-shadow-md pb-2 animate-hero-title"
 			>About the Workshop</Heading
 		>
 
-		<div class="stack-md text-left">
+		<div class="stack-md text-left animate-section-reveal" use:reveal>
 			<Heading
 				tag="h2"
-				class="heading-section heading-lg heading-color-light"
+				class="heading-section heading-lg heading-color-light accent-underline"
 				>The Convergence of Technology and Epistemology</Heading
 			>
-			<P class="body-text">
+			<P class="body-text mt-4">
 				The intersection of Digital Humanities (DH) and Artificial
 				Intelligence (AI) is rapidly transforming knowledge production
 				within African Studies. This technological shift offers
@@ -108,13 +108,13 @@
 			</P>
 		</div>
 
-		<div class="stack-md">
+		<div class="stack-md animate-section-reveal" use:reveal>
 			<Heading
 				tag="h2"
-				class="heading-section heading-lg heading-color-light"
+				class="heading-section heading-lg heading-color-light accent-underline"
 				>Beyond the Hype: Addressing Structural Inequalities</Heading
 			>
-			<P class="body-text">
+			<P class="body-text mt-4">
 				While Large Language Models (LLMs) and digitization efforts hold
 				immense promise, their implementation often outpaces the
 				necessary ethical frameworks. Digitization is inherently
@@ -134,13 +134,13 @@
 			</P>
 		</div>
 
-		<div class="stack-md">
+		<div class="stack-md animate-section-reveal" use:reveal>
 			<Heading
 				tag="h2"
-				class="heading-section heading-lg heading-color-light"
+				class="heading-section heading-lg heading-color-light accent-underline"
 				>Workshop Format: A Working Meeting</Heading
 			>
-			<P class="body-text">
+			<P class="body-text mt-4">
 				Unlike a traditional academic conference, this event prioritizes
 				discussion over presentation. It is designed as a high-intensity
 				scoping workshop employing an "assessment-to-action"
@@ -153,11 +153,12 @@
 			</P>
 
 			<div
-				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4"
+				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4 stagger-children"
+				use:reveal
 			>
 				{#each workStreams as stream (stream.id)}
 					<Card
-						class="card-surface surface-padding-sm h-full stack-xs"
+						class="card-surface surface-padding-sm h-full stack-xs glow-border"
 					>
 						<Heading tag="h3" class="heading-sub text-lg"
 							>{stream.title}</Heading
@@ -170,13 +171,13 @@
 			</div>
 		</div>
 
-		<div class="stack-sm">
+		<div class="stack-sm animate-section-reveal" use:reveal>
 			<Heading
 				tag="h2"
-				class="heading-section heading-lg heading-color-light"
+				class="heading-section heading-lg heading-color-light accent-underline"
 				>Key Outcome: The Position Paper</Heading
 			>
-			<P class="body-text">
+			<P class="body-text mt-4">
 				The primary goal of this workshop is to produce a co-authored
 				Position Paper.
 			</P>
@@ -196,15 +197,15 @@
 
 		<!-- Co-Organizers Section -->
 		{#if coOrganizers.length > 0}
-			<div class="stack-md">
+			<div class="stack-md animate-section-reveal" use:reveal>
 				<Heading
 					tag="h2"
-					class="heading-section heading-lg heading-color-light"
+					class="heading-section heading-lg heading-color-light accent-underline"
 					>Co-Organizers</Heading
 				>
-				<div class="stack-md">
+				<div class="stack-md mt-4 stagger-children" use:reveal>
 					{#each coOrganizers as organizer (organizer.name)}
-						<div class="card-surface w-full">
+						<div class="card-surface w-full glow-border">
 							<div
 								class="flex flex-col md:flex-row w-full items-center md:items-start gap-6 md:gap-8 p-6 md:p-8"
 							>
@@ -215,12 +216,12 @@
 											<img
 												src={organizer.photoUrl}
 												alt={organizer.name}
-												class="w-full h-full rounded-full object-cover border-2 border-primary-100 dark:border-primary-800 shadow-md"
+												class="w-full h-full rounded-full object-cover border-2 border-secondary-200 dark:border-secondary-700 shadow-md"
 												onerror={handleImageError}
 											/>
 											<!-- Placeholder for missing images -->
 											<div
-												class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-800 hidden items-center justify-center absolute top-0 left-0 shadow-md"
+												class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-200 dark:border-secondary-700 hidden items-center justify-center absolute top-0 left-0 shadow-md"
 											>
 												<UserCircleSolid
 													class="w-14 h-14 md:w-16 md:h-16 text-gray-400 dark:text-gray-500"
@@ -229,7 +230,7 @@
 										{:else}
 											<!-- Placeholder for organizers without photo -->
 											<div
-												class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-primary-100 dark:border-primary-800 flex items-center justify-center shadow-md"
+												class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-200 dark:border-secondary-700 flex items-center justify-center shadow-md"
 											>
 												<UserCircleSolid
 													class="w-14 h-14 md:w-16 md:h-16 text-gray-400 dark:text-gray-500"
@@ -250,7 +251,7 @@
 										{organizer.name}
 									</Heading>
 									<P
-										class="text-primary-600 dark:text-primary-400 font-medium"
+										class="text-secondary-600 dark:text-secondary-400 font-medium"
 									>
 										{organizer.affiliation}
 									</P>
@@ -290,17 +291,18 @@
 
 		<!-- Student Assistants Section -->
 		{#if studentAssistants.length > 0}
-			<div class="stack-md">
+			<div class="stack-md animate-section-reveal" use:reveal>
 				<Heading
 					tag="h2"
-					class="heading-section heading-lg heading-color-light"
+					class="heading-section heading-lg heading-color-light accent-underline"
 					>Student Assistants</Heading
 				>
 				<div
-					class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto"
+					class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto mt-4 stagger-children"
+					use:reveal
 				>
 					{#each studentAssistants as assistant (assistant.name)}
-						<Card class="card-surface surface-padding-sm h-full">
+						<Card class="card-surface surface-padding-sm h-full glow-border">
 							<div
 								class="flex flex-col items-center text-center stack-xs"
 							>
@@ -310,12 +312,12 @@
 										<img
 											src={assistant.photoUrl}
 											alt={assistant.name}
-											class="w-20 h-20 rounded-full object-cover border-2 border-secondary-100 dark:border-secondary-800 shadow-md"
+											class="w-20 h-20 rounded-full object-cover border-2 border-secondary-200 dark:border-secondary-700 shadow-md"
 											onerror={handleImageError}
 										/>
 										<!-- Placeholder for missing images -->
 										<div
-											class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-800 hidden items-center justify-center absolute top-0 left-0 shadow-md"
+											class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-200 dark:border-secondary-700 hidden items-center justify-center absolute top-0 left-0 shadow-md"
 										>
 											<UserCircleSolid
 												class="w-12 h-12 text-gray-400 dark:text-gray-500"
@@ -324,7 +326,7 @@
 									{:else}
 										<!-- Placeholder for assistants without photo -->
 										<div
-											class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-100 dark:border-secondary-800 flex items-center justify-center shadow-md"
+											class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-200 dark:border-secondary-700 flex items-center justify-center shadow-md"
 										>
 											<UserCircleSolid
 												class="w-12 h-12 text-gray-400 dark:text-gray-500"
@@ -383,19 +385,19 @@
 			</div>
 		{/if}
 
-		<div class="stack-sm">
+		<div class="stack-sm animate-section-reveal" use:reveal>
 			<Heading
 				tag="h2"
-				class="heading-section heading-lg heading-color-light"
+				class="heading-section heading-lg heading-color-light accent-underline"
 				>Funding</Heading
 			>
-			<P class="body-text">
+			<P class="body-text mt-4">
 				This scoping workshop is made possible by the generous support
 				of the <a
 					href="https://www.volkswagenstiftung.de/en"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="link-primary font-semibold">Volkswagen Foundation</a
+					class="link-secondary font-semibold">Volkswagen Foundation</a
 				>.
 			</P>
 		</div>

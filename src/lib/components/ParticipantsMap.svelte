@@ -170,7 +170,7 @@
 	/>
 </svelte:head>
 
-<div class="card-surface surface-padding-xs w-full">
+<div class="card-surface surface-padding-xs w-full glow-border">
 	<div bind:this={mapContainer} class="map-canvas"></div>
 </div>
 
@@ -298,12 +298,12 @@
 		height: 3rem;
 		border-radius: var(--radius-full);
 		object-fit: cover;
-		border: 2px solid var(--color-primary-200);
+		border: 2px solid var(--color-secondary-200);
 		flex-shrink: 0;
 	}
 
 	:global(.dark .participant-popup .popup-avatar) {
-		border-color: var(--color-primary-700);
+		border-color: var(--color-secondary-700);
 	}
 
 	:global(.participant-popup .popup-details) {
@@ -342,13 +342,13 @@
 		width: 30px;
 		height: 30px;
 		border-radius: 50% 50% 50% 0;
-		background: var(--color-primary-500);
+		background: var(--color-secondary-500);
 		position: absolute;
 		transform: rotate(-45deg);
 		left: 50%;
 		top: 50%;
 		margin: -15px 0 0 -15px;
-		box-shadow: var(--shadow-md);
+		box-shadow: var(--shadow-md), 0 0 12px -2px rgba(13, 148, 136, 0.4);
 		border: 2px solid white;
 	}
 
