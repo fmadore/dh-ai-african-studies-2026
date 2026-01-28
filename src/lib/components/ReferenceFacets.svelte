@@ -1,18 +1,14 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
-	import {
-		Card,
-		Heading,
-		Label,
-		Input,
-		Checkbox,
-		Select,
-	} from "flowbite-svelte";
+	import { Label, Input, Checkbox, Select } from "flowbite-svelte";
 	import {
 		FilterOutline,
 		SearchOutline,
 		CloseOutline,
+		ChevronDownOutline,
+		ChevronUpOutline,
 	} from "flowbite-svelte-icons";
+	import { slide } from "svelte/transition";
 
 	interface Props {
 		references: any[];
@@ -40,20 +36,31 @@
 		closeLabel = "Close filters",
 	}: Props = $props();
 
+	// Collapsible section state
+	let sectionsOpen = $state({
+		type: true,
+		keywords: true,
+		language: true,
+		year: false,
+	});
+
+	// Keyword search filter
+	let keywordSearch = $state("");
+
 	function formatType(type: string): string {
 		const typeMap: Record<string, string> = {
-			"article-magazine": "Magazine article",
-			"article-newspaper": "Newspaper article",
-			"article-journal": "Journal article",
-			"entry-encyclopedia": "Encyclopedia entry",
+			"article-magazine": "Magazine Article",
+			"article-newspaper": "Newspaper Article",
+			"article-journal": "Journal Article",
+			"entry-encyclopedia": "Encyclopedia Entry",
 			motion_picture: "Video",
-			"paper-conference": "Conference paper",
-			"post-weblog": "Blog post",
+			"paper-conference": "Conference Paper",
+			"post-weblog": "Blog Post",
 			song: "Podcast",
 			speech: "Presentation",
 			article: "Preprint",
 		};
-		return typeMap[type] || type.replace(/-|_/g, " ");
+		return typeMap[type] || type.replace(/-|_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 	}
 
 	let availableTypes = $derived.by(() => {
@@ -95,6 +102,13 @@
 		);
 	});
 
+	// Filtered keywords based on search
+	let filteredTags = $derived.by(() => {
+		if (!keywordSearch.trim()) return availableTags;
+		const search = keywordSearch.toLowerCase();
+		return availableTags.filter((tag) => tag.toLowerCase().includes(search));
+	});
+
 	let activeFiltersCount = $derived(
 		(searchQuery ? 1 : 0) +
 			selectedTypes.length +
@@ -117,6 +131,7 @@
 		selectedTags = [];
 		selectedLanguages = [];
 		selectedSort = "newest";
+		keywordSearch = "";
 	}
 
 	function handleClose() {
@@ -135,19 +150,20 @@
 		};
 		return languageMap[langCode.toLowerCase()] || langCode.toUpperCase();
 	}
+
+	function toggleSection(section: keyof typeof sectionsOpen) {
+		sectionsOpen[section] = !sectionsOpen[section];
+	}
 </script>
 
-<Card class="card-surface w-full p-6 sm:p-7 glow-border">
-	<div class="stack-md">
-		<div
-			class="flex flex-wrap gap-3 justify-between items-center border-b border-surface-300 dark:border-surface-dark-overlay pb-4"
-		>
-			<div class="flex items-center gap-2">
-				<FilterOutline class="size-icon-md text-secondary-600 dark:text-secondary-400" />
-				<Heading tag="h3" class="heading-sub text-lg m-0"
-					>Filters</Heading
-				>
-			</div>
+<div class="card-surface p-5 sm:p-6">
+	<!-- Header -->
+	<div class="flex flex-wrap gap-3 justify-between items-center pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
+		<div class="flex items-center gap-2">
+			<FilterOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400" />
+			<span class="text-lg font-semibold text-gray-900 dark:text-white">Filters</span>
+		</div>
+		<div class="flex items-center gap-3">
 			{#if activeFiltersCount > 0}
 				<button
 					onclick={resetFilters}
@@ -156,7 +172,6 @@
 					Reset ({activeFiltersCount})
 				</button>
 			{/if}
-
 			{#if showCloseButton}
 				<button
 					type="button"
@@ -164,132 +179,198 @@
 					class="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors"
 					aria-label={closeLabel}
 				>
-					<CloseOutline class="size-icon-sm" />
-					<span>{closeLabel}</span>
+					<CloseOutline class="w-4 h-4" />
 				</button>
 			{/if}
 		</div>
+	</div>
 
+	<div class="space-y-5">
 		<!-- Search -->
-		<div>
-			<Label for="search" class="mb-2 font-semibold body-text"
-				>Search</Label
-			>
+		<div class="space-y-2">
+			<Label for="search" class="text-sm font-semibold text-gray-700 dark:text-gray-300">Search</Label>
 			<div class="relative">
-				<div
-					class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-				>
-					<SearchOutline
-						class="size-icon-sm text-gray-500 dark:text-gray-400"
-					/>
-				</div>
-				<Input
+				<SearchOutline class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+				<input
 					id="search"
 					type="text"
 					placeholder="Title, author, keyword..."
 					bind:value={searchQuery}
-					class="ps-10 py-3"
+					class="w-full pl-10 pr-4 py-2.5 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-secondary-500 focus:border-secondary-500 dark:focus:ring-secondary-400 dark:focus:border-secondary-400 placeholder-gray-400 dark:placeholder-gray-500 text-gray-900 dark:text-white"
 				/>
 			</div>
 		</div>
 
 		<!-- Sort -->
-		<div>
-			<Label class="mb-2 font-semibold body-text">Sort by</Label>
+		<div class="space-y-2">
+			<Label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Sort by</Label>
 			<Select
 				items={sortOptions}
 				bind:value={selectedSort}
-				class="body-text"
+				class="text-sm"
 			/>
 		</div>
 
 		<!-- Type Filter -->
 		{#if availableTypes.length > 0}
-			<div class="stack-sm pt-2">
-				<Label class="font-bold body-text-strong">Type</Label>
-				<div class="stack-xs pl-1">
-					{#each availableTypes as type (type)}
-						<Checkbox
-							bind:group={selectedTypes}
-							value={type}
-							class="body-text-muted"
-						>
-							<span class="capitalize">{formatType(type)}</span>
-						</Checkbox>
-					{/each}
-				</div>
+			<div class="pt-3 border-t border-gray-200 dark:border-gray-700">
+				<button
+					onclick={() => toggleSection('type')}
+					class="flex items-center justify-between w-full py-1 text-left group"
+				>
+					<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Type</span>
+					{#if sectionsOpen.type}
+						<ChevronUpOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+					{:else}
+						<ChevronDownOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+					{/if}
+				</button>
+				{#if sectionsOpen.type}
+					<div class="mt-3 space-y-2" transition:slide={{ duration: 200 }}>
+						{#each availableTypes as type (type)}
+							<label class="flex items-center gap-2.5 cursor-pointer group">
+								<input
+									type="checkbox"
+									bind:group={selectedTypes}
+									value={type}
+									class="w-4 h-4 text-secondary-600 bg-white border-gray-300 rounded focus:ring-secondary-500 dark:focus:ring-secondary-400 dark:bg-gray-700 dark:border-gray-600"
+								/>
+								<span class="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200">{formatType(type)}</span>
+							</label>
+						{/each}
+					</div>
+				{/if}
 			</div>
 		{/if}
 
-		<!-- Tags Filter -->
+		<!-- Keywords Filter -->
 		{#if availableTags.length > 0}
-			<div
-				class="stack-sm pt-2 border-t border-surface-200 dark:border-surface-dark-elevated"
-			>
-				<Label class="font-bold body-text-strong">Keywords</Label>
-				<div
-					class="max-h-60 overflow-y-auto stack-xs pl-1 pr-2 custom-scrollbar keyword-stack"
+			<div class="pt-3 border-t border-gray-200 dark:border-gray-700">
+				<button
+					onclick={() => toggleSection('keywords')}
+					class="flex items-center justify-between w-full py-1 text-left group"
 				>
-					{#each availableTags as tag (tag)}
-						<Checkbox
-							bind:group={selectedTags}
-							value={tag}
-							class="body-text-muted"
-						>
-							<span class="text-sm">{tag}</span>
-						</Checkbox>
-					{/each}
-				</div>
+					<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+						Keywords
+						{#if selectedTags.length > 0}
+							<span class="ml-1.5 px-1.5 py-0.5 text-xs font-medium bg-secondary-100 text-secondary-700 dark:bg-secondary-900/40 dark:text-secondary-300 rounded">
+								{selectedTags.length}
+							</span>
+						{/if}
+					</span>
+					{#if sectionsOpen.keywords}
+						<ChevronUpOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+					{:else}
+						<ChevronDownOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+					{/if}
+				</button>
+				{#if sectionsOpen.keywords}
+					<div class="mt-3 space-y-3" transition:slide={{ duration: 200 }}>
+						<!-- Keyword search -->
+						<div class="relative">
+							<SearchOutline class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+							<input
+								type="text"
+								placeholder="Filter keywords..."
+								bind:value={keywordSearch}
+								class="w-full pl-8 pr-3 py-1.5 text-xs bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-1 focus:ring-secondary-500 focus:border-secondary-500 placeholder-gray-400 dark:placeholder-gray-500 text-gray-900 dark:text-white"
+							/>
+						</div>
+						<!-- Keywords list -->
+						<div class="max-h-52 overflow-y-auto space-y-1.5 pr-1 custom-scrollbar">
+							{#each filteredTags as tag (tag)}
+								<label class="flex items-center gap-2 cursor-pointer group">
+									<input
+										type="checkbox"
+										bind:group={selectedTags}
+										value={tag}
+										class="w-3.5 h-3.5 text-secondary-600 bg-white border-gray-300 rounded focus:ring-secondary-500 dark:focus:ring-secondary-400 dark:bg-gray-700 dark:border-gray-600"
+									/>
+									<span class="text-xs text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 truncate">{tag}</span>
+								</label>
+							{:else}
+								<p class="text-xs text-gray-400 dark:text-gray-500 italic py-1">No keywords match "{keywordSearch}"</p>
+							{/each}
+						</div>
+						{#if availableTags.length > 10}
+							<p class="text-xs text-gray-400 dark:text-gray-500">
+								{filteredTags.length} of {availableTags.length} keywords
+							</p>
+						{/if}
+					</div>
+				{/if}
 			</div>
 		{/if}
 
 		<!-- Language Filter -->
 		{#if availableLanguages.length > 0}
-			<div
-				class="stack-sm pt-2 border-t border-surface-200 dark:border-surface-dark-elevated"
-			>
-				<Label class="font-bold body-text-strong">Language</Label>
-				<div class="stack-xs pl-1">
-					{#each availableLanguages as language (language)}
-						<Checkbox
-							bind:group={selectedLanguages}
-							value={language}
-							class="body-text-muted"
-						>
-							<span>{formatLanguage(language)}</span>
-						</Checkbox>
-					{/each}
-				</div>
+			<div class="pt-3 border-t border-gray-200 dark:border-gray-700">
+				<button
+					onclick={() => toggleSection('language')}
+					class="flex items-center justify-between w-full py-1 text-left group"
+				>
+					<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Language</span>
+					{#if sectionsOpen.language}
+						<ChevronUpOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+					{:else}
+						<ChevronDownOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+					{/if}
+				</button>
+				{#if sectionsOpen.language}
+					<div class="mt-3 space-y-2" transition:slide={{ duration: 200 }}>
+						{#each availableLanguages as language (language)}
+							<label class="flex items-center gap-2.5 cursor-pointer group">
+								<input
+									type="checkbox"
+									bind:group={selectedLanguages}
+									value={language}
+									class="w-4 h-4 text-secondary-600 bg-white border-gray-300 rounded focus:ring-secondary-500 dark:focus:ring-secondary-400 dark:bg-gray-700 dark:border-gray-600"
+								/>
+								<span class="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200">{formatLanguage(language)}</span>
+							</label>
+						{/each}
+					</div>
+				{/if}
 			</div>
 		{/if}
 
 		<!-- Year Filter -->
 		{#if availableYears.length > 0}
-			<div
-				class="stack-sm pt-2 border-t border-surface-200 dark:border-surface-dark-elevated"
-			>
-				<Label class="font-bold body-text-strong">Year</Label>
-				<div
-					class="max-h-48 overflow-y-auto stack-xs pl-1 pr-2 custom-scrollbar"
+			<div class="pt-3 border-t border-gray-200 dark:border-gray-700">
+				<button
+					onclick={() => toggleSection('year')}
+					class="flex items-center justify-between w-full py-1 text-left group"
 				>
-					{#each availableYears as year (year)}
-						<Checkbox
-							bind:group={selectedYears}
-							value={year}
-							class="body-text-muted"
-						>
-							{year}
-						</Checkbox>
-					{/each}
-				</div>
+					<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Year</span>
+					{#if sectionsOpen.year}
+						<ChevronUpOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+					{:else}
+						<ChevronDownOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+					{/if}
+				</button>
+				{#if sectionsOpen.year}
+					<div class="mt-3 max-h-40 overflow-y-auto space-y-2 pr-1 custom-scrollbar" transition:slide={{ duration: 200 }}>
+						{#each availableYears as year (year)}
+							<label class="flex items-center gap-2.5 cursor-pointer group">
+								<input
+									type="checkbox"
+									bind:group={selectedYears}
+									value={year}
+									class="w-4 h-4 text-secondary-600 bg-white border-gray-300 rounded focus:ring-secondary-500 dark:focus:ring-secondary-400 dark:bg-gray-700 dark:border-gray-600"
+								/>
+								<span class="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200">{year}</span>
+							</label>
+						{/each}
+					</div>
+				{/if}
 			</div>
 		{/if}
 	</div>
-</Card>
+</div>
 
 <style>
 	.custom-scrollbar::-webkit-scrollbar {
-		width: 6px;
+		width: 5px;
 	}
 
 	.custom-scrollbar::-webkit-scrollbar-track {
@@ -297,17 +378,19 @@
 	}
 
 	.custom-scrollbar::-webkit-scrollbar-thumb {
-		background-color: var(--color-gray-400);
-		border-radius: var(--radius-full);
-		opacity: 0.5;
+		background-color: var(--color-gray-300);
+		border-radius: 9999px;
 	}
 
 	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-		background-color: var(--color-gray-500);
-		opacity: 0.8;
+		background-color: var(--color-gray-400);
 	}
 
-	:global(.keyword-stack > * + *) {
-		margin-top: 0.125rem;
+	:global(.dark) .custom-scrollbar::-webkit-scrollbar-thumb {
+		background-color: var(--color-gray-600);
+	}
+
+	:global(.dark) .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+		background-color: var(--color-gray-500);
 	}
 </style>
