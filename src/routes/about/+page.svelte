@@ -150,7 +150,7 @@
 			</P>
 
 			<div
-				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4 stagger-children"
+				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 stagger-children"
 				use:reveal
 			>
 				{#each workStreams as stream (stream.id)}
@@ -203,7 +203,7 @@
 					{#each coOrganizers as organizer (organizer.name)}
 						<div class="card-surface w-full glow-border">
 							<div
-								class="flex flex-col md:flex-row w-full items-center md:items-start gap-6 md:gap-8 p-6 md:p-8"
+								class="flex flex-col md:flex-row w-full items-center md:items-start gap-4 md:gap-8 p-6 md:p-8"
 							>
 								<!-- Photo -->
 								<div class="w-28 h-28 md:w-36 md:h-36 shrink-0">
@@ -305,7 +305,7 @@
 					>Student Assistants</Heading
 				>
 				<div
-					class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto mt-4 stagger-children"
+					class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto mt-4 stagger-children"
 					use:reveal
 				>
 					{#each studentAssistants as assistant (assistant.name)}

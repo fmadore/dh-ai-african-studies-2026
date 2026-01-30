@@ -357,7 +357,7 @@
 		</div>
 
 		<!-- Hotel ↔ Venue -->
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger-children" use:reveal>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 stagger-children" use:reveal>
 			<!-- Hotel to Venue Card -->
 			<Card size="xl" class="w-full max-w-none card-surface surface-padding h-full glow-border">
 				<div class="stack-md">

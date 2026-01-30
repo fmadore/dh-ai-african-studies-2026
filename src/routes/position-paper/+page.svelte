@@ -1,30 +1,20 @@
 <script lang="ts">
-	import {
-		Card,
-		Heading,
-		P,
-		Timeline,
-		TimelineItem,
-	} from "flowbite-svelte";
-	import {
-		FileDocOutline,
-		UsersGroupOutline,
-		LightbulbOutline,
-		BookOpenOutline,
-	} from "flowbite-svelte-icons";
+	import { Card, Heading, P, Li, List } from "flowbite-svelte";
+	import { BookOpenOutline } from "flowbite-svelte-icons";
 	import {
 		createSeoMeta,
 		createEventJsonLd,
 		serializeJsonLd,
 	} from "$lib/utils/seo";
 	import { workshopInfo } from "$lib/data/workshop-info";
+	import { workStreams } from "$lib/data/work-streams";
 	import { reveal } from "$lib/utils/reveal";
 
 	const seo = createSeoMeta({
 		path: "/position-paper",
 		title: "Position Paper",
 		description:
-			"The position paper synthesises workshop insights into a strategic roadmap for Digital Humanities and AI in African studies, foregrounding equitable collaboration, decolonial ethics, and actionable recommendations for stakeholders.",
+			"The workshop's main output will be a co-authored position paper, to be published in open access in the ZMO Programmatic Texts series.",
 		type: "article",
 	});
 
@@ -42,6 +32,25 @@
 		funderUrl: workshopInfo.funder.url,
 		url: seo.canonical,
 	});
+
+	const audiences = [
+		{
+			title: "Research funders",
+			description: "seeking models for sustainable, equitable project support",
+		},
+		{
+			title: "Universities",
+			description: "developing curricula and training in digital methods",
+		},
+		{
+			title: "Technology developers",
+			description: "building tools for multilingual and cross-cultural research",
+		},
+		{
+			title: "Policy makers",
+			description: "working on data governance and digital infrastructure",
+		},
+	];
 </script>
 
 <svelte:head>
@@ -64,7 +73,7 @@
 	<div
 		class="content-width surface-panel surface-padding text-center stack-md relative"
 	>
-		<div class="stack-sm">
+		<div class="stack-md">
 			<Heading
 				tag="h1"
 				class="heading-display heading-xl text-gradient-teal drop-shadow-md pb-2 tracking-tight animate-hero-title"
@@ -72,24 +81,25 @@
 				Position Paper
 			</Heading>
 			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto animate-hero-subtitle">
-				The main outcome of the "Charting New Territory" workshop will
-				be a jointly authored position paper. Designed to serve as both
-				a manifesto and a practical blueprint, this document will help
-				define the emerging field at the intersection of digital
-				humanities (DH), artificial intelligence (AI) and African
-				Studies.
+				The main output of the workshop will be a co-authored position
+				paper, to be published in open access in the <a
+					href="https://www.zmo.de/en/publications/translate-to-english-zmo-programmatic-texts"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="link-secondary">ZMO Programmatic Texts</a
+				> series.
 			</P>
 			<P class="body-text text-lg leading-relaxed max-w-3xl mx-auto animate-hero-subtitle" style="animation-delay: 200ms;">
-				Moving beyond a summary of our discussions, this paper will
-				translate our collective insights into a strategic roadmap. This
-				will offer concrete guidance on how to advance research, funding
-				and policy in an ethical and sustainable way.
+				As digital humanities and AI are reshaping the landscape of
+				African studies research, there is a growing need for shared
+				frameworks that address questions of equity, methodology and
+				ethics. This paper responds to that need.
 			</P>
 		</div>
 	</div>
 </section>
 
-<!-- Core Objectives -->
+<!-- Purpose -->
 <section
 	class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden"
 >
@@ -102,187 +112,137 @@
 			<Heading
 				tag="h2"
 				class="heading-section heading-lg heading-color-light accent-underline"
-				>Core Objectives</Heading
+				>Purpose</Heading
 			>
-			<P class="text-lead mt-4">
-				The paper will present a transformative vision, informed by
-				decolonial thinking and African knowledge systems. It will
-				identify key intersections between methodological innovation,
-				equitable partnerships and culturally responsive ethics. Key
-				components will include:
+			<P class="body-text mt-4">
+				The paper will synthesise the discussions from the workshop into
+				a set of recommendations for researchers, funders and
+				institutions working at the intersection of digital humanities,
+				AI and African studies. It aims to provide a strategic reference
+				point for this emerging field, which currently lacks shared
+				standards and clear direction. The paper will centre African
+				perspectives while addressing infrastructure gaps and linguistic
+				diversity.
 			</P>
-		</div>
-
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children" use:reveal>
-			<Card
-				class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full glow-border"
-			>
-				<div class="flex flex-col items-start gap-4">
-					<div
-						class="p-3 rounded-lg bg-secondary-50 dark:bg-secondary-900/30 glow-teal"
-					>
-						<LightbulbOutline
-							size="xl"
-							class="text-secondary-600 dark:text-secondary-400"
-						/>
-					</div>
-					<div class="stack-sm">
-						<Heading tag="h3" class="heading-sub heading-sm"
-							>Methodological Pathways</Heading
-						>
-						<P class="text-body-sm">
-							Prioritized strategies for integrating AI with
-							African linguistic diversity and historical
-							archives.
-						</P>
-					</div>
-				</div>
-			</Card>
-
-			<Card
-				class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full glow-border"
-			>
-				<div class="flex flex-col items-start gap-4">
-					<div
-						class="p-3 rounded-lg bg-secondary-50 dark:bg-secondary-900/30 glow-teal"
-					>
-						<UsersGroupOutline
-							size="xl"
-							class="text-secondary-600 dark:text-secondary-400"
-						/>
-					</div>
-					<div class="stack-sm">
-						<Heading tag="h3" class="heading-sub heading-sm"
-							>Equitable Frameworks</Heading
-						>
-						<P class="text-body-sm">
-							Defined mechanisms for North-South and South-South
-							collaboration that ensure resource sharing and data
-							sovereignty.
-						</P>
-					</div>
-				</div>
-			</Card>
-
-			<Card
-				class="card-surface surface-padding-sm hover:shadow-lg transition-shadow h-full glow-border"
-			>
-				<div class="flex flex-col items-start gap-4">
-					<div
-						class="p-3 rounded-lg bg-secondary-50 dark:bg-secondary-900/30 glow-teal"
-					>
-						<BookOpenOutline
-							size="xl"
-							class="text-secondary-600 dark:text-secondary-400"
-						/>
-					</div>
-					<div class="stack-sm">
-						<Heading tag="h3" class="heading-sub heading-sm"
-							>Ethical Principles</Heading
-						>
-						<P class="text-body-sm">
-							A core set of guidelines addressing algorithmic
-							bias, community consent, and digital preservation.
-						</P>
-					</div>
-				</div>
-			</Card>
 		</div>
 	</div>
 </section>
 
-<!-- Targeted Recommendations -->
+<!-- Contents -->
 <section
 	class="bg-page padding-block-section padding-inline-section relative overflow-hidden"
 >
 	<div class="bg-radial-glow-bottom"></div>
-	<div class="content-width surface-panel surface-padding stack-lg relative animate-section-reveal" use:reveal>
+	<div
+		class="content-width-wide surface-panel surface-padding stack-lg relative animate-section-reveal"
+		use:reveal
+	>
 		<div class="stack-md">
 			<Heading
 				tag="h2"
-				class="text-center heading-section heading-lg heading-color-light accent-underline"
-				>Targeted Recommendations</Heading
+				class="heading-section heading-lg heading-color-light accent-underline"
+				>Contents</Heading
 			>
-			<P class="text-lead text-center max-w-3xl mx-auto mt-4">
-				To ensure a lasting impact, the position paper will provide
-				specific, actionable recommendations tailored to key
-				stakeholders:
+			<P class="body-text mt-4">
+				The paper will address three areas:
 			</P>
 		</div>
 
-		<Timeline>
-			<TimelineItem title="Research Funders" date="">
-				<P class="text-body-lg">
-					Proposals for sustainable funding models that support
-					long-term maintenance and equitable collaboration.
-				</P>
-			</TimelineItem>
-
-			<TimelineItem title="Academic Institutions" date="">
-				<P class="text-body-lg">
-					Strategies for decolonizing curricula and integrating
-					ethical DH training.
-				</P>
-			</TimelineItem>
-
-			<TimelineItem title="Technology Developers" date="">
-				<P class="text-body-lg">
-					Guidelines for designing tools that are linguistically
-					inclusive and culturally responsive.
-				</P>
-			</TimelineItem>
-
-			<TimelineItem title="Policymakers" date="">
-				<P class="text-body-lg">
-					Frameworks for data governance and digital sovereignty.
-				</P>
-			</TimelineItem>
-		</Timeline>
+		<div
+			class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children"
+			use:reveal
+		>
+			{#each workStreams as stream (stream.id)}
+				<Card
+					class="card-surface surface-padding-sm h-full stack-xs glow-border"
+				>
+					<Heading tag="h3" class="heading-sub text-lg"
+						>{stream.title}</Heading
+					>
+					<P class="text-body-sm">
+						{stream.description}
+					</P>
+				</Card>
+			{/each}
+		</div>
 	</div>
 </section>
 
-<!-- Publication -->
+<!-- Audience -->
 <section
 	class="bg-page padding-block-section padding-inline-section relative overflow-hidden"
 >
 	<div class="bg-grid-mesh opacity-30"></div>
-	<div class="content-width surface-panel surface-padding stack-lg relative animate-section-reveal" use:reveal>
-		<div class="stack-md text-center">
+	<div
+		class="content-width surface-panel surface-padding stack-lg relative animate-section-reveal"
+		use:reveal
+	>
+		<div class="stack-md">
 			<Heading
 				tag="h2"
 				class="heading-section heading-lg heading-color-light accent-underline"
-				>Publication</Heading
+				>Audience</Heading
 			>
-			<P class="text-lead max-w-3xl mx-auto mt-4">
-				The position paper will be published in open access in the <a
-					href="https://www.zmo.de/en/publications/translate-to-english-zmo-programmatic-texts"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="link-secondary">ZMO Programmatic Texts</a
-				>.
+			<P class="body-text mt-4">
+				The paper is addressed to:
+			</P>
+			<List tag="ul" class="mt-4 space-y-3">
+				{#each audiences as audience (audience.title)}
+					<Li class="body-text">
+						<strong>{audience.title}</strong> {audience.description}
+					</Li>
+				{/each}
+			</List>
+		</div>
+	</div>
+</section>
+
+<!-- Process -->
+<section
+	class="bg-page padding-block-section padding-inline-section relative overflow-hidden"
+>
+	<div class="bg-radial-glow-bottom"></div>
+	<div
+		class="content-width surface-panel surface-padding stack-lg relative animate-section-reveal"
+		use:reveal
+	>
+		<div class="stack-md">
+			<Heading
+				tag="h2"
+				class="heading-section heading-lg heading-color-light accent-underline"
+				>Process</Heading
+			>
+			<P class="body-text mt-4">
+				A drafting committee will prepare the paper in the three months
+				following the workshop, incorporating participant feedback and
+				professional editing. The goal is a document that is both
+				rigorous and accessible to non-specialist readers in policy and
+				funding contexts.
 			</P>
 		</div>
 
-		<Card class="card-surface surface-padding-sm mx-auto! max-w-3xl! glow-border">
-			<div class="flex flex-col gap-4">
-				<div class="flex items-center justify-center gap-3">
-					<FileDocOutline
-						size="xl"
-						class="text-secondary-600 dark:text-secondary-400"
-					/>
-					<Heading tag="h3" class="heading-sub heading-md"
-						>About the Series</Heading
-					>
-				</div>
-				<P class="text-body-lg text-center">
-					The series <strong>ZMO Programmatic Texts</strong> publish wider
-					conceptual articles engaging with the interdisciplinary and inter-regional
-					research conducted at ZMO. The series provide a platform for
-					authors to present and discuss innovative contributions to current
-					theoretical and comparative debates, in relation to ZMO's programmatic
-					research agenda.
+		<div class="flex items-start gap-4 p-4 rounded-lg bg-secondary-50/50 dark:bg-secondary-900/20 border border-secondary-200 dark:border-secondary-800 max-w-3xl">
+			<div class="p-2 rounded-lg bg-secondary-100 dark:bg-secondary-800/50 shrink-0">
+				<BookOpenOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400" />
+			</div>
+			<div class="stack-xs">
+				<Heading tag="h3" class="heading-sub text-base"
+					>About ZMO Programmatic Texts</Heading
+				>
+				<P class="text-body-sm">
+					This <a
+						href="https://www.zmo.de/en/publications/translate-to-english-zmo-programmatic-texts"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="link-secondary">series</a> publishes conceptual articles engaging with
+					interdisciplinary and inter-regional research conducted at
+					the <a
+						href="https://www.zmo.de/en"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="link-secondary">Leibniz-Zentrum Moderner Orient</a>.
 				</P>
 			</div>
-		</Card>
+		</div>
 	</div>
 </section>

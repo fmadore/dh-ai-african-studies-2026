@@ -259,7 +259,7 @@
 
 		<!-- Asymmetric card grid with varied sizing -->
 		<div
-			class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 animate-section-reveal stagger-children"
+			class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 animate-section-reveal stagger-children"
 			use:reveal
 		>
 			{#each workshopGoals as goal, index (goal.title)}
@@ -329,7 +329,7 @@
 		</div>
 
 		<div
-			class="grid grid-cols-1 gap-6 justify-items-center sm:grid-cols-2 max-w-3xl mx-auto mt-6 stagger-children"
+			class="grid grid-cols-1 gap-4 justify-items-center sm:grid-cols-2 max-w-3xl mx-auto mt-6 stagger-children"
 			use:reveal
 		>
 			{#each organizers as organizer (organizer.name)}
