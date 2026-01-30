@@ -9,7 +9,7 @@
 	import { participants } from "$lib/data/participants";
 	import { workStreams } from "$lib/data/work-streams";
 	import { workshopInfo } from "$lib/data/workshop-info";
-	import { resolveAssetPath } from "$lib/utils/paths";
+	import { resolveAssetPath, resolveAppPath } from "$lib/utils/paths";
 	import { reveal } from "$lib/utils/reveal";
 
 	function decorateWithPhotoUrl(participant: (typeof participants)[number]) {
@@ -83,28 +83,53 @@
 			>About the Workshop</Heading
 		>
 
-		<div class="stack-md text-left animate-section-reveal" use:reveal>
+		<div class="stack-md text-left animate-hero-subtitle" style="animation-delay: 250ms;">
 			<Heading
 				tag="h2"
 				class="heading-section heading-lg heading-color-light accent-underline"
-				>The Convergence of Technology and Epistemology</Heading
+				>Background</Heading
 			>
 			<P class="body-text mt-4">
-				The intersection of Digital Humanities (DH) and Artificial
-				Intelligence (AI) is rapidly transforming knowledge production
-				within African Studies. This technological shift offers
-				unprecedented opportunities for innovative analysis, dynamic
-				visualization, and the democratization of diverse narratives.
-				However, this potential is inextricably linked to pressing
-				challenges regarding equitable access, the representation of
-				African languages, and the ethics of digital sovereignty.
+				Digital humanities has a long—and often overlooked—history in African studies, from
+				early databases such as the <a
+					href="https://www.slavevoyages.org/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="link-secondary"><em>Transatlantic Slave Trade Database</em></a>,
+				to more recent projects like the <a
+					href="https://open.bu.edu/handle/2144/1896"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="link-secondary"><em>African Ajami Library</em></a>, <a
+					href="https://openrestitution.africa/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="link-secondary"><em>Open Restitution Africa</em></a>, and <a
+					href="https://archivi.ng/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="link-secondary"><em>Archivi.ng</em></a>. AI tools, particularly large
+				language models, add new possibilities for textual analysis and
+				cross-cultural research.
 			</P>
 			<P class="body-text">
-				"Charting New Territory" is a dedicated scoping workshop
-				designed to navigate this evolving terrain. We are convening
-				international experts to move beyond describing current
-				conditions and instead actively chart future pathways for the
-				ethical, equitable development of DH and AI in African contexts.
+				But implementation raises difficult questions. Decisions about
+				what gets digitised, how it is catalogued and who controls
+				access are not neutral; they often favour institutions that
+				already have resources in place. Most AI systems still
+				underperform on African languages. And the pace of adoption
+				frequently outstrips attention to long-term preservation and
+				local capacity.
+			</P>
+			<P class="body-text">
+				Critics have described some digital initiatives as a form of
+				"<a
+					href="https://doi.org/10.1080/13696815.2018.1555749"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="link-secondary">digital saviour complex</a>," where Northern-led projects reproduce
+				colonial dynamics even while claiming to democratise access.
+				This workshop takes these critiques seriously.
 			</P>
 		</div>
 
@@ -112,44 +137,16 @@
 			<Heading
 				tag="h2"
 				class="heading-section heading-lg heading-color-light accent-underline"
-				>Beyond the Hype: Addressing Structural Inequalities</Heading
+				>Format</Heading
 			>
 			<P class="body-text mt-4">
-				While Large Language Models (LLMs) and digitization efforts hold
-				immense promise, their implementation often outpaces the
-				necessary ethical frameworks. Digitization is inherently
-				political; decisions about what is archived, how it is
-				cataloged, and who controls access often reinforce existing
-				global hierarchies.
-			</P>
-			<P class="body-text">
-				This workshop addresses the urgent need to prevent the exclusion
-				of African voices and the reproduction of colonial biases in
-				algorithmic systems. We recognize that Northern institutions
-				often control the digital infrastructure and historical
-				materials of the Global South. As such, our focus is on
-				countering "techno-solutionism" by balancing computational
-				innovation with critical humanistic inquiry and robust
-				preservation protocols for born-digital records.
-			</P>
-		</div>
-
-		<div class="stack-md animate-section-reveal" use:reveal>
-			<Heading
-				tag="h2"
-				class="heading-section heading-lg heading-color-light accent-underline"
-				>Workshop Format: A Working Meeting</Heading
-			>
-			<P class="body-text mt-4">
-				Unlike a traditional academic conference, this event prioritizes
-				discussion over presentation. It is designed as a high-intensity
-				scoping workshop employing an "assessment-to-action"
-				methodology.
-			</P>
-			<P class="body-text">
-				Over the course of three days, participants will engage in
-				facilitated discussions, collaborative exercises, and structured
-				deliberation across three core work streams:
+				This is not a traditional conference. There are no paper
+				presentations. Instead, participants work intensively across
+				three days in structured sessions designed to produce tangible
+				outputs. Daily synthesis sessions connect insights across the
+				three work streams, feeding directly into the <a
+					href={resolveAppPath('/position-paper')}
+					class="link-secondary">position paper</a>.
 			</P>
 
 			<div
@@ -171,37 +168,36 @@
 			</div>
 		</div>
 
-		<div class="stack-sm animate-section-reveal" use:reveal>
+		<div class="stack-md animate-section-reveal" use:reveal>
 			<Heading
 				tag="h2"
 				class="heading-section heading-lg heading-color-light accent-underline"
 				>Key Outcome: The Position Paper</Heading
 			>
 			<P class="body-text mt-4">
-				The primary goal of this workshop is to produce a co-authored
-				Position Paper.
+				The primary goal of this workshop is to produce a jointly authored
+				<a href={resolveAppPath('/position-paper')} class="link-secondary">position paper</a>.
 			</P>
 			<P class="body-text">
-				Synthesizing the insights from our daily sessions, this document
-				will serve as a foundational blueprint for the field. It will
-				provide actionable recommendations for research funders,
-				academic institutions, technology developers, and policymakers.
+				Drawing on insights from the daily sessions, this document will
+				provide a strategic reference point for the field, offering
+				actionable recommendations for research funders, academic
+				institutions, technology developers, and policymakers.
 			</P>
 			<P class="body-text">
-				By defining sustainable funding models, ethical protocols, and
-				decolonized curricula, we aim to consolidate this emerging field
-				and guide the next decade of DH and AI research in African
-				Studies.
+				By addressing sustainable funding models, ethical protocols, and
+				decolonised curricula, our aim is to support the consolidation
+				of this emerging field and inform its future direction.
 			</P>
 		</div>
 
-		<!-- Co-Organizers Section -->
+		<!-- Co-Organisers Section -->
 		{#if coOrganizers.length > 0}
 			<div class="stack-md animate-section-reveal" use:reveal>
 				<Heading
 					tag="h2"
 					class="heading-section heading-lg heading-color-light accent-underline"
-					>Co-Organizers</Heading
+					>Co-Organisers</Heading
 				>
 				<div class="stack-md mt-4 stagger-children" use:reveal>
 					{#each coOrganizers as organizer (organizer.name)}
@@ -248,7 +244,18 @@
 										tag="h3"
 										class="heading-sub heading-color-light heading-md"
 									>
-										{organizer.name}
+										{#if organizer.website}
+											<a
+												href={organizer.website}
+												target="_blank"
+												rel="noopener noreferrer"
+												class="link-secondary hover:underline"
+											>
+												{organizer.name}
+											</a>
+										{:else}
+											{organizer.name}
+										{/if}
 									</Heading>
 									<P
 										class="text-secondary-600 dark:text-secondary-400 font-medium"

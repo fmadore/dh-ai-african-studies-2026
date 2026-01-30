@@ -310,7 +310,7 @@
 	</div>
 </section>
 
-<!-- Organizers Section -->
+<!-- Organisers Section -->
 <section
 	class="bg-page padding-block-section padding-inline-section relative overflow-hidden"
 >
@@ -324,7 +324,7 @@
 			<Heading
 				tag="h2"
 				class="heading-section heading-lg heading-color-light accent-underline"
-				>Workshop Organizers</Heading
+				>Workshop Organisers</Heading
 			>
 		</div>
 
