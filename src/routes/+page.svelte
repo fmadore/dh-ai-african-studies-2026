@@ -59,19 +59,19 @@
 
 	const workshopGoals = [
 		{
-			title: "Assessment to Action",
+			title: "From Assessment to Action",
 			description:
-				"We prioritize production over presentation. Participants will move from assessing current barriers—infrastructure, language, and bias—to co-designing actionable strategies that ensure African epistemologies remain at the center of technological advancement.",
+				"We prioritise production over presentation. Each day, participants progress from mapping current barriers to co-designing actionable strategies, ensuring that African epistemologies remain at the centre of this process. Daily synthesis sessions connect insights across groups.",
 		},
 		{
 			title: "Structured Work Streams",
 			description:
-				"Through facilitated dialogue rather than traditional panels, three integrated work streams will tackle critical intersections: Methodological Integration, Equitable North-South/South-South Collaboration, and Ethical Frameworks.",
+				"Three integrated work streams will tackle critical intersections through facilitated dialogue rather than traditional panels: Methodological Integration, Equitable North–South/South–South Collaboration and Ethical Frameworks.",
 		},
 		{
 			title: "Position Paper",
 			description:
-				"The workshop will culminate in a co-authored strategic roadmap. This document will define the field's direction, offering concrete recommendations to guide future research, funding policies, and institutional decision-making.",
+				"The workshop will culminate in the creation of a co-authored strategic roadmap. This document will outline the future direction of the field, providing practical recommendations to inform future research, funding policies and institutional decision-making.",
 		},
 	];
 </script>
@@ -142,11 +142,12 @@
 					class="text-lead max-w-2xl drop-shadow-sm animate-hero-subtitle"
 					style="animation-delay: 180ms;"
 				>
-					A working meeting to shape the future of African Studies at the
-					intersection of Digital Humanities and AI. Prioritizing
-					collaborative dialogue over presentations, we convene to co-design
-					the methodological, equitable, and ethical frameworks for this
-					emerging field.
+					A working meeting bringing together researchers from Africa, Europe,
+					and beyond. Through facilitated discussions and structured
+					deliberation—prioritising collaboration over presentations—participants
+					will move from assessing current practices to developing actionable
+					strategies. The outcome: a co-authored position paper guiding the
+					ethical integration of digital humanities and AI in African studies.
 				</p>
 
 				<div class="flex flex-col gap-4 sm:flex-row">
@@ -169,11 +170,11 @@
 			<!-- Decorative accent panel on right (visible on lg+) -->
 			<div class="hidden lg:block lg:col-span-4 xl:col-span-5 relative">
 				<div
-					class="absolute inset-0 bg-gradient-to-br from-secondary-100/40 to-primary-100/20 dark:from-secondary-900/30 dark:to-primary-900/20 rounded-3xl transform rotate-3 glow-teal"
+					class="absolute inset-0 bg-linear-to-br from-secondary-100/40 to-primary-100/20 dark:from-secondary-900/30 dark:to-primary-900/20 rounded-3xl transform rotate-3 glow-teal"
 					aria-hidden="true"
 				></div>
 				<div
-					class="absolute inset-4 bg-gradient-to-tr from-secondary-50/60 to-white/80 dark:from-secondary-950/40 dark:to-gray-900/60 rounded-2xl transform -rotate-1"
+					class="absolute inset-4 bg-linear-to-tr from-secondary-50/60 to-white/80 dark:from-secondary-950/40 dark:to-gray-900/60 rounded-2xl transform -rotate-1"
 					aria-hidden="true"
 				></div>
 			</div>
@@ -244,13 +245,15 @@
 				>Workshop Purpose</Heading
 			>
 			<P class="text-lead max-w-4xl mx-auto mt-6">
-				The convergence of digital humanities (DH) and artificial
-				intelligence (AI) offers transformative potential for African
-				studies but risks perpetuating existing inequities in access and
-				representation. This workshop convenes international experts to
-				navigate this terrain, moving beyond observation to design
-				strategic pathways for the field's ethical and sustainable
-				future.
+				Although digital humanities and AI offer transformative potential
+				for African studies, rapid adoption has outpaced critical
+				reflection. Most AI tools remain optimised for Western languages,
+				digitisation decisions often reinforce who controls historical
+				materials, and African institutions frequently lack the
+				infrastructure to participate on equal terms. This workshop
+				brings together international experts to move beyond describing
+				these challenges and develop concrete strategies that keep
+				African perspectives at the forefront.
 			</P>
 		</div>
 
@@ -284,7 +287,7 @@
 				>
 				<!-- Decorative line below heading -->
 				<div
-					class="hidden md:block absolute left-1/2 top-full w-px h-8 bg-gradient-to-b from-secondary-400 to-transparent transform -translate-x-1/2"
+					class="hidden md:block absolute left-1/2 top-full w-px h-8 bg-linear-to-b from-secondary-400 to-transparent transform -translate-x-1/2"
 					aria-hidden="true"
 				></div>
 			</div>
