@@ -16,5 +16,6 @@ export const frederickMadore: Participant = {
 	questionsOfInterest: [
 		'Strategies for using AI pipelines to rapidly process the "backlog" of private, unprocessed digital collections held by individual researchers and returning them to the community.',
 		'"Digital Sobriety" and "Minimal Computing" in Practice: Can lightweight, locally hosted open-source models realistically compete with commercial giants (ChatGPT/Gemini) for African institutions with limited hardware?'
-	]
+	],
+	website: 'https://www.frederickmadore.com/'
 };

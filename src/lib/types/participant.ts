@@ -17,4 +17,6 @@ export interface Participant {
 	photoUrl?: string;
 	/** Up to 3 questions or topics of interest submitted by the participant */
 	questionsOfInterest?: string[];
+	/** Personal website URL */
+	website?: string;
 }

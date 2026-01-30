@@ -355,7 +355,18 @@
 							tag="h3"
 							class="heading-sub heading-color-light text-xl"
 						>
-							{organizer.name}
+							{#if organizer.website}
+								<a
+									href={organizer.website}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="link-secondary hover:underline"
+								>
+									{organizer.name}
+								</a>
+							{:else}
+								{organizer.name}
+							{/if}
 						</Heading>
 						<P
 							class="text-body-sm text-secondary-600 dark:text-secondary-400 font-medium"

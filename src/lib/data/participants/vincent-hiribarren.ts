@@ -17,5 +17,6 @@ export const vincentHiribarren: Participant = {
 		'Digitisation Programmes',
 		'Infrastructure',
 		'Ethical AI'
-	]
+	],
+	website: 'https://www.vincenthiribarren.com/'
 };
