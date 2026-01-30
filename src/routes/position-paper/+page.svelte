@@ -4,6 +4,7 @@
 	import {
 		createSeoMeta,
 		createEventJsonLd,
+		createWebPageJsonLd,
 		serializeJsonLd,
 	} from "$lib/utils/seo";
 	import { workshopInfo } from "$lib/data/workshop-info";
@@ -16,6 +17,16 @@
 		description:
 			"The workshop's main output will be a co-authored position paper, to be published in open access in the ZMO Programmatic Texts series.",
 		type: "article",
+		keywords: [
+			"Position Paper",
+			"ZMO Programmatic Texts",
+			"Open Access",
+			"Digital Humanities",
+			"AI",
+			"African Studies",
+			"Policy Recommendations",
+			"Research Framework"
+		]
 	});
 
 	const eventJsonLd = createEventJsonLd({
@@ -30,6 +41,11 @@
 		organizerName: workshopInfo.organizers.full,
 		funderName: workshopInfo.funder.name,
 		funderUrl: workshopInfo.funder.url,
+		url: seo.canonical,
+	});
+	const webPageJsonLd = createWebPageJsonLd({
+		name: seo.title,
+		description: seo.description,
 		url: seo.canonical,
 	});
 
@@ -55,13 +71,14 @@
 
 <svelte:head>
 	<title>{seo.title}</title>
-	{#each seo.meta as attributes, index (attributes.name ?? attributes.property ?? `meta-${index}`)}
-		<meta {...attributes} />
+	{#each seo.meta as attributes (attributes.key)}
+		<meta name={attributes.name} property={attributes.property} content={attributes.content} />
 	{/each}
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
 	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
+	{@html `<script type="application/ld+json">${serializeJsonLd(webPageJsonLd)}</script>`}
 </svelte:head>
 
 <!-- Hero Section -->

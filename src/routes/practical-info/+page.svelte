@@ -11,7 +11,7 @@
 		ArrowRightOutline,
 		FilePdfOutline
 	} from 'flowbite-svelte-icons';
-	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
+	import { createSeoMeta, createEventJsonLd, createWebPageJsonLd, serializeJsonLd } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import { resolveAssetPath } from '$lib/utils/paths';
 	import { reveal } from '$lib/utils/reveal';
@@ -20,7 +20,17 @@
 		title: 'Practical Information',
 		description:
 			'Travel and accommodation information for the Digital Humanities and AI in African Studies workshop in Hanover, Germany. Details on venue, hotel, and public transport.',
-		path: '/practical-info'
+		path: '/practical-info',
+		keywords: [
+			'Travel Information',
+			'Accommodation',
+			'Hanover',
+			'Germany',
+			'Herrenhausen Palace',
+			'Venue',
+			'Public Transport',
+			'Workshop Logistics'
+		]
 	});
 
 	const eventJsonLd = createEventJsonLd({
@@ -37,19 +47,25 @@
 		funderUrl: workshopInfo.funder.url,
 		url: seo.canonical
 	});
+	const webPageJsonLd = createWebPageJsonLd({
+		name: seo.title,
+		description: seo.description,
+		url: seo.canonical,
+	});
 
 	const { venue, accommodation, transport } = workshopInfo;
 </script>
 
 <svelte:head>
 	<title>{seo.title}</title>
-	{#each seo.meta as attributes, index (attributes.name ?? attributes.property ?? `meta-${index}`)}
-		<meta {...attributes} />
+	{#each seo.meta as attributes (attributes.key)}
+		<meta name={attributes.name} property={attributes.property} content={attributes.content} />
 	{/each}
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
 	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
+	{@html `<script type="application/ld+json">${serializeJsonLd(webPageJsonLd)}</script>`}
 </svelte:head>
 
 <!-- Page Header -->

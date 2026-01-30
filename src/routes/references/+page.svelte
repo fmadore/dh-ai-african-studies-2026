@@ -1,16 +1,26 @@
 <script lang="ts">
 	import { Heading, P, Badge, Button } from 'flowbite-svelte';
 	import { SearchOutline, CloseOutline, FilterOutline } from 'flowbite-svelte-icons';
-	import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
+	import { createSeoMeta, createEventJsonLd, createWebPageJsonLd, serializeJsonLd } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import referencesData from '$lib/data/references.json';
 	import { fade, slide } from 'svelte/transition';
 	import ReferenceFacets from '$lib/components/ReferenceFacets.svelte';
 
 	const seo = createSeoMeta({
-		title: 'References - DH & AI in African Studies',
-		description: 'Bibliography and references for the Digital Humanities and AI in African Studies workshop.',
-		path: '/references'
+		title: 'References',
+		description: 'A curated bibliography of works at the intersection of Digital Humanities, Artificial Intelligence, and African Studies.',
+		path: '/references',
+		keywords: [
+			'Bibliography',
+			'References',
+			'Digital Humanities',
+			'AI',
+			'African Studies',
+			'Academic Literature',
+			'Research Resources',
+			'Scholarly Articles'
+		]
 	});
 
 	const eventJsonLd = createEventJsonLd({
@@ -26,6 +36,11 @@
 		funderName: workshopInfo.funder.name,
 		funderUrl: workshopInfo.funder.url,
 		url: seo.canonical
+	});
+	const webPageJsonLd = createWebPageJsonLd({
+		name: seo.title,
+		description: seo.description,
+		url: seo.canonical,
 	});
 
 	// State
@@ -176,13 +191,14 @@
 
 <svelte:head>
 	<title>{seo.title}</title>
-	{#each seo.meta as attributes, index (attributes.name ?? attributes.property ?? `meta-${index}`)}
-		<meta {...attributes} />
+	{#each seo.meta as attributes (attributes.key)}
+		<meta name={attributes.name} property={attributes.property} content={attributes.content} />
 	{/each}
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
 	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
+	{@html `<script type="application/ld+json">${serializeJsonLd(webPageJsonLd)}</script>`}
 </svelte:head>
 
 <section class="bg-page min-h-screen padding-block-section padding-inline-section relative overflow-hidden">
