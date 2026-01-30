@@ -158,7 +158,18 @@
 
 											<!-- Participant Name -->
 											<Heading tag="h3" class="heading-sub heading-color-light heading-sm">
-												{participant.name}
+												{#if participant.website}
+													<a
+														href={participant.website}
+														target="_blank"
+														rel="noopener noreferrer"
+														class="link-secondary hover:underline"
+													>
+														{participant.name}
+													</a>
+												{:else}
+													{participant.name}
+												{/if}
 											</Heading>
 
 											<!-- Affiliation -->
@@ -266,7 +277,18 @@
 														<!-- Participant Info -->
 														<div class="min-w-0">
 															<P class="font-semibold heading-color-light truncate">
-																{participant.name}
+																{#if participant.website}
+																	<a
+																		href={participant.website}
+																		target="_blank"
+																		rel="noopener noreferrer"
+																		class="link-secondary hover:underline"
+																	>
+																		{participant.name}
+																	</a>
+																{:else}
+																	{participant.name}
+																{/if}
 															</P>
 															<P class="text-body-sm text-secondary-600 dark:text-secondary-400 truncate">
 																{participant.affiliation}

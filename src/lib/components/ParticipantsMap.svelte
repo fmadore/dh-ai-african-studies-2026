@@ -113,14 +113,17 @@
 							<div class="popup-list">
 								${participantsAtLocation.map((p) => `
 									<div class="popup-participant">
-										<img 
-											src="${p.photoUrl}" 
+										<img
+											src="${p.photoUrl}"
 											alt="${p.name}"
 											class="popup-avatar"
 											onerror="this.style.display='none'"
 										/>
 										<div class="popup-details">
-											<p class="popup-name">${p.name}</p>
+											${p.website
+												? `<a href="${p.website}" target="_blank" rel="noopener noreferrer" class="popup-name popup-name-link">${p.name}</a>`
+												: `<p class="popup-name">${p.name}</p>`
+											}
 											<p class="popup-country">${p.country}</p>
 										</div>
 									</div>
@@ -320,6 +323,26 @@
 
 	:global(.dark .participant-popup .popup-name) {
 		color: var(--color-secondary-50);
+	}
+
+	:global(.participant-popup .popup-name-link) {
+		display: block;
+		color: var(--color-secondary-600);
+		text-decoration: none;
+		transition: color 0.15s ease;
+	}
+
+	:global(.participant-popup .popup-name-link:hover) {
+		color: var(--color-secondary-700);
+		text-decoration: underline;
+	}
+
+	:global(.dark .participant-popup .popup-name-link) {
+		color: var(--color-secondary-400);
+	}
+
+	:global(.dark .participant-popup .popup-name-link:hover) {
+		color: var(--color-secondary-300);
 	}
 
 	:global(.participant-popup .popup-country) {
