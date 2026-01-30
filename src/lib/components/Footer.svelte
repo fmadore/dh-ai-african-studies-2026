@@ -81,21 +81,7 @@
 		<div
 			class="surface-padding-xs flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
 		>
-			<span class="body-text-muted text-sm">
-				© 2026 <a
-					href="https://www.frederickmadore.com/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="link-subtle">Frédérick Madore</a
-				>
-				<span class="mx-1">and</span>
-				<a
-					href="https://www.vincenthiribarren.com/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="link-subtle">Vincent Hiribarren</a
-				>
-			</span>
+			<span class="body-text-muted text-sm">© 2026 <a href="https://www.frederickmadore.com/" target="_blank" rel="noopener noreferrer" class="link-subtle">Frédérick Madore</a> and <a href="https://www.vincenthiribarren.com/" target="_blank" rel="noopener noreferrer" class="link-subtle">Vincent Hiribarren</a></span>
 			<FooterLinkGroup
 				class="body-text flex flex-wrap items-center gap-4 text-sm"
 			>
