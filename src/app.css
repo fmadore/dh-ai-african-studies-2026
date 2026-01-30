@@ -1005,15 +1005,15 @@
   }
 
   .surface-padding {
-    padding: var(--space-2xl);
-  }
-
-  .surface-padding-sm {
     padding: var(--space-xl);
   }
 
-  .surface-padding-xs {
+  .surface-padding-sm {
     padding: var(--space-lg);
+  }
+
+  .surface-padding-xs {
+    padding: var(--space-md);
   }
 
   .margin-inline-auto {
@@ -1107,11 +1107,11 @@
      ============================================ */
 
   .padding-block-section {
-    padding-block: var(--space-4xl);
+    padding-block: var(--space-2xl);
   }
 
   .padding-block-section-sm {
-    padding-block: var(--space-3xl);
+    padding-block: var(--space-xl);
   }
 
   .padding-inline-section {
