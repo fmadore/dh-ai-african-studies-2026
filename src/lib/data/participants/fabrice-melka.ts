@@ -9,6 +9,7 @@ export const fabriceMelka: Participant = {
 	},
 	country: 'France',
 	role: 'Participant',
+	website: 'https://imaf.cnrs.fr/spip.php?article72',
 	bio: "Fabrice Melka is Head of Resources, Publications, and Digital Data at the Institut des mondes africains (IMAF). In this capacity, he oversees all activities related to their production and dissemination, with a particular emphasis on promoting open science.",
 	researchRegions: [],
 	thematicGroup: 'Infrastructure, Governance & Access',

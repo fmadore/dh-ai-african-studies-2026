@@ -9,6 +9,7 @@ export const mennoVanZaanen: Participant = {
 	},
 	country: 'South Africa',
 	role: 'Participant',
+	website: 'https://sadilar.org/en/dh-prof/',
 	bio: 'Menno van Zaanen is a professor in Digital Humanities at the South African Centre for Digital Language Resources. He is particularly interested in incorporating the use of computational techniques in the field of Humanities. His research background is in computer science and computational linguistics.',
 	researchRegions: ['South Africa'],
 	thematicGroup: 'Language Technologies, NLP & Corpora',
