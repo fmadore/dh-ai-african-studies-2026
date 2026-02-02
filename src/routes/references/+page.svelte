@@ -6,6 +6,7 @@
 	import referencesData from '$lib/data/references.json';
 	import { fade, slide } from 'svelte/transition';
 	import ReferenceFacets from '$lib/components/ReferenceFacets.svelte';
+	import ExportReferences from '$lib/components/ExportReferences.svelte';
 
 	const seo = createSeoMeta({
 		title: 'References',
@@ -268,10 +269,13 @@
 
 			<!-- Main Content -->
 			<div class="lg:col-span-9 stack-md">
-				<div class="flex justify-between items-center card-surface surface-padding-sm">
-					<P class="text-sm font-medium body-text">
-						Showing <span class="text-secondary-600 dark:text-secondary-400 font-bold">{filteredReferences.length}</span> references
-					</P>
+				<div class="flex flex-wrap gap-3 justify-between items-center card-surface surface-padding-sm relative z-20">
+					<div class="flex items-center gap-4">
+						<P class="text-sm font-medium body-text">
+							Showing <span class="text-secondary-600 dark:text-secondary-400 font-bold">{filteredReferences.length}</span> references
+						</P>
+						<ExportReferences references={filteredReferences} filename="dh-ai-african-studies-references" />
+					</div>
 
 					<!-- Active Filters Display (Mobile/Desktop) -->
 					{#if activeFiltersCount > 0}
