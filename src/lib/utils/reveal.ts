@@ -29,13 +29,13 @@ export function reveal(node: HTMLElement, options: RevealOptions = {}) {
 	// This allows content to be visible during SSR, then animate when JS loads
 	node.classList.add('animating');
 
-	const observer = new IntersectionObserver(
+	let currentObserver = new IntersectionObserver(
 		(entries) => {
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
 					node.classList.add('revealed');
 					if (once) {
-						observer.unobserve(node);
+						currentObserver.unobserve(node);
 					}
 				} else if (!once) {
 					node.classList.remove('revealed');
@@ -45,22 +45,22 @@ export function reveal(node: HTMLElement, options: RevealOptions = {}) {
 		{ threshold, rootMargin }
 	);
 
-	observer.observe(node);
+	currentObserver.observe(node);
 
 	return {
 		destroy() {
-			observer.disconnect();
+			currentObserver.disconnect();
 		},
 		update(newOptions: RevealOptions) {
 			// Re-observe with new options if needed
-			observer.disconnect();
-			const newObserver = new IntersectionObserver(
+			currentObserver.disconnect();
+			currentObserver = new IntersectionObserver(
 				(entries) => {
 					entries.forEach((entry) => {
 						if (entry.isIntersecting) {
 							node.classList.add('revealed');
 							if (newOptions.once ?? once) {
-								newObserver.unobserve(node);
+								currentObserver.unobserve(node);
 							}
 						} else if (!(newOptions.once ?? once)) {
 							node.classList.remove('revealed');
@@ -72,7 +72,7 @@ export function reveal(node: HTMLElement, options: RevealOptions = {}) {
 					rootMargin: newOptions.rootMargin ?? rootMargin
 				}
 			);
-			newObserver.observe(node);
+			currentObserver.observe(node);
 		}
 	};
 }

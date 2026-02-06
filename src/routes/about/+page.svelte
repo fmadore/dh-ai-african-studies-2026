@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Heading, P, Card, Badge } from "flowbite-svelte";
-	import { UserCircleSolid } from "flowbite-svelte-icons";
+	import ParticipantAvatar from "$lib/components/ParticipantAvatar.svelte";
 	import {
 		createSeoMeta,
 		createEventJsonLd,
@@ -26,15 +26,6 @@
 	const studentAssistants = participants
 		.filter((participant) => participant.role === "Student assistant")
 		.map(decorateWithPhotoUrl);
-
-	function handleImageError(event: Event) {
-		const img = event.target as HTMLImageElement;
-		img.style.display = "none";
-		const placeholder = img.nextElementSibling as HTMLElement;
-		if (placeholder) {
-			placeholder.style.display = "flex";
-		}
-	}
 
 	const seo = createSeoMeta({
 		title: "About the Workshop",
@@ -108,7 +99,7 @@
 				class="heading-section heading-lg heading-color-light accent-underline"
 				>Background</Heading
 			>
-			<P class="body-text mt-4">
+			<P class="body-text">
 				Digital humanities has a long—and often overlooked—history in African studies, from
 				early databases such as the <a
 					href="https://www.slavevoyages.org/"
@@ -158,7 +149,7 @@
 				class="heading-section heading-lg heading-color-light accent-underline"
 				>Format</Heading
 			>
-			<P class="body-text mt-4">
+			<P class="body-text">
 				This is not a traditional conference. There are no paper
 				presentations. Instead, participants work intensively across
 				three days in structured sessions designed to produce tangible
@@ -193,7 +184,7 @@
 				class="heading-section heading-lg heading-color-light accent-underline"
 				>Key Outcome: The Position Paper</Heading
 			>
-			<P class="body-text mt-4">
+			<P class="body-text">
 				The primary goal of this workshop is to produce a jointly authored
 				<a href={resolveAppPath('/position-paper')} class="link-secondary">position paper</a>.
 			</P>
@@ -218,41 +209,15 @@
 					class="heading-section heading-lg heading-color-light accent-underline"
 					>Co-Organisers</Heading
 				>
-				<div class="stack-md mt-4 stagger-children" use:reveal>
+				<div class="stack-md stagger-children" use:reveal>
 					{#each coOrganizers as organizer (organizer.name)}
 						<div class="card-surface w-full glow-border">
 							<div
 								class="flex flex-col md:flex-row w-full items-center md:items-start gap-4 md:gap-8 p-6 md:p-8"
 							>
 								<!-- Photo -->
-								<div class="w-28 h-28 md:w-36 md:h-36 shrink-0">
-									<div class="relative w-full h-full">
-										{#if organizer.photoUrl}
-											<img
-												src={organizer.photoUrl}
-												alt={organizer.name}
-												class="w-full h-full rounded-full object-cover border-2 border-secondary-200 dark:border-secondary-700 shadow-md"
-												onerror={handleImageError}
-											/>
-											<!-- Placeholder for missing images -->
-											<div
-												class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-200 dark:border-secondary-700 hidden items-center justify-center absolute top-0 left-0 shadow-md"
-											>
-												<UserCircleSolid
-													class="w-14 h-14 md:w-16 md:h-16 text-gray-400 dark:text-gray-500"
-												/>
-											</div>
-										{:else}
-											<!-- Placeholder for organizers without photo -->
-											<div
-												class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-200 dark:border-secondary-700 flex items-center justify-center shadow-md"
-											>
-												<UserCircleSolid
-													class="w-14 h-14 md:w-16 md:h-16 text-gray-400 dark:text-gray-500"
-												/>
-											</div>
-										{/if}
-									</div>
+								<div class="shrink-0">
+									<ParticipantAvatar src={organizer.photoUrl} alt={organizer.name} size="lg" />
 								</div>
 
 								<!-- Content -->
@@ -277,7 +242,7 @@
 										{/if}
 									</Heading>
 									<P
-										class="text-secondary-600 dark:text-secondary-400 font-medium"
+										class="text-accent font-medium"
 									>
 										{organizer.affiliation}
 									</P>
@@ -324,7 +289,7 @@
 					>Student Assistants</Heading
 				>
 				<div
-					class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto mt-4 stagger-children"
+					class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto stagger-children"
 					use:reveal
 				>
 					{#each studentAssistants as assistant (assistant.name)}
@@ -333,33 +298,7 @@
 								class="flex flex-col items-center text-center stack-xs"
 							>
 								<!-- Photo -->
-								<div class="relative w-20 h-20">
-									{#if assistant.photoUrl}
-										<img
-											src={assistant.photoUrl}
-											alt={assistant.name}
-											class="w-20 h-20 rounded-full object-cover border-2 border-secondary-200 dark:border-secondary-700 shadow-md"
-											onerror={handleImageError}
-										/>
-										<!-- Placeholder for missing images -->
-										<div
-											class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-200 dark:border-secondary-700 hidden items-center justify-center absolute top-0 left-0 shadow-md"
-										>
-											<UserCircleSolid
-												class="w-12 h-12 text-gray-400 dark:text-gray-500"
-											/>
-										</div>
-									{:else}
-										<!-- Placeholder for assistants without photo -->
-										<div
-											class="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-secondary-200 dark:border-secondary-700 flex items-center justify-center shadow-md"
-										>
-											<UserCircleSolid
-												class="w-12 h-12 text-gray-400 dark:text-gray-500"
-											/>
-										</div>
-									{/if}
-								</div>
+								<ParticipantAvatar src={assistant.photoUrl} alt={assistant.name} size="md" />
 
 								<!-- Name -->
 								<Heading
@@ -371,7 +310,7 @@
 
 								<!-- Affiliation -->
 								<P
-									class="text-secondary-600 dark:text-secondary-400 text-body-sm font-medium"
+									class="text-accent text-body-sm font-medium"
 								>
 									{assistant.affiliation}
 								</P>
@@ -417,7 +356,7 @@
 				class="heading-section heading-lg heading-color-light accent-underline"
 				>Funding</Heading
 			>
-			<P class="body-text mt-4">
+			<P class="body-text">
 				This scoping workshop is made possible by the generous support
 				of the <a
 					href="https://www.volkswagenstiftung.de/en"

@@ -409,15 +409,6 @@
     color: var(--color-gray-900);
   }
 
-  .heading-display-compact {
-    font-family: var(--font-family-display);
-    font-weight: var(--font-weight-semibold);
-    font-size: var(--text-3xl);
-    line-height: var(--leading-snug);
-    letter-spacing: var(--tracking-tight);
-    color: var(--color-gray-800);
-  }
-
   .heading-sub {
     font-family: var(--font-family-display);
     font-weight: var(--font-weight-semibold);
@@ -429,7 +420,6 @@
 
   .dark .heading-display,
   .dark .heading-section,
-  .dark .heading-display-compact,
   .dark .heading-sub {
     color: var(--color-secondary-50);
   }
@@ -492,42 +482,6 @@
   }
 
   /* ============================================
-     BUTTON COMPONENTS
-     ============================================ */
-
-  .btn-primary {
-    background-color: var(--color-primary-600);
-    color: white;
-    padding: var(--space-sm) var(--space-lg);
-    border-radius: var(--radius-lg);
-    font-weight: var(--font-weight-semibold);
-    transition: all var(--transition-fast);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .btn-primary:hover {
-    background-color: var(--color-primary-700);
-    box-shadow: var(--shadow-primary);
-    transform: translateY(-1px);
-  }
-
-  .btn-secondary {
-    background-color: var(--color-secondary-600);
-    color: white;
-    padding: var(--space-sm) var(--space-lg);
-    border-radius: var(--radius-lg);
-    font-weight: var(--font-weight-semibold);
-    transition: all var(--transition-fast);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .btn-secondary:hover {
-    background-color: var(--color-secondary-700);
-    box-shadow: var(--shadow-secondary);
-    transform: translateY(-1px);
-  }
-
-  /* ============================================
      UTILITY COMPONENTS
      ============================================ */
 
@@ -537,18 +491,6 @@
 
   .animation-done {
     will-change: auto;
-  }
-
-  .glass-effect {
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    background-color: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .dark .glass-effect {
-    background-color: rgba(15, 23, 42, 0.7);
-    border-color: rgba(148, 163, 184, 0.1);
   }
 
   .gradient-primary {
@@ -578,23 +520,6 @@
      GRADIENT BACKGROUNDS
      ============================================ */
 
-  .gradient-hero {
-    background: linear-gradient(135deg,
-        var(--color-secondary-50) 0%,
-        #ffffff 40%,
-        var(--color-primary-50) 100%);
-  }
-
-  .dark .gradient-hero {
-    background: radial-gradient(circle at 30% 20%,
-        rgba(13, 148, 136, 0.12) 0%,
-        transparent 45%),
-      radial-gradient(circle at 70% 80%,
-        rgba(224, 93, 68, 0.06) 0%,
-        transparent 45%),
-      var(--color-gray-950);
-  }
-
   /* Future Forward hero background - teal dominant */
   .gradient-hero-future {
     background: linear-gradient(150deg,
@@ -614,20 +539,6 @@
       linear-gradient(180deg,
         var(--color-gray-950) 0%,
         rgba(5, 15, 15, 1) 100%);
-  }
-
-  .gradient-overlay {
-    background: linear-gradient(to bottom right,
-        rgba(224, 93, 68, 0.05),
-        transparent,
-        rgba(13, 148, 136, 0.05));
-  }
-
-  .dark .gradient-overlay {
-    background: linear-gradient(to bottom right,
-        rgba(224, 93, 68, 0.1),
-        transparent,
-        rgba(13, 148, 136, 0.1));
   }
 
   /* ============================================
@@ -812,19 +723,6 @@
     );
   }
 
-  /* Noise texture for depth (using CSS pattern) */
-  .bg-noise {
-    position: absolute;
-    inset: 0;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    pointer-events: none;
-  }
-
-  .dark .bg-noise {
-    opacity: 0.04;
-  }
-
   /* Teal glow effect for key elements */
   .glow-teal {
     box-shadow: 0 0 40px -10px rgba(13, 148, 136, 0.4);
@@ -884,38 +782,6 @@
 
   .dark .decorative-line {
     background: linear-gradient(90deg, transparent, rgba(13, 148, 136, 0.4), transparent);
-  }
-
-  /* Legacy blob support (kept for backwards compatibility) */
-  .decorative-blob {
-    position: absolute;
-    width: 32rem;
-    height: 32rem;
-    border-radius: 9999px;
-    filter: blur(5rem);
-    opacity: 0.08;
-    pointer-events: none;
-  }
-
-  .dark .decorative-blob {
-    opacity: 0.04;
-    filter: blur(6rem);
-  }
-
-  .decorative-blob-primary {
-    background-color: var(--color-primary-400);
-  }
-
-  .dark .decorative-blob-primary {
-    background-color: var(--color-primary-500);
-  }
-
-  .decorative-blob-secondary {
-    background-color: var(--color-secondary-400);
-  }
-
-  .dark .decorative-blob-secondary {
-    background-color: var(--color-secondary-500);
   }
 
   /* ============================================
@@ -1467,6 +1333,18 @@
   }
 
   /* ============================================
+     ACCENT COLOR UTILITY
+     ============================================ */
+
+  .text-accent {
+    color: var(--color-secondary-600);
+  }
+
+  .dark .text-accent {
+    color: var(--color-secondary-400);
+  }
+
+  /* ============================================
      BORDER RADIUS UTILITIES
      ============================================ */
 
@@ -1489,18 +1367,6 @@
   /* ============================================
      ANIMATION UTILITIES - FUTURE FORWARD
      ============================================ */
-
-  .animate-fade-in {
-    animation: fadeIn 600ms ease-out forwards;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 500ms ease-out forwards;
-  }
-
-  .animate-scale-in {
-    animation: scaleIn 400ms cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-  }
 
   /* Hero orchestrated animations */
   .animate-hero-title {
@@ -1575,61 +1441,6 @@
   .stagger-children.revealed > * {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  /* Animation delay utilities */
-  .animate-delay-100 {
-    animation-delay: 100ms;
-  }
-
-  .animate-delay-200 {
-    animation-delay: 200ms;
-  }
-
-  .animate-delay-300 {
-    animation-delay: 300ms;
-  }
-
-  .animate-delay-400 {
-    animation-delay: 400ms;
-  }
-
-  .animate-delay-500 {
-    animation-delay: 500ms;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes scaleIn {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
   }
 
   /* Hero entrance keyframes */
@@ -1756,6 +1567,8 @@
   .accent-underline {
     position: relative;
     display: inline-block;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
   }
 
   .accent-underline::after {
@@ -1794,24 +1607,6 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-  }
-}
-
-@supports (container-type: inline-size) {
-  .container-responsive {
-    container-type: inline-size;
-  }
-
-  @container (min-width: 640px) {
-    .cq\:text-lg {
-      font-size: var(--text-lg);
-    }
-  }
-
-  @container (min-width: 768px) {
-    .cq\:text-xl {
-      font-size: var(--text-xl);
-    }
   }
 }
 

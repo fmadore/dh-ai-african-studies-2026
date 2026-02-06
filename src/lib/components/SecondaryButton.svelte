@@ -29,30 +29,17 @@
 		target,
 		rel,
 	}: Props = $props();
+
+	let extraProps = $derived(href ? { href, target, rel } : { onclick });
 </script>
 
-{#if href}
-	<Button
-		{href}
-		{size}
-		{outline}
-		{disabled}
-		{target}
-		{rel}
-		color="secondary"
-		class="backdrop-blur-sm transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-secondary {className}"
-	>
-		{@render children()}
-	</Button>
-{:else}
-	<Button
-		{size}
-		{outline}
-		{disabled}
-		{onclick}
-		color="secondary"
-		class="backdrop-blur-sm transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-secondary {className}"
-	>
-		{@render children()}
-	</Button>
-{/if}
+<Button
+	{...extraProps}
+	{size}
+	{outline}
+	{disabled}
+	color="secondary"
+	class="backdrop-blur-sm transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-secondary {className}"
+>
+	{@render children()}
+</Button>

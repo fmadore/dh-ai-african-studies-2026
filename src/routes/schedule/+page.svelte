@@ -133,7 +133,7 @@
 				return {
 					bg: "bg-secondary-50 dark:bg-secondary-900/20",
 					border: "border-l-4 border-secondary-500",
-					icon: "text-secondary-600 dark:text-secondary-400",
+					icon: "text-accent",
 				};
 			case "world-cafe":
 				return {
@@ -197,13 +197,13 @@
 		<div class="flex flex-wrap justify-center gap-md stack-item-md animate-hero-subtitle" style="animation-delay: 200ms;">
 			<div class="flex items-center gap-sm text-body-sm">
 				<CalendarMonthOutline
-					class="size-icon-md text-secondary-600 dark:text-secondary-400"
+					class="size-icon-md text-accent"
 				/>
 				<span>{workshopInfo.dates.full}</span>
 			</div>
 			<div class="flex items-center gap-sm text-body-sm">
 				<MapPinAltOutline
-					class="size-icon-md text-secondary-600 dark:text-secondary-400"
+					class="size-icon-md text-accent"
 				/>
 				<span
 					>{workshopInfo.location.venue}, {workshopInfo.location
@@ -248,7 +248,7 @@
 				<div class="surface-panel surface-padding mb-lg stack-sm animate-section-reveal" use:reveal>
 					<div class="text-center stack-sm">
 						<P
-							class="text-label text-secondary-600 dark:text-secondary-400"
+							class="text-label text-accent"
 							>{day.date}</P
 						>
 						<Heading
@@ -257,7 +257,7 @@
 						>
 							{day.theme}
 						</Heading>
-						<P class="text-lead max-w-2xl mx-auto mt-4">
+						<P class="text-lead max-w-2xl mx-auto">
 							{day.themeDescription}
 						</P>
 					</div>
@@ -385,7 +385,7 @@
 												class="flex items-start gap-sm"
 											>
 												<ClipboardCheckOutline
-													class="size-icon-md text-secondary-600 dark:text-secondary-400 shrink-0 mt-0.5"
+													class="size-icon-md text-accent shrink-0 mt-0.5"
 												/>
 												<div>
 													<span
@@ -398,7 +398,7 @@
 													</span>
 													{#if item.deliverables.length === 1}
 														<p
-															class="text-body-sm text-secondary-600 dark:text-secondary-400 stack-item-xs"
+															class="text-body-sm text-accent stack-item-xs"
 														>
 															{item
 																.deliverables[0]}
@@ -409,7 +409,7 @@
 														>
 															{#each item.deliverables as deliverable}
 																<li
-																	class="text-body-sm text-secondary-600 dark:text-secondary-400 flex items-baseline gap-sm"
+																	class="text-body-sm text-accent flex items-baseline gap-sm"
 																>
 																	<span
 																		class="text-secondary-500 shrink-0"
@@ -453,16 +453,16 @@
 			Important Information
 		</Heading>
 		<div
-			class="grid grid-cols-1 gap-lg sm:grid-cols-2 max-w-3xl mx-auto mt-6 stagger-children"
+			class="grid grid-cols-1 gap-lg sm:grid-cols-2 max-w-3xl mx-auto stagger-children"
 			use:reveal
 		>
 			<Card class="card-surface surface-padding-sm text-center stack-xs glow-border">
 				<div class="flex justify-center stack-item-sm">
 					<CalendarMonthOutline
-						class="size-icon-lg text-secondary-600 dark:text-secondary-400"
+						class="size-icon-lg text-accent"
 					/>
 				</div>
-				<P class="text-label text-secondary-600 dark:text-secondary-400"
+				<P class="text-label text-accent"
 					>Workshop Dates</P
 				>
 				<P class="heading-sub heading-sm">{workshopInfo.dates.full}</P>
@@ -471,10 +471,10 @@
 			<Card class="card-surface surface-padding-sm text-center stack-xs glow-border">
 				<div class="flex justify-center stack-item-sm">
 					<MapPinAltOutline
-						class="size-icon-lg text-secondary-600 dark:text-secondary-400"
+						class="size-icon-lg text-accent"
 					/>
 				</div>
-				<P class="text-label text-secondary-600 dark:text-secondary-400"
+				<P class="text-label text-accent"
 					>Venue</P
 				>
 				<P class="heading-sub heading-sm">

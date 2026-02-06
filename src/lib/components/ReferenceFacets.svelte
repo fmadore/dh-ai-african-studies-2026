@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
 	import { Label, Input, Checkbox, Select } from "flowbite-svelte";
 	import {
 		FilterOutline,
@@ -9,6 +8,7 @@
 		ChevronUpOutline,
 	} from "flowbite-svelte-icons";
 	import { slide } from "svelte/transition";
+	import { formatType, formatLanguage } from "$lib/utils/formatters";
 
 	interface Props {
 		references: any[];
@@ -20,9 +20,8 @@
 		selectedSort: string;
 		showCloseButton?: boolean;
 		closeLabel?: string;
+		onclose?: () => void;
 	}
-
-	const dispatch = createEventDispatcher<{ close: void }>();
 
 	let {
 		references,
@@ -34,6 +33,7 @@
 		selectedSort = $bindable(),
 		showCloseButton = false,
 		closeLabel = "Close filters",
+		onclose,
 	}: Props = $props();
 
 	// Collapsible section state
@@ -46,22 +46,6 @@
 
 	// Keyword search filter
 	let keywordSearch = $state("");
-
-	function formatType(type: string): string {
-		const typeMap: Record<string, string> = {
-			"article-magazine": "Magazine Article",
-			"article-newspaper": "Newspaper Article",
-			"article-journal": "Journal Article",
-			"entry-encyclopedia": "Encyclopedia Entry",
-			motion_picture: "Video",
-			"paper-conference": "Conference Paper",
-			"post-weblog": "Blog Post",
-			song: "Podcast",
-			speech: "Presentation",
-			article: "Preprint",
-		};
-		return typeMap[type] || type.replace(/-|_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-	}
 
 	let availableTypes = $derived.by(() => {
 		const types = new Set(references.map((r) => r.type).filter(Boolean));
@@ -135,20 +119,7 @@
 	}
 
 	function handleClose() {
-		dispatch("close");
-	}
-
-	function formatLanguage(langCode: string): string {
-		const languageMap: Record<string, string> = {
-			en: "English",
-			fr: "French",
-			es: "Spanish",
-			pt: "Portuguese",
-			ar: "Arabic",
-			sw: "Swahili",
-			de: "German",
-		};
-		return languageMap[langCode.toLowerCase()] || langCode.toUpperCase();
+		onclose?.();
 	}
 
 	function toggleSection(section: keyof typeof sectionsOpen) {
@@ -160,7 +131,7 @@
 	<!-- Header -->
 	<div class="flex flex-wrap gap-3 justify-between items-center pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
 		<div class="flex items-center gap-2">
-			<FilterOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400" />
+			<FilterOutline class="w-5 h-5 text-accent" />
 			<span class="text-lg font-semibold text-gray-900 dark:text-white">Filters</span>
 		</div>
 		<div class="flex items-center gap-3">

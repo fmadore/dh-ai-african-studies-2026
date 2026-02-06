@@ -122,7 +122,7 @@
 	></div>
 
 	<div
-		class="relative content-width-wide container-responsive py-16 md:py-24"
+		class="relative content-width-wide py-16 md:py-24"
 	>
 		<!-- Asymmetric layout container -->
 		<div class="grid lg:grid-cols-12 gap-8 items-center">
@@ -138,7 +138,7 @@
 						Digital Humanities and AI in African Studies
 					</p>
 					<p
-						class="text-sm font-bold text-secondary-600 dark:text-secondary-400 uppercase tracking-widest animate-hero-subtitle"
+						class="text-sm font-bold text-accent uppercase tracking-widest animate-hero-subtitle"
 						style="animation-delay: 200ms;"
 					>
 						A Scoping Workshop
@@ -251,7 +251,7 @@
 				class="heading-section heading-lg heading-color-light accent-underline"
 				>Workshop Purpose</Heading
 			>
-			<P class="text-lead max-w-4xl mx-auto mt-6">
+			<P class="text-lead max-w-4xl mx-auto">
 				Although digital humanities and AI offer transformative potential
 				for African studies, rapid adoption has outpaced critical
 				reflection. Most AI tools remain optimised for Western languages,
@@ -336,7 +336,7 @@
 		</div>
 
 		<div
-			class="grid grid-cols-1 gap-4 justify-items-center sm:grid-cols-2 max-w-3xl mx-auto mt-6 stagger-children"
+			class="grid grid-cols-1 gap-4 justify-items-center sm:grid-cols-2 max-w-3xl mx-auto stagger-children"
 			use:reveal
 		>
 			{#each organizers as organizer (organizer.name)}
@@ -376,7 +376,7 @@
 							{/if}
 						</Heading>
 						<P
-							class="text-body-sm text-secondary-600 dark:text-secondary-400 font-medium"
+							class="text-body-sm text-accent font-medium"
 						>
 							{organizer.affiliation}
 						</P>

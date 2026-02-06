@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Heading, P, Badge, Accordion, AccordionItem } from 'flowbite-svelte';
-	import { UserCircleSolid, UsersGroupSolid, UsersGroupOutline } from 'flowbite-svelte-icons';
+	import { UsersGroupSolid, UsersGroupOutline } from 'flowbite-svelte-icons';
+	import ParticipantAvatar from '$lib/components/ParticipantAvatar.svelte';
 	import { participants } from '$lib/data/participants';
 	import { thematicGroups } from '$lib/data/thematic-groups';
 	import { createSeoMeta, createEventJsonLd, createWebPageJsonLd, serializeJsonLd } from '$lib/utils/seo';
@@ -46,15 +47,6 @@
 			...participant,
 			photoUrl: resolveAssetPath(participant.photoUrl)
 		})));
-
-	function handleImageError(event: Event) {
-		const img = event.target as HTMLImageElement;
-		img.style.display = 'none';
-		const placeholder = img.nextElementSibling as HTMLElement;
-		if (placeholder) {
-			placeholder.style.display = 'flex';
-		}
-	}
 
 	const seo = createSeoMeta({
 		title: 'Participants',
@@ -136,25 +128,7 @@
 									<div class="card-surface surface-padding-sm h-full glow-border">
 										<div class="flex flex-col items-center text-center stack-xs">
 											<!-- Participant Photo -->
-											<div class="relative w-24 h-24">
-												{#if participant.photoUrl}
-													<img
-														src={participant.photoUrl}
-														alt={participant.name}
-														class="w-24 h-24 rounded-full object-cover border-2 border-secondary-200 dark:border-secondary-700 shadow-md"
-														onerror={handleImageError}
-													/>
-													<!-- Placeholder for missing images -->
-													<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-secondary-200 bg-gray-200 dark:border-secondary-700 dark:bg-gray-700 shadow-md">
-														<UserCircleSolid class="w-14 h-14 text-gray-400 dark:text-gray-500" />
-													</div>
-												{:else}
-													<!-- Placeholder for participants without photo -->
-													<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-secondary-200 bg-gray-200 dark:border-secondary-700 dark:bg-gray-700 shadow-md">
-														<UserCircleSolid class="w-14 h-14 text-gray-400 dark:text-gray-500" />
-													</div>
-												{/if}
-											</div>
+											<ParticipantAvatar src={participant.photoUrl} alt={participant.name} size="md" />
 
 											<!-- Participant Name -->
 											<Heading tag="h3" class="heading-sub heading-color-light heading-sm">
@@ -173,7 +147,7 @@
 											</Heading>
 
 											<!-- Affiliation -->
-											<P class="text-body-sm text-secondary-600 dark:text-secondary-400 font-medium">
+											<P class="text-body-sm text-accent font-medium">
 												{participant.affiliation}
 											</P>
 
@@ -257,22 +231,8 @@
 												<div class="card-surface surface-padding-sm glow-border">
 													<div class="flex items-center gap-sm">
 														<!-- Participant Photo (smaller) -->
-														<div class="relative w-12 h-12 shrink-0">
-															{#if participant.photoUrl}
-																<img
-																	src={participant.photoUrl}
-																	alt={participant.name}
-																	class="w-12 h-12 rounded-full object-cover border-2 border-secondary-200 dark:border-secondary-700"
-																	onerror={handleImageError}
-																/>
-																<div class="absolute inset-0 hidden items-center justify-center rounded-full border-2 border-secondary-200 bg-gray-200 dark:border-secondary-700 dark:bg-gray-700">
-																	<UserCircleSolid class="w-8 h-8 text-gray-400 dark:text-gray-500" />
-																</div>
-															{:else}
-																<div class="flex h-full w-full items-center justify-center rounded-full border-2 border-secondary-200 bg-gray-200 dark:border-secondary-700 dark:bg-gray-700">
-																	<UserCircleSolid class="w-8 h-8 text-gray-400 dark:text-gray-500" />
-																</div>
-															{/if}
+														<div class="shrink-0">
+															<ParticipantAvatar src={participant.photoUrl} alt={participant.name} size="sm" />
 														</div>
 														<!-- Participant Info -->
 														<div class="min-w-0">
@@ -290,7 +250,7 @@
 																	{participant.name}
 																{/if}
 															</P>
-															<P class="text-body-sm text-secondary-600 dark:text-secondary-400 truncate">
+															<P class="text-body-sm text-accent truncate">
 																{participant.affiliation}
 															</P>
 														</div>
@@ -319,7 +279,7 @@
 	<div class="bg-radial-glow-bottom"></div>
 	<div class="content-width-wide surface-panel surface-padding stack-md relative ">
 		<Heading tag="h2" class="heading-section heading-lg heading-color-light text-center accent-underline">Global Distribution</Heading>
-		<P class="text-lead text-center max-w-2xl mx-auto mt-4">
+		<P class="text-lead text-center max-w-2xl mx-auto">
 			Explore where our participants are based around the world.
 		</P>
 		<ParticipantsMap participants={displayedParticipants} />

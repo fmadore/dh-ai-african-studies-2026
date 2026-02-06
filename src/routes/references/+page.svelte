@@ -7,6 +7,7 @@
 	import { fade, slide } from 'svelte/transition';
 	import ReferenceFacets from '$lib/components/ReferenceFacets.svelte';
 	import ExportReferences from '$lib/components/ExportReferences.svelte';
+	import { formatType, formatLanguage } from '$lib/utils/formatters';
 
 	const seo = createSeoMeta({
 		title: 'References',
@@ -160,34 +161,6 @@
 		}
 	}
 
-	function formatType(type: string): string {
-		const typeMap: Record<string, string> = {
-			'article-magazine': 'Magazine article',
-			'article-newspaper': 'Newspaper article',
-			'article-journal': 'Journal article',
-			'entry-encyclopedia': 'Encyclopedia entry',
-			'motion_picture': 'Video',
-			'paper-conference': 'Conference paper',
-			'post-weblog': 'Blog post',
-			'song': 'Podcast',
-			'speech': 'Presentation',
-			'article': 'Preprint'
-		};
-		return typeMap[type] || type.replace(/-|_/g, ' ');
-	}
-
-	function formatLanguage(langCode: string): string {
-		const languageMap: Record<string, string> = {
-			'en': 'English',
-			'fr': 'French',
-			'es': 'Spanish',
-			'pt': 'Portuguese',
-			'ar': 'Arabic',
-			'sw': 'Swahili',
-			'de': 'German'
-		};
-		return languageMap[langCode.toLowerCase()] || langCode.toUpperCase();
-	}
 </script>
 
 <svelte:head>
@@ -247,7 +220,7 @@
 						bind:selectedLanguages
 						bind:selectedSort
 						showCloseButton
-						on:close={() => (showMobileFilters = false)}
+						onclose={() => (showMobileFilters = false)}
 					/>
 				</div>
 			{/if}
@@ -272,7 +245,7 @@
 				<div class="flex flex-wrap gap-3 justify-between items-center card-surface surface-padding-sm relative z-20">
 					<div class="flex items-center gap-4">
 						<P class="text-sm font-medium body-text">
-							Showing <span class="text-secondary-600 dark:text-secondary-400 font-bold">{filteredReferences.length}</span> references
+							Showing <span class="text-accent font-bold">{filteredReferences.length}</span> references
 						</P>
 						<ExportReferences references={filteredReferences} filename="dh-ai-african-studies-references" />
 					</div>
@@ -440,22 +413,3 @@
 		</div>
 	</div>
 </section>
-
-<style>
-	/* Custom scrollbar for filter lists */
-	.custom-scrollbar::-webkit-scrollbar {
-		width: 6px;
-	}
-	.custom-scrollbar::-webkit-scrollbar-track {
-		background: transparent;
-	}
-	.custom-scrollbar::-webkit-scrollbar-thumb {
-		background-color: var(--color-gray-400);
-		border-radius: var(--radius-full);
-		opacity: 0.5;
-	}
-	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-		background-color: var(--color-gray-500);
-		opacity: 0.8;
-	}
-</style>

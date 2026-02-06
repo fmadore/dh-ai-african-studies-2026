@@ -14,38 +14,26 @@
 		rel?: HTMLAnchorAttributes['rel'];
 	}
 
-	let { 
-		children, 
-		href, 
-		size = 'lg', 
-		disabled = false, 
+	let {
+		children,
+		href,
+		size = 'lg',
+		disabled = false,
 		class: className = '',
 		onclick,
 		target,
 		rel
 	}: Props = $props();
+
+	let extraProps = $derived(href ? { href, target, rel } : { onclick });
 </script>
 
-{#if href}
-	<Button 
-		{href}
-		{size}
-		{disabled}
-		{target}
-		{rel}
-		color="primary"
-		class="shadow-lg hover:shadow-primary transition-all hover:scale-[1.02] active:scale-[0.98] {className}"
-	>
-		{@render children()}
-	</Button>
-{:else}
-	<Button 
-		{size}
-		{disabled}
-		{onclick}
-		color="primary"
-		class="shadow-lg hover:shadow-primary transition-all hover:scale-[1.02] active:scale-[0.98] {className}"
-	>
-		{@render children()}
-	</Button>
-{/if}
+<Button
+	{...extraProps}
+	{size}
+	{disabled}
+	color="primary"
+	class="shadow-lg hover:shadow-primary transition-all hover:scale-[1.02] active:scale-[0.98] {className}"
+>
+	{@render children()}
+</Button>

@@ -91,12 +91,12 @@
 	<div class="content-width-wide surface-panel surface-padding stack-lg relative animate-section-reveal" use:reveal>
 		<div class="stack-md">
 			<div class="flex items-center gap-3">
-				<MapPinAltOutline class="w-8 h-8 text-secondary-600 dark:text-secondary-400" />
+				<MapPinAltOutline class="w-8 h-8 text-accent" />
 				<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline">
 					Workshop Venue
 				</Heading>
 			</div>
-			<P class="body-text max-w-3xl mt-4">
+			<P class="body-text max-w-3xl">
 				The workshop will take place at the <strong>{venue.name}</strong>, a modern conference
 				facility at Herrenhausen Palace. The venue is easily accessible by public transport.
 			</P>
@@ -111,18 +111,18 @@
 					</Heading>
 					<div class="stack-sm">
 						<div class="flex items-start gap-3">
-							<MapPinAltOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400 mt-0.5 shrink-0" />
+							<MapPinAltOutline class="w-5 h-5 text-accent mt-0.5 shrink-0" />
 							<div>
 								<p class="body-text font-medium">{venue.address}</p>
 								<p class="body-text-muted">{venue.postalCode} {venue.city}, {venue.country}</p>
 							</div>
 						</div>
 						<div class="flex items-center gap-3">
-							<PhoneOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400 shrink-0" />
+							<PhoneOutline class="w-5 h-5 text-accent shrink-0" />
 							<p class="body-text">Tel: {venue.phone}</p>
 						</div>
 						<div class="flex items-center gap-3">
-							<TicketOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400 shrink-0" />
+							<TicketOutline class="w-5 h-5 text-accent shrink-0" />
 							<p class="body-text">
 								Underground/Tram station: <strong>{venue.nearestStop}</strong>
 							</p>
@@ -132,7 +132,7 @@
 						href={workshopInfo.location.url}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="inline-flex items-center gap-2 text-secondary-600 dark:text-secondary-400 hover:underline font-medium"
+						class="inline-flex items-center gap-2 text-accent hover:underline font-medium"
 					>
 						<GlobeOutline class="w-4 h-4" />
 						Visit venue website
@@ -161,7 +161,7 @@
 		<Card size="xl" class="w-full max-w-none card-surface surface-padding glow-border">
 			<div class="stack-md">
 				<div class="flex items-center gap-3">
-					<FilePdfOutline class="w-6 h-6 text-secondary-600 dark:text-secondary-400" />
+					<FilePdfOutline class="w-6 h-6 text-accent" />
 					<Heading tag="h3" class="heading-sub heading-md heading-color-light">
 						Detailed Directions (PDF)
 					</Heading>
@@ -183,7 +183,7 @@
 					<a
 						href={resolveAssetPath('/documents/Schloss_Anfahrt.pdf')}
 						download
-						class="inline-flex items-center gap-2 text-secondary-600 dark:text-secondary-400 hover:underline font-medium"
+						class="inline-flex items-center gap-2 text-accent hover:underline font-medium"
 					>
 						<FilePdfOutline class="w-4 h-4" />
 						Download Map PDF
@@ -200,12 +200,12 @@
 	<div class="content-width-wide surface-panel surface-padding stack-lg relative animate-section-reveal" use:reveal>
 		<div class="stack-md">
 			<div class="flex items-center gap-3">
-				<HomeOutline class="w-8 h-8 text-secondary-600 dark:text-secondary-400" />
+				<HomeOutline class="w-8 h-8 text-accent" />
 				<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline">
 					Accommodation
 				</Heading>
 			</div>
-			<P class="body-text max-w-3xl mt-4">
+			<P class="body-text max-w-3xl">
 				{accommodation.note}
 			</P>
 		</div>
@@ -219,7 +219,7 @@
 					</Heading>
 					<div class="stack-sm">
 						<div class="flex items-start gap-3">
-							<MapPinAltOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400 mt-0.5 shrink-0" />
+							<MapPinAltOutline class="w-5 h-5 text-accent mt-0.5 shrink-0" />
 							<div>
 								<p class="body-text font-medium">{accommodation.address}</p>
 								<p class="body-text-muted">
@@ -228,20 +228,20 @@
 							</div>
 						</div>
 						<div class="flex items-center gap-3">
-							<PhoneOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400 shrink-0" />
+							<PhoneOutline class="w-5 h-5 text-accent shrink-0" />
 							<p class="body-text">Tel: {accommodation.phone}</p>
 						</div>
 						<div class="flex items-center gap-3">
-							<EnvelopeOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400 shrink-0" />
+							<EnvelopeOutline class="w-5 h-5 text-accent shrink-0" />
 							<a
 								href="mailto:{accommodation.email}"
-								class="body-text text-secondary-600 dark:text-secondary-400 hover:underline"
+								class="body-text text-accent hover:underline"
 							>
 								{accommodation.email}
 							</a>
 						</div>
 						<div class="flex items-center gap-3">
-							<TicketOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400 shrink-0" />
+							<TicketOutline class="w-5 h-5 text-accent shrink-0" />
 							<p class="body-text">
 								Nearest tram/underground station: <strong>{accommodation.nearestStop}</strong>
 							</p>
@@ -251,7 +251,7 @@
 						href={accommodation.website}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="inline-flex items-center gap-2 text-secondary-600 dark:text-secondary-400 hover:underline font-medium"
+						class="inline-flex items-center gap-2 text-accent hover:underline font-medium"
 					>
 						<GlobeOutline class="w-4 h-4" />
 						Visit hotel website
@@ -277,7 +277,7 @@
 					href={accommodation.mapUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="block text-center py-2 text-sm text-secondary-600 dark:text-secondary-400 hover:underline bg-white dark:bg-gray-800"
+					class="block text-center py-2 text-sm text-accent hover:underline bg-white dark:bg-gray-800"
 				>
 					Open in Google Maps
 				</a>
@@ -292,12 +292,12 @@
 	<div class="content-width-wide surface-panel surface-padding stack-lg relative animate-section-reveal" use:reveal>
 		<div class="stack-md">
 			<div class="flex items-center gap-3">
-				<TicketOutline class="w-8 h-8 text-secondary-600 dark:text-secondary-400" />
+				<TicketOutline class="w-8 h-8 text-accent" />
 				<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline">
 					Public Transport
 				</Heading>
 			</div>
-			<P class="body-text max-w-3xl mt-4">
+			<P class="body-text max-w-3xl">
 				Hanover has an excellent public transport system. Below you'll find directions for
 				traveling between key locations.
 			</P>
@@ -312,7 +312,7 @@
 							class="w-10 h-10 rounded-full bg-secondary-100 dark:bg-secondary-900 flex items-center justify-center glow-teal"
 						>
 							<svg
-								class="w-5 h-5 text-secondary-600 dark:text-secondary-400"
+								class="w-5 h-5 text-accent"
 								fill="currentColor"
 								viewBox="0 0 24 24"
 								xmlns="http://www.w3.org/2000/svg"
@@ -326,7 +326,7 @@
 						<div
 							class="w-10 h-10 rounded-full bg-secondary-100 dark:bg-secondary-900 flex items-center justify-center glow-teal"
 						>
-							<HomeOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400" />
+							<HomeOutline class="w-5 h-5 text-accent" />
 						</div>
 					</div>
 					<Heading tag="h3" class="heading-sub heading-md heading-color-light">
@@ -387,7 +387,7 @@
 						<div
 							class="w-10 h-10 rounded-full bg-secondary-100 dark:bg-secondary-900 flex items-center justify-center glow-teal"
 						>
-							<MapPinAltOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400" />
+							<MapPinAltOutline class="w-5 h-5 text-accent" />
 						</div>
 					</div>
 					<Heading tag="h3" class="heading-sub heading-md heading-color-light">
@@ -425,7 +425,7 @@
 						<div
 							class="w-10 h-10 rounded-full bg-secondary-100 dark:bg-secondary-900 flex items-center justify-center glow-teal"
 						>
-							<MapPinAltOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400" />
+							<MapPinAltOutline class="w-5 h-5 text-accent" />
 						</div>
 						<ArrowRightOutline class="w-5 h-5 text-gray-400" />
 						<div
@@ -479,7 +479,7 @@
 		<Card size="xl" class="w-full max-w-none card-surface surface-padding-sm bg-secondary-50 dark:bg-secondary-900/20 border-secondary-200 dark:border-secondary-800 glow-border">
 			<div class="flex flex-col sm:flex-row items-center gap-4">
 				<div class="flex items-center gap-3 shrink-0">
-					<TicketOutline class="w-6 h-6 text-secondary-600 dark:text-secondary-400" />
+					<TicketOutline class="w-6 h-6 text-accent" />
 					<Heading tag="h3" class="heading-sub text-base heading-color-light whitespace-nowrap">
 						Ticket Information
 					</Heading>
@@ -494,7 +494,7 @@
 					href={transport.publicTransportUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="inline-flex items-center gap-2 text-secondary-600 dark:text-secondary-400 hover:underline font-medium whitespace-nowrap"
+					class="inline-flex items-center gap-2 text-accent hover:underline font-medium whitespace-nowrap"
 				>
 					<GlobeOutline class="w-4 h-4" />
 					ÜSTRA Public Transport

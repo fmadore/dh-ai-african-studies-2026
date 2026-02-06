@@ -131,7 +131,7 @@
 				class="heading-section heading-lg heading-color-light accent-underline"
 				>Purpose</Heading
 			>
-			<P class="body-text mt-4">
+			<P class="body-text">
 				The paper will synthesise the discussions from the workshop into
 				a set of recommendations for researchers, funders and
 				institutions working at the intersection of digital humanities,
@@ -160,7 +160,7 @@
 				class="heading-section heading-lg heading-color-light accent-underline"
 				>Contents</Heading
 			>
-			<P class="body-text mt-4">
+			<P class="body-text">
 				The paper will address three areas:
 			</P>
 		</div>
@@ -200,7 +200,7 @@
 				class="heading-section heading-lg heading-color-light accent-underline"
 				>Audience</Heading
 			>
-			<P class="body-text mt-4">
+			<P class="body-text">
 				The paper is addressed to:
 			</P>
 			<List tag="ul" class="mt-4 space-y-3">
@@ -229,7 +229,7 @@
 				class="heading-section heading-lg heading-color-light accent-underline"
 				>Process</Heading
 			>
-			<P class="body-text mt-4">
+			<P class="body-text">
 				A drafting committee will prepare the paper in the three months
 				following the workshop, incorporating participant feedback and
 				professional editing. The goal is a document that is both
@@ -240,7 +240,7 @@
 
 		<div class="flex items-start gap-4 p-4 rounded-lg bg-secondary-50/50 dark:bg-secondary-900/20 border border-secondary-200 dark:border-secondary-800 max-w-3xl">
 			<div class="p-2 rounded-lg bg-secondary-100 dark:bg-secondary-800/50 shrink-0">
-				<BookOpenOutline class="w-5 h-5 text-secondary-600 dark:text-secondary-400" />
+				<BookOpenOutline class="w-5 h-5 text-accent" />
 			</div>
 			<div class="stack-xs">
 				<Heading tag="h3" class="heading-sub text-base"
