@@ -9,7 +9,6 @@
 		MugSaucerOutline,
 		BowlFoodOutline,
 		BurgerOutline,
-		FileLinesSolid,
 		ClipboardCheckOutline,
 	} from "flowbite-svelte-icons";
 	import {
@@ -212,7 +211,7 @@
 				>
 			</div>
 		</div>
-		<P class="text-caption stack-item-md">Last updated: 28 January 2026</P>
+		<P class="text-caption stack-item-md">Last updated: 6 February 2026</P>
 	</div>
 </section>
 
@@ -363,7 +362,17 @@
 														class="text-secondary-500 dark:text-secondary-400 shrink-0"
 														>•</span
 													>
-													<span>{detail}</span>
+													<span
+													>{#if detail.startsWith('https://') || detail.startsWith('http://')}<a
+															href={detail}
+															target="_blank"
+															rel="noopener noreferrer"
+															class="link-secondary"
+															>{detail.includes('maps.app.goo.gl') || detail.includes('google.com/maps')
+																? 'View on Google Maps'
+																: detail}</a
+														>{:else}{detail}{/if}</span
+												>
 												</li>
 											{/each}
 										</ul>
@@ -444,7 +453,7 @@
 			Important Information
 		</Heading>
 		<div
-			class="grid grid-cols-1 gap-lg sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto mt-6 stagger-children"
+			class="grid grid-cols-1 gap-lg sm:grid-cols-2 max-w-3xl mx-auto mt-6 stagger-children"
 			use:reveal
 		>
 			<Card class="card-surface surface-padding-sm text-center stack-xs glow-border">
@@ -482,23 +491,6 @@
 					>{workshopInfo.location.city}, {workshopInfo.location
 						.country}</P
 				>
-			</Card>
-			<Card
-				class="card-surface surface-padding-sm text-center stack-xs sm:col-span-2 lg:col-span-1 glow-border"
-			>
-				<div class="flex justify-center stack-item-sm">
-					<FileLinesSolid
-						class="size-icon-lg text-secondary-600 dark:text-secondary-400"
-					/>
-				</div>
-				<P class="text-label text-secondary-600 dark:text-secondary-400"
-					>Note</P
-				>
-				<P class="text-body-sm">
-					This schedule is preliminary and subject to adjustments.
-					Final details will be communicated to participants closer to
-					the event.
-				</P>
 			</Card>
 		</div>
 	</div>

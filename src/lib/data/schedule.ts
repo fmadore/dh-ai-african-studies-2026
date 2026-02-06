@@ -294,6 +294,16 @@ export const schedule: DaySchedule[] = [
 					'Formal commitments from participants to specific actions and collaborations following the workshop',
 					'Formal closing remarks'
 				]
+			},
+			{
+				time: '20:00',
+				title: 'Dinner',
+				description:
+					'Restaurant Al Dar (self-pay, not included in workshop costs)',
+				type: 'social',
+				details: [
+					'https://maps.app.goo.gl/JB6Ps2kKySCs7TJi8'
+				]
 			}
 		]
 	}
