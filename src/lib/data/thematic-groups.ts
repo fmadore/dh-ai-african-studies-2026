@@ -13,22 +13,22 @@ export const thematicGroups: ThematicGroup[] = [
 		id: 'language-technologies-nlp-corpora',
 		name: 'Language Technologies, NLP & Corpora',
 		description:
-			'This group focuses on building AI tools that truly serve African languages. Instead of simply translating Western models, participants explore how to design systems rooted in African linguistic structures. Key topics include prioritizing speech technology for oral traditions and ensuring that communities retain ownership of their language data.',
+			'This group examines the challenges of developing AI tools that authentically serve African languages rather than adapting Western models. Participants bring expertise in corpus linguistics, speech technologies, machine translation, and literary metadata systems. Key challenges include building resources for under-documented languages, designing systems that respect tonal and orthographic diversity, and ensuring that language data remains under community control.',
 		guidingQuestions: [
 			{
-				category: 'On Sovereignty',
+				category: 'On Data Governance',
 				question:
-					'How can we ensure African communities own their language data and avoid exploitation by global AI models?'
+					'How can African language communities govern their linguistic data and set terms for its use in AI training, rather than having it extracted for global models?'
 			},
 			{
 				category: 'On Modality',
 				question:
-					'Given the rich oral traditions of many African languages, how can we prioritize speech and audio technologies over text-heavy approaches?'
+					'What technical approaches can prioritize speech, audio, and oral genres alongside written text, particularly for languages with limited textual corpora?'
 			},
 			{
-				category: 'On Design',
+				category: 'On Standards',
 				question:
-					'How do we create technical standards that respect African linguistic structures instead of forcing them into Western categories?'
+					'How do we develop metadata standards and corpus protocols that capture African linguistic features (tone, reduplication, noun class systems) without forcing them into European grammatical categories?'
 			}
 		]
 	},
@@ -36,22 +36,22 @@ export const thematicGroups: ThematicGroup[] = [
 		id: 'archive-preservation-community-custody-visual-heritage',
 		name: 'The Archive: Preservation, Community Custody & Visual Heritage',
 		description:
-			'This group looks beyond digitization to ask: who owns African history in the digital age? Participants examine how to preserve manuscripts and visual culture in ways that respect local context and community rights. The goal is to support sustainable, community-led archives rather than "extracting" heritage for external AI training.',
+			'This group addresses how digital archives can serve African communities rather than extracting heritage for external use. Participants lead projects preserving Arabic and Ethiopian manuscripts, West African newspapers, women\'s oral histories, trade union records, and art historical documentation. The central challenge is ensuring that digitization enhances local access and analytical capacity\u2014not just feeds data into global AI systems.',
 		guidingQuestions: [
 			{
 				category: 'On Custody',
 				question:
-					'How can partnerships ensure African communities keep control over their digital archives instead of just supplying raw data?'
+					'How can digitization agreements ensure that African communities retain meaningful control over access, interpretation, and future uses of their heritage, including training AI models?'
 			},
 			{
 				category: 'On Context',
 				question:
-					'How do we apply AI analysis to heritage materials without stripping away their cultural meaning or hiding the human labor involved?'
+					'What metadata standards and annotation practices preserve the cultural, linguistic, and material contexts that make archival items meaningful, rather than reducing them to extractable data points?'
 			},
 			{
 				category: 'On Sustainability',
 				question:
-					'How can we prioritize affordable, easy-to-maintain tools so archives survive without reliance on Western funding agencies?'
+					'How can archive projects reduce dependency on external funding cycles and technical platforms, building local capacity for long-term maintenance?'
 			}
 		]
 	},
