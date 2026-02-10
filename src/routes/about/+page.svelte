@@ -242,7 +242,7 @@
 										{/if}
 									</Heading>
 									<P
-										class="text-accent font-medium"
+										class="text-gray-600 dark:text-gray-400 font-medium"
 									>
 										{organizer.affiliation}
 									</P>
@@ -310,7 +310,7 @@
 
 								<!-- Affiliation -->
 								<P
-									class="text-accent text-body-sm font-medium"
+									class="text-body-sm text-gray-600 dark:text-gray-400 font-medium"
 								>
 									{assistant.affiliation}
 								</P>

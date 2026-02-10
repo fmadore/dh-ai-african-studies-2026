@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Heading, P, Badge, Accordion, AccordionItem } from 'flowbite-svelte';
+	import { Heading, P, Badge } from 'flowbite-svelte';
 	import { UsersGroupSolid, UsersGroupOutline } from 'flowbite-svelte-icons';
 	import ParticipantAvatar from '$lib/components/ParticipantAvatar.svelte';
 	import { participants } from '$lib/data/participants';
@@ -147,7 +147,7 @@
 											</Heading>
 
 											<!-- Affiliation -->
-											<P class="text-body-sm text-accent font-medium">
+											<P class="text-body-sm font-medium text-gray-600 dark:text-gray-400">
 												{participant.affiliation}
 											</P>
 
@@ -208,16 +208,14 @@
 									<Heading tag="h3" class="heading-sub heading-sm heading-color-light">
 										Guiding Questions
 									</Heading>
-									<Accordion class="guiding-questions">
+									<div class="grid gap-md sm:grid-cols-3">
 										{#each group.guidingQuestions as question (question.category)}
-											<AccordionItem>
-												{#snippet header()}
-													<span class="font-medium text-secondary-700 dark:text-secondary-300">{question.category}</span>
-												{/snippet}
+											<div class="card-surface surface-padding-sm stack-xs">
+												<p class="font-medium text-primary-600 dark:text-primary-400 text-sm uppercase tracking-wider">{question.category}</p>
 												<P class="text-body-sm">{question.question}</P>
-											</AccordionItem>
+											</div>
 										{/each}
-									</Accordion>
+									</div>
 								</div>
 
 								<!-- Group Participants -->
@@ -250,7 +248,7 @@
 																	{participant.name}
 																{/if}
 															</P>
-															<P class="text-body-sm text-accent truncate">
+															<P class="text-body-sm text-gray-600 dark:text-gray-400 truncate">
 																{participant.affiliation}
 															</P>
 														</div>
@@ -286,12 +284,3 @@
 	</div>
 </section>
 
-<style>
-	:global(.guiding-questions) {
-		--accordion-border-color: var(--color-gray-200);
-	}
-
-	:global(.dark .guiding-questions) {
-		--accordion-border-color: var(--color-gray-700);
-	}
-</style>

@@ -376,7 +376,7 @@
 							{/if}
 						</Heading>
 						<P
-							class="text-body-sm text-accent font-medium"
+							class="text-body-sm text-gray-600 dark:text-gray-400 font-medium"
 						>
 							{organizer.affiliation}
 						</P>

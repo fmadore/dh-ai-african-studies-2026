@@ -59,22 +59,22 @@ export const thematicGroups: ThematicGroup[] = [
 		id: 'infrastructure-governance-access',
 		name: 'Infrastructure, Governance & Access',
 		description:
-			'This group grounds the workshop in the material realities of digital infrastructure in Africa. Rather than assuming ubiquitous high-speed access, it focuses on "Digital Sobriety"—building sustainable systems that are resilient to infrastructural challenges. They also aim to draft policies that protect labor rights and ensure AI development benefits local economies.',
+			'This group confronts the material and regulatory conditions that shape who can participate in digital scholarship. Participants include specialists in AI governance, tech policy, library science, open science infrastructure, and digital preservation. They examine how connectivity gaps, cloud dependencies, and the absence of African voices in global AI standards constrain research possibilities, and how policy interventions can address these imbalances.',
 		guidingQuestions: [
 			{
 				category: 'On Access',
 				question:
-					'How can we design resilient tools that function effectively regardless of connectivity levels or infrastructural constraints?'
+					'How can we design offline-capable and low-bandwidth tools that function effectively across Africa\'s varied connectivity landscapes?'
 			},
 			{
-				category: 'On Regulation',
+				category: 'On Governance',
 				question:
-					'What rules are needed to ensure AI respects African labor rights and benefits local citizens?'
+					'What regulatory frameworks can ensure that AI development in Africa serves local research needs and protects the rights of workers in data annotation and content moderation industries?'
 			},
 			{
-				category: 'On Infrastructure',
+				category: 'On Sovereignty',
 				question:
-					'How can African institutions develop sovereign digital infrastructures to ensure data remains under local control and reduce dependency on external providers?'
+					'How can African institutions develop computational infrastructure that reduces dependency on external cloud providers and keeps research data under local jurisdiction?'
 			}
 		]
 	},
@@ -82,22 +82,22 @@ export const thematicGroups: ThematicGroup[] = [
 		id: 'epistemologies-decoloniality-ethical-frameworks',
 		name: 'Epistemologies, Decoloniality & Ethical Frameworks',
 		description:
-			'This group examines the hidden biases in digital tools to prevent repeating historical inequalities. It challenges "techno-solutionism"—the idea that technology alone can solve complex social problems. Instead, participants define ethical principles to ensure digital projects are relevant, respectful, and grounded in African ways of knowing.',
+			'This group interrogates the assumptions embedded in digital tools and develops ethical frameworks rooted in African intellectual traditions. Participants bring expertise in postcolonial digital humanities, cultural restitution, AI ethics, and historical knowledge systems including Ajami scholarship. They work to ensure that computational methods do not simply digitize colonial categories but instead create space for African ways of organizing and transmitting knowledge.',
 		guidingQuestions: [
 			{
 				category: 'On Knowledge',
 				question:
-					'How can we design tools that recognize African knowledge systems rather than fitting them into rigid foreign categories?'
+					'How can classification systems, ontologies, and AI training datasets incorporate African epistemologies\u2014including oral, visual, and non-Western textual traditions\u2014rather than subordinating them to European frameworks?'
 			},
 			{
 				category: 'On Ethics',
 				question:
-					'What safeguards are needed to prevent African culture from being treated merely as "raw material" for AI?'
+					'What protocols can prevent African cultural materials from being treated as raw inputs for AI systems while ensuring that communities benefit from any computational analysis of their heritage?'
 			},
 			{
 				category: 'On Relevance',
 				question:
-					'How do we ensure digital projects address actual social needs rather than prioritizing flashy technology or speculative AI hype?'
+					'How do we evaluate whether digital projects address actual research and community needs in Africa, rather than serving external academic or commercial agendas?'
 			}
 		]
 	}
