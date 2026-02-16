@@ -1,0 +1,2266 @@
+{
+  "nodes": [
+    {
+      "id": "AI Governance",
+      "label": "AI Governance",
+      "group": "Infrastructure & Governance",
+      "color": "#3498db",
+      "seed": true,
+      "degree": 11
+    },
+    {
+      "id": "African Digital Humanities",
+      "label": "African Digital Humanities",
+      "group": "Cross-cutting",
+      "color": "#2ecc71",
+      "seed": true,
+      "degree": 25
+    },
+    {
+      "id": "African Studies",
+      "label": "African Studies",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 23
+    },
+    {
+      "id": "African archives",
+      "label": "African archives",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 13
+    },
+    {
+      "id": "African languages",
+      "label": "African languages",
+      "group": "Language Technologies",
+      "color": "#e74c3c",
+      "seed": true,
+      "degree": 13
+    },
+    {
+      "id": "Algorithmic bias",
+      "label": "Algorithmic bias",
+      "group": "Cross-cutting",
+      "color": "#2ecc71",
+      "seed": true,
+      "degree": 29
+    },
+    {
+      "id": "Algorithmic colonisation",
+      "label": "Algorithmic colonisation",
+      "group": "Cross-cutting",
+      "color": "#2ecc71",
+      "seed": true,
+      "degree": 2
+    },
+    {
+      "id": "Archives",
+      "label": "Archives",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 13
+    },
+    {
+      "id": "Artificial intelligence",
+      "label": "Artificial intelligence",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 31
+    },
+    {
+      "id": "Black Digital Humanities",
+      "label": "Black Digital Humanities",
+      "group": "Cross-cutting",
+      "color": "#2ecc71",
+      "seed": true,
+      "degree": 9
+    },
+    {
+      "id": "Colonial archives",
+      "label": "Colonial archives",
+      "group": "The Archive",
+      "color": "#e67e22",
+      "seed": true,
+      "degree": 16
+    },
+    {
+      "id": "Computational history",
+      "label": "Computational history",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 11
+    },
+    {
+      "id": "Conceptual Disruption",
+      "label": "Conceptual Disruption",
+      "group": "Epistemologies & Ethics",
+      "color": "#9b59b6",
+      "seed": true,
+      "degree": 8
+    },
+    {
+      "id": "Crowdsourcing",
+      "label": "Crowdsourcing",
+      "group": "Language Technologies",
+      "color": "#e74c3c",
+      "seed": true,
+      "degree": 10
+    },
+    {
+      "id": "Data Colonialism",
+      "label": "Data Colonialism",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 3
+    },
+    {
+      "id": "Data Feminism",
+      "label": "Data Feminism",
+      "group": "Epistemologies & Ethics",
+      "color": "#9b59b6",
+      "seed": true,
+      "degree": 11
+    },
+    {
+      "id": "Data Flaring",
+      "label": "Data Flaring",
+      "group": "Language Technologies",
+      "color": "#e74c3c",
+      "seed": true,
+      "degree": 0
+    },
+    {
+      "id": "Data extractivism",
+      "label": "Data extractivism",
+      "group": "Infrastructure & Governance",
+      "color": "#3498db",
+      "seed": true,
+      "degree": 18
+    },
+    {
+      "id": "Data protection",
+      "label": "Data protection",
+      "group": "Infrastructure & Governance",
+      "color": "#3498db",
+      "seed": true,
+      "degree": 7
+    },
+    {
+      "id": "Data scarcity",
+      "label": "Data scarcity",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 14
+    },
+    {
+      "id": "Data silence",
+      "label": "Data silence",
+      "group": "The Archive",
+      "color": "#e67e22",
+      "seed": true,
+      "degree": 17
+    },
+    {
+      "id": "Data sovereignty",
+      "label": "Data sovereignty",
+      "group": "The Archive",
+      "color": "#e67e22",
+      "seed": true,
+      "degree": 21
+    },
+    {
+      "id": "Decolonisation",
+      "label": "Decolonisation",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 15
+    },
+    {
+      "id": "Deepfakes",
+      "label": "Deepfakes",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 11
+    },
+    {
+      "id": "Digital Turn",
+      "label": "Digital Turn",
+      "group": "Cross-cutting",
+      "color": "#2ecc71",
+      "seed": true,
+      "degree": 9
+    },
+    {
+      "id": "Digital colonialism",
+      "label": "Digital colonialism",
+      "group": "Epistemologies & Ethics",
+      "color": "#9b59b6",
+      "seed": true,
+      "degree": 27
+    },
+    {
+      "id": "Digital divide",
+      "label": "Digital divide",
+      "group": "Infrastructure & Governance",
+      "color": "#3498db",
+      "seed": true,
+      "degree": 12
+    },
+    {
+      "id": "Digital history",
+      "label": "Digital history",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 11
+    },
+    {
+      "id": "Digital humanities",
+      "label": "Digital humanities",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 34
+    },
+    {
+      "id": "Digital imperialism",
+      "label": "Digital imperialism",
+      "group": "The Archive",
+      "color": "#e67e22",
+      "seed": true,
+      "degree": 18
+    },
+    {
+      "id": "Digital infrastructure",
+      "label": "Digital infrastructure",
+      "group": "Infrastructure & Governance",
+      "color": "#3498db",
+      "seed": true,
+      "degree": 15
+    },
+    {
+      "id": "Digital literacy",
+      "label": "Digital literacy",
+      "group": "Cross-cutting",
+      "color": "#2ecc71",
+      "seed": true,
+      "degree": 8
+    },
+    {
+      "id": "Digitisation",
+      "label": "Digitisation",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 3
+    },
+    {
+      "id": "Digitization",
+      "label": "Digitization",
+      "group": "The Archive",
+      "color": "#e67e22",
+      "seed": true,
+      "degree": 16
+    },
+    {
+      "id": "Epistemic Injustice",
+      "label": "Epistemic Injustice",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 11
+    },
+    {
+      "id": "Epistemic violence",
+      "label": "Epistemic violence",
+      "group": "Epistemologies & Ethics",
+      "color": "#9b59b6",
+      "seed": true,
+      "degree": 17
+    },
+    {
+      "id": "Fake News",
+      "label": "Fake News",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 10
+    },
+    {
+      "id": "Fine-tuning",
+      "label": "Fine-tuning",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 7
+    },
+    {
+      "id": "Global North",
+      "label": "Global North",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": true,
+      "degree": 13
+    },
+    {
+      "id": "Global South",
+      "label": "Global South",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": true,
+      "degree": 15
+    },
+    {
+      "id": "Hallucination",
+      "label": "Hallucination",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 11
+    },
+    {
+      "id": "Handwritten Text Recognition",
+      "label": "Handwritten Text Recognition",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 9
+    },
+    {
+      "id": "Human-in-the-loop",
+      "label": "Human-in-the-loop",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 17
+    },
+    {
+      "id": "Humanities",
+      "label": "Humanities",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 8
+    },
+    {
+      "id": "Knowledge production",
+      "label": "Knowledge production",
+      "group": "Epistemologies & Ethics",
+      "color": "#9b59b6",
+      "seed": true,
+      "degree": 29
+    },
+    {
+      "id": "Large Language Models",
+      "label": "Large Language Models",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": true,
+      "degree": 30
+    },
+    {
+      "id": "Low-resource languages",
+      "label": "Low-resource languages",
+      "group": "Language Technologies",
+      "color": "#e74c3c",
+      "seed": true,
+      "degree": 19
+    },
+    {
+      "id": "Machine learning",
+      "label": "Machine learning",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 7
+    },
+    {
+      "id": "Metadata",
+      "label": "Metadata",
+      "group": "The Archive",
+      "color": "#e67e22",
+      "seed": true,
+      "degree": 12
+    },
+    {
+      "id": "Minimal computing",
+      "label": "Minimal computing",
+      "group": "Infrastructure & Governance",
+      "color": "#3498db",
+      "seed": true,
+      "degree": 10
+    },
+    {
+      "id": "Multimodal AI",
+      "label": "Multimodal AI",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 12
+    },
+    {
+      "id": "Named Entity Recognition",
+      "label": "Named Entity Recognition",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 15
+    },
+    {
+      "id": "Natural Language Processing",
+      "label": "Natural Language Processing",
+      "group": "Language Technologies",
+      "color": "#e74c3c",
+      "seed": true,
+      "degree": 12
+    },
+    {
+      "id": "Neocolonialism",
+      "label": "Neocolonialism",
+      "group": "Cross-cutting",
+      "color": "#2ecc71",
+      "seed": true,
+      "degree": 16
+    },
+    {
+      "id": "Ontology",
+      "label": "Ontology",
+      "group": "Cross-cutting",
+      "color": "#2ecc71",
+      "seed": true,
+      "degree": 5
+    },
+    {
+      "id": "Optical Character Recognition",
+      "label": "Optical Character Recognition",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 9
+    },
+    {
+      "id": "Orientalism",
+      "label": "Orientalism",
+      "group": "Cross-cutting",
+      "color": "#2ecc71",
+      "seed": true,
+      "degree": 9
+    },
+    {
+      "id": "Primary sources",
+      "label": "Primary sources",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 4
+    },
+    {
+      "id": "Sentiment Analysis",
+      "label": "Sentiment Analysis",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 13
+    },
+    {
+      "id": "Small Language Models",
+      "label": "Small Language Models",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 9
+    },
+    {
+      "id": "Social Media",
+      "label": "Social Media",
+      "group": "Extended",
+      "color": "#95a5a6",
+      "seed": false,
+      "degree": 11
+    },
+    {
+      "id": "Surveillance Capitalism",
+      "label": "Surveillance Capitalism",
+      "group": "Cross-cutting",
+      "color": "#2ecc71",
+      "seed": true,
+      "degree": 15
+    },
+    {
+      "id": "Technological determinism",
+      "label": "Technological determinism",
+      "group": "Epistemologies & Ethics",
+      "color": "#9b59b6",
+      "seed": true,
+      "degree": 11
+    },
+    {
+      "id": "Technology of recovery",
+      "label": "Technology of recovery",
+      "group": "Cross-cutting",
+      "color": "#2ecc71",
+      "seed": true,
+      "degree": 3
+    },
+    {
+      "id": "Training data",
+      "label": "Training data",
+      "group": "Language Technologies",
+      "color": "#e74c3c",
+      "seed": true,
+      "degree": 17
+    }
+  ],
+  "edges": [
+    {
+      "source": "Colonial archives",
+      "target": "Data silence"
+    },
+    {
+      "source": "Colonial archives",
+      "target": "Metadata"
+    },
+    {
+      "source": "Colonial archives",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Colonial archives",
+      "target": "Primary sources"
+    },
+    {
+      "source": "Colonial archives",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Colonial archives",
+      "target": "Digital imperialism"
+    },
+    {
+      "source": "Colonial archives",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Colonial archives",
+      "target": "Digitization"
+    },
+    {
+      "source": "Colonial archives",
+      "target": "Archives"
+    },
+    {
+      "source": "Digital divide",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Digital divide",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "Digital divide",
+      "target": "Global North"
+    },
+    {
+      "source": "Digital divide",
+      "target": "Data scarcity"
+    },
+    {
+      "source": "Digital divide",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "Digital divide",
+      "target": "Global South"
+    },
+    {
+      "source": "Digital divide",
+      "target": "Minimal computing"
+    },
+    {
+      "source": "Digital divide",
+      "target": "Digital literacy"
+    },
+    {
+      "source": "Digital Turn",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Digital Turn",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "Digital Turn",
+      "target": "Humanities"
+    },
+    {
+      "source": "Digital Turn",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "Digital Turn",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Digital Turn",
+      "target": "Digitization"
+    },
+    {
+      "source": "Digital Turn",
+      "target": "Archives"
+    },
+    {
+      "source": "Conceptual Disruption",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Conceptual Disruption",
+      "target": "Technological determinism"
+    },
+    {
+      "source": "Conceptual Disruption",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Conceptual Disruption",
+      "target": "African Studies"
+    },
+    {
+      "source": "Conceptual Disruption",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Conceptual Disruption",
+      "target": "Humanities"
+    },
+    {
+      "source": "Conceptual Disruption",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Conceptual Disruption",
+      "target": "Digital Turn"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Neocolonialism"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Data extractivism"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Global South"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Digital imperialism"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Digitization"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Data Colonialism"
+    },
+    {
+      "source": "Digital colonialism",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Data Feminism",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Data Feminism",
+      "target": "Data extractivism"
+    },
+    {
+      "source": "Data Feminism",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Data Feminism",
+      "target": "African Studies"
+    },
+    {
+      "source": "Data Feminism",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Data Feminism",
+      "target": "AI Governance"
+    },
+    {
+      "source": "Data Feminism",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Data Feminism",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Data Feminism",
+      "target": "Data silence"
+    },
+    {
+      "source": "Data Feminism",
+      "target": "Black Digital Humanities"
+    },
+    {
+      "source": "Crowdsourcing",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "Crowdsourcing",
+      "target": "Data extractivism"
+    },
+    {
+      "source": "Crowdsourcing",
+      "target": "African Studies"
+    },
+    {
+      "source": "Crowdsourcing",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Crowdsourcing",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Crowdsourcing",
+      "target": "African languages"
+    },
+    {
+      "source": "Crowdsourcing",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "Crowdsourcing",
+      "target": "Digital literacy"
+    },
+    {
+      "source": "Crowdsourcing",
+      "target": "Training data"
+    },
+    {
+      "source": "Digital imperialism",
+      "target": "Technology of recovery"
+    },
+    {
+      "source": "Digital imperialism",
+      "target": "Data extractivism"
+    },
+    {
+      "source": "Digital imperialism",
+      "target": "Global North"
+    },
+    {
+      "source": "Digital imperialism",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Digital imperialism",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "Digital imperialism",
+      "target": "Algorithmic colonisation"
+    },
+    {
+      "source": "Digital imperialism",
+      "target": "Global South"
+    },
+    {
+      "source": "Digital imperialism",
+      "target": "Digitization"
+    },
+    {
+      "source": "Digital imperialism",
+      "target": "Data Colonialism"
+    },
+    {
+      "source": "Digital imperialism",
+      "target": "Training data"
+    },
+    {
+      "source": "Digital imperialism",
+      "target": "African archives"
+    },
+    {
+      "source": "Algorithmic bias",
+      "target": "Fine-tuning"
+    },
+    {
+      "source": "Algorithmic bias",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "Algorithmic bias",
+      "target": "Data silence"
+    },
+    {
+      "source": "Algorithmic bias",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Algorithmic bias",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Algorithmic bias",
+      "target": "Global North"
+    },
+    {
+      "source": "Algorithmic bias",
+      "target": "Global South"
+    },
+    {
+      "source": "Algorithmic bias",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Algorithmic bias",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "Algorithmic bias",
+      "target": "Training data"
+    },
+    {
+      "source": "Algorithmic bias",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Orientalism",
+      "target": "Colonial archives"
+    },
+    {
+      "source": "Orientalism",
+      "target": "Metadata"
+    },
+    {
+      "source": "Orientalism",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Orientalism",
+      "target": "African Studies"
+    },
+    {
+      "source": "Orientalism",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Orientalism",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Orientalism",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Orientalism",
+      "target": "Neocolonialism"
+    },
+    {
+      "source": "Orientalism",
+      "target": "Ontology"
+    },
+    {
+      "source": "Data silence",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "Data silence",
+      "target": "Metadata"
+    },
+    {
+      "source": "Data silence",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Data silence",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Data silence",
+      "target": "African Studies"
+    },
+    {
+      "source": "Data silence",
+      "target": "Data scarcity"
+    },
+    {
+      "source": "Data silence",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Data silence",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Data silence",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Data silence",
+      "target": "Digitization"
+    },
+    {
+      "source": "Data silence",
+      "target": "African archives"
+    },
+    {
+      "source": "African archives",
+      "target": "Colonial archives"
+    },
+    {
+      "source": "African archives",
+      "target": "Digital Turn"
+    },
+    {
+      "source": "African archives",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "African archives",
+      "target": "Global North"
+    },
+    {
+      "source": "African archives",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "African archives",
+      "target": "Data scarcity"
+    },
+    {
+      "source": "African archives",
+      "target": "Digitisation"
+    },
+    {
+      "source": "African archives",
+      "target": "Global South"
+    },
+    {
+      "source": "African archives",
+      "target": "African languages"
+    },
+    {
+      "source": "African archives",
+      "target": "African Digital Humanities"
+    },
+    {
+      "source": "African archives",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Metadata",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "Metadata",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Metadata",
+      "target": "Digital imperialism"
+    },
+    {
+      "source": "Metadata",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Metadata",
+      "target": "Archives"
+    },
+    {
+      "source": "Metadata",
+      "target": "Ontology"
+    },
+    {
+      "source": "Knowledge production",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Knowledge production",
+      "target": "African Studies"
+    },
+    {
+      "source": "Knowledge production",
+      "target": "Global North"
+    },
+    {
+      "source": "Knowledge production",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Knowledge production",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Knowledge production",
+      "target": "Humanities"
+    },
+    {
+      "source": "Knowledge production",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Knowledge production",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Knowledge production",
+      "target": "Ontology"
+    },
+    {
+      "source": "Technological determinism",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "Technological determinism",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Technological determinism",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Technological determinism",
+      "target": "African Studies"
+    },
+    {
+      "source": "Technological determinism",
+      "target": "Global North"
+    },
+    {
+      "source": "Technological determinism",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Technological determinism",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "Technological determinism",
+      "target": "AI Governance"
+    },
+    {
+      "source": "Technological determinism",
+      "target": "Minimal computing"
+    },
+    {
+      "source": "African Studies",
+      "target": "Colonial archives"
+    },
+    {
+      "source": "African Studies",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "African Studies",
+      "target": "Decolonisation"
+    },
+    {
+      "source": "African Studies",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "African Studies",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "African Studies",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "African Studies",
+      "target": "African languages"
+    },
+    {
+      "source": "African Studies",
+      "target": "African Digital Humanities"
+    },
+    {
+      "source": "African Studies",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Minimal computing",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "Minimal computing",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Minimal computing",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Minimal computing",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Minimal computing",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "Minimal computing",
+      "target": "Humanities"
+    },
+    {
+      "source": "AI Governance",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "AI Governance",
+      "target": "Data protection"
+    },
+    {
+      "source": "AI Governance",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "AI Governance",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "AI Governance",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "AI Governance",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Digitisation",
+      "target": "Digitization"
+    },
+    {
+      "source": "Deepfakes",
+      "target": "Multimodal AI"
+    },
+    {
+      "source": "Deepfakes",
+      "target": "Fake News"
+    },
+    {
+      "source": "Deepfakes",
+      "target": "Surveillance Capitalism"
+    },
+    {
+      "source": "Deepfakes",
+      "target": "Social Media"
+    },
+    {
+      "source": "Deepfakes",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Deepfakes",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Deepfakes",
+      "target": "AI Governance"
+    },
+    {
+      "source": "Deepfakes",
+      "target": "Global South"
+    },
+    {
+      "source": "Deepfakes",
+      "target": "Epistemic Injustice"
+    },
+    {
+      "source": "Deepfakes",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Deepfakes",
+      "target": "Digital literacy"
+    },
+    {
+      "source": "Neocolonialism",
+      "target": "Colonial archives"
+    },
+    {
+      "source": "Neocolonialism",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Neocolonialism",
+      "target": "Data extractivism"
+    },
+    {
+      "source": "Neocolonialism",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Neocolonialism",
+      "target": "Global North"
+    },
+    {
+      "source": "Neocolonialism",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Neocolonialism",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "Neocolonialism",
+      "target": "Global South"
+    },
+    {
+      "source": "Neocolonialism",
+      "target": "Digital imperialism"
+    },
+    {
+      "source": "Neocolonialism",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Neocolonialism",
+      "target": "Digitization"
+    },
+    {
+      "source": "Multimodal AI",
+      "target": "Digital history"
+    },
+    {
+      "source": "Multimodal AI",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "Multimodal AI",
+      "target": "Human-in-the-loop"
+    },
+    {
+      "source": "Multimodal AI",
+      "target": "Handwritten Text Recognition"
+    },
+    {
+      "source": "Multimodal AI",
+      "target": "Optical Character Recognition"
+    },
+    {
+      "source": "Multimodal AI",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Multimodal AI",
+      "target": "African Studies"
+    },
+    {
+      "source": "Multimodal AI",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Multimodal AI",
+      "target": "Hallucination"
+    },
+    {
+      "source": "Multimodal AI",
+      "target": "Training data"
+    },
+    {
+      "source": "Multimodal AI",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Sentiment Analysis",
+      "target": "Machine learning"
+    },
+    {
+      "source": "Sentiment Analysis",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "Sentiment Analysis",
+      "target": "Human-in-the-loop"
+    },
+    {
+      "source": "Sentiment Analysis",
+      "target": "Fake News"
+    },
+    {
+      "source": "Sentiment Analysis",
+      "target": "African Studies"
+    },
+    {
+      "source": "Sentiment Analysis",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Sentiment Analysis",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Sentiment Analysis",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "Sentiment Analysis",
+      "target": "Named Entity Recognition"
+    },
+    {
+      "source": "Sentiment Analysis",
+      "target": "Training data"
+    },
+    {
+      "source": "Sentiment Analysis",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Low-resource languages",
+      "target": "Machine learning"
+    },
+    {
+      "source": "Low-resource languages",
+      "target": "Digital divide"
+    },
+    {
+      "source": "Low-resource languages",
+      "target": "Data scarcity"
+    },
+    {
+      "source": "Low-resource languages",
+      "target": "African languages"
+    },
+    {
+      "source": "Low-resource languages",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "Low-resource languages",
+      "target": "Training data"
+    },
+    {
+      "source": "Fake News",
+      "target": "Social Media"
+    },
+    {
+      "source": "Fake News",
+      "target": "Surveillance Capitalism"
+    },
+    {
+      "source": "Fake News",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Fake News",
+      "target": "Global South"
+    },
+    {
+      "source": "Fake News",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Fake News",
+      "target": "Epistemic Injustice"
+    },
+    {
+      "source": "Fake News",
+      "target": "Neocolonialism"
+    },
+    {
+      "source": "Fake News",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Data extractivism",
+      "target": "Colonial archives"
+    },
+    {
+      "source": "Data extractivism",
+      "target": "Surveillance Capitalism"
+    },
+    {
+      "source": "Data extractivism",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Data extractivism",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Data extractivism",
+      "target": "Global North"
+    },
+    {
+      "source": "Data extractivism",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Data extractivism",
+      "target": "Global South"
+    },
+    {
+      "source": "Data extractivism",
+      "target": "Data Colonialism"
+    },
+    {
+      "source": "Data extractivism",
+      "target": "Training data"
+    },
+    {
+      "source": "Data extractivism",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Handwritten Text Recognition",
+      "target": "Training data"
+    },
+    {
+      "source": "Handwritten Text Recognition",
+      "target": "Fine-tuning"
+    },
+    {
+      "source": "Handwritten Text Recognition",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "Handwritten Text Recognition",
+      "target": "Human-in-the-loop"
+    },
+    {
+      "source": "Handwritten Text Recognition",
+      "target": "Optical Character Recognition"
+    },
+    {
+      "source": "Handwritten Text Recognition",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Handwritten Text Recognition",
+      "target": "Archives"
+    },
+    {
+      "source": "Handwritten Text Recognition",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Optical Character Recognition",
+      "target": "Small Language Models"
+    },
+    {
+      "source": "Optical Character Recognition",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Optical Character Recognition",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Artificial intelligence",
+      "target": "Sentiment Analysis"
+    },
+    {
+      "source": "Artificial intelligence",
+      "target": "Digital history"
+    },
+    {
+      "source": "Artificial intelligence",
+      "target": "Machine learning"
+    },
+    {
+      "source": "Artificial intelligence",
+      "target": "Small Language Models"
+    },
+    {
+      "source": "Artificial intelligence",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Artificial intelligence",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "Artificial intelligence",
+      "target": "Hallucination"
+    },
+    {
+      "source": "Artificial intelligence",
+      "target": "Named Entity Recognition"
+    },
+    {
+      "source": "Artificial intelligence",
+      "target": "Training data"
+    },
+    {
+      "source": "Artificial intelligence",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Small Language Models",
+      "target": "Training data"
+    },
+    {
+      "source": "Small Language Models",
+      "target": "Computational history"
+    },
+    {
+      "source": "Small Language Models",
+      "target": "Fine-tuning"
+    },
+    {
+      "source": "Small Language Models",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Small Language Models",
+      "target": "Named Entity Recognition"
+    },
+    {
+      "source": "Small Language Models",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Data scarcity",
+      "target": "Colonial archives"
+    },
+    {
+      "source": "Data scarcity",
+      "target": "Training data"
+    },
+    {
+      "source": "Data scarcity",
+      "target": "Machine learning"
+    },
+    {
+      "source": "Data scarcity",
+      "target": "Digitization"
+    },
+    {
+      "source": "Data scarcity",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Data scarcity",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Data scarcity",
+      "target": "African languages"
+    },
+    {
+      "source": "Data scarcity",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "Data sovereignty",
+      "target": "Data protection"
+    },
+    {
+      "source": "Data sovereignty",
+      "target": "Global North"
+    },
+    {
+      "source": "Data sovereignty",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "Data sovereignty",
+      "target": "Global South"
+    },
+    {
+      "source": "Data sovereignty",
+      "target": "Digitization"
+    },
+    {
+      "source": "Humanities",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Humanities",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Humanities",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Humanities",
+      "target": "Hallucination"
+    },
+    {
+      "source": "Digitization",
+      "target": "Metadata"
+    },
+    {
+      "source": "Digitization",
+      "target": "African Studies"
+    },
+    {
+      "source": "Digitization",
+      "target": "Primary sources"
+    },
+    {
+      "source": "Digitization",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Digitization",
+      "target": "Archives"
+    },
+    {
+      "source": "Epistemic violence",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "Epistemic violence",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Epistemic violence",
+      "target": "Global South"
+    },
+    {
+      "source": "Epistemic violence",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Epistemic violence",
+      "target": "Ontology"
+    },
+    {
+      "source": "Archives",
+      "target": "Data silence"
+    },
+    {
+      "source": "Archives",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Archives",
+      "target": "African Studies"
+    },
+    {
+      "source": "Archives",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Archives",
+      "target": "Primary sources"
+    },
+    {
+      "source": "Black Digital Humanities",
+      "target": "Colonial archives"
+    },
+    {
+      "source": "Black Digital Humanities",
+      "target": "Technology of recovery"
+    },
+    {
+      "source": "Black Digital Humanities",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "Black Digital Humanities",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Black Digital Humanities",
+      "target": "Global South"
+    },
+    {
+      "source": "Black Digital Humanities",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Black Digital Humanities",
+      "target": "African Digital Humanities"
+    },
+    {
+      "source": "Black Digital Humanities",
+      "target": "Data silence"
+    },
+    {
+      "source": "Large Language Models",
+      "target": "African Studies"
+    },
+    {
+      "source": "Large Language Models",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "Large Language Models",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "Large Language Models",
+      "target": "Global South"
+    },
+    {
+      "source": "Large Language Models",
+      "target": "Fine-tuning"
+    },
+    {
+      "source": "Large Language Models",
+      "target": "Human-in-the-loop"
+    },
+    {
+      "source": "Large Language Models",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Large Language Models",
+      "target": "Epistemic Injustice"
+    },
+    {
+      "source": "Large Language Models",
+      "target": "Hallucination"
+    },
+    {
+      "source": "Large Language Models",
+      "target": "Named Entity Recognition"
+    },
+    {
+      "source": "Large Language Models",
+      "target": "Training data"
+    },
+    {
+      "source": "Ontology",
+      "target": "Digital imperialism"
+    },
+    {
+      "source": "Digital history",
+      "target": "Computational history"
+    },
+    {
+      "source": "Digital history",
+      "target": "Archives"
+    },
+    {
+      "source": "Digital history",
+      "target": "Optical Character Recognition"
+    },
+    {
+      "source": "Digital history",
+      "target": "Small Language Models"
+    },
+    {
+      "source": "Digital history",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Digital history",
+      "target": "African Digital Humanities"
+    },
+    {
+      "source": "Digital history",
+      "target": "Hallucination"
+    },
+    {
+      "source": "Digital history",
+      "target": "Training data"
+    },
+    {
+      "source": "Digital history",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Computational history",
+      "target": "Machine learning"
+    },
+    {
+      "source": "Computational history",
+      "target": "Sentiment Analysis"
+    },
+    {
+      "source": "Computational history",
+      "target": "Optical Character Recognition"
+    },
+    {
+      "source": "Computational history",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Computational history",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "Computational history",
+      "target": "Hallucination"
+    },
+    {
+      "source": "Computational history",
+      "target": "Named Entity Recognition"
+    },
+    {
+      "source": "Computational history",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Machine learning"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Fine-tuning"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Optical Character Recognition"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "African Studies"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Technological determinism"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Crowdsourcing"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Hallucination"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Named Entity Recognition"
+    },
+    {
+      "source": "Human-in-the-loop",
+      "target": "Training data"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "Machine learning"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "Data protection"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "Social Media"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "Global North"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "AI Governance"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "Global South"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Surveillance Capitalism",
+      "target": "Neocolonialism"
+    },
+    {
+      "source": "Data protection",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "Data protection",
+      "target": "Data extractivism"
+    },
+    {
+      "source": "Data protection",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "Data protection",
+      "target": "Digitization"
+    },
+    {
+      "source": "Social Media",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "Social Media",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Social Media",
+      "target": "Data extractivism"
+    },
+    {
+      "source": "Social Media",
+      "target": "AI Governance"
+    },
+    {
+      "source": "Social Media",
+      "target": "Global South"
+    },
+    {
+      "source": "Social Media",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Social Media",
+      "target": "Epistemic Injustice"
+    },
+    {
+      "source": "Social Media",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Data extractivism"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Global North"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Minimal computing"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Digital imperialism"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "African Digital Humanities"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Neocolonialism"
+    },
+    {
+      "source": "Decolonisation",
+      "target": "Training data"
+    },
+    {
+      "source": "Digital infrastructure",
+      "target": "Global North"
+    },
+    {
+      "source": "Digital infrastructure",
+      "target": "Digitization"
+    },
+    {
+      "source": "Digital humanities",
+      "target": "Digital divide"
+    },
+    {
+      "source": "Digital humanities",
+      "target": "Archives"
+    },
+    {
+      "source": "Digital humanities",
+      "target": "Data scarcity"
+    },
+    {
+      "source": "Digital humanities",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "Digital humanities",
+      "target": "African Digital Humanities"
+    },
+    {
+      "source": "Digital humanities",
+      "target": "Training data"
+    },
+    {
+      "source": "Epistemic Injustice",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "Epistemic Injustice",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Epistemic Injustice",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "Epistemic Injustice",
+      "target": "Data Feminism"
+    },
+    {
+      "source": "Epistemic Injustice",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Epistemic Injustice",
+      "target": "Epistemic violence"
+    },
+    {
+      "source": "Epistemic Injustice",
+      "target": "Hallucination"
+    },
+    {
+      "source": "African languages",
+      "target": "Digital divide"
+    },
+    {
+      "source": "African languages",
+      "target": "Metadata"
+    },
+    {
+      "source": "African languages",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "African languages",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "African languages",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "African languages",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "African languages",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Digital divide"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Technology of recovery"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Digital colonialism"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Algorithmic colonisation"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Digital imperialism"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Data silence"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Global North"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Digitisation"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Data scarcity"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Data sovereignty"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Large Language Models"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Computational history"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Fine-tuning"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "African languages"
+    },
+    {
+      "source": "African Digital Humanities",
+      "target": "Archives"
+    },
+    {
+      "source": "Hallucination",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Hallucination",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Hallucination",
+      "target": "Primary sources"
+    },
+    {
+      "source": "Named Entity Recognition",
+      "target": "Fine-tuning"
+    },
+    {
+      "source": "Named Entity Recognition",
+      "target": "Low-resource languages"
+    },
+    {
+      "source": "Named Entity Recognition",
+      "target": "Metadata"
+    },
+    {
+      "source": "Named Entity Recognition",
+      "target": "Optical Character Recognition"
+    },
+    {
+      "source": "Named Entity Recognition",
+      "target": "African Studies"
+    },
+    {
+      "source": "Named Entity Recognition",
+      "target": "Digital humanities"
+    },
+    {
+      "source": "Named Entity Recognition",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Named Entity Recognition",
+      "target": "Natural Language Processing"
+    },
+    {
+      "source": "Named Entity Recognition",
+      "target": "Training data"
+    },
+    {
+      "source": "Digital literacy",
+      "target": "Knowledge production"
+    },
+    {
+      "source": "Digital literacy",
+      "target": "Artificial intelligence"
+    },
+    {
+      "source": "Digital literacy",
+      "target": "Digital infrastructure"
+    },
+    {
+      "source": "Digital literacy",
+      "target": "Algorithmic bias"
+    },
+    {
+      "source": "Digital literacy",
+      "target": "Minimal computing"
+    }
+  ]
+}

@@ -16,6 +16,7 @@
 		{ href: resolveAppPath("/"), label: "Home" },
 		{ href: resolveAppPath("/about"), label: "About" },
 		{ href: resolveAppPath("/participants"), label: "Participants" },
+		{ href: resolveAppPath("/concepts"), label: "Concepts" },
 		{ href: resolveAppPath("/schedule"), label: "Schedule" },
 		{ href: resolveAppPath("/practical-info"), label: "Practical Info" },
 		{ href: resolveAppPath("/position-paper"), label: "Position Paper" },
