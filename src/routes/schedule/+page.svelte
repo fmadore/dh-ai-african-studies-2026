@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Heading, P, Card } from "flowbite-svelte";
+	import { Heading, P, Card, Popover } from "flowbite-svelte";
 	import {
 		CalendarMonthOutline,
 		MapPinAltOutline,
@@ -10,6 +10,7 @@
 		BowlFoodOutline,
 		BurgerOutline,
 		ClipboardCheckOutline,
+		InfoCircleOutline,
 	} from "flowbite-svelte-icons";
 	import {
 		createSeoMeta,
@@ -211,7 +212,7 @@
 				>
 			</div>
 		</div>
-		<P class="text-caption stack-item-md">Last updated: 6 February 2026</P>
+		<P class="text-caption stack-item-md">Last updated: 16 February 2026</P>
 	</div>
 </section>
 
@@ -271,6 +272,45 @@
 									class="size-legend-dot rounded-sm {meta.colorClass}"
 								></div>
 								<span class="text-caption">{meta.label}</span>
+								{#if type === 'world-cafe'}
+									<button
+										id="world-cafe-info-{day.dayNumber}"
+										type="button"
+										class="text-amber-500 hover:text-amber-600 dark:text-amber-400 dark:hover:text-amber-300 transition-colors cursor-pointer"
+										aria-label="What is a World Café?"
+									>
+										<InfoCircleOutline class="size-icon-sm" />
+									</button>
+									<Popover
+										triggeredBy="#world-cafe-info-{day.dayNumber}"
+										trigger="click"
+										placement="bottom"
+										arrow
+										class="w-80 sm:w-96 text-sm z-50"
+									>
+										<div class="p-1">
+											<h4 class="font-semibold text-gray-900 dark:text-white mb-2">What is a World Café?</h4>
+											<ul class="space-y-1.5 text-gray-600 dark:text-gray-300 text-body-sm leading-relaxed">
+												<li class="flex items-start gap-1.5">
+													<span class="text-amber-500 shrink-0 mt-0.5">•</span>
+													<span>Interactive discussion format where participants rotate between four thematic tables in three timed rounds (25 minutes each)</span>
+												</li>
+												<li class="flex items-start gap-1.5">
+													<span class="text-amber-500 shrink-0 mt-0.5">•</span>
+													<span>Each table is anchored by a table host who stays for the entire session, briefs newcomers on prior discussions, and captures key points</span>
+												</li>
+												<li class="flex items-start gap-1.5">
+													<span class="text-amber-500 shrink-0 mt-0.5">•</span>
+													<span>Participants build on the keywords and key pointers prepared during the small-group working sessions</span>
+												</li>
+												<li class="flex items-start gap-1.5">
+													<span class="text-amber-500 shrink-0 mt-0.5">•</span>
+													<span>Between rounds, participants disperse individually across tables to maximise cross-pollination of ideas</span>
+												</li>
+											</ul>
+										</div>
+									</Popover>
+								{/if}
 							</div>
 						{/each}
 					</div>

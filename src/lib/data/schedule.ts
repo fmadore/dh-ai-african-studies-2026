@@ -69,7 +69,7 @@ export const schedule: DaySchedule[] = [
 				description: 'Working groups convene to discuss',
 				type: 'subgroups',
 				rooms: ['SR 5', 'SR 6', 'BRDT', '4 AG'],
-				deliverables: ['Keywords and key pointers in preparation for the World Café session']
+				deliverables: ["A flipchart poster summarising the group's key themes, questions, and discussion points to anchor their World Café table"]
 			},
 			{
 				time: '13:00–14:30',
@@ -82,9 +82,10 @@ export const schedule: DaySchedule[] = [
 				type: 'world-cafe',
 				rooms: ['SR 5'],
 				details: [
-					'Setup: 4 tables, each hosted by one work group',
-					'Hosts: 2 members of each work group stay at their table as "Hosts"',
-					'Travelers: The rest of the group rotates to the other 3 tables at timed intervals'
+					'Interactive discussion format where participants rotate between four thematic tables in three timed rounds (25 minutes each)',
+					'Each table is anchored by a table host who stays for the entire session, briefs newcomers on prior discussions, and captures key points',
+					'Participants build on the keywords and key pointers prepared during the small-group working sessions',
+					'Between rounds, participants disperse individually across tables to maximise cross-pollination of ideas'
 				]
 			},
 			{
@@ -159,7 +160,7 @@ export const schedule: DaySchedule[] = [
 				details: ['Each group works on exploring models for equitable research collaboration'],
 				deliverables: [
 					'Collection of key principles and practical mechanisms for equitable collaboration models',
-					'Key pointers for the World Café session'
+					"A flipchart poster summarising the group's key themes, questions, and discussion points to anchor their World Café table"
 				]
 			},
 			{
@@ -174,9 +175,10 @@ export const schedule: DaySchedule[] = [
 				type: 'world-cafe',
 				rooms: ['SR 6'],
 				details: [
-					'Setup: 4 tables, each hosted by one Work Stream',
-					'Hosts: 2 members of each Work Stream stay at their table as "Hosts"',
-					'Travelers: The rest of the group rotates to the other 3 tables at timed intervals'
+					'Interactive discussion format where participants rotate between four thematic tables in three timed rounds (25 minutes each)',
+					'Each table is anchored by a table host who stays for the entire session, briefs newcomers on prior discussions, and captures key points',
+					'Participants build on the keywords and key pointers prepared during the small-group working sessions',
+					'Between rounds, participants disperse individually across tables to maximise cross-pollination of ideas'
 				]
 			},
 			{
