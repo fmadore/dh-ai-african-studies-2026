@@ -1,10 +1,10 @@
 export type ConceptGroup =
-	| 'Infrastructure & Governance'
+	| 'Infrastructure, Governance & Access'
 	| 'Cross-cutting'
 	| 'Extended'
-	| 'Language Technologies'
+	| 'Language Technologies, NLP & Corpora'
 	| 'The Archive'
-	| 'Epistemologies & Ethics';
+	| 'Epistemologies, Decoloniality & Ethical Frameworks';
 
 export interface ConceptNode {
 	id: string;

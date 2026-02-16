@@ -28,20 +28,20 @@
 
 	// --- Group colors (teal-dominant palette) ---
 	const GROUP_COLORS: Record<ConceptGroup, { light: string; dark: string }> = {
-		'Infrastructure & Governance': { light: '#0d9488', dark: '#2dd4bf' },
+		'Infrastructure, Governance & Access': { light: '#0d9488', dark: '#2dd4bf' },
 		'Cross-cutting': { light: '#059669', dark: '#34d399' },
 		'Extended': { light: '#64748b', dark: '#94a3b8' },
-		'Language Technologies': { light: '#dc2626', dark: '#f87171' },
+		'Language Technologies, NLP & Corpora': { light: '#dc2626', dark: '#f87171' },
 		'The Archive': { light: '#d97706', dark: '#fbbf24' },
-		'Epistemologies & Ethics': { light: '#7c3aed', dark: '#a78bfa' }
+		'Epistemologies, Decoloniality & Ethical Frameworks': { light: '#7c3aed', dark: '#a78bfa' }
 	};
 
 	const ALL_GROUPS: ConceptGroup[] = [
 		'Cross-cutting',
 		'The Archive',
-		'Epistemologies & Ethics',
-		'Infrastructure & Governance',
-		'Language Technologies',
+		'Epistemologies, Decoloniality & Ethical Frameworks',
+		'Infrastructure, Governance & Access',
+		'Language Technologies, NLP & Corpora',
 		'Extended'
 	];
 

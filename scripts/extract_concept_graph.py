@@ -80,14 +80,17 @@ def parse_group_assignments(research_content: str, lookup: dict[str, Path]) -> d
     section = section_split[1]
     current_group = None
     for line in section.split("\n"):
+        # Stop at the next ## section (e.g. "## Related Concepts")
+        if line.startswith("## ") and not line.startswith("### "):
+            break
         if line.startswith("### Group 1"):
-            current_group = "Language Technologies"
+            current_group = "Language Technologies, NLP & Corpora"
         elif line.startswith("### Group 2"):
             current_group = "The Archive"
         elif line.startswith("### Group 3"):
-            current_group = "Infrastructure & Governance"
+            current_group = "Infrastructure, Governance & Access"
         elif line.startswith("### Group 4"):
-            current_group = "Epistemologies & Ethics"
+            current_group = "Epistemologies, Decoloniality & Ethical Frameworks"
         elif line.startswith("### Cross-cutting"):
             current_group = "Cross-cutting"
         elif current_group and "[[" in line:
@@ -100,10 +103,10 @@ def parse_group_assignments(research_content: str, lookup: dict[str, Path]) -> d
 
 
 GROUP_COLORS = {
-    "Language Technologies": "#e74c3c",
+    "Language Technologies, NLP & Corpora": "#e74c3c",
     "The Archive": "#e67e22",
-    "Infrastructure & Governance": "#3498db",
-    "Epistemologies & Ethics": "#9b59b6",
+    "Infrastructure, Governance & Access": "#3498db",
+    "Epistemologies, Decoloniality & Ethical Frameworks": "#9b59b6",
     "Cross-cutting": "#2ecc71",
     "Extended": "#95a5a6",
 }
