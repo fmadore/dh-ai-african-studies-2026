@@ -239,7 +239,7 @@
 						class="hidden sm:inline text-gray-500 dark:text-gray-400"
 						>•</span
 					>
-					<span class="text-body-sm">{day.theme}</span>
+					<span class="hidden sm:inline text-body-sm">{day.theme}</span>
 				</div>
 			{/snippet}
 			{#snippet children(activeTabId, tab)}

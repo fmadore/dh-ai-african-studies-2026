@@ -617,6 +617,13 @@
     border-radius: var(--radius-xl);
     padding: var(--space-xs);
     gap: var(--space-xs);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .schedule-tabs [role="tablist"] > * {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 
   .dark .schedule-tabs [role="tablist"] {
@@ -628,6 +635,7 @@
     font-weight: var(--font-weight-medium);
     border-radius: var(--radius-lg);
     transition: all var(--transition-fast);
+    min-width: 0;
   }
 
   .schedule-tabs [role="tab"]:hover:not([aria-selected="true"]) {
