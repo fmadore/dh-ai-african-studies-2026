@@ -1,6 +1,10 @@
 <script lang="ts">
 	import type { ConceptNode, ConceptEdge, ConceptGraphData, ConceptGroup } from '$lib/types/concept-graph';
-	import { createSubscriber } from 'svelte/reactivity';
+	import { useDarkMode } from '$lib/utils/dark-mode.svelte';
+	import { GROUP_COLORS, ALL_GROUPS, getNodeRadius } from './concept-graph/graph-config';
+	import GraphSearch from './concept-graph/GraphSearch.svelte';
+	import GraphDetailPanel from './concept-graph/GraphDetailPanel.svelte';
+	import GraphFilters from './concept-graph/GraphFilters.svelte';
 
 	interface Props {
 		data: ConceptGraphData;
@@ -8,50 +12,13 @@
 
 	let { data }: Props = $props();
 
-	// --- Dark mode detection (same pattern as ParticipantsMap) ---
-	const darkModeSubscriber = createSubscriber((update) => {
-		if (typeof window === 'undefined') return;
-		const observer = new MutationObserver((mutations) => {
-			for (const mutation of mutations) {
-				if (mutation.attributeName === 'class') update();
-			}
-		});
-		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-		return () => observer.disconnect();
-	});
-
-	let isDarkMode = $derived.by(() => {
-		if (typeof window === 'undefined') return false;
-		darkModeSubscriber();
-		return document.documentElement.classList.contains('dark');
-	});
-
-	// --- Group colors (teal-dominant palette) ---
-	const GROUP_COLORS: Record<ConceptGroup, { light: string; dark: string }> = {
-		'Infrastructure, Governance & Access': { light: '#0d9488', dark: '#2dd4bf' },
-		'Cross-cutting': { light: '#059669', dark: '#34d399' },
-		'Extended': { light: '#64748b', dark: '#94a3b8' },
-		'Language Technologies, NLP & Corpora': { light: '#dc2626', dark: '#f87171' },
-		'The Archive': { light: '#d97706', dark: '#fbbf24' },
-		'Epistemologies, Decoloniality & Ethical Frameworks': { light: '#7c3aed', dark: '#a78bfa' }
-	};
-
-	const ALL_GROUPS: ConceptGroup[] = [
-		'Cross-cutting',
-		'The Archive',
-		'Epistemologies, Decoloniality & Ethical Frameworks',
-		'Infrastructure, Governance & Access',
-		'Language Technologies, NLP & Corpora',
-		'Extended'
-	];
+	// --- Dark mode ---
+	const darkMode = useDarkMode();
+	let isDarkMode = $derived(darkMode.isDark);
 
 	function getNodeColor(group: ConceptGroup): string {
 		const colors = GROUP_COLORS[group];
 		return isDarkMode ? colors.dark : colors.light;
-	}
-
-	function getNodeRadius(degree: number): number {
-		return Math.max(6, Math.min(22, 6 + degree * 0.55));
 	}
 
 	// --- State ---
@@ -67,6 +34,10 @@
 	let transform = $state({ x: 0, y: 0, k: 1 });
 	let simulationReady = $state(false);
 	let draggedNode = $state<ConceptNode | null>(null);
+
+	// --- Tooltip state ---
+	let tooltipX = $state(0);
+	let tooltipY = $state(0);
 
 	// Track references for programmatic control
 	let simulationRef: any = null;
@@ -87,16 +58,17 @@
 		})
 	);
 
-	// --- Neighbor sets for hover spotlight ---
-	let neighborIds = $derived.by(() => {
-		if (!hoveredNode) return new Set<string>();
+	// --- Spotlight: hover takes priority, then selected ---
+	let spotlightNode = $derived(hoveredNode ?? selectedNode);
+	let spotlightNeighborIds = $derived.by(() => {
+		if (!spotlightNode) return new Set<string>();
 		const ids = new Set<string>();
-		ids.add(hoveredNode.id);
+		ids.add(spotlightNode.id);
 		for (const e of simEdges) {
 			const srcId = typeof e.source === 'string' ? e.source : e.source.id;
 			const tgtId = typeof e.target === 'string' ? e.target : e.target.id;
-			if (srcId === hoveredNode.id) ids.add(tgtId);
-			if (tgtId === hoveredNode.id) ids.add(srcId);
+			if (srcId === spotlightNode.id) ids.add(tgtId);
+			if (tgtId === spotlightNode.id) ids.add(srcId);
 		}
 		return ids;
 	});
@@ -116,15 +88,14 @@
 
 	// --- Label visibility based on zoom ---
 	function shouldShowLabel(node: ConceptNode): boolean {
-		if (hoveredNode && neighborIds.has(node.id)) return true;
-		if (selectedNode?.id === node.id) return true;
+		if (spotlightNode && spotlightNeighborIds.has(node.id)) return true;
 		if (transform.k >= 2.5) return true;
 		if (transform.k >= 1.5 && node.degree >= 10) return true;
 		if (node.degree >= 15) return true;
 		return false;
 	}
 
-	// --- Edge key helper (Svelte can't parse ternaries in #each key) ---
+	// --- Edge key helper ---
 	function edgeKey(e: ConceptEdge): string {
 		const s = typeof e.source === 'string' ? e.source : e.source.id;
 		const t = typeof e.target === 'string' ? e.target : e.target.id;
@@ -147,14 +118,41 @@
 
 	// --- Opacity helpers for spotlight effect ---
 	function nodeOpacity(node: ConceptNode): number {
-		if (!hoveredNode) return 1;
-		return neighborIds.has(node.id) ? 1 : 0.12;
+		if (!spotlightNode) return 1;
+		return spotlightNeighborIds.has(node.id) ? 1 : 0.12;
 	}
 
 	function edgeOpacity(srcId: string, tgtId: string): number {
-		if (!hoveredNode) return 0.3;
-		if (srcId === hoveredNode.id || tgtId === hoveredNode.id) return 0.7;
+		if (!spotlightNode) return 0.3;
+		if (srcId === spotlightNode.id || tgtId === spotlightNode.id) return 0.7;
 		return 0.04;
+	}
+
+	// --- Zoom to node (called by search) ---
+	function zoomToNode(node: ConceptNode) {
+		if (!zoomBehaviorRef || !svgSelectionRef || !d3ZoomModuleRef) return;
+		const nx = node.x ?? containerWidth / 2;
+		const ny = node.y ?? containerHeight / 2;
+		const scale = 1.4;
+		const tx = containerWidth / 2 - nx * scale;
+		const ty = containerHeight / 2 - ny * scale;
+		svgSelectionRef
+			.transition()
+			.duration(500)
+			.call(
+				zoomBehaviorRef.transform,
+				d3ZoomModuleRef.zoomIdentity.translate(tx, ty).scale(scale)
+			);
+		selectedNode = node;
+	}
+
+	// --- Tooltip positioning ---
+	function onNodePointerMove(event: PointerEvent) {
+		const canvas = containerEl?.querySelector('.graph-canvas');
+		if (!canvas) return;
+		const rect = canvas.getBoundingClientRect();
+		tooltipX = event.clientX - rect.left;
+		tooltipY = event.clientY - rect.top;
 	}
 
 	// --- Responsive sizing ---
@@ -191,7 +189,6 @@
 		]).then(([d3Force, d3Zoom, d3Selection, d3Drag]) => {
 			if (destroyed) return;
 
-			// Deep-clone nodes/edges so d3 can mutate them
 			const nodes: ConceptNode[] = data.nodes.map((n) => ({ ...n }));
 			const edges: ConceptEdge[] = data.edges.map((e) => ({ ...e }));
 
@@ -218,12 +215,10 @@
 
 			simulationRef = simulation;
 
-			// Mark ready after simulation settles
 			simulation.on('end', () => {
 				simulationReady = true;
 			});
 
-			// Also mark ready quickly so user sees something
 			setTimeout(() => {
 				if (!destroyed) simulationReady = true;
 			}, 300);
@@ -234,7 +229,6 @@
 				.zoom<SVGSVGElement, unknown>()
 				.scaleExtent([0.3, 5])
 				.filter((event: any) => {
-					// Ctrl/meta+scroll for zoom
 					if (event.type === 'wheel') return event.ctrlKey || event.metaKey;
 					return true;
 				})
@@ -248,8 +242,6 @@
 			d3ZoomModuleRef = d3Zoom;
 
 			// --- d3-drag on nodes ---
-			// d3-drag natively coordinates with d3-zoom so node drags
-			// don't trigger pan, and event.x/y are in simulation space.
 			function findNode(el: SVGGElement): ConceptNode | undefined {
 				const id = el.getAttribute('data-node-id');
 				return id ? nodes.find((n) => n.id === id) : undefined;
@@ -284,7 +276,6 @@
 					draggedNode = null;
 				});
 
-			// Apply drag to node elements — re-apply after Svelte re-renders
 			const applyDrag = () => {
 				if (destroyed || !svgEl) return;
 				d3Selection.select(svgEl).selectAll<SVGGElement, unknown>('.node-group').call(dragBehavior);
@@ -295,7 +286,6 @@
 			simulation.on('tick', () => {
 				simNodes = [...nodes];
 				simEdges = [...edges];
-				// Apply d3-drag after first render
 				if (!firstDragApplied) {
 					firstDragApplied = true;
 					requestAnimationFrame(applyDrag);
@@ -332,13 +322,11 @@
 	function toggleGroup(group: ConceptGroup) {
 		const next = new Set(activeGroups);
 		if (next.has(group)) {
-			// Don't allow deactivating all groups
 			if (next.size > 1) next.delete(group);
 		} else {
 			next.add(group);
 		}
 		activeGroups = next;
-		// Re-apply d3-drag to new node elements after Svelte re-renders
 		requestAnimationFrame(() => applyDragRef?.());
 	}
 
@@ -372,7 +360,6 @@
 		if (!document.fullscreenElement) {
 			containerEl.requestFullscreen().then(() => {
 				isFullscreen = true;
-				// Delay recenter so ResizeObserver can update dimensions first
 				setTimeout(recenter, 200);
 			});
 		} else {
@@ -380,7 +367,6 @@
 		}
 	}
 
-	// Listen for fullscreen exit via Esc key
 	$effect(() => {
 		if (typeof window === 'undefined') return;
 		function onFullscreenChange() {
@@ -390,11 +376,38 @@
 		return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
 	});
 
+	// --- Detail panel navigation ---
+	function navigateToNeighbor(nodeId: string) {
+		const n = simNodes.find((nd) => nd.id === nodeId);
+		if (n) selectedNode = n;
+	}
+
 	// --- Mobile detection ---
 	let isMobile = $derived(containerWidth < 640);
 </script>
 
 <div class="concept-graph-wrapper" bind:this={containerEl}>
+	<!-- Toolbar: stats + search + group filters -->
+	<div class="graph-toolbar">
+		<GraphFilters
+			groups={ALL_GROUPS}
+			{activeGroups}
+			filteredNodeCount={filteredNodes.length}
+			totalNodeCount={simNodes.length}
+			filteredEdgeCount={filteredEdges.length}
+			activeGroupCount={activeGroups.size}
+			totalGroupCount={ALL_GROUPS.length}
+			{getNodeColor}
+			ontoggle={toggleGroup}
+			onactivateall={activateAllGroups}
+		/>
+		<GraphSearch
+			nodes={filteredNodes}
+			{getNodeColor}
+			onselect={zoomToNode}
+		/>
+	</div>
+
 	<!-- Graph canvas -->
 	<div class="graph-canvas card-surface" class:has-selection={selectedNode !== null}>
 		{#if !simulationReady}
@@ -427,12 +440,12 @@
 						x2={coords.x2}
 						y2={coords.y2}
 						stroke={isDarkMode ? '#94a3b8' : '#64748b'}
-						stroke-width={hoveredNode && (coords.srcId === hoveredNode.id || coords.tgtId === hoveredNode.id) ? 1.5 : 0.7}
+						stroke-width={spotlightNode && (coords.srcId === spotlightNode.id || coords.tgtId === spotlightNode.id) ? 1.5 : 0.7}
 						opacity={edgeOpacity(coords.srcId, coords.tgtId)}
 					/>
 				{/each}
 
-				<!-- Nodes -->
+				<!-- Nodes (circles only) -->
 				{#each filteredNodes as node (node.id)}
 					{@const r = getNodeRadius(node.degree)}
 					{@const nx = node.x ?? 0}
@@ -445,6 +458,7 @@
 						style="cursor: grab; opacity: {nodeOpacity(node)}; outline: none;"
 						data-node-id={node.id}
 						onpointerenter={() => (hoveredNode = node)}
+						onpointermove={onNodePointerMove}
 						onpointerleave={() => { if (hoveredNode?.id === node.id) hoveredNode = null; }}
 						onclick={(e) => onNodeClick(e, node)}
 						onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onNodeClick(e as any, node); } }}
@@ -471,25 +485,46 @@
 							stroke={isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.8)'}
 							stroke-width="1.5"
 						/>
-
-						<!-- Label -->
-						{#if shouldShowLabel(node)}
-							<text
-								x={nx}
-								y={ny - r - 5}
-								text-anchor="middle"
-								class="node-label"
-								fill={isDarkMode ? '#e2e8f0' : '#1e293b'}
-								font-size={hoveredNode?.id === node.id ? '12' : '10'}
-								font-weight={hoveredNode?.id === node.id || selectedNode?.id === node.id ? '600' : '400'}
-							>
-								{node.label}
-							</text>
-						{/if}
 					</g>
+				{/each}
+
+				<!-- Labels (separate top layer, always rendered above all nodes) -->
+				{#each filteredNodes as node (node.id)}
+					{#if shouldShowLabel(node)}
+						{@const r = getNodeRadius(node.degree)}
+						<text
+							x={node.x ?? 0}
+							y={(node.y ?? 0) - r - 5}
+							text-anchor="middle"
+							class="node-label"
+							fill={isDarkMode ? '#e2e8f0' : '#1e293b'}
+							font-size={spotlightNode?.id === node.id ? '12' : '10'}
+							font-weight={spotlightNode?.id === node.id ? '600' : '400'}
+							opacity={nodeOpacity(node)}
+							style="pointer-events: none;"
+						>
+							{node.label}
+						</text>
+					{/if}
 				{/each}
 			</g>
 		</svg>
+
+		<!-- Selection pill -->
+		{#if selectedNode}
+			<button
+				class="selection-pill"
+				onclick={() => { selectedNode = null; }}
+				aria-label="Clear selection: {selectedNode.label}"
+			>
+				<span class="selection-pill-dot" style="background-color: {getNodeColor(selectedNode.group)}"></span>
+				<span class="selection-pill-label">{selectedNode.label}</span>
+				<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+					<line x1="3" y1="3" x2="11" y2="11" />
+					<line x1="11" y1="3" x2="3" y2="11" />
+				</svg>
+			</button>
+		{/if}
 
 		<!-- Graph controls -->
 		<div class="graph-controls">
@@ -536,72 +571,38 @@
 				Ctrl+scroll to zoom · Drag background to pan · Drag nodes to reposition · Click for details
 			{/if}
 		</div>
-	</div>
 
-	<!-- Group filters -->
-	<div class="group-filters">
-		<button
-			class="filter-btn filter-btn-all"
-			class:active={activeGroups.size === ALL_GROUPS.length}
-			onclick={activateAllGroups}
-		>
-			All
-		</button>
-		{#each ALL_GROUPS as group (group)}
-			<button
-				class="filter-btn"
-				class:active={activeGroups.has(group)}
-				onclick={() => toggleGroup(group)}
-				style="--group-color: {getNodeColor(group)}"
+		<!-- Hover tooltip -->
+		{#if hoveredNode && !draggedNode}
+			<div
+				class="graph-tooltip"
+				style="left: {tooltipX + 14}px; top: {tooltipY - 10}px;"
 			>
-				<span class="filter-dot" style="background-color: {getNodeColor(group)}"></span>
-				{group}
-			</button>
-		{/each}
+				<div class="tooltip-label">{hoveredNode.label}</div>
+				<div class="tooltip-meta">
+					<span class="tooltip-dot" style="background-color: {getNodeColor(hoveredNode.group)}"></span>
+					<span class="tooltip-group">{hoveredNode.group}</span>
+				</div>
+				<div class="tooltip-stats">
+					{hoveredNode.degree} connection{hoveredNode.degree !== 1 ? 's' : ''}
+					{#if hoveredNode.seed}
+						<span class="tooltip-seed">· Seed</span>
+					{/if}
+				</div>
+			</div>
+		{/if}
 	</div>
 
 	<!-- Detail panel -->
 	{#if selectedNode}
-		<div class="detail-panel card-surface surface-padding-sm" class:bottom-sheet={isMobile}>
-			<div class="detail-header">
-				<h3 class="heading-sub" style="font-size: var(--text-lg);">{selectedNode.label}</h3>
-				<button class="detail-close" onclick={() => (selectedNode = null)} aria-label="Close detail panel">
-					&times;
-				</button>
-			</div>
-			<div class="detail-meta">
-				<span
-					class="detail-badge"
-					style="background-color: {getNodeColor(selectedNode.group)}20; color: {getNodeColor(selectedNode.group)}; border: 1px solid {getNodeColor(selectedNode.group)}40;"
-				>
-					{selectedNode.group}
-				</span>
-				{#if selectedNode.seed}
-					<span class="detail-badge detail-badge-seed">Seed concept</span>
-				{/if}
-				<span class="body-text-muted">{selectedNode.degree} connections</span>
-			</div>
-			{#if selectedNeighbors.length > 0}
-				<div class="detail-connections">
-					<p class="text-body-sm" style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-xs);">
-						Connected to:
-					</p>
-					<div class="connection-tags">
-						{#each selectedNeighbors as neighbor (neighbor)}
-							<button
-								class="connection-tag"
-								onclick={() => {
-									const n = simNodes.find((nd) => nd.id === neighbor);
-									if (n) selectedNode = n;
-								}}
-							>
-								{neighbor}
-							</button>
-						{/each}
-					</div>
-				</div>
-			{/if}
-		</div>
+		<GraphDetailPanel
+			node={selectedNode}
+			neighbors={selectedNeighbors}
+			{isMobile}
+			{getNodeColor}
+			onclose={() => (selectedNode = null)}
+			onnavigate={navigateToNeighbor}
+		/>
 	{/if}
 </div>
 
@@ -611,6 +612,51 @@
 		flex-direction: column;
 		gap: var(--space-md);
 		width: 100%;
+	}
+
+	/* Toolbar: stats + search on one row, filters below */
+	.graph-toolbar {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: var(--space-xs);
+		align-items: center;
+	}
+
+	.graph-toolbar :global(.stats-bar) {
+		grid-column: 1;
+		grid-row: 1;
+		justify-content: flex-start;
+	}
+
+	.graph-toolbar :global(.search-bar) {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	.graph-toolbar :global(.group-filters) {
+		grid-column: 1 / -1;
+		grid-row: 2;
+	}
+
+	@media (max-width: 640px) {
+		.graph-toolbar {
+			grid-template-columns: 1fr;
+		}
+
+		.graph-toolbar :global(.search-bar) {
+			grid-column: 1;
+			grid-row: 1;
+			max-width: 100%;
+		}
+
+		.graph-toolbar :global(.stats-bar) {
+			grid-row: 2;
+		}
+
+		.graph-toolbar :global(.group-filters) {
+			grid-column: 1;
+			grid-row: 3;
+		}
 	}
 
 	.graph-canvas {
@@ -709,7 +755,7 @@
 		height: 2rem;
 		border: 3px solid var(--color-surface-300);
 		border-top-color: var(--color-secondary-500);
-		border-radius: 50%;
+		border-radius: var(--radius-full);
 		animation: spin 0.8s linear infinite;
 	}
 
@@ -761,182 +807,140 @@
 			0 0 8px var(--color-surface-dark-base);
 	}
 
-	/* Group filter buttons */
-	.group-filters {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-xs);
-		justify-content: center;
-	}
-
-	.filter-btn {
+	/* Selection pill */
+	.selection-pill {
+		position: absolute;
+		top: var(--space-sm);
+		left: var(--space-sm);
 		display: inline-flex;
 		align-items: center;
 		gap: 0.375rem;
-		padding: var(--space-xs) var(--space-sm);
+		padding: 0.25rem 0.5rem 0.25rem 0.625rem;
 		border-radius: var(--radius-full);
+		background: var(--color-surface-0);
+		border: 1px solid var(--color-surface-300);
+		box-shadow: var(--shadow-sm);
 		font-size: var(--text-xs);
 		font-weight: var(--font-weight-medium);
-		background: var(--color-surface-100);
-		color: var(--color-gray-600);
-		border: 1px solid var(--color-surface-300);
-		transition: all var(--transition-fast);
+		color: var(--color-gray-700);
 		cursor: pointer;
+		z-index: 3;
+		transition: all var(--transition-fast);
+		max-width: 14rem;
 	}
 
-	.filter-btn:hover {
-		background: var(--color-surface-200);
+	.selection-pill:hover {
+		background: var(--color-surface-100);
+		box-shadow: var(--shadow-md);
 	}
 
-	.filter-btn.active {
-		background: color-mix(in srgb, var(--group-color, var(--color-secondary-500)) 12%, var(--color-surface-0));
-		color: var(--color-gray-900);
-		border-color: color-mix(in srgb, var(--group-color, var(--color-secondary-500)) 40%, transparent);
-	}
-
-	:global(.dark) .filter-btn {
+	:global(.dark) .selection-pill {
 		background: var(--color-surface-dark-elevated);
-		color: var(--color-gray-400);
-		border-color: rgba(255, 255, 255, 0.08);
+		color: var(--color-gray-200);
+		border-color: rgba(255, 255, 255, 0.1);
+		box-shadow: var(--shadow-dark-sm);
 	}
 
-	:global(.dark) .filter-btn:hover {
+	:global(.dark) .selection-pill:hover {
 		background: var(--color-surface-dark-overlay);
+		box-shadow: var(--shadow-dark-md);
 	}
 
-	:global(.dark) .filter-btn.active {
-		background: color-mix(in srgb, var(--group-color, var(--color-secondary-400)) 15%, var(--color-surface-dark-base));
-		color: var(--color-gray-100);
-		border-color: color-mix(in srgb, var(--group-color, var(--color-secondary-400)) 40%, transparent);
-	}
-
-	.filter-btn-all {
-		--group-color: var(--color-secondary-500);
-	}
-
-	.filter-dot {
+	.selection-pill-dot {
 		width: 0.5rem;
 		height: 0.5rem;
-		border-radius: 50%;
+		border-radius: var(--radius-full);
 		flex-shrink: 0;
 	}
 
-	/* Detail panel */
-	.detail-panel {
-		position: relative;
+	.selection-pill-label {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.selection-pill svg {
+		flex-shrink: 0;
+		opacity: 0.5;
+	}
+
+	.selection-pill:hover svg {
+		opacity: 1;
+	}
+
+	/* Tooltip */
+	.graph-tooltip {
+		position: absolute;
+		pointer-events: none;
+		z-index: var(--z-dropdown);
+		background: var(--color-surface-0);
+		border: 1px solid var(--color-surface-300);
+		border-radius: var(--radius-lg);
+		padding: 0.375rem 0.625rem;
+		box-shadow: var(--shadow-md);
+		max-width: 14rem;
+		white-space: nowrap;
+	}
+
+	:global(.dark) .graph-tooltip {
+		background: var(--color-surface-dark-elevated);
+		border-color: rgba(255, 255, 255, 0.1);
+		box-shadow: var(--shadow-dark-md);
+	}
+
+	.tooltip-label {
+		font-size: var(--text-sm);
+		font-weight: var(--font-weight-semibold);
+		color: var(--color-gray-900);
+		line-height: var(--leading-subheading);
+	}
+
+	:global(.dark) .tooltip-label {
+		color: var(--color-gray-100);
+	}
+
+	.tooltip-meta {
 		display: flex;
-		flex-direction: column;
-		gap: var(--space-sm);
-	}
-
-	.detail-panel.bottom-sheet {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		z-index: var(--z-overlay);
-		border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
-		max-height: 50vh;
-		overflow-y: auto;
-		box-shadow: 0 -10px 30px -5px rgba(0, 0, 0, 0.15);
-	}
-
-	:global(.dark) .detail-panel.bottom-sheet {
-		box-shadow: 0 -10px 30px -5px rgba(0, 0, 0, 0.5);
-	}
-
-	.detail-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		gap: var(--space-sm);
-	}
-
-	.detail-close {
-		font-size: 1.5rem;
-		line-height: 1;
-		color: var(--color-gray-400);
-		background: none;
-		border: none;
-		padding: 0.25rem;
-		cursor: pointer;
-		border-radius: var(--radius-md);
-	}
-
-	.detail-close:hover {
-		color: var(--color-gray-600);
-		background: var(--color-surface-100);
-	}
-
-	:global(.dark) .detail-close:hover {
-		color: var(--color-gray-200);
-		background: var(--color-surface-dark-overlay);
-	}
-
-	.detail-meta {
-		display: flex;
-		flex-wrap: wrap;
 		align-items: center;
-		gap: var(--space-xs);
+		gap: 0.25rem;
+		margin-top: 0.125rem;
 	}
 
-	.detail-badge {
-		display: inline-block;
-		padding: 0.125rem 0.5rem;
+	.tooltip-dot {
+		width: 0.375rem;
+		height: 0.375rem;
 		border-radius: var(--radius-full);
+		flex-shrink: 0;
+	}
+
+	.tooltip-group {
 		font-size: var(--text-xs);
+		color: var(--color-gray-500);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	:global(.dark) .tooltip-group {
+		color: var(--color-gray-400);
+	}
+
+	.tooltip-stats {
+		font-size: var(--text-xs);
+		color: var(--color-gray-500);
+		margin-top: 0.125rem;
+	}
+
+	:global(.dark) .tooltip-stats {
+		color: var(--color-gray-400);
+	}
+
+	.tooltip-seed {
+		color: var(--color-secondary-600);
 		font-weight: var(--font-weight-medium);
 	}
 
-	.detail-badge-seed {
-		background: color-mix(in srgb, var(--color-secondary-500) 12%, transparent);
-		color: var(--color-secondary-700);
-		border: 1px solid color-mix(in srgb, var(--color-secondary-500) 30%, transparent);
-	}
-
-	:global(.dark) .detail-badge-seed {
-		background: color-mix(in srgb, var(--color-secondary-400) 15%, transparent);
-		color: var(--color-secondary-300);
-		border-color: color-mix(in srgb, var(--color-secondary-400) 30%, transparent);
-	}
-
-	.detail-connections {
-		max-height: 12rem;
-		overflow-y: auto;
-	}
-
-	.connection-tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.375rem;
-	}
-
-	.connection-tag {
-		padding: 0.125rem 0.5rem;
-		border-radius: var(--radius-full);
-		font-size: var(--text-xs);
-		background: var(--color-surface-100);
-		color: var(--color-gray-700);
-		border: 1px solid var(--color-surface-300);
-		cursor: pointer;
-		transition: all var(--transition-fast);
-	}
-
-	.connection-tag:hover {
-		background: var(--color-secondary-50);
-		border-color: var(--color-secondary-300);
-		color: var(--color-secondary-700);
-	}
-
-	:global(.dark) .connection-tag {
-		background: var(--color-surface-dark-elevated);
-		color: var(--color-gray-300);
-		border-color: rgba(255, 255, 255, 0.08);
-	}
-
-	:global(.dark) .connection-tag:hover {
-		background: color-mix(in srgb, var(--color-secondary-400) 15%, var(--color-surface-dark-base));
-		border-color: color-mix(in srgb, var(--color-secondary-400) 40%, transparent);
-		color: var(--color-secondary-300);
+	:global(.dark) .tooltip-seed {
+		color: var(--color-secondary-400);
 	}
 </style>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Participant } from '$lib/types/participant';
-	import { SvelteMap, createSubscriber } from 'svelte/reactivity';
+	import { SvelteMap } from 'svelte/reactivity';
+	import { useDarkMode } from '$lib/utils/dark-mode.svelte';
 
 	interface Props {
 		participants: Participant[];
@@ -13,32 +14,8 @@
 	let tileLayer: any;
 	let mapReady = $state(false);
 
-	// Create reactive dark mode detection using createSubscriber
-	const darkModeSubscriber = createSubscriber((update) => {
-		if (typeof window === 'undefined') return;
-
-		const observer = new MutationObserver((mutations) => {
-			for (const mutation of mutations) {
-				if (mutation.attributeName === 'class') {
-					update();
-				}
-			}
-		});
-
-		observer.observe(document.documentElement, {
-			attributes: true,
-			attributeFilter: ['class']
-		});
-
-		return () => observer.disconnect();
-	});
-
-	// Reactive dark mode getter
-	let isDarkMode = $derived.by(() => {
-		if (typeof window === 'undefined') return false;
-		darkModeSubscriber(); // Subscribe to changes
-		return document.documentElement.classList.contains('dark');
-	});
+	const darkMode = useDarkMode();
+	let isDarkMode = $derived(darkMode.isDark);
 
 	// Group participants by coordinates
 	let markerGroups = $derived.by(() => {
