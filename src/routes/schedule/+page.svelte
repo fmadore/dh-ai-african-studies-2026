@@ -113,6 +113,8 @@
 				return MessageCaptionOutline;
 			case "world-cafe":
 				return LightbulbOutline;
+			case "poster":
+				return ClipboardCheckOutline;
 			case "break":
 				return MugSaucerOutline;
 			case "social":
@@ -141,6 +143,12 @@
 					bg: "bg-amber-50 dark:bg-amber-900/20",
 					border: "border-l-4 border-amber-500",
 					icon: "text-amber-600 dark:text-amber-400",
+				};
+			case "poster":
+				return {
+					bg: "bg-violet-50 dark:bg-violet-900/20",
+					border: "border-l-4 border-violet-500",
+					icon: "text-violet-600 dark:text-violet-400",
 				};
 			case "break":
 				return {
@@ -212,7 +220,7 @@
 				>
 			</div>
 		</div>
-		<P class="text-caption stack-item-md">Last updated: 16 February 2026</P>
+		<P class="text-caption stack-item-md">Last updated: 18 February 2026</P>
 	</div>
 </section>
 

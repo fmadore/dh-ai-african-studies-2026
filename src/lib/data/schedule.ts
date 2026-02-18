@@ -5,7 +5,7 @@
  * Session types: plenary, subgroups, world-cafe, break, social
  */
 
-export type SessionType = 'plenary' | 'subgroups' | 'world-cafe' | 'break' | 'social';
+export type SessionType = 'plenary' | 'subgroups' | 'world-cafe' | 'poster' | 'break' | 'social';
 
 export interface ScheduleItem {
 	time: string;
@@ -156,11 +156,11 @@ export const schedule: DaySchedule[] = [
 				type: 'subgroups',
 				rooms: ['SR 5', 'SR 6', 'BRDT'],
 				description:
-					'The 4 groups reconvene in preparation for the World Café, focusing on concrete mechanisms for equitable partnerships, resource sharing, and knowledge exchange in DH and AI projects involving African contexts.',
+					'The 4 groups reconvene to focus on concrete mechanisms for equitable partnerships, resource sharing, and knowledge exchange in DH and AI projects involving African contexts, and prepare posters to present their findings.',
 				details: ['Each group works on exploring models for equitable research collaboration'],
 				deliverables: [
 					'Collection of key principles and practical mechanisms for equitable collaboration models',
-					"A flipchart poster summarising the group's key themes, questions, and discussion points to anchor their World Café table"
+					"A poster summarising the group's key themes, questions, and discussion points for the afternoon poster presentations"
 				]
 			},
 			{
@@ -171,14 +171,14 @@ export const schedule: DaySchedule[] = [
 			},
 			{
 				time: '14:30–16:00',
-				title: 'World Café',
-				type: 'world-cafe',
+				title: 'Poster Presentations',
+				description:
+					'Groups present posters developed during the morning session on equitable research collaboration models.',
+				type: 'poster',
 				rooms: ['SR 6'],
 				details: [
-					'Interactive discussion format where participants rotate between four thematic tables in three timed rounds (25 minutes each)',
-					'Each table is anchored by a table host who stays for the entire session, briefs newcomers on prior discussions, and captures key points',
-					'Participants build on the keywords and key pointers prepared during the small-group working sessions',
-					'Between rounds, participants disperse individually across tables to maximise cross-pollination of ideas'
+					'Each group presents their poster summarising key themes, questions, and discussion points on equitable collaboration',
+					'Followed by open discussion and feedback from all participants'
 				]
 			},
 			{
@@ -190,7 +190,7 @@ export const schedule: DaySchedule[] = [
 				time: '16:30–17:15',
 				title: 'Day Two Synthesis: Group Work',
 				description:
-					'Small groups gather and prepare a short summary of key findings from World Café conversations',
+					'Small groups gather and prepare a short summary of key findings from poster presentations and discussions',
 				type: 'subgroups',
 				rooms: ['SR 6']
 			},
@@ -330,6 +330,10 @@ export const sessionTypes: Record<
 	'world-cafe': {
 		label: 'World Café',
 		colorClass: 'bg-amber-500'
+	},
+	poster: {
+		label: 'Poster Presentations',
+		colorClass: 'bg-violet-500'
 	},
 	break: {
 		label: 'Break',
