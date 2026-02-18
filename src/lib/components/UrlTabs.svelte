@@ -66,7 +66,7 @@
 	}
 </script>
 
-<Tabs {tabStyle} class={className} {contentClass}>
+<Tabs {tabStyle} class={className} classes={{ content: contentClass }}>
 	{#each tabs as tab (tab.id)}
 		{@const Icon = tab.icon}
 		<TabItem
