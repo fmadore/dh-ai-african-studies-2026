@@ -220,7 +220,7 @@
 				>
 			</div>
 		</div>
-		<P class="text-caption stack-item-md">Last updated: 18 February 2026</P>
+		<P class="text-caption stack-item-md">Last updated: 19 February 2026</P>
 	</div>
 </section>
 

@@ -152,14 +152,12 @@ export const schedule: DaySchedule[] = [
 			},
 			{
 				time: '11:30–13:00',
-				title: 'Exploring Models for Equitable Research Collaboration',
+				title: 'Working Groups Session',
 				type: 'subgroups',
 				rooms: ['SR 5', 'SR 6', 'BRDT'],
 				description:
-					'The 4 groups reconvene to focus on concrete mechanisms for equitable partnerships, resource sharing, and knowledge exchange in DH and AI projects involving African contexts, and prepare posters to present their findings.',
-				details: ['Each group works on exploring models for equitable research collaboration'],
+					'Working groups convene to discuss and prepare posters to present their findings.',
 				deliverables: [
-					'Collection of key principles and practical mechanisms for equitable collaboration models',
 					"A poster summarising the group's key themes, questions, and discussion points for the afternoon poster presentations"
 				]
 			},
