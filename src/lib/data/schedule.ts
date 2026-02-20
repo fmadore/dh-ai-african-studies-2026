@@ -253,7 +253,7 @@ export const schedule: DaySchedule[] = [
 				rooms: ['Festsaal']
 			},
 			{
-				time: '14:15–15:00',
+				time: '14:15–15:15',
 				title: 'Slides and Instructions for the Position Paper',
 				type: 'plenary',
 				facilitators: ['Frédérick Madore', 'Vincent Hiribarren'],
@@ -263,7 +263,7 @@ export const schedule: DaySchedule[] = [
 				]
 			},
 			{
-				time: '15:00–15:30',
+				time: '15:15–15:30',
 				title: 'Coffee Break',
 				type: 'break'
 			},
