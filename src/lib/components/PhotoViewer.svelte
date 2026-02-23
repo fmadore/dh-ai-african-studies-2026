@@ -261,7 +261,13 @@
 					<span class="lightbox-caption">{currentPhoto.caption}</span>
 				{/if}
 				{#if currentPhoto.photographer}
-					<span class="lightbox-credit">Photo: {currentPhoto.photographer}</span>
+					<span class="lightbox-credit">
+						{#if currentPhoto.photographerUrl}
+							Photo: <a href={currentPhoto.photographerUrl} target="_blank" rel="noopener noreferrer" class="lightbox-credit-link">{currentPhoto.photographer}</a>
+						{:else}
+							Photo: {currentPhoto.photographer}
+						{/if}
+					</span>
 				{/if}
 			</div>
 		{/if}
@@ -507,5 +513,16 @@
 	:global(.lightbox-credit) {
 		font-size: var(--text-xs);
 		color: rgba(255, 255, 255, 0.4);
+	}
+
+	:global(.lightbox-credit-link) {
+		color: rgba(255, 255, 255, 0.6);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+		transition: color var(--transition-fast);
+	}
+
+	:global(.lightbox-credit-link:hover) {
+		color: white;
 	}
 </style>

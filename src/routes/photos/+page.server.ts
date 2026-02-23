@@ -35,7 +35,9 @@ export const load: PageServerLoad = async () => {
 				id,
 				src: `/images/photos/${folder}/${file}`,
 				alt: id.replace(/[_-]/g, ' ').trim(),
-				category
+				category,
+				photographer: 'Calum Houston',
+				photographerUrl: 'https://calumbrett.myportfolio.com/'
 			});
 		}
 	}

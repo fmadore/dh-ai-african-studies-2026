@@ -8,4 +8,5 @@ export interface Photo {
 	caption?: string;
 	category: PhotoCategory;
 	photographer?: string;
+	photographerUrl?: string;
 }

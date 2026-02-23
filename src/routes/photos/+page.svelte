@@ -78,6 +78,9 @@
 		<P class="text-lead mx-auto max-w-3xl animate-hero-subtitle">
 			Moments captured during the workshop on Digital Humanities and AI in African Studies, held 18–20 February 2026 in Hanover, Germany.
 		</P>
+		<P class="body-text-muted text-sm animate-hero-subtitle" style="animation-delay: 100ms;">
+			Photography by <a href="https://calumbrett.myportfolio.com/" target="_blank" rel="noopener noreferrer" class="link-secondary font-medium">Calum Houston</a>
+		</P>
 	</div>
 </section>
 
