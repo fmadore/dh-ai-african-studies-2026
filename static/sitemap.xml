@@ -43,12 +43,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://fmadore.github.io/dh-ai-african-studies-2026/practical-info</loc>
-    <lastmod>2026-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://fmadore.github.io/dh-ai-african-studies-2026/position-paper</loc>
     <lastmod>2026-01-30</lastmod>
     <changefreq>monthly</changefreq>
@@ -63,6 +57,12 @@
   <url>
     <loc>https://fmadore.github.io/dh-ai-african-studies-2026/concepts</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fmadore.github.io/dh-ai-african-studies-2026/photos</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

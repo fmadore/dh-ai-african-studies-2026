@@ -18,14 +18,14 @@
 		{ href: resolveAppPath("/participants"), label: "Participants" },
 		{ href: resolveAppPath("/concepts"), label: "Concepts" },
 		{ href: resolveAppPath("/schedule"), label: "Schedule" },
-		{ href: resolveAppPath("/practical-info"), label: "Practical Info" },
 		{ href: resolveAppPath("/position-paper"), label: "Position Paper" },
 		{ href: resolveAppPath("/references"), label: "References" },
+		{ href: resolveAppPath("/photos"), label: "Photos" },
 	] as const;
 </script>
 
 <header class="bg-page py-3 padding-inline-lg relative z-(--z-overlay)">
-	<Navbar class="content-width-wide surface-panel surface-padding-xs">
+	<Navbar breakpoint="xl" class="content-width-wide surface-panel surface-padding-xs">
 		<NavBrand href={navLinks[0].href} class="logo-link">
 			<span
 				class="self-center whitespace-nowrap text-xl font-display font-bold tracking-tight text-gradient drop-shadow-md pb-1"
@@ -33,7 +33,7 @@
 				DH & AI in African Studies
 			</span>
 		</NavBrand>
-		<div class="flex md:order-2 gap-2">
+		<div class="flex xl:order-2 gap-2">
 			<ThemeToggle />
 			<NavHamburger class="nav-hamburger" />
 		</div>
@@ -68,7 +68,7 @@
 			transform var(--transition-base);
 	}
 
-	@media (max-width: 767px) {
+	@media (max-width: 1279px) {
 		:global(.nav-menu[hidden]) {
 			opacity: 0;
 			transform: translateY(-0.5rem);
