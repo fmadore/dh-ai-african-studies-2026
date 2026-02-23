@@ -215,12 +215,9 @@ function normalisePath(path: string): string {
 }
 
 function resolveCanonicalUrl(path: string): string {
-  try {
-    const url = new URL(path, ensureTrailingSlash(SITE_BASE_URL));
-    return ensureTrailingSlash(url.toString());
-  } catch {
-    return ensureTrailingSlash(`${ensureTrailingSlash(SITE_BASE_URL)}${path.replace(/^\//, '')}`);
-  }
+  const base = ensureTrailingSlash(SITE_BASE_URL);
+  const cleanPath = path === '/' ? '' : path.replace(/^\//, '');
+  return ensureTrailingSlash(`${base}${cleanPath}`);
 }
 
 function resolveAssetUrl(asset: string): string {
