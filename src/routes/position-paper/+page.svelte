@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card, Heading, P, Li, List } from "flowbite-svelte";
+	import { Card, Heading, P, Li, List, Alert } from "flowbite-svelte";
 	import { BookOpenOutline } from "flowbite-svelte-icons";
 	import {
 		createSeoMeta,
@@ -238,28 +238,24 @@
 			</P>
 		</div>
 
-		<div class="flex items-start gap-4 p-4 rounded-lg bg-secondary-50/50 dark:bg-secondary-900/20 border border-secondary-200 dark:border-secondary-800 max-w-3xl">
-			<div class="p-2 rounded-lg bg-secondary-100 dark:bg-secondary-800/50 shrink-0">
-				<BookOpenOutline class="w-5 h-5 text-accent" />
-			</div>
-			<div class="stack-xs">
-				<Heading tag="h3" class="heading-sub text-base"
-					>About ZMO Programmatic Texts</Heading
-				>
-				<P class="text-body-sm">
-					This <a
-						href="https://www.zmo.de/en/publications/translate-to-english-zmo-programmatic-texts"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="link-secondary">series</a> publishes conceptual articles engaging with
-					interdisciplinary and inter-regional research conducted at
-					the <a
-						href="https://www.zmo.de/en"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="link-secondary">Leibniz-Zentrum Moderner Orient</a>.
-				</P>
-			</div>
-		</div>
+		<Alert color="teal" class="max-w-3xl">
+			{#snippet icon()}
+				<BookOpenOutline class="w-5 h-5" />
+			{/snippet}
+			<span class="font-semibold">About ZMO Programmatic Texts</span>
+			<p class="mt-1 text-sm">
+				This <a
+					href="https://www.zmo.de/en/publications/translate-to-english-zmo-programmatic-texts"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="font-medium underline hover:no-underline">series</a> publishes conceptual articles engaging with
+				interdisciplinary and inter-regional research conducted at
+				the <a
+					href="https://www.zmo.de/en"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="font-medium underline hover:no-underline">Leibniz-Zentrum Moderner Orient</a>.
+			</p>
+		</Alert>
 	</div>
 </section>

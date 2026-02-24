@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ConceptNode, ConceptGroup } from '$lib/types/concept-graph';
+	import { SearchOutline } from 'flowbite-svelte-icons';
 
 	interface Props {
 		nodes: ConceptNode[];
@@ -61,10 +62,7 @@
 
 <div class="search-bar">
 	<div class="search-input-wrapper">
-		<svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-			<circle cx="6.5" cy="6.5" r="4.5" />
-			<line x1="10" y1="10" x2="14.5" y2="14.5" />
-		</svg>
+		<SearchOutline class="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" aria-hidden="true" />
 		<input
 			bind:this={searchInputEl}
 			type="text"
@@ -127,13 +125,6 @@
 		position: relative;
 		display: flex;
 		align-items: center;
-	}
-
-	.search-icon {
-		position: absolute;
-		left: 0.625rem;
-		color: var(--color-gray-400);
-		pointer-events: none;
 	}
 
 	.search-input {

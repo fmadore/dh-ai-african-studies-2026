@@ -2,6 +2,8 @@
 	import type { ConceptNode, ConceptEdge, ConceptGraphData, ConceptGroup } from '$lib/types/concept-graph';
 	import { useDarkMode } from '$lib/utils/dark-mode.svelte';
 	import { GROUP_COLORS, ALL_GROUPS, getNodeRadius } from './concept-graph/graph-config';
+	import { Spinner } from 'flowbite-svelte';
+	import { CloseOutline, PlusOutline, MinusOutline, ExpandOutline, CompressOutline } from 'flowbite-svelte-icons';
 	import GraphSearch from './concept-graph/GraphSearch.svelte';
 	import GraphDetailPanel from './concept-graph/GraphDetailPanel.svelte';
 	import GraphFilters from './concept-graph/GraphFilters.svelte';
@@ -412,7 +414,7 @@
 	<div class="graph-canvas card-surface" class:has-selection={selectedNode !== null}>
 		{#if !simulationReady}
 			<div class="loading-overlay">
-				<div class="loading-spinner"></div>
+				<Spinner size="8" color="teal" />
 				<p class="body-text-muted">Building concept network...</p>
 			</div>
 		{/if}
@@ -519,25 +521,17 @@
 			>
 				<span class="selection-pill-dot" style="background-color: {getNodeColor(selectedNode.group)}"></span>
 				<span class="selection-pill-label">{selectedNode.label}</span>
-				<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-					<line x1="3" y1="3" x2="11" y2="11" />
-					<line x1="11" y1="3" x2="3" y2="11" />
-				</svg>
+				<CloseOutline class="w-3.5 h-3.5" aria-hidden="true" />
 			</button>
 		{/if}
 
 		<!-- Graph controls -->
 		<div class="graph-controls">
 			<button class="control-btn" onclick={zoomIn} aria-label="Zoom in" title="Zoom in">
-				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-					<line x1="8" y1="3" x2="8" y2="13" />
-					<line x1="3" y1="8" x2="13" y2="8" />
-				</svg>
+				<PlusOutline class="w-4 h-4" />
 			</button>
 			<button class="control-btn" onclick={zoomOut} aria-label="Zoom out" title="Zoom out">
-				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-					<line x1="3" y1="8" x2="13" y2="8" />
-				</svg>
+				<MinusOutline class="w-4 h-4" />
 			</button>
 			<button class="control-btn" onclick={recenter} aria-label="Recenter graph" title="Recenter">
 				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
@@ -550,15 +544,9 @@
 			</button>
 			<button class="control-btn" onclick={toggleFullscreen} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
 				{#if isFullscreen}
-					<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-						<polyline points="6,1 6,6 1,6" />
-						<polyline points="10,15 10,10 15,10" />
-					</svg>
+					<CompressOutline class="w-4 h-4" />
 				{:else}
-					<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-						<polyline points="1,6 1,1 6,1" />
-						<polyline points="15,10 15,15 10,15" />
-					</svg>
+					<ExpandOutline class="w-4 h-4" />
 				{/if}
 			</button>
 		</div>
@@ -750,20 +738,6 @@
 		z-index: 2;
 	}
 
-	.loading-spinner {
-		width: 2rem;
-		height: 2rem;
-		border: 3px solid var(--color-surface-300);
-		border-top-color: var(--color-secondary-500);
-		border-radius: var(--radius-full);
-		animation: spin 0.8s linear infinite;
-	}
-
-	:global(.dark) .loading-spinner {
-		border-color: var(--color-surface-dark-overlay);
-		border-top-color: var(--color-secondary-400);
-	}
-
 	@keyframes spin {
 		to {
 			transform: rotate(360deg);
@@ -859,12 +833,12 @@
 		text-overflow: ellipsis;
 	}
 
-	.selection-pill svg {
+	.selection-pill :global(svg) {
 		flex-shrink: 0;
 		opacity: 0.5;
 	}
 
-	.selection-pill:hover svg {
+	.selection-pill:hover :global(svg) {
 		opacity: 1;
 	}
 

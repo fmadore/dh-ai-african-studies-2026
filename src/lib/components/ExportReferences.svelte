@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Spinner } from 'flowbite-svelte';
+	import { Button, Dropdown, DropdownItem, Spinner } from 'flowbite-svelte';
 	import { DownloadOutline, ChevronDownOutline } from 'flowbite-svelte-icons';
 
 	interface Props {
@@ -10,15 +10,6 @@
 	let { references, filename = 'references' }: Props = $props();
 
 	let isExporting = $state(false);
-	let dropdownOpen = $state(false);
-
-	function toggleDropdown() {
-		dropdownOpen = !dropdownOpen;
-	}
-
-	function closeDropdown() {
-		dropdownOpen = false;
-	}
 
 	// Format date as YYYY-MM-DD from CSL date-parts
 	function formatDate(issued: any): string | null {
@@ -257,7 +248,6 @@
 		if (references.length === 0) return;
 
 		isExporting = true;
-		dropdownOpen = false;
 
 		try {
 			let content: string;
@@ -291,58 +281,30 @@
 		}
 	}
 
-	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'Escape') {
-			closeDropdown();
-		}
-	}
 </script>
 
-<svelte:window onclick={(e) => {
-	const target = e.target as HTMLElement;
-	if (!target.closest('.export-dropdown')) {
-		closeDropdown();
-	}
-}} onkeydown={handleKeydown} />
-
-<div class="export-dropdown relative inline-block">
-	<Button
-		color="light"
-		size="sm"
-		class="font-medium"
-		disabled={isExporting || references.length === 0}
-		onclick={toggleDropdown}
-	>
-		{#if isExporting}
-			<Spinner size="4" class="mr-2" />
-			Exporting...
-		{:else}
-			<DownloadOutline class="w-4 h-4 mr-2" />
-			Export to Zotero
-			<ChevronDownOutline class="w-3 h-3 ml-1" />
-		{/if}
-	</Button>
-
-	{#if dropdownOpen}
-		<div
-			class="absolute left-0 mt-1 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-[100]"
-		>
-			<button
-				type="button"
-				class="w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 rounded-t-lg transition-colors"
-				onclick={() => exportToFormat('bibtex')}
-			>
-				<span class="block font-medium text-gray-900 dark:text-white">BibTeX (.bib)</span>
-				<span class="block text-xs text-gray-500 dark:text-gray-400">Best for LaTeX users</span>
-			</button>
-			<button
-				type="button"
-				class="w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 rounded-b-lg transition-colors border-t border-gray-200 dark:border-gray-700"
-				onclick={() => exportToFormat('ris')}
-			>
-				<span class="block font-medium text-gray-900 dark:text-white">RIS (.ris)</span>
-				<span class="block text-xs text-gray-500 dark:text-gray-400">Universal format</span>
-			</button>
-		</div>
+<Button
+	color="light"
+	size="sm"
+	class="font-medium"
+	disabled={isExporting || references.length === 0}
+>
+	{#if isExporting}
+		<Spinner size="4" class="mr-2" />
+		Exporting...
+	{:else}
+		<DownloadOutline class="w-4 h-4 mr-2" />
+		Export to Zotero
+		<ChevronDownOutline class="w-3 h-3 ml-1" />
 	{/if}
-</div>
+</Button>
+<Dropdown simple class="w-48 z-[100]">
+	<DropdownItem onclick={() => exportToFormat('bibtex')}>
+		<span class="block font-medium text-gray-900 dark:text-white">BibTeX (.bib)</span>
+		<span class="block text-xs text-gray-500 dark:text-gray-400">Best for LaTeX users</span>
+	</DropdownItem>
+	<DropdownItem onclick={() => exportToFormat('ris')}>
+		<span class="block font-medium text-gray-900 dark:text-white">RIS (.ris)</span>
+		<span class="block text-xs text-gray-500 dark:text-gray-400">Universal format</span>
+	</DropdownItem>
+</Dropdown>

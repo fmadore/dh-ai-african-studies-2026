@@ -2,7 +2,8 @@
 	import type { Photo, PhotoCategory } from '$lib/types/photo';
 	import { resolveAssetPath } from '$lib/utils/paths';
 	import { reveal } from '$lib/utils/reveal';
-	import { Heading, P } from 'flowbite-svelte';
+	import { Heading, P, Button } from 'flowbite-svelte';
+	import { CloseOutline, ChevronLeftOutline, ChevronRightOutline, ImageOutline, CameraPhotoOutline } from 'flowbite-svelte-icons';
 
 	let {
 		photos,
@@ -60,6 +61,33 @@
 		else if (e.key === 'ArrowRight') nextPhoto();
 	}
 
+	// Touch swipe support for mobile lightbox navigation
+	let touchStartX = $state(0);
+	let touchStartY = $state(0);
+	let isSwiping = $state(false);
+
+	function handleTouchStart(e: TouchEvent) {
+		if (!lightboxOpen || filteredPhotos.length <= 1) return;
+		touchStartX = e.touches[0].clientX;
+		touchStartY = e.touches[0].clientY;
+		isSwiping = true;
+	}
+
+	function handleTouchEnd(e: TouchEvent) {
+		if (!isSwiping) return;
+		isSwiping = false;
+		const touchEndX = e.changedTouches[0].clientX;
+		const touchEndY = e.changedTouches[0].clientY;
+		const deltaX = touchEndX - touchStartX;
+		const deltaY = touchEndY - touchStartY;
+
+		// Only trigger if horizontal swipe is dominant and exceeds threshold
+		if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+			if (deltaX < 0) nextPhoto();
+			else prevPhoto();
+		}
+	}
+
 	// Body scroll lock + focus trap
 	$effect(() => {
 		if (lightboxOpen) {
@@ -102,25 +130,27 @@
 
 <!-- Category filter pills -->
 <div class="flex flex-wrap gap-2 justify-center" role="tablist" aria-label="Photo categories">
-	<button
-		role="tab"
-		aria-selected={activeCategory === 'All'}
-		class="filter-pill {activeCategory === 'All' ? 'filter-pill-active' : ''}"
+	<Button
+		pill
+		size="sm"
+		color={activeCategory === 'All' ? 'secondary' : 'alternative'}
+		outline={activeCategory === 'All'}
 		onclick={() => setCategory('All')}
 	>
-		All <span class="filter-pill-count">{categoryCounts.All}</span>
-	</button>
+		All <span class="text-xs opacity-60 ml-1">{categoryCounts.All}</span>
+	</Button>
 	{#each categories as cat (cat)}
 		{@const count = categoryCounts[cat] ?? 0}
 		{#if count > 0}
-			<button
-				role="tab"
-				aria-selected={activeCategory === cat}
-				class="filter-pill {activeCategory === cat ? 'filter-pill-active' : ''}"
+			<Button
+				pill
+				size="sm"
+				color={activeCategory === cat ? 'secondary' : 'alternative'}
+				outline={activeCategory === cat}
 				onclick={() => setCategory(cat)}
 			>
-				{cat} <span class="filter-pill-count">{count}</span>
-			</button>
+				{cat} <span class="text-xs opacity-60 ml-1">{count}</span>
+			</Button>
 		{/if}
 	{/each}
 </div>
@@ -163,9 +193,7 @@
 {:else}
 	<div class="text-center padding-block-xl card-surface surface-padding border border-dashed border-gray-300 dark:border-gray-700">
 		<div class="stack-sm flex flex-col items-center">
-			<svg class="w-12 h-12 text-surface-400 dark:text-surface-dark-overlay" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
-			</svg>
+			<ImageOutline class="w-12 h-12 text-surface-400 dark:text-surface-dark-overlay" />
 			<Heading tag="h4" class="text-lg font-medium body-text-strong">No photos in this category yet</Heading>
 			<P class="text-sm body-text-muted max-w-xs mx-auto">
 				Photos will be added here soon. Check back later!
@@ -208,14 +236,17 @@
 				onclick={closeLightbox}
 				aria-label="Close photo viewer"
 			>
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-				</svg>
+				<CloseOutline class="w-5 h-5" />
 			</button>
 		</div>
 
 		<!-- Navigation + image area -->
-		<div class="lightbox-stage">
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="lightbox-stage"
+			ontouchstart={handleTouchStart}
+			ontouchend={handleTouchEnd}
+		>
 			{#if filteredPhotos.length > 1}
 				<button
 					type="button"
@@ -223,9 +254,7 @@
 					onclick={prevPhoto}
 					aria-label="Previous photo"
 				>
-					<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-					</svg>
+					<ChevronLeftOutline class="w-6 h-6" />
 				</button>
 			{/if}
 
@@ -246,9 +275,7 @@
 					onclick={nextPhoto}
 					aria-label="Next photo"
 				>
-					<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-					</svg>
+					<ChevronRightOutline class="w-6 h-6" />
 				</button>
 			{/if}
 		</div>
@@ -275,57 +302,6 @@
 {/if}
 
 <style>
-	/* Filter pills */
-	.filter-pill {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.375rem;
-		padding: var(--space-xs) var(--space-md);
-		border-radius: var(--radius-full);
-		font-size: var(--text-sm);
-		font-weight: var(--font-weight-medium);
-		border: 1px solid var(--color-gray-200);
-		background: var(--color-gray-50);
-		color: var(--color-gray-700);
-		cursor: pointer;
-		transition: all var(--transition-fast);
-	}
-
-	:global(.dark) .filter-pill {
-		border-color: var(--color-gray-700);
-		background: var(--color-gray-800);
-		color: var(--color-gray-300);
-	}
-
-	.filter-pill:hover {
-		border-color: var(--color-secondary-300);
-		color: var(--color-secondary-700);
-	}
-
-	:global(.dark) .filter-pill:hover {
-		border-color: var(--color-secondary-600);
-		color: var(--color-secondary-300);
-	}
-
-	.filter-pill-active {
-		background: var(--color-secondary-100);
-		border-color: var(--color-secondary-300);
-		color: var(--color-secondary-800);
-		box-shadow: var(--shadow-secondary);
-	}
-
-	:global(.dark) .filter-pill-active {
-		background: rgba(13, 148, 136, 0.15);
-		border-color: var(--color-secondary-600);
-		color: var(--color-secondary-200);
-		box-shadow: var(--shadow-dark-glow-secondary);
-	}
-
-	.filter-pill-count {
-		font-size: var(--text-xs);
-		opacity: 0.6;
-	}
-
 	/* Grid */
 	.photo-grid {
 		display: grid;
@@ -462,7 +438,9 @@
 
 	@media (max-width: 640px) {
 		:global(.lightbox-nav) {
-			display: none;
+			width: 2.25rem;
+			height: 2.25rem;
+			opacity: 0.6;
 		}
 		:global(.lightbox-stage) {
 			padding: 0 var(--space-xs);

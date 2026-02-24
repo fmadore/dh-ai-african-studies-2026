@@ -1,13 +1,10 @@
 <script lang="ts">
-	import { Label, Input, Checkbox, Select } from "flowbite-svelte";
+	import { Label, Checkbox, Select, Accordion, AccordionItem } from "flowbite-svelte";
 	import {
 		FilterOutline,
 		SearchOutline,
 		CloseOutline,
-		ChevronDownOutline,
-		ChevronUpOutline,
 	} from "flowbite-svelte-icons";
-	import { slide } from "svelte/transition";
 	import { formatType, formatLanguage } from "$lib/utils/formatters";
 
 	interface Props {
@@ -35,14 +32,6 @@
 		closeLabel = "Close filters",
 		onclose,
 	}: Props = $props();
-
-	// Collapsible section state
-	let sectionsOpen = $state({
-		type: true,
-		keywords: true,
-		language: true,
-		year: false,
-	});
 
 	// Keyword search filter
 	let keywordSearch = $state("");
@@ -121,10 +110,6 @@
 	function handleClose() {
 		onclose?.();
 	}
-
-	function toggleSection(section: keyof typeof sectionsOpen) {
-		sectionsOpen[section] = !sectionsOpen[section];
-	}
 </script>
 
 <div class="card-surface p-5 sm:p-6">
@@ -182,61 +167,36 @@
 			/>
 		</div>
 
-		<!-- Type Filter -->
-		{#if availableTypes.length > 0}
-			<div class="pt-3 border-t border-gray-200 dark:border-gray-700">
-				<button
-					onclick={() => toggleSection('type')}
-					class="flex items-center justify-between w-full py-1 text-left group"
-				>
-					<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Type</span>
-					{#if sectionsOpen.type}
-						<ChevronUpOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
-					{:else}
-						<ChevronDownOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
-					{/if}
-				</button>
-				{#if sectionsOpen.type}
-					<div class="mt-3 space-y-2" transition:slide={{ duration: 200 }}>
+		<!-- Filter Sections -->
+		<Accordion multiple class="facets-accordion">
+			{#if availableTypes.length > 0}
+				<AccordionItem open>
+					{#snippet header()}
+						<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Type</span>
+					{/snippet}
+					<div class="space-y-2">
 						{#each availableTypes as type (type)}
-							<label class="flex items-center gap-2.5 cursor-pointer group">
-								<input
-									type="checkbox"
-									bind:group={selectedTypes}
-									value={type}
-									class="w-4 h-4 text-secondary-600 bg-white border-gray-300 rounded focus:ring-secondary-500 dark:focus:ring-secondary-400 dark:bg-gray-700 dark:border-gray-600"
-								/>
-								<span class="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200">{formatType(type)}</span>
-							</label>
+							<Checkbox color="teal" bind:group={selectedTypes} value={type}>
+								<span class="text-sm text-gray-600 dark:text-gray-400">{formatType(type)}</span>
+							</Checkbox>
 						{/each}
 					</div>
-				{/if}
-			</div>
-		{/if}
+				</AccordionItem>
+			{/if}
 
-		<!-- Keywords Filter -->
-		{#if availableTags.length > 0}
-			<div class="pt-3 border-t border-gray-200 dark:border-gray-700">
-				<button
-					onclick={() => toggleSection('keywords')}
-					class="flex items-center justify-between w-full py-1 text-left group"
-				>
-					<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">
-						Keywords
-						{#if selectedTags.length > 0}
-							<span class="ml-1.5 px-1.5 py-0.5 text-xs font-medium bg-secondary-100 text-secondary-700 dark:bg-secondary-900/40 dark:text-secondary-300 rounded">
-								{selectedTags.length}
-							</span>
-						{/if}
-					</span>
-					{#if sectionsOpen.keywords}
-						<ChevronUpOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
-					{:else}
-						<ChevronDownOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
-					{/if}
-				</button>
-				{#if sectionsOpen.keywords}
-					<div class="mt-3 space-y-3" transition:slide={{ duration: 200 }}>
+			{#if availableTags.length > 0}
+				<AccordionItem open>
+					{#snippet header()}
+						<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+							Keywords
+							{#if selectedTags.length > 0}
+								<span class="ml-1.5 px-1.5 py-0.5 text-xs font-medium bg-secondary-100 text-secondary-700 dark:bg-secondary-900/40 dark:text-secondary-300 rounded">
+									{selectedTags.length}
+								</span>
+							{/if}
+						</span>
+					{/snippet}
+					<div class="space-y-3">
 						<!-- Keyword search -->
 						<div class="relative">
 							<SearchOutline class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
@@ -250,15 +210,9 @@
 						<!-- Keywords list -->
 						<div class="max-h-52 overflow-y-auto space-y-1.5 pr-1 custom-scrollbar">
 							{#each filteredTags as tag (tag)}
-								<label class="flex items-center gap-2 cursor-pointer group">
-									<input
-										type="checkbox"
-										bind:group={selectedTags}
-										value={tag}
-										class="w-3.5 h-3.5 text-secondary-600 bg-white border-gray-300 rounded focus:ring-secondary-500 dark:focus:ring-secondary-400 dark:bg-gray-700 dark:border-gray-600"
-									/>
-									<span class="text-xs text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 truncate">{tag}</span>
-								</label>
+								<Checkbox color="teal" bind:group={selectedTags} value={tag}>
+									<span class="text-xs text-gray-600 dark:text-gray-400 truncate">{tag}</span>
+								</Checkbox>
 							{:else}
 								<p class="text-xs text-gray-400 dark:text-gray-500 italic py-1">No keywords match "{keywordSearch}"</p>
 							{/each}
@@ -269,77 +223,80 @@
 							</p>
 						{/if}
 					</div>
-				{/if}
-			</div>
-		{/if}
+				</AccordionItem>
+			{/if}
 
-		<!-- Language Filter -->
-		{#if availableLanguages.length > 0}
-			<div class="pt-3 border-t border-gray-200 dark:border-gray-700">
-				<button
-					onclick={() => toggleSection('language')}
-					class="flex items-center justify-between w-full py-1 text-left group"
-				>
-					<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Language</span>
-					{#if sectionsOpen.language}
-						<ChevronUpOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
-					{:else}
-						<ChevronDownOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
-					{/if}
-				</button>
-				{#if sectionsOpen.language}
-					<div class="mt-3 space-y-2" transition:slide={{ duration: 200 }}>
+			{#if availableLanguages.length > 0}
+				<AccordionItem open>
+					{#snippet header()}
+						<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Language</span>
+					{/snippet}
+					<div class="space-y-2">
 						{#each availableLanguages as language (language)}
-							<label class="flex items-center gap-2.5 cursor-pointer group">
-								<input
-									type="checkbox"
-									bind:group={selectedLanguages}
-									value={language}
-									class="w-4 h-4 text-secondary-600 bg-white border-gray-300 rounded focus:ring-secondary-500 dark:focus:ring-secondary-400 dark:bg-gray-700 dark:border-gray-600"
-								/>
-								<span class="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200">{formatLanguage(language)}</span>
-							</label>
+							<Checkbox color="teal" bind:group={selectedLanguages} value={language}>
+								<span class="text-sm text-gray-600 dark:text-gray-400">{formatLanguage(language)}</span>
+							</Checkbox>
 						{/each}
 					</div>
-				{/if}
-			</div>
-		{/if}
+				</AccordionItem>
+			{/if}
 
-		<!-- Year Filter -->
-		{#if availableYears.length > 0}
-			<div class="pt-3 border-t border-gray-200 dark:border-gray-700">
-				<button
-					onclick={() => toggleSection('year')}
-					class="flex items-center justify-between w-full py-1 text-left group"
-				>
-					<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Year</span>
-					{#if sectionsOpen.year}
-						<ChevronUpOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
-					{:else}
-						<ChevronDownOutline class="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
-					{/if}
-				</button>
-				{#if sectionsOpen.year}
-					<div class="mt-3 max-h-40 overflow-y-auto space-y-2 pr-1 custom-scrollbar" transition:slide={{ duration: 200 }}>
+			{#if availableYears.length > 0}
+				<AccordionItem>
+					{#snippet header()}
+						<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Year</span>
+					{/snippet}
+					<div class="max-h-40 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
 						{#each availableYears as year (year)}
-							<label class="flex items-center gap-2.5 cursor-pointer group">
-								<input
-									type="checkbox"
-									bind:group={selectedYears}
-									value={year}
-									class="w-4 h-4 text-secondary-600 bg-white border-gray-300 rounded focus:ring-secondary-500 dark:focus:ring-secondary-400 dark:bg-gray-700 dark:border-gray-600"
-								/>
-								<span class="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200">{year}</span>
-							</label>
+							<Checkbox color="teal" bind:group={selectedYears} value={year}>
+								<span class="text-sm text-gray-600 dark:text-gray-400">{year}</span>
+							</Checkbox>
 						{/each}
 					</div>
-				{/if}
-			</div>
-		{/if}
+				</AccordionItem>
+			{/if}
+		</Accordion>
 	</div>
 </div>
 
 <style>
+	/* Override default Accordion borders to blend with card-surface */
+	:global(.facets-accordion) {
+		border: none !important;
+		border-radius: 0 !important;
+	}
+
+	:global(.facets-accordion > div > h2 > button) {
+		padding: 0.75rem 0 !important;
+		background-color: transparent !important;
+		border: none !important;
+		border-top: 1px solid var(--color-gray-200) !important;
+		border-radius: 0 !important;
+	}
+
+	:global(.dark .facets-accordion > div > h2 > button) {
+		background-color: transparent !important;
+		border-top-color: var(--color-gray-700) !important;
+	}
+
+	:global(.facets-accordion > div > h2 > button:hover) {
+		background-color: transparent !important;
+	}
+
+	:global(.dark .facets-accordion > div > h2 > button:hover) {
+		background-color: transparent !important;
+	}
+
+	/* Remove body border and adjust padding */
+	:global(.facets-accordion > div > div:not(:first-child)) {
+		border: none !important;
+	}
+
+	:global(.facets-accordion > div > div:not(:first-child) > div) {
+		padding: 0.5rem 0 0.25rem !important;
+		border: none !important;
+	}
+
 	.custom-scrollbar::-webkit-scrollbar {
 		width: 5px;
 	}

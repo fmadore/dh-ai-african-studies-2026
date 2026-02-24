@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Heading, P, Card, Popover } from "flowbite-svelte";
+	import { Heading, P, Card, Popover, Alert } from "flowbite-svelte";
 	import {
 		CalendarMonthOutline,
 		MapPinAltOutline,
@@ -426,53 +426,26 @@
 										</ul>
 									{/if}
 									{#if item.deliverables && item.deliverables.length > 0}
-										<div
-											class="stack-item-sm p-sm rounded-lg bg-secondary-50 dark:bg-secondary-900/20 border border-secondary-200 dark:border-secondary-700/50"
-										>
-											<div
-												class="flex items-start gap-sm"
-											>
-												<ClipboardCheckOutline
-													class="size-icon-md text-accent shrink-0 mt-0.5"
-												/>
-												<div>
-													<span
-														class="font-semibold text-secondary-700 dark:text-secondary-300 text-body-sm"
-													>
-														{item.deliverables
-															.length > 1
-															? "Deliverables:"
-															: "Deliverable:"}
-													</span>
-													{#if item.deliverables.length === 1}
-														<p
-															class="text-body-sm text-accent stack-item-xs"
-														>
-															{item
-																.deliverables[0]}
-														</p>
-													{:else}
-														<ul
-															class="stack-item-xs stack-xs"
-														>
-															{#each item.deliverables as deliverable}
-																<li
-																	class="text-body-sm text-accent flex items-baseline gap-sm"
-																>
-																	<span
-																		class="text-secondary-500 shrink-0"
-																		>•</span
-																	>
-																	<span
-																		>{deliverable}</span
-																	>
-																</li>
-															{/each}
-														</ul>
-													{/if}
-												</div>
-											</div>
-										</div>
+										<Alert color="teal" class="stack-item-sm !p-3">
+											{#snippet icon()}
+												<ClipboardCheckOutline class="w-4 h-4" />
+											{/snippet}
+											<span class="font-semibold text-body-sm">
+												{item.deliverables.length > 1 ? "Deliverables:" : "Deliverable:"}
+											</span>
+											{#if item.deliverables.length === 1}
+												<p class="text-body-sm mt-1">{item.deliverables[0]}</p>
+											{:else}
+												<ul class="mt-1 space-y-1">
+													{#each item.deliverables as deliverable}
+														<li class="text-body-sm flex items-baseline gap-sm">
+															<span class="shrink-0">•</span>
+															<span>{deliverable}</span>
+														</li>
+													{/each}
+												</ul>
+											{/if}
+										</Alert>
 									{/if}
 								</div>
 							</div>
