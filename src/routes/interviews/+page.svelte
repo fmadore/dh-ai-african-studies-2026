@@ -22,7 +22,7 @@
 		{
 			participantName: 'Emmanuel Ngue Um',
 			affiliation: 'University of Yaoundé I',
-			youtubeId: '',
+			youtubeId: 'IpSY7i_bses',
 			topic: 'AI, Digital Humanities, and African Indigenous Languages',
 			description:
 				'Linguist Emmanuel Ngue Um discusses how artificial intelligence and digital humanities can help preserve and teach indigenous languages. He presents his work building language technology models — speech recognition, synthesis, and machine translation — to create digital teaching resources for local languages. Emmanuel explains how AI is accelerating linguistic research: large language models can use transfer learning to support low-resource languages with as little as one hour of recorded data. He also reflects on what AI\'s ability to process and replicate speech reveals about the nature of human language and cognition.'
