@@ -30,7 +30,7 @@
 		{
 			participantName: 'Duncan Money',
 			affiliation: 'Zambia Congress of Trade Unions (ZCTU) project',
-			youtubeId: '',
+			youtubeId: 'wZNZSDVfO-I',
 			topic: 'AI, Digitization, and Ownership of Archival Material',
 			description:
 				'Consulting historian and researcher Duncan Money discusses the practical challenges of digitisation work, which is labour-intensive and tedious yet requires careful attention to detail, and considers how AI could automate parts of the process. Drawing on his experience of digitising the Zambia Congress of Trade Unions archive, he reflects on the potential of AI to reduce the burden on project staff. He also raises critical questions about ownership. While agreements around physical and digital copies have been relatively straightforward to enforce, feeding archival material into large language models threatens to undermine established ownership arrangements. This creates unresolved challenges regarding how digitised material can be governed and used.'
@@ -38,7 +38,7 @@
 		{
 			participantName: 'Karen Byera Ijumba',
 			affiliation: 'Open Restitution Africa',
-			youtubeId: '',
+			youtubeId: 'uGettNm8W_s',
 			topic: 'Digital Tools for Restitution Process Data in Africa',
 			description:
 				'Karen Byera Ijumba presents Open Restitution Africa, a project that addresses gaps in the data on the restitution process by tracking the return of cultural artefacts, human remains and spirit representations taken from Africa to Europe. She explains how digital tools can be used to collect, consolidate and transparently manage dynamic datasets across countries and knowledge holders. Karen highlights the creative use of low-fi digital tools across the region, where researchers adapt everyday technologies like phones, Excel, and WordPress to produce accessible outputs despite limited resources. She also reflects on how the risks of digital temporality have inspired a context-responsive approach to digital humanities — one that embraces what digital interventions can achieve within their lifespan.'
