@@ -79,7 +79,13 @@
 			'AI',
 			'African Studies',
 			'Hanover',
-			'Workshop 2026'
+			'Workshop 2026',
+			'Emmanuel Ngue Um',
+			'Duncan Money',
+			'Karen Byera Ijumba',
+			'Fallou Ngom',
+			'Menno van Zaanen',
+			'Albrecht Hofheinz'
 		]
 	});
 
