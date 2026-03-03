@@ -42,6 +42,28 @@
 			topic: 'Digital Tools for Restitution Process Data in Africa',
 			description:
 				'Karen Byera Ijumba presents Open Restitution Africa, a project that addresses gaps in the data on the restitution process by tracking the return of cultural artefacts, human remains and spirit representations taken from Africa to Europe. She explains how digital tools can be used to collect, consolidate and transparently manage dynamic datasets across countries and knowledge holders. Karen highlights the creative use of low-fi digital tools across the region, where researchers adapt everyday technologies like phones, Excel, and WordPress to produce accessible outputs despite limited resources. She also reflects on how the risks of digital temporality have inspired a context-responsive approach to digital humanities — one that embraces what digital interventions can achieve within their lifespan.'
+		},
+		{
+			participantName: 'Fallou Ngom',
+			affiliation: 'Boston University',
+			youtubeId: '',
+			topic: '',
+			description: ''
+		},
+		{
+			participantName: 'Menno van Zaanen',
+			affiliation: 'South African Centre for Digital Language Resources',
+			youtubeId: '',
+			topic: 'Building Digital Language Resources for South Africa\'s Official Languages',
+			description:
+				'Digital humanities professor Menno van Zaanen discusses the challenges of collecting digital language resources for South Africa\'s 12 official languages, including sign language. He describes how data scarcity forces an opportunistic approach — scraping government websites, digitizing archives, and gathering social media content — while acknowledging the biases this introduces, since tools trained on government text perform poorly on literary or informal language. Menno raises critical questions about ownership and community consent, drawing on the example of sign language data collection, where researchers must resist the impulse to act on behalf of communities without first understanding what those communities actually want. He reflects on the difficult trade-offs between comprehensive, structured data collection and the practical need to secure whatever resources are available before they disappear from the digital space.'
+		},
+		{
+			participantName: 'Albrecht Hofheinz',
+			affiliation: 'University of Oslo',
+			youtubeId: '',
+			topic: '',
+			description: ''
 		}
 	];
 
