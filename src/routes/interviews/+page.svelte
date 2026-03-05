@@ -46,7 +46,7 @@
 		{
 			participantName: 'Fallou Ngom',
 			affiliation: 'Boston University',
-			youtubeId: '',
+			youtubeId: 'GXv8OQVLYk4',
 			topic: 'Digital Preservation of African Ajami Manuscripts',
 			description:
 				'Anthropologist Fallou Ngom discusses his work preserving Ajami manuscripts — African languages written with adapted forms of the Arabic script — that have been overlooked for centuries due to colonial definitions of literacy that recognise only European languages. He describes how digital tools have enabled him to build the African Ajami Library, containing over 30,000 pages in 11 languages, and to digitise more than 50,000 pages of classical Arabic and Ajami texts from Senegal and Fouta Djallon spanning the 18th to the 21st century. He also reflects on the challenges of uneven internet access and limited local training, and explains how his projects address the digital gap through knowledge transfer workshops and equipment donations. These multilingual sources fundamentally challenge dominant narratives about African literacy and enrich the African library.'
@@ -54,7 +54,7 @@
 		{
 			participantName: 'Menno van Zaanen',
 			affiliation: 'South African Centre for Digital Language Resources',
-			youtubeId: '',
+			youtubeId: 'yYB4dGN6h-M',
 			topic: 'Building Digital Language Resources for South Africa\'s Official Languages',
 			description:
 				'Digital humanities professor Menno van Zaanen discusses the challenges of collecting digital language resources for South Africa\'s 12 official languages, including sign language. He describes how data scarcity necessitates an opportunistic approach involving the scraping of government websites, the digitisation of archives and the gathering of social media content, while also acknowledging the biases this introduces. This is because tools trained on government text perform poorly on literary or informal language. He raises critical questions about ownership and community consent, using sign language data collection as an example. Here, researchers must resist the impulse to act on behalf of communities without first understanding what they actually want. He reflects on the difficult trade-offs between comprehensive, structured data collection and the practical need to secure whatever resources are available before they disappear from the digital space.'
