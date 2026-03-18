@@ -63,7 +63,7 @@
 			participantName: 'Albrecht Hofheinz',
 			affiliation: 'University of Oslo',
 			youtubeId: '',
-			topic: 'Using OCR and AI to Unlock Arabic Manuscript Collections',
+			topic: 'Leveraging OCR and AI to Explore Arabic Manuscript Collections',
 			description:
 				'Middle East studies and Arabic scholar Albrecht Hofheinz discusses how he combines Google\'s optical character recognition with large language models (LLMs) to process collections of Arabic handwritten manuscripts at scale. He explains that training handwritten text recognition on individual hands is not feasible for single-page documents, and that untrained OCR alone produces only 20 to 60 percent correct words. Yet by feeding these imperfect results into reasoning LLMs, he now obtains detailed automated summaries that help him identify which documents warrant closer human inspection. He reflects on the ethical dilemma of submitting manuscript images to commercial APIs and notes that while reasoning LLMs can sometimes catch contextual errors, human vetting remains essential.'
 		}
