@@ -301,7 +301,7 @@
 
 			<div class="mt-6">
 				<Timeline>
-					{#each workStreams as stream}
+					{#each workStreams as stream (stream.id)}
 						<TimelineItem
 							title={`Work Stream ${stream.id}: ${stream.title}`}
 							date=""

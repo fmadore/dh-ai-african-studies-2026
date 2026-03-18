@@ -389,7 +389,7 @@
 													<MapPinAltOutline
 														class="size-icon-sm text-secondary-500 dark:text-secondary-400"
 													/>
-													{#each item.rooms as room}
+													{#each item.rooms as room (room)}
 														<span
 															class="px-sm py-xs rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300"
 														>
@@ -402,7 +402,7 @@
 									{/if}
 									{#if item.details && item.details.length > 0}
 										<ul class="stack-xs stack-item-sm">
-											{#each item.details as detail}
+											{#each item.details as detail (detail)}
 												<li
 													class="body-text flex items-baseline gap-sm text-body-sm"
 												>
@@ -437,7 +437,7 @@
 												<p class="text-body-sm mt-1">{item.deliverables[0]}</p>
 											{:else}
 												<ul class="mt-1 space-y-1">
-													{#each item.deliverables as deliverable}
+													{#each item.deliverables as deliverable (deliverable)}
 														<li class="text-body-sm flex items-baseline gap-sm">
 															<span class="shrink-0">•</span>
 															<span>{deliverable}</span>

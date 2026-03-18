@@ -253,7 +253,7 @@
 					<!-- Active Filters Display (Mobile/Desktop) -->
 					{#if activeFiltersCount > 0}
 						<div class="hidden sm:flex gap-2 flex-wrap justify-end">
-							{#each selectedTypes as type}
+							{#each selectedTypes as type (type)}
 								<Badge color="primary" class="flex items-center gap-1 pr-1">
 									{type.replace('-', ' ')}
 									<button type="button" onclick={() => selectedTypes = selectedTypes.filter(t => t !== type)} class="text-primary-300 hover:text-primary-700 dark:hover:text-primary-200">
@@ -261,7 +261,7 @@
 									</button>
 								</Badge>
 							{/each}
-							{#each selectedTags as tag}
+							{#each selectedTags as tag (tag)}
 								<Badge color="teal" class="flex items-center gap-1 pr-1">
 									{tag}
 									<button type="button" onclick={() => selectedTags = selectedTags.filter(t => t !== tag)} class="text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-200">
@@ -269,7 +269,7 @@
 									</button>
 								</Badge>
 							{/each}
-						{#each selectedYears as year}
+						{#each selectedYears as year (year)}
 							<Badge color="gray" class="flex items-center gap-1 pr-1">
 								{year}
 								<button type="button" onclick={() => selectedYears = selectedYears.filter(y => y !== year)} class="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
@@ -277,7 +277,7 @@
 								</button>
 							</Badge>
 						{/each}
-						{#each selectedLanguages as lang}
+						{#each selectedLanguages as lang (lang)}
 							<Badge color="purple" class="flex items-center gap-1 pr-1">
 								{formatLanguage(lang)}
 								<button type="button" onclick={() => selectedLanguages = selectedLanguages.filter(l => l !== lang)} class="text-purple-400 hover:text-purple-700 dark:hover:text-purple-300">
@@ -364,7 +364,7 @@
 									<div class="pt-4 mt-2 border-t border-surface-300 dark:border-surface-dark-elevated flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 										<div class="flex flex-wrap gap-2">
 											{#if ref.tags && ref.tags.length > 0}
-												{#each ref.tags as tag}
+												{#each ref.tags as tag (tag)}
 													<button
 														type="button"
 														onclick={() => toggleTagFilter(tag)}
