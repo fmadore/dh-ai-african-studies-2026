@@ -5,9 +5,9 @@
 		node: ConceptNode;
 		neighbors: string[];
 		isMobile: boolean;
-		getNodeColor: (group: ConceptGroup) => string;
+		getNodeColor: (_group: ConceptGroup) => string;
 		onclose: () => void;
-		onnavigate: (nodeId: string) => void;
+		onnavigate: (_nodeId: string) => void;
 	}
 
 	let { node, neighbors, isMobile, getNodeColor, onclose, onnavigate }: Props = $props();

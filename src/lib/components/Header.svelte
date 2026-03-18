@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Navbar, NavBrand } from "flowbite-svelte";
 	import { page } from "$app/state";
 	import ThemeToggle from "./ThemeToggle.svelte";
 	import { resolveAppPath } from "$lib/utils/paths";

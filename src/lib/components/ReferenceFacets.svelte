@@ -60,7 +60,7 @@
 	});
 
 	let availableTags = $derived.by(() => {
-		const tags = new Set<string>();
+		const tags = new Set<string>(); // eslint-disable-line svelte/prefer-svelte-reactivity
 		references.forEach((r) => {
 			if (r.tags && Array.isArray(r.tags)) {
 				r.tags.forEach((t: string) => {

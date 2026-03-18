@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Heading, P, Badge, Button } from 'flowbite-svelte';
 	import { SearchOutline, CloseOutline, FilterOutline } from 'flowbite-svelte-icons';
-	import { createSeoMeta, createEventJsonLd, createWebPageJsonLd, serializeJsonLd } from '$lib/utils/seo';
+	import { createSeoMeta, createEventJsonLd, createWebPageJsonLd, jsonLdScript } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import referencesData from '$lib/data/references.json';
 	import { fade, slide } from 'svelte/transition';
@@ -130,7 +130,7 @@
 	}
 
 	function toggleReference(id: string) {
-		const newSet = new Set(expandedReferences);
+		const newSet = new Set(expandedReferences); // eslint-disable-line svelte/prefer-svelte-reactivity
 		if (newSet.has(id)) {
 			newSet.delete(id);
 		} else {
@@ -171,8 +171,8 @@
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
-	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
-	{@html `<script type="application/ld+json">${serializeJsonLd(webPageJsonLd)}</script>`}
+	{@html jsonLdScript(eventJsonLd)}
+	{@html jsonLdScript(webPageJsonLd)}
 </svelte:head>
 
 <section class="bg-page min-h-screen padding-block-section padding-inline-section relative overflow-hidden">

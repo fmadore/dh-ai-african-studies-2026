@@ -42,7 +42,7 @@
 	let tooltipY = $state(0);
 
 	// Track references for programmatic control
-	let simulationRef: any = null;
+	let _simulationRef: any = null;
 	let zoomBehaviorRef: any = null;
 	let svgSelectionRef: any = null;
 	let d3ZoomModuleRef: any = null;
@@ -64,7 +64,7 @@
 	let spotlightNode = $derived(hoveredNode ?? selectedNode);
 	let spotlightNeighborIds = $derived.by(() => {
 		if (!spotlightNode) return new Set<string>();
-		const ids = new Set<string>();
+		const ids = new Set<string>(); // eslint-disable-line svelte/prefer-svelte-reactivity
 		ids.add(spotlightNode.id);
 		for (const e of simEdges) {
 			const srcId = typeof e.source === 'string' ? e.source : e.source.id;
@@ -215,7 +215,7 @@
 				.force('x', d3Force.forceX(width / 2).strength(0.02))
 				.force('y', d3Force.forceY(height / 2).strength(0.02));
 
-			simulationRef = simulation;
+			_simulationRef = simulation;
 
 			simulation.on('end', () => {
 				simulationReady = true;
@@ -297,7 +297,7 @@
 			return () => {
 				destroyed = true;
 				simulation.stop();
-				simulationRef = null;
+				_simulationRef = null;
 				zoomBehaviorRef = null;
 				svgSelectionRef = null;
 				d3ZoomModuleRef = null;
@@ -322,7 +322,7 @@
 
 	// --- Group toggle ---
 	function toggleGroup(group: ConceptGroup) {
-		const next = new Set(activeGroups);
+		const next = new Set(activeGroups); // eslint-disable-line svelte/prefer-svelte-reactivity
 		if (next.has(group)) {
 			if (next.size > 1) next.delete(group);
 		} else {

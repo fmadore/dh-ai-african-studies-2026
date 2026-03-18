@@ -3,7 +3,7 @@
 	import ConceptGraph from '$lib/components/ConceptGraph.svelte';
 	import graphData from '$lib/data/concept-graph.json';
 	import { resolveAppPath } from '$lib/utils/paths';
-	import { createSeoMeta, createEventJsonLd, createWebPageJsonLd, serializeJsonLd } from '$lib/utils/seo';
+	import { createSeoMeta, createEventJsonLd, createWebPageJsonLd, jsonLdScript } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import { reveal } from '$lib/utils/reveal';
 	import type { ConceptGraphData } from '$lib/types/concept-graph';
@@ -58,8 +58,8 @@
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
-	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
-	{@html `<script type="application/ld+json">${serializeJsonLd(webPageJsonLd)}</script>`}
+	{@html jsonLdScript(eventJsonLd)}
+	{@html jsonLdScript(webPageJsonLd)}
 </svelte:head>
 
 <!-- Hero Section -->

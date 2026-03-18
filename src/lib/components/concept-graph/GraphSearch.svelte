@@ -4,8 +4,8 @@
 
 	interface Props {
 		nodes: ConceptNode[];
-		getNodeColor: (group: ConceptGroup) => string;
-		onselect: (node: ConceptNode) => void;
+		getNodeColor: (_group: ConceptGroup) => string;
+		onselect: (_node: ConceptNode) => void;
 	}
 
 	let { nodes, getNodeColor, onselect }: Props = $props();

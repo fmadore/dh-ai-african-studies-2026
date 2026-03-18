@@ -413,3 +413,12 @@ export function createWebPageJsonLd(options: CreateWebPageJsonLdOptions): JsonLd
 export function serializeJsonLd(data: JsonLdSchema): string {
   return JSON.stringify(data, null, 0);
 }
+
+/**
+ * Returns a complete JSON-LD script tag as an HTML string.
+ * Use with {@html jsonLdScript(data)} to avoid ESLint parsing issues
+ * with <script> tags appearing in Svelte templates.
+ */
+export function jsonLdScript(data: JsonLdSchema): string {
+  return '<script type="application/ld+json">' + JSON.stringify(data, null, 0) + '</script>';
+}

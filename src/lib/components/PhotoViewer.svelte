@@ -3,7 +3,7 @@
 	import { resolveAssetPath } from '$lib/utils/paths';
 	import { reveal } from '$lib/utils/reveal';
 	import { Heading, P, Button } from 'flowbite-svelte';
-	import { CloseOutline, ChevronLeftOutline, ChevronRightOutline, ImageOutline, CameraPhotoOutline } from 'flowbite-svelte-icons';
+	import { CloseOutline, ChevronLeftOutline, ChevronRightOutline, ImageOutline } from 'flowbite-svelte-icons';
 
 	let {
 		photos,
@@ -205,7 +205,6 @@
 <!-- Lightbox — rendered via portal to body to escape all stacking contexts -->
 {#if lightboxOpen && currentPhoto}
 	{@const photoSrc = resolveAssetPath(currentPhoto.src)}
-	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 	<div
 		bind:this={lightboxEl}
 		use:portal

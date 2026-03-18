@@ -5,7 +5,7 @@
 		createSeoMeta,
 		createEventJsonLd,
 		createWebPageJsonLd,
-		serializeJsonLd,
+		jsonLdScript,
 	} from "$lib/utils/seo";
 	import { participants } from "$lib/data/participants";
 	import { workStreams } from "$lib/data/work-streams";
@@ -75,8 +75,8 @@
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
-	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
-	{@html `<script type="application/ld+json">${serializeJsonLd(webPageJsonLd)}</script>`}
+	{@html jsonLdScript(eventJsonLd)}
+	{@html jsonLdScript(webPageJsonLd)}
 </svelte:head>
 
 <!-- Page Header -->

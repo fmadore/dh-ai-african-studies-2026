@@ -9,8 +9,8 @@
 		filteredEdgeCount: number;
 		activeGroupCount: number;
 		totalGroupCount: number;
-		getNodeColor: (group: ConceptGroup) => string;
-		ontoggle: (group: ConceptGroup) => void;
+		getNodeColor: (_group: ConceptGroup) => string;
+		ontoggle: (_group: ConceptGroup) => void;
 		onactivateall: () => void;
 	}
 

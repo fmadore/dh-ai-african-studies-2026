@@ -16,7 +16,7 @@
 		createSeoMeta,
 		createEventJsonLd,
 		createWebPageJsonLd,
-		serializeJsonLd,
+		jsonLdScript,
 	} from "$lib/utils/seo";
 	import { workshopInfo } from "$lib/data/workshop-info";
 	import {
@@ -180,8 +180,8 @@
 	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
 		<link {...attributes} />
 	{/each}
-	{@html `<script type="application/ld+json">${serializeJsonLd(eventJsonLd)}</script>`}
-	{@html `<script type="application/ld+json">${serializeJsonLd(webPageJsonLd)}</script>`}
+	{@html jsonLdScript(eventJsonLd)}
+	{@html jsonLdScript(webPageJsonLd)}
 </svelte:head>
 
 <!-- Page Header -->
@@ -251,7 +251,7 @@
 					<span class="hidden sm:inline text-body-sm">{day.theme}</span>
 				</div>
 			{/snippet}
-			{#snippet children(activeTabId, tab)}
+			{#snippet children(_activeTabId, tab)}
 				{@const day = tab as DayTab}
 				<!-- Day Header with integrated legend -->
 				<div class="surface-panel surface-padding mb-lg stack-sm animate-section-reveal" use:reveal>
@@ -389,7 +389,7 @@
 													<MapPinAltOutline
 														class="size-icon-sm text-secondary-500 dark:text-secondary-400"
 													/>
-													{#each item.rooms as room, i}
+													{#each item.rooms as room}
 														<span
 															class="px-sm py-xs rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300"
 														>
