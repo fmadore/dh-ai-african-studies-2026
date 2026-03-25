@@ -1,5 +1,69 @@
 [
   {
+    "id": "3005271/GDTHGZIS",
+    "type": "article-journal",
+    "abstract": "Over the past decade, Matrix, the Center for Digital Humanities and Social Sciences at Michigan State University, has developed digital galleries blending text, sound, and image to portray the history of islamization and the practice of Islam in West Africa with support from NSF, TICFIA, and the NEH. The featured areas have been Ghana (as a Muslim minority country), and Senegal (as a Muslim majority area), as well as Gambia and Mauritania. The emphasis has been on the diversity, tolerance, and pluralism of Islamic practice in historical and contemporary terms, on female and male practitioners, and on laypeople as well as clergy. We have used European archives, Arabic and ajami documents, interviews, and a range of other sources to tell stories and show practices. The portal for this material is www.aodl.org. This article outlines some of the galleries that we have built; others will be added over the next two years. The authors of the galleries are faculty at Indiana University, Michigan State, Harvard, Boston University, and James Madison University. The designer of the galleries has been Catherine Foley, Director of Digital Library and Archive Projects at MATRIX, and the author of \"Developing Materials for a Digital Library Gallery\" in this issue of Islamic Africa.",
+    "citation-key": "robinsonMuslimSocietiesWest2014",
+    "container-title": "Islamic Africa",
+    "DOI": "10.5192/215409930501103",
+    "issue": "1",
+    "note": "QID: Q114056502",
+    "page": "103-121",
+    "shortTitle": "Muslim Societies in West Africa",
+    "title": "Muslim Societies in West Africa: Historical and Contemporary Perspectives in Digital Form",
+    "title-short": "Muslim Societies in West Africa",
+    "volume": "5",
+    "author": [
+      {
+        "family": "Robinson",
+        "given": "David"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2014
+        ]
+      ]
+    },
+    "tags": [
+      "Digital Humanities",
+      "Islam Afrique de l'Ouest"
+    ],
+    "URL": "https://doi.org/10.5192/215409930501103"
+  },
+  {
+    "id": "3005271/M8ZQF5HL",
+    "type": "broadcast",
+    "abstract": "Dr. Frédérick Madore, postdoctoral research fellow at ZMO Berlin, works at the intersection of African Studies, Islamic Studies, and the digital humanities. Building on fieldwork and archival research conducted since 2013, he is developing the Islam West Africa Collection—an open-access digital archive of more than 14,500 documents on Islamic print culture and Muslim life in West Africa. In this episode, we explore how artificial intelligence is transforming research practices: How can AI support historical and anthropological research—and where are its limits? And how might AI change the future of the humanities—opening up new possibilities while also raising pressing questions about language equity, digitisation gaps, and academic responsibility?",
+    "citation-key": "nobel-dilatyArtificialIntelligenceAI2025",
+    "collection-title": "ZMO kitchen talks",
+    "language": "en",
+    "number": "14",
+    "title": "Artificial Intelligence (AI) in African and Islamic Studies",
+    "URL": "https://repositorium.zmo.de/receive/zmo_mods_00002426",
+    "author": [
+      {
+        "family": "Nobel-Dilaty",
+        "given": "Elisa"
+      },
+      {
+        "family": "Madore",
+        "given": "Frédérick"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          9
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
     "id": "3005271/K6YRVAJP",
     "type": "article-newspaper",
     "abstract": "Analyse · L’accès aux archives minières congolaises, qui datent de l’époque coloniale et qui sont conservées au musée royal de l’Afrique centrale de Tervuren, en Belgique, est revendiqué par une société états-unienne soutenue par Jeff Bezos et Bill Gates. Mais Bruxelles (comme l’Europe) n’entend pas se faire doubler sur l’accès aux minerais stratégiques dont regorge le sous-sol de son ancienne colonie.",
@@ -584,6 +648,1026 @@
     ]
   },
   {
+    "id": "3005271/4HS2CNQ4",
+    "type": "entry-encyclopedia",
+    "abstract": "Archives used in Africanist historical research include those of the colonial state, postcolonial national archives, missionary archives, personal papers, political party archives, and the archives of corporations and international agencies involved in African affairs. Africanists historians generally accept that these archives are not transparent renditions of the past; they represent and even reproduce power relations related to colonialism and its legacies. Nonetheless, careful readings have enabled Africanist historians to understand the structural order and logic these archives (the archival grain), and thus demonstrate colonial (or other) power relations implicated in the collections. Reading archives against the grain can also reveal alternative voices and agents, however. Even as discussions of archival methodologies have been limited, archives have remained crucial sources for key trends in Africanist historical writing, including the representation of colonial hegemonies as well as African voice and agency. To advance such readings, Africanist historians develop post-positivist readings of archives that appreciate silences, dissonances, and conflicts within archives and documentation. Through a process of archival fieldwork, including a careful combing of archives, reading of files, and transcribing of select documents, historians have become adept at appreciating the grain of archives and reading the archive against this grain. The digitization of archives and digital research methods, including electronic search engines, full-text searches, online archives, and digital photography, challenge aspects of traditional archival fieldwork, holding benefits and potential setbacks for the critical appreciation of archival documentation. These challenges have sharpened with the changing role of physical documentation along with an increase in smaller archives that enable serendipitous and hodgepodge archival investigations.",
+    "citation-key": "gordonReadingArchivesSources2018",
+    "container-title": "Oxford Research Encyclopedia of African History",
+    "language": "en",
+    "note": "QID: Q115765720",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "title": "Reading the Archives as Sources",
+    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.227",
+    "author": [
+      {
+        "family": "Gordon",
+        "given": "David M."
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2019,
+          12,
+          19
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/M9FF9FMJ",
+    "type": "article-journal",
+    "abstract": "Africa’s regional archives offer crucial records to explore the continent’s postcolonial past. Although these archives are often difficult to locate and access and are exposed to several challenges that might even threaten their existence, this article presents a solid case for reconsidering their importance. Recent trends, aptly labelled ‘postcolonial African archival pessimism’, have mainly pointed to problems and often to the limited accessibility of state archives in some regional and local contexts. This article instead engages with their potential, discussing four case studies in Benin, Cabo Verde, Ghana and Congo-Brazzaville. Results stemming from these case studies are brought into contact with wider debates on custodial cultures and the regional archives’ role in contemporary sub-Saharan Africa. The intention is to provide a more positive and empirically based overview of research possibilities at regional archives and ultimately to change the nature of our approach to these resources.",
+    "citation-key": "keeseResearchingPostindependenceAfrica2023",
+    "container-title": "Africa",
+    "DOI": "10.1017/S0001972023000621",
+    "ISSN": "0001-9720, 1750-0184",
+    "issue": "4",
+    "language": "en",
+    "note": "QID: Q124690496",
+    "page": "542-561",
+    "shortTitle": "Researching post-independence Africa in regional archives",
+    "title": "Researching post-independence Africa in regional archives: possibilities and limits in Benin, Cabo Verde, Ghana and Congo-Brazzaville",
+    "title-short": "Researching post-independence Africa in regional archives",
+    "volume": "93",
+    "author": [
+      {
+        "family": "Keese",
+        "given": "Alexander"
+      },
+      {
+        "family": "Urbano",
+        "given": "Annalisa"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2024,
+          2,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.1017/S0001972023000621"
+  },
+  {
+    "id": "3005271/P4RQUEDB",
+    "type": "chapter",
+    "citation-key": "risamPostcolonialDigitalHumanities2022",
+    "container-title": "The Bloomsbury Handbook to the Digital Humanities",
+    "ISBN": "978-1-350-23212-9",
+    "language": "en",
+    "note": "QID: Q115880493",
+    "page": "41-47",
+    "publisher": "Bloomsbury Academic",
+    "publisher-place": "London",
+    "title": "Postcolonial Digital Humanities Reconsidered",
+    "editor": [
+      {
+        "family": "O'Sullivan",
+        "given": "James"
+      }
+    ],
+    "author": [
+      {
+        "family": "Risam",
+        "given": "Roopika"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2022,
+          10,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "tags": [
+      "Lu"
+    ]
+  },
+  {
+    "id": "3005271/JY3XS2UE",
+    "type": "article-journal",
+    "citation-key": "risamIntroductionQuestionsMinimal2022",
+    "container-title": "Digital Humanities Quarterly",
+    "ISSN": "1938-4122",
+    "issue": "2",
+    "language": "en",
+    "shortTitle": "Introduction",
+    "title": "Introduction: The Questions of Minimal Computing",
+    "title-short": "Introduction",
+    "URL": "https://www.digitalhumanities.org/dhq/vol/16/2/000646/000646.html",
+    "volume": "16",
+    "author": [
+      {
+        "family": "Risam",
+        "given": "Roopika"
+      },
+      {
+        "family": "Gil",
+        "given": "Alex"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          4,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "tags": [
+      "Global South",
+      "digital divide",
+      "digital humanities",
+      "infrastructure",
+      "minimal computing",
+      "postcolonialism",
+      "sustainability"
+    ]
+  },
+  {
+    "id": "3005271/DABWNKAC",
+    "type": "article-journal",
+    "abstract": "Higher education operates in a quickly changing, progressively more globalized, cosmopolitan, and interconnected world (Bauman, 2000, Globalization: The Human Consequences. New York/Chichester: Columbia University Press; Appiah, 2006, Cosmopolitanism: Ethics in a World of Strangers. New York: W.W. Norton &amp; Co; Zuckerman, 2013, Rewire: Digital Cosmopolitans in the Age of Connection. New York: W. W. Norton &amp; Company). At the same time, substantive inequalities between people and places mean that this connectivity and knowledge is unevenly spread (Hallberg Adu, 2014, What is the opposite of a knowledge society? A critical reflection from Ghana. In Amoah, L. (ed.), Impacts of the Knowledge Society on Economic and Social Growth in Africa. IGI Global). For our students, the future leaders of this unequal world, critical reasoning becomes a key skill, and perhaps especially so for students in the Global South. This paper argues that digital humanities (DH) can provide both a theoretical framework for decolonizing the academy and technological solutions to hurdles in this process. The paper argues that assignments, their theoretical underpinnings, and implementation are key to decolonizing higher education. It describes three accessible technology-driven assignments with DH pedagogy created for diverse classrooms at Ashesi University in Ghana and discusses their outcomes.",
+    "citation-key": "hallbergaduPromiseDigitalHumanities2021",
+    "container-title": "Digital Scholarship in the Humanities",
+    "DOI": "10.1093/llc/fqaa023",
+    "ISSN": "2055-7671",
+    "issue": "Supplement_1",
+    "language": "en",
+    "page": "i37-i42",
+    "shortTitle": "The promise of digital humanities pedagogy",
+    "title": "The promise of digital humanities pedagogy: Decolonizing a diverse classroom in Ghana",
+    "title-short": "The promise of digital humanities pedagogy",
+    "volume": "36",
+    "author": [
+      {
+        "family": "Hallberg Adu",
+        "given": "Kajsa"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          1,
+          15
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "tags": [
+      "Lu"
+    ],
+    "URL": "https://doi.org/10.1093/llc/fqaa023"
+  },
+  {
+    "id": "3005271/PP57NAKM",
+    "type": "book",
+    "abstract": "The emergence of digital humanities has been heralded for its commitment to openness, access, and the democratizing of knowledge, but it raises a number of questions about omissions with respect to race, gender, sexuality, disability, and nation. Postcolonial digital humanities is one approach to uncovering and remedying inequalities in digital knowledge production, which is implicated in an information-age politics of knowledge. \n\nNew Digital Worlds traces the formation of postcolonial studies and digital humanities as fields, identifying how they can intervene in knowledge production in the digital age. Roopika Risam examines the role of colonial violence in the development of digital archives and the possibilities of postcolonial digital archives for resisting this violence. Offering a reading of the colonialist dimensions of global organizations for digital humanities research, she explores efforts to decenter these institutions by emphasizing the local practices that subtend global formations and pedagogical approaches that support this decentering. Last, Risam attends to human futures in new digital worlds, evaluating both how algorithms and natural language processing software used in digital humanities projects produce universalist notions of the \"human\" and also how to resist this phenomenon.",
+    "citation-key": "risamNewDigitalWorlds2018",
+    "ISBN": "978-0-8101-3886-5",
+    "language": "en",
+    "number-of-pages": "176",
+    "publisher": "Northwestern University Press",
+    "publisher-place": "Evanston, IL",
+    "shortTitle": "New Digital Worlds",
+    "title": "New Digital Worlds: Postcolonial Digital Humanities in Theory, Praxis, and Pedagogy",
+    "title-short": "New Digital Worlds",
+    "author": [
+      {
+        "family": "Risam",
+        "given": "Roopika"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/NGAA6PM6",
+    "type": "article-journal",
+    "abstract": "On October 21st, 2017, the editors of this special issue conducted an interview with Rosalind I. J. Hackett, one of the pioneering scholars in the field of media and religion in Africa. The interview took place via Skype and consisted of five questions on the study of religion and digital media in the African context.",
+    "citation-key": "hackettInterviewRosalindHackett2017",
+    "container-title": "Émulations",
+    "DOI": "10.14428/emulations.024.008",
+    "ISSN": "1784-5734",
+    "issue": "24",
+    "language": "en",
+    "note": "QID: Q113506246",
+    "page": "125-133",
+    "shortTitle": "Interview with Rosalind I. J. Hackett",
+    "title": "Interview with Rosalind I. J. Hackett on Religion and Digital Media Trends in Africa",
+    "title-short": "Interview with Rosalind I. J. Hackett",
+    "author": [
+      {
+        "family": "Hackett",
+        "given": "Rosalind I. J."
+      },
+      {
+        "family": "Madore",
+        "given": "Frédérick"
+      },
+      {
+        "family": "Millet-Mouity",
+        "given": "Pamela"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "tags": [
+      "Africa",
+      "Ghana",
+      "Nigeria",
+      "Pentecostal charismatic movement",
+      "Religions et médias",
+      "digital media",
+      "digital religion",
+      "ethnography",
+      "media convergence",
+      "mega church",
+      "neoliberalism",
+      "online religion",
+      "proselytism",
+      "religious community",
+      "religious consumerism",
+      "religious transformation",
+      "social media"
+    ],
+    "URL": "https://doi.org/10.14428/emulations.024.008"
+  },
+  {
+    "id": "3005271/7GGXPLBD",
+    "type": "article-journal",
+    "abstract": "The article looks at the influence of social media disinformation campaigns on voter behaviour in the national elections in Kenya, Nigeria and South Africa in the period 2017–2023. By examining the various communication efforts, propaganda and political marketing, the article shows how the digital revolution – with the help of such tools as artificial intelligence, algorithms, deepfakes and bots – has amplified the potential for disinformation to an unprecedented degree. By comparing three African countries in their respectively distinct stages of democratic consolidation, the article sheds light on how disinformation techniques impact the democratic fabric of these nations and to what extent disinformation influences voter attitudes, choices and overall electoral outcomes in the three countries.",
+    "citation-key": "albertsUnravellingWebExploring2025",
+    "container-title": "Canadian Journal of African Studies / Revue canadienne des études africaines",
+    "DOI": "10.1080/00083968.2025.2491679",
+    "ISSN": "0008-3968",
+    "issue": "2",
+    "language": "en",
+    "page": "333-359",
+    "shortTitle": "Unravelling the web",
+    "title": "Unravelling the web: exploring the dynamics of online disinformation and its impact on democracy in Africa",
+    "title-short": "Unravelling the web",
+    "volume": "59",
+    "author": [
+      {
+        "family": "Alberts",
+        "given": "Kira"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          8,
+          7
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "tags": [
+      "Kenya",
+      "Nigeria",
+      "South Africa",
+      "artificial intelligence",
+      "democracy",
+      "disinformation",
+      "political communication",
+      "populism",
+      "social media"
+    ],
+    "URL": "https://doi.org/10.1080/00083968.2025.2491679"
+  },
+  {
+    "id": "3005271/2IQIEEVS",
+    "type": "chapter",
+    "citation-key": "risamDecolonizingDigitalHumanities2018",
+    "container-title": "The Routledge Companion to Media Studies and Digital Humanities",
+    "language": "en",
+    "page": "78-86",
+    "publisher": "Routledge",
+    "publisher-place": "London",
+    "title": "Decolonizing the Digital Humanities in Theory and Practice",
+    "author": [
+      {
+        "family": "Risam",
+        "given": "Roopika"
+      }
+    ],
+    "editor": [
+      {
+        "family": "Sayers",
+        "given": "Jentery"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": [
+      "Global South",
+      "Indigenous knowledge",
+      "decolonization",
+      "digital humanities",
+      "epistemic violence",
+      "postcolonial studies"
+    ]
+  },
+  {
+    "id": "3005271/ZDPSH49U",
+    "type": "post-weblog",
+    "abstract": "Islam West Africa Collection (IWAC), created and maintained by F. Madore, is an open-access database that provides access to press clippings from the mainstream press in West African (Burkina Faso, Ivory Coast, Benin, Togo, Niger, Nigeria) as well as Islamic publications, and video recordings, all of those documents related to Islam. Complex tools enable discourse analysis and answer various scientific questions through keywords mapping, topic modelling, sentiment analysis and spatial visualization.",
+    "citation-key": "wionIslamWestAfrica2025",
+    "container-title": "The Digital Orientalist",
+    "language": "en",
+    "shortTitle": "Islam West Africa Collection",
+    "title": "Islam West Africa Collection: Dataset, Distant Reading, and Uses of AI for Discourse Analysis",
+    "title-short": "Islam West Africa Collection",
+    "URL": "https://digitalorientalist.com/2025/09/23/islam-west-africa-collection-dataset-distant-reading-and-uses-of-ai-for-discourse-analysis/",
+    "author": [
+      {
+        "family": "Wion",
+        "given": "Anaïs"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          9,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          9,
+          23
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/N4ZH3NPU",
+    "type": "article-journal",
+    "abstract": "This paper takes as its subject the fact that digital archival production ? of existing materials and born-digital records ? has collapsed in contemporary South Africa, and it offers some arguments about why it is important to reverse this process. The current situation can be explained by the fact that digitisation has been widely described as a form of intellectual imperialism, a characterisation that echoes influential strands of postcolonial theory and South African nationalism. The reasons for this unusual understanding lie in the difficult history of the last major digitisation effort, the Mellon-funded collaboration between Aluka and the Digital Imaging Project of South Africa (DISA). The paper reconstructs that project in some detail in an effort to understand what went wrong, arguing that in place of the geopolitical explanation that many participants adopted, most of what went wrong was much more narrowly technological. Yet, the same technological issues have already been great assets to South African researchers, holding out the promise of solutions to some pressing local difficulties of digital preservation and archival assembly. The last section of the paper takes up some of the reasons why scholars need to take digital record-keeping much more seriously than they have to date ? chief amongst these being the fertile possibilities of forgery and impersonation.",
+    "citation-key": "breckenridgePoliticsParallelArchive2014",
+    "container-title": "Journal of Southern African Studies",
+    "DOI": "10.1080/03057070.2014.913427",
+    "ISSN": "0305-7070",
+    "issue": "3",
+    "language": "en",
+    "note": "QID: Q114056452",
+    "page": "499-519",
+    "shortTitle": "The Politics of the Parallel Archive",
+    "title": "The Politics of the Parallel Archive: Digital Imperialism and the Future of Record-Keeping in the Age of Digital Reproduction",
+    "title-short": "The Politics of the Parallel Archive",
+    "volume": "40",
+    "author": [
+      {
+        "family": "Breckenridge",
+        "given": "Keith"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2014
+        ]
+      ]
+    },
+    "tags": [
+      "Digital Humanities"
+    ],
+    "URL": "https://doi.org/10.1080/03057070.2014.913427"
+  },
+  {
+    "id": "3005271/VG7J2BGI",
+    "type": "article-journal",
+    "abstract": "This article explores questions of decolonization, in part through analyzing Belgium’s Africa Museum. Bernal considers the role of academia and knowledge production, as well as the technological developments that may create new concentrations of power faster than decolonial projects can dismantle established hierarchies. She concludes that decolonization must address material questions of reparations and restitution, and that digital media have been transformative in ways that bring northern models of social existence closer to African ones. Having lived under colonizers, despots, and states of exception, Africans bring important knowledge and experience to twenty-first-century global struggles.",
+    "citation-key": "bernalDigitalityDecolonizationResponse2021",
+    "container-title": "African Studies Review",
+    "DOI": "10.1017/asr.2020.90",
+    "ISSN": "0002-0206, 1555-2462",
+    "issue": "1",
+    "language": "en",
+    "page": "41-56",
+    "shortTitle": "Digitality and Decolonization",
+    "title": "Digitality and Decolonization: A Response to Achille Mbembe",
+    "title-short": "Digitality and Decolonization",
+    "volume": "64",
+    "author": [
+      {
+        "family": "Bernal",
+        "given": "Victoria"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          2,
+          4
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.1017/asr.2020.90"
+  },
+  {
+    "id": "3005271/DUBLA7VY",
+    "type": "book",
+    "abstract": "Written from a digital humanities perspective, this book combines historical sources, maps, and a walking cartography to create new perspectives on the nineteenth-century history of Lagos, West Africa’s most populous city.\n\nWhat traces do people leave in the places where they live, and even where they die? This book addresses the spatial history of nineteenth-century Lagos, rebuilding its past as a series of encounters: between men and women, between past and present, between enslaved and free, between living and dead, and finally between land and lagoon. In Imagine Lagos, Ademide Adelusi-Adeluyi argues that the invention, destruction, and reinvention of spatial markers in Lagos—the streets, markets, roads, squares, palaces, and lagoons where these encounters occurred—was crucial to negotiations over identity, power, and freedom. Research for this book combines oral and archival sources from three countries with the experience of three summers of walking the streets of Lagos. Contrary to historical interpretations that render the physical city as a blank, featureless space in desperate need of constant repair, this book offers a variety of visual and textual narratives to push readers to imagine the old city.\n\nThroughout Imagine Lagos, historical maps join other texts—including colonial correspondence and reports, missionary letters, oríkì (Yoruba praise poetry), and newspaper articles—to create a complex collage of urban life in Lagos. Streets emerge as sites of historical memories, and Adelusi-Adeluyi’s maps of the mid-nineteenth-century city reveal and catalog layers of change. A focus on the city as a whole—as both a physical and social landscape—brings us closer than ever to understanding the lives of Lagosians between 1845 and 1872. In old Lagos, the streets keep their histories.\n\nThe story maps and full-resolution maps for this book are available at https://newmapsoldlagos.com and https://imaginelagos.com.",
+    "citation-key": "adelusi-adeluyiImagineLagosMapping2024",
+    "ISBN": "978-0-8214-2489-6",
+    "language": "en",
+    "number-of-pages": "216",
+    "publisher": "Ohio University Press",
+    "publisher-place": "Athens, OH",
+    "shortTitle": "Imagine Lagos",
+    "title": "Imagine Lagos: Mapping History, Place, and Politics in a Nineteenth-Century African City",
+    "title-short": "Imagine Lagos",
+    "URL": "https://www.ohioswallow.com/9780821424896/imagine-lagos/",
+    "author": [
+      {
+        "family": "Adelusi-Adeluyi",
+        "given": "Ademide"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          2
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/99C5SSNA",
+    "type": "entry-encyclopedia",
+    "abstract": "The robust, sustained interest in the history of the transatlantic slave trade has been a defining feature of the intersection of African studies and digital scholarship since the advent of humanities computing in the 1960s. The pioneering work of the Trans-Atlantic Slave Trade Database, first made widely available in CD-ROM in 1999, is one of several major projects to use digital tools in the research and analysis of the Atlantic trade from the sixteenth through the mid-nineteenth century. Over the past two decades, computing technologies have also been applied to the exploration of African bondage outside the maritime Atlantic frame. In the 2010s, Slave Voyages (the online successor to the original Slave Trade Database compact disc) joined many other projects in and outside the academy that deploy digital tools in the reconstruction of the large-scale structural history of the trade as well as the microhistorical understandings of individual lives, the biography of notables, and family ancestry.",
+    "citation-key": "williamsDigitalApproachesHistory2018",
+    "container-title": "Oxford Research Encyclopedia of African History",
+    "DOI": "10.1093/acrefore/9780190277734.013.121",
+    "ISBN": "978-0-19-027773-4",
+    "language": "en",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "source": "oxfordre.com",
+    "title": "Digital Approaches to the History of the Atlantic Slave Trade",
+    "URL": "https://oxfordre.com/africanhistory/view/10.1093/acrefore/9780190277734.001.0001/acrefore-9780190277734-e-121",
+    "author": [
+      {
+        "family": "Williams",
+        "given": "Daryle"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2020,
+          7,
+          14
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/HJ3LZBHL",
+    "type": "article-journal",
+    "abstract": "African archives were predominantly outgrowths of the colonialist machinery, essential armoury in the mechanisms of control which paid little attention to comprehensively documenting the cultures and pasts of the subjugated peoples. Consequently, the genesis of conventional African archives was constituted by loss, a fact perhaps dramatically signified by the string of fires and other disasters to have hit African archival repositories from as early as 1919. Yet still, the embers of these conflagrations provide opportunities for critical reconsiderations of loss that would lead to theoretical and practical gains in the African archive. Archival loss can prod African archivists towards new ontologies of praxis and conceptions of archive that would enable recovery of all the varied registers of the African archive. Specifically, the paper examines the creation and work of the J.H. Kwabena Nketia Archives (at the University of Ghana’s Institute of African Studies) and the Likpe Traditional Area Community Archives as archival sites of resistance and challenge to loss that leverage community and institutional partnerships to build and recover the African archive. Ultimately, these archives’ work, and the general “African archival turn” advocated for here, have implications for African Studies and the decolonising of knowledge production in and about Africa.",
+    "citation-key": "ashie-nikoiOutAshesRethinking2024",
+    "container-title": "Social Dynamics",
+    "DOI": "10.1080/02533952.2024.2327248",
+    "ISSN": "0253-3952",
+    "issue": "1",
+    "language": "en",
+    "page": "26-42",
+    "shortTitle": "Out of the ashes",
+    "title": "Out of the ashes: rethinking loss in the African archive",
+    "title-short": "Out of the ashes",
+    "volume": "50",
+    "author": [
+      {
+        "family": "Ashie-Nikoi",
+        "given": "Edwina D."
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2024,
+          3,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.1080/02533952.2024.2327248"
+  },
+  {
+    "id": "3005271/IKKS4HXY",
+    "type": "article-journal",
+    "abstract": "Predictive language technologies – such as Google Search’s Autocomplete – constitute forms of algorithmic power that reflect and compound global power imbalances between Western technology companies and multilingual Internet users in the global South. Increasing attention is being paid to predictive language technologies and their impacts on individual users and public discourse. However, there is a lack of scholarship on how such technologies interact with African languages. Addressing this gap, the article presents data from experimentation with autocomplete predictions/suggestions for gendered or politicised keywords in Amharic, Kiswahili and Somali. It demonstrates that autocomplete functions for these languages and how users may be exposed to harmful content due to an apparent lack of filtering of problematic ‘predictions’. Drawing on debates on algorithmic power and digital colonialism, the article demonstrates that global power imbalances manifest here not through a lack of online African indigenous language content, but rather in regard to the moderation of content across diverse cultural and linguistic contexts. This raises dilemmas for actors invested in the multilingual Internet between risks of digital surveillance and effective platform oversight, which could prevent algorithmic harms to users engaging with platforms in a myriad of languages and diverse socio-cultural and political environments.",
+    "citation-key": "chonkaAlgorithmicPowerAfrican2023",
+    "container-title": "Media, Culture & Society",
+    "DOI": "10.1177/01634437221104705",
+    "ISSN": "0163-4437",
+    "issue": "2",
+    "language": "en",
+    "page": "246-265",
+    "shortTitle": "Algorithmic power and African indigenous languages",
+    "title": "Algorithmic power and African indigenous languages: search engine autocomplete and the global multilingual Internet",
+    "title-short": "Algorithmic power and African indigenous languages",
+    "volume": "45",
+    "author": [
+      {
+        "family": "Chonka",
+        "given": "Peter"
+      },
+      {
+        "family": "Diepeveen",
+        "given": "Stephanie"
+      },
+      {
+        "family": "Haile",
+        "given": "Yidnekachew"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          1,
+          15
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "tags": [
+      "Lu"
+    ],
+    "URL": "https://doi.org/10.1177/01634437221104705"
+  },
+  {
+    "id": "3005271/GBGK8ZJ2",
+    "type": "post-weblog",
+    "abstract": "The Future of the University",
+    "citation-key": "adamsAINewGeoPolitics2025",
+    "container-title": "Rachel's Substack",
+    "genre": "Substack newsletter",
+    "language": "en",
+    "title": "AI and the New (geo)Politics of Knowledge",
+    "URL": "https://racheladamsward.substack.com/p/ai-and-the-new-geopolitics-of-knowledge?utm_medium=ios",
+    "author": [
+      {
+        "family": "Adams",
+        "given": "Rachel"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          30
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          15
+        ]
+      ]
+    },
+    "tags": [
+      "Global South",
+      "artificial intelligence",
+      "data colonialism",
+      "decolonization",
+      "epistemic infrastructure",
+      "epistemic justice",
+      "higher education",
+      "university capitalism"
+    ]
+  },
+  {
+    "id": "3005271/8RZRKZ3S",
+    "type": "post-weblog",
+    "citation-key": "adamsAICreativityHuman2026",
+    "container-title": "Rachel's Substack",
+    "genre": "Substack newsletter",
+    "language": "en",
+    "title": "On AI, Creativity and Human Development",
+    "URL": "https://racheladamsward.substack.com/p/on-ai-creativity-and-human-development",
+    "author": [
+      {
+        "family": "Adams",
+        "given": "Rachel"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          30
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          9
+        ]
+      ]
+    },
+    "tags": [
+      "UNDP",
+      "artificial intelligence",
+      "creativity",
+      "ethics",
+      "human development",
+      "human flourishing",
+      "moral agency",
+      "technological determinism"
+    ]
+  },
+  {
+    "id": "3005271/VYQC43YK",
+    "type": "webpage",
+    "abstract": "With limited training data matching African cultural and economic realities, the output of ChatGPT could be skewed toward reinforcing Western cultural and ideological hegemony.",
+    "citation-key": "komminothChatGPTFuture2023",
+    "container-title": "African Business",
+    "language": "en",
+    "title": "Chat GPT and the future of African AI",
+    "URL": "https://african.business/2023/01/technology-information/chat-gtp-and-the-future-of-african-ai",
+    "author": [
+      {
+        "family": "Komminoth",
+        "given": "Leo"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2024,
+          9,
+          18
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2023,
+          1,
+          27
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/FH5ZJTZ2",
+    "type": "book",
+    "abstract": "A compelling argument that the extractive practices of today’s tech giants are the continuation of colonialism—and a crucial guide to collective resistance.\n \nLarge technology companies like Meta, Amazon, and Alphabet have unprecedented access to our daily lives, collecting information when we check our email, count our steps, shop online, and commute to and from work. Current events are concerning—both the changing owners (and names) of billion-dollar tech companies and regulatory concerns about artificial intelligence underscore the sweeping nature of Big Tech’s surveillance and the influence such companies hold over the people who use their apps and platforms.\n \nAs trusted tech experts Ulises A. Mejias and Nick Couldry show in this eye-opening and convincing book, this vast accumulation of data is not the accidental stockpile of a fast-growing industry. Just as nations stole territories for ill-gotten minerals and crops, wealth, and dominance, tech companies steal personal data important to our lives. It’s only within the framework of colonialism, Mejias and Couldry argue, that we can comprehend the full scope of this heist.\n \nLike the land grabs of the past, today’s data grab converts our data into raw material for the generation of corporate profit against our own interests. Like historical colonialism, today’s tech corporations have engineered an extractive form of doing business that builds a new social and economic order, leads to job precarity, and degrades the environment. These methods deepen global inequality, consolidating corporate wealth in the Global North and engineering discriminatory algorithms. Promising convenience, connection, and scientific progress, tech companies enrich themselves by encouraging us to relinquish details about our personal interactions, our taste in movies or music, and even our health and medical records. Do we have any other choice?\n \nData Grab affirms that we do. To defy this new form of colonialism we will need to learn from previous forms of resistance and work together to imagine entirely new ones. Mejias and Couldry share the stories of voters, workers, activists, and marginalized communities who have successfully opposed unscrupulous tech practices. An incisive discussion of the digital media that’s transformed our world, Data Grab is a must-read for anyone concerned about privacy, self-determination, and justice in the internet age.",
+    "citation-key": "mejiasDataGrabNew2024",
+    "ISBN": "978-0-226-83230-2",
+    "language": "en",
+    "number-of-pages": "224",
+    "publisher": "University of Chicago Press",
+    "publisher-place": "Chicago, IL",
+    "shortTitle": "Data Grab",
+    "title": "Data Grab: The New Colonialism of Big Tech and How to Fight Back",
+    "title-short": "Data Grab",
+    "URL": "https://press.uchicago.edu/ucp/books/book/chicago/D/bo216184200.html",
+    "author": [
+      {
+        "family": "Mejias",
+        "given": "Ulises A."
+      },
+      {
+        "family": "Couldry",
+        "given": "Nick"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "tags": [
+      "Big Tech",
+      "Global South",
+      "data colonialism",
+      "data sovereignty",
+      "decolonization",
+      "digital capitalism",
+      "resistance",
+      "surveillance"
+    ]
+  },
+  {
+    "id": "3005271/66SF3F6K",
+    "type": "chapter",
+    "citation-key": "hennellyTrainingDigitalLanguage2022",
+    "container-title": "CLARIN: The Infrastructure for Language Resources",
+    "ISBN": "978-3-11-076737-7",
+    "language": "en",
+    "page": "409-428",
+    "publisher": "De Gruyter",
+    "publisher-place": "Berlin",
+    "title": "Training of Digital Language Resources Skills in South Africa",
+    "URL": "https://doi.org/10.1515/9783110767377-016",
+    "author": [
+      {
+        "family": "Hennelly",
+        "given": "Martin"
+      },
+      {
+        "family": "Khumalo",
+        "given": "Langa"
+      },
+      {
+        "family": "Steyn",
+        "given": "Juan"
+      },
+      {
+        "family": "Zaanen",
+        "given": "Menno van"
+      }
+    ],
+    "editor": [
+      {
+        "family": "Fišer",
+        "given": "Darja"
+      },
+      {
+        "family": "Witt",
+        "given": "Andreas"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          7,
+          9
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2022,
+          10,
+          24
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/85U7H4A6",
+    "type": "paper-conference",
+    "abstract": "We present the first ever dataset of manually segmented and transcribed Ajami manuscripts written in Fulfulde and Hausa. The term Ajami refers to modified Arabic-script orthographies in Africa. Existing handwritten text recognition (HTR) and optical character recognition (OCR) models for Arabic-script languages perform poorly on West African manuscripts due to a lack of these manuscripts representation in the models’ pre-training. This leads to models struggling to adapt to Ajami style calligraphy, being unequipped to recognize Ajami specific characters, and being unable to extract certain Arabic-script diacritics which are present in Ajami manuscripts but lacking in many manuscripts for other Arabic-script languages like Arabic and Persian. The latter poses a significant challenge to Ajami HTR. We release the following as an open-source dataset: an ALTO formatting of high-quality images of Fulfulde and Hausa manuscripts, manual segmentation (region and line), and manual transcriptions. Our HTR dataset is also the first to diplomatically transcribe newly Unicode-encoded, special Quranic recitation characters. We evaluate a suite of Arabic-script recognition models specifically for historical manuscripts and find that they produce character error rates of 65–84% when attempting to automatically transcribe our curated manuscripts. Transcriptions produced by the evaluated models are released as well.",
+    "citation-key": "yousufHandwrittenTextRecognition2026",
+    "container-title": "Document Analysis and Recognition –  ICDAR 2025",
+    "DOI": "10.1007/978-3-032-04627-7_36",
+    "ISBN": "978-3-032-04627-7",
+    "language": "en",
+    "page": "620-637",
+    "publisher": "Springer Nature Switzerland",
+    "publisher-place": "Cham",
+    "title": "A Handwritten Text Recognition Dataset for Ajami Manuscripts in Fulfulde and Hausa",
+    "author": [
+      {
+        "family": "Yousuf",
+        "given": "Oreen"
+      },
+      {
+        "family": "Aminu",
+        "given": "Abdulmalik"
+      },
+      {
+        "family": "Muhammad",
+        "given": "Musa Salih"
+      },
+      {
+        "family": "Usman",
+        "given": "Bashir"
+      },
+      {
+        "family": "Hashim",
+        "given": "Mustapha Kurfi"
+      },
+      {
+        "family": "Nivre",
+        "given": "Joakim"
+      },
+      {
+        "family": "Megyesi",
+        "given": "Beáta"
+      },
+      {
+        "family": "Høgel",
+        "given": "Christian"
+      }
+    ],
+    "editor": [
+      {
+        "family": "Yin",
+        "given": "Xu-Cheng"
+      },
+      {
+        "family": "Karatzas",
+        "given": "Dimosthenis"
+      },
+      {
+        "family": "Lopresti",
+        "given": "Daniel"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.1007/978-3-032-04627-7_36"
+  },
+  {
+    "id": "3005271/62IR84W8",
+    "type": "report",
+    "abstract": "African languages are under-represented in artificial intelligence (AI) systems due to limited language data, excluding millions from digital participation in their native languages. Factors such as multilingual complexity, foreign-language-dominant policies, weak institutional backing and lack of digital infrastructure contribute to the low-resource classification of African languages. “Language data flaring” — paralleling gas flaring — captures the systemic neglect and poor management of African language data leading to data undercollection, poor storage and limited use in AI. Addressing the gap requires policies that integrate African languages into national digital agendas, support documentation, fund projects and foster inclusive, collaborative AI development. Community-led documentation, open-source tools and growing recognition of linguistic diversity in AI offer promising paths forward.",
+    "citation-key": "adebaraAILanguageData2025",
+    "collection-title": "Policy Brief",
+    "language": "en",
+    "number": "216",
+    "publisher": "Centre for International Governance Innovation",
+    "shortTitle": "AI and Language Data Flaring in Africa",
+    "title": "AI and Language Data Flaring in Africa: Addressing the Low-Resource Challenge",
+    "title-short": "AI and Language Data Flaring in Africa",
+    "URL": "https://www.cigionline.org/publications/ai-and-language-data-flaring-in-africa-addressing-the-low-resource-challenge/",
+    "author": [
+      {
+        "family": "Adebara",
+        "given": "Ife"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          30
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          5
+        ]
+      ]
+    },
+    "tags": [
+      "Africa",
+      "African languages",
+      "artificial intelligence",
+      "data sovereignty",
+      "decolonization",
+      "low-resource languages",
+      "natural language processing",
+      "oral traditions"
+    ]
+  },
+  {
     "id": "3005271/IZDAFJ8F",
     "type": "speech",
     "abstract": "This presentation explores the critical yet underdeveloped field of Digital Humanities (DH) in Nigerian universities, spotlighting how AI, digital tools, and African epistemologies can bridge the educational digital divide. I also provided practical strategies for integrating DH into the Nigerian curriculum while confronting resource scarcity and infrastructural limitations.\n\nThrough real-world examples and culturally rooted digital tools like Voyant Tools, NotebookLM, and NLP systems adapted for African languages, the presentation challenges dominant Western models and emphasizes DH as a transformative methodology for preserving cultural heritage and amplifying Black scholarly futures.",
@@ -720,36 +1804,6 @@
       "large language models",
       "prompt engineering"
     ]
-  },
-  {
-    "id": "3005271/M8ZQF5HL",
-    "type": "broadcast",
-    "citation-key": "nobel-dilatyArtificialIntelligenceAI2025",
-    "collection-title": "ZMO kitchen talks",
-    "language": "en",
-    "number": "14",
-    "title": "Artificial Intelligence (AI) in African and Islamic Studies",
-    "URL": "https://repositorium.zmo.de/receive/zmo_mods_00002426",
-    "author": [
-      {
-        "family": "Nobel-Dilaty",
-        "given": "Elisa"
-      },
-      {
-        "family": "Madore",
-        "given": "Frédérick"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          12,
-          9
-        ]
-      ]
-    },
-    "tags": []
   },
   {
     "id": "3005271/TQ8H85Z5",
@@ -7104,5 +8158,101 @@
       "salafism"
     ],
     "URL": "https://doi.org/10.51185/journals/rhca.2021.e610"
+  },
+  {
+    "id": "3005271/VMF52WXP",
+    "type": "article-journal",
+    "abstract": "A review of the Islam Burkina Faso Collection, a database of materials on Islam, directed by Frédérick Madore",
+    "citation-key": "launayReviewIslamBurkina2023",
+    "container-title": "Reviews in Digital Humanities",
+    "DOI": "10.21428/3e88f64f.89e71c81",
+    "issue": "4",
+    "language": "en",
+    "note": "QID: Q117802542\nCitation Key: launayReviewIslamBurkina2023",
+    "title": "Review: Islam Burkina Faso Collection",
+    "volume": "4",
+    "author": [
+      {
+        "family": "Launay",
+        "given": "Robert"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2023,
+          4,
+          20
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2023,
+          4,
+          24
+        ]
+      ]
+    },
+    "tags": [
+      "Burkina Faso",
+      "Islam",
+      "Lu",
+      "Omeka",
+      "West Africa",
+      "decolonization",
+      "digital archive",
+      "open access"
+    ],
+    "URL": "https://doi.org/10.21428/3e88f64f.89e71c81"
+  },
+  {
+    "id": "3005271/8TSXA7VI",
+    "type": "book",
+    "abstract": "As AI takes hold across the planet and wealthy nations seek to position themselves as global leaders of this new technology, the gap is widening between those who benefit from it and those who are subjugated by it. As Rachel Adams shows in this hard-hitting book, growing inequality is the single biggest threat to the transformative potential of AI. Not only is AI built on an unequal global system of power, it stands poised to entrench existing inequities, further consolidating a new age of empire.\n\nAI’s impact on inequality will not be experienced in poorer countries only: it will be felt everywhere. The effects will be seen in intensified international migration as opportunities become increasingly concentrated in wealthier nations; in heightened political instability and populist politics; and in climate-related disasters caused by an industry blind to its environmental impact across supply chains.\n\nWe need to act now to address these issues. Only if the current inequitable trajectory of AI is halted, the incentives changed and the production and use of AI decentralized from wealthier nations will AI be able to deliver on its promise to build a better world for all.",
+    "citation-key": "adamsNewEmpireAI2024",
+    "ISBN": "978-1-5095-5309-9",
+    "language": "en",
+    "note": "Citation Key: adamsNewEmpireAI2024",
+    "number-of-pages": "224",
+    "publisher": "Wiley",
+    "publisher-place": "London",
+    "shortTitle": "The New Empire of AI",
+    "title": "The New Empire of AI: The Future of Global Inequality",
+    "title-short": "The New Empire of AI",
+    "author": [
+      {
+        "family": "Adams",
+        "given": "Rachel"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2024,
+          8,
+          21
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "tags": [
+      "AI ethics",
+      "Global South",
+      "artificial intelligence",
+      "data labelling",
+      "decolonization",
+      "digital colonialism",
+      "global inequality",
+      "postcolonial theory",
+      "racial capitalism"
+    ]
   }
 ]
