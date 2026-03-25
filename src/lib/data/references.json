@@ -1,5 +1,199 @@
 [
   {
+    "id": "3005271/X6C22YAC",
+    "type": "legislation",
+    "citation-key": "ArtificialIntelligenceBill2026",
+    "language": "en",
+    "title": "The Artificial Intelligence Bill, 2026",
+    "URL": "https://new.kenyalaw.org/akn/ke/bill/senate/2026-02-19/the-artificial-intelligence-bill-2026/eng@2026-02-19",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          25
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          2,
+          19
+        ]
+      ]
+    },
+    "tags": [
+      "AI ethics",
+      "AI governance",
+      "EU AI Act",
+      "High Court order",
+      "Kenya",
+      "Senate Bill",
+      "algorithmic accountability",
+      "artificial intelligence",
+      "data protection",
+      "deepfakes",
+      "digital rights",
+      "legislation",
+      "regulatory framework",
+      "regulatory sandbox",
+      "risk-based regulation"
+    ]
+  },
+  {
+    "id": "3005271/EXTPEXZT",
+    "type": "entry-encyclopedia",
+    "abstract": "The Internet and social media increasingly are becoming sources about the African past and present in ways that will influence to some extent how history will be learnt and the form that methods of historical research will take. Social media have increasingly dislodged print journalism as “the first rough draft of history” and tended to democratize and hasten information sharing and communication. Historians are working through difficult debates about the Internet as a source archive, the usability of websites, and related matters. The debate over online resources and their use in historical and other studies on one level remains unresolved. Nevertheless, online sources add another rich layer to narratives, stories, and perspectives that are already being recorded or told, and in this regard they will add to the storehouse of empirical data to be crunched by future historians.",
+    "citation-key": "bloomfieldInternetSocialMedia2018",
+    "container-title": "Oxford Research Encyclopedia of African History",
+    "DOI": "10.1093/acrefore/9780190277734.013.225",
+    "language": "en",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "title": "The Internet and Social Media as Sources",
+    "author": [
+      {
+        "family": "Bloomfield",
+        "given": "Aubrey"
+      },
+      {
+        "family": "Jacobs",
+        "given": "Sean"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2019,
+          10,
+          21
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.225"
+  },
+  {
+    "id": "3005271/4HS2CNQ4",
+    "type": "entry-encyclopedia",
+    "abstract": "Archives used in Africanist historical research include those of the colonial state, postcolonial national archives, missionary archives, personal papers, political party archives, and the archives of corporations and international agencies involved in African affairs. Africanists historians generally accept that these archives are not transparent renditions of the past; they represent and even reproduce power relations related to colonialism and its legacies. Nonetheless, careful readings have enabled Africanist historians to understand the structural order and logic these archives (the archival grain), and thus demonstrate colonial (or other) power relations implicated in the collections. Reading archives against the grain can also reveal alternative voices and agents, however. Even as discussions of archival methodologies have been limited, archives have remained crucial sources for key trends in Africanist historical writing, including the representation of colonial hegemonies as well as African voice and agency. To advance such readings, Africanist historians develop post-positivist readings of archives that appreciate silences, dissonances, and conflicts within archives and documentation. Through a process of archival fieldwork, including a careful combing of archives, reading of files, and transcribing of select documents, historians have become adept at appreciating the grain of archives and reading the archive against this grain. The digitization of archives and digital research methods, including electronic search engines, full-text searches, online archives, and digital photography, challenge aspects of traditional archival fieldwork, holding benefits and potential setbacks for the critical appreciation of archival documentation. These challenges have sharpened with the changing role of physical documentation along with an increase in smaller archives that enable serendipitous and hodgepodge archival investigations.",
+    "citation-key": "gordonReadingArchivesSources2018",
+    "container-title": "Oxford Research Encyclopedia of African History",
+    "DOI": "10.1093/acrefore/9780190277734.013.227",
+    "language": "en",
+    "note": "QID: Q115765720",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "title": "Reading the Archives as Sources",
+    "author": [
+      {
+        "family": "Gordon",
+        "given": "David M."
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2019,
+          12,
+          19
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.227"
+  },
+  {
+    "id": "3005271/4NTKLYH6",
+    "type": "entry-encyclopedia",
+    "abstract": "There are copious resources for the study of African history on the internet. They include manuscripts and documentary archives, maps, museum collections, newspapers, printed books, picture collections, and sound and moving images. The websites of European institutions provide a good proportion of this content, reflecting the long, entangled, and troubled histories that connect Europe and Africa, as well as new partnerships with African institutions.This plethora of digital resources enables both specialized researchers and the public to access information about Africa more quickly and easily, and on a larger scale than ever before. Digitization comes with a strong democratic impulse, and the new technology has been instrumental in making libraries, archives, museums, and art galleries much more open. But all is not smooth sailing, and there are two particular aspects of which researchers should be aware.The first is that there are still huge collections, or parts of collections, that have not been digitized, and that resources have been—on the whole—most focused on items with visual appeal. The twin brakes of cost and copyright restrain the process, and researchers need to understand how what they can get online relates to what still exists only in hard copy.The second consideration is that digitized resources can be difficult to find. Information about the riches of the web in this area is very fragmented, and exclusive use of one search engine, however dominant, is clearly not enough. As a counter to this fragmentation, a listing of the major websites for African history in Europe is given in a handy guide for researchers, which covers these resources by format and by region of Africa. The listing also provides websites in two particular areas of interest to historians and to the public: the transatlantic slave trade, and the liberation struggles in southern Africa.",
+    "citation-key": "wallaceDigitalSourcesEurope2018",
+    "container-title": "Oxford Research Encyclopedia of African History",
+    "DOI": "10.1093/acrefore/9780190277734.013.338",
+    "language": "en",
+    "note": "QID: Q115765742",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "title": "Digital Sources in Europe for African History",
+    "author": [
+      {
+        "family": "Wallace",
+        "given": "Marion"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2019,
+          6,
+          12
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.338"
+  },
+  {
+    "id": "3005271/99C5SSNA",
+    "type": "entry-encyclopedia",
+    "abstract": "The robust, sustained interest in the history of the transatlantic slave trade has been a defining feature of the intersection of African studies and digital scholarship since the advent of humanities computing in the 1960s. The pioneering work of the Trans-Atlantic Slave Trade Database, first made widely available in CD-ROM in 1999, is one of several major projects to use digital tools in the research and analysis of the Atlantic trade from the sixteenth through the mid-nineteenth century. Over the past two decades, computing technologies have also been applied to the exploration of African bondage outside the maritime Atlantic frame. In the 2010s, Slave Voyages (the online successor to the original Slave Trade Database compact disc) joined many other projects in and outside the academy that deploy digital tools in the reconstruction of the large-scale structural history of the trade as well as the microhistorical understandings of individual lives, the biography of notables, and family ancestry.",
+    "citation-key": "williamsDigitalApproachesHistory2018",
+    "container-title": "Oxford Research Encyclopedia of African History",
+    "DOI": "10.1093/acrefore/9780190277734.013.121",
+    "ISBN": "978-0-19-027773-4",
+    "language": "en",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "title": "Digital Approaches to the History of the Atlantic Slave Trade",
+    "author": [
+      {
+        "family": "Williams",
+        "given": "Daryle"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2020,
+          7,
+          14
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.121"
+  },
+  {
     "id": "3005271/GDTHGZIS",
     "type": "article-journal",
     "abstract": "Over the past decade, Matrix, the Center for Digital Humanities and Social Sciences at Michigan State University, has developed digital galleries blending text, sound, and image to portray the history of islamization and the practice of Islam in West Africa with support from NSF, TICFIA, and the NEH. The featured areas have been Ghana (as a Muslim minority country), and Senegal (as a Muslim majority area), as well as Gambia and Mauritania. The emphasis has been on the diversity, tolerance, and pluralism of Islamic practice in historical and contemporary terms, on female and male practitioners, and on laypeople as well as clergy. We have used European archives, Arabic and ajami documents, interviews, and a range of other sources to tell stories and show practices. The portal for this material is www.aodl.org. This article outlines some of the galleries that we have built; others will be added over the next two years. The authors of the galleries are faculty at Indiana University, Michigan State, Harvard, Boston University, and James Madison University. The designer of the galleries has been Catherine Foley, Director of Digital Library and Archive Projects at MATRIX, and the author of \"Developing Materials for a Digital Library Gallery\" in this issue of Islamic Africa.",
@@ -648,42 +842,6 @@
     ]
   },
   {
-    "id": "3005271/4HS2CNQ4",
-    "type": "entry-encyclopedia",
-    "abstract": "Archives used in Africanist historical research include those of the colonial state, postcolonial national archives, missionary archives, personal papers, political party archives, and the archives of corporations and international agencies involved in African affairs. Africanists historians generally accept that these archives are not transparent renditions of the past; they represent and even reproduce power relations related to colonialism and its legacies. Nonetheless, careful readings have enabled Africanist historians to understand the structural order and logic these archives (the archival grain), and thus demonstrate colonial (or other) power relations implicated in the collections. Reading archives against the grain can also reveal alternative voices and agents, however. Even as discussions of archival methodologies have been limited, archives have remained crucial sources for key trends in Africanist historical writing, including the representation of colonial hegemonies as well as African voice and agency. To advance such readings, Africanist historians develop post-positivist readings of archives that appreciate silences, dissonances, and conflicts within archives and documentation. Through a process of archival fieldwork, including a careful combing of archives, reading of files, and transcribing of select documents, historians have become adept at appreciating the grain of archives and reading the archive against this grain. The digitization of archives and digital research methods, including electronic search engines, full-text searches, online archives, and digital photography, challenge aspects of traditional archival fieldwork, holding benefits and potential setbacks for the critical appreciation of archival documentation. These challenges have sharpened with the changing role of physical documentation along with an increase in smaller archives that enable serendipitous and hodgepodge archival investigations.",
-    "citation-key": "gordonReadingArchivesSources2018",
-    "container-title": "Oxford Research Encyclopedia of African History",
-    "language": "en",
-    "note": "QID: Q115765720",
-    "publisher": "Oxford University Press",
-    "publisher-place": "Oxford",
-    "title": "Reading the Archives as Sources",
-    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.227",
-    "author": [
-      {
-        "family": "Gordon",
-        "given": "David M."
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2019,
-          12,
-          19
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2018
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
     "id": "3005271/M9FF9FMJ",
     "type": "article-journal",
     "abstract": "Africa’s regional archives offer crucial records to explore the continent’s postcolonial past. Although these archives are often difficult to locate and access and are exposed to several challenges that might even threaten their existence, this article presents a solid case for reconsidering their importance. Recent trends, aptly labelled ‘postcolonial African archival pessimism’, have mainly pointed to problems and often to the limited accessibility of state archives in some regional and local contexts. This article instead engages with their potential, discussing four case studies in Benin, Cabo Verde, Ghana and Congo-Brazzaville. Results stemming from these case studies are brought into contact with wider debates on custodial cultures and the regional archives’ role in contemporary sub-Saharan Africa. The intention is to provide a more positive and empirically based overview of research possibilities at regional archives and ultimately to change the nature of our approach to these resources.",
@@ -1180,44 +1338,6 @@
       "date-parts": [
         [
           2024
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/99C5SSNA",
-    "type": "entry-encyclopedia",
-    "abstract": "The robust, sustained interest in the history of the transatlantic slave trade has been a defining feature of the intersection of African studies and digital scholarship since the advent of humanities computing in the 1960s. The pioneering work of the Trans-Atlantic Slave Trade Database, first made widely available in CD-ROM in 1999, is one of several major projects to use digital tools in the research and analysis of the Atlantic trade from the sixteenth through the mid-nineteenth century. Over the past two decades, computing technologies have also been applied to the exploration of African bondage outside the maritime Atlantic frame. In the 2010s, Slave Voyages (the online successor to the original Slave Trade Database compact disc) joined many other projects in and outside the academy that deploy digital tools in the reconstruction of the large-scale structural history of the trade as well as the microhistorical understandings of individual lives, the biography of notables, and family ancestry.",
-    "citation-key": "williamsDigitalApproachesHistory2018",
-    "container-title": "Oxford Research Encyclopedia of African History",
-    "DOI": "10.1093/acrefore/9780190277734.013.121",
-    "ISBN": "978-0-19-027773-4",
-    "language": "en",
-    "publisher": "Oxford University Press",
-    "publisher-place": "Oxford",
-    "source": "oxfordre.com",
-    "title": "Digital Approaches to the History of the Atlantic Slave Trade",
-    "URL": "https://oxfordre.com/africanhistory/view/10.1093/acrefore/9780190277734.001.0001/acrefore-9780190277734-e-121",
-    "author": [
-      {
-        "family": "Williams",
-        "given": "Daryle"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2020,
-          7,
-          14
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2018
         ]
       ]
     },
@@ -2482,81 +2602,6 @@
           2020,
           5,
           30
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/4NTKLYH6",
-    "type": "entry-encyclopedia",
-    "abstract": "There are copious resources for the study of African history on the internet. They include manuscripts and documentary archives, maps, museum collections, newspapers, printed books, picture collections, and sound and moving images. The websites of European institutions provide a good proportion of this content, reflecting the long, entangled, and troubled histories that connect Europe and Africa, as well as new partnerships with African institutions.This plethora of digital resources enables both specialized researchers and the public to access information about Africa more quickly and easily, and on a larger scale than ever before. Digitization comes with a strong democratic impulse, and the new technology has been instrumental in making libraries, archives, museums, and art galleries much more open. But all is not smooth sailing, and there are two particular aspects of which researchers should be aware.The first is that there are still huge collections, or parts of collections, that have not been digitized, and that resources have been—on the whole—most focused on items with visual appeal. The twin brakes of cost and copyright restrain the process, and researchers need to understand how what they can get online relates to what still exists only in hard copy.The second consideration is that digitized resources can be difficult to find. Information about the riches of the web in this area is very fragmented, and exclusive use of one search engine, however dominant, is clearly not enough. As a counter to this fragmentation, a listing of the major websites for African history in Europe is given in a handy guide for researchers, which covers these resources by format and by region of Africa. The listing also provides websites in two particular areas of interest to historians and to the public: the transatlantic slave trade, and the liberation struggles in southern Africa.",
-    "citation-key": "wallaceDigitalSourcesEurope2018",
-    "container-title": "Oxford Research Encyclopedia of African History",
-    "language": "en",
-    "note": "QID: Q115765742",
-    "publisher": "Oxford University Press",
-    "publisher-place": "Oxford",
-    "title": "Digital Sources in Europe for African History",
-    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.338",
-    "author": [
-      {
-        "family": "Wallace",
-        "given": "Marion"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2019,
-          6,
-          12
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2018
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/EXTPEXZT",
-    "type": "entry-encyclopedia",
-    "abstract": "The Internet and social media increasingly are becoming sources about the African past and present in ways that will influence to some extent how history will be learnt and the form that methods of historical research will take. Social media have increasingly dislodged print journalism as “the first rough draft of history” and tended to democratize and hasten information sharing and communication. Historians are working through difficult debates about the Internet as a source archive, the usability of websites, and related matters. The debate over online resources and their use in historical and other studies on one level remains unresolved. Nevertheless, online sources add another rich layer to narratives, stories, and perspectives that are already being recorded or told, and in this regard they will add to the storehouse of empirical data to be crunched by future historians.",
-    "citation-key": "bloomfieldInternetSocialMedia2018",
-    "container-title": "Oxford Research Encyclopedia of African History",
-    "language": "en",
-    "publisher": "Oxford University Press",
-    "publisher-place": "Oxford",
-    "title": "The Internet and Social Media as Sources",
-    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.225",
-    "author": [
-      {
-        "family": "Bloomfield",
-        "given": "Aubrey"
-      },
-      {
-        "family": "Jacobs",
-        "given": "Sean"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2019,
-          10,
-          21
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2018
         ]
       ]
     },
