@@ -158,14 +158,14 @@
 				{#each interviews as interview (interview.participantName)}
 					<div class="card-surface surface-padding stack-md rounded-lg glow-border">
 						{#if interview.youtubeId}
-							<div class="aspect-video w-full overflow-hidden rounded-md">
+							<div class="relative w-full overflow-hidden rounded-md" style="padding-bottom: 56.25%;">
 								<iframe
 									src="https://www.youtube-nocookie.com/embed/{interview.youtubeId}"
 									title="Interview with {interview.participantName}"
 									frameborder="0"
 									allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 									allowfullscreen
-									class="h-full w-full"
+									class="absolute inset-0 h-full w-full"
 									loading="lazy"
 								></iframe>
 							</div>
