@@ -16,8 +16,8 @@ updates:
       - 'dependencies'
       - 'javascript'
     commit-message:
-      prefix: 'chore(deps)'
-      prefix-development: 'chore(deps-dev)'
+      prefix: 'chore'
+      prefix-development: 'chore'
       include: 'scope'
     groups:
       svelte:
@@ -68,7 +68,7 @@ updates:
       - 'dependencies'
       - 'github-actions'
     commit-message:
-      prefix: 'chore(ci)'
+      prefix: 'chore'
       include: 'scope'
     groups:
       actions:
