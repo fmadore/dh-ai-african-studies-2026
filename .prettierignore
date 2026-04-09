@@ -1,0 +1,22 @@
+# Build outputs
+build/
+.svelte-kit/
+dist/
+.output/
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Generated / data files
+src/lib/data/references.json
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+nul

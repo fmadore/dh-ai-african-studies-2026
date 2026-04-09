@@ -5,7 +5,7 @@ export const oumouSidibe: Participant = {
 	affiliation: 'Projet Archives des Femmes du Mali',
 	affiliationCoordinates: {
 		latitude: 40.7128,
-		longitude: -74.0060
+		longitude: -74.006
 	},
 	country: 'Mali',
 	role: 'Participant',

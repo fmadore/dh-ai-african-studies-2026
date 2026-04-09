@@ -13,12 +13,12 @@
 {#if isEmbed}
 	{@render children?.()}
 {:else}
-	<div class="flex min-h-screen flex-col bg-page relative overflow-x-hidden">
+	<div class="bg-page relative flex min-h-screen flex-col overflow-x-hidden">
 		<!-- Navigation -->
 		<Header />
 
 		<!-- Main Content -->
-		<main class="flex-1 relative z-10">
+		<main class="relative z-10 flex-1">
 			{@render children?.()}
 		</main>
 

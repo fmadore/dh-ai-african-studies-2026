@@ -1,21 +1,21 @@
 <script lang="ts">
-	import { page } from "$app/state";
-	import ThemeToggle from "./ThemeToggle.svelte";
-	import { resolveAppPath } from "$lib/utils/paths";
+	import { page } from '$app/state';
+	import ThemeToggle from './ThemeToggle.svelte';
+	import { resolveAppPath } from '$lib/utils/paths';
 
 	let activeUrl = $derived(page.url.pathname);
 	let menuOpen = $state(false);
 
 	const navLinks = [
-		{ href: resolveAppPath("/"), label: "Home" },
-		{ href: resolveAppPath("/about"), label: "About" },
-		{ href: resolveAppPath("/participants"), label: "Participants" },
-		{ href: resolveAppPath("/concepts"), label: "Concepts" },
-		{ href: resolveAppPath("/schedule"), label: "Schedule" },
-		{ href: resolveAppPath("/position-paper"), label: "Position Paper" },
-		{ href: resolveAppPath("/references"), label: "References" },
-		{ href: resolveAppPath("/photos"), label: "Photos" },
-		{ href: resolveAppPath("/interviews"), label: "Interviews" },
+		{ href: resolveAppPath('/'), label: 'Home' },
+		{ href: resolveAppPath('/about'), label: 'About' },
+		{ href: resolveAppPath('/participants'), label: 'Participants' },
+		{ href: resolveAppPath('/concepts'), label: 'Concepts' },
+		{ href: resolveAppPath('/schedule'), label: 'Schedule' },
+		{ href: resolveAppPath('/position-paper'), label: 'Position Paper' },
+		{ href: resolveAppPath('/references'), label: 'References' },
+		{ href: resolveAppPath('/photos'), label: 'Photos' },
+		{ href: resolveAppPath('/interviews'), label: 'Interviews' }
 	] as const;
 
 	function toggleMenu() {
@@ -27,11 +27,13 @@
 	}
 </script>
 
-<header class="bg-page py-3 padding-inline-lg relative z-(--z-overlay)">
+<header class="bg-page padding-inline-lg relative z-(--z-overlay) py-3">
 	<nav class="content-width-wide surface-panel surface-padding-xs">
 		<div class="nav-bar">
-			<a href={resolveAppPath("/")} class="logo-link">
-				<span class="self-center whitespace-nowrap text-xl font-display font-bold tracking-tight heading-color-light drop-shadow-md pb-1">
+			<a href={resolveAppPath('/')} class="logo-link">
+				<span
+					class="font-display heading-color-light self-center pb-1 text-xl font-bold tracking-tight whitespace-nowrap drop-shadow-md"
+				>
 					DH & AI in African Studies
 				</span>
 			</a>
@@ -45,8 +47,20 @@
 					aria-expanded={menuOpen}
 					onclick={toggleMenu}
 				>
-					<svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+					<svg
+						class="h-5 w-5"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 17 14"
+					>
+						<path
+							stroke="currentColor"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M1 1h15M1 7h15M1 13h15"
+						/>
 					</svg>
 				</button>
 			</div>
@@ -95,7 +109,9 @@
 		border-radius: var(--radius-lg);
 		color: var(--color-gray-500);
 		cursor: pointer;
-		transition: transform var(--transition-fast), opacity var(--transition-fast);
+		transition:
+			transform var(--transition-fast),
+			opacity var(--transition-fast);
 	}
 
 	.nav-hamburger:hover {
@@ -138,7 +154,9 @@
 		border-radius: var(--radius-sm);
 		color: var(--color-gray-700);
 		text-decoration: none;
-		transition: color var(--transition-fast), background-color var(--transition-fast);
+		transition:
+			color var(--transition-fast),
+			background-color var(--transition-fast);
 	}
 
 	:global(.dark) .nav-link {

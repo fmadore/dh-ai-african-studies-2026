@@ -87,9 +87,17 @@
 	}
 
 	.filter-btn.active {
-		background: color-mix(in srgb, var(--group-color, var(--color-secondary-500)) 12%, var(--color-surface-0));
+		background: color-mix(
+			in srgb,
+			var(--group-color, var(--color-secondary-500)) 12%,
+			var(--color-surface-0)
+		);
 		color: var(--color-gray-900);
-		border-color: color-mix(in srgb, var(--group-color, var(--color-secondary-500)) 40%, transparent);
+		border-color: color-mix(
+			in srgb,
+			var(--group-color, var(--color-secondary-500)) 40%,
+			transparent
+		);
 	}
 
 	:global(.dark) .filter-btn {
@@ -103,9 +111,17 @@
 	}
 
 	:global(.dark) .filter-btn.active {
-		background: color-mix(in srgb, var(--group-color, var(--color-secondary-400)) 15%, var(--color-surface-dark-base));
+		background: color-mix(
+			in srgb,
+			var(--group-color, var(--color-secondary-400)) 15%,
+			var(--color-surface-dark-base)
+		);
 		color: var(--color-gray-100);
-		border-color: color-mix(in srgb, var(--group-color, var(--color-secondary-400)) 40%, transparent);
+		border-color: color-mix(
+			in srgb,
+			var(--group-color, var(--color-secondary-400)) 40%,
+			transparent
+		);
 	}
 
 	.filter-btn-all {

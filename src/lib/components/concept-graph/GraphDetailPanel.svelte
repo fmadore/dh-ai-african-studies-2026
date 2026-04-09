@@ -23,7 +23,9 @@
 	<div class="detail-meta">
 		<span
 			class="detail-badge"
-			style="background-color: {getNodeColor(node.group)}20; color: {getNodeColor(node.group)}; border: 1px solid {getNodeColor(node.group)}40;"
+			style="background-color: {getNodeColor(node.group)}20; color: {getNodeColor(
+				node.group
+			)}; border: 1px solid {getNodeColor(node.group)}40;"
 		>
 			{node.group}
 		</span>
@@ -34,15 +36,15 @@
 	</div>
 	{#if neighbors.length > 0}
 		<div class="detail-connections">
-			<p class="text-body-sm" style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-xs);">
+			<p
+				class="text-body-sm"
+				style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-xs);"
+			>
 				Connected to:
 			</p>
 			<div class="connection-tags">
 				{#each neighbors as neighbor (neighbor)}
-					<button
-						class="connection-tag"
-						onclick={() => onnavigate(neighbor)}
-					>
+					<button class="connection-tag" onclick={() => onnavigate(neighbor)}>
 						{neighbor}
 					</button>
 				{/each}

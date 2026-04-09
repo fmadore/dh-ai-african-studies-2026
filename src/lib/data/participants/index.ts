@@ -7,10 +7,17 @@ const participantModules = import.meta.glob<ParticipantModule>('./*.ts', { eager
 
 // Extract and export all participants
 export const participants: Participant[] = Object.entries(participantModules)
-	.filter(([path]) => !path.includes('index.ts') && !path.includes('README') && !path.includes('example-participant'))
+	.filter(
+		([path]) =>
+			!path.includes('index.ts') &&
+			!path.includes('README') &&
+			!path.includes('example-participant')
+	)
 	.map(([, module]) => {
 		// Get the first exported value that is a Participant object
-		const entry = Object.entries(module).find(([key, value]) => key !== 'default' && Boolean(value));
+		const entry = Object.entries(module).find(
+			([key, value]) => key !== 'default' && Boolean(value)
+		);
 		return entry?.[1] ?? null;
 	})
 	.filter((participant): participant is Participant => participant !== null);

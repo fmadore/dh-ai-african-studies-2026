@@ -1,6 +1,6 @@
 /**
  * Workshop Information
- * 
+ *
  * Centralized data for workshop dates, location, and format.
  * Used across multiple pages (home, schedule, etc.)
  */
@@ -37,7 +37,8 @@ export const workshopInfo = {
 			longitude: 9.6983
 		},
 		nearestStop: 'Herrenhäuser Gärten',
-		mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2434.8!2d9.6961!3d52.3906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b074a5c5555555%3A0x1234567890abcdef!2sXplanatorium%20Herrenhausen!5e0!3m2!1sen!2sde!4v1234567890'
+		mapUrl:
+			'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2434.8!2d9.6961!3d52.3906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b074a5c5555555%3A0x1234567890abcdef!2sXplanatorium%20Herrenhausen!5e0!3m2!1sen!2sde!4v1234567890'
 	},
 	/** Accommodation for all participants */
 	accommodation: {

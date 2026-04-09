@@ -28,7 +28,7 @@ When writing Svelte components, ALWAYS use Svelte 5 runes syntax:
   let count = $state(0);
   let doubled = $derived(count * 2);
   let { title, description } = $props();
-  
+
   // ❌ INCORRECT - Don't use old syntax
   // let count = 0;
   // export let title;
@@ -37,6 +37,7 @@ When writing Svelte components, ALWAYS use Svelte 5 runes syntax:
 ```
 
 **Key Svelte 5 Patterns:**
+
 - `$state()` for reactive state
 - `$derived()` for computed values
 - `$props()` for component props
@@ -51,15 +52,17 @@ Every page should follow this pattern for SEO and structured data:
 ```svelte
 <script lang="ts">
   import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
-  
+
   const seo = createSeoMeta({
     title: 'Page Title',
     description: 'Page description for SEO',
     path: '/current-route'
   });
-  
+
   // For event-related pages, add JSON-LD structured data
-  const eventJsonLd = createEventJsonLd({ /* options */ });
+  const eventJsonLd = createEventJsonLd({
+    /* options */
+  });
 </script>
 
 <svelte:head>
@@ -77,11 +80,13 @@ Every page should follow this pattern for SEO and structured data:
 ### 3. Using MCP Tools
 
 **For Svelte documentation:**
+
 - Use the Svelte MCP server tools to get the latest Svelte 5 documentation
 - Always verify component syntax with `mcp_svelte_list-sections` and `mcp_svelte_get-documentation`
 - Use `mcp_svelte_svelte-autofixer` to validate Svelte code before presenting it
 
 **For library documentation:**
+
 - Use Context7 MCP tools (`mcp_upstash_conte_resolve-library-id` and `mcp_upstash_conte_get-library-docs`) for up-to-date documentation on Flowbite Svelte and other libraries
 
 ### 4. Routing & Asset Helpers
@@ -92,6 +97,7 @@ Every page should follow this pattern for SEO and structured data:
 ### 5. Flowbite Svelte Components
 
 **Import Pattern:**
+
 ```svelte
 <script lang="ts">
   import { Button, Card, Navbar, Footer } from 'flowbite-svelte';
@@ -100,6 +106,7 @@ Every page should follow this pattern for SEO and structured data:
 ```
 
 **Component Usage:**
+
 ```svelte
 <!-- Buttons with color variants -->
 <Button color="primary">Register Now</Button>
@@ -123,29 +130,29 @@ Every page should follow this pattern for SEO and structured data:
   - **Decoration**: `.decorative-blob`, `.decorative-blob-primary` (for ambient backgrounds)
 
 **Using Theme Values:**
+
 ```svelte
 <!-- Use custom colors in components -->
 <Button color="primary">Primary Action</Button>
 <Button color="secondary">Secondary Action</Button>
 
 <!-- Apply Tailwind classes with custom colors -->
-<div class="bg-primary-50 text-primary-900">
-  Conference content
-</div>
+<div class="bg-primary-50 text-primary-900">Conference content</div>
 ```
 
 **ThemeProvider for Custom Component Styling:**
+
 ```svelte
 <script lang="ts">
   import { ThemeProvider, Button, Card } from 'flowbite-svelte';
-  
+
   const theme = {
     button: {
-      base: "font-semibold",
-      outline: "border-2"
+      base: 'font-semibold',
+      outline: 'border-2'
     },
     card: {
-      base: "shadow-lg"
+      base: 'shadow-lg'
     }
   };
 </script>
@@ -180,6 +187,7 @@ Create reusable themed components:
 ### 9. Static Site Generation Configuration
 
 **SvelteKit Configuration (svelte.config.js):**
+
 ```javascript
 import adapter from '@sveltejs/adapter-static';
 
@@ -202,6 +210,7 @@ export default config;
 ```
 
 **Ensure all routes are prerenderable:**
+
 ```svelte
 <script lang="ts">
   // +page.ts or +layout.ts
@@ -262,6 +271,7 @@ scripts/
 ### 12. Common Component Patterns
 
 **Navigation:**
+
 ```svelte
 <script lang="ts">
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
@@ -286,6 +296,7 @@ scripts/
 ```
 
 **Footer:**
+
 ```svelte
 <script lang="ts">
   import { Footer, FooterCopyright, FooterLinkGroup, FooterLink } from 'flowbite-svelte';
@@ -312,14 +323,14 @@ Always use TypeScript for type safety:
 <script lang="ts">
   import type { ComponentProps } from 'svelte';
   import { Button } from 'flowbite-svelte';
-  
+
   interface Speaker {
     name: string;
     title: string;
     bio: string;
     image: string;
   }
-  
+
   let speakers: Speaker[] = $state([]);
   let selectedSpeaker: Speaker | null = $state(null);
 </script>
@@ -336,26 +347,26 @@ Always use TypeScript for type safety:
 <DarkMode class="text-primary-500 dark:text-primary-600" />
 
 <!-- Style for both modes -->
-<div class="bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
-  Content adapts to theme
-</div>
+<div class="bg-white text-gray-900 dark:bg-gray-800 dark:text-white">Content adapts to theme</div>
 ```
 
 ### 15. Centralized Data Patterns
 
 **Workshop Information (`$lib/data/workshop-info.ts`):**
+
 ```typescript
 // Always use workshopInfo for dates, location, and organizer info
 import { workshopInfo } from '$lib/data/workshop-info';
 
 // Access properties like:
-workshopInfo.dates.full         // "18-20 February 2026"
-workshopInfo.dates.startISO     // "2026-02-18" (for structured data)
-workshopInfo.location.venue     // "Xplanatorium Herrenhausen"
-workshopInfo.funder.name        // "Volkswagen Foundation"
+workshopInfo.dates.full; // "18-20 February 2026"
+workshopInfo.dates.startISO; // "2026-02-18" (for structured data)
+workshopInfo.location.venue; // "Xplanatorium Herrenhausen"
+workshopInfo.funder.name; // "Volkswagen Foundation"
 ```
 
 **Work Streams (`$lib/data/work-streams.ts`):**
+
 ```typescript
 import { workStreams } from '$lib/data/work-streams';
 // Array of { id, title, description }

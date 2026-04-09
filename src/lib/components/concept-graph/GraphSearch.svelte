@@ -62,7 +62,10 @@
 
 <div class="search-bar">
 	<div class="search-input-wrapper">
-		<SearchOutline class="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" aria-hidden="true" />
+		<SearchOutline
+			class="pointer-events-none absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2 text-gray-400"
+			aria-hidden="true"
+		/>
 		<input
 			bind:this={searchInputEl}
 			type="text"
@@ -71,8 +74,14 @@
 			value={searchQuery}
 			oninput={onSearchInput}
 			onkeydown={onSearchKeydown}
-			onfocus={() => { if (searchQuery.trim()) searchOpen = true; }}
-			onblur={() => { setTimeout(() => { searchOpen = false; }, 200); }}
+			onfocus={() => {
+				if (searchQuery.trim()) searchOpen = true;
+			}}
+			onblur={() => {
+				setTimeout(() => {
+					searchOpen = false;
+				}, 200);
+			}}
 			aria-label="Search concepts"
 			aria-expanded={searchOpen && searchResults.length > 0}
 			aria-controls="search-results"
@@ -82,7 +91,10 @@
 		{#if searchQuery}
 			<button
 				class="search-clear"
-				onclick={() => { searchQuery = ''; searchOpen = false; }}
+				onclick={() => {
+					searchQuery = '';
+					searchOpen = false;
+				}}
 				aria-label="Clear search"
 			>
 				&times;
@@ -100,10 +112,16 @@
 				>
 					<button
 						class="search-result-btn"
-						onmousedown={(e) => { e.preventDefault(); selectResult(result); }}
-						onpointerenter={() => { searchHighlightIndex = i; }}
+						onmousedown={(e) => {
+							e.preventDefault();
+							selectResult(result);
+						}}
+						onpointerenter={() => {
+							searchHighlightIndex = i;
+						}}
 					>
-						<span class="search-result-dot" style="background-color: {getNodeColor(result.group)}"></span>
+						<span class="search-result-dot" style="background-color: {getNodeColor(result.group)}"
+						></span>
 						<span class="search-result-label">{result.label}</span>
 						<span class="search-result-degree">{result.degree}</span>
 					</button>

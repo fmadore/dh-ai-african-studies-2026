@@ -1,9 +1,20 @@
 <script lang="ts">
-	import type { ConceptNode, ConceptEdge, ConceptGraphData, ConceptGroup } from '$lib/types/concept-graph';
+	import type {
+		ConceptNode,
+		ConceptEdge,
+		ConceptGraphData,
+		ConceptGroup
+	} from '$lib/types/concept-graph';
 	import { useDarkMode } from '$lib/utils/dark-mode.svelte';
 	import { GROUP_COLORS, ALL_GROUPS, getNodeRadius } from './concept-graph/graph-config';
 	import { Spinner } from 'flowbite-svelte';
-	import { CloseOutline, PlusOutline, MinusOutline, ExpandOutline, CompressOutline } from 'flowbite-svelte-icons';
+	import {
+		CloseOutline,
+		PlusOutline,
+		MinusOutline,
+		ExpandOutline,
+		CompressOutline
+	} from 'flowbite-svelte-icons';
 	import GraphSearch from './concept-graph/GraphSearch.svelte';
 	import GraphDetailPanel from './concept-graph/GraphDetailPanel.svelte';
 	import GraphFilters from './concept-graph/GraphFilters.svelte';
@@ -141,10 +152,7 @@
 		svgSelectionRef
 			.transition()
 			.duration(500)
-			.call(
-				zoomBehaviorRef.transform,
-				d3ZoomModuleRef.zoomIdentity.translate(tx, ty).scale(scale)
-			);
+			.call(zoomBehaviorRef.transform, d3ZoomModuleRef.zoomIdentity.translate(tx, ty).scale(scale));
 		selectedNode = node;
 	}
 
@@ -211,7 +219,13 @@
 				)
 				.force('charge', d3Force.forceManyBody().strength(-350).distanceMax(500))
 				.force('center', d3Force.forceCenter(width / 2, height / 2))
-				.force('collide', d3Force.forceCollide<ConceptNode>().radius((d) => getNodeRadius(d.degree) + 12).strength(0.8))
+				.force(
+					'collide',
+					d3Force
+						.forceCollide<ConceptNode>()
+						.radius((d) => getNodeRadius(d.degree) + 12)
+						.strength(0.8)
+				)
 				.force('x', d3Force.forceX(width / 2).strength(0.02))
 				.force('y', d3Force.forceY(height / 2).strength(0.02));
 
@@ -345,15 +359,18 @@
 
 	function zoomOut() {
 		if (!zoomBehaviorRef || !svgSelectionRef) return;
-		svgSelectionRef.transition().duration(300).call(zoomBehaviorRef.scaleBy, 1 / 1.5);
+		svgSelectionRef
+			.transition()
+			.duration(300)
+			.call(zoomBehaviorRef.scaleBy, 1 / 1.5);
 	}
 
 	function recenter() {
 		if (!zoomBehaviorRef || !svgSelectionRef || !d3ZoomModuleRef) return;
-		svgSelectionRef.transition().duration(400).call(
-			zoomBehaviorRef.transform,
-			d3ZoomModuleRef.zoomIdentity
-		);
+		svgSelectionRef
+			.transition()
+			.duration(400)
+			.call(zoomBehaviorRef.transform, d3ZoomModuleRef.zoomIdentity);
 	}
 
 	// --- Fullscreen ---
@@ -365,7 +382,9 @@
 				setTimeout(recenter, 200);
 			});
 		} else {
-			document.exitFullscreen().then(() => { isFullscreen = false; });
+			document.exitFullscreen().then(() => {
+				isFullscreen = false;
+			});
 		}
 	}
 
@@ -403,11 +422,7 @@
 			ontoggle={toggleGroup}
 			onactivateall={activateAllGroups}
 		/>
-		<GraphSearch
-			nodes={filteredNodes}
-			{getNodeColor}
-			onselect={zoomToNode}
-		/>
+		<GraphSearch nodes={filteredNodes} {getNodeColor} onselect={zoomToNode} />
 	</div>
 
 	<!-- Graph canvas -->
@@ -430,7 +445,9 @@
 			aria-label="Interactive concept network graph showing relationships between workshop themes"
 			tabindex="-1"
 			onclick={onBackgroundClick}
-			onkeydown={(e) => { if (e.key === 'Escape') selectedNode = null; }}
+			onkeydown={(e) => {
+				if (e.key === 'Escape') selectedNode = null;
+			}}
 		>
 			<g transform="translate({transform.x},{transform.y}) scale({transform.k})">
 				<!-- Edges -->
@@ -442,7 +459,10 @@
 						x2={coords.x2}
 						y2={coords.y2}
 						stroke={isDarkMode ? '#94a3b8' : '#64748b'}
-						stroke-width={spotlightNode && (coords.srcId === spotlightNode.id || coords.tgtId === spotlightNode.id) ? 1.5 : 0.7}
+						stroke-width={spotlightNode &&
+						(coords.srcId === spotlightNode.id || coords.tgtId === spotlightNode.id)
+							? 1.5
+							: 0.7}
 						opacity={edgeOpacity(coords.srcId, coords.tgtId)}
 					/>
 				{/each}
@@ -461,9 +481,16 @@
 						data-node-id={node.id}
 						onpointerenter={() => (hoveredNode = node)}
 						onpointermove={onNodePointerMove}
-						onpointerleave={() => { if (hoveredNode?.id === node.id) hoveredNode = null; }}
+						onpointerleave={() => {
+							if (hoveredNode?.id === node.id) hoveredNode = null;
+						}}
 						onclick={(e) => onNodeClick(e, node)}
-						onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onNodeClick(e as any, node); } }}
+						onkeydown={(e) => {
+							if (e.key === 'Enter' || e.key === ' ') {
+								e.preventDefault();
+								onNodeClick(e as any, node);
+							}
+						}}
 					>
 						<!-- Seed glow ring -->
 						{#if node.seed}
@@ -482,7 +509,7 @@
 						<circle
 							cx={nx}
 							cy={ny}
-							r={r}
+							{r}
 							fill={getNodeColor(node.group)}
 							stroke={isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.8)'}
 							stroke-width="1.5"
@@ -516,25 +543,37 @@
 		{#if selectedNode}
 			<button
 				class="selection-pill"
-				onclick={() => { selectedNode = null; }}
+				onclick={() => {
+					selectedNode = null;
+				}}
 				aria-label="Clear selection: {selectedNode.label}"
 			>
-				<span class="selection-pill-dot" style="background-color: {getNodeColor(selectedNode.group)}"></span>
+				<span
+					class="selection-pill-dot"
+					style="background-color: {getNodeColor(selectedNode.group)}"
+				></span>
 				<span class="selection-pill-label">{selectedNode.label}</span>
-				<CloseOutline class="w-3.5 h-3.5" aria-hidden="true" />
+				<CloseOutline class="h-3.5 w-3.5" aria-hidden="true" />
 			</button>
 		{/if}
 
 		<!-- Graph controls -->
 		<div class="graph-controls">
 			<button class="control-btn" onclick={zoomIn} aria-label="Zoom in" title="Zoom in">
-				<PlusOutline class="w-4 h-4" />
+				<PlusOutline class="h-4 w-4" />
 			</button>
 			<button class="control-btn" onclick={zoomOut} aria-label="Zoom out" title="Zoom out">
-				<MinusOutline class="w-4 h-4" />
+				<MinusOutline class="h-4 w-4" />
 			</button>
 			<button class="control-btn" onclick={recenter} aria-label="Recenter graph" title="Recenter">
-				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
 					<circle cx="8" cy="8" r="3" />
 					<line x1="8" y1="1" x2="8" y2="4" />
 					<line x1="8" y1="12" x2="8" y2="15" />
@@ -542,11 +581,16 @@
 					<line x1="12" y1="8" x2="15" y2="8" />
 				</svg>
 			</button>
-			<button class="control-btn" onclick={toggleFullscreen} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>
+			<button
+				class="control-btn"
+				onclick={toggleFullscreen}
+				aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
+				title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
+			>
 				{#if isFullscreen}
-					<CompressOutline class="w-4 h-4" />
+					<CompressOutline class="h-4 w-4" />
 				{:else}
-					<ExpandOutline class="w-4 h-4" />
+					<ExpandOutline class="h-4 w-4" />
 				{/if}
 			</button>
 		</div>
@@ -562,13 +606,11 @@
 
 		<!-- Hover tooltip -->
 		{#if hoveredNode && !draggedNode}
-			<div
-				class="graph-tooltip"
-				style="left: {tooltipX + 14}px; top: {tooltipY - 10}px;"
-			>
+			<div class="graph-tooltip" style="left: {tooltipX + 14}px; top: {tooltipY - 10}px;">
 				<div class="tooltip-label">{hoveredNode.label}</div>
 				<div class="tooltip-meta">
-					<span class="tooltip-dot" style="background-color: {getNodeColor(hoveredNode.group)}"></span>
+					<span class="tooltip-dot" style="background-color: {getNodeColor(hoveredNode.group)}"
+					></span>
 					<span class="tooltip-group">{hoveredNode.group}</span>
 				</div>
 				<div class="tooltip-stats">

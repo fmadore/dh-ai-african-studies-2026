@@ -4,7 +4,12 @@
 	import ParticipantAvatar from '$lib/components/ParticipantAvatar.svelte';
 	import { participants } from '$lib/data/participants';
 	import { thematicGroups } from '$lib/data/thematic-groups';
-	import { createSeoMeta, createEventJsonLd, createWebPageJsonLd, jsonLdScript } from '$lib/utils/seo';
+	import {
+		createSeoMeta,
+		createEventJsonLd,
+		createWebPageJsonLd,
+		jsonLdScript
+	} from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import ParticipantsMap from '$lib/components/ParticipantsMap.svelte';
 	import SearchFilter from '$lib/components/SearchFilter.svelte';
@@ -19,7 +24,9 @@
 		{ id: 'groups', label: 'By Thematic Group', icon: UsersGroupSolid }
 	];
 
-	const baseParticipants = participants.filter((participant) => participant.role !== 'Student assistant');
+	const baseParticipants = participants.filter(
+		(participant) => participant.role !== 'Student assistant'
+	);
 	const totalParticipants = baseParticipants.length;
 	const totalCountries = new Set(baseParticipants.map((participant) => participant.country)).size;
 
@@ -33,20 +40,22 @@
 			}));
 	}
 
-	let displayedParticipants = $derived(baseParticipants
-		.filter((participant) => {
-			const query = searchQuery.toLowerCase();
-			return (
-				participant.name.toLowerCase().includes(query) ||
-				participant.affiliation.toLowerCase().includes(query) ||
-				participant.country.toLowerCase().includes(query) ||
-				participant.researchRegions.some((region) => region.toLowerCase().includes(query))
-			);
-		})
-		.map((participant) => ({
-			...participant,
-			photoUrl: resolveAssetPath(participant.photoUrl)
-		})));
+	let displayedParticipants = $derived(
+		baseParticipants
+			.filter((participant) => {
+				const query = searchQuery.toLowerCase();
+				return (
+					participant.name.toLowerCase().includes(query) ||
+					participant.affiliation.toLowerCase().includes(query) ||
+					participant.country.toLowerCase().includes(query) ||
+					participant.researchRegions.some((region) => region.toLowerCase().includes(query))
+				);
+			})
+			.map((participant) => ({
+				...participant,
+				photoUrl: resolveAssetPath(participant.photoUrl)
+			}))
+	);
 
 	const seo = createSeoMeta({
 		title: 'Participants',
@@ -81,7 +90,7 @@
 	const webPageJsonLd = createWebPageJsonLd({
 		name: seo.title,
 		description: seo.description,
-		url: seo.canonical,
+		url: seo.canonical
 	});
 </script>
 
@@ -101,10 +110,15 @@
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="bg-grid-mesh"></div>
 	<div class="bg-radial-glow"></div>
-	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
-		<Heading tag="h1" class="heading-display heading-xl text-gradient-teal drop-shadow-md pb-2 tracking-tight animate-hero-title">Participants</Heading>
-		<P class="text-lead mx-auto max-w-3xl animate-hero-subtitle">
-			Meet the {totalParticipants} international experts from {totalCountries} countries participating in this scoping workshop on Digital Humanities and AI in African Studies.
+	<div class="content-width surface-panel surface-padding stack-sm relative text-center">
+		<Heading
+			tag="h1"
+			class="heading-display heading-xl text-gradient-teal animate-hero-title pb-2 tracking-tight drop-shadow-md"
+			>Participants</Heading
+		>
+		<P class="text-lead animate-hero-subtitle mx-auto max-w-3xl">
+			Meet the {totalParticipants} international experts from {totalCountries} countries participating
+			in this scoping workshop on Digital Humanities and AI in African Studies.
 		</P>
 	</div>
 </section>
@@ -118,17 +132,24 @@
 				{#if activeTab === 'all'}
 					<!-- All Participants View -->
 					<div class="surface-panel surface-padding stack-lg relative">
-						<div class="w-full max-w-md mx-auto mb-lg">
-							<SearchFilter bind:value={searchQuery} placeholder="Search by name, affiliation, or region..." />
+						<div class="mb-lg mx-auto w-full max-w-md">
+							<SearchFilter
+								bind:value={searchQuery}
+								placeholder="Search by name, affiliation, or region..."
+							/>
 						</div>
 
 						{#if displayedParticipants.length > 0}
-							<div class="grid grid-cols-1 gap-lg sm:grid-cols-2 lg:grid-cols-3">
+							<div class="gap-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
 								{#each displayedParticipants as participant (participant.name)}
-									<div class="card-surface surface-padding-sm h-full glow-border">
-										<div class="flex flex-col items-center text-center stack-xs">
+									<div class="card-surface surface-padding-sm glow-border h-full">
+										<div class="stack-xs flex flex-col items-center text-center">
 											<!-- Participant Photo -->
-											<ParticipantAvatar src={participant.photoUrl} alt={participant.name} size="md" />
+											<ParticipantAvatar
+												src={participant.photoUrl}
+												alt={participant.name}
+												size="md"
+											/>
 
 											<!-- Participant Name -->
 											<Heading tag="h3" class="heading-sub heading-color-light heading-sm">
@@ -162,8 +183,10 @@
 
 										<!-- Research Regions -->
 										{#if participant.researchRegions.length > 0}
-											<div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700/50 stack-xs">
-												<P class="text-caption font-medium uppercase tracking-wider text-center">
+											<div
+												class="stack-xs mt-auto border-t border-gray-200 pt-4 dark:border-gray-700/50"
+											>
+												<P class="text-caption text-center font-medium tracking-wider uppercase">
 													Research Regions
 												</P>
 												<div class="flex flex-wrap justify-center gap-2">
@@ -177,10 +200,8 @@
 								{/each}
 							</div>
 						{:else}
-							<div class="text-center py-lg">
-								<P class="text-lead">
-									No participants found matching your search.
-								</P>
+							<div class="py-lg text-center">
+								<P class="text-lead">No participants found matching your search.</P>
 							</div>
 						{/if}
 					</div>
@@ -189,10 +210,10 @@
 					<div class="stack-xl">
 						{#each thematicGroups as group, index (group.id)}
 							{@const groupParticipants = getGroupParticipants(group.name)}
-							<div class="surface-panel surface-padding stack-md ">
+							<div class="surface-panel surface-padding stack-md">
 								<!-- Group Header -->
 								<div class="stack-sm">
-									<div class="flex flex-wrap items-center gap-sm">
+									<div class="gap-sm flex flex-wrap items-center">
 										<Badge color="primary" class="text-sm font-semibold">Group {index + 1}</Badge>
 										<Heading tag="h2" class="heading-section heading-md heading-color-light">
 											{group.name}
@@ -208,10 +229,14 @@
 									<Heading tag="h3" class="heading-sub heading-sm heading-color-light">
 										Guiding Questions
 									</Heading>
-									<div class="grid gap-md sm:grid-cols-3">
+									<div class="gap-md grid sm:grid-cols-3">
 										{#each group.guidingQuestions as question (question.category)}
 											<div class="card-surface surface-padding-sm stack-xs">
-												<p class="font-medium text-primary-600 dark:text-primary-400 text-sm uppercase tracking-wider">{question.category}</p>
+												<p
+													class="text-primary-600 dark:text-primary-400 text-sm font-medium tracking-wider uppercase"
+												>
+													{question.category}
+												</p>
 												<P class="text-body-sm">{question.question}</P>
 											</div>
 										{/each}
@@ -224,17 +249,23 @@
 										Participants ({groupParticipants.length})
 									</Heading>
 									{#if groupParticipants.length > 0}
-										<div class="grid grid-cols-1 gap-md sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+										<div
+											class="gap-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+										>
 											{#each groupParticipants as participant (participant.name)}
 												<div class="card-surface surface-padding-sm glow-border">
-													<div class="flex items-center gap-sm">
+													<div class="gap-sm flex items-center">
 														<!-- Participant Photo (smaller) -->
 														<div class="shrink-0">
-															<ParticipantAvatar src={participant.photoUrl} alt={participant.name} size="sm" />
+															<ParticipantAvatar
+																src={participant.photoUrl}
+																alt={participant.name}
+																size="sm"
+															/>
 														</div>
 														<!-- Participant Info -->
 														<div class="min-w-0">
-															<P class="font-semibold heading-color-light truncate">
+															<P class="heading-color-light truncate font-semibold">
 																{#if participant.website}
 																	<a
 																		href={participant.website}
@@ -248,7 +279,7 @@
 																	{participant.name}
 																{/if}
 															</P>
-															<P class="text-body-sm text-gray-600 dark:text-gray-400 truncate">
+															<P class="text-body-sm truncate text-gray-600 dark:text-gray-400">
 																{participant.affiliation}
 															</P>
 														</div>
@@ -257,7 +288,7 @@
 											{/each}
 										</div>
 									{:else}
-										<P class="text-body-sm text-gray-500 dark:text-gray-400 italic">
+										<P class="text-body-sm text-gray-500 italic dark:text-gray-400">
 											No participants assigned to this group yet.
 										</P>
 									{/if}
@@ -275,12 +306,15 @@
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="bg-grid-mesh opacity-30"></div>
 	<div class="bg-radial-glow-bottom"></div>
-	<div class="content-width-wide surface-panel surface-padding stack-md relative ">
-		<Heading tag="h2" class="heading-section heading-lg heading-color-light text-center accent-underline">Global Distribution</Heading>
-		<P class="text-lead text-center max-w-2xl mx-auto">
+	<div class="content-width-wide surface-panel surface-padding stack-md relative">
+		<Heading
+			tag="h2"
+			class="heading-section heading-lg heading-color-light accent-underline text-center"
+			>Global Distribution</Heading
+		>
+		<P class="text-lead mx-auto max-w-2xl text-center">
 			Explore where our participants are based around the world.
 		</P>
 		<ParticipantsMap participants={displayedParticipants} />
 	</div>
 </section>
-

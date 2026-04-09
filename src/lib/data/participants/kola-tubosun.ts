@@ -5,7 +5,7 @@ export const kolaTubosun: Participant = {
 	affiliation: 'www.OlongoAfrica.com',
 	affiliationCoordinates: {
 		latitude: 44.9778,
-		longitude: -93.2650
+		longitude: -93.265
 	},
 	country: 'United States',
 	role: 'Participant',

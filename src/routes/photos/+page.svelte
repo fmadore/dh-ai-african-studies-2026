@@ -68,18 +68,28 @@
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="bg-grid-mesh"></div>
 	<div class="bg-radial-glow"></div>
-	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
+	<div class="content-width surface-panel surface-padding stack-sm relative text-center">
 		<Heading
 			tag="h1"
-			class="heading-display heading-xl text-gradient-teal drop-shadow-md pb-2 tracking-tight animate-hero-title"
+			class="heading-display heading-xl text-gradient-teal animate-hero-title pb-2 tracking-tight drop-shadow-md"
 		>
 			Photos
 		</Heading>
-		<P class="text-lead mx-auto max-w-3xl animate-hero-subtitle">
-			Moments captured during the workshop on Digital Humanities and AI in African Studies, held 18–20 February 2026 in Hanover, Germany.
+		<P class="text-lead animate-hero-subtitle mx-auto max-w-3xl">
+			Moments captured during the workshop on Digital Humanities and AI in African Studies, held
+			18–20 February 2026 in Hanover, Germany.
 		</P>
-		<p class="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 animate-hero-subtitle" style="animation-delay: 100ms;">
-			Photography by <a href="https://calumbrett.myportfolio.com/" target="_blank" rel="noopener noreferrer" class="text-secondary-500 dark:text-secondary-400 hover:text-secondary-400 dark:hover:text-secondary-300 transition-colors">Calum Houston</a>
+		<p
+			class="animate-hero-subtitle text-xs tracking-widest text-gray-400 uppercase dark:text-gray-500"
+			style="animation-delay: 100ms;"
+		>
+			Photography by <a
+				href="https://calumbrett.myportfolio.com/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-secondary-500 dark:text-secondary-400 hover:text-secondary-400 dark:hover:text-secondary-300 transition-colors"
+				>Calum Houston</a
+			>
 		</p>
 	</div>
 </section>
@@ -87,18 +97,19 @@
 <!-- Gallery -->
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="bg-grid-mesh opacity-30"></div>
-	<div
-		class="content-width-wide surface-panel surface-padding stack-lg relative"
-	>
+	<div class="content-width-wide surface-panel surface-padding stack-lg relative">
 		{#if photos.length > 0}
 			<PhotoViewer {photos} categories={photoCategories} />
 		{:else}
-			<div class="text-center padding-block-xl card-surface surface-padding border border-dashed border-gray-300 dark:border-gray-700">
+			<div
+				class="padding-block-xl card-surface surface-padding border border-dashed border-gray-300 text-center dark:border-gray-700"
+			>
 				<div class="stack-sm flex flex-col items-center">
-					<CameraPhotoOutline class="w-16 h-16 text-surface-400 dark:text-surface-dark-overlay" />
+					<CameraPhotoOutline class="text-surface-400 dark:text-surface-dark-overlay h-16 w-16" />
 					<Heading tag="h2" class="heading-section text-gradient-teal">Coming Soon</Heading>
-					<P class="body-text-muted max-w-md mx-auto">
-						Photos from the workshop will be added here shortly. Check back soon to relive the highlights from three days of engaging discussions and collaboration.
+					<P class="body-text-muted mx-auto max-w-md">
+						Photos from the workshop will be added here shortly. Check back soon to relive the
+						highlights from three days of engaging discussions and collaboration.
 					</P>
 				</div>
 			</div>

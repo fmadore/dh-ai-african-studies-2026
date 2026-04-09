@@ -3,7 +3,12 @@
 	import { resolveAssetPath } from '$lib/utils/paths';
 	import { reveal } from '$lib/utils/reveal';
 	import { Heading, P, Button } from 'flowbite-svelte';
-	import { CloseOutline, ChevronLeftOutline, ChevronRightOutline, ImageOutline } from 'flowbite-svelte-icons';
+	import {
+		CloseOutline,
+		ChevronLeftOutline,
+		ChevronRightOutline,
+		ImageOutline
+	} from 'flowbite-svelte-icons';
 
 	let {
 		photos,
@@ -129,7 +134,7 @@
 <svelte:window onkeydown={handleKeydown} />
 
 <!-- Category filter pills -->
-<div class="flex flex-wrap gap-2 justify-center" role="tablist" aria-label="Photo categories">
+<div class="flex flex-wrap justify-center gap-2" role="tablist" aria-label="Photo categories">
 	<Button
 		pill
 		size="sm"
@@ -137,7 +142,7 @@
 		outline={activeCategory === 'All'}
 		onclick={() => setCategory('All')}
 	>
-		All <span class="text-xs opacity-60 ml-1">{categoryCounts.All}</span>
+		All <span class="ml-1 text-xs opacity-60">{categoryCounts.All}</span>
 	</Button>
 	{#each categories as cat (cat)}
 		{@const count = categoryCounts[cat] ?? 0}
@@ -149,7 +154,7 @@
 				outline={activeCategory === cat}
 				onclick={() => setCategory(cat)}
 			>
-				{cat} <span class="text-xs opacity-60 ml-1">{count}</span>
+				{cat} <span class="ml-1 text-xs opacity-60">{count}</span>
 			</Button>
 		{/if}
 	{/each}
@@ -160,11 +165,7 @@
 	<div class="photo-grid" role="tabpanel">
 		{#each filteredPhotos as photo, i (photo.id)}
 			{@const delay = Math.min(i * 40, 400)}
-			<div
-				class="animate-section-reveal"
-				use:reveal
-				style="transition-delay: {delay}ms"
-			>
+			<div class="animate-section-reveal" use:reveal style="transition-delay: {delay}ms">
 				<button
 					type="button"
 					class="photo-card card-surface glow-border group"
@@ -191,11 +192,15 @@
 		{/each}
 	</div>
 {:else}
-	<div class="text-center padding-block-xl card-surface surface-padding border border-dashed border-gray-300 dark:border-gray-700">
+	<div
+		class="padding-block-xl card-surface surface-padding border border-dashed border-gray-300 text-center dark:border-gray-700"
+	>
 		<div class="stack-sm flex flex-col items-center">
-			<ImageOutline class="w-12 h-12 text-surface-400 dark:text-surface-dark-overlay" />
-			<Heading tag="h4" class="text-lg font-medium body-text-strong">No photos in this category yet</Heading>
-			<P class="text-sm body-text-muted max-w-xs mx-auto">
+			<ImageOutline class="text-surface-400 dark:text-surface-dark-overlay h-12 w-12" />
+			<Heading tag="h4" class="body-text-strong text-lg font-medium"
+				>No photos in this category yet</Heading
+			>
+			<P class="body-text-muted mx-auto max-w-xs text-sm">
 				Photos will be added here soon. Check back later!
 			</P>
 		</div>
@@ -218,11 +223,7 @@
 		}}
 	>
 		<!-- Backdrop -->
-		<div
-			class="lightbox-backdrop"
-			onclick={closeLightbox}
-			role="presentation"
-		></div>
+		<div class="lightbox-backdrop" onclick={closeLightbox} role="presentation"></div>
 
 		<!-- Top bar with close + counter -->
 		<div class="lightbox-topbar">
@@ -235,17 +236,13 @@
 				onclick={closeLightbox}
 				aria-label="Close photo viewer"
 			>
-				<CloseOutline class="w-5 h-5" />
+				<CloseOutline class="h-5 w-5" />
 			</button>
 		</div>
 
 		<!-- Navigation + image area -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		<div
-			class="lightbox-stage"
-			ontouchstart={handleTouchStart}
-			ontouchend={handleTouchEnd}
-		>
+		<div class="lightbox-stage" ontouchstart={handleTouchStart} ontouchend={handleTouchEnd}>
 			{#if filteredPhotos.length > 1}
 				<button
 					type="button"
@@ -253,17 +250,13 @@
 					onclick={prevPhoto}
 					aria-label="Previous photo"
 				>
-					<ChevronLeftOutline class="w-6 h-6" />
+					<ChevronLeftOutline class="h-6 w-6" />
 				</button>
 			{/if}
 
 			<div class="lightbox-image-container">
 				{#key currentPhoto.id}
-					<img
-						src={photoSrc}
-						alt={currentPhoto.alt}
-						class="lightbox-image"
-					/>
+					<img src={photoSrc} alt={currentPhoto.alt} class="lightbox-image" />
 				{/key}
 			</div>
 
@@ -274,7 +267,7 @@
 					onclick={nextPhoto}
 					aria-label="Next photo"
 				>
-					<ChevronRightOutline class="w-6 h-6" />
+					<ChevronRightOutline class="h-6 w-6" />
 				</button>
 			{/if}
 		</div>
@@ -289,7 +282,12 @@
 				{#if currentPhoto.photographer}
 					<span class="lightbox-credit">
 						{#if currentPhoto.photographerUrl}
-							Photo: <a href={currentPhoto.photographerUrl} target="_blank" rel="noopener noreferrer" class="lightbox-credit-link">{currentPhoto.photographer}</a>
+							Photo: <a
+								href={currentPhoto.photographerUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="lightbox-credit-link">{currentPhoto.photographer}</a
+							>
 						{:else}
 							Photo: {currentPhoto.photographer}
 						{/if}
@@ -388,7 +386,9 @@
 		color: rgba(255, 255, 255, 0.8);
 		background: rgba(255, 255, 255, 0.08);
 		border-radius: var(--radius-full);
-		transition: background var(--transition-fast), color var(--transition-fast);
+		transition:
+			background var(--transition-fast),
+			color var(--transition-fast);
 	}
 
 	:global(.lightbox-btn:hover) {

@@ -1,11 +1,7 @@
 <script lang="ts">
-	import { Label, Checkbox, Select, Accordion, AccordionItem } from "flowbite-svelte";
-	import {
-		FilterOutline,
-		SearchOutline,
-		CloseOutline,
-	} from "flowbite-svelte-icons";
-	import { formatType, formatLanguage } from "$lib/utils/formatters";
+	import { Label, Checkbox, Select, Accordion, AccordionItem } from 'flowbite-svelte';
+	import { FilterOutline, SearchOutline, CloseOutline } from 'flowbite-svelte-icons';
+	import { formatType, formatLanguage } from '$lib/utils/formatters';
 
 	interface Props {
 		references: any[];
@@ -29,33 +25,27 @@
 		selectedLanguages = $bindable(),
 		selectedSort = $bindable(),
 		showCloseButton = false,
-		closeLabel = "Close filters",
-		onclose,
+		closeLabel = 'Close filters',
+		onclose
 	}: Props = $props();
 
 	// Keyword search filter
-	let keywordSearch = $state("");
+	let keywordSearch = $state('');
 
 	let availableTypes = $derived.by(() => {
 		const types = new Set(references.map((r) => r.type).filter(Boolean));
-		return Array.from(types).sort((a, b) =>
-			formatType(a).localeCompare(formatType(b)),
-		);
+		return Array.from(types).sort((a, b) => formatType(a).localeCompare(formatType(b)));
 	});
 
 	let availableYears = $derived.by(() => {
 		const years = new Set(
-			references
-				.map((r) => r.issued?.["date-parts"]?.[0]?.[0]?.toString())
-				.filter(Boolean),
+			references.map((r) => r.issued?.['date-parts']?.[0]?.[0]?.toString()).filter(Boolean)
 		);
 		return Array.from(years).sort().reverse();
 	});
 
 	let availableLanguages = $derived.by(() => {
-		const languages = new Set(
-			references.map((r) => r.language).filter(Boolean),
-		);
+		const languages = new Set(references.map((r) => r.language).filter(Boolean));
 		return Array.from(languages).sort();
 	});
 
@@ -64,15 +54,13 @@
 		references.forEach((r) => {
 			if (r.tags && Array.isArray(r.tags)) {
 				r.tags.forEach((t: string) => {
-					if (t !== "Non lu") {
+					if (t !== 'Non lu') {
 						tags.add(t);
 					}
 				});
 			}
 		});
-		return Array.from(tags).sort((a, b) =>
-			a.toLowerCase().localeCompare(b.toLowerCase()),
-		);
+		return Array.from(tags).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 	});
 
 	// Filtered keywords based on search
@@ -87,24 +75,24 @@
 			selectedTypes.length +
 			selectedYears.length +
 			selectedTags.length +
-			selectedLanguages.length,
+			selectedLanguages.length
 	);
 
 	const sortOptions = [
-		{ value: "newest", name: "Newest first" },
-		{ value: "oldest", name: "Oldest first" },
-		{ value: "title", name: "Title (A-Z)" },
-		{ value: "author", name: "Author (A-Z)" },
+		{ value: 'newest', name: 'Newest first' },
+		{ value: 'oldest', name: 'Oldest first' },
+		{ value: 'title', name: 'Title (A-Z)' },
+		{ value: 'author', name: 'Author (A-Z)' }
 	];
 
 	function resetFilters() {
-		searchQuery = "";
+		searchQuery = '';
 		selectedTypes = [];
 		selectedYears = [];
 		selectedTags = [];
 		selectedLanguages = [];
-		selectedSort = "newest";
-		keywordSearch = "";
+		selectedSort = 'newest';
+		keywordSearch = '';
 	}
 
 	function handleClose() {
@@ -114,16 +102,18 @@
 
 <div class="card-surface p-5 sm:p-6">
 	<!-- Header -->
-	<div class="flex flex-wrap gap-3 justify-between items-center pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
+	<div
+		class="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 pb-4 dark:border-gray-700"
+	>
 		<div class="flex items-center gap-2">
-			<FilterOutline class="w-5 h-5 text-accent" />
+			<FilterOutline class="text-accent h-5 w-5" />
 			<span class="text-lg font-semibold text-gray-900 dark:text-white">Filters</span>
 		</div>
 		<div class="flex items-center gap-3">
 			{#if activeFiltersCount > 0}
 				<button
 					onclick={resetFilters}
-					class="text-xs font-medium text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors"
+					class="text-xs font-medium text-red-500 transition-colors hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
 				>
 					Reset ({activeFiltersCount})
 				</button>
@@ -132,10 +122,10 @@
 				<button
 					type="button"
 					onclick={handleClose}
-					class="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors"
+					class="hover:text-primary-600 dark:hover:text-primary-400 flex items-center gap-1 text-xs font-semibold tracking-wide text-gray-500 uppercase transition-colors dark:text-gray-400"
 					aria-label={closeLabel}
 				>
-					<CloseOutline class="w-4 h-4" />
+					<CloseOutline class="h-4 w-4" />
 				</button>
 			{/if}
 		</div>
@@ -144,15 +134,17 @@
 	<div class="space-y-5">
 		<!-- Search -->
 		<div class="space-y-2">
-			<Label for="search" class="text-sm font-semibold text-gray-700 dark:text-gray-300">Search</Label>
+			<Label for="search" class="text-sm font-semibold text-gray-700 dark:text-gray-300"
+				>Search</Label
+			>
 			<div class="relative">
-				<SearchOutline class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+				<SearchOutline class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
 				<input
 					id="search"
 					type="text"
 					placeholder="Title, author, keyword..."
 					bind:value={searchQuery}
-					class="w-full pl-10 pr-4 py-2.5 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-secondary-500 focus:border-secondary-500 dark:focus:ring-secondary-400 dark:focus:border-secondary-400 placeholder-gray-400 dark:placeholder-gray-500 text-gray-900 dark:text-white"
+					class="focus:ring-secondary-500 focus:border-secondary-500 dark:focus:ring-secondary-400 dark:focus:border-secondary-400 w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-4 pl-10 text-sm text-gray-900 placeholder-gray-400 focus:ring-2 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500"
 				/>
 			</div>
 		</div>
@@ -160,11 +152,7 @@
 		<!-- Sort -->
 		<div class="space-y-2">
 			<Label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Sort by</Label>
-			<Select
-				items={sortOptions}
-				bind:value={selectedSort}
-				class="text-sm"
-			/>
+			<Select items={sortOptions} bind:value={selectedSort} class="text-sm" />
 		</div>
 
 		<!-- Filter Sections -->
@@ -190,7 +178,9 @@
 						<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">
 							Keywords
 							{#if selectedTags.length > 0}
-								<span class="ml-1.5 px-1.5 py-0.5 text-xs font-medium bg-secondary-100 text-secondary-700 dark:bg-secondary-900/40 dark:text-secondary-300 rounded">
+								<span
+									class="bg-secondary-100 text-secondary-700 dark:bg-secondary-900/40 dark:text-secondary-300 ml-1.5 rounded px-1.5 py-0.5 text-xs font-medium"
+								>
 									{selectedTags.length}
 								</span>
 							{/if}
@@ -199,22 +189,26 @@
 					<div class="space-y-3">
 						<!-- Keyword search -->
 						<div class="relative">
-							<SearchOutline class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+							<SearchOutline
+								class="absolute top-1/2 left-2.5 h-3.5 w-3.5 -translate-y-1/2 text-gray-400"
+							/>
 							<input
 								type="text"
 								placeholder="Filter keywords..."
 								bind:value={keywordSearch}
-								class="w-full pl-8 pr-3 py-1.5 text-xs bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-1 focus:ring-secondary-500 focus:border-secondary-500 placeholder-gray-400 dark:placeholder-gray-500 text-gray-900 dark:text-white"
+								class="focus:ring-secondary-500 focus:border-secondary-500 w-full rounded-md border border-gray-200 bg-gray-50 py-1.5 pr-3 pl-8 text-xs text-gray-900 placeholder-gray-400 focus:ring-1 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500"
 							/>
 						</div>
 						<!-- Keywords list -->
-						<div class="max-h-52 overflow-y-auto space-y-1.5 pr-1 custom-scrollbar">
+						<div class="custom-scrollbar max-h-52 space-y-1.5 overflow-y-auto pr-1">
 							{#each filteredTags as tag (tag)}
 								<Checkbox color="teal" bind:group={selectedTags} value={tag}>
-									<span class="text-xs text-gray-600 dark:text-gray-400 truncate">{tag}</span>
+									<span class="truncate text-xs text-gray-600 dark:text-gray-400">{tag}</span>
 								</Checkbox>
 							{:else}
-								<p class="text-xs text-gray-400 dark:text-gray-500 italic py-1">No keywords match "{keywordSearch}"</p>
+								<p class="text-xs text-gray-400 dark:text-gray-500 italic py-1">
+									No keywords match "{keywordSearch}"
+								</p>
 							{/each}
 						</div>
 						{#if availableTags.length > 10}
@@ -234,7 +228,9 @@
 					<div class="space-y-2">
 						{#each availableLanguages as language (language)}
 							<Checkbox color="teal" bind:group={selectedLanguages} value={language}>
-								<span class="text-sm text-gray-600 dark:text-gray-400">{formatLanguage(language)}</span>
+								<span class="text-sm text-gray-600 dark:text-gray-400"
+									>{formatLanguage(language)}</span
+								>
 							</Checkbox>
 						{/each}
 					</div>
@@ -246,7 +242,7 @@
 					{#snippet header()}
 						<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Year</span>
 					{/snippet}
-					<div class="max-h-40 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
+					<div class="custom-scrollbar max-h-40 space-y-2 overflow-y-auto pr-1">
 						{#each availableYears as year (year)}
 							<Checkbox color="teal" bind:group={selectedYears} value={year}>
 								<span class="text-sm text-gray-600 dark:text-gray-400">{year}</span>

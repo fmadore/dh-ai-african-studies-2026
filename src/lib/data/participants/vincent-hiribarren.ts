@@ -13,10 +13,6 @@ export const vincentHiribarren: Participant = {
 	researchRegions: ['West Africa', 'Nigeria', 'Cameroon'],
 	thematicGroup: 'Infrastructure, Governance & Access',
 	photoUrl: '/images/participants/vincent-hiribarren.png',
-	questionsOfInterest: [
-		'Digitisation Programmes',
-		'Infrastructure',
-		'Ethical AI'
-	],
+	questionsOfInterest: ['Digitisation Programmes', 'Infrastructure', 'Ethical AI'],
 	website: 'https://www.vincenthiribarren.com/'
 };

@@ -4,8 +4,8 @@ export const elineMarieHolm: Participant = {
 	name: 'Eline Marie Langbo Holm',
 	affiliation: 'Leibniz-Zentrum Moderner Orient',
 	affiliationCoordinates: {
-		latitude: 52.5200,
-		longitude: 13.4050
+		latitude: 52.52,
+		longitude: 13.405
 	},
 	country: 'Germany',
 	role: 'Student assistant',

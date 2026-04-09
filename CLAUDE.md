@@ -16,12 +16,16 @@ npm run build        # Production build to /build
 npm run preview      # Preview production build
 npm run check        # TypeScript type checking
 npm run lint         # ESLint
+npm run format       # Format all files with Prettier
+npm run format:check # Verify formatting (used in CI)
 ```
 
 **Update references from Zotero:**
+
 ```bash
 python scripts/fetch_references.py
 ```
+
 Requires `ZOTERO_API_KEY` in `.env` file.
 
 ## Technology Stack
@@ -36,30 +40,37 @@ Requires `ZOTERO_API_KEY` in `.env` file.
 ## Svelte 5 Runes (Required)
 
 Always use runes syntax:
+
 ```svelte
 <script lang="ts">
-  let count = $state(0);           // reactive state
+  let count = $state(0); // reactive state
   let doubled = $derived(count * 2); // computed values
-  let { title } = $props();        // component props
-  $effect(() => { /* side effects */ });
+  let { title } = $props(); // component props
+  $effect(() => {
+    /* side effects */
+  });
 </script>
 ```
+
 Do NOT use legacy syntax (`export let`, `$:` reactive statements).
 
 ## Path Helpers (Critical for GitHub Pages)
 
 All internal links and assets must use path helpers from `$lib/utils/paths`:
+
 ```typescript
 import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
 
-const href = resolveAppPath('/schedule');           // For routes
-const src = resolveAssetPath('/images/logo.png');   // For static assets
+const href = resolveAppPath('/schedule'); // For routes
+const src = resolveAssetPath('/images/logo.png'); // For static assets
 ```
+
 This handles the `/dh-ai-african-studies-2026` base path in production.
 
 ## Architecture
 
 ### Data Layer (`src/lib/data/`)
+
 - `workshop-info.ts` - Dates, venue, organizers (single source of truth)
 - `schedule.ts` - Three-day workshop schedule
 - `participants/` - Individual `.ts` files auto-imported via `import.meta.glob`
@@ -69,6 +80,7 @@ This handles the `/dh-ai-african-studies-2026` base path in production.
 ### Adding Participants
 
 Create `src/lib/data/participants/firstname-lastname.ts`:
+
 ```typescript
 import type { Participant } from '$lib/types/participant';
 
@@ -82,11 +94,13 @@ export const firstnameLastname: Participant = {
   researchRegions: ['West Africa']
 };
 ```
+
 No manual registration needed - files are auto-imported.
 
 ### SEO Pattern
 
 Every page should use:
+
 ```svelte
 <script lang="ts">
   import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
@@ -103,6 +117,7 @@ Every page should use:
 ```
 
 ### Key Components (`src/lib/components/`)
+
 - `Header.svelte`, `Footer.svelte` - Global layout
 - `UrlTabs.svelte` - URL-synced tab navigation
 - `ParticipantsMap.svelte` - Leaflet interactive map
@@ -146,7 +161,7 @@ The site uses a **"Future Forward"** aesthetic - sophisticated and tech-forward 
 </script>
 
 <!-- Hero/Header Section -->
-<section class="relative overflow-hidden gradient-hero-future">
+<section class="gradient-hero-future relative overflow-hidden">
   <div class="bg-grid-mesh"></div>
   <div class="bg-radial-glow"></div>
   <!-- Content -->
@@ -174,24 +189,29 @@ The site uses a **"Future Forward"** aesthetic - sophisticated and tech-forward 
 Use these defined in `src/app.css` instead of arbitrary Tailwind:
 
 ### Surfaces
+
 - `.surface-panel`, `.card-surface`, `.bg-page`
 
 ### Typography
+
 - `.heading-display`, `.heading-section`, `.heading-sub`
 - `.text-gradient`, `.text-gradient-teal` (preferred)
 - `.accent-underline` - Teal underline decoration
 
 ### Backgrounds (Future Forward)
+
 - `.bg-grid-mesh` - Dot grid pattern
 - `.bg-radial-glow` - Teal glow from top
 - `.bg-radial-glow-bottom` - Terra cotta glow from bottom
 - `.gradient-hero-future` - Teal-dominant hero gradient
 
 ### Effects
+
 - `.glow-teal` - Teal box shadow glow
 - `.glow-border` - Gradient border on hover
 
 ### Animations
+
 - `.animate-section-reveal` + `use:reveal` - Scroll-triggered fade-up
 - `.stagger-children` - Auto-stagger child animations
 - `.animate-hero-title`, `.animate-hero-subtitle` - Hero entrance

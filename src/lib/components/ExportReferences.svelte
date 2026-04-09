@@ -55,18 +55,18 @@
 			'article-journal': 'article',
 			'article-magazine': 'article',
 			'article-newspaper': 'article',
-			'book': 'book',
-			'chapter': 'incollection',
+			book: 'book',
+			chapter: 'incollection',
 			'paper-conference': 'inproceedings',
-			'thesis': 'phdthesis',
-			'report': 'techreport',
-			'webpage': 'misc',
+			thesis: 'phdthesis',
+			report: 'techreport',
+			webpage: 'misc',
 			'post-weblog': 'misc',
 			'entry-encyclopedia': 'inbook',
-			'motion_picture': 'misc',
-			'song': 'misc',
-			'speech': 'misc',
-			'article': 'article'
+			motion_picture: 'misc',
+			song: 'misc',
+			speech: 'misc',
+			article: 'article'
 		};
 		return typeMap[cslType] || 'misc';
 	}
@@ -74,75 +74,77 @@
 	// Format authors for BibTeX
 	function formatBibtexAuthors(authors: any[]): string {
 		if (!authors?.length) return '';
-		return authors.map(a => `${a.family || ''}, ${a.given || ''}`).join(' and ');
+		return authors.map((a) => `${a.family || ''}, ${a.given || ''}`).join(' and ');
 	}
 
 	// Generate BibTeX output
 	function generateBibtex(refs: any[]): string {
-		return refs.map(ref => {
-			const type = cslToBibtexType(ref.type);
-			const key = generateBibtexKey(ref);
-			const fields: string[] = [];
+		return refs
+			.map((ref) => {
+				const type = cslToBibtexType(ref.type);
+				const key = generateBibtexKey(ref);
+				const fields: string[] = [];
 
-			if (ref.author?.length) {
-				fields.push(`  author = {${formatBibtexAuthors(ref.author)}}`);
-			}
-			if (ref.editor?.length) {
-				fields.push(`  editor = {${formatBibtexAuthors(ref.editor)}}`);
-			}
-			if (ref.title) {
-				fields.push(`  title = {${escapeBibtex(ref.title)}}`);
-			}
-			if (ref['container-title']) {
-				const fieldName = type === 'article' ? 'journal' : 'booktitle';
-				fields.push(`  ${fieldName} = {${escapeBibtex(ref['container-title'])}}`);
-			}
-			if (ref.issued) {
-				const year = getYear(ref.issued);
-				const fullDate = formatDate(ref.issued);
-				if (year) fields.push(`  year = {${year}}`);
-				if (fullDate) fields.push(`  date = {${fullDate}}`);
-			}
-			if (ref.volume) {
-				fields.push(`  volume = {${ref.volume}}`);
-			}
-			if (ref.issue) {
-				fields.push(`  number = {${ref.issue}}`);
-			}
-			if (ref.page) {
-				fields.push(`  pages = {${ref.page}}`);
-			}
-			if (ref.publisher) {
-				fields.push(`  publisher = {${escapeBibtex(ref.publisher)}}`);
-			}
-			if (ref['publisher-place']) {
-				fields.push(`  address = {${escapeBibtex(ref['publisher-place'])}}`);
-			}
-			if (ref.DOI) {
-				fields.push(`  doi = {${ref.DOI}}`);
-			}
-			if (ref.URL) {
-				fields.push(`  url = {${ref.URL}}`);
-			}
-			if (ref.ISSN) {
-				fields.push(`  issn = {${ref.ISSN}}`);
-			}
-			if (ref.ISBN) {
-				fields.push(`  isbn = {${ref.ISBN}}`);
-			}
-			if (ref.abstract) {
-				fields.push(`  abstract = {${escapeBibtex(ref.abstract)}}`);
-			}
-			if (ref.language) {
-				fields.push(`  language = {${ref.language}}`);
-				fields.push(`  langid = {${ref.language}}`);
-			}
-			if (ref.tags?.length) {
-				fields.push(`  keywords = {${ref.tags.join(', ')}}`);
-			}
+				if (ref.author?.length) {
+					fields.push(`  author = {${formatBibtexAuthors(ref.author)}}`);
+				}
+				if (ref.editor?.length) {
+					fields.push(`  editor = {${formatBibtexAuthors(ref.editor)}}`);
+				}
+				if (ref.title) {
+					fields.push(`  title = {${escapeBibtex(ref.title)}}`);
+				}
+				if (ref['container-title']) {
+					const fieldName = type === 'article' ? 'journal' : 'booktitle';
+					fields.push(`  ${fieldName} = {${escapeBibtex(ref['container-title'])}}`);
+				}
+				if (ref.issued) {
+					const year = getYear(ref.issued);
+					const fullDate = formatDate(ref.issued);
+					if (year) fields.push(`  year = {${year}}`);
+					if (fullDate) fields.push(`  date = {${fullDate}}`);
+				}
+				if (ref.volume) {
+					fields.push(`  volume = {${ref.volume}}`);
+				}
+				if (ref.issue) {
+					fields.push(`  number = {${ref.issue}}`);
+				}
+				if (ref.page) {
+					fields.push(`  pages = {${ref.page}}`);
+				}
+				if (ref.publisher) {
+					fields.push(`  publisher = {${escapeBibtex(ref.publisher)}}`);
+				}
+				if (ref['publisher-place']) {
+					fields.push(`  address = {${escapeBibtex(ref['publisher-place'])}}`);
+				}
+				if (ref.DOI) {
+					fields.push(`  doi = {${ref.DOI}}`);
+				}
+				if (ref.URL) {
+					fields.push(`  url = {${ref.URL}}`);
+				}
+				if (ref.ISSN) {
+					fields.push(`  issn = {${ref.ISSN}}`);
+				}
+				if (ref.ISBN) {
+					fields.push(`  isbn = {${ref.ISBN}}`);
+				}
+				if (ref.abstract) {
+					fields.push(`  abstract = {${escapeBibtex(ref.abstract)}}`);
+				}
+				if (ref.language) {
+					fields.push(`  language = {${ref.language}}`);
+					fields.push(`  langid = {${ref.language}}`);
+				}
+				if (ref.tags?.length) {
+					fields.push(`  keywords = {${ref.tags.join(', ')}}`);
+				}
 
-			return `@${type}{${key},\n${fields.join(',\n')}\n}`;
-		}).join('\n\n');
+				return `@${type}{${key},\n${fields.join(',\n')}\n}`;
+			})
+			.join('\n\n');
 	}
 
 	// Map CSL type to RIS type
@@ -151,97 +153,99 @@
 			'article-journal': 'JOUR',
 			'article-magazine': 'MGZN',
 			'article-newspaper': 'NEWS',
-			'book': 'BOOK',
-			'chapter': 'CHAP',
+			book: 'BOOK',
+			chapter: 'CHAP',
 			'paper-conference': 'CONF',
-			'thesis': 'THES',
-			'report': 'RPRT',
-			'webpage': 'ELEC',
+			thesis: 'THES',
+			report: 'RPRT',
+			webpage: 'ELEC',
 			'post-weblog': 'BLOG',
 			'entry-encyclopedia': 'ENCYC',
-			'motion_picture': 'MPCT',
-			'song': 'SOUND',
-			'speech': 'GEN',
-			'article': 'JOUR'
+			motion_picture: 'MPCT',
+			song: 'SOUND',
+			speech: 'GEN',
+			article: 'JOUR'
 		};
 		return typeMap[cslType] || 'GEN';
 	}
 
 	// Generate RIS output
 	function generateRis(refs: any[]): string {
-		return refs.map(ref => {
-			const lines: string[] = [];
+		return refs
+			.map((ref) => {
+				const lines: string[] = [];
 
-			lines.push(`TY  - ${cslToRisType(ref.type)}`);
+				lines.push(`TY  - ${cslToRisType(ref.type)}`);
 
-			if (ref.author?.length) {
-				ref.author.forEach((a: any) => {
-					lines.push(`AU  - ${a.family || ''}, ${a.given || ''}`);
-				});
-			}
-			if (ref.editor?.length) {
-				ref.editor.forEach((e: any) => {
-					lines.push(`ED  - ${e.family || ''}, ${e.given || ''}`);
-				});
-			}
-			if (ref.title) {
-				lines.push(`TI  - ${ref.title}`);
-			}
-			if (ref['container-title']) {
-				lines.push(`JO  - ${ref['container-title']}`);
-				lines.push(`T2  - ${ref['container-title']}`);
-			}
-			if (ref.issued) {
-				const year = getYear(ref.issued);
-				const fullDate = formatDate(ref.issued);
-				if (year) lines.push(`PY  - ${year}`);
-				if (fullDate) lines.push(`DA  - ${fullDate.replace(/-/g, '/')}`);
-			}
-			if (ref.volume) {
-				lines.push(`VL  - ${ref.volume}`);
-			}
-			if (ref.issue) {
-				lines.push(`IS  - ${ref.issue}`);
-			}
-			if (ref.page) {
-				const pages = ref.page.split('-');
-				if (pages[0]) lines.push(`SP  - ${pages[0]}`);
-				if (pages[1]) lines.push(`EP  - ${pages[1]}`);
-			}
-			if (ref.publisher) {
-				lines.push(`PB  - ${ref.publisher}`);
-			}
-			if (ref['publisher-place']) {
-				lines.push(`CY  - ${ref['publisher-place']}`);
-			}
-			if (ref.DOI) {
-				lines.push(`DO  - ${ref.DOI}`);
-			}
-			if (ref.URL) {
-				lines.push(`UR  - ${ref.URL}`);
-			}
-			if (ref.ISSN) {
-				lines.push(`SN  - ${ref.ISSN}`);
-			}
-			if (ref.ISBN) {
-				lines.push(`SN  - ${ref.ISBN}`);
-			}
-			if (ref.abstract) {
-				lines.push(`AB  - ${ref.abstract}`);
-			}
-			if (ref.language) {
-				lines.push(`LA  - ${ref.language}`);
-			}
-			if (ref.tags?.length) {
-				ref.tags.forEach((tag: string) => {
-					lines.push(`KW  - ${tag}`);
-				});
-			}
+				if (ref.author?.length) {
+					ref.author.forEach((a: any) => {
+						lines.push(`AU  - ${a.family || ''}, ${a.given || ''}`);
+					});
+				}
+				if (ref.editor?.length) {
+					ref.editor.forEach((e: any) => {
+						lines.push(`ED  - ${e.family || ''}, ${e.given || ''}`);
+					});
+				}
+				if (ref.title) {
+					lines.push(`TI  - ${ref.title}`);
+				}
+				if (ref['container-title']) {
+					lines.push(`JO  - ${ref['container-title']}`);
+					lines.push(`T2  - ${ref['container-title']}`);
+				}
+				if (ref.issued) {
+					const year = getYear(ref.issued);
+					const fullDate = formatDate(ref.issued);
+					if (year) lines.push(`PY  - ${year}`);
+					if (fullDate) lines.push(`DA  - ${fullDate.replace(/-/g, '/')}`);
+				}
+				if (ref.volume) {
+					lines.push(`VL  - ${ref.volume}`);
+				}
+				if (ref.issue) {
+					lines.push(`IS  - ${ref.issue}`);
+				}
+				if (ref.page) {
+					const pages = ref.page.split('-');
+					if (pages[0]) lines.push(`SP  - ${pages[0]}`);
+					if (pages[1]) lines.push(`EP  - ${pages[1]}`);
+				}
+				if (ref.publisher) {
+					lines.push(`PB  - ${ref.publisher}`);
+				}
+				if (ref['publisher-place']) {
+					lines.push(`CY  - ${ref['publisher-place']}`);
+				}
+				if (ref.DOI) {
+					lines.push(`DO  - ${ref.DOI}`);
+				}
+				if (ref.URL) {
+					lines.push(`UR  - ${ref.URL}`);
+				}
+				if (ref.ISSN) {
+					lines.push(`SN  - ${ref.ISSN}`);
+				}
+				if (ref.ISBN) {
+					lines.push(`SN  - ${ref.ISBN}`);
+				}
+				if (ref.abstract) {
+					lines.push(`AB  - ${ref.abstract}`);
+				}
+				if (ref.language) {
+					lines.push(`LA  - ${ref.language}`);
+				}
+				if (ref.tags?.length) {
+					ref.tags.forEach((tag: string) => {
+						lines.push(`KW  - ${tag}`);
+					});
+				}
 
-			lines.push('ER  - ');
+				lines.push('ER  - ');
 
-			return lines.join('\n');
-		}).join('\n\n');
+				return lines.join('\n');
+			})
+			.join('\n\n');
 	}
 
 	async function exportToFormat(format: 'bibtex' | 'ris') {
@@ -280,7 +284,6 @@
 			isExporting = false;
 		}
 	}
-
 </script>
 
 <Button
@@ -293,12 +296,12 @@
 		<Spinner size="4" class="mr-2" />
 		Exporting...
 	{:else}
-		<DownloadOutline class="w-4 h-4 mr-2" />
+		<DownloadOutline class="mr-2 h-4 w-4" />
 		Export to Zotero
-		<ChevronDownOutline class="w-3 h-3 ml-1" />
+		<ChevronDownOutline class="ml-1 h-3 w-3" />
 	{/if}
 </Button>
-<Dropdown simple class="w-48 z-[100]">
+<Dropdown simple class="z-[100] w-48">
 	<DropdownItem onclick={() => exportToFormat('bibtex')}>
 		<span class="block font-medium text-gray-900 dark:text-white">BibTeX (.bib)</span>
 		<span class="block text-xs text-gray-500 dark:text-gray-400">Best for LaTeX users</span>

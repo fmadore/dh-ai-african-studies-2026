@@ -4,7 +4,7 @@ export const nuraddinAman: Participant = {
 	name: 'Nuraddin Aman',
 	affiliation: 'Addis Ababa University, Institute of Ethiopian Studies',
 	affiliationCoordinates: {
-		latitude: 9.0320,
+		latitude: 9.032,
 		longitude: 38.7469
 	},
 	country: 'Ethiopia',
@@ -14,8 +14,8 @@ export const nuraddinAman: Participant = {
 	thematicGroup: 'The Archive: Preservation, Community Custody & Visual Heritage',
 	photoUrl: '/images/participants/nuraddin-aman.jpg',
 	questionsOfInterest: [
-		'Digital Preservation of African Manuscripts and Archives. Strategies for cataloguing, conserving, and providing access to Africa\'s written heritage.',
-		'AI and Indigenous Knowledge. Using artificial intelligence to document, analyze, and interpret Africa\'s oral and written knowledge systems.',
-		'Digital Humanities for Cultural Heritage. Applying digital tools to study, visualize, and share Africa\'s literary, historical, and cultural traditions.'
+		"Digital Preservation of African Manuscripts and Archives. Strategies for cataloguing, conserving, and providing access to Africa's written heritage.",
+		"AI and Indigenous Knowledge. Using artificial intelligence to document, analyze, and interpret Africa's oral and written knowledge systems.",
+		"Digital Humanities for Cultural Heritage. Applying digital tools to study, visualize, and share Africa's literary, historical, and cultural traditions."
 	]
 };

@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	import type { Component } from "svelte";
+	import type { Component } from 'svelte';
 
 	export interface Tab {
 		id: string;
@@ -10,17 +10,17 @@
 </script>
 
 <script lang="ts">
-	import { Tabs, TabItem } from "flowbite-svelte";
-	import { browser } from "$app/environment";
-	import { page } from "$app/state";
-	import { goto } from "$app/navigation";
-	import type { Snippet } from "svelte";
+	import { Tabs, TabItem } from 'flowbite-svelte';
+	import { browser } from '$app/environment';
+	import { page } from '$app/state';
+	import { goto } from '$app/navigation';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
 		tabs: Tab[];
 		paramName?: string;
 		defaultTab?: string;
-		tabStyle?: "underline" | "pill" | "full";
+		tabStyle?: 'underline' | 'pill' | 'full';
 		class?: string;
 		contentClass?: string;
 		children: Snippet<[string, Tab]>;
@@ -29,13 +29,13 @@
 
 	let {
 		tabs,
-		paramName = "view",
-		defaultTab = tabs[0]?.id ?? "",
-		tabStyle = "underline",
-		class: className = "",
-		contentClass = "",
+		paramName = 'view',
+		defaultTab = tabs[0]?.id ?? '',
+		tabStyle = 'underline',
+		class: className = '',
+		contentClass = '',
 		children,
-		tabTitle,
+		tabTitle
 	}: Props = $props();
 
 	// Get current tab from URL or use default
@@ -61,7 +61,7 @@
 		goto(url.pathname + url.search, {
 			replaceState: true,
 			noScroll: true,
-			keepFocus: true,
+			keepFocus: true
 		});
 	}
 </script>
@@ -69,10 +69,7 @@
 <Tabs {tabStyle} class={className} classes={{ content: contentClass }}>
 	{#each tabs as tab (tab.id)}
 		{@const Icon = tab.icon}
-		<TabItem
-			open={activeTab === tab.id}
-			onclick={() => setActiveTab(tab.id)}
-		>
+		<TabItem open={activeTab === tab.id} onclick={() => setActiveTab(tab.id)}>
 			{#snippet titleSlot()}
 				{#if tabTitle}
 					{@render tabTitle(tab)}

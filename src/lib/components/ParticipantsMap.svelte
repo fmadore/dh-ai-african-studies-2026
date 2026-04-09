@@ -20,8 +20,8 @@
 	// Group participants by coordinates
 	let markerGroups = $derived.by(() => {
 		const groups = new SvelteMap<string, Participant[]>();
-		
-		participants.forEach(participant => {
+
+		participants.forEach((participant) => {
 			if (participant.affiliationCoordinates) {
 				const key = `${participant.affiliationCoordinates.latitude},${participant.affiliationCoordinates.longitude}`;
 				if (!groups.has(key)) {
@@ -30,7 +30,7 @@
 				groups.get(key)!.push(participant);
 			}
 		});
-		
+
 		return groups;
 	});
 
@@ -49,7 +49,7 @@
 					// Set world bounds to prevent panning too far
 					maxBounds: [
 						[-90, -180], // Southwest coordinates
-						[90, 180]    // Northeast coordinates
+						[90, 180] // Northeast coordinates
 					],
 					maxBoundsViscosity: 0.9, // Keep within bounds but allow slight elastic feel
 					minZoom: 2, // Prevent zooming out too far
@@ -58,11 +58,13 @@
 				});
 
 				// Add appropriate tile layer based on theme
-				const lightTiles = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+				const lightTiles =
+					'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 				const darkTiles = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
 
 				tileLayer = L.tileLayer(isDarkMode ? darkTiles : lightTiles, {
-					attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+					attribution:
+						'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 					subdomains: 'abcd',
 					maxZoom: 18
 				}).addTo(map);
@@ -70,7 +72,7 @@
 				// Add markers for each location
 				markerGroups.forEach((participantsAtLocation, coordsKey) => {
 					const [lat, lng] = coordsKey.split(',').map(Number);
-					
+
 					// Custom marker icon
 					const customIcon = L.divIcon({
 						className: 'custom-map-marker',
@@ -81,14 +83,16 @@
 					});
 
 					const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
-					
+
 					// Create popup content with profile photos
 					const popupContent = `
 						<div class="popup-card">
 							<h3 class="popup-title">${participantsAtLocation[0].affiliation}</h3>
 							<p class="popup-meta"><strong>${participantsAtLocation.length}</strong> participant${participantsAtLocation.length > 1 ? 's' : ''}</p>
 							<div class="popup-list">
-								${participantsAtLocation.map((p) => `
+								${participantsAtLocation
+									.map(
+										(p) => `
 									<div class="popup-participant">
 										<img
 											src="${p.photoUrl}"
@@ -97,18 +101,21 @@
 											onerror="this.style.display='none'"
 										/>
 										<div class="popup-details">
-											${p.website
-												? `<a href="${p.website}" target="_blank" rel="noopener noreferrer" class="popup-name popup-name-link">${p.name}</a>`
-												: `<p class="popup-name">${p.name}</p>`
+											${
+												p.website
+													? `<a href="${p.website}" target="_blank" rel="noopener noreferrer" class="popup-name popup-name-link">${p.name}</a>`
+													: `<p class="popup-name">${p.name}</p>`
 											}
 											<p class="popup-country">${p.country}</p>
 										</div>
 									</div>
-								`).join('')}
+								`
+									)
+									.join('')}
 							</div>
 						</div>
 					`;
-					
+
 					marker.bindPopup(popupContent, {
 						maxWidth: 350,
 						className: 'participant-popup'
@@ -134,7 +141,7 @@
 		if (mapReady && tileLayer) {
 			const lightTiles = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 			const darkTiles = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-			
+
 			tileLayer.setUrl(isDarkMode ? darkTiles : lightTiles);
 		}
 	});
@@ -150,7 +157,7 @@
 	/>
 </svelte:head>
 
-<div class="card-surface surface-padding-xs w-full glow-border">
+<div class="card-surface surface-padding-xs glow-border w-full">
 	<div bind:this={mapContainer} class="map-canvas"></div>
 </div>
 
@@ -173,7 +180,9 @@
 		background: var(--color-surface-0);
 		color: var(--color-gray-900);
 		border: 1px solid color-mix(in srgb, var(--color-gray-400) 40%, transparent);
-		box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
+		box-shadow:
+			0 10px 25px -5px rgba(15, 23, 42, 0.12),
+			0 8px 10px -6px rgba(15, 23, 42, 0.1);
 	}
 
 	:global(.dark .participant-popup .leaflet-popup-content-wrapper) {
@@ -337,7 +346,7 @@
 		background: transparent;
 		border: none;
 	}
-	
+
 	:global(.marker-pin) {
 		width: 30px;
 		height: 30px;
@@ -348,7 +357,9 @@
 		left: 50%;
 		top: 50%;
 		margin: -15px 0 0 -15px;
-		box-shadow: var(--shadow-md), 0 0 12px -2px rgba(13, 148, 136, 0.4);
+		box-shadow:
+			var(--shadow-md),
+			0 0 12px -2px rgba(13, 148, 136, 0.4);
 		border: 2px solid white;
 	}
 
@@ -361,11 +372,11 @@
 		position: absolute;
 		border-radius: 50%;
 	}
-	
+
 	:global(.dark .marker-pin) {
 		border-color: var(--color-gray-800);
 	}
-	
+
 	:global(.dark .marker-pin::after) {
 		background: var(--color-gray-800);
 	}

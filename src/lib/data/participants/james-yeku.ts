@@ -16,7 +16,7 @@ export const jamesYeku: Participant = {
 	photoUrl: '/images/participants/james-yeku.png',
 	questionsOfInterest: [
 		'Bidirectionality in AI research: How does AI-driven methods enrich the African cultural and historical record, and in what ways does this African archive simultaneously enhance AI models?',
-		"Africa and the politics, assumptions and limitations of AI as WEIRD models (Joseph Henrich's acronym for \"Western, Educated, Industrialized, Rich, and Democratic\")",
+		'Africa and the politics, assumptions and limitations of AI as WEIRD models (Joseph Henrich\'s acronym for "Western, Educated, Industrialized, Rich, and Democratic")',
 		"Extractivist Data Practices and the Ambivalence (in terms of necessity and 'danger') of Digitizing the African Archive"
 	]
 };

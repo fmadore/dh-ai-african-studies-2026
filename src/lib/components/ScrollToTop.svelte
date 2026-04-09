@@ -15,12 +15,8 @@
 <svelte:window onscroll={handleScroll} />
 
 {#if visible}
-	<button
-		onclick={scrollToTop}
-		aria-label="Scroll to top"
-		class="scroll-to-top"
-	>
-		<ArrowUpOutline class="w-5 h-5" />
+	<button onclick={scrollToTop} aria-label="Scroll to top" class="scroll-to-top">
+		<ArrowUpOutline class="h-5 w-5" />
 	</button>
 {/if}
 

@@ -25,7 +25,7 @@
 			youtubeId: 'IpSY7i_bses',
 			topic: 'AI, Digital Humanities, and African Indigenous Languages',
 			description:
-				'Linguist Emmanuel Ngue Um discusses how artificial intelligence and digital humanities can help preserve and teach indigenous languages. He presents his work building language technology models — speech recognition, synthesis, and machine translation — to create digital teaching resources for local languages. Emmanuel explains how AI is accelerating linguistic research: large language models can use transfer learning to support low-resource languages with as little as one hour of recorded data. He also reflects on what AI\'s ability to process and replicate speech reveals about the nature of human language and cognition.'
+				"Linguist Emmanuel Ngue Um discusses how artificial intelligence and digital humanities can help preserve and teach indigenous languages. He presents his work building language technology models — speech recognition, synthesis, and machine translation — to create digital teaching resources for local languages. Emmanuel explains how AI is accelerating linguistic research: large language models can use transfer learning to support low-resource languages with as little as one hour of recorded data. He also reflects on what AI's ability to process and replicate speech reveals about the nature of human language and cognition."
 		},
 		{
 			participantName: 'Duncan Money',
@@ -55,9 +55,9 @@
 			participantName: 'Menno van Zaanen',
 			affiliation: 'South African Centre for Digital Language Resources',
 			youtubeId: 'yYB4dGN6h-M',
-			topic: 'Building Digital Language Resources for South Africa\'s Official Languages',
+			topic: "Building Digital Language Resources for South Africa's Official Languages",
 			description:
-				'Digital humanities professor Menno van Zaanen discusses the challenges of collecting digital language resources for South Africa\'s 12 official languages, including sign language. He describes how data scarcity necessitates an opportunistic approach involving the scraping of government websites, the digitisation of archives and the gathering of social media content, while also acknowledging the biases this introduces. This is because tools trained on government text perform poorly on literary or informal language. He raises critical questions about ownership and community consent, using sign language data collection as an example. Here, researchers must resist the impulse to act on behalf of communities without first understanding what they actually want. He reflects on the difficult trade-offs between comprehensive, structured data collection and the practical need to secure whatever resources are available before they disappear from the digital space.'
+				"Digital humanities professor Menno van Zaanen discusses the challenges of collecting digital language resources for South Africa's 12 official languages, including sign language. He describes how data scarcity necessitates an opportunistic approach involving the scraping of government websites, the digitisation of archives and the gathering of social media content, while also acknowledging the biases this introduces. This is because tools trained on government text perform poorly on literary or informal language. He raises critical questions about ownership and community consent, using sign language data collection as an example. Here, researchers must resist the impulse to act on behalf of communities without first understanding what they actually want. He reflects on the difficult trade-offs between comprehensive, structured data collection and the practical need to secure whatever resources are available before they disappear from the digital space."
 		},
 		{
 			participantName: 'Albrecht Hofheinz',
@@ -65,7 +65,7 @@
 			youtubeId: 'VE3r8xbumnY',
 			topic: 'Leveraging OCR and AI to Explore Arabic Manuscript Collections',
 			description:
-				'Middle East studies and Arabic scholar Albrecht Hofheinz discusses how he combines Google\'s optical character recognition with large language models (LLMs) to process collections of Arabic handwritten manuscripts at scale. He explains that training handwritten text recognition on individual hands is not feasible for single-page documents, and that untrained OCR alone produces only 20 to 60 percent correct words. Yet by feeding these imperfect results into reasoning LLMs, he now obtains detailed automated summaries that help him identify which documents warrant closer human inspection. He reflects on the ethical dilemma of submitting manuscript images to commercial APIs and notes that while reasoning LLMs can sometimes catch contextual errors, human vetting remains essential.'
+				"Middle East studies and Arabic scholar Albrecht Hofheinz discusses how he combines Google's optical character recognition with large language models (LLMs) to process collections of Arabic handwritten manuscripts at scale. He explains that training handwritten text recognition on individual hands is not feasible for single-page documents, and that untrained OCR alone produces only 20 to 60 percent correct words. Yet by feeding these imperfect results into reasoning LLMs, he now obtains detailed automated summaries that help him identify which documents warrant closer human inspection. He reflects on the ethical dilemma of submitting manuscript images to commercial APIs and notes that while reasoning LLMs can sometimes catch contextual errors, human vetting remains essential."
 		}
 	];
 
@@ -129,19 +129,28 @@
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="bg-grid-mesh"></div>
 	<div class="bg-radial-glow"></div>
-	<div class="content-width surface-panel surface-padding text-center stack-sm relative">
+	<div class="content-width surface-panel surface-padding stack-sm relative text-center">
 		<Heading
 			tag="h1"
-			class="heading-display heading-xl text-gradient-teal drop-shadow-md pb-2 tracking-tight animate-hero-title"
+			class="heading-display heading-xl text-gradient-teal animate-hero-title pb-2 tracking-tight drop-shadow-md"
 		>
 			Interviews
 		</Heading>
-		<P class="text-lead mx-auto max-w-3xl animate-hero-subtitle">
+		<P class="text-lead animate-hero-subtitle mx-auto max-w-3xl">
 			Short interviews with workshop participants sharing their perspectives on Digital Humanities
 			and AI in African Studies.
 		</P>
-		<p class="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 animate-hero-subtitle" style="animation-delay: 100ms;">
-			Filmed by <a href="https://calumbrett.myportfolio.com/" target="_blank" rel="noopener noreferrer" class="text-secondary-500 dark:text-secondary-400 hover:text-secondary-400 dark:hover:text-secondary-300 transition-colors">Calum Houston</a>
+		<p
+			class="animate-hero-subtitle text-xs tracking-widest text-gray-400 uppercase dark:text-gray-500"
+			style="animation-delay: 100ms;"
+		>
+			Filmed by <a
+				href="https://calumbrett.myportfolio.com/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-secondary-500 dark:text-secondary-400 hover:text-secondary-400 dark:hover:text-secondary-300 transition-colors"
+				>Calum Houston</a
+			>
 		</p>
 	</div>
 </section>
@@ -150,15 +159,18 @@
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="bg-grid-mesh opacity-30"></div>
 	<div
-		class="content-width-wide surface-panel surface-padding stack-lg relative animate-section-reveal"
+		class="content-width-wide surface-panel surface-padding stack-lg animate-section-reveal relative"
 		use:reveal
 	>
 		{#if interviews.length > 0}
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-children">
+			<div class="stagger-children grid grid-cols-1 gap-8 md:grid-cols-2">
 				{#each interviews as interview (interview.participantName)}
-					<div class="card-surface surface-padding stack-md rounded-lg glow-border">
+					<div class="card-surface surface-padding stack-md glow-border rounded-lg">
 						{#if interview.youtubeId}
-							<div class="relative w-full overflow-hidden rounded-md" style="padding-bottom: 56.25%;">
+							<div
+								class="relative w-full overflow-hidden rounded-md"
+								style="padding-bottom: 56.25%;"
+							>
 								<iframe
 									src="https://www.youtube-nocookie.com/embed/{interview.youtubeId}"
 									title="Interview with {interview.participantName}"
@@ -170,9 +182,11 @@
 								></iframe>
 							</div>
 						{:else}
-							<div class="aspect-video w-full overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-								<div class="text-center stack-xs">
-									<VideoCameraOutline class="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto" />
+							<div
+								class="flex aspect-video w-full items-center justify-center overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800"
+							>
+								<div class="stack-xs text-center">
+									<VideoCameraOutline class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
 									<p class="text-sm text-gray-500 dark:text-gray-400">Video coming soon</p>
 								</div>
 							</div>
@@ -184,7 +198,10 @@
 							<p class="text-sm text-gray-500 dark:text-gray-400">
 								{interview.affiliation}
 							</p>
-							<Heading tag="h3" class="text-base! font-medium! text-secondary-600 dark:text-secondary-400">
+							<Heading
+								tag="h3"
+								class="text-secondary-600 dark:text-secondary-400 text-base! font-medium!"
+							>
 								{interview.topic}
 							</Heading>
 							<P class="body-text-muted text-sm">
@@ -196,16 +213,14 @@
 			</div>
 		{:else}
 			<div
-				class="text-center padding-block-xl card-surface surface-padding border border-dashed border-gray-300 dark:border-gray-700"
+				class="padding-block-xl card-surface surface-padding border border-dashed border-gray-300 text-center dark:border-gray-700"
 			>
 				<div class="stack-sm flex flex-col items-center">
-					<VideoCameraOutline
-						class="w-16 h-16 text-surface-400 dark:text-surface-dark-overlay"
-					/>
+					<VideoCameraOutline class="text-surface-400 dark:text-surface-dark-overlay h-16 w-16" />
 					<Heading tag="h2" class="heading-section text-gradient-teal">Coming Soon</Heading>
-					<P class="body-text-muted max-w-md mx-auto">
-						Short interviews with workshop participants will be added here soon. Check back to
-						hear their perspectives on Digital Humanities and AI in African Studies.
+					<P class="body-text-muted mx-auto max-w-md">
+						Short interviews with workshop participants will be added here soon. Check back to hear
+						their perspectives on Digital Humanities and AI in African Studies.
 					</P>
 				</div>
 			</div>

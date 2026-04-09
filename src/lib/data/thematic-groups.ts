@@ -36,7 +36,7 @@ export const thematicGroups: ThematicGroup[] = [
 		id: 'archive-preservation-community-custody-visual-heritage',
 		name: 'The Archive: Preservation, Community Custody & Visual Heritage',
 		description:
-			'This group addresses how digital archives can serve African communities rather than extracting heritage for external use. Participants lead projects preserving Arabic and Ethiopian manuscripts, West African newspapers, women\'s oral histories, trade union records, and art historical documentation. The central challenge is ensuring that digitization enhances local access and analytical capacity\u2014not just feeds data into global AI systems.',
+			"This group addresses how digital archives can serve African communities rather than extracting heritage for external use. Participants lead projects preserving Arabic and Ethiopian manuscripts, West African newspapers, women's oral histories, trade union records, and art historical documentation. The central challenge is ensuring that digitization enhances local access and analytical capacity\u2014not just feeds data into global AI systems.",
 		guidingQuestions: [
 			{
 				category: 'On Custody',
@@ -64,7 +64,7 @@ export const thematicGroups: ThematicGroup[] = [
 			{
 				category: 'On Access',
 				question:
-					'How can we design offline-capable and low-bandwidth tools that function effectively across Africa\'s varied connectivity landscapes?'
+					"How can we design offline-capable and low-bandwidth tools that function effectively across Africa's varied connectivity landscapes?"
 			},
 			{
 				category: 'On Governance',

@@ -4,7 +4,7 @@ export const emmanuelNgueUm: Participant = {
 	name: 'Emmanuel Ngue Um',
 	affiliation: 'University of Yaounde 1',
 	affiliationCoordinates: {
-		latitude: 3.8480,
+		latitude: 3.848,
 		longitude: 11.5021
 	},
 	country: 'Cameroon',

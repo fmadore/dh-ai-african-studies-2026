@@ -15,7 +15,12 @@ export function resolveAppPath(path = '/'): string {
 		return base || '/';
 	}
 
-	if (PROTOCOL_PATTERN.test(path) || path.startsWith('#') || path.startsWith('mailto:') || path.startsWith('tel:')) {
+	if (
+		PROTOCOL_PATTERN.test(path) ||
+		path.startsWith('#') ||
+		path.startsWith('mailto:') ||
+		path.startsWith('tel:')
+	) {
 		return path;
 	}
 

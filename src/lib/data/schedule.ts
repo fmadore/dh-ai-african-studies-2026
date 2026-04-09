@@ -69,7 +69,9 @@ export const schedule: DaySchedule[] = [
 				description: 'Working groups convene to discuss',
 				type: 'subgroups',
 				rooms: ['SR 5', 'SR 6', 'BRDT', '4 AG'],
-				deliverables: ["A flipchart poster summarising the group's key themes, questions, and discussion points to anchor their World Café table"]
+				deliverables: [
+					"A flipchart poster summarising the group's key themes, questions, and discussion points to anchor their World Café table"
+				]
 			},
 			{
 				time: '13:00–14:30',
@@ -96,7 +98,8 @@ export const schedule: DaySchedule[] = [
 			{
 				time: '16:30–17:15',
 				title: 'Day One Synthesis: Group Work',
-				description: 'Small groups gather and prepare a short summary of key findings from World Café conversations',
+				description:
+					'Small groups gather and prepare a short summary of key findings from World Café conversations',
 				type: 'subgroups'
 			},
 			{
@@ -140,7 +143,8 @@ export const schedule: DaySchedule[] = [
 			},
 			{
 				time: '10:00–11:00',
-				title: 'Mapping Digital Inequalities: Assessing Resource Distribution and Access in DH and AI for African Studies',
+				title:
+					'Mapping Digital Inequalities: Assessing Resource Distribution and Access in DH and AI for African Studies',
 				type: 'plenary',
 				facilitators: ['Karen Ijumba', 'Menno van Zaanen'],
 				rooms: ['SR 6']
@@ -229,7 +233,8 @@ export const schedule: DaySchedule[] = [
 			},
 			{
 				time: '09:30–11:00',
-				title: 'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Institutions and Archives 1/2',
+				title:
+					'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Institutions and Archives 1/2',
 				type: 'world-cafe',
 				facilitators: ['Fallou Ngom', 'Erika Melek Delgado'],
 				rooms: ['SR 6']
@@ -241,7 +246,8 @@ export const schedule: DaySchedule[] = [
 			},
 			{
 				time: '11:30–13:00',
-				title: 'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Studies 2/2',
+				title:
+					'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Studies 2/2',
 				type: 'world-cafe',
 				facilitators: ['Cassandra Mark-Thiesen', 'James Yékú'],
 				rooms: ['SR 6']
@@ -298,12 +304,9 @@ export const schedule: DaySchedule[] = [
 			{
 				time: '20:00',
 				title: 'Dinner',
-				description:
-					'Restaurant Al Dar (self-pay, not included in workshop costs)',
+				description: 'Restaurant Al Dar (self-pay, not included in workshop costs)',
 				type: 'social',
-				details: [
-					'https://maps.app.goo.gl/JB6Ps2kKySCs7TJi8'
-				]
+				details: ['https://maps.app.goo.gl/JB6Ps2kKySCs7TJi8']
 			}
 		]
 	}

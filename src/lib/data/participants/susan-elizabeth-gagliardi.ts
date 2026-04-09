@@ -4,8 +4,8 @@ export const susanElizabethGagliardi: Participant = {
 	name: 'Susan Elizabeth Gagliardi',
 	affiliation: 'Emory University',
 	affiliationCoordinates: {
-		latitude: 33.7490,
-		longitude: -84.3880
+		latitude: 33.749,
+		longitude: -84.388
 	},
 	country: 'United States',
 	role: 'Participant',
