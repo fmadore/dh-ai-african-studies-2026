@@ -190,9 +190,7 @@
 			Three days of collaborative dialogue, knowledge sharing, and strategic planning at the
 			intersection of Digital Humanities and AI in African Studies.
 		</P>
-		<div
-			class="gap-md stack-item-md animate-hero-lede flex flex-wrap justify-center"
-		>
+		<div class="gap-md stack-item-md animate-hero-lede flex flex-wrap justify-center">
 			<div class="gap-sm text-body-sm flex items-center">
 				<CalendarMonthOutline class="size-icon-md text-accent" />
 				<span>{workshopInfo.dates.full}</span>
@@ -320,7 +318,9 @@
 									<div class="p-sm schedule-time-icon rounded-md">
 										<Icon class="size-icon-md {styles.icon}" />
 									</div>
-									<span class="text-body-sm text-secondary-ink font-mono font-semibold whitespace-nowrap">
+									<span
+										class="text-body-sm text-secondary-ink font-mono font-semibold whitespace-nowrap"
+									>
 										{item.time}
 									</span>
 								</div>

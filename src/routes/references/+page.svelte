@@ -538,10 +538,7 @@
 				</div>
 
 				{#if totalPages > 1}
-					<nav
-						class="pagination"
-						aria-label="References pagination"
-					>
+					<nav class="pagination" aria-label="References pagination">
 						<button
 							type="button"
 							class="pagination__nav"

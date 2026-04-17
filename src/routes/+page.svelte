@@ -104,7 +104,7 @@
 	></div>
 
 	<div class="content-width-wide relative py-16 md:py-24">
-		<div class="grid items-center gap-xl lg:grid-cols-12">
+		<div class="gap-xl grid items-center lg:grid-cols-12">
 			<div class="stack-xl lg:col-span-8 xl:col-span-7">
 				<div class="stack-sm">
 					<p class="text-accent animate-hero-eyebrow text-label">A Scoping Workshop</p>
