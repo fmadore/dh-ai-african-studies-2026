@@ -92,52 +92,33 @@
 </svelte:head>
 
 <!-- Hero Section - Future Forward -->
-<section class="gradient-hero-future relative flex min-h-[85vh] items-center overflow-hidden">
-	<!-- Grid mesh background -->
+<section class="gradient-hero-future hero-viewport relative flex items-center overflow-hidden">
 	<div class="bg-grid-mesh"></div>
-
-	<!-- Radial glow effects -->
 	<div class="bg-radial-glow animate-pulse-glow"></div>
 	<div class="bg-radial-glow-bottom"></div>
 
-	<!-- Decorative elements -->
+	<!-- A single, larger decorative circle keeps depth without visual noise -->
 	<div
-		class="decorative-circle animate-float top-20 -left-32 h-64 w-64 opacity-50"
+		class="decorative-circle animate-float -top-32 -right-40 h-96 w-96 opacity-40"
 		aria-hidden="true"
 	></div>
-	<div
-		class="decorative-circle animate-float-delayed -right-24 bottom-32 h-48 w-48 opacity-40"
-		aria-hidden="true"
-	></div>
-	<div class="decorative-line top-1/3 left-0 w-96 opacity-60" aria-hidden="true"></div>
-	<div class="decorative-line right-0 bottom-1/4 w-64 opacity-40" aria-hidden="true"></div>
 
 	<div class="content-width-wide relative py-16 md:py-24">
-		<!-- Asymmetric layout container -->
-		<div class="grid items-center gap-8 lg:grid-cols-12">
-			<!-- Main content - takes more space on left -->
-			<div class="stack-lg lg:col-span-8 xl:col-span-7">
-				<div class="stack-md">
+		<div class="grid items-center gap-xl lg:grid-cols-12">
+			<div class="stack-xl lg:col-span-8 xl:col-span-7">
+				<div class="stack-sm">
+					<p class="text-accent animate-hero-eyebrow text-label">A Scoping Workshop</p>
 					<h1
-						class="heading-display heading-xl text-gradient-teal animate-hero-title pb-2 tracking-tight drop-shadow-md"
+						class="heading-display heading-xl text-gradient-teal animate-hero-title pb-2 tracking-tight"
 					>
 						Charting New Territory
 					</h1>
-					<p class="heading-sub animate-hero-subtitle max-w-2xl opacity-90 drop-shadow-sm">
+					<p class="heading-sub animate-hero-subtitle text-secondary-ink max-w-2xl">
 						Digital Humanities and AI in African Studies
-					</p>
-					<p
-						class="text-accent animate-hero-subtitle text-sm font-bold tracking-widest uppercase"
-						style="animation-delay: 200ms;"
-					>
-						A Scoping Workshop
 					</p>
 				</div>
 
-				<p
-					class="text-lead animate-hero-subtitle max-w-2xl drop-shadow-sm"
-					style="animation-delay: 180ms;"
-				>
+				<p class="text-lead animate-hero-lede max-w-2xl">
 					A working meeting bringing together researchers from Africa, Europe, and beyond. Through
 					facilitated discussions and structured deliberation—prioritising collaboration over
 					presentations—participants will move from assessing current practices to developing
@@ -145,7 +126,7 @@
 					integration of digital humanities and AI in African studies.
 				</p>
 
-				<div class="flex flex-col gap-4 sm:flex-row">
+				<div class="gap-md flex flex-col sm:flex-row">
 					<div class="animate-hero-cta">
 						<PrimaryButton href={aboutHref} size="xl">About</PrimaryButton>
 					</div>
@@ -159,15 +140,9 @@
 			</div>
 
 			<!-- Decorative accent panel on right (visible on lg+) -->
-			<div class="relative hidden lg:col-span-4 lg:block xl:col-span-5">
-				<div
-					class="from-secondary-100/40 to-primary-100/20 dark:from-secondary-900/30 dark:to-primary-900/20 glow-teal absolute inset-0 rotate-3 transform rounded-3xl bg-linear-to-br"
-					aria-hidden="true"
-				></div>
-				<div
-					class="from-secondary-50/60 dark:from-secondary-950/40 absolute inset-4 -rotate-1 transform rounded-2xl bg-linear-to-tr to-white/80 dark:to-gray-900/60"
-					aria-hidden="true"
-				></div>
+			<div class="hero-accent-panel" aria-hidden="true">
+				<div class="hero-accent-panel__back"></div>
+				<div class="hero-accent-panel__front"></div>
 			</div>
 		</div>
 	</div>
@@ -328,7 +303,7 @@
 								{organizer.name}
 							{/if}
 						</Heading>
-						<P class="text-body-sm font-medium text-gray-600 dark:text-gray-400">
+						<P class="text-body-sm body-text-strong">
 							{organizer.affiliation}
 						</P>
 					</div>
@@ -352,3 +327,93 @@
 		</P>
 	</div>
 </section>
+
+<style>
+	.hero-accent-panel {
+		position: relative;
+		display: none;
+	}
+
+	@media (min-width: 1024px) {
+		.hero-accent-panel {
+			display: block;
+			grid-column: span 4;
+			min-height: 22rem;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.hero-accent-panel {
+			grid-column: span 5;
+		}
+	}
+
+	.hero-accent-panel__back,
+	.hero-accent-panel__front {
+		position: absolute;
+		border-radius: var(--radius-2xl);
+		filter: blur(32px);
+		will-change: transform;
+	}
+
+	.hero-accent-panel__back {
+		inset: -2rem;
+		transform: rotate(8deg);
+		background: radial-gradient(
+			ellipse 75% 65% at 35% 35%,
+			color-mix(in srgb, var(--color-secondary-400) 28%, transparent) 0%,
+			color-mix(in srgb, var(--color-secondary-500) 10%, transparent) 45%,
+			transparent 75%
+		);
+		opacity: 0.9;
+	}
+
+	.hero-accent-panel__front {
+		inset: 2rem;
+		transform: rotate(-5deg);
+		background: radial-gradient(
+			ellipse 70% 60% at 65% 60%,
+			color-mix(in srgb, var(--color-primary-300) 22%, transparent) 0%,
+			color-mix(in srgb, var(--color-primary-400) 7%, transparent) 50%,
+			transparent 80%
+		);
+		opacity: 0.8;
+		animation: heroAccentDrift 14s ease-in-out infinite;
+	}
+
+	@keyframes heroAccentDrift {
+		0%,
+		100% {
+			transform: rotate(-5deg) translate3d(0, 0, 0);
+		}
+		50% {
+			transform: rotate(-3deg) translate3d(6px, -8px, 0);
+		}
+	}
+
+	:global(.dark) .hero-accent-panel__back {
+		background: radial-gradient(
+			ellipse 75% 65% at 35% 35%,
+			color-mix(in srgb, var(--color-secondary-400) 38%, transparent) 0%,
+			color-mix(in srgb, var(--color-secondary-500) 14%, transparent) 45%,
+			transparent 75%
+		);
+		opacity: 0.7;
+	}
+
+	:global(.dark) .hero-accent-panel__front {
+		background: radial-gradient(
+			ellipse 70% 60% at 65% 60%,
+			color-mix(in srgb, var(--color-primary-400) 26%, transparent) 0%,
+			color-mix(in srgb, var(--color-primary-500) 10%, transparent) 50%,
+			transparent 80%
+		);
+		opacity: 0.6;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-accent-panel__front {
+			animation: none;
+		}
+	}
+</style>

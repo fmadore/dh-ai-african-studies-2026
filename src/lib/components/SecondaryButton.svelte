@@ -36,7 +36,17 @@
 	{outline}
 	{disabled}
 	color="secondary"
-	class="hover:shadow-secondary backdrop-blur-sm transition-all hover:scale-[1.02] active:scale-[0.98] {className}"
+	class="btn-refined btn-refined--secondary {className}"
 >
 	{@render children()}
 </Button>
+
+<style>
+	:global(.btn-refined--secondary) {
+		-webkit-backdrop-filter: blur(6px);
+		backdrop-filter: blur(6px);
+	}
+	:global(.btn-refined--secondary:hover) {
+		box-shadow: var(--shadow-accent);
+	}
+</style>

@@ -10,6 +10,7 @@ const typeMap: Record<string, string> = {
 	motion_picture: 'Video',
 	'paper-conference': 'Conference Paper',
 	'post-weblog': 'Blog Post',
+	broadcast: 'Podcast',
 	song: 'Podcast',
 	speech: 'Presentation',
 	article: 'Preprint'

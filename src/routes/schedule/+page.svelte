@@ -191,8 +191,7 @@
 			intersection of Digital Humanities and AI in African Studies.
 		</P>
 		<div
-			class="gap-md stack-item-md animate-hero-subtitle flex flex-wrap justify-center"
-			style="animation-delay: 200ms;"
+			class="gap-md stack-item-md animate-hero-lede flex flex-wrap justify-center"
 		>
 			<div class="gap-sm text-body-sm flex items-center">
 				<CalendarMonthOutline class="size-icon-md text-accent" />
@@ -223,7 +222,7 @@
 				{@const day = tab as DayTab}
 				<div class="gap-xs sm:gap-sm px-sm py-xs flex flex-col items-center sm:flex-row">
 					<span class="font-semibold">{day.label}</span>
-					<span class="hidden text-gray-500 sm:inline dark:text-gray-400">•</span>
+					<span class="text-subtle-ink hidden sm:inline">•</span>
 					<span class="text-body-sm hidden sm:inline">{day.theme}</span>
 				</div>
 			{/snippet}
@@ -245,7 +244,7 @@
 					</div>
 					<!-- Session type legend -->
 					<div
-						class="gap-x-lg gap-y-sm pt-md stack-item-md flex flex-wrap justify-center border-t border-gray-200 dark:border-gray-700"
+						class="gap-x-lg gap-y-sm pt-md stack-item-md flex flex-wrap justify-center border-t border-(--border-subtle)"
 					>
 						{#each Object.entries(sessionTypes) as [type, meta] (type)}
 							<div class="gap-xs flex items-center">
@@ -265,15 +264,11 @@
 										trigger="click"
 										placement="bottom"
 										arrow
-										class="z-50 w-80 text-sm sm:w-96"
+										class="z-(--z-popover) w-80 text-sm sm:w-96"
 									>
 										<div class="p-1">
-											<h4 class="mb-2 font-semibold text-gray-900 dark:text-white">
-												What is a World Café?
-											</h4>
-											<ul
-												class="text-body-sm space-y-1.5 leading-relaxed text-gray-600 dark:text-gray-300"
-											>
+											<h4 class="text-primary-ink mb-2 font-semibold">What is a World Café?</h4>
+											<ul class="text-body-sm space-y-1.5 leading-relaxed">
 												<li class="flex items-start gap-1.5">
 													<span class="mt-0.5 shrink-0 text-amber-500">•</span>
 													<span
@@ -317,17 +312,15 @@
 						{@const styles = getItemStyles(item.type)}
 						{@const Icon = getItemIcon(item.type, item.title)}
 						<article
-							class="card-surface {styles.border} {styles.bg} surface-padding-sm transition-base glow-border rounded-lg hover:shadow-md"
+							class="card-surface {styles.border} {styles.bg} surface-padding-sm glow-border"
 						>
 							<div class="gap-md flex flex-col sm:flex-row">
 								<!-- Time Column -->
 								<div class="gap-sm flex shrink-0 items-start sm:w-40">
-									<div class="p-sm rounded-lg bg-white/50 dark:bg-gray-800/50">
+									<div class="p-sm schedule-time-icon rounded-md">
 										<Icon class="size-icon-md {styles.icon}" />
 									</div>
-									<span
-										class="text-body-sm font-mono font-semibold whitespace-nowrap text-gray-700 dark:text-gray-300"
-									>
+									<span class="text-body-sm text-secondary-ink font-mono font-semibold whitespace-nowrap">
 										{item.time}
 									</span>
 								</div>
@@ -344,9 +337,7 @@
 									{#if (item.facilitators && item.facilitators.length > 0) || (item.rooms && item.rooms.length > 0)}
 										<div class="gap-md text-body-sm flex flex-wrap">
 											{#if item.facilitators && item.facilitators.length > 0}
-												<span
-													class="gap-xs inline-flex items-center text-gray-600 dark:text-gray-400"
-												>
+												<span class="gap-xs text-muted-ink inline-flex items-center">
 													<UsersGroupOutline class="size-icon-sm" />
 													<span class="font-medium">Facilitators:</span>
 													{listFormatter.format(item.facilitators)}
@@ -354,13 +345,9 @@
 											{/if}
 											{#if item.rooms && item.rooms.length > 0}
 												<div class="gap-xs inline-flex items-center">
-													<MapPinAltOutline
-														class="size-icon-sm text-secondary-500 dark:text-secondary-400"
-													/>
+													<MapPinAltOutline class="size-icon-sm text-accent" />
 													{#each item.rooms as room (room)}
-														<span
-															class="px-sm py-xs rounded-full bg-gray-100 text-gray-700 dark:bg-gray-700/50 dark:text-gray-300"
-														>
+														<span class="px-sm py-xs schedule-room-pill rounded-full">
 															{room}
 														</span>
 													{/each}
@@ -372,7 +359,7 @@
 										<ul class="stack-xs stack-item-sm">
 											{#each item.details as detail (detail)}
 												<li class="body-text gap-sm text-body-sm flex items-baseline">
-													<span class="text-secondary-500 dark:text-secondary-400 shrink-0">•</span>
+													<span class="text-accent shrink-0">•</span>
 													<span
 														>{#if detail.startsWith('https://') || detail.startsWith('http://')}<a
 																href={detail}
@@ -467,3 +454,23 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	.schedule-time-icon {
+		background-color: color-mix(in srgb, var(--bg-raised) 60%, transparent);
+	}
+
+	:global(.dark) .schedule-time-icon {
+		background-color: color-mix(in srgb, var(--bg-overlay) 60%, transparent);
+	}
+
+	.schedule-room-pill {
+		background-color: var(--bg-sunken);
+		color: var(--text-secondary);
+		font-size: var(--text-xs);
+	}
+
+	:global(.dark) .schedule-room-pill {
+		background-color: color-mix(in srgb, var(--bg-overlay) 70%, transparent);
+	}
+</style>

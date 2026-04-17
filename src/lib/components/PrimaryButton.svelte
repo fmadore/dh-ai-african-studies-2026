@@ -33,7 +33,25 @@
 	{size}
 	{disabled}
 	color="primary"
-	class="hover:shadow-primary shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] {className}"
+	class="btn-refined btn-refined--primary {className}"
 >
 	{@render children()}
 </Button>
+
+<style>
+	:global(.btn-refined) {
+		box-shadow: var(--shadow-md);
+		transition:
+			transform var(--transition-base),
+			box-shadow var(--transition-base);
+	}
+	:global(.btn-refined:hover) {
+		transform: translateY(-1px);
+	}
+	:global(.btn-refined:active) {
+		transform: translateY(0);
+	}
+	:global(.btn-refined--primary:hover) {
+		box-shadow: var(--shadow-brand);
+	}
+</style>

@@ -70,58 +70,33 @@
 	.filter-btn {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.375rem;
+		gap: var(--space-2xs);
 		padding: var(--space-xs) var(--space-sm);
 		border-radius: var(--radius-full);
 		font-size: var(--text-xs);
 		font-weight: var(--font-weight-medium);
-		background: var(--color-surface-100);
-		color: var(--color-gray-600);
-		border: 1px solid var(--color-surface-300);
-		transition: all var(--transition-fast);
+		background: var(--bg-sunken);
+		color: var(--text-muted);
+		border: 1px solid var(--border-default);
+		transition:
+			background var(--transition-micro),
+			color var(--transition-micro),
+			border-color var(--transition-micro);
 		cursor: pointer;
 	}
 
 	.filter-btn:hover {
-		background: var(--color-surface-200);
+		background: var(--bg-overlay);
 	}
 
 	.filter-btn.active {
-		background: color-mix(
-			in srgb,
-			var(--group-color, var(--color-secondary-500)) 12%,
-			var(--color-surface-0)
-		);
-		color: var(--color-gray-900);
-		border-color: color-mix(
-			in srgb,
-			var(--group-color, var(--color-secondary-500)) 40%,
-			transparent
-		);
-	}
-
-	:global(.dark) .filter-btn {
-		background: var(--color-surface-dark-elevated);
-		color: var(--color-gray-400);
-		border-color: rgba(255, 255, 255, 0.08);
-	}
-
-	:global(.dark) .filter-btn:hover {
-		background: var(--color-surface-dark-overlay);
+		background: color-mix(in srgb, var(--group-color, var(--accent)) 12%, var(--bg-raised));
+		color: var(--text-primary);
+		border-color: color-mix(in srgb, var(--group-color, var(--accent)) 40%, transparent);
 	}
 
 	:global(.dark) .filter-btn.active {
-		background: color-mix(
-			in srgb,
-			var(--group-color, var(--color-secondary-400)) 15%,
-			var(--color-surface-dark-base)
-		);
-		color: var(--color-gray-100);
-		border-color: color-mix(
-			in srgb,
-			var(--group-color, var(--color-secondary-400)) 40%,
-			transparent
-		);
+		background: color-mix(in srgb, var(--group-color, var(--accent)) 15%, var(--bg-page));
 	}
 
 	.filter-btn-all {
@@ -146,18 +121,10 @@
 
 	.stats-bar strong {
 		font-weight: var(--font-weight-semibold);
-		color: var(--color-gray-700);
-	}
-
-	:global(.dark) .stats-bar strong {
-		color: var(--color-gray-300);
+		color: var(--text-secondary);
 	}
 
 	.stats-sep {
-		color: var(--color-gray-300);
-	}
-
-	:global(.dark) .stats-sep {
-		color: var(--color-gray-600);
+		color: var(--border-strong);
 	}
 </style>

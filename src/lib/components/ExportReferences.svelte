@@ -301,13 +301,13 @@
 		<ChevronDownOutline class="ml-1 h-3 w-3" />
 	{/if}
 </Button>
-<Dropdown simple class="z-[100] w-48">
+<Dropdown simple class="z-(--z-popover) w-48">
 	<DropdownItem onclick={() => exportToFormat('bibtex')}>
-		<span class="block font-medium text-gray-900 dark:text-white">BibTeX (.bib)</span>
-		<span class="block text-xs text-gray-500 dark:text-gray-400">Best for LaTeX users</span>
+		<span class="text-primary-ink block font-medium">BibTeX (.bib)</span>
+		<span class="text-subtle-ink block text-xs">Best for LaTeX users</span>
 	</DropdownItem>
 	<DropdownItem onclick={() => exportToFormat('ris')}>
-		<span class="block font-medium text-gray-900 dark:text-white">RIS (.ris)</span>
-		<span class="block text-xs text-gray-500 dark:text-gray-400">Universal format</span>
+		<span class="text-primary-ink block font-medium">RIS (.ris)</span>
+		<span class="text-subtle-ink block text-xs">Universal format</span>
 	</DropdownItem>
 </Dropdown>

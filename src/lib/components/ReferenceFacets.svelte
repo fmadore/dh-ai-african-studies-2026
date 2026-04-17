@@ -107,14 +107,11 @@
 	>
 		<div class="flex items-center gap-2">
 			<FilterOutline class="text-accent h-5 w-5" />
-			<span class="text-lg font-semibold text-gray-900 dark:text-white">Filters</span>
+			<span class="text-primary-ink text-lg font-semibold">Filters</span>
 		</div>
-		<div class="flex items-center gap-3">
+		<div class="gap-sm flex items-center">
 			{#if activeFiltersCount > 0}
-				<button
-					onclick={resetFilters}
-					class="text-xs font-medium text-red-500 transition-colors hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-				>
+				<button onclick={resetFilters} class="text-danger text-xs font-medium">
 					Reset ({activeFiltersCount})
 				</button>
 			{/if}

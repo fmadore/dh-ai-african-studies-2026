@@ -31,11 +31,7 @@
 	<nav class="content-width-wide surface-panel surface-padding-xs">
 		<div class="nav-bar">
 			<a href={resolveAppPath('/')} class="logo-link">
-				<span
-					class="font-display heading-color-light self-center pb-1 text-xl font-bold tracking-tight whitespace-nowrap drop-shadow-md"
-				>
-					DH & AI in African Studies
-				</span>
+				<span class="brand-wordmark"> DH &amp; AI in African Studies </span>
 			</a>
 
 			<div class="nav-actions">
@@ -86,6 +82,17 @@
 </header>
 
 <style>
+	.brand-wordmark {
+		font-family: var(--font-family-display);
+		font-weight: var(--font-weight-bold);
+		font-size: var(--text-xl);
+		letter-spacing: var(--tracking-tight);
+		color: var(--text-primary);
+		white-space: nowrap;
+		padding-bottom: 0.125rem;
+		align-self: center;
+	}
+
 	.nav-bar {
 		display: flex;
 		flex-wrap: wrap;
@@ -96,38 +103,31 @@
 	.nav-actions {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: var(--space-xs);
 		flex-shrink: 0;
 	}
 
-	/* Hamburger button */
+	/* Hamburger */
 	.nav-hamburger {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0.5rem;
-		border-radius: var(--radius-lg);
-		color: var(--color-gray-500);
+		padding: var(--space-2xs);
+		border-radius: var(--radius-md);
+		color: var(--text-muted);
+		background-color: transparent;
 		cursor: pointer;
 		transition:
-			transform var(--transition-fast),
-			opacity var(--transition-fast);
+			background-color var(--transition-micro),
+			color var(--transition-micro);
 	}
 
 	.nav-hamburger:hover {
-		background-color: var(--color-gray-100);
-		transform: scale(1.05);
+		background-color: var(--bg-sunken);
+		color: var(--text-primary);
 	}
 
-	:global(.dark) .nav-hamburger:hover {
-		background-color: rgba(255, 255, 255, 0.1);
-	}
-
-	.nav-hamburger:active {
-		transform: scale(0.95);
-	}
-
-	/* Nav menu wrapper — hidden by default (mobile) */
+	/* Nav menu wrapper — hidden by default on small screens */
 	.nav-menu {
 		display: none;
 		width: 100%;
@@ -136,7 +136,7 @@
 
 	.nav-menu--open {
 		display: block;
-		animation: slideDown 0.25s var(--ease-spring);
+		animation: navSlideDown 220ms var(--ease-standard);
 	}
 
 	.nav-links {
@@ -145,42 +145,30 @@
 		list-style: none;
 		font-size: var(--text-sm);
 		font-weight: var(--font-weight-medium);
+		margin: 0;
+		padding: 0;
+		gap: var(--space-3xs);
 	}
 
-	/* Individual nav link */
 	.nav-link {
 		display: block;
-		padding: 0.5rem 1rem 0.5rem 0.75rem;
-		border-radius: var(--radius-sm);
-		color: var(--color-gray-700);
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: var(--radius-md);
+		color: var(--text-secondary);
 		text-decoration: none;
 		transition:
-			color var(--transition-fast),
-			background-color var(--transition-fast);
-	}
-
-	:global(.dark) .nav-link {
-		color: var(--color-gray-400);
+			color var(--transition-micro),
+			background-color var(--transition-micro);
 	}
 
 	.nav-link:hover {
-		background-color: var(--color-gray-100);
-		color: var(--color-primary-600);
-	}
-
-	:global(.dark) .nav-link:hover {
-		background-color: rgba(255, 255, 255, 0.05);
-		color: var(--color-primary-300);
+		background-color: var(--bg-sunken);
+		color: var(--text-primary);
 	}
 
 	.nav-link.active {
-		background-color: var(--color-secondary-100);
-		color: var(--color-secondary-700);
-	}
-
-	:global(.dark) .nav-link.active {
-		background-color: rgba(13, 148, 136, 0.15);
-		color: var(--color-secondary-300);
+		background-color: var(--accent-soft);
+		color: var(--text-link);
 	}
 
 	/* Desktop: inline nav at 1280px+ */
@@ -204,37 +192,31 @@
 
 		.nav-links {
 			flex-direction: row;
+			gap: var(--space-3xs);
 		}
 
 		.nav-link {
 			border-radius: var(--radius-full);
-			padding-inline: var(--space-sm);
-			padding-block: calc(var(--space-sm) * 0.8);
+			padding-inline: var(--space-md);
+			padding-block: var(--space-2xs);
 		}
 
 		.nav-link:hover {
-			background-color: var(--color-primary-50);
-			color: var(--color-primary-600);
-		}
-
-		:global(.dark) .nav-link:hover {
-			background-color: rgba(255, 255, 255, 0.05);
-			color: var(--color-primary-300);
+			background-color: var(--brand-soft);
+			color: var(--brand);
 		}
 
 		.nav-link.active {
-			box-shadow: 0 0 12px -3px rgba(13, 148, 136, 0.3);
-		}
-
-		:global(.dark) .nav-link.active {
-			box-shadow: 0 0 16px -4px rgba(13, 148, 136, 0.4);
+			background-color: var(--accent-soft);
+			color: var(--text-link);
+			box-shadow: var(--glow-accent);
 		}
 	}
 
-	@keyframes slideDown {
+	@keyframes navSlideDown {
 		from {
 			opacity: 0;
-			transform: translateY(-0.5rem);
+			transform: translateY(-0.4rem);
 		}
 		to {
 			opacity: 1;

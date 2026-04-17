@@ -32,34 +32,25 @@
 		width: 2.75rem;
 		height: 2.75rem;
 		border-radius: var(--radius-full);
-		border: 1px solid var(--color-secondary-200);
-		background-color: var(--color-surface-0);
-		color: var(--color-secondary-600);
+		border: 1px solid var(--border-accent);
+		background-color: var(--bg-raised);
+		color: var(--accent);
 		cursor: pointer;
 		box-shadow: var(--shadow-md);
-		transition: all var(--transition-base);
-		animation: fade-in 300ms var(--ease-out);
-	}
-
-	:global(.dark) .scroll-to-top {
-		background-color: var(--color-surface-dark-elevated);
-		border-color: var(--color-secondary-800);
-		color: var(--color-secondary-400);
-		box-shadow: var(--shadow-dark-md);
+		transition:
+			transform var(--transition-base),
+			box-shadow var(--transition-base),
+			background-color var(--transition-base),
+			color var(--transition-base);
+		animation: fade-in 300ms var(--ease-standard);
 	}
 
 	.scroll-to-top:hover {
-		background-color: var(--color-secondary-600);
-		border-color: var(--color-secondary-600);
-		color: white;
-		box-shadow: var(--shadow-secondary);
+		background-color: var(--accent);
+		border-color: var(--accent);
+		color: var(--text-on-accent);
+		box-shadow: var(--shadow-accent);
 		transform: translateY(-2px);
-	}
-
-	:global(.dark) .scroll-to-top:hover {
-		background-color: var(--color-secondary-600);
-		border-color: var(--color-secondary-500);
-		box-shadow: var(--shadow-dark-glow-secondary);
 	}
 
 	.scroll-to-top:active {

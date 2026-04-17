@@ -1,5 +1,331 @@
 [
   {
+    "id": "3005271/8BFXKIIT",
+    "type": "webpage",
+    "citation-key": "2ValueInclusion",
+    "container-title": "LinkedIn",
+    "language": "en",
+    "title": "The value of inclusion of African Languages in AI",
+    "URL": "https://www.linkedin.com/pulse/value-inclusion-african-languages-ai-chenai-chair-6n3bf/",
+    "author": [
+      {
+        "family": "Chair",
+        "given": "Chenai"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          17
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          15
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/V3P8FI58",
+    "type": "post-weblog",
+    "abstract": "Text of Keynote Remarks delivered at the Africana Librarians Council’s 2026 spring meeting on April 16, 2026.",
+    "citation-key": "jyekuMyUnpackableLibrary2026",
+    "container-title": "James Yékú",
+    "language": "en",
+    "shortTitle": "My Unpackable Library",
+    "title": "My Unpackable Library: AI Erasures and the African Archive",
+    "title-short": "My Unpackable Library",
+    "URL": "https://jamesyeku.com/2026/04/16/my-unpackable-library-ai-erasures-and-the-african-archive/",
+    "author": [
+      {
+        "family": "Yékú",
+        "given": "James"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          17
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          16
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/HNUPQMHF",
+    "type": "article",
+    "abstract": "As artificial intelligence (AI) rapidly reshapes global economies, Sub-Saharan Africa (SSA) faces a critical geopolitical juncture between unprecedented technological leapfrogging and a new era of digital dependency. This study aimed to empirically audit the geographic and sectoral distribution of over $2 billion in corporate AI capital deployed across the continent from 2019 to 2025. While existing literature extensively theorises on AI ethics, a serious structural transparency gap complicates the physical and financial realities of infrastructural capture by the Global North, making this independent mapping practically and academically vital. Utilising the PRISMA 2020 framework, this research conducted a systematic review and thematic synthesis of primary corporate disclosures and grey literature, analysed through the lens of Digital World-Systems Theory. The findings reveal a hyper-concentration of capital, engineering a technology hub hegemony strictly within South Africa, Kenya, and Nigeria. Furthermore, a profound terrestrial bias demonstrates that foreign organisations secured foundational compute architecture, specifically subsea cables and hyperscale data centres, years before engaging in local policymaking or mass workforce skilling. By transitioning from theoretical decolonial evaluation to empirical financial tracking, this study fills a critical literature void, proving that current corporate deployments actively foster ecosystem lock-in rather than true algorithmic sovereignty. Therefore, to realise the African Union's Agenda 2063, regional policymakers must urgently de-privatise critical compute infrastructure, mandate corporate financial transparency, and decouple local entrepreneurial innovation from mandatory foreign cloud monopolies.",
+    "citation-key": "mooreGeopoliticsArtificialIntelligence2026",
+    "genre": "SSRN Scholarly Paper",
+    "language": "en",
+    "number": "6539198",
+    "publisher": "Social Science Research Network",
+    "publisher-place": "Rochester, NY",
+    "shortTitle": "The Geopolitics of Artificial Intelligence in Sub-Saharan Africa",
+    "title": "The Geopolitics of Artificial Intelligence in Sub-Saharan Africa: A Systematic Review of Funding Dynamics and Digital Sovereignty (2019-2025)",
+    "title-short": "The Geopolitics of Artificial Intelligence in Sub-Saharan Africa",
+    "URL": "https://papers.ssrn.com/abstract=6539198",
+    "author": [
+      {
+        "family": "Moore",
+        "given": "Stephen E."
+      },
+      {
+        "family": "Tieru",
+        "given": "Chris Kurbom"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          9
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          31
+        ]
+      ]
+    },
+    "tags": [
+      "Algorithmic Dependency",
+      "Artificial Intelligence",
+      "Big Tech",
+      "Digital Infrastructure",
+      "Digital Sovereignty",
+      "Digital World-Systems Theory",
+      "Geopolitics of Technology",
+      "PRISMA",
+      "Sub-Saharan Africa",
+      "corporate philanthropy",
+      "digital colonialism",
+      "subsea cables"
+    ]
+  },
+  {
+    "id": "3005271/KBAHAWRS",
+    "type": "article-journal",
+    "abstract": "This article examines how three generations of jasare – Zarma genealogists and historian griots from Niger – have responded to the challenges of recording and digitizing their performances, from analogue archives to social media platforms. It explores the tensions between performance and fixation, the transformation and circulation of narratives, and the question of ownership in the context of mediated orality. The first generation resisted state-led archival initiatives in the 1960s. The second adapted their discourse to radio audiences, navigating censorship and self-regulation. Since the death of Jeliba Baaje in 2018, the third generation – no longer active performers – has grappled with the ethical and symbolic stakes of managing digital archives, especially as renewed interest in jasare narratives emerges on platforms such as YouTube and WhatsApp. Drawing on long-term ethnographic collaboration, the article analyses the aesthetic and political strategies employed to preserve control over sensitive narratives in contexts where audience composition is diffuse or unknown. These strategies are situated within broader transformations of patronage systems, memory politics and digital circulation. Ultimately, the article reflects on how oral knowledge systems engage with global regimes of authorship, highlighting the dynamic interplay between tradition, performance ethics and the logics of new media.",
+    "citation-key": "bornandControllingNarrativesThree2026",
+    "container-title": "Africa",
+    "DOI": "10.1017/S0001972026101788",
+    "ISSN": "0001-9720, 1750-0184",
+    "issue": "1",
+    "language": "en",
+    "page": "80-103",
+    "shortTitle": "Controlling the narratives",
+    "title": "Controlling the narratives: three generations of Zarma genealogists and historian-griots from Niger confronting recording and digitization",
+    "title-short": "Controlling the narratives",
+    "volume": "96",
+    "author": [
+      {
+        "family": "Bornand",
+        "given": "Sandra"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          9
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.1017/S0001972026101788"
+  },
+  {
+    "id": "3005271/ATB57DCY",
+    "type": "post-weblog",
+    "abstract": "The sycophancy isn’t a bug. Companions are designed to need your loneliness. Councils are designed to end it.",
+    "citation-key": "awomosuYouShouldAnthropomorphise2026",
+    "container-title": "How Not To Use AI",
+    "genre": "Substack newsletter",
+    "language": "en",
+    "title": "You Should Anthropomorphise Your AI — Just Not Into a Companion",
+    "URL": "https://abiawomosu.substack.com/p/you-should-anthropomorphise-your",
+    "author": [
+      {
+        "family": "Awomosu",
+        "given": "Abi"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          2
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          1
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/A67W9DU8",
+    "type": "article-journal",
+    "citation-key": "zotero-item-105493",
+    "container-title": "Plateia",
+    "issue": "5",
+    "language": "en",
+    "title": "Heritage Protection in Ghadames, Libya: Dâr al-Qâdî as a Laboratory of Community-Based Practices",
+    "URL": "Heritage Protection in Ghadames, Libya",
+    "author": [
+      {
+        "family": "Lafi",
+        "given": "Nora"
+      },
+      {
+        "family": "Alghafal",
+        "given": "Suaad"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/8JI976BG",
+    "type": "motion_picture",
+    "abstract": "Et si le futur le plus utile de l'IA s'écrivait en Afrique ? Alors que l’Unesco et l'AI Movement de Rabat les mettent à l'honneur, zoom sur les recherches de cinq femmes scientifiques, du Bénin au Maroc en passant par le Sénégal, le Cameroun et la Côte d'Ivoire. Leur point commun ? Elles refusent l'IA \"gadget\" et s'attaquent à des urgences du quotidien : purifier l'eau, anticiper les fuites, sauver les récoltes ou encore éradiquer le paludisme.\n#IA #Afrique #Sénégal",
+    "citation-key": "france24BeninAuSenegal2026",
+    "dimensions": "06:40",
+    "language": "fr",
+    "source": "YouTube",
+    "title": "Du Bénin au Sénégal, ces chercheuses en IA qui s'attaquent aux vrais problèmes",
+    "URL": "https://www.youtube.com/watch?v=qi9tVNA488Q",
+    "author": [
+      {
+        "family": "FRANCE 24",
+        "given": ""
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          29
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          27
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/VMF52WXP",
+    "type": "article-journal",
+    "abstract": "A review of the Islam Burkina Faso Collection, a database of materials on Islam, directed by Frédérick Madore",
+    "citation-key": "launayReviewIslamBurkina2023",
+    "container-title": "Reviews in Digital Humanities",
+    "DOI": "10.21428/3e88f64f.89e71c81",
+    "issue": "4",
+    "language": "en",
+    "note": "QID: Q117802542\nCitation Key: launayReviewIslamBurkina2023",
+    "title": "Review: Islam Burkina Faso Collection",
+    "volume": "4",
+    "author": [
+      {
+        "family": "Launay",
+        "given": "Robert"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2023,
+          4,
+          20
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2023,
+          4,
+          24
+        ]
+      ]
+    },
+    "tags": [
+      "Burkina Faso",
+      "Islam",
+      "Islamic publications",
+      "Lu",
+      "Omeka",
+      "Omeka S",
+      "West Africa",
+      "bibliography",
+      "book review",
+      "decolonization",
+      "decolonization of knowledge",
+      "digital archive",
+      "digital archives",
+      "digital database",
+      "digital humanities",
+      "newspaper archives",
+      "open access",
+      "pilgrimage"
+    ],
+    "URL": "https://doi.org/10.21428/3e88f64f.89e71c81"
+  },
+  {
     "id": "3005271/X6C22YAC",
     "type": "legislation",
     "citation-key": "ArtificialIntelligenceBill2026",
@@ -8056,12 +8382,7 @@
         ]
       ]
     },
-    "tags": [
-      "New Cold War",
-      "US–China rivalry",
-      "digital transformation",
-      "global capitalism"
-    ],
+    "tags": [],
     "URL": "https://doi.org/10.1080/01436597.2025.2546668"
   },
   {
@@ -8203,54 +8524,6 @@
       "salafism"
     ],
     "URL": "https://doi.org/10.51185/journals/rhca.2021.e610"
-  },
-  {
-    "id": "3005271/VMF52WXP",
-    "type": "article-journal",
-    "abstract": "A review of the Islam Burkina Faso Collection, a database of materials on Islam, directed by Frédérick Madore",
-    "citation-key": "launayReviewIslamBurkina2023",
-    "container-title": "Reviews in Digital Humanities",
-    "DOI": "10.21428/3e88f64f.89e71c81",
-    "issue": "4",
-    "language": "en",
-    "note": "QID: Q117802542\nCitation Key: launayReviewIslamBurkina2023",
-    "title": "Review: Islam Burkina Faso Collection",
-    "volume": "4",
-    "author": [
-      {
-        "family": "Launay",
-        "given": "Robert"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2023,
-          4,
-          20
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2023,
-          4,
-          24
-        ]
-      ]
-    },
-    "tags": [
-      "Burkina Faso",
-      "Islam",
-      "Lu",
-      "Omeka",
-      "West Africa",
-      "decolonization",
-      "digital archive",
-      "open access"
-    ],
-    "URL": "https://doi.org/10.21428/3e88f64f.89e71c81"
   },
   {
     "id": "3005271/8TSXA7VI",

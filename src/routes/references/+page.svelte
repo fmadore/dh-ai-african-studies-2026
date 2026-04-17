@@ -1,6 +1,12 @@
 <script lang="ts">
 	import { Heading, P, Badge, Button } from 'flowbite-svelte';
-	import { SearchOutline, CloseOutline, FilterOutline } from 'flowbite-svelte-icons';
+	import {
+		SearchOutline,
+		CloseOutline,
+		FilterOutline,
+		ChevronLeftOutline,
+		ChevronRightOutline
+	} from 'flowbite-svelte-icons';
 	import {
 		createSeoMeta,
 		createEventJsonLd,
@@ -64,6 +70,11 @@
 	let showMobileFilters = $state(false);
 	let expandedReferences = $state(new Set<string>());
 
+	// Pagination
+	const PAGE_SIZE = 20;
+	let currentPage = $state(1);
+	let resultsEl: HTMLDivElement | undefined = $state();
+
 	// Derived values
 	let filteredReferences = $derived.by(() => {
 		if (!references.length) return [];
@@ -124,6 +135,50 @@
 			selectedTags.length +
 			selectedLanguages.length
 	);
+
+	// Reset pagination whenever the result set changes (filters, sort, search)
+	let resultsKey = $derived(
+		`${searchQuery}|${selectedTypes.join(',')}|${selectedYears.join(',')}|${selectedTags.join(',')}|${selectedLanguages.join(',')}|${selectedSort}`
+	);
+
+	$effect(() => {
+		// Track the key so the effect re-runs on any filter change
+		resultsKey;
+		currentPage = 1;
+	});
+
+	let totalPages = $derived(Math.max(1, Math.ceil(filteredReferences.length / PAGE_SIZE)));
+	let clampedPage = $derived(Math.min(currentPage, totalPages));
+	let pageStart = $derived((clampedPage - 1) * PAGE_SIZE);
+	let pageEnd = $derived(Math.min(pageStart + PAGE_SIZE, filteredReferences.length));
+	let pagedReferences = $derived(filteredReferences.slice(pageStart, pageEnd));
+
+	// Compact pagination model: first, last, current ±1, with ellipses
+	let pageItems = $derived.by<(number | 'ellipsis')[]>(() => {
+		const pages: (number | 'ellipsis')[] = [];
+		if (totalPages <= 7) {
+			for (let i = 1; i <= totalPages; i++) pages.push(i);
+			return pages;
+		}
+		pages.push(1);
+		if (clampedPage > 3) pages.push('ellipsis');
+		const start = Math.max(2, clampedPage - 1);
+		const end = Math.min(totalPages - 1, clampedPage + 1);
+		for (let i = start; i <= end; i++) pages.push(i);
+		if (clampedPage < totalPages - 2) pages.push('ellipsis');
+		pages.push(totalPages);
+		return pages;
+	});
+
+	function goToPage(p: number) {
+		const target = Math.max(1, Math.min(totalPages, p));
+		if (target === clampedPage) return;
+		currentPage = target;
+		// Scroll to top of results for context continuity
+		if (typeof window !== 'undefined' && resultsEl) {
+			resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
+	}
 
 	function resetFilters() {
 		searchQuery = '';
@@ -263,9 +318,19 @@
 				<div
 					class="card-surface surface-padding-sm relative z-20 flex flex-wrap items-center justify-between gap-3"
 				>
-					<div class="flex items-center gap-4">
+					<div class="gap-md flex items-center">
 						<P class="body-text text-sm font-medium">
-							Showing <span class="text-accent font-bold">{filteredReferences.length}</span> references
+							{#if filteredReferences.length > PAGE_SIZE}
+								Showing
+								<span class="text-accent font-bold">{pageStart + 1}–{pageEnd}</span>
+								of
+								<span class="text-accent font-bold">{filteredReferences.length}</span>
+								references
+							{:else}
+								Showing
+								<span class="text-accent font-bold">{filteredReferences.length}</span>
+								references
+							{/if}
 						</P>
 						<ExportReferences
 							references={filteredReferences}
@@ -329,19 +394,20 @@
 					{/if}
 				</div>
 
-				<div class="stack-md">
-					{#each filteredReferences as ref (ref.id)}
+				<div class="stack-md" bind:this={resultsEl}>
+					{#each pagedReferences as ref (ref.id)}
 						{@const info = formatCitation(ref)}
 						{@const accessLink = (() => {
 							const doi = ref.DOI;
 							if (doi) {
 								return doi.startsWith('http') ? doi : `https://doi.org/${doi}`;
 							}
-							return ref.URL || ref.url || '';
+							const url = ref.URL || ref.url || '';
+							return /^https?:\/\//.test(url) ? url : '';
 						})()}
 						<div in:slide|local={{ duration: 300 }} out:fade|local={{ duration: 200 }}>
 							<div
-								class="card-surface group glow-border w-full max-w-none cursor-pointer p-6 transition-all duration-300 hover:shadow-lg sm:p-8"
+								class="card-surface group glow-border surface-padding w-full max-w-none cursor-pointer"
 								onclick={(e: MouseEvent) => {
 									if (
 										e.target instanceof Element &&
@@ -364,14 +430,12 @@
 									<div
 										class="body-text-muted flex items-start justify-between text-xs font-semibold tracking-wider uppercase"
 									>
-										<div class="flex items-center gap-2">
-											<span
-												class="bg-secondary-50 dark:bg-secondary-900/30 text-secondary-700 dark:text-secondary-300 rounded-md px-2 py-1"
-											>
+										<div class="gap-xs flex items-center">
+											<span class="reference-type-pill">
 												{formatType(ref.type)}
 											</span>
 											{#if ref['container-title']}
-												<span class="hidden text-gray-400 sm:inline">•</span>
+												<span class="text-subtle-ink hidden sm:inline">•</span>
 												<span class="body-text-muted hidden italic sm:inline">
 													{ref['container-title']}
 												</span>
@@ -456,25 +520,179 @@
 					{/each}
 
 					{#if filteredReferences.length === 0}
-						<div
-							class="padding-block-xl card-surface surface-padding border border-dashed border-gray-300 text-center dark:border-gray-700"
-						>
-							<div class="stack-sm flex flex-col items-center">
-								<SearchOutline class="text-surface-400 dark:text-surface-dark-overlay h-12 w-12" />
-								<Heading tag="h4" class="body-text-strong text-lg font-medium"
-									>No references found</Heading
-								>
-								<P class="body-text-muted mx-auto max-w-xs text-sm">
-									Try adjusting your search terms or filters to find what you're looking for.
-								</P>
-								<Button color="primary" outline size="sm" onclick={resetFilters} class="mt-2">
-									Clear all filters
-								</Button>
+						<div class="empty-state">
+							<div class="empty-state__icon">
+								<SearchOutline class="size-icon-md" />
 							</div>
+							<Heading tag="h4" class="body-text-strong text-lg font-medium"
+								>No references found</Heading
+							>
+							<P class="body-text-muted mx-auto max-w-xs text-sm">
+								Try adjusting your search terms or filters to find what you're looking for.
+							</P>
+							<Button color="primary" outline size="sm" onclick={resetFilters}>
+								Clear all filters
+							</Button>
 						</div>
 					{/if}
 				</div>
+
+				{#if totalPages > 1}
+					<nav
+						class="pagination"
+						aria-label="References pagination"
+					>
+						<button
+							type="button"
+							class="pagination__nav"
+							disabled={clampedPage === 1}
+							aria-label="Previous page"
+							onclick={() => goToPage(clampedPage - 1)}
+						>
+							<ChevronLeftOutline class="size-icon-sm" />
+							<span class="pagination__nav-label">Previous</span>
+						</button>
+
+						<ul class="pagination__pages" role="list">
+							{#each pageItems as item, i (i)}
+								{#if item === 'ellipsis'}
+									<li class="pagination__ellipsis" aria-hidden="true">…</li>
+								{:else}
+									<li>
+										<button
+											type="button"
+											class="pagination__page"
+											class:is-active={item === clampedPage}
+											aria-current={item === clampedPage ? 'page' : undefined}
+											aria-label="Page {item}"
+											onclick={() => goToPage(item)}
+										>
+											{item}
+										</button>
+									</li>
+								{/if}
+							{/each}
+						</ul>
+
+						<button
+							type="button"
+							class="pagination__nav"
+							disabled={clampedPage === totalPages}
+							aria-label="Next page"
+							onclick={() => goToPage(clampedPage + 1)}
+						>
+							<span class="pagination__nav-label">Next</span>
+							<ChevronRightOutline class="size-icon-sm" />
+						</button>
+					</nav>
+				{/if}
 			</div>
 		</div>
 	</div>
 </section>
+
+<style>
+	.reference-type-pill {
+		background-color: var(--accent-soft);
+		color: var(--text-link);
+		border-radius: var(--radius-md);
+		padding: var(--space-3xs) var(--space-xs);
+	}
+
+	.pagination {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: var(--space-sm);
+		margin-top: var(--space-xl);
+		padding-top: var(--space-lg);
+		border-top: 1px solid var(--border-subtle);
+	}
+
+	.pagination__nav {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		padding: var(--space-2xs) var(--space-sm);
+		border-radius: var(--radius-md);
+		border: 1px solid var(--border-default);
+		background: var(--bg-raised);
+		color: var(--text-secondary);
+		font-size: var(--text-sm);
+		font-weight: var(--font-weight-medium);
+		cursor: pointer;
+		transition:
+			background var(--transition-micro),
+			color var(--transition-micro),
+			border-color var(--transition-micro);
+	}
+
+	.pagination__nav:hover:not(:disabled) {
+		background: var(--bg-sunken);
+		color: var(--text-primary);
+		border-color: var(--border-strong);
+	}
+
+	.pagination__nav:disabled {
+		opacity: 0.45;
+		cursor: not-allowed;
+	}
+
+	@media (max-width: 480px) {
+		.pagination__nav-label {
+			display: none;
+		}
+	}
+
+	.pagination__pages {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3xs);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.pagination__page {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 2.25rem;
+		height: 2.25rem;
+		padding: 0 var(--space-xs);
+		border-radius: var(--radius-md);
+		border: 1px solid transparent;
+		background: transparent;
+		color: var(--text-secondary);
+		font-size: var(--text-sm);
+		font-weight: var(--font-weight-medium);
+		font-variant-numeric: tabular-nums;
+		cursor: pointer;
+		transition:
+			background var(--transition-micro),
+			color var(--transition-micro),
+			border-color var(--transition-micro);
+	}
+
+	.pagination__page:hover:not(.is-active) {
+		background: var(--bg-sunken);
+		color: var(--text-primary);
+	}
+
+	.pagination__page.is-active {
+		background: var(--accent);
+		color: var(--text-on-accent);
+		border-color: var(--accent);
+		box-shadow: var(--shadow-accent);
+	}
+
+	.pagination__ellipsis {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 2rem;
+		color: var(--text-subtle);
+		font-size: var(--text-sm);
+	}
+</style>

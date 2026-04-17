@@ -15,7 +15,7 @@
 
 <div class="detail-panel card-surface surface-padding-sm" class:bottom-sheet={isMobile}>
 	<div class="detail-header">
-		<h3 class="heading-sub" style="font-size: var(--text-lg);">{node.label}</h3>
+		<h3 class="detail-title">{node.label}</h3>
 		<button class="detail-close" onclick={onclose} aria-label="Close detail panel">
 			&times;
 		</button>
@@ -36,12 +36,7 @@
 	</div>
 	{#if neighbors.length > 0}
 		<div class="detail-connections">
-			<p
-				class="text-body-sm"
-				style="font-weight: var(--font-weight-semibold); margin-bottom: var(--space-xs);"
-			>
-				Connected to:
-			</p>
+			<p class="detail-connections-label">Connected to:</p>
 			<div class="connection-tags">
 				{#each neighbors as neighbor (neighbor)}
 					<button class="connection-tag" onclick={() => onnavigate(neighbor)}>
@@ -70,11 +65,7 @@
 		border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
 		max-height: 50vh;
 		overflow-y: auto;
-		box-shadow: 0 -10px 30px -5px rgba(0, 0, 0, 0.15);
-	}
-
-	:global(.dark) .detail-panel.bottom-sheet {
-		box-shadow: 0 -10px 30px -5px rgba(0, 0, 0, 0.5);
+		box-shadow: var(--shadow-xl);
 	}
 
 	.detail-header {
@@ -84,25 +75,38 @@
 		gap: var(--space-sm);
 	}
 
+	.detail-title {
+		font-family: var(--font-family-display);
+		font-weight: var(--font-weight-semibold);
+		font-size: var(--text-lg);
+		line-height: var(--leading-snug);
+		color: var(--text-primary);
+	}
+
+	.detail-connections-label {
+		font-size: var(--text-sm);
+		font-weight: var(--font-weight-semibold);
+		color: var(--text-secondary);
+		margin-bottom: var(--space-xs);
+	}
+
 	.detail-close {
 		font-size: var(--text-xl);
 		line-height: 1;
-		color: var(--color-gray-400);
+		color: var(--text-subtle);
 		background: none;
 		border: none;
-		padding: 0.25rem;
+		padding: var(--space-3xs);
 		cursor: pointer;
 		border-radius: var(--radius-md);
+		transition:
+			color var(--transition-micro),
+			background var(--transition-micro);
 	}
 
 	.detail-close:hover {
-		color: var(--color-gray-600);
-		background: var(--color-surface-100);
-	}
-
-	:global(.dark) .detail-close:hover {
-		color: var(--color-gray-200);
-		background: var(--color-surface-dark-overlay);
+		color: var(--text-secondary);
+		background: var(--bg-sunken);
 	}
 
 	.detail-meta {
@@ -144,31 +148,22 @@
 	}
 
 	.connection-tag {
-		padding: 0.125rem 0.5rem;
+		padding: var(--space-3xs) var(--space-xs);
 		border-radius: var(--radius-full);
 		font-size: var(--text-xs);
-		background: var(--color-surface-100);
-		color: var(--color-gray-700);
-		border: 1px solid var(--color-surface-300);
+		background: var(--bg-sunken);
+		color: var(--text-secondary);
+		border: 1px solid var(--border-default);
 		cursor: pointer;
-		transition: all var(--transition-fast);
+		transition:
+			background var(--transition-micro),
+			color var(--transition-micro),
+			border-color var(--transition-micro);
 	}
 
 	.connection-tag:hover {
-		background: var(--color-secondary-50);
-		border-color: var(--color-secondary-300);
-		color: var(--color-secondary-700);
-	}
-
-	:global(.dark) .connection-tag {
-		background: var(--color-surface-dark-elevated);
-		color: var(--color-gray-300);
-		border-color: rgba(255, 255, 255, 0.08);
-	}
-
-	:global(.dark) .connection-tag:hover {
-		background: color-mix(in srgb, var(--color-secondary-400) 15%, var(--color-surface-dark-base));
-		border-color: color-mix(in srgb, var(--color-secondary-400) 40%, transparent);
-		color: var(--color-secondary-300);
+		background: color-mix(in srgb, var(--accent) 10%, var(--bg-raised));
+		border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+		color: var(--text-link);
 	}
 </style>

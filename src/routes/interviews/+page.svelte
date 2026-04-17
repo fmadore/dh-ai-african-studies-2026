@@ -212,17 +212,15 @@
 				{/each}
 			</div>
 		{:else}
-			<div
-				class="padding-block-xl card-surface surface-padding border border-dashed border-gray-300 text-center dark:border-gray-700"
-			>
-				<div class="stack-sm flex flex-col items-center">
-					<VideoCameraOutline class="text-surface-400 dark:text-surface-dark-overlay h-16 w-16" />
-					<Heading tag="h2" class="heading-section text-gradient-teal">Coming Soon</Heading>
-					<P class="body-text-muted mx-auto max-w-md">
-						Short interviews with workshop participants will be added here soon. Check back to hear
-						their perspectives on Digital Humanities and AI in African Studies.
-					</P>
+			<div class="empty-state">
+				<div class="empty-state__icon">
+					<VideoCameraOutline class="size-icon-lg" />
 				</div>
+				<Heading tag="h2" class="heading-section text-gradient-teal">Coming Soon</Heading>
+				<P class="body-text-muted mx-auto max-w-md">
+					Short interviews with workshop participants will be added here soon. Check back to hear
+					their perspectives on Digital Humanities and AI in African Studies.
+				</P>
 			</div>
 		{/if}
 	</div>

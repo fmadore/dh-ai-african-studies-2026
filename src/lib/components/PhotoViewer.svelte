@@ -192,18 +192,16 @@
 		{/each}
 	</div>
 {:else}
-	<div
-		class="padding-block-xl card-surface surface-padding border border-dashed border-gray-300 text-center dark:border-gray-700"
-	>
-		<div class="stack-sm flex flex-col items-center">
-			<ImageOutline class="text-surface-400 dark:text-surface-dark-overlay h-12 w-12" />
-			<Heading tag="h4" class="body-text-strong text-lg font-medium"
-				>No photos in this category yet</Heading
-			>
-			<P class="body-text-muted mx-auto max-w-xs text-sm">
-				Photos will be added here soon. Check back later!
-			</P>
+	<div class="empty-state">
+		<div class="empty-state__icon">
+			<ImageOutline class="size-icon-md" />
 		</div>
+		<Heading tag="h4" class="body-text-strong text-lg font-medium"
+			>No photos in this category yet</Heading
+		>
+		<P class="body-text-muted mx-auto max-w-xs text-sm">
+			Photos will be added here soon. Check back later!
+		</P>
 	</div>
 {/if}
 
@@ -339,7 +337,7 @@
 	.photo-card-overlay {
 		position: absolute;
 		inset: auto 0 0 0;
-		background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+		background: linear-gradient(transparent, var(--bg-scrim));
 		padding: var(--space-xl) var(--space-md) var(--space-md);
 		opacity: 0;
 		transition: opacity var(--transition-base);
@@ -354,10 +352,10 @@
 	:global(.lightbox) {
 		position: fixed;
 		inset: 0;
-		z-index: 9999;
+		z-index: var(--z-lightbox);
 		display: flex;
 		flex-direction: column;
-		animation: lightbox-in 250ms var(--ease-out) both;
+		animation: lightbox-in 250ms var(--ease-standard) both;
 	}
 
 	@keyframes -global-lightbox-in {
@@ -372,7 +370,7 @@
 	:global(.lightbox-backdrop) {
 		position: absolute;
 		inset: 0;
-		background: rgba(0, 0, 0, 1);
+		background: var(--bg-scrim-strong);
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
 	}

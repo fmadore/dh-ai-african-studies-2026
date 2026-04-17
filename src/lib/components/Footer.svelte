@@ -23,7 +23,7 @@
 				href="https://www.volkswagenstiftung.de/en"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="logo-link opacity-80 transition-opacity duration-300 hover:opacity-100"
+				class="logo-link opacity-80 hover:opacity-100"
 			>
 				<img src={foundationLogo} alt="Volkswagen Foundation" class="logo-image" />
 			</a>
@@ -31,7 +31,7 @@
 				href="https://www.zmo.de/en"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="logo-link opacity-80 transition-opacity duration-300 hover:opacity-100"
+				class="logo-link opacity-80 hover:opacity-100"
 			>
 				<img src={zmoLogo} alt="Leibniz-Zentrum Moderner Orient" class="logo-image" />
 			</a>
@@ -39,7 +39,7 @@
 				href="https://www.kcl.ac.uk/"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="logo-link opacity-80 transition-opacity duration-300 hover:opacity-100"
+				class="logo-link opacity-80 hover:opacity-100"
 			>
 				<img src={kclLogo} alt="King's College London" class="logo-image" />
 			</a>
@@ -47,7 +47,7 @@
 				href="https://www.africamultiple.uni-bayreuth.de/en/index.html"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="logo-link opacity-80 transition-opacity duration-300 hover:opacity-100"
+				class="logo-link opacity-80 hover:opacity-100"
 			>
 				<img src={bayreuthLogo} alt="Africa Multiple Cluster of Excellence" class="logo-image" />
 			</a>

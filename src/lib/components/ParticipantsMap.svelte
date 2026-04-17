@@ -167,29 +167,16 @@
 		width: 100%;
 		border-radius: var(--radius-xl);
 		overflow: hidden;
-		background: var(--color-surface-100);
-	}
-
-	:global(.dark .map-canvas) {
-		background: var(--color-surface-dark-base);
+		background: var(--bg-sunken);
 	}
 
 	:global(.participant-popup .leaflet-popup-content-wrapper) {
 		border-radius: var(--radius-lg);
 		padding: var(--space-sm);
-		background: var(--color-surface-0);
-		color: var(--color-gray-900);
-		border: 1px solid color-mix(in srgb, var(--color-gray-400) 40%, transparent);
-		box-shadow:
-			0 10px 25px -5px rgba(15, 23, 42, 0.12),
-			0 8px 10px -6px rgba(15, 23, 42, 0.1);
-	}
-
-	:global(.dark .participant-popup .leaflet-popup-content-wrapper) {
-		background: var(--color-surface-dark-elevated);
-		color: var(--color-secondary-50);
-		border-color: color-mix(in srgb, var(--color-gray-400) 28%, transparent);
-		box-shadow: 0 14px 32px -18px rgba(2, 6, 23, 0.75);
+		background: var(--bg-raised);
+		color: var(--text-primary);
+		border: 1px solid var(--border-default);
+		box-shadow: var(--shadow-lg);
 	}
 
 	:global(.participant-popup .leaflet-popup-content) {
@@ -197,13 +184,8 @@
 	}
 
 	:global(.participant-popup .leaflet-popup-tip) {
-		background: var(--color-surface-0);
-		border: 1px solid color-mix(in srgb, var(--color-gray-400) 40%, transparent);
-	}
-
-	:global(.dark .participant-popup .leaflet-popup-tip) {
-		background: var(--color-surface-dark-elevated);
-		border-color: color-mix(in srgb, var(--color-gray-400) 28%, transparent);
+		background: var(--bg-raised);
+		border: 1px solid var(--border-default);
 	}
 
 	/* Custom scrollbar for popup */
@@ -216,17 +198,17 @@
 	}
 
 	:global(.participant-popup .leaflet-popup-content div::-webkit-scrollbar-track) {
-		background: var(--color-surface-100);
+		background: var(--bg-sunken);
 		border-radius: var(--radius-sm);
 	}
 
 	:global(.participant-popup .leaflet-popup-content div::-webkit-scrollbar-thumb) {
-		background: var(--color-gray-400);
+		background: var(--border-strong);
 		border-radius: var(--radius-sm);
 	}
 
 	:global(.participant-popup .leaflet-popup-content div::-webkit-scrollbar-thumb:hover) {
-		background: var(--color-gray-500);
+		background: var(--text-subtle);
 	}
 
 	:global(.participant-popup .popup-card) {
@@ -240,21 +222,13 @@
 		font-size: var(--text-lg);
 		font-weight: var(--font-weight-bold);
 		margin: 0;
-		color: inherit;
-	}
-
-	:global(.dark .participant-popup .popup-title) {
-		color: var(--color-secondary-50, #f0f9ff);
+		color: var(--text-primary);
 	}
 
 	:global(.participant-popup .popup-meta) {
 		font-size: var(--text-sm);
 		margin: 0;
-		color: var(--color-gray-600);
-	}
-
-	:global(.dark .participant-popup .popup-meta) {
-		color: var(--color-gray-300);
+		color: var(--text-muted);
 	}
 
 	:global(.participant-popup .popup-list) {
@@ -269,17 +243,13 @@
 		display: flex;
 		gap: var(--space-sm);
 		padding-bottom: var(--space-sm);
-		border-bottom: 1px solid var(--color-surface-300);
+		border-bottom: 1px solid var(--border-subtle);
 		align-items: flex-start;
 	}
 
 	:global(.participant-popup .popup-participant:last-child) {
 		border-bottom: none;
 		padding-bottom: 0;
-	}
-
-	:global(.dark .participant-popup .popup-participant) {
-		border-color: var(--color-surface-dark-overlay);
 	}
 
 	:global(.participant-popup .popup-avatar) {

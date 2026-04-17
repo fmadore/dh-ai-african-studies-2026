@@ -21,5 +21,5 @@
 	{src}
 	{alt}
 	border
-	class="{sizeClasses[size]} ring-secondary-200 dark:ring-secondary-700 shadow-md"
+	class="{sizeClasses[size]} ring-secondary-200 dark:ring-secondary-700 object-cover shadow-md"
 />

@@ -101,17 +101,15 @@
 		{#if photos.length > 0}
 			<PhotoViewer {photos} categories={photoCategories} />
 		{:else}
-			<div
-				class="padding-block-xl card-surface surface-padding border border-dashed border-gray-300 text-center dark:border-gray-700"
-			>
-				<div class="stack-sm flex flex-col items-center">
-					<CameraPhotoOutline class="text-surface-400 dark:text-surface-dark-overlay h-16 w-16" />
-					<Heading tag="h2" class="heading-section text-gradient-teal">Coming Soon</Heading>
-					<P class="body-text-muted mx-auto max-w-md">
-						Photos from the workshop will be added here shortly. Check back soon to relive the
-						highlights from three days of engaging discussions and collaboration.
-					</P>
+			<div class="empty-state">
+				<div class="empty-state__icon">
+					<CameraPhotoOutline class="size-icon-lg" />
 				</div>
+				<Heading tag="h2" class="heading-section text-gradient-teal">Coming Soon</Heading>
+				<P class="body-text-muted mx-auto max-w-md">
+					Photos from the workshop will be added here shortly. Check back soon to relive the
+					highlights from three days of engaging discussions and collaboration.
+				</P>
 			</div>
 		{/if}
 	</div>
