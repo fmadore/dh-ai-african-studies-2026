@@ -1,5 +1,46 @@
 [
   {
+    "id": "3005271/2IQIEEVS",
+    "type": "chapter",
+    "abstract": "The relationship between digital humanities and decolonization has become a popular one, representing a range of interventions. These include decolonizing digital archives, addressing representation in digital knowledge production, and using digital media to create spaces for voices that go unheard in dominant narratives of literature, history, and culture. This chapter examines the complex politics of decolonization in digital humanities. It begins by considering how discourses of decolonization have been deployed in the context of digital humanities and situating them in postcolonial theory and science and technology studies. The chapter then explores digital humanities projects that participate in decolonizing knowledge production. In doing so, it makes the case for culturally located approaches to digital humanities that resist reinscribing the politics of colonialism.",
+    "citation-key": "risamDecolonizingDigitalHumanities2018",
+    "container-title": "The Routledge Companion to Media Studies and Digital Humanities",
+    "DOI": "10.4324/9781315730479-8",
+    "language": "en",
+    "page": "78-86",
+    "publisher": "Routledge",
+    "publisher-place": "London",
+    "title": "Decolonizing the Digital Humanities in Theory and Practice",
+    "author": [
+      {
+        "family": "Risam",
+        "given": "Roopika"
+      }
+    ],
+    "editor": [
+      {
+        "family": "Sayers",
+        "given": "Jentery"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": [
+      "Global South",
+      "Indigenous knowledge",
+      "decolonization",
+      "digital humanities",
+      "epistemic violence",
+      "postcolonial studies"
+    ],
+    "URL": "https://doi.org/10.4324/9781315730479-8"
+  },
+  {
     "id": "3005271/8BFXKIIT",
     "type": "webpage",
     "citation-key": "2ValueInclusion",
@@ -31,7 +72,105 @@
         ]
       ]
     },
-    "tags": []
+    "tags": [
+      "AI equity",
+      "African languages",
+      "Lu",
+      "Masakhane",
+      "NLP",
+      "benchmarks",
+      "gender and AI",
+      "language bias",
+      "low-resource languages",
+      "multilingual AI"
+    ]
+  },
+  {
+    "id": "3005271/ATB57DCY",
+    "type": "post-weblog",
+    "abstract": "The sycophancy isn’t a bug. Companions are designed to need your loneliness. Councils are designed to end it.",
+    "citation-key": "awomosuYouShouldAnthropomorphise2026",
+    "container-title": "How Not To Use AI",
+    "genre": "Substack newsletter",
+    "language": "en",
+    "title": "You Should Anthropomorphise Your AI — Just Not Into a Companion",
+    "URL": "https://abiawomosu.substack.com/p/you-should-anthropomorphise-your",
+    "author": [
+      {
+        "family": "Awomosu",
+        "given": "Abi"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          2
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          1
+        ]
+      ]
+    },
+    "tags": [
+      "AI and loneliness",
+      "AI companions",
+      "AI ethics",
+      "ELIZA effect",
+      "Lu",
+      "anthropomorphism",
+      "emotional AI",
+      "human-AI relationships",
+      "platform design",
+      "sycophancy"
+    ]
+  },
+  {
+    "id": "3005271/5SDLIAIT",
+    "type": "book",
+    "abstract": "When AI expert and investigative journalist Karen Hao first began covering OpenAI in 2019, she thought they were the good guys. Founded as a nonprofit with safety enshrined as its core mission, the organization was meant, its leader Sam Altman told us, to act as a check against more purely mercantile, and potentially dangerous, forces. What could go wrong?\n\nOver time, Hao began to wrestle ever more deeply with that question. Increasingly, she realized that the core truth of this massively disruptive sector is that its vision of success requires an almost unprecedented amount of resources: the “compute” power of high-end chips and the processing capacity to create massive large language models, the sheer volume of data that needs to be amassed at scale, the humans “cleaning up” that data for sweatshop wages throughout the Global South, and a truly alarming spike in the usage of energy and water underlying it all. The truth is that we have entered a new and ominous age of empire: only a small handful of globally scaled companies can even enter the field of play. At the head of the pack with its ChatGPT breakthrough, how would OpenAI resist such temptations?\n\nSpoiler alert: it didn’t. Armed with Microsoft’s billions, OpenAI is setting a breakneck pace, chased by a small group of the most valuable companies in human history—toward what end, not even they can define. All this time, Hao has maintained her deep sourcing within the company and the industry, and so she was in intimate contact with the story that shocked the entire tech industry—Altman’s sudden firing and triumphant return. The behind-the-scenes story of what happened, told here in full for the first time, is revelatory of who the people controlling this technology really are. But this isn’t just the story of a single company, however fascinating it is. The g forces pressing down on the people of OpenAI are deforming the judgment of everyone else too—as such forces do. Naked power finds the ideology to cloak itself; no one thinks they’re the bad guy. But in the meantime, as Hao shows through intrepid reporting on the ground around the world, the enormous wheels of extraction grind on. By drawing on the viewpoints of Silicon Valley engineers, Kenyan data laborers, and Chilean water activists, Hao presents the fullest picture of AI and its impact we’ve seen to date, alongside a trenchant analysis of where things are headed. An astonishing eyewitness view from both up in the command capsule of the new economy and down where the real suffering happens, Empire of AI pierces the veil of the industry defining our era.",
+    "citation-key": "haoEmpireAIDreams2025",
+    "ISBN": "978-0-593-65750-8",
+    "language": "en",
+    "number-of-pages": "496",
+    "publisher": "Penguin Press",
+    "publisher-place": "New York",
+    "shortTitle": "Empire of AI",
+    "title": "Empire of AI: Dreams and Nightmares in Sam Altman's OpenAI",
+    "title-short": "Empire of AI",
+    "author": [
+      {
+        "family": "Hao",
+        "given": "Karen"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "tags": [
+      "AI ethics",
+      "AI industry",
+      "Lu",
+      "OpenAI",
+      "Sam Altman",
+      "data colonialism",
+      "data labour",
+      "data sovereignty",
+      "extractivism",
+      "generative AI",
+      "investigative journalism"
+    ]
   },
   {
     "id": "3005271/V3P8FI58",
@@ -68,7 +207,62 @@
         ]
       ]
     },
-    "tags": []
+    "tags": [
+      "AI and Africa",
+      "African archives",
+      "African digital humanities",
+      "African languages",
+      "Africana librarianship",
+      "LLM bias",
+      "Lu",
+      "colonial library",
+      "data sovereignty",
+      "diaspora",
+      "epistemic injustice"
+    ]
+  },
+  {
+    "id": "3005271/PTNWS8H9",
+    "type": "post-weblog",
+    "abstract": "Vom 18. bis 20. Februar 2026 kamen 26 Forschende aus 16 Ländern im Schloss Herrenhausen in Hannover zusammen. Vorträge gab es keine. Stattdessen wechselten sich Plenarsitzungen, vier thematische Arbeitsgruppen, World-Café-Runden, Posterpräsentationen und gemeinsames Schreiben ab. Das Ziel war nicht bloß ein Austausch über die eigene Forschung, sondern ein kollektives Positionspapier. Am Ende des zweiten Tages schrieb die Gruppe bereits gemeinsam.",
+    "citation-key": "madoreChartingNewTerritory2026",
+    "container-title": "Digital History Bielefeld",
+    "DOI": "10.58079/15z9p",
+    "genre": "Billet",
+    "language": "de",
+    "shortTitle": "Charting New Territory",
+    "title": "Charting New Territory: Digital Humanities und Künstliche Intelligenz in den African Studies",
+    "title-short": "Charting New Territory",
+    "author": [
+      {
+        "family": "Madore",
+        "given": "Frédérick"
+      },
+      {
+        "family": "Hiribarren",
+        "given": "Vincent"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          31
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          31
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.58079/15z9p"
   },
   {
     "id": "3005271/HNUPQMHF",
@@ -168,42 +362,6 @@
     "URL": "https://doi.org/10.1017/S0001972026101788"
   },
   {
-    "id": "3005271/ATB57DCY",
-    "type": "post-weblog",
-    "abstract": "The sycophancy isn’t a bug. Companions are designed to need your loneliness. Councils are designed to end it.",
-    "citation-key": "awomosuYouShouldAnthropomorphise2026",
-    "container-title": "How Not To Use AI",
-    "genre": "Substack newsletter",
-    "language": "en",
-    "title": "You Should Anthropomorphise Your AI — Just Not Into a Companion",
-    "URL": "https://abiawomosu.substack.com/p/you-should-anthropomorphise-your",
-    "author": [
-      {
-        "family": "Awomosu",
-        "given": "Abi"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          2
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          1
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
     "id": "3005271/A67W9DU8",
     "type": "article-journal",
     "citation-key": "zotero-item-105493",
@@ -266,6 +424,60 @@
       ]
     },
     "tags": []
+  },
+  {
+    "id": "3005271/KJ59NSTY",
+    "type": "article-journal",
+    "citation-key": "hiribarrenReviewFrederickMadore2022",
+    "container-title": "Mande Studies",
+    "DOI": "10.2979/mnd.2022.a908483",
+    "ISSN": "2379-5506",
+    "language": "en",
+    "note": "QID: Q122948173\nCitation Key: hiribarrenReviewFrederickMadore2022",
+    "page": "325-327",
+    "title": "Review of Frédérick Madore \"Islam Burkina Faso Collection\"",
+    "volume": "24",
+    "author": [
+      {
+        "family": "Hiribarren",
+        "given": "Vincent"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2023,
+          10,
+          5
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "tags": [
+      "Burkina Faso",
+      "Islam",
+      "Islamic sources",
+      "Lu",
+      "Omeka S",
+      "West Africa",
+      "book review",
+      "digital archive",
+      "digital archives",
+      "digital humanities",
+      "metadata",
+      "newspaper archives",
+      "open access",
+      "optical character recognition",
+      "print culture",
+      "research infrastructure"
+    ],
+    "URL": "https://doi.org/10.2979/mnd.2022.a908483"
   },
   {
     "id": "3005271/VMF52WXP",
@@ -1168,6 +1380,55 @@
     ]
   },
   {
+    "id": "3005271/TZTUP77T",
+    "type": "article-journal",
+    "abstract": "Much has been made in recent years of the transformative potential of digital resources and historical data for historical research. Historians seem to be flooded with retro-digitized and born-digital materials and tend to take these for granted, grateful for the opportunities they afford. In a research environment that increasingly privileges what is available online, the questions of why, where, and how we can access what we can access, and how it affects historical research have become ever more urgent. This article proposes a framework through which to contextualize the politics of (digital) heritage preservation, and a model to analyse its most important political dimensions, drawing upon literature from the digital humanities and history as well as archival, library, and information science. The first part will outline the global dimensions of the politics of digital cultural heritage, focusing on developments between and within the Global North and South, framed within the broader context of the politics of heritage and its preservation. The second part surveys the history and current state of digitization and offers a structured analysis of the process of digitization and its political dimensions. Choices and decisions about selection for digitization, how to catalogue, classify, and what metadata to add are all political in nature and have political consequences, and the same is true for access. The article concludes with several recommendations and a plea to acknowledge the importance of digital cataloguing in enabling access to the global human record.",
+    "citation-key": "zaagsmaDigitalHistoryPolitics2023",
+    "container-title": "Digital Scholarship in the Humanities",
+    "DOI": "10.1093/llc/fqac050",
+    "ISSN": "2055-7671",
+    "issue": "2",
+    "language": "en",
+    "note": "QID: Q114295285",
+    "page": "830-851",
+    "title": "Digital History and the Politics of Digitization",
+    "volume": "38",
+    "author": [
+      {
+        "family": "Zaagsma",
+        "given": "Gerben"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2023,
+          6,
+          4
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "tags": [
+      "Global South",
+      "Lu",
+      "archival science",
+      "colonial archive",
+      "cultural heritage",
+      "digital history",
+      "digitization",
+      "metadata",
+      "politics of digitization"
+    ],
+    "URL": "https://doi.org/10.1093/llc/fqac050"
+  },
+  {
     "id": "3005271/M9FF9FMJ",
     "type": "article-journal",
     "abstract": "Africa’s regional archives offer crucial records to explore the continent’s postcolonial past. Although these archives are often difficult to locate and access and are exposed to several challenges that might even threaten their existence, this article presents a solid case for reconsidering their importance. Recent trends, aptly labelled ‘postcolonial African archival pessimism’, have mainly pointed to problems and often to the limited accessibility of state archives in some regional and local contexts. This article instead engages with their potential, discussing four case studies in Benin, Cabo Verde, Ghana and Congo-Brazzaville. Results stemming from these case studies are brought into contact with wider debates on custodial cultures and the regional archives’ role in contemporary sub-Saharan Africa. The intention is to provide a more positive and empirically based overview of research possibilities at regional archives and ultimately to change the nature of our approach to these resources.",
@@ -1481,44 +1742,6 @@
       "social media"
     ],
     "URL": "https://doi.org/10.1080/00083968.2025.2491679"
-  },
-  {
-    "id": "3005271/2IQIEEVS",
-    "type": "chapter",
-    "citation-key": "risamDecolonizingDigitalHumanities2018",
-    "container-title": "The Routledge Companion to Media Studies and Digital Humanities",
-    "language": "en",
-    "page": "78-86",
-    "publisher": "Routledge",
-    "publisher-place": "London",
-    "title": "Decolonizing the Digital Humanities in Theory and Practice",
-    "author": [
-      {
-        "family": "Risam",
-        "given": "Roopika"
-      }
-    ],
-    "editor": [
-      {
-        "family": "Sayers",
-        "given": "Jentery"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2018
-        ]
-      ]
-    },
-    "tags": [
-      "Global South",
-      "Indigenous knowledge",
-      "decolonization",
-      "digital humanities",
-      "epistemic violence",
-      "postcolonial studies"
-    ]
   },
   {
     "id": "3005271/ZDPSH49U",
