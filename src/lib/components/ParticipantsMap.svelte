@@ -257,12 +257,8 @@
 		height: 3rem;
 		border-radius: var(--radius-full);
 		object-fit: cover;
-		border: 2px solid var(--color-secondary-200);
+		border: 2px solid var(--border-accent);
 		flex-shrink: 0;
-	}
-
-	:global(.dark .participant-popup .popup-avatar) {
-		border-color: var(--color-secondary-700);
 	}
 
 	:global(.participant-popup .popup-details) {
@@ -274,41 +270,25 @@
 		margin: 0;
 		font-size: var(--text-sm);
 		font-weight: var(--font-weight-semibold);
-		color: var(--color-gray-900);
-	}
-
-	:global(.dark .participant-popup .popup-name) {
-		color: var(--color-secondary-50);
+		color: var(--text-primary);
 	}
 
 	:global(.participant-popup .popup-name-link) {
 		display: block;
-		color: var(--color-secondary-600);
+		color: var(--text-link);
 		text-decoration: none;
-		transition: color 0.15s ease;
+		transition: color var(--transition-micro);
 	}
 
 	:global(.participant-popup .popup-name-link:hover) {
-		color: var(--color-secondary-700);
+		color: var(--text-link-hover);
 		text-decoration: underline;
-	}
-
-	:global(.dark .participant-popup .popup-name-link) {
-		color: var(--color-secondary-400);
-	}
-
-	:global(.dark .participant-popup .popup-name-link:hover) {
-		color: var(--color-secondary-300);
 	}
 
 	:global(.participant-popup .popup-country) {
 		margin: 0.125rem 0 0;
 		font-size: var(--text-xs);
-		color: var(--color-gray-500);
-	}
-
-	:global(.dark .participant-popup .popup-country) {
-		color: var(--color-gray-400);
+		color: var(--text-muted);
 	}
 
 	/* Custom Marker Styles */
@@ -321,7 +301,7 @@
 		width: 30px;
 		height: 30px;
 		border-radius: 50% 50% 50% 0;
-		background: var(--color-secondary-500);
+		background: var(--accent);
 		position: absolute;
 		transform: rotate(-45deg);
 		left: 50%;
@@ -330,7 +310,7 @@
 		box-shadow:
 			var(--shadow-md),
 			0 0 12px -2px rgba(13, 148, 136, 0.4);
-		border: 2px solid white;
+		border: 2px solid var(--bg-raised);
 	}
 
 	:global(.marker-pin::after) {
@@ -338,16 +318,8 @@
 		width: 14px;
 		height: 14px;
 		margin: 6px 0 0 6px;
-		background: white;
+		background: var(--bg-raised);
 		position: absolute;
 		border-radius: 50%;
-	}
-
-	:global(.dark .marker-pin) {
-		border-color: var(--color-gray-800);
-	}
-
-	:global(.dark .marker-pin::after) {
-		background: var(--color-gray-800);
 	}
 </style>

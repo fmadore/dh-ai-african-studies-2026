@@ -385,8 +385,8 @@
 		background: rgba(255, 255, 255, 0.08);
 		border-radius: var(--radius-full);
 		transition:
-			background var(--transition-fast),
-			color var(--transition-fast);
+			background var(--transition-micro),
+			color var(--transition-micro);
 	}
 
 	:global(.lightbox-btn:hover) {
@@ -494,7 +494,7 @@
 		color: rgba(255, 255, 255, 0.6);
 		text-decoration: underline;
 		text-underline-offset: 2px;
-		transition: color var(--transition-fast);
+		transition: color var(--transition-micro);
 	}
 
 	:global(.lightbox-credit-link:hover) {

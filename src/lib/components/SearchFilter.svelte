@@ -6,15 +6,30 @@
 </script>
 
 {#snippet leftIcon()}
-	<SearchOutline class="size-icon-md body-text-muted" />
+	<SearchOutline class="size-icon-md text-muted-ink" />
 {/snippet}
 
-<div class="mx-auto w-full max-w-md">
+<div class="search-filter mx-auto w-full max-w-md">
 	<Input
 		bind:value
 		{placeholder}
 		size="lg"
-		class="rounded-card focus-within:shadow-secondary focus-within:ring-secondary-300 dark:focus-within:ring-secondary-600 py-3! pl-12! text-lg! shadow-sm transition-all focus-within:ring-2"
+		class="search-filter__input py-3! pl-12! text-lg!"
 		left={leftIcon}
 	/>
 </div>
+
+<style>
+	.search-filter :global(.search-filter__input) {
+		border-radius: var(--radius-xl);
+		box-shadow: var(--shadow-xs);
+		transition:
+			box-shadow var(--transition-base),
+			border-color var(--transition-base);
+	}
+
+	.search-filter :global(.search-filter__input:focus-within) {
+		box-shadow: var(--shadow-accent);
+		border-color: var(--border-accent);
+	}
+</style>

@@ -201,9 +201,9 @@
 			padding-block: var(--space-2xs);
 		}
 
-		.nav-link:hover {
-			background-color: var(--brand-soft);
-			color: var(--brand);
+		.nav-link:hover:not(.active) {
+			background-color: var(--accent-soft);
+			color: var(--text-link);
 		}
 
 		.nav-link.active {

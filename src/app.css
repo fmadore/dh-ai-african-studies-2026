@@ -1088,6 +1088,12 @@
 		border-radius: var(--radius-full);
 	}
 
+	/* Left-anchored variant for left-aligned headings */
+	.accent-underline--left::after {
+		left: 0;
+		transform: none;
+	}
+
 	/* ---------- Scroll-reveal animation (SSR-safe) ---------- */
 	.animate-section-reveal {
 		transition:
@@ -1142,6 +1148,20 @@
 	}
 	.stagger-children.revealed > *:nth-child(9) {
 		transition-delay: 480ms;
+	}
+	.stagger-children.revealed > *:nth-child(10) {
+		transition-delay: 540ms;
+	}
+	.stagger-children.revealed > *:nth-child(11) {
+		transition-delay: 600ms;
+	}
+	.stagger-children.revealed > *:nth-child(12) {
+		transition-delay: 660ms;
+	}
+
+	/* Children past 12 all fall in at the same tail delay rather than popping in at 0ms */
+	.stagger-children.revealed > *:nth-child(n + 13) {
+		transition-delay: 720ms;
 	}
 
 	.stagger-children.revealed > * {

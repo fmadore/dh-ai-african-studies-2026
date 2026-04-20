@@ -102,9 +102,7 @@
 
 <div class="card-surface p-5 sm:p-6">
 	<!-- Header -->
-	<div
-		class="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 pb-4 dark:border-gray-700"
-	>
+	<div class="facets-header mb-4 flex flex-wrap items-center justify-between gap-3 pb-4">
 		<div class="flex items-center gap-2">
 			<FilterOutline class="text-accent h-5 w-5" />
 			<span class="text-primary-ink text-lg font-semibold">Filters</span>
@@ -119,7 +117,7 @@
 				<button
 					type="button"
 					onclick={handleClose}
-					class="hover:text-primary-600 dark:hover:text-primary-400 flex items-center gap-1 text-xs font-semibold tracking-wide text-gray-500 uppercase transition-colors dark:text-gray-400"
+					class="facets-close-btn text-subtle-ink flex items-center gap-1 text-xs font-semibold tracking-wide uppercase"
 					aria-label={closeLabel}
 				>
 					<CloseOutline class="h-4 w-4" />
@@ -131,24 +129,22 @@
 	<div class="space-y-5">
 		<!-- Search -->
 		<div class="space-y-2">
-			<Label for="search" class="text-sm font-semibold text-gray-700 dark:text-gray-300"
-				>Search</Label
-			>
+			<Label for="search" class="facets-label">Search</Label>
 			<div class="relative">
-				<SearchOutline class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
+				<SearchOutline class="text-subtle-ink absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
 				<input
 					id="search"
 					type="text"
 					placeholder="Title, author, keyword..."
 					bind:value={searchQuery}
-					class="focus:ring-secondary-500 focus:border-secondary-500 dark:focus:ring-secondary-400 dark:focus:border-secondary-400 w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-4 pl-10 text-sm text-gray-900 placeholder-gray-400 focus:ring-2 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500"
+					class="facets-text-input w-full py-2.5 pr-4 pl-10 text-sm"
 				/>
 			</div>
 		</div>
 
 		<!-- Sort -->
 		<div class="space-y-2">
-			<Label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Sort by</Label>
+			<Label class="facets-label">Sort by</Label>
 			<Select items={sortOptions} bind:value={selectedSort} class="text-sm" />
 		</div>
 
@@ -157,12 +153,12 @@
 			{#if availableTypes.length > 0}
 				<AccordionItem open>
 					{#snippet header()}
-						<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Type</span>
+						<span class="facets-label">Type</span>
 					{/snippet}
 					<div class="space-y-2">
 						{#each availableTypes as type (type)}
 							<Checkbox color="teal" bind:group={selectedTypes} value={type}>
-								<span class="text-sm text-gray-600 dark:text-gray-400">{formatType(type)}</span>
+								<span class="text-muted-ink text-sm">{formatType(type)}</span>
 							</Checkbox>
 						{/each}
 					</div>
@@ -172,12 +168,10 @@
 			{#if availableTags.length > 0}
 				<AccordionItem open>
 					{#snippet header()}
-						<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+						<span class="facets-label">
 							Keywords
 							{#if selectedTags.length > 0}
-								<span
-									class="bg-secondary-100 text-secondary-700 dark:bg-secondary-900/40 dark:text-secondary-300 ml-1.5 rounded px-1.5 py-0.5 text-xs font-medium"
-								>
+								<span class="facets-count-pill">
 									{selectedTags.length}
 								</span>
 							{/if}
@@ -187,29 +181,29 @@
 						<!-- Keyword search -->
 						<div class="relative">
 							<SearchOutline
-								class="absolute top-1/2 left-2.5 h-3.5 w-3.5 -translate-y-1/2 text-gray-400"
+								class="text-subtle-ink absolute top-1/2 left-2.5 h-3.5 w-3.5 -translate-y-1/2"
 							/>
 							<input
 								type="text"
 								placeholder="Filter keywords..."
 								bind:value={keywordSearch}
-								class="focus:ring-secondary-500 focus:border-secondary-500 w-full rounded-md border border-gray-200 bg-gray-50 py-1.5 pr-3 pl-8 text-xs text-gray-900 placeholder-gray-400 focus:ring-1 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500"
+								class="facets-text-input facets-text-input--sm w-full py-1.5 pr-3 pl-8 text-xs"
 							/>
 						</div>
 						<!-- Keywords list -->
 						<div class="custom-scrollbar max-h-52 space-y-1.5 overflow-y-auto pr-1">
 							{#each filteredTags as tag (tag)}
 								<Checkbox color="teal" bind:group={selectedTags} value={tag}>
-									<span class="truncate text-xs text-gray-600 dark:text-gray-400">{tag}</span>
+									<span class="text-muted-ink truncate text-xs">{tag}</span>
 								</Checkbox>
 							{:else}
-								<p class="text-xs text-gray-400 dark:text-gray-500 italic py-1">
+								<p class="text-subtle-ink py-1 text-xs italic">
 									No keywords match "{keywordSearch}"
 								</p>
 							{/each}
 						</div>
 						{#if availableTags.length > 10}
-							<p class="text-xs text-gray-400 dark:text-gray-500">
+							<p class="text-subtle-ink text-xs">
 								{filteredTags.length} of {availableTags.length} keywords
 							</p>
 						{/if}
@@ -220,14 +214,12 @@
 			{#if availableLanguages.length > 0}
 				<AccordionItem open>
 					{#snippet header()}
-						<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Language</span>
+						<span class="facets-label">Language</span>
 					{/snippet}
 					<div class="space-y-2">
 						{#each availableLanguages as language (language)}
 							<Checkbox color="teal" bind:group={selectedLanguages} value={language}>
-								<span class="text-sm text-gray-600 dark:text-gray-400"
-									>{formatLanguage(language)}</span
-								>
+								<span class="text-muted-ink text-sm">{formatLanguage(language)}</span>
 							</Checkbox>
 						{/each}
 					</div>
@@ -237,12 +229,12 @@
 			{#if availableYears.length > 0}
 				<AccordionItem>
 					{#snippet header()}
-						<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Year</span>
+						<span class="facets-label">Year</span>
 					{/snippet}
 					<div class="custom-scrollbar max-h-40 space-y-2 overflow-y-auto pr-1">
 						{#each availableYears as year (year)}
 							<Checkbox color="teal" bind:group={selectedYears} value={year}>
-								<span class="text-sm text-gray-600 dark:text-gray-400">{year}</span>
+								<span class="text-muted-ink text-sm">{year}</span>
 							</Checkbox>
 						{/each}
 					</div>
@@ -253,6 +245,62 @@
 </div>
 
 <style>
+	.facets-header {
+		border-bottom: 1px solid var(--border-default);
+	}
+
+	.facets-close-btn {
+		transition: color var(--transition-micro);
+	}
+
+	.facets-close-btn:hover {
+		color: var(--accent);
+	}
+
+	/* Reusable label — replaces the repeated gray-700/gray-300 pair */
+	:global(.facets-label) {
+		font-size: var(--text-sm);
+		font-weight: var(--font-weight-semibold);
+		color: var(--text-secondary);
+	}
+
+	:global(.facets-count-pill) {
+		display: inline-block;
+		margin-left: 0.375rem;
+		padding: 0 0.375rem;
+		border-radius: var(--radius-sm);
+		background-color: var(--accent-soft);
+		color: var(--text-accent);
+		font-size: var(--text-xs);
+		font-weight: var(--font-weight-medium);
+	}
+
+	/* Text inputs (shared look for search + keyword filter) */
+	:global(.facets-text-input) {
+		border: 1px solid var(--border-default);
+		background-color: var(--bg-raised);
+		border-radius: var(--radius-md);
+		color: var(--text-primary);
+		transition:
+			border-color var(--transition-micro),
+			box-shadow var(--transition-micro);
+	}
+
+	:global(.facets-text-input::placeholder) {
+		color: var(--text-subtle);
+	}
+
+	:global(.facets-text-input:focus) {
+		outline: none;
+		border-color: var(--border-accent);
+		box-shadow: 0 0 0 3px var(--focus-ring);
+	}
+
+	:global(.facets-text-input--sm) {
+		background-color: var(--bg-sunken);
+		border-radius: var(--radius-sm);
+	}
+
 	/* Override default Accordion borders to blend with card-surface */
 	:global(.facets-accordion) {
 		border: none !important;
@@ -263,20 +311,11 @@
 		padding: 0.75rem 0 !important;
 		background-color: transparent !important;
 		border: none !important;
-		border-top: 1px solid var(--color-gray-200) !important;
+		border-top: 1px solid var(--border-default) !important;
 		border-radius: 0 !important;
 	}
 
-	:global(.dark .facets-accordion > div > h2 > button) {
-		background-color: transparent !important;
-		border-top-color: var(--color-gray-700) !important;
-	}
-
 	:global(.facets-accordion > div > h2 > button:hover) {
-		background-color: transparent !important;
-	}
-
-	:global(.dark .facets-accordion > div > h2 > button:hover) {
 		background-color: transparent !important;
 	}
 
@@ -299,19 +338,11 @@
 	}
 
 	.custom-scrollbar::-webkit-scrollbar-thumb {
-		background-color: var(--color-gray-300);
-		border-radius: 9999px;
+		background-color: var(--border-strong);
+		border-radius: var(--radius-full);
 	}
 
 	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-		background-color: var(--color-gray-400);
-	}
-
-	:global(.dark) .custom-scrollbar::-webkit-scrollbar-thumb {
-		background-color: var(--color-gray-600);
-	}
-
-	:global(.dark) .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-		background-color: var(--color-gray-500);
+		background-color: var(--text-subtle);
 	}
 </style>
