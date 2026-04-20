@@ -58,7 +58,14 @@
 	});
 
 	// State
-	let references = $state<any[]>(referencesData);
+	const EXCLUDED_TAG_PREFIX = 'Lu';
+	const isExcludedTag = (tag: string) => tag.startsWith(EXCLUDED_TAG_PREFIX);
+	let references = $state<any[]>(
+		(referencesData as any[]).map((ref) => ({
+			...ref,
+			tags: Array.isArray(ref.tags) ? ref.tags.filter((t: string) => !isExcludedTag(t)) : ref.tags
+		}))
+	);
 	let searchQuery = $state('');
 
 	// Facets state
