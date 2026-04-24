@@ -1,5 +1,575 @@
 [
   {
+    "id": "3005271/BQ3VGYP5",
+    "type": "chapter",
+    "abstract": "The term ‘archives’ first refers to a building, a symbol of a public institution, which is one of the organs of a constituted state. However, by ‘archives’ is also understood a collection of documents — normally written documents — kept in this building. There cannot therefore be a definition of ‘archives’ that does not encompass both the building itself and the documents stored there.",
+    "citation-key": "mbembePowerArchiveIts2002",
+    "container-title": "Refiguring the Archive",
+    "DOI": "10.1007/978-94-010-0570-8_2",
+    "ISBN": "978-94-010-0570-8",
+    "language": "en",
+    "page": "19-27",
+    "publisher": "Springer Netherlands",
+    "publisher-place": "Dordrecht",
+    "title": "The Power of the Archive and its Limits",
+    "author": [
+      {
+        "family": "Mbembe",
+        "given": "Achille"
+      }
+    ],
+    "editor": [
+      {
+        "family": "Hamilton",
+        "given": "Carolyn"
+      },
+      {
+        "family": "Harris",
+        "given": "Verne"
+      },
+      {
+        "family": "Taylor",
+        "given": "Jane"
+      },
+      {
+        "family": "Pickover",
+        "given": "Michele"
+      },
+      {
+        "family": "Reid",
+        "given": "Graeme"
+      },
+      {
+        "family": "Saleh",
+        "given": "Razia"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2002
+        ]
+      ]
+    },
+    "tags": [
+      "African philosophy",
+      "archive theory",
+      "chronophagy",
+      "commemoration",
+      "historiography",
+      "memory",
+      "postcolonial theory",
+      "state power"
+    ],
+    "URL": "https://doi.org/10.1007/978-94-010-0570-8_2"
+  },
+  {
+    "id": "3005271/RZN7TQMS",
+    "type": "webpage",
+    "abstract": "We're digitally archiving old Nigerian newspapers to make history accessible to everyone.",
+    "citation-key": "ameenatEconomicsArchivingOld2024",
+    "container-title": "Archivi.ng",
+    "language": "en",
+    "title": "The Economics of Archiving Old Newspapers",
+    "URL": "https://archivi.ng/the-archivist/stories/issue-1/the-economics-of-archiving-old-newspapers",
+    "author": [
+      {
+        "family": "Ameenat",
+        "given": "Ayodimeji"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2024,
+          8,
+          29
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024,
+          8,
+          28
+        ]
+      ]
+    },
+    "tags": [
+      "African archives",
+      "Nigeria",
+      "access to archives",
+      "archival preservation",
+      "crowdsourcing",
+      "cultural heritage",
+      "digital archive",
+      "digitisation costs",
+      "newspaper digitisation",
+      "non-profit funding"
+    ]
+  },
+  {
+    "id": "3005271/8K6GXYTI",
+    "type": "article-journal",
+    "abstract": "This working paper aims to disentangle the problems and potentials of AI technology as they pertain to the field of African literary studies. It does so because African literature is particularly vulnerable to the biases of literary data created in and for the global north. Calls, over the last decade, to decolonise literary studies have reached an impasse in terms of the continued dominance of the English language in the field, as well as its heavy reliance on commercially produced literature from the global north. The commercial and linguistic bias of the literary data being used to train Large Language Models (LLMs) redoubles the problem of decolonisation in a time of AI. Yet, as this paper argues, the field of African literary studies can also harness the power of AI tools to ensure that the African literary data available for LLM training is diverse, Africa-based, and not only determined by commercial factors.",
+    "citation-key": "harrisAIAfricanLiterary2025",
+    "DOI": "10.5281/zenodo.17839280",
+    "language": "en",
+    "publisher": "Zenodo",
+    "source": "Zenodo",
+    "title": "AI and African Literary Studies",
+    "author": [
+      {
+        "family": "Harris",
+        "given": "Ashleigh"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          6
+        ]
+      ]
+    },
+    "tags": [
+      "African literature",
+      "LLM training data",
+      "OCR",
+      "algorithmic coloniality",
+      "canon formation",
+      "decolonising AI",
+      "knowledge production",
+      "literary metadata",
+      "open access",
+      "slow metadata"
+    ],
+    "URL": "https://doi.org/10.5281/zenodo.17839280"
+  },
+  {
+    "id": "3005271/KZ6XL9WF",
+    "type": "webpage",
+    "abstract": "DOCiD is a unique persistent identifier for African research outputs.",
+    "citation-key": "allianceDOCiDAPP",
+    "container-title": "Africa PID Alliance",
+    "language": "en",
+    "title": "Digitizing ELTV Television of the Liberia Broadcasting System (LBS) - Liberia",
+    "URL": "https://docid.africapidalliance.org/docid/20.500.14351%2Fcb69e80b6183a422e4e9",
+    "author": [
+      {
+        "family": "Mark-Thiesen",
+        "given": "Cassandra"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          21
+        ]
+      ]
+    },
+    "tags": [
+      "Africa Multiple",
+      "African archives",
+      "Liberia",
+      "Pan-Africanism",
+      "audiovisual heritage",
+      "broadcasting history",
+      "digital preservation",
+      "digitisation",
+      "persistent identifiers"
+    ]
+  },
+  {
+    "id": "3005271/43AP4PTX",
+    "type": "post-weblog",
+    "abstract": "In the realm of Artificial Intelligence, there’s a glaring truth: AI doesn’t understand the intricacies of human experience or the nuances of social context. So how do we harness AI’s potential to truly benefit humanity? The answer lies in tapping into our unique human ability to contextualize information, derive meaning from it and to envision a better world. This approach forms the foundation of researching human-centered technologies within communities",
+    "citation-key": "ResearchUnlockingHuman",
+    "container-title": "Global Center on AI Governance",
+    "language": "en",
+    "shortTitle": "Unlocking Human Centered AI",
+    "title": "Unlocking Human Centered AI: Building Inclusive Futures Through Community Engagement",
+    "title-short": "Unlocking Human Centered AI",
+    "URL": "https://www.globalcenter.ai/research/unlocking-human-centered-ai-building-inclusive-futures-through-community-engagement",
+    "author": [
+      {
+        "family": "Junck",
+        "given": "Leah"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024,
+          5,
+          13
+        ]
+      ]
+    },
+    "tags": [
+      "AI governance",
+      "Africa",
+      "Global North Global South",
+      "algorithmic bias",
+      "community-based research",
+      "digital literacy",
+      "ethnography",
+      "human-centred AI",
+      "participatory design",
+      "reflexivity"
+    ]
+  },
+  {
+    "id": "3005271/36UUSJBX",
+    "type": "report",
+    "abstract": "Advancing Tech Justice in Africa examines technology governance across Nigeria, Kenya, and South Africa three countries that together anchor West, East, and Southern Africa's digital trajectories. African digitalisation is intersecting with deep structural inequalities in labour, gender, climate, health, and civic life. This report situates these contemporary shifts within the continent's longer histories of extraction and inequality, arguing that policymaking and legal reform must be grounded in the lived realities of workers, communities, activists, and the broader public.\n\nThe report examines regional and sub-regional governance frameworks, mapping where norms are advancing through the African Union, sub-regional bodies, and judicial interventions and where critical gaps remain. It finds that while strategic litigation is gaining ground however,, enforcement gaps, weak ratification of key instruments, and limited access to remedies continue to constrain effective tech justice across the continent. At the country level, the report documents how these tensions play out in practice\n\nThe findings offer critical insights into how African institutions and policy frameworks can respond to the evolving digital landscape while safeguarding rights and accountability. This event aims to foster dialogue and collaboration among key stakeholders committed to advancing technology governance and digital rights in Africa.",
+    "citation-key": "ResearchTechJustice",
+    "language": "en",
+    "note": "Institution: Global Center on AI Governance",
+    "publisher": "Global Center on AI Governance",
+    "title": "Tech Justice in Africa",
+    "URL": "https://www.globalcenter.ai/research/tech-justice-in-africa",
+    "author": [
+      {
+        "family": "Alayande",
+        "given": "Ayantola"
+      },
+      {
+        "family": "Adeleke",
+        "given": "Fola"
+      },
+      {
+        "family": "Gikonyo",
+        "given": "Ivy"
+      },
+      {
+        "family": "Junck",
+        "given": "Leah"
+      },
+      {
+        "family": "Gaffley",
+        "given": "Mark"
+      },
+      {
+        "family": "Aboneka",
+        "given": "Michael"
+      },
+      {
+        "family": "Adams",
+        "given": "Rachel"
+      },
+      {
+        "family": "Abdella",
+        "given": "Selamawit Engida"
+      },
+      {
+        "family": "Koroye",
+        "given": "Tami"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          3
+        ]
+      ]
+    },
+    "tags": [
+      "AI governance",
+      "African Union",
+      "Kenya",
+      "Nigeria",
+      "South Africa",
+      "algorithmic management",
+      "data protection",
+      "digital colonialism",
+      "digital rights",
+      "gender and technology",
+      "platform labour",
+      "surveillance",
+      "tech justice"
+    ]
+  },
+  {
+    "id": "3005271/3M9KWH6F",
+    "type": "webpage",
+    "abstract": "Digital Benin received over 900 photographs from institutions worldwide. These are currently under review by our working group 'Approaching Colonial Photographs with Care'. The group’s aim is to produce a guide for critical cataloguing and the creation of an ethical guidance resource for access to these photographs. It consists of experts in Benin City and the Diaspora, and is working with Dr. Temi Odumosu, who wrote the following initial outline of the reasoning and decision to form a group that will work in the upcoming project phase on accessibility formats for the photographs.",
+    "citation-key": "DigitalBeninApproaching",
+    "container-title": "Digital Benin",
+    "language": "en",
+    "title": "Approaching Colonial Photographs with Care",
+    "URL": "https://digitalbenin.org/documentation/approaching-colonial-photographs-with-care",
+    "author": [
+      {
+        "family": "Odumosu",
+        "given": "Temi"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024,
+          1,
+          1
+        ]
+      ]
+    },
+    "tags": [
+      "Benin Kingdom",
+      "Digital Benin",
+      "Nigeria",
+      "colonial archives",
+      "colonial photography",
+      "critical cataloguing",
+      "cultural heritage",
+      "digital repatriation",
+      "ethics of care",
+      "restitution"
+    ]
+  },
+  {
+    "id": "3005271/4WQYWM59",
+    "type": "post-weblog",
+    "abstract": "The discourse around the future of Artificial intelligence (AI) in the past several years has been dominated by narratives of a singular trajectory toward reaching artificial general intelligence (AGI). AGI is described as an AI that can perform a range of cognitive tasks comparable to expert-level humans, an aspiration that has shaped the mission of leading industry actors. Once AI reaches human-level, it has been hypothesised that it would soon be followed by “artificial superintelligence” (ASI): intellect that exceeds the best human capabilities in virtually every field, including scientific innovation, overall wisdom and even social skills.",
+    "citation-key": "ResearchDevelopmentKnowledge",
+    "language": "en",
+    "title": "Development, Knowledge Politics and Imagining the Future of AI in Africa",
+    "URL": "https://www.globalcenter.ai/research/development-knowledge-politics-and-imagining-the-future-of-ai-in-africa",
+    "author": [
+      {
+        "family": "Abdella",
+        "given": "Selamawit Engida"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          2
+        ]
+      ]
+    },
+    "tags": [
+      "AGI",
+      "AI governance",
+      "ICT4D",
+      "Indigenous knowledge",
+      "algorithmic colonialism",
+      "artificial superintelligence",
+      "decolonisation",
+      "development critique",
+      "knowledge politics",
+      "speculative imaginaries"
+    ]
+  },
+  {
+    "id": "3005271/X3GNFPCL",
+    "type": "post-weblog",
+    "abstract": "There is a tension at the heart of the debate around African ethics in AI. On the one hand, the academic discourse touts African ethics as crucial to trustworthy and responsible AI. On the other hand, most African policy analysis literature and think tank commentary barely mentions African ethics and instead focuses on the continent’s deficits vis a vis technocratic AI governance mechanisms and principles established by Western organizations like the OECD, EU, UNESCO, the Council of Europe, etc. This relegation of African ethics to the theoretical and its exclusion from practical policy-making is starkly apparent in African countries’ AI regulations and strategies: while some, like Kenya, advocate for a culturally uninflected national sovereignty, none mention African ethics, let alone actually unpack and operationalize what African ethics would mean in policy terms.",
+    "citation-key": "AlgorithmicReviewEpistemologies",
+    "container-title": "Global Center on AI Governance",
+    "language": "en",
+    "title": "The Algorithmic Review - Epistemologies and Political Economies of AI in Africa and the World",
+    "URL": "https://www.globalcenter.ai/the-algorithmic-review/epistemologies-and-political-economies-of-ai-in-africa-and-the-world",
+    "author": [
+      {
+        "family": "Linder",
+        "given": "Thomas"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          8
+        ]
+      ]
+    },
+    "tags": [
+      "AI governance",
+      "AI policy",
+      "Africa",
+      "African ethics",
+      "Ubuntu",
+      "communitarianism",
+      "decolonisation",
+      "political economy",
+      "surveillance capitalism"
+    ]
+  },
+  {
+    "id": "3005271/5G5XDS4K",
+    "type": "article-magazine",
+    "abstract": "A new study finds African content moderators report worse mental health than global peers, amid low pay, precarious work, and exposure to traumatic content.",
+    "citation-key": "perrigoAfricanContentModerators2026",
+    "container-title": "Time",
+    "ISSN": "0040-781X",
+    "language": "en",
+    "title": "African Content Moderators Have Worse Mental Health than Global Peers, Study Finds",
+    "URL": "https://time.com/article/2026/03/26/africa-content-moderators-mental-health-study/",
+    "author": [
+      {
+        "family": "Perrigo",
+        "given": "Billy"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          27
+        ]
+      ]
+    },
+    "tags": [
+      "Kenya",
+      "Meta",
+      "OpenAI",
+      "algorithmic injustice",
+      "content moderation",
+      "data labelling",
+      "digital labour",
+      "mental health",
+      "platform labour",
+      "precarity"
+    ]
+  },
+  {
+    "id": "3005271/GKQZML7Z",
+    "type": "post-weblog",
+    "abstract": "Consider for a moment the benefits of artificial intelligence, and what likely comes to mind are its contributions to areas like automation, data analysis, accelerating scientific and medical breakthroughs, or simply making daily life more convenient. As AI systems grow more capable to do these tasks, a contentious subject remains, one that has moved from academic corridors into public debate: AI alignment.",
+    "citation-key": "ResearchDoesIt",
+    "container-title": "Global Center on AI Governance",
+    "language": "en",
+    "title": "Does it Matter Whose Values We Encode in AI?",
+    "URL": "https://www.globalcenter.ai/research/does-it-matter-whose-values-we-encode-in-ai",
+    "author": [
+      {
+        "family": "Segun",
+        "given": "Samuel"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          9
+        ]
+      ]
+    },
+    "tags": [
+      "AI alignment",
+      "AI and Africa",
+      "AI ethics",
+      "AI governance",
+      "Global South",
+      "RLHF",
+      "digital colonialism",
+      "moral foundations theory",
+      "pluralistic alignment",
+      "value pluralism"
+    ]
+  },
+  {
     "id": "3005271/D2YAEG2C",
     "type": "article",
     "abstract": "This paper explores the dynamic landscape of Artificial Intelligence (AI) adoption in Africa, analysing its varied applications in addressing socio-economic challenges and fostering development. Examining the African AI ecosystem, the study considers regional nuances, cultural factors, and infrastructural constraints shaping the deployment of AI solutions. Case studies in healthcare, agriculture, finance, and education highlight AI's transformative potential for efficiency, accessibility, and inclusivity. The paper emphasizes indigenous AI innovations and international collaborations contributing to a distinct African AI ecosystem. Ethical considerations, including data privacy and algorithmic bias, are addressed alongside policy frameworks supporting responsible AI implementation. The role of governmental bodies, regulations, and private sector partnerships is explored in creating a conducive AI development environment. Challenges such as digital literacy gaps and job displacement are discussed, with proposed strategies for mitigation. In conclusion, the paper provides a nuanced understanding of AI in Africa, contributing to sustainable development discussions and advocating for an inclusive and ethical AI ecosystem on the continent.",
@@ -38,8 +608,54 @@
       ]
     },
     "tags": [
-      "Computer Science - Computers and Society"
+      "AI ethics",
+      "AI governance",
+      "AI in Africa",
+      "AI policy",
+      "AI sovereignty",
+      "Computer Science - Computers and Society",
+      "data sovereignty",
+      "digital divide",
+      "digital infrastructure",
+      "leapfrogging",
+      "reskilling"
     ]
+  },
+  {
+    "id": "3005271/66552WV5",
+    "type": "chapter",
+    "abstract": "Digital technologies help researchers gather, analyze, store, and share data in novel ways. But how do digital humanists ensure that these new practices help us also achieve the good life and further moral progress? What new challenges does digital humanities research bring to our ethical values of the equitable distribution of knowledge, balancing risks and minimizing harms to research subjects and researchers themselves, and respecting autonomy? This chapter outlines key contemporary ethical questions that digital humanities scholars face today. These include dilemmas about the ethics of data storage and curation of cultural materials, consent of users in the context of big data research, data use and re-use, open-access and meeting moral obligations to share research outputs with non-academic communities, researcher reflexivity in scholarship, the ethical complexities of research funding while maintaining humanist ideals.\n\nWhile researchers have always wrestled with many of these ethical dilemmas, the particular characteristics of digital humanities scholarship and its contextual position in the academe raise novel facets. After describing some of the pressing ethical questions facing DH today around storage and curation, consent, data use and re-use, open access, reflexivity, and maintaining humanist ideals, this chapter argues that digital humanists, as part of their work, need to engage in what Brey (2000) describes as disclosive ethics. Disclosive ethics facilitates practitioners in identifying morally opaque facets of digital work, flagging situations in which our previous models of thinking fall short and helping us navigate moral vacuums when answers to these dilemmas are not readily available in rules or guidebooks. Disclosive ethical analysis can help researchers interrogate the embedded values of storage and curation, consent, data use and re-use, open access, reflexivity, and maintaining humanist ideals, with an eye to how we can refines these practices to uphold equitable distribution of knowledge, appropriate balancing of risks and minimizing harms to research subjects and researchers themselves, and respect autonomy.",
+    "citation-key": "proferesWhatEthicsCan2020",
+    "container-title": "Routledge International Handbook of Research Methods in Digital Humanities",
+    "DOI": "10.4324/9780429777028-29",
+    "ISBN": "978-0-429-77702-8",
+    "page": "416-427",
+    "publisher": "Routledge",
+    "publisher-place": "London",
+    "title": "What Ethics can Offer the Digital Humanities and What the Digital Humanities can Offer Ethics",
+    "author": [
+      {
+        "family": "Proferes",
+        "given": "Nicholas"
+      },
+      {
+        "family": "Schuster",
+        "given": "Kristen"
+      },
+      {
+        "family": "Dunn",
+        "given": "Stuart"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.4324/9780429777028-29"
   },
   {
     "id": "3005271/SWB59JEE",
@@ -94,42 +710,6 @@
       "Responsibility"
     ],
     "URL": "https://doi.org/10.1007/s00146-025-02649-4"
-  },
-  {
-    "id": "3005271/5G5XDS4K",
-    "type": "article-magazine",
-    "abstract": "A new study finds African content moderators report worse mental health than global peers, amid low pay, precarious work, and exposure to traumatic content.",
-    "citation-key": "perrigoAfricanContentModerators2026",
-    "container-title": "Time",
-    "ISSN": "0040-781X",
-    "language": "en",
-    "title": "African Content Moderators Have Worse Mental Health than Global Peers, Study Finds",
-    "URL": "https://time.com/article/2026/03/26/africa-content-moderators-mental-health-study/",
-    "author": [
-      {
-        "family": "Perrigo",
-        "given": "Billy"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2026,
-          3,
-          27
-        ]
-      ]
-    },
-    "tags": []
   },
   {
     "id": "3005271/HH7SJGAG",
@@ -228,177 +808,6 @@
     "tags": []
   },
   {
-    "id": "3005271/36UUSJBX",
-    "type": "report",
-    "abstract": "Advancing Tech Justice in Africa examines technology governance across Nigeria, Kenya, and South Africa three countries that together anchor West, East, and Southern Africa's digital trajectories. African digitalisation is intersecting with deep structural inequalities in labour, gender, climate, health, and civic life. This report situates these contemporary shifts within the continent's longer histories of extraction and inequality, arguing that policymaking and legal reform must be grounded in the lived realities of workers, communities, activists, and the broader public.\n\nThe report examines regional and sub-regional governance frameworks, mapping where norms are advancing through the African Union, sub-regional bodies, and judicial interventions and where critical gaps remain. It finds that while strategic litigation is gaining ground however,, enforcement gaps, weak ratification of key instruments, and limited access to remedies continue to constrain effective tech justice across the continent. At the country level, the report documents how these tensions play out in practice\n\nThe findings offer critical insights into how African institutions and policy frameworks can respond to the evolving digital landscape while safeguarding rights and accountability. This event aims to foster dialogue and collaboration among key stakeholders committed to advancing technology governance and digital rights in Africa.",
-    "citation-key": "ResearchTechJustice",
-    "language": "en",
-    "note": "Institution: Global Center on AI Governance",
-    "publisher": "Global Center on AI Governance",
-    "title": "Tech Justice in Africa",
-    "URL": "https://www.globalcenter.ai/research/tech-justice-in-africa",
-    "author": [
-      {
-        "family": "Alayande",
-        "given": "Ayantola"
-      },
-      {
-        "family": "Adeleke",
-        "given": "Fola"
-      },
-      {
-        "family": "Gikonyo",
-        "given": "Ivy"
-      },
-      {
-        "family": "Junck",
-        "given": "Leah"
-      },
-      {
-        "family": "Gaffley",
-        "given": "Mark"
-      },
-      {
-        "family": "Aboneka",
-        "given": "Michael"
-      },
-      {
-        "family": "Adams",
-        "given": "Rachel"
-      },
-      {
-        "family": "Abdella",
-        "given": "Selamawit Engida"
-      },
-      {
-        "family": "Koroye",
-        "given": "Tami"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2026,
-          3
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/4WQYWM59",
-    "type": "post-weblog",
-    "abstract": "The discourse around the future of Artificial intelligence (AI) in the past several years has been dominated by narratives of a singular trajectory toward reaching artificial general intelligence (AGI). AGI is described as an AI that can perform a range of cognitive tasks comparable to expert-level humans, an aspiration that has shaped the mission of leading industry actors. Once AI reaches human-level, it has been hypothesised that it would soon be followed by “artificial superintelligence” (ASI): intellect that exceeds the best human capabilities in virtually every field, including scientific innovation, overall wisdom and even social skills.",
-    "citation-key": "ResearchDevelopmentKnowledge",
-    "language": "en",
-    "title": "Development, Knowledge Politics and Imagining the Future of AI in Africa",
-    "URL": "https://www.globalcenter.ai/research/development-knowledge-politics-and-imagining-the-future-of-ai-in-africa",
-    "author": [
-      {
-        "family": "Abdella",
-        "given": "Selamawit Engida"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          12,
-          2
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/GKQZML7Z",
-    "type": "post-weblog",
-    "abstract": "Consider for a moment the benefits of artificial intelligence, and what likely comes to mind are its contributions to areas like automation, data analysis, accelerating scientific and medical breakthroughs, or simply making daily life more convenient. As AI systems grow more capable to do these tasks, a contentious subject remains, one that has moved from academic corridors into public debate: AI alignment.",
-    "citation-key": "ResearchDoesIt",
-    "container-title": "Global Center on AI Governance",
-    "language": "en",
-    "title": "Does it Matter Whose Values We Encode in AI?",
-    "URL": "https://www.globalcenter.ai/research/does-it-matter-whose-values-we-encode-in-ai",
-    "author": [
-      {
-        "family": "Segun",
-        "given": "Samuel"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          12,
-          9
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/X3GNFPCL",
-    "type": "post-weblog",
-    "abstract": "There is a tension at the heart of the debate around African ethics in AI. On the one hand, the academic discourse touts African ethics as crucial to trustworthy and responsible AI. On the other hand, most African policy analysis literature and think tank commentary barely mentions African ethics and instead focuses on the continent’s deficits vis a vis technocratic AI governance mechanisms and principles established by Western organizations like the OECD, EU, UNESCO, the Council of Europe, etc. This relegation of African ethics to the theoretical and its exclusion from practical policy-making is starkly apparent in African countries’ AI regulations and strategies: while some, like Kenya, advocate for a culturally uninflected national sovereignty, none mention African ethics, let alone actually unpack and operationalize what African ethics would mean in policy terms.",
-    "citation-key": "AlgorithmicReviewEpistemologies",
-    "container-title": "Global Center on AI Governance",
-    "language": "en",
-    "title": "The Algorithmic Review - Epistemologies and Political Economies of AI in Africa and the World",
-    "URL": "https://www.globalcenter.ai/the-algorithmic-review/epistemologies-and-political-economies-of-ai-in-africa-and-the-world",
-    "author": [
-      {
-        "family": "Linder",
-        "given": "Thomas"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          8
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
     "id": "3005271/QAR9BDEP",
     "type": "article-journal",
     "abstract": "Founded in 2002, Nineteenth-Century Art Worldwide is a scholarly, refereed e-journal devoted to the study of nineteenth-century painting, sculpture, graphic art",
@@ -450,41 +859,6 @@
     "URL": "https://doi.org/10.29411/ncaw.2025.24.2.2"
   },
   {
-    "id": "3005271/3M9KWH6F",
-    "type": "webpage",
-    "abstract": "Digital Benin received over 900 photographs from institutions worldwide. These are currently under review by our working group 'Approaching Colonial Photographs with Care'. The group’s aim is to produce a guide for critical cataloguing and the creation of an ethical guidance resource for access to these photographs. It consists of experts in Benin City and the Diaspora, and is working with Dr. Temi Odumosu, who wrote the following initial outline of the reasoning and decision to form a group that will work in the upcoming project phase on accessibility formats for the photographs.",
-    "citation-key": "DigitalBeninApproaching",
-    "container-title": "Digital Benin",
-    "language": "en",
-    "title": "Approaching Colonial Photographs with Care",
-    "URL": "https://digitalbenin.org/documentation/approaching-colonial-photographs-with-care",
-    "author": [
-      {
-        "family": "Odumosu",
-        "given": "Temi"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2024,
-          1,
-          1
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
     "id": "3005271/XCYJWBGR",
     "type": "thesis",
     "abstract": "This mini-dissertation is a personal, methodological , and scholarly study of a seven month visual art program at !Khwa ttu: San Culture Education Centre. It centres on the fraught issue of the representation of the Bushmen, with a particular focus on the violence of representation through the photographic genre. Through this mini-dissertation I attempt to re-imagine the photograph in relation to the Bushmen; through an interrogation of the medium as one that has the potential for healing, dialogue and empowerment. The act of looking is discussed, and I raise questions of ethics and photographs as well as questions of ownership of photographs in relation to the Bushmen of southern Africa. Since this project was an opportunity to engage in rhetoric, particularly on the definition of the Bushmen, a core element of this project is the participation and the voice of the !Khwa ttu Reference Group.This participation was underscored by the group both engaging in the past through historical imagery, and attempting to use the past as a springboard to re-imagine their future.",
@@ -518,214 +892,6 @@
       "date-parts": [
         [
           2008
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/BQ3VGYP5",
-    "type": "chapter",
-    "abstract": "The term ‘archives’ first refers to a building, a symbol of a public institution, which is one of the organs of a constituted state. However, by ‘archives’ is also understood a collection of documents — normally written documents — kept in this building. There cannot therefore be a definition of ‘archives’ that does not encompass both the building itself and the documents stored there.",
-    "citation-key": "mbembePowerArchiveIts2002",
-    "container-title": "Refiguring the Archive",
-    "DOI": "10.1007/978-94-010-0570-8_2",
-    "ISBN": "978-94-010-0570-8",
-    "language": "en",
-    "page": "19-27",
-    "publisher": "Springer Netherlands",
-    "publisher-place": "Dordrecht",
-    "title": "The Power of the Archive and its Limits",
-    "author": [
-      {
-        "family": "Mbembe",
-        "given": "Achille"
-      }
-    ],
-    "editor": [
-      {
-        "family": "Hamilton",
-        "given": "Carolyn"
-      },
-      {
-        "family": "Harris",
-        "given": "Verne"
-      },
-      {
-        "family": "Taylor",
-        "given": "Jane"
-      },
-      {
-        "family": "Pickover",
-        "given": "Michele"
-      },
-      {
-        "family": "Reid",
-        "given": "Graeme"
-      },
-      {
-        "family": "Saleh",
-        "given": "Razia"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2002
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.1007/978-94-010-0570-8_2"
-  },
-  {
-    "id": "3005271/43AP4PTX",
-    "type": "post-weblog",
-    "abstract": "In the realm of Artificial Intelligence, there’s a glaring truth: AI doesn’t understand the intricacies of human experience or the nuances of social context. So how do we harness AI’s potential to truly benefit humanity? The answer lies in tapping into our unique human ability to contextualize information, derive meaning from it and to envision a better world. This approach forms the foundation of researching human-centered technologies within communities",
-    "citation-key": "ResearchUnlockingHuman",
-    "container-title": "Global Center on AI Governance",
-    "language": "en",
-    "shortTitle": "Unlocking Human Centered AI",
-    "title": "Unlocking Human Centered AI: Building Inclusive Futures Through Community Engagement",
-    "title-short": "Unlocking Human Centered AI",
-    "URL": "https://www.globalcenter.ai/research/unlocking-human-centered-ai-building-inclusive-futures-through-community-engagement",
-    "author": [
-      {
-        "family": "Junck",
-        "given": "Leah"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2024,
-          5,
-          13
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/8K6GXYTI",
-    "type": "article-journal",
-    "abstract": "This working paper aims to disentangle the problems and potentials of AI technology as they pertain to the field of African literary studies. It does so because African literature is particularly vulnerable to the biases of literary data created in and for the global north. Calls, over the last decade, to decolonise literary studies have reached an impasse in terms of the continued dominance of the English language in the field, as well as its heavy reliance on commercially produced literature from the global north. The commercial and linguistic bias of the literary data being used to train Large Language Models (LLMs) redoubles the problem of decolonisation in a time of AI. Yet, as this paper argues, the field of African literary studies can also harness the power of AI tools to ensure that the African literary data available for LLM training is diverse, Africa-based, and not only determined by commercial factors.",
-    "citation-key": "harrisAIAfricanLiterary2025",
-    "DOI": "10.5281/zenodo.17839280",
-    "language": "en",
-    "publisher": "Zenodo",
-    "source": "Zenodo",
-    "title": "AI and African Literary Studies",
-    "author": [
-      {
-        "family": "Harris",
-        "given": "Ashleigh"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          12,
-          6
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.5281/zenodo.17839280"
-  },
-  {
-    "id": "3005271/RZN7TQMS",
-    "type": "webpage",
-    "abstract": "We're digitally archiving old Nigerian newspapers to make history accessible to everyone.",
-    "citation-key": "ameenatEconomicsArchivingOld2024",
-    "container-title": "Archivi.ng",
-    "language": "en",
-    "title": "The Economics of Archiving Old Newspapers",
-    "URL": "https://archivi.ng/the-archivist/stories/issue-1/the-economics-of-archiving-old-newspapers",
-    "author": [
-      {
-        "family": "Ameenat",
-        "given": "Ayodimeji"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2024,
-          8,
-          29
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2024,
-          8,
-          28
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/KZ6XL9WF",
-    "type": "webpage",
-    "abstract": "DOCiD is a unique persistent identifier for African research outputs.",
-    "citation-key": "allianceDOCiDAPP",
-    "container-title": "Africa PID Alliance",
-    "language": "en",
-    "title": "Digitizing ELTV Television of the Liberia Broadcasting System (LBS) - Liberia",
-    "URL": "https://docid.africapidalliance.org/docid/20.500.14351%2Fcb69e80b6183a422e4e9",
-    "author": [
-      {
-        "family": "Mark-Thiesen",
-        "given": "Cassandra"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          21
         ]
       ]
     },
