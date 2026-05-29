@@ -1,5 +1,443 @@
 [
   {
+    "id": "3005271/8PSCT6UN",
+    "type": "book",
+    "abstract": "Analyzing the innovative and popular uses of digital media technologies across many African countries, African Digital Cultures reveals how digitization, through its inherent computational and epistemological logics, is deeply embedded in the daily lives of millions of people, producing new structures of feeling and new possibilities for political participation, cultural expression, and creative agency.\nThis book grapples with the affective elements of mediatized social relations and consciousness, as platforms like WhatsApp, Facebook, and TikTok increasingly inform the construction of diverse kinds of publics—from the religious and political to the sexual and the literary. Focusing on the creative and disruptive uses of social media platforms, financial technologies, digital infrastructures, and artificial intelligence, this collection brings together scholars whose work challenges the notion of Africa as a place of technological lack, underscoring the rich histories and contributions of the continent to global digital media.\nThis interdisciplinary volume offers an essential and decolonizing understanding of digital media cultures and histories from an African perspective.",
+    "citation-key": "yekuAfricanDigitalCultures2026",
+    "DOI": "10.4324/9781003690511",
+    "ISBN": "978-1-003-69051-1",
+    "language": "en",
+    "number-of-pages": "298",
+    "publisher": "Routledge",
+    "publisher-place": "London",
+    "shortTitle": "African Digital Cultures",
+    "title": "African Digital Cultures: Platforms, Publics, and Infrastructures",
+    "title-short": "African Digital Cultures",
+    "editor": [
+      {
+        "family": "Yeku",
+        "given": "James"
+      },
+      {
+        "family": "Junck",
+        "given": "Leah"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.4324/9781003690511"
+  },
+  {
+    "id": "3005271/AGQEBP3K",
+    "type": "article-journal",
+    "abstract": "Open-source artificial intelligence is widely promoted as a democratising pathway to digital sovereignty for African states, offering access to frontier architectures without prohibitive capital investment. This paper investigates whether open-source AI represents a credible route to autonomy or generates a new form of structural dependency. Drawing on the National Innovation System (NIS) theory and the political economy of cloud infrastructure, the paper argues that open-source AI transfers model weights but neglects the structural foundations of capability: compute infrastructure, localised data and indigenous human capital. A structured narrative review demonstrates that Africa's research marginalisation, chronic infrastructure financing deficits and reliance on foreign cloud services collectively undermine the promise of open-source AI's sovereignty. The analysis establishes that the compute layer, not the code layer, is the primary locus of power: consequently, adoption of foreign infrastructure relocates rather than resolves dependency. Three analytical contributions are advanced: a theoretically grounded critique of the open-source paradox that integrates NIS and Big AI scholarship; an integrative framework that applies these resources to the African case; and a Digital Bandung collective action framework. This proposal presents the Digital Bandung framework as a heuristic device and an ideal type. By utilising this historical analogy, the paper illustrates a strategic logic for collective action rather than a rigid policy prescription, acknowledging that the original Bandung spirit must be modernised for the digital age. While treating Africa as a focal case, the study acknowledges that this approach risks obscuring significant intra-continental variation.",
+    "citation-key": "shonubiOpenSourceParadoxAfricas",
+    "container-title": "AI & Innovation",
+    "DOI": "10.1002/aiv2.70004",
+    "ISSN": "3067-3941",
+    "language": "en",
+    "page": "e70004",
+    "shortTitle": "The Open-Source Paradox",
+    "title": "The Open-Source Paradox: Africa's Digital Sovereignty and the Structural Limits of Artificial Intelligence Autonomy",
+    "title-short": "The Open-Source Paradox",
+    "author": [
+      {
+        "family": "Shonubi",
+        "given": "Ololade A."
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "tags": [
+      "AI",
+      "AI governance",
+      "Africa",
+      "digital infrastructure",
+      "digital sovereignty",
+      "open-source AI",
+      "sovereign AI"
+    ],
+    "URL": "https://doi.org/10.1002/aiv2.70004"
+  },
+  {
+    "id": "3005271/4ELQIWQH",
+    "type": "report",
+    "abstract": "Background\nIn late 2022, OpenAI launched ChatGPT, igniting a global boom around generative artificial intelligence (GenAI). Governments, businesses and individuals began to rapidly incorporate these powerful technologies into\neveryday processes and tasks, heralding a new era of technology use, most notably in wealthy nations. Questions remain about what value these technologies may have for addressing intractable socio-economic challenges facing lower- and middle-income countries (LMICs), where the benefits they offer are needed the most.\n\nTo begin to answer these questions, the Gates Foundation launched the Global Grand Challenges program on “Catalyzing Equitable Artificial Intelligence (AI) Use” to explore the potential of GenAI technologies to help solve some of the world’s greatest problems. The Grand Challenges program awarded a total of over US$7.5 million to 50 projects based in LMICs across Africa, Asia and South America.\n\nA Network of Experts, led by the South Africa-based Global Center on AI Governance, was appointed to support projects in strengthening the\nethical and gender-transformational components of their work and in generating evidence about the potential of GenAI to address socio-economic\nchallenges in LMIC contexts. This report summari",
+    "citation-key": "adelekeRoleGenerativeAI2026",
+    "language": "en",
+    "publisher": "Global Center on AI Governance",
+    "title": "The Role of Generative AI in Addressing Development Challenges in LMICs",
+    "URL": "https://www.globalcenter.ai/research/the-role-of-generative-ai-in-addressing-development-challenges-in-lmics",
+    "author": [
+      {
+        "family": "Adeleke",
+        "given": "Fola"
+      },
+      {
+        "family": "Junck",
+        "given": "Leah"
+      },
+      {
+        "family": "Alayande",
+        "given": "Ayantola"
+      },
+      {
+        "family": "Segun",
+        "given": "Samuel"
+      },
+      {
+        "family": "Parkes-Ratanshi",
+        "given": "Rosalind"
+      },
+      {
+        "family": "Gupta",
+        "given": "Aarushi"
+      },
+      {
+        "family": "Aneja",
+        "given": "Urvashi"
+      },
+      {
+        "family": "Archegas",
+        "given": "Joao Victor"
+      },
+      {
+        "family": "Mahoney",
+        "given": "Scott"
+      },
+      {
+        "family": "Gaffley",
+        "given": "Mark"
+      },
+      {
+        "family": "Adams",
+        "given": "Rachel"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          5
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/Q6CC5I4Z",
+    "type": "post-weblog",
+    "citation-key": "ResearchLabourWe",
+    "container-title": "Global Center on AI Governance",
+    "language": "en",
+    "title": "The Labour We Do Not Dream Of",
+    "URL": "https://www.globalcenter.ai/research/the-labour-we-d-o-n-o-t-dream-of",
+    "author": [
+      {
+        "family": "Abdella",
+        "given": "Selamawit Engida"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          1
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/8AUGBEMB",
+    "type": "post-weblog",
+    "abstract": "Artificial intelligence (AI) is increasingly recognized as a technology that can improve government operations in Africa. It enhances policy processes, strengthens decision-making, increases efficiency, and transforms public service delivery. Yet, public sector adoption of AI systems in African countries remains low.",
+    "citation-key": "AlgorithmicReviewOperationalizing",
+    "container-title": "Global Center on AI Governance",
+    "language": "en",
+    "title": "Operationalizing AI Policy in Africa with the NIST AI Risk Management Framework",
+    "URL": "https://www.globalcenter.ai/the-algorithmic-review/operationalizing-ai-policy-in-africa-with-the-nist-ai-risk-management-framework",
+    "author": [
+      {
+        "family": "Yirenkyi",
+        "given": "Steven"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          4
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/LW3VPH8G",
+    "type": "post-weblog",
+    "abstract": "This essay is adapted from an intervention I gave at the Mashariki Cooperation Conference, which took place in Diani, Kenya, from the 8th-11th April 2026.",
+    "citation-key": "ResearchSocialMedia",
+    "container-title": "Global Center on AI Governance",
+    "language": "en",
+    "title": "Social Media and the Reconfiguration of National Security in Africa",
+    "URL": "https://www.globalcenter.ai/research/social-media-and-the-reconfiguration-of-national-security-in-africa",
+    "author": [
+      {
+        "family": "Adams",
+        "given": "Rachel"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          13
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/7FG7254N",
+    "type": "post-weblog",
+    "abstract": "Atlantic Fellow for Social and Economic Equity, Fola Adeleke, highlights how the erosion of traditional media business models and the rise of AI-driven disinformation pose a grave threat to democratic discourse. He recently featured as a speaker at an Atlantic Institute's XR Lab event on the implications of artificial intelligence.",
+    "citation-key": "AtlanticFellowsPress",
+    "language": "en",
+    "title": "Press freedom in the age of AI",
+    "URL": "https://www.atlanticfellows.org/post/press-freedom-in-the-age-of-ai",
+    "author": [
+      {
+        "family": "Adeleke",
+        "given": "Fola"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          29
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/PTNWS8H9",
+    "type": "post-weblog",
+    "abstract": "Vom 18. bis 20. Februar 2026 kamen 26 Forschende aus 16 Ländern im Schloss Herrenhausen in Hannover zusammen. Vorträge gab es keine. Stattdessen wechselten sich Plenarsitzungen, vier thematische Arbeitsgruppen, World-Café-Runden, Posterpräsentationen und gemeinsames Schreiben ab. Das Ziel war nicht bloß ein Austausch über die eigene Forschung, sondern ein kollektives Positionspapier. Am Ende des zweiten Tages schrieb die Gruppe bereits gemeinsam.",
+    "citation-key": "madoreChartingNewTerritory2026",
+    "container-title": "Digital History Bielefeld",
+    "DOI": "10.58079/15z9p",
+    "genre": "Billet",
+    "language": "de",
+    "shortTitle": "Charting New Territory",
+    "title": "Charting New Territory: Digital Humanities und Künstliche Intelligenz in den African Studies",
+    "title-short": "Charting New Territory",
+    "author": [
+      {
+        "family": "Madore",
+        "given": "Frédérick"
+      },
+      {
+        "family": "Hiribarren",
+        "given": "Vincent"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          31
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          31
+        ]
+      ]
+    },
+    "tags": [
+      "African languages",
+      "African studies",
+      "Lu",
+      "NLP",
+      "West Africa",
+      "artificial intelligence",
+      "data colonialism",
+      "data sovereignty",
+      "decolonisation",
+      "digital archive",
+      "digital humanities",
+      "digital infrastructure",
+      "ethics",
+      "minimal computing",
+      "workshop"
+    ],
+    "URL": "https://doi.org/10.58079/15z9p"
+  },
+  {
+    "id": "3005271/62IR84W8",
+    "type": "report",
+    "abstract": "African languages are under-represented in artificial intelligence (AI) systems due to limited language data, excluding millions from digital participation in their native languages. Factors such as multilingual complexity, foreign-language-dominant policies, weak institutional backing and lack of digital infrastructure contribute to the low-resource classification of African languages. “Language data flaring” — paralleling gas flaring — captures the systemic neglect and poor management of African language data leading to data undercollection, poor storage and limited use in AI. Addressing the gap requires policies that integrate African languages into national digital agendas, support documentation, fund projects and foster inclusive, collaborative AI development. Community-led documentation, open-source tools and growing recognition of linguistic diversity in AI offer promising paths forward.",
+    "citation-key": "adebaraAILanguageData2025",
+    "collection-title": "Policy Brief",
+    "language": "en",
+    "number": "216",
+    "publisher": "Centre for International Governance Innovation",
+    "shortTitle": "AI and Language Data Flaring in Africa",
+    "title": "AI and Language Data Flaring in Africa: Addressing the Low-Resource Challenge",
+    "title-short": "AI and Language Data Flaring in Africa",
+    "URL": "https://www.cigionline.org/publications/ai-and-language-data-flaring-in-africa-addressing-the-low-resource-challenge/",
+    "author": [
+      {
+        "family": "Adebara",
+        "given": "Ife"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          30
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          11
+        ]
+      ]
+    },
+    "tags": [
+      "Africa",
+      "African languages",
+      "Lu",
+      "artificial intelligence",
+      "data sovereignty",
+      "decolonisation",
+      "language data flaring",
+      "language documentation",
+      "language policy",
+      "low-resource languages",
+      "multilingualism",
+      "natural language processing",
+      "oral tradition"
+    ]
+  },
+  {
+    "id": "3005271/NQYWYI7M",
+    "type": "webpage",
+    "abstract": "New research raises concerns that moderation tools can't detect violent threats in Tigray and elsewhere.",
+    "citation-key": "deckAIModerationNo2023",
+    "container-title": "Rest of World",
+    "language": "en",
+    "title": "AI moderation is no match for hate speech in Ethiopian languages",
+    "URL": "https://restofworld.org/2023/ai-content-moderation-hate-speech/",
+    "author": [
+      {
+        "family": "Deck",
+        "given": "Andrew"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2023,
+          6,
+          27
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
     "id": "3005271/BQ3VGYP5",
     "type": "chapter",
     "abstract": "The term ‘archives’ first refers to a building, a symbol of a public institution, which is one of the organs of a constituted state. However, by ‘archives’ is also understood a collection of documents — normally written documents — kept in this building. There cannot therefore be a definition of ‘archives’ that does not encompass both the building itself and the documents stored there.",
@@ -700,15 +1138,7 @@
         ]
       ]
     },
-    "tags": [
-      "AI",
-      "Coloniality",
-      "Decoloniality",
-      "Ethics",
-      "Global South",
-      "Impact assessment",
-      "Responsibility"
-    ],
+    "tags": [],
     "URL": "https://doi.org/10.1007/s00146-025-02649-4"
   },
   {
@@ -3736,54 +4166,6 @@
     ]
   },
   {
-    "id": "3005271/62IR84W8",
-    "type": "report",
-    "abstract": "African languages are under-represented in artificial intelligence (AI) systems due to limited language data, excluding millions from digital participation in their native languages. Factors such as multilingual complexity, foreign-language-dominant policies, weak institutional backing and lack of digital infrastructure contribute to the low-resource classification of African languages. “Language data flaring” — paralleling gas flaring — captures the systemic neglect and poor management of African language data leading to data undercollection, poor storage and limited use in AI. Addressing the gap requires policies that integrate African languages into national digital agendas, support documentation, fund projects and foster inclusive, collaborative AI development. Community-led documentation, open-source tools and growing recognition of linguistic diversity in AI offer promising paths forward.",
-    "citation-key": "adebaraAILanguageData2025",
-    "collection-title": "Policy Brief",
-    "language": "en",
-    "number": "216",
-    "publisher": "Centre for International Governance Innovation",
-    "shortTitle": "AI and Language Data Flaring in Africa",
-    "title": "AI and Language Data Flaring in Africa: Addressing the Low-Resource Challenge",
-    "title-short": "AI and Language Data Flaring in Africa",
-    "URL": "https://www.cigionline.org/publications/ai-and-language-data-flaring-in-africa-addressing-the-low-resource-challenge/",
-    "author": [
-      {
-        "family": "Adebara",
-        "given": "Ife"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          12,
-          30
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          5
-        ]
-      ]
-    },
-    "tags": [
-      "Africa",
-      "African languages",
-      "artificial intelligence",
-      "data sovereignty",
-      "decolonisation",
-      "low-resource languages",
-      "natural language processing",
-      "oral tradition"
-    ]
-  },
-  {
     "id": "3005271/FH5ZJTZ2",
     "type": "book",
     "abstract": "A compelling argument that the extractive practices of today’s tech giants are the continuation of colonialism—and a crucial guide to collective resistance.\n \nLarge technology companies like Meta, Amazon, and Alphabet have unprecedented access to our daily lives, collecting information when we check our email, count our steps, shop online, and commute to and from work. Current events are concerning—both the changing owners (and names) of billion-dollar tech companies and regulatory concerns about artificial intelligence underscore the sweeping nature of Big Tech’s surveillance and the influence such companies hold over the people who use their apps and platforms.\n \nAs trusted tech experts Ulises A. Mejias and Nick Couldry show in this eye-opening and convincing book, this vast accumulation of data is not the accidental stockpile of a fast-growing industry. Just as nations stole territories for ill-gotten minerals and crops, wealth, and dominance, tech companies steal personal data important to our lives. It’s only within the framework of colonialism, Mejias and Couldry argue, that we can comprehend the full scope of this heist.\n \nLike the land grabs of the past, today’s data grab converts our data into raw material for the generation of corporate profit against our own interests. Like historical colonialism, today’s tech corporations have engineered an extractive form of doing business that builds a new social and economic order, leads to job precarity, and degrades the environment. These methods deepen global inequality, consolidating corporate wealth in the Global North and engineering discriminatory algorithms. Promising convenience, connection, and scientific progress, tech companies enrich themselves by encouraging us to relinquish details about our personal interactions, our taste in movies or music, and even our health and medical records. Do we have any other choice?\n \nData Grab affirms that we do. To defy this new form of colonialism we will need to learn from previous forms of resistance and work together to imagine entirely new ones. Mejias and Couldry share the stories of voters, workers, activists, and marginalized communities who have successfully opposed unscrupulous tech practices. An incisive discussion of the digital media that’s transformed our world, Data Grab is a must-read for anyone concerned about privacy, self-determination, and justice in the internet age.",
@@ -4689,64 +5071,6 @@
       "settler colonialism"
     ],
     "URL": "https://doi.org/10.4324/9781315730479-8"
-  },
-  {
-    "id": "3005271/PTNWS8H9",
-    "type": "post-weblog",
-    "abstract": "Vom 18. bis 20. Februar 2026 kamen 26 Forschende aus 16 Ländern im Schloss Herrenhausen in Hannover zusammen. Vorträge gab es keine. Stattdessen wechselten sich Plenarsitzungen, vier thematische Arbeitsgruppen, World-Café-Runden, Posterpräsentationen und gemeinsames Schreiben ab. Das Ziel war nicht bloß ein Austausch über die eigene Forschung, sondern ein kollektives Positionspapier. Am Ende des zweiten Tages schrieb die Gruppe bereits gemeinsam.",
-    "citation-key": "madoreChartingNewTerritory2026",
-    "container-title": "Digital History Bielefeld",
-    "DOI": "10.58079/15z9p",
-    "genre": "Billet",
-    "language": "de",
-    "shortTitle": "Charting New Territory",
-    "title": "Charting New Territory: Digital Humanities und Künstliche Intelligenz in den African Studies",
-    "title-short": "Charting New Territory",
-    "author": [
-      {
-        "family": "Madore",
-        "given": "Frédérick"
-      },
-      {
-        "family": "Hiribarren",
-        "given": "Vincent"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          3,
-          31
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2026,
-          3,
-          31
-        ]
-      ]
-    },
-    "tags": [
-      "African languages",
-      "African studies",
-      "NLP",
-      "West Africa",
-      "artificial intelligence",
-      "data colonialism",
-      "data sovereignty",
-      "decolonisation",
-      "digital archive",
-      "digital humanities",
-      "digital infrastructure",
-      "ethics",
-      "minimal computing",
-      "workshop"
-    ],
-    "URL": "https://doi.org/10.58079/15z9p"
   },
   {
     "id": "3005271/99C5SSNA",
