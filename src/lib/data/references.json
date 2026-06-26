@@ -1,55 +1,825 @@
 [
   {
-    "id": "3005271/8PSCT6UN",
-    "type": "book",
-    "abstract": "Analyzing the innovative and popular uses of digital media technologies across many African countries, African Digital Cultures reveals how digitization, through its inherent computational and epistemological logics, is deeply embedded in the daily lives of millions of people, producing new structures of feeling and new possibilities for political participation, cultural expression, and creative agency.\nThis book grapples with the affective elements of mediatized social relations and consciousness, as platforms like WhatsApp, Facebook, and TikTok increasingly inform the construction of diverse kinds of publics—from the religious and political to the sexual and the literary. Focusing on the creative and disruptive uses of social media platforms, financial technologies, digital infrastructures, and artificial intelligence, this collection brings together scholars whose work challenges the notion of Africa as a place of technological lack, underscoring the rich histories and contributions of the continent to global digital media.\nThis interdisciplinary volume offers an essential and decolonizing understanding of digital media cultures and histories from an African perspective.",
-    "citation-key": "yekuAfricanDigitalCultures2026",
-    "DOI": "10.4324/9781003690511",
-    "ISBN": "978-1-003-69051-1",
+    "id": "3005271/C4RJFAH3",
+    "type": "article",
+    "abstract": "Hausa Natural Language Processing (NLP) has gained increasing attention in recent years, yet remains understudied as a low-resource language despite having over 120 million first-language (L1) and 80 million second-language (L2) speakers worldwide. While significant advances have been made in high-resource languages, Hausa NLP faces persistent challenges, including limited open-source datasets and inadequate model representation. This paper presents an overview of the current state of Hausa NLP, systematically examining existing resources, research contributions, and gaps across fundamental NLP tasks: text classification, machine translation, named entity recognition, speech recognition, and question answering. We introduce HausaNLP (https://catalog.hausanlp.org), a curated catalog that aggregates datasets, tools, and research works to enhance accessibility and drive further development. Furthermore, we discuss challenges in integrating Hausa into large language models (LLMs), addressing issues of suboptimal tokenization and dialectal variation. Finally, we propose strategic research directions emphasizing dataset expansion, improved language modeling approaches, and strengthened community collaboration to advance Hausa NLP. Our work provides both a foundation for accelerating Hausa NLP progress and valuable insights for broader multilingual NLP research.",
+    "citation-key": "muhammadHausaNLPCurrentStatus2025",
+    "DOI": "10.48550/arXiv.2505.14311",
     "language": "en",
-    "number-of-pages": "298",
-    "publisher": "Routledge",
-    "publisher-place": "London",
-    "shortTitle": "African Digital Cultures",
-    "title": "African Digital Cultures: Platforms, Publics, and Infrastructures",
-    "title-short": "African Digital Cultures",
-    "editor": [
+    "note": "arXiv:2505.14311 [cs.CL]",
+    "number": "arXiv:2505.14311",
+    "publisher": "arXiv",
+    "shortTitle": "HausaNLP",
+    "title": "HausaNLP: Current Status, Challenges and Future Directions for Hausa Natural Language Processing",
+    "title-short": "HausaNLP",
+    "author": [
       {
-        "family": "Yeku",
-        "given": "James"
+        "family": "Muhammad",
+        "given": "Shamsuddeen Hassan"
       },
       {
-        "family": "Junck",
-        "given": "Leah"
+        "family": "Ahmad",
+        "given": "Ibrahim Said"
+      },
+      {
+        "family": "Abdulmumin",
+        "given": "Idris"
+      },
+      {
+        "family": "Lawan",
+        "given": "Falalu Ibrahim"
+      },
+      {
+        "family": "Sani",
+        "given": "Babangida"
+      },
+      {
+        "family": "Imam",
+        "given": "Sukairaj Hafiz"
+      },
+      {
+        "family": "Aliyu",
+        "given": "Yusuf"
+      },
+      {
+        "family": "Sani",
+        "given": "Sani Abdullahi"
+      },
+      {
+        "family": "Umar",
+        "given": "Ali Usman"
+      },
+      {
+        "family": "Gwadabe",
+        "given": "Tajuddeen"
+      },
+      {
+        "family": "Church",
+        "given": "Kenneth"
+      },
+      {
+        "family": "Marivate",
+        "given": "Vukosi"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          26
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          7,
+          22
+        ]
+      ]
+    },
+    "tags": [
+      "Computer Science - Computation and Language"
+    ],
+    "URL": "https://doi.org/10.48550/arXiv.2505.14311"
+  },
+  {
+    "id": "3005271/7NQNCWE7",
+    "type": "article-journal",
+    "abstract": "A year ago, the South African Cabinet approved the National Policy of the Digitization of Arts, Culture, and Heritage. With a focus on digitizing the country's heritage resources for preservation, access, and management of ownership, this act is emblematic of a broader trend conflating digitization of Africa's cultural heritage collections with decolonization. Yet, by examining how one of the continent's oldest museums documented its ethnographic collections, this article demonstrates how normalized colonial knowledge systems still are, and why decolonization requires more than making collections digitally available. Cognizant of this challenge is Amagugu Ethu, a South African not-for-profit organization, whose work developing a digital Museum-in-a-Box I analyze in the second part of my article as an important way of resisting and interrupting colonial knowledge production in (South) Africa's museums.",
+    "citation-key": "gibsonDigitizationNotDecolonization2024",
+    "container-title": "Museum Worlds",
+    "DOI": "10.3167/armw.2024.120104",
+    "ISSN": "2049-6729, 2049-6737",
+    "issue": "1",
+    "language": "en",
+    "page": "31-46",
+    "publisher": "Berghahn Journals",
+    "shortTitle": "Digitization Is Not Decolonization",
+    "title": "Digitization Is Not Decolonization: South Africa's Amagugu Ethu Museum Project and Colonial Documentation in Digital Times",
+    "title-short": "Digitization Is Not Decolonization",
+    "volume": "12",
+    "author": [
+      {
+        "family": "Gibson",
+        "given": "Laura"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          25
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.3167/armw.2024.120104"
+  },
+  {
+    "id": "3005271/XEF7S7YP",
+    "type": "webpage",
+    "abstract": "21 October 2025, Kigali: The GSMA – together with Airtel, the African Population for Health Research Center (APHRC), Awarri, Axian Telecom, Cassava Technologies, Ethio Telecom, Masakhane African Languages Hub, Lelapa AI, MTN, Orange, Pawa AI, Qhala, the World Sandbox Alliance and Vodacom –  today announced a continent-wide collaboration to strengthen Africa’s AI ecosystem by developing inclusive African AI language models. The initiative aims to crowd in resources and expertise to address gaps in data, compute, talent and policy, ensuring African languages, cultures and knowledge are fully represented in the global digital future.",
+    "citation-key": "lboulter@gsma.comGSMAAfricasLeading2025",
+    "container-title": "GSMA",
+    "language": "en",
+    "title": "GSMA, Africa's Leading Mobile Operators and the AI Ecosystem Unite to Accelerate Development of Inclusive African AI",
+    "URL": "https://www.gsma.com/newsroom/press-release/gsma-africas-leading-mobile-operators-and-the-ai-ecosystem-unite-to-accelerate-development-of-inclusive-african-ai/",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          25
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          21
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/QIDDP83D",
+    "type": "webpage",
+    "abstract": "Lelapa AI has introduced InkubaLM, Africa's first multilingual AI large language model, aimed at supporting and enhancing low-resource African languages. The model is starting with Swahili, Yoruba, IsiXhosa, Hausa, and isiZulu. This model is named after the dung beetle for its efficient design and seeks to address the digital underrepresentation of",
+    "citation-key": "LelapaAILaunches",
+    "container-title": "Africa World Initiative",
+    "language": "en",
+    "title": "Lelapa AI launches Africa's first AI large language model",
+    "URL": "https://africaworld.princeton.edu/news/2024/lelapa-ai-launches-africa%E2%80%99s-first-ai-large-language-model",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          25
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024,
+          8,
+          5
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/5XR9AFW7",
+    "type": "article",
+    "abstract": "Despite the widespread adoption of Large language models (LLMs), their remarkable capabilities remain limited to a few high-resource languages. Additionally, many low-resource languages (\\eg African languages) are often evaluated only on basic text classification tasks due to the lack of appropriate or comprehensive benchmarks outside of high-resource languages. In this paper, we introduce IrokoBench -- a human-translated benchmark dataset for 17 typologically-diverse low-resource African languages covering three tasks: natural language inference~(AfriXNLI), mathematical reasoning~(AfriMGSM), and multi-choice knowledge-based question answering~(AfriMMLU). We use IrokoBench to evaluate zero-shot, few-shot, and translate-test settings~(where test sets are translated into English) across 10 open and six proprietary LLMs. Our evaluation reveals a significant performance gap between high-resource languages~(such as English and French) and low-resource African languages. We observe a significant performance gap between open and proprietary models, with the highest performing open model, Gemma 2 27B only at 63\\% of the best-performing proprietary model GPT-4o performance. In addition, machine translating the test set to English before evaluation helped to close the gap for larger models that are English-centric, such as Gemma 2 27B and LLaMa 3.1 70B. These findings suggest that more efforts are needed to develop and adapt LLMs for African languages.",
+    "citation-key": "adelaniIrokoBenchNewBenchmark2025",
+    "DOI": "10.48550/arXiv.2406.03368",
+    "language": "en",
+    "number": "arXiv:2406.03368",
+    "publisher": "arXiv",
+    "shortTitle": "IrokoBench",
+    "title": "IrokoBench: A New Benchmark for African Languages in the Age of Large Language Models",
+    "title-short": "IrokoBench",
+    "author": [
+      {
+        "family": "Adelani",
+        "given": "David Ifeoluwa"
+      },
+      {
+        "family": "Ojo",
+        "given": "Jessica"
+      },
+      {
+        "family": "Azime",
+        "given": "Israel Abebe"
+      },
+      {
+        "family": "Zhuang",
+        "given": "Jian Yun"
+      },
+      {
+        "family": "Alabi",
+        "given": "Jesujoba O."
+      },
+      {
+        "family": "He",
+        "given": "Xuanli"
+      },
+      {
+        "family": "Ochieng",
+        "given": "Millicent"
+      },
+      {
+        "family": "Hooker",
+        "given": "Sara"
+      },
+      {
+        "family": "Bukula",
+        "given": "Andiswa"
+      },
+      {
+        "family": "Lee",
+        "given": "En-Shiun Annie"
+      },
+      {
+        "family": "Chukwuneke",
+        "given": "Chiamaka"
+      },
+      {
+        "family": "Buzaaba",
+        "given": "Happy"
+      },
+      {
+        "family": "Sibanda",
+        "given": "Blessing"
+      },
+      {
+        "family": "Kalipe",
+        "given": "Godson"
+      },
+      {
+        "family": "Mukiibi",
+        "given": "Jonathan"
+      },
+      {
+        "family": "Kabongo",
+        "given": "Salomon"
+      },
+      {
+        "family": "Yuehgoh",
+        "given": "Foutse"
+      },
+      {
+        "family": "Setaka",
+        "given": "Mmasibidi"
+      },
+      {
+        "family": "Ndolela",
+        "given": "Lolwethu"
+      },
+      {
+        "family": "Odu",
+        "given": "Nkiruka"
+      },
+      {
+        "family": "Mabuya",
+        "given": "Rooweither"
+      },
+      {
+        "family": "Muhammad",
+        "given": "Shamsuddeen Hassan"
+      },
+      {
+        "family": "Osei",
+        "given": "Salomey"
+      },
+      {
+        "family": "Samb",
+        "given": "Sokhar"
+      },
+      {
+        "family": "Guge",
+        "given": "Tadesse Kebede"
+      },
+      {
+        "family": "Sherman",
+        "given": "Tombekai Vangoni"
+      },
+      {
+        "family": "Stenetorp",
+        "given": "Pontus"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          25
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          1,
+          23
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.48550/arXiv.2406.03368"
+  },
+  {
+    "id": "3005271/JBGVIURJ",
+    "type": "chapter",
+    "abstract": "Explosive and unprecedented developments in information and computing technology and the emergence of artificial intelligence (AI) are bringing both opportunities and challenges to all mankind. However, for historical and sociological reasons, and current design of global power, the African continent will arguably be the most affected by the use and deployment of AI in all spheres of human endeavor ranging from the political, cultural, scientific, educational, societal, legal and regulatory, among others. Undoubtedly, one area that will be affected by the speed, impact, and complexity of AI will be climate, which is very pivotal to African life and existence. Already, it is anticipated that AI will further aggravate the effect of the crisis on Africa. With particular emphasis on Africa’s Indigenous people, this article analyzes current debates in technology ethics, infusing them with a special African characteristic and flavor. The utility of the Indigenous concept of Obuntu is highlighted as an alternative to Western conceptualizations of how AI technology should be approached right from development, through use to regulation. This article has interdisciplinarily deployed legal, political, and decolonial methodologies with the objective of contributing to and further enriching ongoing discussions for the development of a comprehensive continent-scale regulatory framework that judiciously recognizes the utility and great potential of AI systems as a climate resilience tool but also its multi-dimensional and enduring threats associated with the perpetuation of the climate crisis and inequalities involved.",
+    "citation-key": "kyomuhendoAfricanPerspectiveEthical2025",
+    "container-title": "Oxford Intersections: AI in Society",
+    "DOI": "10.1093/9780198945215.003.0029",
+    "ISBN": "978-0-19-894521-5",
+    "language": "en",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "title": "An African Perspective to Ethical Questions Posed by Artificial Intelligence and the Intersections with Climate Justice, Resilience, and Equity",
+    "author": [
+      {
+        "family": "Kyomuhendo",
+        "given": "Adam"
+      }
+    ],
+    "editor": [
+      {
+        "family": "Hacker",
+        "given": "Philipp"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          4,
+          11
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          3,
+          20
+        ]
+      ]
+    },
+    "tags": [
+      "AI governance",
+      "Africa",
+      "Indigenous knowledge",
+      "Ubuntu",
+      "artificial intelligence",
+      "climate justice",
+      "decolonisation",
+      "ethics"
+    ],
+    "URL": "https://doi.org/10.1093/9780198945215.003.0029"
+  },
+  {
+    "id": "3005271/X8AMXZRQ",
+    "type": "article-journal",
+    "abstract": "The importance of intellectual capital in the digital economy implies an increasingly central role of intellectual property rights (IPR). However, there are concerns that the expansion of intellectual property rights concentrates profits from innovation, creating “intellectual monopolies”. This is particularly concerning with respect to strong global regimes of intellectual property that foster economic inequities between the Global South and North. Such arguments imply that IPR is a core driver of structural inequality in the digital economy, yet there is very little empirical analysis of how such conceptual ideas unfold. This study focuses on IPR in the Kenyan mobile money service M-Pesa. It charts how M-Pesa expanded from a development-orientated innovation in Kenya to become part of a global enterprise. Control of IPR has led to bottlenecks in innovation in Kenya and significant South-to-North financial transfers. Overall, this case contributes to expanding the debate about patterns of innovation and governance of the digital economy. As digital firms expand, unpacking the processes by which global intellectual property regimes and cross-border IPR practices shape uneven power relations and inequality is vital.",
+    "citation-key": "fosterIntellectualPropertyRights2024",
+    "container-title": "The Information Society",
+    "DOI": "10.1080/01972243.2023.2259895",
+    "ISSN": "0197-2243",
+    "issue": "1",
+    "language": "en",
+    "page": "1-17",
+    "publisher": "Routledge",
+    "shortTitle": "Intellectual property rights and control in the digital economy",
+    "source": "Taylor and Francis+NEJM",
+    "title": "Intellectual property rights and control in the digital economy: Examining the expansion of M-Pesa",
+    "title-short": "Intellectual property rights and control in the digital economy",
+    "volume": "40",
+    "author": [
+      {
+        "family": "Foster",
+        "given": "Christopher"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "tags": [],
+    "URL": "https://doi.org/10.1080/01972243.2023.2259895"
+  },
+  {
+    "id": "3005271/YF75RKC6",
+    "type": "webpage",
+    "abstract": "When you ask a voice assistant a question in English, French, or Mandarin, the underlying models have been trained on billions of words and millions of hours of speech. Ask the same question in Bafia, Mada, or Suundi, and the technology simply doesn't know how to listen. The Institute of African Digital Humanities (IADH) is helping to change that, one carefully curated dataset at a time.",
+    "citation-key": "BuildingAfricanVoice2026",
+    "container-title": "Mozilla Data Collective",
+    "language": "en",
+    "shortTitle": "Building an African Voice for AI",
+    "title": "Building an African Voice for AI: Inside the Institute of African Digital Humanities",
+    "title-short": "Building an African Voice for AI",
+    "URL": "https://community.mozilladatacollective.com/building-an-african-voice-for-ai-inside-the-institute-of-african-digital-humanities/",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          29
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          27
+        ]
+      ]
+    },
+    "tags": [
+      "African languages",
+      "Cameroon",
+      "artificial intelligence",
+      "dataset creation",
+      "digital humanities",
+      "linguistic diversity",
+      "low-resource languages",
+      "natural language processing",
+      "open data",
+      "speech recognition"
+    ]
+  },
+  {
+    "id": "3005271/BJHI3S8T",
+    "type": "webpage",
+    "abstract": "African countries reaffirmed their commitment to responsible and ethical AI adoption with priority to localization echoed at the 3rd UNESCO Global Forum on the Ethics of AI in Bangkok.",
+    "citation-key": "ReadinessEthicalAI2025",
+    "container-title": "UNESCO",
+    "language": "en",
+    "shortTitle": "From readiness to ethical AI adoption and localization",
+    "title": "From readiness to ethical AI adoption and localization: UNESCO",
+    "title-short": "From readiness to ethical AI adoption and localization",
+    "URL": "https://www.unesco.org/en/articles/readiness-ethical-ai-adoption-and-localization-unesco-elevates-africas-voice-bangkok",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          7,
+          23
+        ]
+      ]
+    },
+    "tags": [
+      "AI ethics",
+      "AI governance",
+      "AI policy",
+      "AI readiness",
+      "Africa",
+      "UNESCO",
+      "capacity building",
+      "digital sovereignty",
+      "localisation",
+      "responsible AI"
+    ]
+  },
+  {
+    "id": "3005271/T764CVYA",
+    "type": "report",
+    "citation-key": "ContinentalArtificialIntelligence2024",
+    "language": "en",
+    "publisher": "African Union",
+    "title": "Continental Artificial Intelligence Strategy: Harnessing AI for Africa's Development and Prosperity",
+    "URL": "https://au.int/sites/default/files/documents/44004-doc-EN-_Continental_AI_Strategy_July_2024.pdf",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024,
+          7
+        ]
+      ]
+    },
+    "tags": [
+      "AI governance",
+      "AI policy",
+      "African Union",
+      "African languages",
+      "Agenda 2063",
+      "artificial intelligence",
+      "capacity building",
+      "data governance",
+      "digital sovereignty",
+      "responsible AI"
+    ]
+  },
+  {
+    "id": "3005271/7ZMPYGSX",
+    "type": "book",
+    "abstract": "African Studies in the Digital Age. Dis/Connects? seeks to understand the complex changes brought about by the digital revolution. The editors, Terry Barringer and Marion Wallace, have brought together librarians, archivists, researchers and academics from three continents to analyse the creation and use of digital research resources and archives in and about Africa. The volume reveals new opportunities for research, teaching and access, as well as potential problems and digital divides. Published under the aegis of SCOLMA (the UK Libraries and Archives Group on Africa), this new work is a major step forward in understanding the impact of the Internet Age for the study of Africa, in and beyond the continent.",
+    "citation-key": "barringerAfricanStudiesDigital2014",
+    "DOI": "10.1163/9789004279148",
+    "ISBN": "978-90-04-27230-9",
+    "language": "en",
+    "note": "QID: Q114056424",
+    "number-of-pages": "230",
+    "publisher": "Brill",
+    "publisher-place": "Leiden",
+    "shortTitle": "African Studies in the Digital Age",
+    "title": "African Studies in the Digital Age: Dis/Connects?",
+    "title-short": "African Studies in the Digital Age",
+    "editor": [
+      {
+        "family": "Barringer",
+        "given": "Terry"
+      },
+      {
+        "family": "Wallace",
+        "given": "Marion"
       }
     ],
     "issued": {
       "date-parts": [
         [
-          2026
+          2014
         ]
       ]
     },
-    "tags": [],
-    "URL": "https://doi.org/10.4324/9781003690511"
+    "tags": [
+      "African studies",
+      "SCOLMA",
+      "archives",
+      "cultural heritage",
+      "digital archive",
+      "digital divide",
+      "digital humanities",
+      "digitisation",
+      "mobile telephony",
+      "national identity",
+      "open access",
+      "search engine optimisation",
+      "social memory",
+      "sub-Saharan Africa",
+      "web archiving"
+    ],
+    "URL": "https://doi.org/10.1163/9789004279148"
   },
   {
-    "id": "3005271/AGQEBP3K",
+    "id": "3005271/4RU85WQV",
     "type": "article-journal",
-    "abstract": "Open-source artificial intelligence is widely promoted as a democratising pathway to digital sovereignty for African states, offering access to frontier architectures without prohibitive capital investment. This paper investigates whether open-source AI represents a credible route to autonomy or generates a new form of structural dependency. Drawing on the National Innovation System (NIS) theory and the political economy of cloud infrastructure, the paper argues that open-source AI transfers model weights but neglects the structural foundations of capability: compute infrastructure, localised data and indigenous human capital. A structured narrative review demonstrates that Africa's research marginalisation, chronic infrastructure financing deficits and reliance on foreign cloud services collectively undermine the promise of open-source AI's sovereignty. The analysis establishes that the compute layer, not the code layer, is the primary locus of power: consequently, adoption of foreign infrastructure relocates rather than resolves dependency. Three analytical contributions are advanced: a theoretically grounded critique of the open-source paradox that integrates NIS and Big AI scholarship; an integrative framework that applies these resources to the African case; and a Digital Bandung collective action framework. This proposal presents the Digital Bandung framework as a heuristic device and an ideal type. By utilising this historical analogy, the paper illustrates a strategic logic for collective action rather than a rigid policy prescription, acknowledging that the original Bandung spirit must be modernised for the digital age. While treating Africa as a focal case, the study acknowledges that this approach risks obscuring significant intra-continental variation.",
-    "citation-key": "shonubiOpenSourceParadoxAfricas",
-    "container-title": "AI & Innovation",
-    "DOI": "10.1002/aiv2.70004",
-    "ISSN": "3067-3941",
+    "abstract": "This paper describes the history of an initiative to digitize a postcolonial archive on the struggle for freedom in Southern Africa. The authors outline the intellectual architecture of the project and the complex epistemological, political, and technical challenges that they confronted in their endeavor to construct a digital archive that might help reorient scholarly debates on the struggle for liberation.",
+    "citation-key": "isaacmanDigitizationHistoryMaking2005",
+    "container-title": "Africa Today",
+    "DOI": "10.1353/at.2006.0009",
+    "ISSN": "0001-9887",
+    "issue": "2",
     "language": "en",
-    "page": "e70004",
-    "shortTitle": "The Open-Source Paradox",
-    "title": "The Open-Source Paradox: Africa's Digital Sovereignty and the Structural Limits of Artificial Intelligence Autonomy",
-    "title-short": "The Open-Source Paradox",
+    "page": "55-77",
+    "publisher": "Indiana University Press",
+    "shortTitle": "Digitization, History, and the Making of a Postcolonial Archive of Southern African Liberation Struggles",
+    "title": "Digitization, History, and the Making of a Postcolonial Archive of Southern African Liberation Struggles: The Aluka Project",
+    "title-short": "Digitization, History, and the Making of a Postcolonial Archive of Southern African Liberation Struggles",
+    "volume": "52",
     "author": [
       {
-        "family": "Shonubi",
-        "given": "Ololade A."
+        "family": "Isaacman",
+        "given": "Allen"
+      },
+      {
+        "family": "Lalu",
+        "given": "Premesh"
+      },
+      {
+        "family": "Nygren",
+        "given": "Thomas"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          23
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2005
+        ]
+      ]
+    },
+    "tags": [
+      "South Africa",
+      "cultural heritage",
+      "data sovereignty",
+      "decolonisation",
+      "digital archive",
+      "digital divide",
+      "intellectual property",
+      "liberation struggle",
+      "oral history",
+      "postcolonial"
+    ],
+    "URL": "https://doi.org/10.1353/at.2006.0009"
+  },
+  {
+    "id": "3005271/H3XIJX35",
+    "type": "chapter",
+    "abstract": "African Studies in the Digital Age. Dis/Connects? seeks to understand the complex changes brought about by the digital revolution. The editors, Terry Barringer and Marion Wallace, have brought together librarians, archivists, researchers and academics from three continents to analyse the creation and use of digital research resources and archives in and about Africa. The volume reveals new opportunities for research, teaching and access, as well as potential problems and digital divides. Published under the aegis of SCOLMA (the UK Libraries and Archives Group on Africa), this new work is a major step forward in understanding the impact of the Internet Age for the study of Africa, in and beyond the continent.",
+    "citation-key": "barringerAfricanStudiesDigital2014a",
+    "container-title": "African Studies in the Digital Age: Dis/Connects?",
+    "DOI": "10.1163/9789004279148_002",
+    "ISBN": "978-90-04-27230-9",
+    "language": "en",
+    "page": "1-11",
+    "publisher": "Brill",
+    "publisher-place": "Leiden",
+    "shortTitle": "African Studies in the Digital Age",
+    "title": "Introduction",
+    "title-short": "African Studies in the Digital Age",
+    "author": [
+      {
+        "family": "Barringer",
+        "given": "Terry"
+      },
+      {
+        "family": "Damen",
+        "given": "Jos"
+      },
+      {
+        "family": "Limb",
+        "given": "Peter"
+      },
+      {
+        "family": "Wallace",
+        "given": "Marion"
+      }
+    ],
+    "editor": [
+      {
+        "family": "Barringer",
+        "given": "Terry"
+      },
+      {
+        "family": "Wallace",
+        "given": "Marion"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2014
+        ]
+      ]
+    },
+    "tags": [
+      "Africa",
+      "access to information",
+      "cultural heritage",
+      "decolonisation",
+      "digital archive",
+      "digital divide",
+      "digital preservation",
+      "digitisation",
+      "metadata",
+      "open access"
+    ],
+    "URL": "https://doi.org/10.1163/9789004279148_002"
+  },
+  {
+    "id": "3005271/WTNMN4A4",
+    "type": "article-journal",
+    "abstract": "Archives, whether as spaces or as records, are continually transforming and shifting in meaning. However, they are fundamentally political in nature and as such are mediated sites of power, ideology and memory. Ideological agendas and battles therefore frame the contested archival terrain and notions of ownership, access, control, privilege, propaganda and fabrication underpin and shape archival policies and processes. The Truth and Reconciliation Commission (TRC) archives, the Rivonia Trial Records and South African/USA Heritage projects provide concrete examples of how social memory and identities are produced, managed, accessed and owned, in ways which commodify information, privilege the state over the public, reinforce notions of globalisation and cultural imperialism and perpetuate an uneven flow from the South to the North.",
+    "citation-key": "pickoverNegotiationsContestationsFabrications2005",
+    "container-title": "Innovation",
+    "DOI": "10.4314/innovation.v30i1.26493",
+    "ISSN": "1025-8892",
+    "language": "en",
+    "page": "1-11",
+    "shortTitle": "Negotiations, contestations and fabrications",
+    "title": "Negotiations, contestations and fabrications: the politics of archives in South Africa ten years after democracy",
+    "title-short": "Negotiations, contestations and fabrications",
+    "volume": "30",
+    "author": [
+      {
+        "family": "Pickover",
+        "given": "Michele"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          23
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2005
+        ]
+      ]
+    },
+    "tags": [
+      "South Africa",
+      "access to information",
+      "archival science",
+      "cultural heritage",
+      "digital archive",
+      "digital colonialism",
+      "digital divide",
+      "digital preservation",
+      "digitisation",
+      "postcolonial"
+    ],
+    "URL": "https://doi.org/10.4314/innovation.v30i1.26493"
+  },
+  {
+    "id": "3005271/83NIJ54F",
+    "type": "article-newspaper",
+    "abstract": "M-PESA revolutionized mobile money. But behind its global success lies a complex, troubling story.",
+    "citation-key": "MPESACONTROVERSYDISTURBING2025",
+    "container-title": "Info Kenya",
+    "language": "en",
+    "shortTitle": "The M‑PESA Controversy",
+    "title": "The M‑PESA Controversy: A Disturbing History of Power, Profit and Control",
+    "title-short": "The M‑PESA Controversy",
+    "URL": "https://info-kenya.com/the-m-pesa-controversy-a-disturbing-history-of-power-profit-and-control/",
+    "author": [
+      {
+        "family": "Wekesa",
+        "given": "Domnic"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          23
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          2,
+          12
+        ]
+      ]
+    },
+    "tags": []
+  },
+  {
+    "id": "3005271/8AUGBEMB",
+    "type": "post-weblog",
+    "abstract": "Artificial intelligence (AI) is increasingly recognized as a technology that can improve government operations in Africa. It enhances policy processes, strengthens decision-making, increases efficiency, and transforms public service delivery. Yet, public sector adoption of AI systems in African countries remains low.",
+    "citation-key": "AlgorithmicReviewOperationalizing",
+    "container-title": "Global Center on AI Governance",
+    "language": "en",
+    "title": "Operationalizing AI Policy in Africa with the NIST AI Risk Management Framework",
+    "URL": "https://www.globalcenter.ai/the-algorithmic-review/operationalizing-ai-policy-in-africa-with-the-nist-ai-risk-management-framework",
+    "author": [
+      {
+        "family": "Yirenkyi",
+        "given": "Steven"
       }
     ],
     "accessed": {
@@ -64,20 +834,160 @@
     "issued": {
       "date-parts": [
         [
-          2026
+          2026,
+          5,
+          4
         ]
       ]
     },
     "tags": [
-      "AI",
       "AI governance",
+      "AI policy",
       "Africa",
-      "digital infrastructure",
-      "digital sovereignty",
-      "open-source AI",
-      "sovereign AI"
+      "NIST",
+      "Ubuntu",
+      "policy transfer",
+      "public sector",
+      "responsible AI",
+      "risk management",
+      "standards"
+    ]
+  },
+  {
+    "id": "3005271/7FG7254N",
+    "type": "post-weblog",
+    "abstract": "Atlantic Fellow for Social and Economic Equity, Fola Adeleke, highlights how the erosion of traditional media business models and the rise of AI-driven disinformation pose a grave threat to democratic discourse. He recently featured as a speaker at an Atlantic Institute's XR Lab event on the implications of artificial intelligence.",
+    "citation-key": "AtlanticFellowsPress",
+    "language": "en",
+    "title": "Press freedom in the age of AI",
+    "URL": "https://www.atlanticfellows.org/post/press-freedom-in-the-age-of-ai",
+    "author": [
+      {
+        "family": "Adeleke",
+        "given": "Fola"
+      }
     ],
-    "URL": "https://doi.org/10.1002/aiv2.70004"
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          29
+        ]
+      ]
+    },
+    "tags": [
+      "AI governance",
+      "South Africa",
+      "disinformation",
+      "freedom of expression",
+      "generative AI",
+      "journalism",
+      "liars dividend",
+      "media",
+      "press freedom"
+    ]
+  },
+  {
+    "id": "3005271/Q6CC5I4Z",
+    "type": "post-weblog",
+    "citation-key": "ResearchLabourWe",
+    "container-title": "Global Center on AI Governance",
+    "language": "en",
+    "title": "The Labour We Do Not Dream Of",
+    "URL": "https://www.globalcenter.ai/research/the-labour-we-d-o-n-o-t-dream-of",
+    "author": [
+      {
+        "family": "Abdella",
+        "given": "Selamawit Engida"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          1
+        ]
+      ]
+    },
+    "tags": [
+      "AI ethics",
+      "Africa",
+      "Global South",
+      "care",
+      "content moderation",
+      "data annotation",
+      "data colonialism",
+      "data labour",
+      "datafication",
+      "ghost work",
+      "labour movement"
+    ]
+  },
+  {
+    "id": "3005271/LW3VPH8G",
+    "type": "post-weblog",
+    "abstract": "This essay is adapted from an intervention I gave at the Mashariki Cooperation Conference, which took place in Diani, Kenya, from the 8th-11th April 2026.",
+    "citation-key": "ResearchSocialMedia",
+    "container-title": "Global Center on AI Governance",
+    "language": "en",
+    "title": "Social Media and the Reconfiguration of National Security in Africa",
+    "URL": "https://www.globalcenter.ai/research/social-media-and-the-reconfiguration-of-national-security-in-africa",
+    "author": [
+      {
+        "family": "Adams",
+        "given": "Rachel"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          5,
+          28
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          13
+        ]
+      ]
+    },
+    "tags": [
+      "Africa",
+      "Kenya",
+      "artificial intelligence",
+      "digital rights",
+      "disinformation",
+      "internet shutdowns",
+      "national security",
+      "platform governance",
+      "securitisation",
+      "social media"
+    ]
   },
   {
     "id": "3005271/4ELQIWQH",
@@ -151,20 +1061,36 @@
         ]
       ]
     },
-    "tags": []
+    "tags": [
+      "AI ethics",
+      "AI governance",
+      "Global South",
+      "LMICs",
+      "development",
+      "digital divide",
+      "generative AI",
+      "large language models",
+      "low resourced languages",
+      "responsible AI"
+    ]
   },
   {
-    "id": "3005271/Q6CC5I4Z",
-    "type": "post-weblog",
-    "citation-key": "ResearchLabourWe",
-    "container-title": "Global Center on AI Governance",
+    "id": "3005271/AGQEBP3K",
+    "type": "article-journal",
+    "abstract": "Open-source artificial intelligence is widely promoted as a democratising pathway to digital sovereignty for African states, offering access to frontier architectures without prohibitive capital investment. This paper investigates whether open-source AI represents a credible route to autonomy or generates a new form of structural dependency. Drawing on the National Innovation System (NIS) theory and the political economy of cloud infrastructure, the paper argues that open-source AI transfers model weights but neglects the structural foundations of capability: compute infrastructure, localised data and indigenous human capital. A structured narrative review demonstrates that Africa's research marginalisation, chronic infrastructure financing deficits and reliance on foreign cloud services collectively undermine the promise of open-source AI's sovereignty. The analysis establishes that the compute layer, not the code layer, is the primary locus of power: consequently, adoption of foreign infrastructure relocates rather than resolves dependency. Three analytical contributions are advanced: a theoretically grounded critique of the open-source paradox that integrates NIS and Big AI scholarship; an integrative framework that applies these resources to the African case; and a Digital Bandung collective action framework. This proposal presents the Digital Bandung framework as a heuristic device and an ideal type. By utilising this historical analogy, the paper illustrates a strategic logic for collective action rather than a rigid policy prescription, acknowledging that the original Bandung spirit must be modernised for the digital age. While treating Africa as a focal case, the study acknowledges that this approach risks obscuring significant intra-continental variation.",
+    "citation-key": "shonubiOpenSourceParadoxAfricas",
+    "container-title": "AI & Innovation",
+    "DOI": "10.1002/aiv2.70004",
+    "ISSN": "3067-3941",
     "language": "en",
-    "title": "The Labour We Do Not Dream Of",
-    "URL": "https://www.globalcenter.ai/research/the-labour-we-d-o-n-o-t-dream-of",
+    "page": "e70004",
+    "shortTitle": "The Open-Source Paradox",
+    "title": "The Open-Source Paradox: Africa's Digital Sovereignty and the Structural Limits of Artificial Intelligence Autonomy",
+    "title-short": "The Open-Source Paradox",
     "author": [
       {
-        "family": "Abdella",
-        "given": "Selamawit Engida"
+        "family": "Shonubi",
+        "given": "Ololade A."
       }
     ],
     "accessed": {
@@ -179,117 +1105,61 @@
     "issued": {
       "date-parts": [
         [
-          2026,
-          5,
-          1
+          2026
         ]
       ]
     },
-    "tags": []
+    "tags": [
+      "AI",
+      "AI governance",
+      "Africa",
+      "artificial intelligence",
+      "data sovereignty",
+      "dependency",
+      "digital colonialism",
+      "digital infrastructure",
+      "digital sovereignty",
+      "infrastructure",
+      "large language models",
+      "open source",
+      "open-source AI",
+      "sovereign AI"
+    ],
+    "URL": "https://doi.org/10.1002/aiv2.70004"
   },
   {
-    "id": "3005271/8AUGBEMB",
-    "type": "post-weblog",
-    "abstract": "Artificial intelligence (AI) is increasingly recognized as a technology that can improve government operations in Africa. It enhances policy processes, strengthens decision-making, increases efficiency, and transforms public service delivery. Yet, public sector adoption of AI systems in African countries remains low.",
-    "citation-key": "AlgorithmicReviewOperationalizing",
-    "container-title": "Global Center on AI Governance",
+    "id": "3005271/8PSCT6UN",
+    "type": "book",
+    "abstract": "Analyzing the innovative and popular uses of digital media technologies across many African countries, African Digital Cultures reveals how digitization, through its inherent computational and epistemological logics, is deeply embedded in the daily lives of millions of people, producing new structures of feeling and new possibilities for political participation, cultural expression, and creative agency.\nThis book grapples with the affective elements of mediatized social relations and consciousness, as platforms like WhatsApp, Facebook, and TikTok increasingly inform the construction of diverse kinds of publics—from the religious and political to the sexual and the literary. Focusing on the creative and disruptive uses of social media platforms, financial technologies, digital infrastructures, and artificial intelligence, this collection brings together scholars whose work challenges the notion of Africa as a place of technological lack, underscoring the rich histories and contributions of the continent to global digital media.\nThis interdisciplinary volume offers an essential and decolonizing understanding of digital media cultures and histories from an African perspective.",
+    "citation-key": "yekuAfricanDigitalCultures2026",
+    "DOI": "10.4324/9781003690511",
+    "ISBN": "978-1-003-69051-1",
     "language": "en",
-    "title": "Operationalizing AI Policy in Africa with the NIST AI Risk Management Framework",
-    "URL": "https://www.globalcenter.ai/the-algorithmic-review/operationalizing-ai-policy-in-africa-with-the-nist-ai-risk-management-framework",
-    "author": [
+    "number-of-pages": "298",
+    "publisher": "Routledge",
+    "publisher-place": "London",
+    "shortTitle": "African Digital Cultures",
+    "title": "African Digital Cultures: Platforms, Publics, and Infrastructures",
+    "title-short": "African Digital Cultures",
+    "editor": [
       {
-        "family": "Yirenkyi",
-        "given": "Steven"
+        "family": "Yeku",
+        "given": "James"
+      },
+      {
+        "family": "Junck",
+        "given": "Leah"
       }
     ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          5,
-          28
-        ]
-      ]
-    },
     "issued": {
       "date-parts": [
         [
-          2026,
-          5,
-          4
+          2026
         ]
       ]
     },
-    "tags": []
-  },
-  {
-    "id": "3005271/LW3VPH8G",
-    "type": "post-weblog",
-    "abstract": "This essay is adapted from an intervention I gave at the Mashariki Cooperation Conference, which took place in Diani, Kenya, from the 8th-11th April 2026.",
-    "citation-key": "ResearchSocialMedia",
-    "container-title": "Global Center on AI Governance",
-    "language": "en",
-    "title": "Social Media and the Reconfiguration of National Security in Africa",
-    "URL": "https://www.globalcenter.ai/research/social-media-and-the-reconfiguration-of-national-security-in-africa",
-    "author": [
-      {
-        "family": "Adams",
-        "given": "Rachel"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          5,
-          28
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          13
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/7FG7254N",
-    "type": "post-weblog",
-    "abstract": "Atlantic Fellow for Social and Economic Equity, Fola Adeleke, highlights how the erosion of traditional media business models and the rise of AI-driven disinformation pose a grave threat to democratic discourse. He recently featured as a speaker at an Atlantic Institute's XR Lab event on the implications of artificial intelligence.",
-    "citation-key": "AtlanticFellowsPress",
-    "language": "en",
-    "title": "Press freedom in the age of AI",
-    "URL": "https://www.atlanticfellows.org/post/press-freedom-in-the-age-of-ai",
-    "author": [
-      {
-        "family": "Adeleke",
-        "given": "Fola"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          5,
-          28
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          29
-        ]
-      ]
-    },
-    "tags": []
+    "tags": [],
+    "URL": "https://doi.org/10.4324/9781003690511"
   },
   {
     "id": "3005271/PTNWS8H9",
@@ -4455,52 +5325,6 @@
     ]
   },
   {
-    "id": "3005271/7ZMPYGSX",
-    "type": "book",
-    "abstract": "African Studies in the Digital Age. Dis/Connects? seeks to understand the complex changes brought about by the digital revolution. The editors, Terry Barringer and Marion Wallace, have brought together librarians, archivists, researchers and academics from three continents to analyse the creation and use of digital research resources and archives in and about Africa. The volume reveals new opportunities for research, teaching and access, as well as potential problems and digital divides. Published under the aegis of SCOLMA (the UK Libraries and Archives Group on Africa), this new work is a major step forward in understanding the impact of the Internet Age for the study of Africa, in and beyond the continent.",
-    "citation-key": "barringerAfricanStudiesDigital2014",
-    "DOI": "10.1163/9789004279148",
-    "ISBN": "978-90-04-27230-9",
-    "language": "en",
-    "note": "QID: Q114056424",
-    "number-of-pages": "230",
-    "publisher": "Brill",
-    "publisher-place": "Leiden",
-    "shortTitle": "African Studies in the Digital Age",
-    "title": "African Studies in the Digital Age: Dis/Connects?",
-    "title-short": "African Studies in the Digital Age",
-    "editor": [
-      {
-        "family": "Barringer",
-        "given": "Terry"
-      },
-      {
-        "family": "Wallace",
-        "given": "Marion"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2014
-        ]
-      ]
-    },
-    "tags": [
-      "African studies",
-      "SCOLMA",
-      "digital divide",
-      "digitisation",
-      "mobile telephony",
-      "national identity",
-      "search engine optimisation",
-      "social memory",
-      "sub-Saharan Africa",
-      "web archiving"
-    ],
-    "URL": "https://doi.org/10.1163/9789004279148"
-  },
-  {
     "id": "3005271/TZTUP77T",
     "type": "article-journal",
     "abstract": "Much has been made in recent years of the transformative potential of digital resources and historical data for historical research. Historians seem to be flooded with retro-digitized and born-digital materials and tend to take these for granted, grateful for the opportunities they afford. In a research environment that increasingly privileges what is available online, the questions of why, where, and how we can access what we can access, and how it affects historical research have become ever more urgent. This article proposes a framework through which to contextualize the politics of (digital) heritage preservation, and a model to analyse its most important political dimensions, drawing upon literature from the digital humanities and history as well as archival, library, and information science. The first part will outline the global dimensions of the politics of digital cultural heritage, focusing on developments between and within the Global North and South, framed within the broader context of the politics of heritage and its preservation. The second part surveys the history and current state of digitization and offers a structured analysis of the process of digitization and its political dimensions. Choices and decisions about selection for digitization, how to catalogue, classify, and what metadata to add are all political in nature and have political consequences, and the same is true for access. The article concludes with several recommendations and a plea to acknowledge the importance of digital cataloguing in enabling access to the global human record.",
@@ -8386,59 +9210,6 @@
       "epistemic injustice",
       "machine learning",
       "oral epistemologies"
-    ]
-  },
-  {
-    "id": "3005271/JBGVIURJ",
-    "type": "chapter",
-    "abstract": "Explosive and unprecedented developments in information and computing technology and the emergence of artificial intelligence (AI) are bringing both opportunities and challenges to all mankind. However, for historical and sociological reasons, and current design of global power, the African continent will arguably be the most affected by the use and deployment of AI in all spheres of human endeavor ranging from the political, cultural, scientific, educational, societal, legal and regulatory, among others. Undoubtedly, one area that will be affected by the speed, impact, and complexity of AI will be climate, which is very pivotal to African life and existence. Already, it is anticipated that AI will further aggravate the effect of the crisis on Africa. With particular emphasis on Africa’s Indigenous people, this article analyzes current debates in technology ethics, infusing them with a special African characteristic and flavor. The utility of the Indigenous concept of Obuntu is highlighted as an alternative to Western conceptualizations of how AI technology should be approached right from development, through use to regulation. This article has interdisciplinarily deployed legal, political, and decolonial methodologies with the objective of contributing to and further enriching ongoing discussions for the development of a comprehensive continent-scale regulatory framework that judiciously recognizes the utility and great potential of AI systems as a climate resilience tool but also its multi-dimensional and enduring threats associated with the perpetuation of the climate crisis and inequalities involved.",
-    "citation-key": "kyomuhendoAfricanPerspectiveEthical2025",
-    "container-title": "Oxford Intersections: AI in Society",
-    "ISBN": "978-0-19-894521-5",
-    "language": "en",
-    "publisher": "Oxford University Press",
-    "publisher-place": "Oxford",
-    "title": "An African Perspective to Ethical Questions Posed by Artificial Intelligence and the Intersections with Climate Justice, Resilience, and Equity",
-    "URL": "https://doi.org/10.1093/9780198945215.003.0029",
-    "author": [
-      {
-        "family": "Kyomuhendo",
-        "given": "Adam"
-      }
-    ],
-    "editor": [
-      {
-        "family": "Hacker",
-        "given": "Philipp"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          4,
-          11
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          3,
-          20
-        ]
-      ]
-    },
-    "tags": [
-      "AI governance",
-      "Africa",
-      "Indigenous knowledge",
-      "Ubuntu",
-      "artificial intelligence",
-      "climate justice",
-      "decolonisation",
-      "ethics"
     ]
   },
   {
