@@ -42,7 +42,7 @@
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.58.1",
-    "vite": "^8.0.8"
+    "vite": "^8.1.0"
   },
   "dependencies": {
     "@types/leaflet": "^1.9.21",
