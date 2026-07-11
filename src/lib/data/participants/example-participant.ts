@@ -12,5 +12,5 @@ export const exampleParticipant: Participant = {
 	bio: 'Dr. Example is a researcher specializing in digital humanities and African studies with over 10 years of experience in computational linguistics and cultural heritage preservation.',
 	researchRegions: ['West Africa', 'East Africa'],
 	thematicGroup: 'Language Technologies, NLP & Corpora',
-	photoUrl: '/images/participants/example.jpg'
+	photoUrl: '/images/participants/example.webp'
 };

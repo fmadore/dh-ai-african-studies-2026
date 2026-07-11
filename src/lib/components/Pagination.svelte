@@ -6,7 +6,7 @@
 		currentPage: number;
 		totalPages: number;
 		label?: string;
-		onnavigate: (page: number) => void;
+		onnavigate: (_page: number) => void;
 	}
 
 	let { currentPage, totalPages, label = 'Pagination', onnavigate }: Props = $props();

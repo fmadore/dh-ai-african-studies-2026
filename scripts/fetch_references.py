@@ -1,4 +1,5 @@
 import json
+import sys
 import urllib.request
 import os
 from pathlib import Path
@@ -30,13 +31,18 @@ BASE_URL = f"https://api.zotero.org/users/{ZOTERO_USER_ID}/collections/{ZOTERO_C
 OUTPUT_FILE = os.path.join(os.path.dirname(__file__), '../src/lib/data/references.json')
 
 def fetch_url(url):
-    # Print URL without API key for security
-    safe_url = url.split('&key=')[0] if '&key=' in url else url
-    print(f"Fetching from {safe_url}...")
-    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    with urllib.request.urlopen(req) as response:
-        if response.status != 200:
-            raise Exception(f"HTTP {response.status}")
+    print(f"Fetching from {url}...")
+    # API key travels in a header, never in the URL (avoids leaking it into
+    # logs and proxies); urlopen raises HTTPError for non-2xx responses
+    req = urllib.request.Request(
+        url,
+        headers={
+            'User-Agent': 'dh-ai-african-studies-2026 fetch_references',
+            'Zotero-API-Key': ZOTERO_API_KEY,
+            'Zotero-API-Version': '3',
+        },
+    )
+    with urllib.request.urlopen(req, timeout=30) as response:
         return json.loads(response.read().decode())
 
 def fetch_all_items(format_type):
@@ -46,7 +52,7 @@ def fetch_all_items(format_type):
     limit = 100
     
     while True:
-        url = f"{BASE_URL}?format={format_type}&limit={limit}&start={start}&key={ZOTERO_API_KEY}"
+        url = f"{BASE_URL}?format={format_type}&limit={limit}&start={start}"
         items = fetch_url(url)
         
         if isinstance(items, dict):
@@ -139,6 +145,9 @@ def fetch_references():
         print(f"An error occurred: {e}")
         import traceback
         traceback.print_exc()
+        # Exit non-zero so callers/automation see the failure instead of an
+        # apparently-successful run that silently kept stale data
+        sys.exit(1)
 
 if __name__ == "__main__":
     fetch_references()

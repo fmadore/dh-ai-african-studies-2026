@@ -100,9 +100,9 @@
 			<P class="body-text">
 				The paper synthesises the discussions from the workshop into a set of recommendations for
 				researchers, funders and institutions working at the intersection of digital humanities, AI
-				and African studies. It aims to provide a strategic reference point for this emerging
-				field, which currently lacks shared standards and clear direction. The paper centres
-				African perspectives while addressing infrastructure gaps and linguistic diversity.
+				and African studies. It aims to provide a strategic reference point for this emerging field,
+				which currently lacks shared standards and clear direction. The paper centres African
+				perspectives while addressing infrastructure gaps and linguistic diversity.
 			</P>
 		</div>
 	</div>
@@ -164,8 +164,8 @@
 			<P class="body-text">
 				A drafting committee has been preparing the paper since the workshop, incorporating
 				participant feedback and professional editing. The goal is a document that is both rigorous
-				and accessible to non-specialist readers in policy and funding contexts. Publication
-				details will be announced on this page once the paper is released.
+				and accessible to non-specialist readers in policy and funding contexts. Publication details
+				will be announced on this page once the paper is released.
 			</P>
 		</div>
 

@@ -6,11 +6,7 @@
 	import referencesData from '$lib/data/references.json';
 	import { fade, slide } from 'svelte/transition';
 	import type { CslReference } from '$lib/types/csl';
-	import {
-		stripReadingStatusTags,
-		filterReferences,
-		sortReferences
-	} from '$lib/utils/references';
+	import { stripReadingStatusTags, filterReferences, sortReferences } from '$lib/utils/references';
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import ReferenceFacets from '$lib/components/ReferenceFacets.svelte';
 	import ReferenceCard from '$lib/components/ReferenceCard.svelte';

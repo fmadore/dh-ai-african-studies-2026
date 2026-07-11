@@ -47,7 +47,8 @@ export function filterReferences(
 
 		const refTags = ref.tags || [];
 		const matchesTags =
-			filters.selectedTags.length === 0 || filters.selectedTags.some((tag) => refTags.includes(tag));
+			filters.selectedTags.length === 0 ||
+			filters.selectedTags.some((tag) => refTags.includes(tag));
 
 		const matchesLanguage =
 			filters.selectedLanguages.length === 0 ||

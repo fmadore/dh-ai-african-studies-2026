@@ -6,7 +6,7 @@ A SvelteKit-powered static website for the **"Charting New Territory: Digital Hu
 
 ## About
 
-This repository hosts the conference website for a three-day international workshop (18-20 February 2026) addressing the critical convergence of digital humanities and AI within African studies. The workshop is funded by the Volkswagen Foundation and brings together experts from Africa, Europe, and beyond at the Xplanatorium Herrenhausen in Hanover, Germany.
+This repository hosts the conference website for a three-day international workshop (18-20 February 2026) that addressed the critical convergence of digital humanities and AI within African studies. The workshop was funded by the Volkswagen Foundation and brought together experts from Africa, Europe, and beyond at the Xplanatorium Herrenhausen in Hanover, Germany. The site now documents the workshop's outcomes: photos, participant interviews, a concept map, and the forthcoming position paper.
 
 ## Technology Stack
 
@@ -14,7 +14,7 @@ This repository hosts the conference website for a three-day international works
 - **UI Library**: [Flowbite Svelte](https://flowbite-svelte.com/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) with custom design system
 - **Maps**: [Leaflet](https://leafletjs.com/) for interactive participant map
-- **Citations**: [Citation.js](https://citation.js.org/) for reference formatting
+- **Graph**: [D3](https://d3js.org/) force layout for the concept map
 - **Deployment**: GitHub Pages (static site generation)
 
 ## Features
@@ -22,7 +22,9 @@ This repository hosts the conference website for a three-day international works
 - 📅 **Schedule** - Three-day workshop schedule with URL-synced tab navigation
 - 👥 **Participants** - Searchable participant directory with thematic group views
 - 🗺️ **Interactive Map** - Geographic visualization of participant affiliations
-- 📚 **References** - Filterable bibliography with faceted search
+- 🕸️ **Concept Map** - Interactive network of themes from the bibliography
+- 📸 **Photos & Interviews** - Workshop gallery and participant video interviews
+- 📚 **References** - Filterable bibliography with faceted search and BibTeX/RIS export
 - 🌓 **Dark Mode** - System-aware theme toggle
 - 📱 **Responsive** - Mobile-first design
 - ♿ **Accessible** - WCAG 2.1 Level AA compliance
@@ -32,8 +34,9 @@ This repository hosts the conference website for a three-day international works
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18 or later recommended)
+- [Node.js](https://nodejs.org/) (v20.19 or later; `.nvmrc` pins v24)
 - npm
+- Python 3.10+ (only for the data scripts; both are stdlib-only)
 
 ### Install dependencies
 
@@ -118,11 +121,12 @@ src/
 │   └── schedule/       # Workshop schedule
 └── app.css             # Global styles & design system
 scripts/
-└── fetch_references.py # Zotero API data fetcher
+├── fetch_references.py       # Zotero API data fetcher (needs ZOTERO_API_KEY in .env)
+├── extract_concept_graph.py  # Builds concept-graph.json from Obsidian notes
+└── optimize_images.mjs       # Resizes/compresses participant + photo images
 static/
-├── images/             # Static images
-├── robots.txt          # SEO robots file
-└── sitemap.xml         # SEO sitemap
+├── images/             # Static images (run npm run optimize:images after adding)
+└── robots.txt          # SEO robots file (sitemap.xml is generated at build time)
 ```
 
 ## Adding Content
@@ -150,11 +154,23 @@ The participant is automatically imported via `import.meta.glob`.
 
 ### Updating References
 
-Run the Python script to fetch references from Zotero:
+Copy `.env.example` to `.env`, fill in `ZOTERO_API_KEY`, then:
 
 ```sh
-python scripts/fetch_references.py
+npm run fetch:references
 ```
+
+### Optimizing Images
+
+After adding images to `static/images/participants/` or `static/images/photos/`:
+
+```sh
+npm run optimize:images
+```
+
+Portraits are converted to 640px WebP; gallery photos are resized to 1920px
+JPEG (EXIF preserved — the photos page uses capture dates to group by day)
+with 640px WebP thumbnails.
 
 ## Contributing
 

@@ -32,9 +32,10 @@
 			.replaceAll("'", '&#39;');
 	}
 
-	// Group participants by coordinates
+	// Group participants by coordinates. A plain Map is intentional: markers
+	// are only built once at init, so reactive tracking would be wasted.
 	let markerGroups = $derived.by(() => {
-		const groups = new Map<string, Participant[]>();
+		const groups = new Map<string, Participant[]>(); // eslint-disable-line svelte/prefer-svelte-reactivity
 
 		participants.forEach((participant) => {
 			if (participant.affiliationCoordinates) {
@@ -62,46 +63,46 @@
 		import('leaflet').then((L) => {
 			if (destroyed || map || !mapContainer) return;
 			map = L.map(mapContainer, {
-					center: [20, 0],
-					zoom: 2,
-					zoomControl: true,
-					scrollWheelZoom: true,
-					// Set world bounds to prevent panning too far
-					maxBounds: [
-						[-90, -180], // Southwest coordinates
-						[90, 180] // Northeast coordinates
-					],
-					maxBoundsViscosity: 0.9, // Keep within bounds but allow slight elastic feel
-					minZoom: 2, // Prevent zooming out too far
-					maxZoom: 18,
-					worldCopyJump: true // Ensure the map snaps to the base world copy so markers stay visible
+				center: [20, 0],
+				zoom: 2,
+				zoomControl: true,
+				scrollWheelZoom: true,
+				// Set world bounds to prevent panning too far
+				maxBounds: [
+					[-90, -180], // Southwest coordinates
+					[90, 180] // Northeast coordinates
+				],
+				maxBoundsViscosity: 0.9, // Keep within bounds but allow slight elastic feel
+				minZoom: 2, // Prevent zooming out too far
+				maxZoom: 18,
+				worldCopyJump: true // Ensure the map snaps to the base world copy so markers stay visible
+			});
+
+			// Add appropriate tile layer based on theme
+			tileLayer = L.tileLayer(initialDark ? TILE_URLS.dark : TILE_URLS.light, {
+				attribution:
+					'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+				subdomains: 'abcd',
+				maxZoom: 18
+			}).addTo(map);
+
+			// Add markers for each location
+			groups.forEach((participantsAtLocation, coordsKey) => {
+				const [lat, lng] = coordsKey.split(',').map(Number);
+
+				// Custom marker icon
+				const customIcon = L.divIcon({
+					className: 'custom-map-marker',
+					html: `<div class="marker-pin"></div>`,
+					iconSize: [30, 30],
+					iconAnchor: [15, 30],
+					popupAnchor: [0, -30]
 				});
 
-				// Add appropriate tile layer based on theme
-				tileLayer = L.tileLayer(initialDark ? TILE_URLS.dark : TILE_URLS.light, {
-					attribution:
-						'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-					subdomains: 'abcd',
-					maxZoom: 18
-				}).addTo(map);
+				const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map!);
 
-				// Add markers for each location
-				groups.forEach((participantsAtLocation, coordsKey) => {
-					const [lat, lng] = coordsKey.split(',').map(Number);
-
-					// Custom marker icon
-					const customIcon = L.divIcon({
-						className: 'custom-map-marker',
-						html: `<div class="marker-pin"></div>`,
-						iconSize: [30, 30],
-						iconAnchor: [15, 30],
-						popupAnchor: [0, -30]
-					});
-
-					const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map!);
-
-					// Create popup content with profile photos
-					const popupContent = `
+				// Create popup content with profile photos
+				const popupContent = `
 						<div class="popup-card">
 							<h3 class="popup-title">${escapeHtml(participantsAtLocation[0].affiliation)}</h3>
 							<p class="popup-meta"><strong>${participantsAtLocation.length}</strong> participant${participantsAtLocation.length > 1 ? 's' : ''}</p>
@@ -137,13 +138,13 @@
 						</div>
 					`;
 
-					marker.bindPopup(popupContent, {
-						maxWidth: 350,
-						className: 'participant-popup'
-					});
+				marker.bindPopup(popupContent, {
+					maxWidth: 350,
+					className: 'participant-popup'
 				});
+			});
 
-				mapReady = true;
+			mapReady = true;
 		});
 
 		return () => {

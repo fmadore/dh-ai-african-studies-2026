@@ -9,18 +9,23 @@ on:
       - main
   workflow_dispatch:
 
+# Deploy-only permissions live on the deploy job so PR builds run with
+# read-only access
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      # configure-pages reads the Pages config to derive BASE_PATH
+      pages: read
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -62,6 +67,10 @@ jobs:
     needs: build
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

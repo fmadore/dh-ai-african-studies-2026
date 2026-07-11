@@ -75,9 +75,11 @@ export const load: PageServerLoad = async () => {
 
 			if (!category) return null;
 
+			const thumbPath = join(photosDir, 'thumbs', `${id}.webp`);
 			const photo: Photo = {
 				id,
 				src: `/images/photos/${file}`,
+				thumbnail: existsSync(thumbPath) ? `/images/photos/thumbs/${id}.webp` : undefined,
 				alt: `Workshop participants during ${category} of Digital Humanities and AI in African Studies`,
 				category,
 				photographer: mediaCredit.name,

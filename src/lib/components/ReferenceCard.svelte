@@ -9,8 +9,8 @@
 		reference: CslReference;
 		selectedTags: string[];
 		expanded: boolean;
-		ontoggleexpand: (id: string) => void;
-		ontoggletag: (tag: string) => void;
+		ontoggleexpand: (_id: string) => void;
+		ontoggletag: (_tag: string) => void;
 	}
 
 	let { reference: ref, selectedTags, expanded, ontoggleexpand, ontoggletag }: Props = $props();

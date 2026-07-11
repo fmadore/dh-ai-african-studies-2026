@@ -91,11 +91,8 @@
 				rel="noopener noreferrer"
 				class="link-secondary"><em>Open Restitution Africa</em></a
 			>, and
-			<a
-				href="https://archivi.ng/"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="link-secondary"><em>Archivi.ng</em></a
+			<a href="https://archivi.ng/" target="_blank" rel="noopener noreferrer" class="link-secondary"
+				><em>Archivi.ng</em></a
 			>. AI tools, particularly large language models, add new possibilities for textual analysis
 			and cross-cultural research.
 		</P>
@@ -112,8 +109,8 @@
 				target="_blank"
 				rel="noopener noreferrer"
 				class="link-secondary">digital saviour complex</a
-			>," where Northern-led projects reproduce colonial dynamics even while claiming to
-			democratise access. This workshop took these critiques seriously.
+			>," where Northern-led projects reproduce colonial dynamics even while claiming to democratise
+			access. This workshop took these critiques seriously.
 		</P>
 	</div>
 </section>
@@ -132,9 +129,8 @@
 			This was not a traditional conference. There were no paper presentations. Instead,
 			participants worked intensively across three days in structured sessions designed to produce
 			tangible outputs. Daily synthesis sessions connected insights across the three work streams,
-			feeding directly into the <a
-				href={resolveAppPath('/position-paper')}
-				class="link-secondary">position paper</a
+			feeding directly into the <a href={resolveAppPath('/position-paper')} class="link-secondary"
+				>position paper</a
 			>.
 		</P>
 

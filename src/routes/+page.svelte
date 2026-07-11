@@ -274,9 +274,7 @@
 			<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline"
 				>Workshop Outcomes</Heading
 			>
-			<P class="text-lead mx-auto max-w-3xl">
-				Explore what came out of the three days in Hanover.
-			</P>
+			<P class="text-lead mx-auto max-w-3xl">Explore what came out of the three days in Hanover.</P>
 		</div>
 
 		<div class="auto-grid auto-grid-sm stagger-children animate-section-reveal" use:reveal>
@@ -324,7 +322,11 @@
 						<div class="relative">
 							<img
 								src={organizer.photoUrl}
-								alt={organizer.name}
+								alt="Portrait of {organizer.name}"
+								width="112"
+								height="112"
+								loading="lazy"
+								decoding="async"
 								class="border-secondary-200 dark:border-secondary-700 h-28 w-28 rounded-full border-2 object-cover shadow-md"
 							/>
 							<!-- Subtle glow ring behind photo -->

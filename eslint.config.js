@@ -13,6 +13,9 @@ export default [
 	{
 		ignores: ['.svelte-kit/**', 'build/**', 'dist/**', 'node_modules/**']
 	},
+	// Base JS rules first: later TS/Svelte configs must be able to disable the
+	// base rules they replace (no-unused-vars, no-undef, …)
+	js.configs.recommended,
 	...svelte.configs['flat/recommended'],
 	...svelte.configs['flat/prettier'],
 	{
@@ -38,7 +41,7 @@ export default [
 		}
 	},
 	{
-		files: ['**/*.{js,ts}'],
+		files: ['**/*.{js,mjs,cjs,ts}'],
 		languageOptions: {
 			globals: {
 				...globals.browser,
@@ -47,7 +50,6 @@ export default [
 		}
 	},
 	...tsConfigs,
-	js.configs.recommended,
 	// Disable ESLint rules that conflict with Prettier formatting.
 	// Must come after all base configs, before custom rule overrides.
 	prettier,
