@@ -18,6 +18,10 @@ const config = {
 		}),
 		paths: {
 			base: process.env.BASE_PATH || ''
+		},
+		prerender: {
+			// sitemap.xml is not linked from any page, so the crawler needs a hint
+			entries: ['*', '/sitemap.xml']
 		}
 	},
 	compilerOptions: {

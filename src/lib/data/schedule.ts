@@ -32,7 +32,7 @@ export const schedule: DaySchedule[] = [
 		dayNumber: 1,
 		theme: 'Methodological Integration & Digital Preservation',
 		themeDescription:
-			'We will document existing computational methods, preservation infrastructure and implementation barriers before developing technical standards, preservation protocols and implementation strategies. Areas of focus will include adapting AI for African languages and establishing sustainable digital preservation models.',
+			'Participants documented existing computational methods, preservation infrastructure and implementation barriers before developing technical standards, preservation protocols and implementation strategies. Areas of focus included adapting AI for African languages and establishing sustainable digital preservation models.',
 		items: [
 			{
 				time: '08:00–09:00',
@@ -122,7 +122,7 @@ export const schedule: DaySchedule[] = [
 		dayNumber: 2,
 		theme: 'Fostering Equitable Collaboration',
 		themeDescription:
-			'Centers African epistemologies to redesign research partnerships and resource distribution. This stream aims to create concrete mechanisms for North-South and South-South collaboration that dismantle power imbalances and promote genuine reciprocity.',
+			'Centred African epistemologies to redesign research partnerships and resource distribution. This stream worked on concrete mechanisms for North-South and South-South collaboration that dismantle power imbalances and promote genuine reciprocity.',
 		items: [
 			{
 				time: '08:30–09:30',
@@ -217,7 +217,7 @@ export const schedule: DaySchedule[] = [
 		dayNumber: 3,
 		theme: 'Ethical Frameworks & Digital Sovereignty',
 		themeDescription:
-			'Develops guidelines for data governance and responsible AI implementation. The focus shifts from passive consultation to active co-creation, establishing standards that protect digital sovereignty and ensure equitable knowledge dissemination.',
+			'Developed guidelines for data governance and responsible AI implementation. The focus shifted from passive consultation to active co-creation, establishing standards that protect digital sovereignty and ensure equitable knowledge dissemination.',
 		items: [
 			{
 				time: '08:30–09:00',
@@ -313,35 +313,60 @@ export const schedule: DaySchedule[] = [
 ];
 
 /** Session type metadata for styling and display */
+/** When the schedule data was last edited — shown on the schedule page */
+export const scheduleLastUpdated = '19 February 2026';
+
 export const sessionTypes: Record<
 	SessionType,
 	{
 		label: string;
 		colorClass: string;
+		/** Card background/border/icon styling — single source for type→style */
+		cardBg: string;
+		cardBorder: string;
+		iconColor: string;
 	}
 > = {
 	plenary: {
 		label: 'Plenary',
-		colorClass: 'bg-primary-300 dark:bg-primary-600'
+		colorClass: 'bg-primary-300 dark:bg-primary-600',
+		cardBg: 'bg-primary-50 dark:bg-primary-900/20',
+		cardBorder: 'border-l-4 border-primary-300 dark:border-primary-600',
+		iconColor: 'text-primary-600 dark:text-primary-400'
 	},
 	subgroups: {
 		label: 'Subgroups Work',
-		colorClass: 'bg-secondary-500'
+		colorClass: 'bg-secondary-500',
+		cardBg: 'bg-secondary-50 dark:bg-secondary-900/20',
+		cardBorder: 'border-l-4 border-secondary-500',
+		iconColor: 'text-accent'
 	},
 	'world-cafe': {
 		label: 'World Café',
-		colorClass: 'bg-amber-500'
+		colorClass: 'bg-amber-500',
+		cardBg: 'bg-amber-50 dark:bg-amber-900/20',
+		cardBorder: 'border-l-4 border-amber-500',
+		iconColor: 'text-amber-600 dark:text-amber-400'
 	},
 	poster: {
 		label: 'Poster Presentations',
-		colorClass: 'bg-violet-500'
+		colorClass: 'bg-violet-500',
+		cardBg: 'bg-violet-50 dark:bg-violet-900/20',
+		cardBorder: 'border-l-4 border-violet-500',
+		iconColor: 'text-violet-600 dark:text-violet-400'
 	},
 	break: {
 		label: 'Break',
-		colorClass: 'bg-gray-300 dark:bg-gray-600'
+		colorClass: 'bg-gray-300 dark:bg-gray-600',
+		cardBg: 'bg-gray-50 dark:bg-gray-800/50',
+		cardBorder: 'border-l-4 border-gray-300 dark:border-gray-600',
+		iconColor: 'text-gray-500 dark:text-gray-400'
 	},
 	social: {
 		label: 'Social Event',
-		colorClass: 'bg-primary-500'
+		colorClass: 'bg-primary-500',
+		cardBg: 'bg-primary-100 dark:bg-primary-900/30',
+		cardBorder: 'border-l-4 border-primary-500',
+		iconColor: 'text-primary-600 dark:text-primary-400'
 	}
 };

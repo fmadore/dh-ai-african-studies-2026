@@ -11,21 +11,42 @@
 	}
 
 	let { node, neighbors, isMobile, getNodeColor, onclose, onnavigate }: Props = $props();
+
+	let closeButtonEl: HTMLButtonElement | undefined;
+
+	// The mobile bottom sheet overlays content, so announce it and move focus in
+	$effect(() => {
+		if (isMobile && node) {
+			closeButtonEl?.focus();
+		}
+	});
 </script>
 
-<div class="detail-panel card-surface surface-padding-sm" class:bottom-sheet={isMobile}>
+<div
+	class="detail-panel card-surface surface-padding-sm"
+	class:bottom-sheet={isMobile}
+	role={isMobile ? 'dialog' : undefined}
+	aria-label={isMobile ? node.label : undefined}
+>
 	<div class="detail-header">
 		<h3 class="detail-title">{node.label}</h3>
-		<button class="detail-close" onclick={onclose} aria-label="Close detail panel">
+		<button
+			bind:this={closeButtonEl}
+			class="detail-close"
+			onclick={onclose}
+			aria-label="Close detail panel"
+		>
 			&times;
 		</button>
 	</div>
 	<div class="detail-meta">
 		<span
 			class="detail-badge"
-			style="background-color: {getNodeColor(node.group)}20; color: {getNodeColor(
+			style="background-color: color-mix(in srgb, {getNodeColor(
 				node.group
-			)}; border: 1px solid {getNodeColor(node.group)}40;"
+			)} 12%, transparent); color: {getNodeColor(
+				node.group
+			)}; border: 1px solid color-mix(in srgb, {getNodeColor(node.group)} 25%, transparent);"
 		>
 			{node.group}
 		</span>

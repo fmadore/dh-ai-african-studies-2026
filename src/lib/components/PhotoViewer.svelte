@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Photo, PhotoCategory } from '$lib/types/photo';
 	import { resolveAssetPath } from '$lib/utils/paths';
+	import { portal } from '$lib/utils/portal';
 	import { reveal } from '$lib/utils/reveal';
 	import { Heading, P, Button } from 'flowbite-svelte';
 	import {
@@ -64,12 +65,36 @@
 		if (e.key === 'Escape') closeLightbox();
 		else if (e.key === 'ArrowLeft') prevPhoto();
 		else if (e.key === 'ArrowRight') nextPhoto();
+		else if (e.key === 'Tab') trapFocus(e);
 	}
 
-	// Touch swipe support for mobile lightbox navigation
-	let touchStartX = $state(0);
-	let touchStartY = $state(0);
-	let isSwiping = $state(false);
+	/** Keep Tab focus cycling inside the modal while it is open */
+	function trapFocus(e: KeyboardEvent) {
+		if (!lightboxEl) return;
+		const focusables = Array.from(
+			lightboxEl.querySelectorAll<HTMLElement>('button, a[href]')
+		).filter((el) => !el.hasAttribute('disabled'));
+		if (focusables.length === 0) return;
+
+		const first = focusables[0];
+		const last = focusables[focusables.length - 1];
+		const active = document.activeElement;
+		const inside = active instanceof HTMLElement && lightboxEl.contains(active);
+
+		if (e.shiftKey && (!inside || active === first)) {
+			e.preventDefault();
+			last.focus();
+		} else if (!e.shiftKey && (!inside || active === last)) {
+			e.preventDefault();
+			first.focus();
+		}
+	}
+
+	// Touch swipe support for mobile lightbox navigation.
+	// Plain variables — never rendered, so reactivity would be wasted.
+	let touchStartX = 0;
+	let touchStartY = 0;
+	let isSwiping = false;
 
 	function handleTouchStart(e: TouchEvent) {
 		if (!lightboxOpen || filteredPhotos.length <= 1) return;
@@ -119,27 +144,19 @@
 		activeCategory = cat;
 		lightboxIndex = 0;
 	}
-
-	/** Moves the node to document.body so it escapes overflow:hidden ancestors */
-	function portal(node: HTMLElement) {
-		document.body.appendChild(node);
-		return {
-			destroy() {
-				node.remove();
-			}
-		};
-	}
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
 
-<!-- Category filter pills -->
-<div class="flex flex-wrap justify-center gap-2" role="tablist" aria-label="Photo categories">
+<!-- Category filter pills (toggle buttons — not a tablist, which would require
+     full tab keyboard semantics) -->
+<div class="flex flex-wrap justify-center gap-2" role="group" aria-label="Filter photos by day">
 	<Button
 		pill
 		size="sm"
 		color={activeCategory === 'All' ? 'secondary' : 'alternative'}
 		outline={activeCategory === 'All'}
+		aria-pressed={activeCategory === 'All'}
 		onclick={() => setCategory('All')}
 	>
 		All <span class="ml-1 text-xs opacity-60">{categoryCounts.All}</span>
@@ -152,6 +169,7 @@
 				size="sm"
 				color={activeCategory === cat ? 'secondary' : 'alternative'}
 				outline={activeCategory === cat}
+				aria-pressed={activeCategory === cat}
 				onclick={() => setCategory(cat)}
 			>
 				{cat} <span class="ml-1 text-xs opacity-60">{count}</span>
@@ -162,7 +180,7 @@
 
 <!-- Gallery grid -->
 {#if filteredPhotos.length > 0}
-	<div class="photo-grid" role="tabpanel">
+	<div class="photo-grid">
 		{#each filteredPhotos as photo, i (photo.id)}
 			{@const delay = Math.min(i * 40, 400)}
 			<div class="animate-section-reveal" use:reveal style="transition-delay: {delay}ms">
@@ -216,9 +234,6 @@
 		aria-modal="true"
 		tabindex="-1"
 		aria-label="Photo viewer: {currentPhoto.alt}"
-		onkeydown={(e: KeyboardEvent) => {
-			if (e.key === 'Escape') closeLightbox();
-		}}
 	>
 		<!-- Backdrop -->
 		<div class="lightbox-backdrop" onclick={closeLightbox} role="presentation"></div>

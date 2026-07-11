@@ -5,8 +5,11 @@
 
 	interface Props {
 		children: Snippet;
+		variant?: 'primary' | 'secondary';
 		href?: string;
 		size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+		/** Only applies to the secondary variant (defaults to outline) */
+		outline?: boolean;
 		disabled?: boolean;
 		class?: string;
 		onclick?: HTMLButtonAttributes['onclick'];
@@ -16,8 +19,10 @@
 
 	let {
 		children,
+		variant = 'primary',
 		href,
 		size = 'lg',
+		outline,
 		disabled = false,
 		class: className = '',
 		onclick,
@@ -26,14 +31,16 @@
 	}: Props = $props();
 
 	let extraProps = $derived(href ? { href, target, rel } : { onclick });
+	let isOutline = $derived(outline ?? variant === 'secondary');
 </script>
 
 <Button
 	{...extraProps}
 	{size}
 	{disabled}
-	color="primary"
-	class="btn-refined btn-refined--primary {className}"
+	outline={isOutline}
+	color={variant}
+	class="btn-refined btn-refined--{variant} {className}"
 >
 	{@render children()}
 </Button>
@@ -53,5 +60,12 @@
 	}
 	:global(.btn-refined--primary:hover) {
 		box-shadow: var(--shadow-brand);
+	}
+	:global(.btn-refined--secondary) {
+		-webkit-backdrop-filter: blur(6px);
+		backdrop-filter: blur(6px);
+	}
+	:global(.btn-refined--secondary:hover) {
+		box-shadow: var(--shadow-accent);
 	}
 </style>

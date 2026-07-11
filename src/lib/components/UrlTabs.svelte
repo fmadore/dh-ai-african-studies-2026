@@ -47,9 +47,8 @@
 		return urlParam && validIds.includes(urlParam) ? urlParam : defaultTab;
 	});
 
-	// Update URL when tab changes (only runs in browser)
+	// Update URL when tab changes (click handlers only ever run in the browser)
 	function setActiveTab(tabId: string) {
-		if (!browser) return;
 		// page.url already contains the full path including base, so use it directly
 		const url = new URL(page.url);
 		if (tabId === defaultTab) {

@@ -415,7 +415,21 @@
 
 	// --- Mobile detection ---
 	let isMobile = $derived(containerWidth < 640);
+
+	// --- Keyboard focus spotlight (parity with pointer hover) ---
+	function onNodeFocus(node: ConceptNode) {
+		hoveredNode = node;
+		// Position the tooltip at the node itself (no pointer coords on focus)
+		tooltipX = (node.x ?? 0) * transform.k + transform.x;
+		tooltipY = (node.y ?? 0) * transform.k + transform.y;
+	}
 </script>
+
+<svelte:window
+	onkeydown={(e) => {
+		if (e.key === 'Escape' && selectedNode) selectedNode = null;
+	}}
+/>
 
 <div class="concept-graph-wrapper" bind:this={containerEl}>
 	<!-- Toolbar: stats + search + group filters -->
@@ -492,6 +506,10 @@
 						onpointerenter={() => (hoveredNode = node)}
 						onpointermove={onNodePointerMove}
 						onpointerleave={() => {
+							if (hoveredNode?.id === node.id) hoveredNode = null;
+						}}
+						onfocus={() => onNodeFocus(node)}
+						onblur={() => {
 							if (hoveredNode?.id === node.id) hoveredNode = null;
 						}}
 						onclick={(e) => onNodeClick(e, node)}

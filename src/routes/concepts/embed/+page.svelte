@@ -8,6 +8,8 @@
 
 <svelte:head>
 	<title>Concept Map – DH & AI in African Studies</title>
+	<!-- Embed-only view: keep out of search results so it can't compete with /concepts -->
+	<meta name="robots" content="noindex,follow" />
 	<style>
 		/* Remove any margin/padding from the embed page */
 		body {

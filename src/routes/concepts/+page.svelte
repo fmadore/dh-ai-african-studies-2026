@@ -3,13 +3,8 @@
 	import ConceptGraph from '$lib/components/ConceptGraph.svelte';
 	import graphData from '$lib/data/concept-graph.json';
 	import { resolveAppPath } from '$lib/utils/paths';
-	import {
-		createSeoMeta,
-		createEventJsonLd,
-		createWebPageJsonLd,
-		jsonLdScript
-	} from '$lib/utils/seo';
-	import { workshopInfo } from '$lib/data/workshop-info';
+	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { reveal } from '$lib/utils/reveal';
 	import type { ConceptGraphData } from '$lib/types/concept-graph';
 
@@ -34,20 +29,6 @@
 		]
 	});
 
-	const eventJsonLd = createEventJsonLd({
-		name: 'Charting New Territory: Digital Humanities and AI in African Studies',
-		description: seo.description,
-		startDate: workshopInfo.dates.startISO,
-		endDate: workshopInfo.dates.endISO,
-		locationName: workshopInfo.location.venue,
-		locationAddress: workshopInfo.location.venue,
-		locationCity: workshopInfo.location.city,
-		locationCountry: workshopInfo.location.country,
-		organizerName: workshopInfo.organizers.full,
-		funderName: workshopInfo.funder.name,
-		funderUrl: workshopInfo.funder.url,
-		url: seo.canonical
-	});
 	const webPageJsonLd = createWebPageJsonLd({
 		name: seo.title,
 		description: seo.description,
@@ -55,17 +36,7 @@
 	});
 </script>
 
-<svelte:head>
-	<title>{seo.title}</title>
-	{#each seo.meta as attributes (attributes.key)}
-		<meta name={attributes.name} property={attributes.property} content={attributes.content} />
-	{/each}
-	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
-		<link {...attributes} />
-	{/each}
-	{@html jsonLdScript(eventJsonLd)}
-	{@html jsonLdScript(webPageJsonLd)}
-</svelte:head>
+<SeoHead {seo} jsonLd={webPageJsonLd} />
 
 <!-- Hero Section -->
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
