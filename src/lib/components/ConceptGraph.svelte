@@ -53,7 +53,6 @@
 	let tooltipY = $state(0);
 
 	// Track references for programmatic control
-	let _simulationRef: any = null;
 	let zoomBehaviorRef: any = null;
 	let svgSelectionRef: any = null;
 	let d3ZoomModuleRef: any = null;
@@ -189,7 +188,10 @@
 	$effect(() => {
 		if (typeof window === 'undefined') return;
 
+		// Read `data` synchronously so the effect tracks it and rebuilds on change
+		const graphData = data;
 		let destroyed = false;
+		let cleanup: (() => void) | null = null;
 
 		Promise.all([
 			import('d3-force'),
@@ -199,8 +201,8 @@
 		]).then(([d3Force, d3Zoom, d3Selection, d3Drag]) => {
 			if (destroyed) return;
 
-			const nodes: ConceptNode[] = data.nodes.map((n) => ({ ...n }));
-			const edges: ConceptEdge[] = data.edges.map((e) => ({ ...e }));
+			const nodes: ConceptNode[] = graphData.nodes.map((n) => ({ ...n }));
+			const edges: ConceptEdge[] = graphData.edges.map((e) => ({ ...e }));
 
 			const width = containerWidth;
 			const height = containerHeight;
@@ -228,8 +230,6 @@
 				)
 				.force('x', d3Force.forceX(width / 2).strength(0.02))
 				.force('y', d3Force.forceY(height / 2).strength(0.02));
-
-			_simulationRef = simulation;
 
 			simulation.on('end', () => {
 				simulationReady = true;
@@ -298,26 +298,33 @@
 			};
 			applyDragRef = applyDrag;
 
+			// Edge array membership never changes after init; only node positions do
+			simEdges = [...edges];
+
 			let firstDragApplied = false;
 			simulation.on('tick', () => {
 				simNodes = [...nodes];
-				simEdges = [...edges];
 				if (!firstDragApplied) {
 					firstDragApplied = true;
 					requestAnimationFrame(applyDrag);
 				}
 			});
 
-			return () => {
-				destroyed = true;
+			cleanup = () => {
 				simulation.stop();
-				_simulationRef = null;
+				svg.on('.zoom', null);
 				zoomBehaviorRef = null;
 				svgSelectionRef = null;
 				d3ZoomModuleRef = null;
 				applyDragRef = null;
 			};
 		});
+
+		return () => {
+			destroyed = true;
+			cleanup?.();
+			cleanup = null;
+		};
 	});
 
 	// --- Click handling ---
@@ -377,14 +384,17 @@
 	function toggleFullscreen() {
 		if (!containerEl) return;
 		if (!document.fullscreenElement) {
-			containerEl.requestFullscreen().then(() => {
-				isFullscreen = true;
-				setTimeout(recenter, 200);
-			});
+			// isFullscreen itself is kept in sync by the fullscreenchange listener
+			containerEl
+				.requestFullscreen()
+				.then(() => {
+					setTimeout(recenter, 200);
+				})
+				.catch(() => {
+					// Fullscreen unsupported (e.g. iOS Safari) — ignore
+				});
 		} else {
-			document.exitFullscreen().then(() => {
-				isFullscreen = false;
-			});
+			document.exitFullscreen().catch(() => {});
 		}
 	}
 

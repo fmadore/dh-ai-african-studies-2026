@@ -5,17 +5,30 @@
  */
 
 export interface RevealOptions {
-	/** Threshold for triggering (0-1, default 0.15) */
+	/**
+	 * Intersection threshold (0-1, default 0).
+	 * Keep this at 0 unless the observed element is guaranteed to be short:
+	 * a fixed ratio can be unreachable for elements taller than the viewport,
+	 * leaving them permanently hidden.
+	 */
 	threshold?: number;
-	/** Root margin for earlier/later triggering */
+	/**
+	 * Root margin for earlier/later triggering.
+	 * The default shrinks the viewport bottom so elements reveal once they are
+	 * meaningfully on screen, independent of their own height.
+	 */
 	rootMargin?: string;
 	/** Whether to only trigger once */
 	once?: boolean;
 }
 
-export function reveal(node: HTMLElement, options: RevealOptions = {}) {
-	const { threshold = 0.15, rootMargin = '0px', once = true } = options;
+const DEFAULT_OPTIONS: Required<RevealOptions> = {
+	threshold: 0,
+	rootMargin: '0px 0px -12% 0px',
+	once: true
+};
 
+export function reveal(node: HTMLElement, options: RevealOptions = {}) {
 	// Check for reduced motion preference
 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -29,50 +42,38 @@ export function reveal(node: HTMLElement, options: RevealOptions = {}) {
 	// This allows content to be visible during SSR, then animate when JS loads
 	node.classList.add('animating');
 
-	let currentObserver = new IntersectionObserver(
-		(entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					node.classList.add('revealed');
-					if (once) {
-						currentObserver.unobserve(node);
-					}
-				} else if (!once) {
-					node.classList.remove('revealed');
-				}
-			});
-		},
-		{ threshold, rootMargin }
-	);
+	function createObserver(opts: RevealOptions): IntersectionObserver {
+		const { threshold, rootMargin, once } = { ...DEFAULT_OPTIONS, ...opts };
 
-	currentObserver.observe(node);
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						node.classList.add('revealed');
+						if (once) {
+							observer.unobserve(node);
+						}
+					} else if (!once) {
+						node.classList.remove('revealed');
+					}
+				});
+			},
+			{ threshold, rootMargin }
+		);
+
+		observer.observe(node);
+		return observer;
+	}
+
+	let currentObserver = createObserver(options);
 
 	return {
 		destroy() {
 			currentObserver.disconnect();
 		},
 		update(newOptions: RevealOptions) {
-			// Re-observe with new options if needed
 			currentObserver.disconnect();
-			currentObserver = new IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
-							node.classList.add('revealed');
-							if (newOptions.once ?? once) {
-								currentObserver.unobserve(node);
-							}
-						} else if (!(newOptions.once ?? once)) {
-							node.classList.remove('revealed');
-						}
-					});
-				},
-				{
-					threshold: newOptions.threshold ?? threshold,
-					rootMargin: newOptions.rootMargin ?? rootMargin
-				}
-			);
-			currentObserver.observe(node);
+			currentObserver = createObserver({ ...options, ...newOptions });
 		}
 	};
 }

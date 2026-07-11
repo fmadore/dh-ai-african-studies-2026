@@ -1,3 +1,5 @@
+import { workshopInfo } from '$lib/data/workshop-info';
+
 export interface SeoMetaTag {
 	name?: string;
 	property?: string;
@@ -191,9 +193,10 @@ export function createSeoMeta(options: CreateSeoMetaOptions = {}): SeoMetaResult
 		{ key: 'robots', name: 'robots', content: merged.robots }
 	];
 
-	// Add article:author tags for each author (used by Facebook/OpenGraph)
+	// Add article:author tags for each author (used by Facebook/OpenGraph).
+	// article:* properties are only valid when og:type is 'article'.
 	// Use unique keys to avoid Svelte duplicate key warnings
-	if (merged.authors && merged.authors.length > 0) {
+	if (merged.type === 'article' && merged.authors && merged.authors.length > 0) {
 		merged.authors.forEach((author, index) => {
 			if (author.url) {
 				meta.push({
@@ -230,9 +233,13 @@ function normalisePath(path: string): string {
 }
 
 function resolveCanonicalUrl(path: string): string {
-	const base = ensureTrailingSlash(SITE_BASE_URL);
-	const cleanPath = path === '/' ? '' : path.replace(/^\//, '');
-	return ensureTrailingSlash(`${base}${cleanPath}`);
+	// The site is built with trailingSlash: 'never' (adapter-static emits
+	// `about.html`), so on GitHub Pages only the slash-less URL exists.
+	// Canonicals must match or they point at 404s.
+	if (path === '/') {
+		return ensureTrailingSlash(SITE_BASE_URL);
+	}
+	return `${SITE_BASE_URL}${path.replace(/\/$/, '')}`;
 }
 
 function resolveAssetUrl(asset: string): string {
@@ -347,6 +354,33 @@ export function createEventJsonLd(options: CreateEventJsonLdOptions = {}): JsonL
 }
 
 /**
+ * Creates the Event JSON-LD for THE workshop with all shared fields baked in.
+ * Only `description` and `url` vary per page. Use this instead of repeating
+ * the full createEventJsonLd call on every route — and only on pages that are
+ * genuinely about the event (home, about, schedule); Google treats Event
+ * markup on ancillary pages (photos, references, …) as spammy.
+ */
+export function createWorkshopEventJsonLd(options: {
+	description: string;
+	url: string;
+}): JsonLdEvent {
+	return createEventJsonLd({
+		name: 'Charting New Territory: Digital Humanities and AI in African Studies',
+		description: options.description,
+		startDate: workshopInfo.dates.startISO,
+		endDate: workshopInfo.dates.endISO,
+		locationName: workshopInfo.location.venue,
+		locationAddress: workshopInfo.location.venue,
+		locationCity: workshopInfo.location.city,
+		locationCountry: workshopInfo.location.country,
+		organizerName: workshopInfo.organizers.full,
+		funderName: workshopInfo.funder.name,
+		funderUrl: workshopInfo.funder.url,
+		url: options.url
+	});
+}
+
+/**
  * Creates JSON-LD structured data for a WebSite.
  * Use this in the root layout for site-wide SEO.
  */
@@ -428,18 +462,12 @@ export function createWebPageJsonLd(options: CreateWebPageJsonLdOptions): JsonLd
 }
 
 /**
- * Serializes JSON-LD data for use in a script tag.
- * Returns a string that can be placed inside <script type="application/ld+json">.
- */
-export function serializeJsonLd(data: JsonLdSchema): string {
-	return JSON.stringify(data, null, 0);
-}
-
-/**
  * Returns a complete JSON-LD script tag as an HTML string.
  * Use with {@html jsonLdScript(data)} to avoid ESLint parsing issues
  * with <script> tags appearing in Svelte templates.
+ * `<` is escaped so data can never terminate the script element.
  */
 export function jsonLdScript(data: JsonLdSchema): string {
-	return '<script type="application/ld+json">' + JSON.stringify(data, null, 0) + '</script>';
+	const json = JSON.stringify(data, null, 0).replace(/</g, '\\u003C');
+	return '<script type="application/ld+json">' + json + '</script>';
 }

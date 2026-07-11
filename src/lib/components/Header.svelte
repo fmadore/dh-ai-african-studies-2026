@@ -6,8 +6,10 @@
 	let activeUrl = $derived(page.url.pathname);
 	let menuOpen = $state(false);
 
+	const homeHref = resolveAppPath('/');
+
 	const navLinks = [
-		{ href: resolveAppPath('/'), label: 'Home' },
+		{ href: homeHref, label: 'Home' },
 		{ href: resolveAppPath('/about'), label: 'About' },
 		{ href: resolveAppPath('/participants'), label: 'Participants' },
 		{ href: resolveAppPath('/concepts'), label: 'Concepts' },
@@ -18,6 +20,24 @@
 		{ href: resolveAppPath('/interviews'), label: 'Interviews' }
 	] as const;
 
+	function stripTrailingSlash(path: string): string {
+		return path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
+	}
+
+	/**
+	 * Trailing-slash-tolerant match that also highlights parent routes for
+	 * nested paths (e.g. /participants/x keeps Participants active).
+	 * The Home link only matches exactly, so it doesn't light up everywhere.
+	 */
+	function isActive(href: string, current: string): boolean {
+		const target = stripTrailingSlash(href);
+		const path = stripTrailingSlash(current);
+		if (target === stripTrailingSlash(homeHref)) {
+			return path === target;
+		}
+		return path === target || path.startsWith(`${target}/`);
+	}
+
 	function toggleMenu() {
 		menuOpen = !menuOpen;
 	}
@@ -26,6 +46,12 @@
 		menuOpen = false;
 	}
 </script>
+
+<svelte:window
+	onkeydown={(e) => {
+		if (e.key === 'Escape' && menuOpen) closeMenu();
+	}}
+/>
 
 <header class="bg-page padding-inline-lg relative z-(--z-overlay) py-3">
 	<nav class="content-width-wide surface-panel surface-padding-xs">
@@ -41,6 +67,7 @@
 					class="nav-hamburger"
 					aria-label="Toggle navigation menu"
 					aria-expanded={menuOpen}
+					aria-controls="site-nav-menu"
 					onclick={toggleMenu}
 				>
 					<svg
@@ -61,14 +88,15 @@
 				</button>
 			</div>
 
-			<div class="nav-menu" class:nav-menu--open={menuOpen}>
+			<div class="nav-menu" class:nav-menu--open={menuOpen} id="site-nav-menu">
 				<ul class="nav-links">
 					{#each navLinks as link (link.href)}
 						<li>
 							<a
 								href={link.href}
 								class="nav-link"
-								class:active={activeUrl === link.href}
+								class:active={isActive(link.href, activeUrl)}
+								aria-current={isActive(link.href, activeUrl) ? 'page' : undefined}
 								onclick={closeMenu}
 							>
 								{link.label}

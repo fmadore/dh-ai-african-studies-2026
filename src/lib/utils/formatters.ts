@@ -11,7 +11,7 @@ const typeMap: Record<string, string> = {
 	'paper-conference': 'Conference Paper',
 	'post-weblog': 'Blog Post',
 	broadcast: 'Podcast',
-	song: 'Podcast',
+	song: 'Audio Recording',
 	speech: 'Presentation',
 	article: 'Preprint'
 };

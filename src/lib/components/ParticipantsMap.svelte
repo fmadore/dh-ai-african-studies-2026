@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { Participant } from '$lib/types/participant';
-	import { SvelteMap } from 'svelte/reactivity';
+	import type * as Leaflet from 'leaflet';
 	import { useDarkMode } from '$lib/utils/dark-mode.svelte';
+	import 'leaflet/dist/leaflet.css';
 
 	interface Props {
 		participants: Participant[];
@@ -10,16 +11,30 @@
 	let { participants }: Props = $props();
 
 	let mapContainer: HTMLDivElement;
-	let map: any;
-	let tileLayer: any;
+	let map: Leaflet.Map | null = null;
+	let tileLayer: Leaflet.TileLayer | null = null;
 	let mapReady = $state(false);
+
+	const TILE_URLS = {
+		light: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+		dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+	} as const;
 
 	const darkMode = useDarkMode();
 	let isDarkMode = $derived(darkMode.isDark);
 
+	function escapeHtml(value: string): string {
+		return value
+			.replaceAll('&', '&amp;')
+			.replaceAll('<', '&lt;')
+			.replaceAll('>', '&gt;')
+			.replaceAll('"', '&quot;')
+			.replaceAll("'", '&#39;');
+	}
+
 	// Group participants by coordinates
 	let markerGroups = $derived.by(() => {
-		const groups = new SvelteMap<string, Participant[]>();
+		const groups = new Map<string, Participant[]>();
 
 		participants.forEach((participant) => {
 			if (participant.affiliationCoordinates) {
@@ -39,9 +54,14 @@
 		// Dynamically import Leaflet only on client side
 		if (typeof window === 'undefined') return;
 
+		// Snapshot reactive values synchronously so the effect tracks them
+		const groups = markerGroups;
+		const initialDark = isDarkMode;
+		let destroyed = false;
+
 		import('leaflet').then((L) => {
-			if (!map && mapContainer) {
-				map = L.map(mapContainer, {
+			if (destroyed || map || !mapContainer) return;
+			map = L.map(mapContainer, {
 					center: [20, 0],
 					zoom: 2,
 					zoomControl: true,
@@ -58,11 +78,7 @@
 				});
 
 				// Add appropriate tile layer based on theme
-				const lightTiles =
-					'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-				const darkTiles = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-
-				tileLayer = L.tileLayer(isDarkMode ? darkTiles : lightTiles, {
+				tileLayer = L.tileLayer(initialDark ? TILE_URLS.dark : TILE_URLS.light, {
 					attribution:
 						'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 					subdomains: 'abcd',
@@ -70,7 +86,7 @@
 				}).addTo(map);
 
 				// Add markers for each location
-				markerGroups.forEach((participantsAtLocation, coordsKey) => {
+				groups.forEach((participantsAtLocation, coordsKey) => {
 					const [lat, lng] = coordsKey.split(',').map(Number);
 
 					// Custom marker icon
@@ -82,31 +98,36 @@
 						popupAnchor: [0, -30]
 					});
 
-					const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+					const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map!);
 
 					// Create popup content with profile photos
 					const popupContent = `
 						<div class="popup-card">
-							<h3 class="popup-title">${participantsAtLocation[0].affiliation}</h3>
+							<h3 class="popup-title">${escapeHtml(participantsAtLocation[0].affiliation)}</h3>
 							<p class="popup-meta"><strong>${participantsAtLocation.length}</strong> participant${participantsAtLocation.length > 1 ? 's' : ''}</p>
 							<div class="popup-list">
 								${participantsAtLocation
 									.map(
 										(p) => `
 									<div class="popup-participant">
-										<img
-											src="${p.photoUrl}"
-											alt="${p.name}"
+										${
+											p.photoUrl
+												? `<img
+											src="${escapeHtml(p.photoUrl)}"
+											alt="${escapeHtml(p.name)}"
 											class="popup-avatar"
+											loading="lazy"
 											onerror="this.style.display='none'"
-										/>
+										/>`
+												: ''
+										}
 										<div class="popup-details">
 											${
 												p.website
-													? `<a href="${p.website}" target="_blank" rel="noopener noreferrer" class="popup-name popup-name-link">${p.name}</a>`
-													: `<p class="popup-name">${p.name}</p>`
+													? `<a href="${escapeHtml(p.website)}" target="_blank" rel="noopener noreferrer" class="popup-name popup-name-link">${escapeHtml(p.name)}</a>`
+													: `<p class="popup-name">${escapeHtml(p.name)}</p>`
 											}
-											<p class="popup-country">${p.country}</p>
+											<p class="popup-country">${escapeHtml(p.country)}</p>
 										</div>
 									</div>
 								`
@@ -123,39 +144,27 @@
 				});
 
 				mapReady = true;
-			}
-
-			return () => {
-				// Cleanup map on component destroy
-				if (map) {
-					map.remove();
-					map = null;
-					mapReady = false;
-				}
-			};
 		});
+
+		return () => {
+			// Cleanup map on component destroy
+			destroyed = true;
+			if (map) {
+				map.remove();
+				map = null;
+				tileLayer = null;
+				mapReady = false;
+			}
+		};
 	});
 
 	// Update tile layer when theme changes
 	$effect(() => {
 		if (mapReady && tileLayer) {
-			const lightTiles = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-			const darkTiles = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-
-			tileLayer.setUrl(isDarkMode ? darkTiles : lightTiles);
+			tileLayer.setUrl(isDarkMode ? TILE_URLS.dark : TILE_URLS.light);
 		}
 	});
 </script>
-
-<!-- Leaflet CSS -->
-<svelte:head>
-	<link
-		rel="stylesheet"
-		href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-		crossorigin=""
-	/>
-</svelte:head>
 
 <div class="card-surface surface-padding-xs glow-border w-full">
 	<div bind:this={mapContainer} class="map-canvas"></div>
