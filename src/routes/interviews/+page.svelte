@@ -1,73 +1,12 @@
 <script lang="ts">
 	import { Heading, P } from 'flowbite-svelte';
-	import { VideoCameraOutline } from 'flowbite-svelte-icons';
-	import {
-		createSeoMeta,
-		createEventJsonLd,
-		createWebPageJsonLd,
-		jsonLdScript
-	} from '$lib/utils/seo';
-	import { workshopInfo } from '$lib/data/workshop-info';
+	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
+	import { interviews } from '$lib/data/interviews';
 	import { reveal } from '$lib/utils/reveal';
-
-	interface Interview {
-		participantName: string;
-		affiliation: string;
-		youtubeId: string;
-		topic: string;
-		description: string;
-	}
-
-	const interviews: Interview[] = [
-		{
-			participantName: 'Emmanuel Ngue Um',
-			affiliation: 'University of Yaoundé I',
-			youtubeId: 'IpSY7i_bses',
-			topic: 'AI, Digital Humanities, and African Indigenous Languages',
-			description:
-				"Linguist Emmanuel Ngue Um discusses how artificial intelligence and digital humanities can help preserve and teach indigenous languages. He presents his work building language technology models — speech recognition, synthesis, and machine translation — to create digital teaching resources for local languages. Emmanuel explains how AI is accelerating linguistic research: large language models can use transfer learning to support low-resource languages with as little as one hour of recorded data. He also reflects on what AI's ability to process and replicate speech reveals about the nature of human language and cognition."
-		},
-		{
-			participantName: 'Duncan Money',
-			affiliation: 'Zambia Congress of Trade Unions (ZCTU) project',
-			youtubeId: 'wZNZSDVfO-I',
-			topic: 'AI, Digitization, and Ownership of Archival Material',
-			description:
-				'Consulting historian and researcher Duncan Money discusses the practical challenges of digitisation work, which is labour-intensive and tedious yet requires careful attention to detail, and considers how AI could automate parts of the process. Drawing on his experience of digitising the Zambia Congress of Trade Unions archive, he reflects on the potential of AI to reduce the burden on project staff. He also raises critical questions about ownership. While agreements around physical and digital copies have been relatively straightforward to enforce, feeding archival material into large language models threatens to undermine established ownership arrangements. This creates unresolved challenges regarding how digitised material can be governed and used.'
-		},
-		{
-			participantName: 'Karen Byera Ijumba',
-			affiliation: 'Open Restitution Africa',
-			youtubeId: 'uGettNm8W_s',
-			topic: 'Digital Tools for Restitution Process Data in Africa',
-			description:
-				'Karen Byera Ijumba presents Open Restitution Africa, a project that addresses gaps in the data on the restitution process by tracking the return of cultural artefacts, human remains and spirit representations taken from Africa to Europe. She explains how digital tools can be used to collect, consolidate and transparently manage dynamic datasets across countries and knowledge holders. Karen highlights the creative use of low-fi digital tools across the region, where researchers adapt everyday technologies like phones, Excel, and WordPress to produce accessible outputs despite limited resources. She also reflects on how the risks of digital temporality have inspired a context-responsive approach to digital humanities — one that embraces what digital interventions can achieve within their lifespan.'
-		},
-		{
-			participantName: 'Fallou Ngom',
-			affiliation: 'Boston University',
-			youtubeId: 'GXv8OQVLYk4',
-			topic: 'Digital Preservation of African Ajami Manuscripts',
-			description:
-				'Anthropologist Fallou Ngom discusses his work preserving Ajami manuscripts — African languages written with adapted forms of the Arabic script — that have been overlooked for centuries due to colonial definitions of literacy that recognise only European languages. He describes how digital tools have enabled him to build the African Ajami Library, containing over 30,000 pages in 11 languages, and to digitise more than 50,000 pages of classical Arabic and Ajami texts from Senegal and Fouta Djallon spanning the 18th to the 21st century. He also reflects on the challenges of uneven internet access and limited local training, and explains how his projects address the digital gap through knowledge transfer workshops and equipment donations. These multilingual sources fundamentally challenge dominant narratives about African literacy and enrich the African library.'
-		},
-		{
-			participantName: 'Menno van Zaanen',
-			affiliation: 'South African Centre for Digital Language Resources',
-			youtubeId: 'yYB4dGN6h-M',
-			topic: "Building Digital Language Resources for South Africa's Official Languages",
-			description:
-				"Digital humanities professor Menno van Zaanen discusses the challenges of collecting digital language resources for South Africa's 12 official languages, including sign language. He describes how data scarcity necessitates an opportunistic approach involving the scraping of government websites, the digitisation of archives and the gathering of social media content, while also acknowledging the biases this introduces. This is because tools trained on government text perform poorly on literary or informal language. He raises critical questions about ownership and community consent, using sign language data collection as an example. Here, researchers must resist the impulse to act on behalf of communities without first understanding what they actually want. He reflects on the difficult trade-offs between comprehensive, structured data collection and the practical need to secure whatever resources are available before they disappear from the digital space."
-		},
-		{
-			participantName: 'Albrecht Hofheinz',
-			affiliation: 'University of Oslo',
-			youtubeId: 'VE3r8xbumnY',
-			topic: 'Leveraging OCR and AI to Explore Arabic Manuscript Collections',
-			description:
-				"Middle East studies and Arabic scholar Albrecht Hofheinz discusses how he combines Google's optical character recognition with large language models (LLMs) to process collections of Arabic handwritten manuscripts at scale. He explains that training handwritten text recognition on individual hands is not feasible for single-page documents, and that untrained OCR alone produces only 20 to 60 percent correct words. Yet by feeding these imperfect results into reasoning LLMs, he now obtains detailed automated summaries that help him identify which documents warrant closer human inspection. He reflects on the ethical dilemma of submitting manuscript images to commercial APIs and notes that while reasoning LLMs can sometimes catch contextual errors, human vetting remains essential."
-		}
-	];
+	import SeoHead from '$lib/components/SeoHead.svelte';
+	import PageHero from '$lib/components/PageHero.svelte';
+	import CreditLine from '$lib/components/CreditLine.svelte';
+	import LiteYouTube from '$lib/components/LiteYouTube.svelte';
 
 	const seo = createSeoMeta({
 		title: 'Interviews',
@@ -82,28 +21,8 @@
 			'African Studies',
 			'Hanover',
 			'Workshop 2026',
-			'Emmanuel Ngue Um',
-			'Duncan Money',
-			'Karen Byera Ijumba',
-			'Fallou Ngom',
-			'Menno van Zaanen',
-			'Albrecht Hofheinz'
+			...interviews.map((i) => i.participantName)
 		]
-	});
-
-	const eventJsonLd = createEventJsonLd({
-		name: 'Charting New Territory: Digital Humanities and AI in African Studies',
-		description: seo.description,
-		startDate: workshopInfo.dates.startISO,
-		endDate: workshopInfo.dates.endISO,
-		locationName: workshopInfo.location.venue,
-		locationAddress: workshopInfo.location.venue,
-		locationCity: workshopInfo.location.city,
-		locationCountry: workshopInfo.location.country,
-		organizerName: workshopInfo.organizers.full,
-		funderName: workshopInfo.funder.name,
-		funderUrl: workshopInfo.funder.url,
-		url: seo.canonical
 	});
 
 	const webPageJsonLd = createWebPageJsonLd({
@@ -113,115 +32,45 @@
 	});
 </script>
 
-<svelte:head>
-	<title>{seo.title}</title>
-	{#each seo.meta as attributes (attributes.key)}
-		<meta name={attributes.name} property={attributes.property} content={attributes.content} />
-	{/each}
-	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
-		<link {...attributes} />
-	{/each}
-	{@html jsonLdScript(eventJsonLd)}
-	{@html jsonLdScript(webPageJsonLd)}
-</svelte:head>
+<SeoHead {seo} jsonLd={webPageJsonLd} />
 
-<!-- Page Header -->
-<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
-	<div class="bg-grid-mesh"></div>
-	<div class="bg-radial-glow"></div>
-	<div class="content-width surface-panel surface-padding stack-sm relative text-center">
-		<Heading
-			tag="h1"
-			class="heading-display heading-xl text-gradient-teal animate-hero-title pb-2 tracking-tight drop-shadow-md"
-		>
-			Interviews
-		</Heading>
-		<P class="text-lead animate-hero-subtitle mx-auto max-w-3xl">
-			Short interviews with workshop participants sharing their perspectives on Digital Humanities
-			and AI in African Studies.
-		</P>
-		<p
-			class="animate-hero-subtitle text-xs tracking-widest text-gray-400 uppercase dark:text-gray-500"
-			style="animation-delay: 100ms;"
-		>
-			Filmed by <a
-				href="https://calumbrett.myportfolio.com/"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="text-secondary-500 dark:text-secondary-400 hover:text-secondary-400 dark:hover:text-secondary-300 transition-colors"
-				>Calum Houston</a
-			>
-		</p>
-	</div>
-</section>
+<PageHero
+	title="Interviews"
+	lede="Short interviews with workshop participants sharing their perspectives on Digital Humanities and AI in African Studies."
+>
+	<CreditLine prefix="Filmed by" />
+</PageHero>
 
 <!-- Interviews Grid -->
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="bg-grid-mesh opacity-30"></div>
-	<div
-		class="content-width-wide surface-panel surface-padding stack-lg animate-section-reveal relative"
-		use:reveal
-	>
-		{#if interviews.length > 0}
-			<div class="stagger-children grid grid-cols-1 gap-8 md:grid-cols-2">
-				{#each interviews as interview (interview.participantName)}
-					<div class="card-surface surface-padding stack-md glow-border rounded-lg">
-						{#if interview.youtubeId}
-							<div
-								class="relative w-full overflow-hidden rounded-md"
-								style="padding-bottom: 56.25%;"
-							>
-								<iframe
-									src="https://www.youtube-nocookie.com/embed/{interview.youtubeId}"
-									title="Interview with {interview.participantName}"
-									frameborder="0"
-									allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									allowfullscreen
-									class="absolute inset-0 h-full w-full"
-									loading="lazy"
-								></iframe>
-							</div>
-						{:else}
-							<div
-								class="flex aspect-video w-full items-center justify-center overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800"
-							>
-								<div class="stack-xs text-center">
-									<VideoCameraOutline class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
-									<p class="text-sm text-gray-500 dark:text-gray-400">Video coming soon</p>
-								</div>
-							</div>
-						{/if}
-						<div class="stack-xs">
-							<Heading tag="h2" class="heading-sub heading-color-light">
-								{interview.participantName}
-							</Heading>
-							<p class="text-sm text-gray-500 dark:text-gray-400">
-								{interview.affiliation}
-							</p>
-							<Heading
-								tag="h3"
-								class="text-secondary-600 dark:text-secondary-400 text-base! font-medium!"
-							>
-								{interview.topic}
-							</Heading>
-							<P class="body-text-muted text-sm">
-								{interview.description}
-							</P>
-						</div>
+	<div class="content-width-wide surface-panel surface-padding relative">
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+			{#each interviews as interview (interview.participantName)}
+				<article
+					class="card-surface surface-padding stack-md glow-border animate-section-reveal rounded-lg"
+					use:reveal
+				>
+					<LiteYouTube
+						videoId={interview.youtubeId}
+						title="Interview with {interview.participantName}"
+					/>
+					<div class="stack-xs">
+						<Heading tag="h2" class="heading-sub heading-color-light">
+							{interview.participantName}
+						</Heading>
+						<p class="text-body-sm">
+							{interview.affiliation}
+						</p>
+						<Heading tag="h3" class="text-accent text-base! font-medium!">
+							{interview.topic}
+						</Heading>
+						<P class="body-text-muted text-sm">
+							{interview.description}
+						</P>
 					</div>
-				{/each}
-			</div>
-		{:else}
-			<div class="empty-state">
-				<div class="empty-state__icon">
-					<VideoCameraOutline class="size-icon-lg" />
-				</div>
-				<Heading tag="h2" class="heading-section text-gradient-teal">Coming Soon</Heading>
-				<P class="body-text-muted mx-auto max-w-md">
-					Short interviews with workshop participants will be added here soon. Check back to hear
-					their perspectives on Digital Humanities and AI in African Studies.
-				</P>
-			</div>
-		{/if}
+				</article>
+			{/each}
+		</div>
 	</div>
 </section>

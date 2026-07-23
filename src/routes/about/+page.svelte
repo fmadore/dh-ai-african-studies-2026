@@ -1,15 +1,12 @@
 <script lang="ts">
 	import { Heading, P, Card, Badge } from 'flowbite-svelte';
 	import ParticipantAvatar from '$lib/components/ParticipantAvatar.svelte';
-	import {
-		createSeoMeta,
-		createEventJsonLd,
-		createWebPageJsonLd,
-		jsonLdScript
-	} from '$lib/utils/seo';
+	import SeoHead from '$lib/components/SeoHead.svelte';
+	import PageHero from '$lib/components/PageHero.svelte';
+	import WorkStreamCards from '$lib/components/WorkStreamCards.svelte';
+	import FundingNote from '$lib/components/FundingNote.svelte';
+	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '$lib/utils/seo';
 	import { participants } from '$lib/data/participants';
-	import { workStreams } from '$lib/data/work-streams';
-	import { workshopInfo } from '$lib/data/workshop-info';
 	import { resolveAssetPath, resolveAppPath } from '$lib/utils/paths';
 	import { reveal } from '$lib/utils/reveal';
 
@@ -30,7 +27,7 @@
 	const seo = createSeoMeta({
 		title: 'About the Workshop',
 		description:
-			'This scoping workshop convenes international experts to map the intersection of digital humanities and AI within African studies, highlighting opportunities and challenges across equity, linguistics, and methodology.',
+			'This scoping workshop convened international experts to map the intersection of digital humanities and AI within African studies, highlighting opportunities and challenges across equity, linguistics, and methodology.',
 		path: '/about',
 		keywords: [
 			'Digital Humanities',
@@ -46,18 +43,8 @@
 		]
 	});
 
-	const eventJsonLd = createEventJsonLd({
-		name: 'Charting New Territory: Digital Humanities and AI in African Studies',
+	const eventJsonLd = createWorkshopEventJsonLd({
 		description: seo.description,
-		startDate: workshopInfo.dates.startISO,
-		endDate: workshopInfo.dates.endISO,
-		locationName: workshopInfo.location.venue,
-		locationAddress: workshopInfo.location.venue,
-		locationCity: workshopInfo.location.city,
-		locationCountry: workshopInfo.location.country,
-		organizerName: workshopInfo.organizers.full,
-		funderName: workshopInfo.funder.name,
-		funderUrl: workshopInfo.funder.url,
 		url: seo.canonical
 	});
 	const webPageJsonLd = createWebPageJsonLd({
@@ -67,127 +54,120 @@
 	});
 </script>
 
-<svelte:head>
-	<title>{seo.title}</title>
-	{#each seo.meta as attributes (attributes.key)}
-		<meta name={attributes.name} property={attributes.property} content={attributes.content} />
-	{/each}
-	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
-		<link {...attributes} />
-	{/each}
-	{@html jsonLdScript(eventJsonLd)}
-	{@html jsonLdScript(webPageJsonLd)}
-</svelte:head>
+<SeoHead {seo} jsonLd={[eventJsonLd, webPageJsonLd]} />
 
-<!-- Page Header -->
-<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
-	<div class="bg-grid-mesh"></div>
-	<div class="bg-radial-glow"></div>
+<PageHero
+	title="About the Workshop"
+	lede="A scoping workshop held 18–20 February 2026 in Hanover, Germany, bringing together researchers from Africa, Europe, and beyond."
+/>
 
-	<div class="content-width surface-panel surface-padding stack-xl relative">
-		<Heading
-			tag="h1"
-			class="heading-display heading-xl text-gradient-teal animate-hero-title pb-2 text-center tracking-tight drop-shadow-md"
-			>About the Workshop</Heading
+<!-- Background -->
+<section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
+	<div class="bg-grid-mesh opacity-30"></div>
+	<div
+		class="content-width surface-panel surface-padding stack-md animate-section-reveal relative"
+		use:reveal
+	>
+		<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline"
+			>Background</Heading
 		>
+		<P class="body-text">
+			Digital humanities has a long—and often overlooked—history in African studies, from early
+			databases such as the <a
+				href="https://www.slavevoyages.org/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="link-secondary"><em>Transatlantic Slave Trade Database</em></a
+			>, to more recent projects like the
+			<a
+				href="https://open.bu.edu/handle/2144/1896"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="link-secondary"><em>African Ajami Library</em></a
+			>,
+			<a
+				href="https://openrestitution.africa/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="link-secondary"><em>Open Restitution Africa</em></a
+			>, and
+			<a href="https://archivi.ng/" target="_blank" rel="noopener noreferrer" class="link-secondary"
+				><em>Archivi.ng</em></a
+			>. AI tools, particularly large language models, add new possibilities for textual analysis
+			and cross-cultural research.
+		</P>
+		<P class="body-text">
+			But implementation raises difficult questions. Decisions about what gets digitised, how it is
+			catalogued and who controls access are not neutral; they often favour institutions that
+			already have resources in place. Most AI systems still underperform on African languages. And
+			the pace of adoption frequently outstrips attention to long-term preservation and local
+			capacity.
+		</P>
+		<P class="body-text">
+			Critics have described some digital initiatives as a form of "<a
+				href="https://doi.org/10.1080/13696815.2018.1555749"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="link-secondary">digital saviour complex</a
+			>," where Northern-led projects reproduce colonial dynamics even while claiming to democratise
+			access. This workshop took these critiques seriously.
+		</P>
+	</div>
+</section>
 
-		<div class="stack-md animate-hero-subtitle text-left" style="animation-delay: 250ms;">
-			<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline"
-				>Background</Heading
-			>
-			<P class="body-text">
-				Digital humanities has a long—and often overlooked—history in African studies, from early
-				databases such as the <a
-					href="https://www.slavevoyages.org/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="link-secondary"><em>Transatlantic Slave Trade Database</em></a
-				>, to more recent projects like the
-				<a
-					href="https://open.bu.edu/handle/2144/1896"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="link-secondary"><em>African Ajami Library</em></a
-				>,
-				<a
-					href="https://openrestitution.africa/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="link-secondary"><em>Open Restitution Africa</em></a
-				>, and
-				<a
-					href="https://archivi.ng/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="link-secondary"><em>Archivi.ng</em></a
-				>. AI tools, particularly large language models, add new possibilities for textual analysis
-				and cross-cultural research.
-			</P>
-			<P class="body-text">
-				But implementation raises difficult questions. Decisions about what gets digitised, how it
-				is catalogued and who controls access are not neutral; they often favour institutions that
-				already have resources in place. Most AI systems still underperform on African languages.
-				And the pace of adoption frequently outstrips attention to long-term preservation and local
-				capacity.
-			</P>
-			<P class="body-text">
-				Critics have described some digital initiatives as a form of "<a
-					href="https://doi.org/10.1080/13696815.2018.1555749"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="link-secondary">digital saviour complex</a
-				>," where Northern-led projects reproduce colonial dynamics even while claiming to
-				democratise access. This workshop takes these critiques seriously.
-			</P>
-		</div>
+<!-- Format -->
+<section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
+	<div class="bg-radial-glow opacity-50"></div>
+	<div
+		class="content-width surface-panel surface-padding stack-md animate-section-reveal relative"
+		use:reveal
+	>
+		<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline"
+			>Format</Heading
+		>
+		<P class="body-text">
+			This was not a traditional conference. There were no paper presentations. Instead,
+			participants worked intensively across three days in structured sessions designed to produce
+			tangible outputs. Daily synthesis sessions connected insights across the three work streams,
+			feeding directly into the <a href={resolveAppPath('/position-paper')} class="link-secondary"
+				>position paper</a
+			>.
+		</P>
 
-		<div class="stack-md animate-section-reveal" use:reveal>
-			<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline"
-				>Format</Heading
-			>
-			<P class="body-text">
-				This is not a traditional conference. There are no paper presentations. Instead,
-				participants work intensively across three days in structured sessions designed to produce
-				tangible outputs. Daily synthesis sessions connect insights across the three work streams,
-				feeding directly into the <a href={resolveAppPath('/position-paper')} class="link-secondary"
-					>position paper</a
-				>.
-			</P>
+		<WorkStreamCards />
+	</div>
+</section>
 
-			<div
-				class="stagger-children mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
-				use:reveal
-			>
-				{#each workStreams as stream (stream.id)}
-					<Card class="card-surface surface-padding-sm stack-xs glow-border h-full">
-						<Heading tag="h3" class="heading-sub text-lg">{stream.title}</Heading>
-						<P class="text-body-sm">
-							{stream.description}
-						</P>
-					</Card>
-				{/each}
-			</div>
-		</div>
+<!-- Key Outcome -->
+<section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
+	<div class="bg-grid-mesh opacity-30"></div>
+	<div
+		class="content-width surface-panel surface-padding stack-md animate-section-reveal relative"
+		use:reveal
+	>
+		<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline"
+			>Key Outcome: The Position Paper</Heading
+		>
+		<P class="body-text">
+			The primary goal of the workshop was to produce a jointly authored
+			<a href={resolveAppPath('/position-paper')} class="link-secondary">position paper</a>.
+		</P>
+		<P class="body-text">
+			Drawing on insights from the daily sessions, this document provides a strategic reference
+			point for the field, offering actionable recommendations for research funders, academic
+			institutions, technology developers, and policymakers.
+		</P>
+		<P class="body-text">
+			By addressing sustainable funding models, ethical protocols, and decolonised curricula, it
+			aims to support the consolidation of this emerging field and inform its future direction.
+		</P>
+	</div>
+</section>
 
-		<div class="stack-md animate-section-reveal" use:reveal>
-			<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline"
-				>Key Outcome: The Position Paper</Heading
-			>
-			<P class="body-text">
-				The primary goal of this workshop is to produce a jointly authored
-				<a href={resolveAppPath('/position-paper')} class="link-secondary">position paper</a>.
-			</P>
-			<P class="body-text">
-				Drawing on insights from the daily sessions, this document will provide a strategic
-				reference point for the field, offering actionable recommendations for research funders,
-				academic institutions, technology developers, and policymakers.
-			</P>
-			<P class="body-text">
-				By addressing sustainable funding models, ethical protocols, and decolonised curricula, our
-				aim is to support the consolidation of this emerging field and inform its future direction.
-			</P>
-		</div>
-
+<!-- People -->
+<section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
+	<div class="bg-radial-glow-bottom"></div>
+	<div class="content-width surface-panel surface-padding stack-xl relative">
 		<!-- Co-Organisers Section -->
 		{#if coOrganizers.length > 0}
 			<div class="stack-md animate-section-reveal" use:reveal>
@@ -221,7 +201,7 @@
 											{organizer.name}
 										{/if}
 									</Heading>
-									<P class="font-medium text-gray-600 dark:text-gray-400">
+									<P class="body-text-muted font-medium">
 										{organizer.affiliation}
 									</P>
 									{#if organizer.bio}
@@ -270,7 +250,7 @@
 								</Heading>
 
 								<!-- Affiliation -->
-								<P class="text-body-sm font-medium text-gray-600 dark:text-gray-400">
+								<P class="text-body-sm body-text-muted font-medium">
 									{assistant.affiliation}
 								</P>
 
@@ -298,19 +278,20 @@
 				</div>
 			</div>
 		{/if}
+	</div>
+</section>
 
-		<div class="stack-sm animate-section-reveal" use:reveal>
-			<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline"
-				>Funding</Heading
-			>
-			<P class="body-text">
-				This scoping workshop is made possible by the generous support of the <a
-					href="https://www.volkswagenstiftung.de/en"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="link-secondary font-semibold">Volkswagen Foundation</a
-				>.
-			</P>
-		</div>
+<!-- Funding -->
+<section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
+	<div
+		class="content-width surface-panel surface-padding stack-sm animate-section-reveal relative"
+		use:reveal
+	>
+		<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline"
+			>Funding</Heading
+		>
+		<P class="body-text">
+			<FundingNote />
+		</P>
 	</div>
 </section>

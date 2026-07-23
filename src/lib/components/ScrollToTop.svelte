@@ -7,8 +7,14 @@
 		visible = window.scrollY > 300;
 	}
 
+	// Compute initial visibility (back-navigation restore, anchor deep links)
+	$effect(() => {
+		handleScroll();
+	});
+
 	function scrollToTop() {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
 	}
 </script>
 

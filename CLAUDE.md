@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Static conference website for "Charting New Territory: Digital Humanities and AI in African Studies" (18-20 February 2026, Hanover, Germany). Funded by Volkswagen Foundation.
 
+The workshop has taken place: the site is now a post-event archive (photos, interviews, concept map, position paper). Write copy in past tense; treat outcome pages as the primary content.
+
 **Live Site:** https://fmadore.github.io/dh-ai-african-studies-2026/
 
 ## Commands
@@ -23,18 +25,25 @@ npm run format:check # Verify formatting (used in CI)
 **Update references from Zotero:**
 
 ```bash
-python scripts/fetch_references.py
+npm run fetch:references
 ```
 
-Requires `ZOTERO_API_KEY` in `.env` file.
+Requires `ZOTERO_API_KEY` in `.env` file (see `.env.example`).
+
+**Optimize images after adding any to `static/images/`:**
+
+```bash
+npm run optimize:images
+```
 
 ## Technology Stack
 
 - **Framework:** SvelteKit with Svelte 5 (runes syntax mandatory)
 - **UI:** Flowbite Svelte
 - **Styling:** Tailwind CSS v4
-- **Maps:** Leaflet
-- **Citations:** Citation.js
+- **Maps:** Leaflet (dynamically imported)
+- **Graph:** D3 force layout (dynamically imported)
+- **Fonts:** Self-hosted via @fontsource-variable (no Google Fonts requests)
 - **Deployment:** GitHub Pages (static adapter)
 
 ## Svelte 5 Runes (Required)
@@ -71,11 +80,13 @@ This handles the `/dh-ai-african-studies-2026` base path in production.
 
 ### Data Layer (`src/lib/data/`)
 
-- `workshop-info.ts` - Dates, venue, organizers (single source of truth)
-- `schedule.ts` - Three-day workshop schedule
+- `workshop-info.ts` - Dates, venue, organizers, funder (single source of truth)
+- `schedule.ts` - Three-day workshop schedule + session-type styling metadata
 - `participants/` - Individual `.ts` files auto-imported via `import.meta.glob`
 - `references.json` - Fetched from Zotero API
-- `thematic-groups.ts`, `work-streams.ts` - Conference structure
+- `thematic-groups.ts` (canonical group-name union), `work-streams.ts` - Conference structure
+- `interviews.ts` - Participant video interviews
+- `photos.ts` - Photo categories + media credit
 
 ### Adding Participants
 
@@ -99,29 +110,37 @@ No manual registration needed - files are auto-imported.
 
 ### SEO Pattern
 
-Every page should use:
+Every page uses the shared `SeoHead` component:
 
 ```svelte
 <script lang="ts">
-  import { createSeoMeta, createEventJsonLd, serializeJsonLd } from '$lib/utils/seo';
+  import SeoHead from '$lib/components/SeoHead.svelte';
+  import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
 
   const seo = createSeoMeta({ title: 'Page', description: '...', path: '/route' });
+  const webPageJsonLd = createWebPageJsonLd({
+    name: seo.title,
+    description: seo.description,
+    url: seo.canonical
+  });
 </script>
 
-<svelte:head>
-  <title>{seo.title}</title>
-  {#each seo.meta as attributes, i (attributes.name ?? attributes.property ?? `meta-${i}`)}
-    <meta {...attributes} />
-  {/each}
-</svelte:head>
+<SeoHead {seo} jsonLd={webPageJsonLd} />
 ```
+
+Only home, about, and schedule additionally pass `createWorkshopEventJsonLd({ description, url })` — Event structured data on ancillary pages reads as spam to search engines. The sitemap is generated at build time by `src/routes/sitemap.xml/+server.ts`; add new routes there.
 
 ### Key Components (`src/lib/components/`)
 
 - `Header.svelte`, `Footer.svelte` - Global layout
+- `SeoHead.svelte`, `PageHero.svelte` - Shared page head + hero (use on every page)
+- `AppButton.svelte` - Primary/secondary CTA button (`variant` prop)
 - `UrlTabs.svelte` - URL-synced tab navigation
 - `ParticipantsMap.svelte` - Leaflet interactive map
-- `ReferenceFacets.svelte`, `SearchFilter.svelte` - Bibliography filtering
+- `ConceptGraph.svelte` (+ `concept-graph/`) - D3 force-directed concept map
+- `PhotoViewer.svelte` - Photo grid + lightbox
+- `LiteYouTube.svelte` - Click-to-load YouTube facade (never embed iframes eagerly)
+- `ReferenceFacets.svelte`, `ReferenceCard.svelte`, `Pagination.svelte`, `SearchFilter.svelte`, `ExportReferences.svelte` - Bibliography UI
 
 ## Design Philosophy: Future Forward
 
@@ -160,12 +179,8 @@ The site uses a **"Future Forward"** aesthetic - sophisticated and tech-forward 
   // ... other imports
 </script>
 
-<!-- Hero/Header Section -->
-<section class="gradient-hero-future relative overflow-hidden">
-  <div class="bg-grid-mesh"></div>
-  <div class="bg-radial-glow"></div>
-  <!-- Content -->
-</section>
+<!-- Hero/Header Section — subpages use the shared PageHero component -->
+<PageHero title="Page Title" lede="One-sentence description." />
 
 <!-- Content Sections -->
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
@@ -180,9 +195,10 @@ The site uses a **"Future Forward"** aesthetic - sophisticated and tech-forward 
 ### Animation Guidelines
 
 - **Subtle & Professional**: 300-500ms transitions
-- **Scroll reveals**: Trigger at 15% visibility, 20px translate, 300ms duration
+- **Scroll reveals**: Trigger once the element enters the bottom ~88% of the viewport (rootMargin-based — never use a fixed intersection ratio: it is unreachable for elements taller than the viewport and leaves them invisible)
 - **Respect `prefers-reduced-motion`**: The `reveal` action handles this automatically
 - **Stagger delays**: 50ms between children
+- **Don't wrap very tall grids in a single `use:reveal`** — apply it per card instead
 
 ## Custom CSS Classes
 

@@ -1,5 +1,5 @@
-# allow crawling everything by default
+# allow crawling everything except the iframe-only embed view
 User-agent: *
-Disallow:
+Disallow: /dh-ai-african-studies-2026/concepts/embed
 
 Sitemap: https://fmadore.github.io/dh-ai-african-studies-2026/sitemap.xml

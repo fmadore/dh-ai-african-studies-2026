@@ -1,22 +1,31 @@
 <script lang="ts">
 	import { Heading, P, Badge } from 'flowbite-svelte';
 	import { UsersGroupSolid, UsersGroupOutline } from 'flowbite-svelte-icons';
+	import { SvelteSet } from 'svelte/reactivity';
 	import ParticipantAvatar from '$lib/components/ParticipantAvatar.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
+	import PageHero from '$lib/components/PageHero.svelte';
 	import { participants } from '$lib/data/participants';
 	import { thematicGroups } from '$lib/data/thematic-groups';
-	import {
-		createSeoMeta,
-		createEventJsonLd,
-		createWebPageJsonLd,
-		jsonLdScript
-	} from '$lib/utils/seo';
-	import { workshopInfo } from '$lib/data/workshop-info';
+	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
 	import ParticipantsMap from '$lib/components/ParticipantsMap.svelte';
 	import SearchFilter from '$lib/components/SearchFilter.svelte';
 	import UrlTabs from '$lib/components/UrlTabs.svelte';
 	import { resolveAssetPath } from '$lib/utils/paths';
 
 	let searchQuery = $state('');
+
+	/** Bios longer than this get clamped with a "Read more" toggle */
+	const BIO_CLAMP_THRESHOLD = 260;
+	let expandedBios = new SvelteSet<string>();
+
+	function toggleBio(name: string) {
+		if (expandedBios.has(name)) {
+			expandedBios.delete(name);
+		} else {
+			expandedBios.add(name);
+		}
+	}
 
 	// Define tabs for URL-synced navigation
 	const viewTabs = [
@@ -57,10 +66,16 @@
 			}))
 	);
 
+	// The world map always shows everyone — it lives outside the search context
+	const mapParticipants = baseParticipants.map((participant) => ({
+		...participant,
+		photoUrl: resolveAssetPath(participant.photoUrl)
+	}));
+
 	const seo = createSeoMeta({
 		title: 'Participants',
 		description:
-			'Meet the international experts shaping the Digital Humanities and AI in African Studies scoping workshop.',
+			'Meet the international experts who shaped the Digital Humanities and AI in African Studies scoping workshop.',
 		path: '/participants',
 		keywords: [
 			'Workshop Participants',
@@ -73,20 +88,6 @@
 		]
 	});
 
-	const eventJsonLd = createEventJsonLd({
-		name: 'Charting New Territory: Digital Humanities and AI in African Studies',
-		description: seo.description,
-		startDate: workshopInfo.dates.startISO,
-		endDate: workshopInfo.dates.endISO,
-		locationName: workshopInfo.location.venue,
-		locationAddress: workshopInfo.location.venue,
-		locationCity: workshopInfo.location.city,
-		locationCountry: workshopInfo.location.country,
-		organizerName: workshopInfo.organizers.full,
-		funderName: workshopInfo.funder.name,
-		funderUrl: workshopInfo.funder.url,
-		url: seo.canonical
-	});
 	const webPageJsonLd = createWebPageJsonLd({
 		name: seo.title,
 		description: seo.description,
@@ -94,34 +95,12 @@
 	});
 </script>
 
-<svelte:head>
-	<title>{seo.title}</title>
-	{#each seo.meta as attributes (attributes.key)}
-		<meta name={attributes.name} property={attributes.property} content={attributes.content} />
-	{/each}
-	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
-		<link {...attributes} />
-	{/each}
-	{@html jsonLdScript(eventJsonLd)}
-	{@html jsonLdScript(webPageJsonLd)}
-</svelte:head>
+<SeoHead {seo} jsonLd={webPageJsonLd} />
 
-<!-- Page Header -->
-<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
-	<div class="bg-grid-mesh"></div>
-	<div class="bg-radial-glow"></div>
-	<div class="content-width surface-panel surface-padding stack-sm relative text-center">
-		<Heading
-			tag="h1"
-			class="heading-display heading-xl text-gradient-teal animate-hero-title pb-2 tracking-tight drop-shadow-md"
-			>Participants</Heading
-		>
-		<P class="text-lead animate-hero-subtitle mx-auto max-w-3xl">
-			Meet the {totalParticipants} international experts from {totalCountries} countries participating
-			in this scoping workshop on Digital Humanities and AI in African Studies.
-		</P>
-	</div>
-</section>
+<PageHero
+	title="Participants"
+	lede="Meet the {totalParticipants} international experts from {totalCountries} countries who took part in this scoping workshop on Digital Humanities and AI in African Studies."
+/>
 
 <!-- Tabs Section -->
 <section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
@@ -132,6 +111,7 @@
 				{#if activeTab === 'all'}
 					<!-- All Participants View -->
 					<div class="surface-panel surface-padding stack-lg relative">
+						<h2 class="sr-only">All participants</h2>
 						<div class="mb-lg mx-auto w-full max-w-md">
 							<SearchFilter
 								bind:value={searchQuery}
@@ -168,17 +148,35 @@
 											</Heading>
 
 											<!-- Affiliation -->
-											<P class="text-body-sm font-medium text-gray-600 dark:text-gray-400">
+											<P class="text-body-sm body-text-muted font-medium">
 												{participant.affiliation}
 											</P>
 
 											<!-- Country Badge -->
 											<Badge color="secondary">{participant.country}</Badge>
 
-											<!-- Bio -->
-											<P class="text-body-sm">
-												{participant.bio}
-											</P>
+											<!-- Bio (clamped, with expand toggle for long bios) -->
+											{#if participant.bio}
+												{@const isLong = participant.bio.length > BIO_CLAMP_THRESHOLD}
+												{@const isExpanded = expandedBios.has(participant.name)}
+												<P
+													id="bio-{participant.name}"
+													class="text-body-sm {isLong && !isExpanded ? 'line-clamp-4' : ''}"
+												>
+													{participant.bio}
+												</P>
+												{#if isLong}
+													<button
+														type="button"
+														class="bio-toggle"
+														aria-expanded={isExpanded}
+														aria-controls="bio-{participant.name}"
+														onclick={() => toggleBio(participant.name)}
+													>
+														{isExpanded ? 'Show less' : 'Read more'}
+													</button>
+												{/if}
+											{/if}
 										</div>
 
 										<!-- Research Regions -->
@@ -279,7 +277,7 @@
 																	{participant.name}
 																{/if}
 															</P>
-															<P class="text-body-sm truncate text-gray-600 dark:text-gray-400">
+															<P class="text-body-sm body-text-muted truncate">
 																{participant.affiliation}
 															</P>
 														</div>
@@ -288,8 +286,8 @@
 											{/each}
 										</div>
 									{:else}
-										<P class="text-body-sm text-gray-500 italic dark:text-gray-400">
-											No participants assigned to this group yet.
+										<P class="text-body-sm body-text-muted italic">
+											No participants were assigned to this group.
 										</P>
 									{/if}
 								</div>
@@ -315,6 +313,23 @@
 		<P class="text-lead mx-auto max-w-2xl text-center">
 			Explore where our participants are based around the world.
 		</P>
-		<ParticipantsMap participants={displayedParticipants} />
+		<ParticipantsMap participants={mapParticipants} />
 	</div>
 </section>
+
+<style>
+	.bio-toggle {
+		font-size: var(--text-xs);
+		font-weight: var(--font-weight-semibold);
+		color: var(--text-link);
+		background: transparent;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		transition: color var(--transition-micro);
+	}
+
+	.bio-toggle:hover {
+		color: var(--text-link-hover);
+	}
+</style>

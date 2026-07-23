@@ -2,9 +2,10 @@
 	import { Label, Checkbox, Select, Accordion, AccordionItem } from 'flowbite-svelte';
 	import { FilterOutline, SearchOutline, CloseOutline } from 'flowbite-svelte-icons';
 	import { formatType, formatLanguage } from '$lib/utils/formatters';
+	import type { CslReference } from '$lib/types/csl';
 
 	interface Props {
-		references: any[];
+		references: CslReference[];
 		searchQuery: string;
 		selectedTypes: string[];
 		selectedYears: string[];
@@ -39,13 +40,17 @@
 
 	let availableYears = $derived.by(() => {
 		const years = new Set(
-			references.map((r) => r.issued?.['date-parts']?.[0]?.[0]?.toString()).filter(Boolean)
+			references
+				.map((r) => r.issued?.['date-parts']?.[0]?.[0]?.toString())
+				.filter((y): y is string => Boolean(y))
 		);
 		return Array.from(years).sort().reverse();
 	});
 
 	let availableLanguages = $derived.by(() => {
-		const languages = new Set(references.map((r) => r.language).filter(Boolean));
+		const languages = new Set(
+			references.map((r) => r.language).filter((l): l is string => Boolean(l))
+		);
 		return Array.from(languages).sort();
 	});
 
@@ -53,11 +58,7 @@
 		const tags = new Set<string>(); // eslint-disable-line svelte/prefer-svelte-reactivity
 		references.forEach((r) => {
 			if (r.tags && Array.isArray(r.tags)) {
-				r.tags.forEach((t: string) => {
-					if (t !== 'Non lu') {
-						tags.add(t);
-					}
-				});
+				r.tags.forEach((t) => tags.add(t));
 			}
 		});
 		return Array.from(tags).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
@@ -94,10 +95,6 @@
 		selectedSort = 'newest';
 		keywordSearch = '';
 	}
-
-	function handleClose() {
-		onclose?.();
-	}
 </script>
 
 <div class="card-surface p-5 sm:p-6">
@@ -116,7 +113,7 @@
 			{#if showCloseButton}
 				<button
 					type="button"
-					onclick={handleClose}
+					onclick={() => onclose?.()}
 					class="facets-close-btn text-subtle-ink flex items-center gap-1 text-xs font-semibold tracking-wide uppercase"
 					aria-label={closeLabel}
 				>

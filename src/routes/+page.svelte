@@ -1,33 +1,26 @@
 <script lang="ts">
 	import { Card, Heading, P, Timeline, TimelineItem } from 'flowbite-svelte';
-	import { CalendarMonthOutline, MapPinAltOutline } from 'flowbite-svelte-icons';
 	import {
-		createSeoMeta,
-		createEventJsonLd,
-		createWebPageJsonLd,
-		jsonLdScript
-	} from '$lib/utils/seo';
+		CalendarMonthOutline,
+		MapPinAltOutline,
+		CameraPhotoOutline,
+		VideoCameraOutline,
+		ShareNodesOutline,
+		FileLinesOutline
+	} from 'flowbite-svelte-icons';
+	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
 	import { participants } from '$lib/data/participants';
 	import { workStreams } from '$lib/data/work-streams';
 	import { reveal } from '$lib/utils/reveal';
-	import PrimaryButton from '$lib/components/PrimaryButton.svelte';
-	import SecondaryButton from '$lib/components/SecondaryButton.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
+	import FundingNote from '$lib/components/FundingNote.svelte';
+	import AppButton from '$lib/components/AppButton.svelte';
 
 	const seo = createSeoMeta({ path: '/' });
-	const eventJsonLd = createEventJsonLd({
-		name: 'Charting New Territory: Digital Humanities and AI in African Studies',
+	const eventJsonLd = createWorkshopEventJsonLd({
 		description: seo.description,
-		startDate: workshopInfo.dates.startISO,
-		endDate: workshopInfo.dates.endISO,
-		locationName: workshopInfo.location.venue,
-		locationAddress: workshopInfo.location.venue,
-		locationCity: workshopInfo.location.city,
-		locationCountry: workshopInfo.location.country,
-		organizerName: workshopInfo.organizers.full,
-		funderName: workshopInfo.funder.name,
-		funderUrl: workshopInfo.funder.url,
 		url: seo.canonical
 	});
 	const webPageJsonLd = createWebPageJsonLd({
@@ -36,8 +29,8 @@
 		url: seo.canonical
 	});
 	const aboutHref = resolveAppPath('/about');
-	const participantsHref = resolveAppPath('/participants');
 	const positionPaperHref = resolveAppPath('/position-paper');
+	const photosHref = resolveAppPath('/photos');
 
 	const organizers = participants
 		.filter((p) => p.role === 'Co-organizer')
@@ -64,32 +57,49 @@
 		{
 			title: 'From Assessment to Action',
 			description:
-				'We prioritise production over presentation. Each day, participants progress from mapping current barriers to co-designing actionable strategies, ensuring that African epistemologies remain at the centre of this process. Daily synthesis sessions connect insights across groups.'
+				'We prioritised production over presentation. Each day, participants progressed from mapping current barriers to co-designing actionable strategies, ensuring that African epistemologies remained at the centre of this process. Daily synthesis sessions connected insights across groups.'
 		},
 		{
 			title: 'Structured Work Streams',
 			description:
-				'Three integrated work streams will tackle critical intersections through facilitated dialogue rather than traditional panels: Methodological Integration, Equitable North–South/South–South Collaboration and Ethical Frameworks.'
+				'Three integrated work streams tackled critical intersections through facilitated dialogue rather than traditional panels: Methodological Integration, Equitable North–South/South–South Collaboration and Ethical Frameworks.'
 		},
 		{
 			title: 'Position Paper',
 			description:
-				'The workshop will culminate in the creation of a co-authored strategic roadmap. This document will outline the future direction of the field, providing practical recommendations to inform future research, funding policies and institutional decision-making.'
+				'The workshop culminated in the drafting of a co-authored strategic roadmap. This document outlines the future direction of the field, providing practical recommendations to inform future research, funding policies and institutional decision-making.'
+		}
+	];
+
+	const outcomes = [
+		{
+			title: 'Position Paper',
+			description: 'A co-authored roadmap for the field, to be published open access.',
+			icon: FileLinesOutline,
+			href: resolveAppPath('/position-paper')
+		},
+		{
+			title: 'Photos',
+			description: 'Three days of collaboration captured in the workshop gallery.',
+			icon: CameraPhotoOutline,
+			href: resolveAppPath('/photos')
+		},
+		{
+			title: 'Interviews',
+			description: 'Participants share their perspectives in short video interviews.',
+			icon: VideoCameraOutline,
+			href: resolveAppPath('/interviews')
+		},
+		{
+			title: 'Concept Map',
+			description: "An interactive network of ideas from the workshop's bibliography.",
+			icon: ShareNodesOutline,
+			href: resolveAppPath('/concepts')
 		}
 	];
 </script>
 
-<svelte:head>
-	<title>{seo.title}</title>
-	{#each seo.meta as attributes (attributes.key)}
-		<meta name={attributes.name} property={attributes.property} content={attributes.content} />
-	{/each}
-	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
-		<link {...attributes} />
-	{/each}
-	{@html jsonLdScript(eventJsonLd)}
-	{@html jsonLdScript(webPageJsonLd)}
-</svelte:head>
+<SeoHead {seo} jsonLd={[eventJsonLd, webPageJsonLd]} />
 
 <!-- Hero Section - Future Forward -->
 <section class="gradient-hero-future hero-viewport relative flex items-center overflow-hidden">
@@ -107,7 +117,9 @@
 		<div class="gap-xl grid items-center lg:grid-cols-12">
 			<div class="stack-xl lg:col-span-8 xl:col-span-7">
 				<div class="stack-sm">
-					<p class="text-accent animate-hero-eyebrow text-label">A Scoping Workshop</p>
+					<p class="text-accent animate-hero-eyebrow text-label">
+						A Scoping Workshop · 18–20 February 2026 · Hanover
+					</p>
 					<h1
 						class="heading-display heading-xl text-gradient-teal animate-hero-title pb-2 tracking-tight"
 					>
@@ -119,22 +131,22 @@
 				</div>
 
 				<p class="text-lead animate-hero-lede max-w-2xl">
-					A working meeting bringing together researchers from Africa, Europe, and beyond. Through
-					facilitated discussions and structured deliberation—prioritising collaboration over
-					presentations—participants will move from assessing current practices to developing
+					A working meeting that brought together researchers from Africa, Europe, and beyond.
+					Through facilitated discussions and structured deliberation—prioritising collaboration
+					over presentations—participants moved from assessing current practices to developing
 					actionable strategies. The outcome: a co-authored position paper guiding the ethical
 					integration of digital humanities and AI in African studies.
 				</p>
 
 				<div class="gap-md flex flex-col sm:flex-row">
 					<div class="animate-hero-cta">
-						<PrimaryButton href={aboutHref} size="xl">About</PrimaryButton>
+						<AppButton href={positionPaperHref} size="xl">Position Paper</AppButton>
 					</div>
 					<div class="animate-hero-cta-2">
-						<SecondaryButton href={participantsHref} size="xl">Participants</SecondaryButton>
+						<AppButton variant="secondary" href={photosHref} size="xl">Photos</AppButton>
 					</div>
 					<div class="animate-hero-cta-3">
-						<SecondaryButton href={positionPaperHref} size="xl">Position Paper</SecondaryButton>
+						<AppButton variant="secondary" href={aboutHref} size="xl">About</AppButton>
 					</div>
 				</div>
 			</div>
@@ -200,7 +212,7 @@
 				adoption has outpaced critical reflection. Most AI tools remain optimised for Western
 				languages, digitisation decisions often reinforce who controls historical materials, and
 				African institutions frequently lack the infrastructure to participate on equal terms. This
-				workshop brings together international experts to move beyond describing these challenges
+				workshop brought together international experts to move beyond describing these challenges
 				and develop concrete strategies that keep African perspectives at the forefront.
 			</P>
 		</div>
@@ -252,6 +264,38 @@
 	</div>
 </section>
 
+<!-- Workshop Outcomes -->
+<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
+	<div class="bg-grid-mesh opacity-40"></div>
+	<div class="bg-radial-glow opacity-40"></div>
+
+	<div class="content-width-wide surface-panel surface-padding stack-lg relative">
+		<div class="stack-sm animate-section-reveal text-center" use:reveal>
+			<Heading tag="h2" class="heading-section heading-lg heading-color-light accent-underline"
+				>Workshop Outcomes</Heading
+			>
+			<P class="text-lead mx-auto max-w-3xl">Explore what came out of the three days in Hanover.</P>
+		</div>
+
+		<div class="auto-grid auto-grid-sm stagger-children animate-section-reveal" use:reveal>
+			{#each outcomes as outcome (outcome.title)}
+				{@const Icon = outcome.icon}
+				<a href={outcome.href} class="outcome-link">
+					<article class="highlight-card card-surface surface-padding-sm glow-border h-full">
+						<div class="highlight-card__icon glow-teal" aria-hidden="true">
+							<Icon size="lg" aria-hidden="true" />
+						</div>
+						<div class="stack-xs">
+							<Heading tag="h3" class="heading-sub heading-sm">{outcome.title}</Heading>
+							<P class="text-body-sm">{outcome.description}</P>
+						</div>
+					</article>
+				</a>
+			{/each}
+		</div>
+	</div>
+</section>
+
 <!-- Organisers Section -->
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
 	<div class="bg-grid-mesh opacity-30"></div>
@@ -278,7 +322,11 @@
 						<div class="relative">
 							<img
 								src={organizer.photoUrl}
-								alt={organizer.name}
+								alt="Portrait of {organizer.name}"
+								width="112"
+								height="112"
+								loading="lazy"
+								decoding="async"
 								class="border-secondary-200 dark:border-secondary-700 h-28 w-28 rounded-full border-2 object-cover shadow-md"
 							/>
 							<!-- Subtle glow ring behind photo -->
@@ -317,18 +365,20 @@
 <section class="bg-page padding-block-section-sm padding-inline-section">
 	<div class="content-width-narrow surface-panel surface-padding-sm text-center">
 		<P class="body-text-muted text-sm">
-			This scoping workshop is made possible by the generous support of the
-			<a
-				href="https://www.volkswagenstiftung.de/en"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="link-secondary font-semibold">Volkswagen Foundation</a
-			>
+			<FundingNote />
 		</P>
 	</div>
 </section>
 
 <style>
+	.outcome-link {
+		display: block;
+		height: 100%;
+		text-decoration: none;
+		color: inherit;
+		border-radius: var(--radius-xl);
+	}
+
 	.hero-accent-panel {
 		position: relative;
 		display: none;

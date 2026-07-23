@@ -1,6 +1,20 @@
+/**
+ * Canonical group names. Participants reference groups by this name, so the
+ * literal union turns any typo into a type error instead of a participant
+ * silently vanishing from the group views.
+ */
+export const thematicGroupNames = [
+	'Language Technologies, NLP & Corpora',
+	'The Archive: Preservation, Community Custody & Visual Heritage',
+	'Infrastructure, Governance & Access',
+	'Epistemologies, Decoloniality & Ethical Frameworks'
+] as const;
+
+export type ThematicGroupName = (typeof thematicGroupNames)[number];
+
 export interface ThematicGroup {
 	id: string;
-	name: string;
+	name: ThematicGroupName;
 	description: string;
 	guidingQuestions: {
 		category: string;

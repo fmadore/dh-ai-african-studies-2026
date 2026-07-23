@@ -60,7 +60,18 @@
 	}
 </script>
 
-<div class="search-bar">
+<div
+	class="search-bar"
+	role="search"
+	onfocusout={(e) => {
+		// Close only when focus leaves the whole search component — replaces the
+		// old blur timeout, which could swallow slow clicks on results
+		const next = e.relatedTarget;
+		if (!(next instanceof Node) || !e.currentTarget.contains(next)) {
+			searchOpen = false;
+		}
+	}}
+>
 	<div class="search-input-wrapper">
 		<SearchOutline
 			class="pointer-events-none absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2 text-gray-400"
@@ -77,14 +88,12 @@
 			onfocus={() => {
 				if (searchQuery.trim()) searchOpen = true;
 			}}
-			onblur={() => {
-				setTimeout(() => {
-					searchOpen = false;
-				}, 200);
-			}}
 			aria-label="Search concepts"
 			aria-expanded={searchOpen && searchResults.length > 0}
 			aria-controls="search-results"
+			aria-activedescendant={searchOpen && searchResults.length > 0
+				? `search-result-${searchHighlightIndex}`
+				: undefined}
 			role="combobox"
 			aria-autocomplete="list"
 		/>
@@ -105,6 +114,7 @@
 		<ul class="search-dropdown" id="search-results" role="listbox">
 			{#each searchResults as result, i (result.id)}
 				<li
+					id="search-result-{i}"
 					role="option"
 					aria-selected={i === searchHighlightIndex}
 					class="search-result"

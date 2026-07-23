@@ -12,15 +12,17 @@
 		ClipboardCheckOutline,
 		InfoCircleOutline
 	} from 'flowbite-svelte-icons';
-	import {
-		createSeoMeta,
-		createEventJsonLd,
-		createWebPageJsonLd,
-		jsonLdScript
-	} from '$lib/utils/seo';
+	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
-	import { schedule, sessionTypes, type SessionType, type ScheduleItem } from '$lib/data/schedule';
+	import {
+		schedule,
+		scheduleLastUpdated,
+		sessionTypes,
+		type SessionType,
+		type ScheduleItem
+	} from '$lib/data/schedule';
 	import UrlTabs, { type Tab } from '$lib/components/UrlTabs.svelte';
+	import SeoHead from '$lib/components/SeoHead.svelte';
 	import { reveal } from '$lib/utils/reveal';
 
 	// Extended tab interface for schedule days
@@ -49,18 +51,8 @@
 		]
 	});
 
-	const eventJsonLd = createEventJsonLd({
-		name: 'Charting New Territory: Digital Humanities and AI in African Studies',
+	const eventJsonLd = createWorkshopEventJsonLd({
 		description: seo.description,
-		startDate: workshopInfo.dates.startISO,
-		endDate: workshopInfo.dates.endISO,
-		locationName: workshopInfo.location.venue,
-		locationAddress: workshopInfo.location.venue,
-		locationCity: workshopInfo.location.city,
-		locationCountry: workshopInfo.location.country,
-		organizerName: workshopInfo.organizers.full,
-		funderName: workshopInfo.funder.name,
-		funderUrl: workshopInfo.funder.url,
 		url: seo.canonical
 	});
 	const webPageJsonLd = createWebPageJsonLd({
@@ -117,64 +109,12 @@
 	}
 
 	function getItemStyles(type: SessionType) {
-		switch (type) {
-			case 'plenary':
-				return {
-					bg: 'bg-primary-50 dark:bg-primary-900/20',
-					border: 'border-l-4 border-primary-300 dark:border-primary-600',
-					icon: 'text-primary-600 dark:text-primary-400'
-				};
-			case 'subgroups':
-				return {
-					bg: 'bg-secondary-50 dark:bg-secondary-900/20',
-					border: 'border-l-4 border-secondary-500',
-					icon: 'text-accent'
-				};
-			case 'world-cafe':
-				return {
-					bg: 'bg-amber-50 dark:bg-amber-900/20',
-					border: 'border-l-4 border-amber-500',
-					icon: 'text-amber-600 dark:text-amber-400'
-				};
-			case 'poster':
-				return {
-					bg: 'bg-violet-50 dark:bg-violet-900/20',
-					border: 'border-l-4 border-violet-500',
-					icon: 'text-violet-600 dark:text-violet-400'
-				};
-			case 'break':
-				return {
-					bg: 'bg-gray-50 dark:bg-gray-800/50',
-					border: 'border-l-4 border-gray-300 dark:border-gray-600',
-					icon: 'text-gray-500 dark:text-gray-400'
-				};
-			case 'social':
-				return {
-					bg: 'bg-primary-100 dark:bg-primary-900/30',
-					border: 'border-l-4 border-primary-500',
-					icon: 'text-primary-600 dark:text-primary-400'
-				};
-			default:
-				return {
-					bg: 'bg-surface-0 dark:bg-surface-dark-elevated',
-					border: 'border-l-4 border-gray-200 dark:border-gray-700',
-					icon: 'text-gray-600 dark:text-gray-400'
-				};
-		}
+		const meta = sessionTypes[type];
+		return { bg: meta.cardBg, border: meta.cardBorder, icon: meta.iconColor };
 	}
 </script>
 
-<svelte:head>
-	<title>{seo.title}</title>
-	{#each seo.meta as attributes (attributes.key)}
-		<meta name={attributes.name} property={attributes.property} content={attributes.content} />
-	{/each}
-	{#each seo.link as attributes, index (`link-${index}-${attributes.href}`)}
-		<link {...attributes} />
-	{/each}
-	{@html jsonLdScript(eventJsonLd)}
-	{@html jsonLdScript(webPageJsonLd)}
-</svelte:head>
+<SeoHead {seo} jsonLd={[eventJsonLd, webPageJsonLd]} />
 
 <!-- Page Header -->
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
@@ -200,7 +140,7 @@
 				<span>{workshopInfo.location.venue}, {workshopInfo.location.city}</span>
 			</div>
 		</div>
-		<P class="text-caption stack-item-md">Last updated: 19 February 2026</P>
+		<P class="text-caption stack-item-md">Last updated: {scheduleLastUpdated}</P>
 	</div>
 </section>
 

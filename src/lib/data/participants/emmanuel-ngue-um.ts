@@ -13,7 +13,7 @@ export const emmanuelNgueUm: Participant = {
 	bio: "Emmanuel Ngue Um is an Associate Professor of African Languages and Linguistics at the University of Yaoundé 1. His current research focuses on developing speech technologies and machine translation services to support the teaching and revitalisation of Africa's indigenous languages. He is also involved in developing an ecomuseum to preserve and promote a section of the colonial railway in Cameroon.",
 	researchRegions: ['Cameroon', 'Congo', 'Senegal', 'Benin', 'Nigeria', 'Ghana'],
 	thematicGroup: 'Language Technologies, NLP & Corpora',
-	photoUrl: '/images/participants/emmanuel-ngue-um.jpg',
+	photoUrl: '/images/participants/emmanuel-ngue-um.webp',
 	questionsOfInterest: [
 		'Language technologies for under-served African languages',
 		'Approaches to dataset design, inclusivity and linguistic diversity',
