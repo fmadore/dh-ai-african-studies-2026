@@ -33,7 +33,7 @@
     "@types/d3-selection": "^3.0.11",
     "@types/d3-zoom": "^3.0.8",
     "@types/leaflet": "^1.9.21",
-    "@types/node": "^25.5.2",
+    "@types/node": "^26.1.1",
     "eslint": "^10.2.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.17.0",
