@@ -50,6 +50,10 @@
 	--color-gray-200: #e8e6e3;
 	--color-gray-300: #d6d3ce;
 	--color-gray-400: #a8a29e;
+	/* Half-step between 400 and 500. Exists so dark mode has a "subtle" text
+	   tone that still clears WCAG AA on the near-black page background —
+	   gray-500 only reaches 4.08:1 there. */
+	--color-gray-450: #8d8681;
 	--color-gray-500: #78716c;
 	--color-gray-600: #57534e;
 	--color-gray-700: #44403c;
@@ -278,7 +282,9 @@
 	--text-primary: var(--color-gray-50);
 	--text-secondary: var(--color-gray-200);
 	--text-muted: var(--color-gray-400);
-	--text-subtle: var(--color-gray-500);
+	/* Not gray-500: on the dark page background that lands at 4.08:1, under
+	   the 4.5:1 AA floor for the small text these tones are used for. */
+	--text-subtle: var(--color-gray-450);
 	--text-inverse: var(--color-gray-900);
 	--text-on-accent: #ffffff;
 	--text-link: var(--color-secondary-300);
