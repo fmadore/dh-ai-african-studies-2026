@@ -33,35 +33,33 @@ export function createMarkdownIt(references: CslReference[]): MarkdownIt {
 	});
 	md.use(createReferenceRule(references));
 
-	// Override footnote_ref renderer — add data attributes when the token was
-	// produced by our `csl_ref` rule. meta.refSlug is set there.
-	const defaultFootnoteRef = md.renderer.rules.footnote_ref;
+	// Render footnote refs ourselves so the `data-*` hooks the Svelte popover
+	// reads are emitted directly, rather than being spliced into the plugin's
+	// output string afterwards. The anchor name and caption still come from
+	// markdown-it-footnote's own helpers, so ids and backrefs stay consistent
+	// with the notes list it renders at the end of the document.
 	md.renderer.rules.footnote_ref = (tokens, idx, options, env, self) => {
-		const token = tokens[idx];
-		const meta = (token.meta ?? {}) as {
+		const meta = (tokens[idx].meta ?? {}) as {
+			subId?: number;
 			refKey?: string;
 			refSlug?: string;
 			locator?: string | null;
 		};
-		const base = defaultFootnoteRef
-			? defaultFootnoteRef(tokens, idx, options, env, self)
-			: self.renderToken(tokens, idx, options);
+		const esc = md.utils.escapeHtml;
 
-		// Every footnote ref gets the data-footnote-ref marker, regardless of source.
-		let html = base.replace('<sup', '<sup data-footnote-ref');
+		const anchor = self.rules.footnote_anchor_name?.(tokens, idx, options, env, self) ?? '';
+		const caption = self.rules.footnote_caption?.(tokens, idx, options, env, self) ?? '';
+		const backrefId = meta.subId ? `${anchor}:${meta.subId}` : anchor;
+
+		// Present on every footnote ref, whatever produced it.
+		const attrs = ['data-footnote-ref'];
 		if (meta.refKey && meta.refSlug) {
-			html = html.replace(
-				'<sup data-footnote-ref',
-				`<sup data-footnote-ref data-ref-key="${escapeAttr(meta.refKey)}" data-ref-slug="${escapeAttr(meta.refSlug)}"`
-			);
-			if (meta.locator) {
-				html = html.replace(
-					'<sup data-footnote-ref',
-					`<sup data-footnote-ref data-ref-locator="${escapeAttr(meta.locator)}"`
-				);
-			}
+			attrs.push(`data-ref-key="${esc(meta.refKey)}"`);
+			attrs.push(`data-ref-slug="${esc(meta.refSlug)}"`);
+			if (meta.locator) attrs.push(`data-ref-locator="${esc(meta.locator)}"`);
 		}
-		return html;
+
+		return `<sup class="footnote-ref" ${attrs.join(' ')}><a href="#fn${anchor}" id="fnref${backrefId}">${caption}</a></sup>`;
 	};
 
 	// Wrap the footnote block in an <aside> for semantics + styling scope.
@@ -81,12 +79,4 @@ export function createMarkdownIt(references: CslReference[]): MarkdownIt {
 	};
 
 	return md;
-}
-
-function escapeAttr(value: string): string {
-	return value
-		.replace(/&/g, '&amp;')
-		.replace(/"/g, '&quot;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;');
 }
