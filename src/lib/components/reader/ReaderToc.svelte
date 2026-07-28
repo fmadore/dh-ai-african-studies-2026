@@ -54,9 +54,7 @@
 	}
 </script>
 
-<!-- Desktop sidebar -->
-<nav class="reader-toc hidden lg:block" aria-label="Table of contents">
-	<p class="reader-toc__heading">On this page</p>
+{#snippet tocList()}
 	<ul class="reader-toc__list">
 		{#each toc as item (item.id)}
 			<li>
@@ -70,6 +68,12 @@
 			</li>
 		{/each}
 	</ul>
+{/snippet}
+
+<!-- Desktop sidebar -->
+<nav class="reader-toc hidden lg:block" aria-label="Table of contents">
+	<p class="reader-toc__heading">On this page</p>
+	{@render tocList()}
 </nav>
 
 <!-- Mobile toggle + sheet -->
@@ -101,19 +105,7 @@
 				class="card-surface surface-padding-sm reader-toc-mobile-inner"
 				aria-label="Table of contents"
 			>
-				<ul class="reader-toc__list">
-					{#each toc as item (item.id)}
-						<li>
-							<a
-								class="reader-toc__link"
-								data-level={item.level}
-								href="#{item.id}"
-								aria-current={activeId === item.id ? 'true' : undefined}
-								onclick={(e) => handleLinkClick(e, item.id)}>{item.text}</a
-							>
-						</li>
-					{/each}
-				</ul>
+				{@render tocList()}
 			</nav>
 		</div>
 	{/if}

@@ -61,10 +61,13 @@
 		{/if}
 	</dl>
 
-	<div class="reader-masthead__abstract card-surface surface-padding-sm">
-		<p class="text-caption">Abstract</p>
+	<section
+		class="reader-masthead__abstract card-surface surface-padding-sm"
+		aria-labelledby="abstract-heading"
+	>
+		<Heading tag="h2" id="abstract-heading" class="text-caption">Abstract</Heading>
 		<P class="body-text">{meta.abstract}</P>
-	</div>
+	</section>
 
 	<!-- Demoted landing-page content — still indexable and discoverable -->
 	<Accordion class="reader-masthead__about">
