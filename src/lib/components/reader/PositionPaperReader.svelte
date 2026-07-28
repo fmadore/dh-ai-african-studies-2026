@@ -8,6 +8,7 @@
 	} from '$lib/utils/seo';
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import ReaderShell from '$lib/components/reader/ReaderShell.svelte';
+	import { readerPrefsBootScript } from '$lib/utils/reader-preferences.svelte';
 	import type { PositionPaperData } from '$lib/reader/load-paper';
 
 	// Reader-only styles + webfonts. Imported here rather than from app.css so
@@ -66,5 +67,10 @@
 </script>
 
 <SeoHead seo={seoWithScholarly} {jsonLd} />
+
+<svelte:head>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -- static string, no interpolation -->
+	{@html readerPrefsBootScript}
+</svelte:head>
 
 <ReaderShell {meta} {paper} canonicalUrl={seo.canonical} />

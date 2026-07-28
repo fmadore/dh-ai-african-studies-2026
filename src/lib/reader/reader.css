@@ -19,24 +19,27 @@
 }
 
 @layer components {
-	/* ---- Reader shell: host for font-family + size preference switches ---- */
+	/* ---- Reader shell: host for font-family + size preference switches ----
+	   The switches key off <html>, not the shell itself, so the inline boot
+	   script in the reader's <head> can apply a stored preference before the
+	   first paint. ReaderShell keeps the attributes in sync thereafter. */
 	.reader-shell {
 		--reader-font-family: var(--font-family-body);
 		--reader-font-scale: 1;
 	}
-	.reader-shell[data-font='serif'] {
+	:root[data-reader-font='serif'] .reader-shell {
 		--reader-font-family: var(--font-family-reader-serif);
 	}
-	.reader-shell[data-font='accessible'] {
+	:root[data-reader-font='accessible'] .reader-shell {
 		--reader-font-family: var(--font-family-reader-accessible);
 	}
-	.reader-shell[data-size='90'] {
+	:root[data-reader-size='90'] .reader-shell {
 		--reader-font-scale: 0.9;
 	}
-	.reader-shell[data-size='115'] {
+	:root[data-reader-size='115'] .reader-shell {
 		--reader-font-scale: 1.15;
 	}
-	.reader-shell[data-size='130'] {
+	:root[data-reader-size='130'] .reader-shell {
 		--reader-font-scale: 1.3;
 	}
 
@@ -46,7 +49,10 @@
 		font-size: calc(var(--text-base) * var(--reader-font-scale));
 		line-height: var(--leading-relaxed);
 		color: var(--text-primary);
-		max-inline-size: 68ch;
+		/* `ch` is the width of "0", which is wider than the average lowercase
+		   glyph, so this lands around 70–75 rendered characters — inside the
+		   45–75 range that reads comfortably over a long document. */
+		max-inline-size: 62ch;
 	}
 
 	.reader-prose > * + * {

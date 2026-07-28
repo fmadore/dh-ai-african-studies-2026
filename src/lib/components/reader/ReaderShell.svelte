@@ -22,17 +22,24 @@
 
 	let proseRoot = $state<HTMLElement | null>(null);
 
-	// Hydrate preferences once on mount.
+	// Hydrate preferences once on mount. Persistence is handled by the store's
+	// setters, so there is nothing to write back here.
 	$effect(() => {
 		readerPrefs.hydrate();
 	});
 
-	// Persist on every change.
+	// The preference attributes live on <html> rather than on the shell so the
+	// inline boot script can set them before the first paint (see
+	// readerPrefsBootScript). Keep them in step once Svelte takes over, and
+	// remove them when leaving the reader.
 	$effect(() => {
-		// Touch both fields to register them as dependencies.
-		void readerPrefs.fontFamily;
-		void readerPrefs.fontSize;
-		readerPrefs.persist();
+		const root = document.documentElement;
+		root.setAttribute('data-reader-font', readerPrefs.fontFamily);
+		root.setAttribute('data-reader-size', String(readerPrefs.fontSize));
+		return () => {
+			root.removeAttribute('data-reader-font');
+			root.removeAttribute('data-reader-size');
+		};
 	});
 
 	let toc: TocItem[] = $derived(paper.toc);
@@ -45,11 +52,7 @@
 	<div class="bg-grid-mesh"></div>
 	<div class="bg-radial-glow"></div>
 
-	<div
-		class="content-width-wide reader-shell relative"
-		data-font={readerPrefs.fontFamily}
-		data-size={readerPrefs.fontSize}
-	>
+	<div class="content-width-wide reader-shell relative">
 		<div class="reader-shell__masthead surface-panel surface-padding">
 			<ReaderMasthead {meta} />
 		</div>

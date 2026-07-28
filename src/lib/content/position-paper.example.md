@@ -1,9 +1,12 @@
-# Position Paper — Placeholder Content
-
 > **Placeholder notice.** This is mockup content used to exercise the reader
 > components (fonts, sizes, footnote popovers, table of contents, progress
 > bar, anchor links, citation export, PDF button). The real paper text will
 > replace this file before publication.
+>
+> **Start body sections at `##`.** The paper's `h1`, authors and date are
+> rendered from `src/lib/data/position-paper-meta.ts`; repeating the title
+> here would put a second `h1` in the document outline. Only `##` and `###`
+> appear in the table of contents.
 
 ## Section one — testing headings and paragraphs
 
