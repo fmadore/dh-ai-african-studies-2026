@@ -1,4 +1,5 @@
 import type MarkdownIt from 'markdown-it';
+import type Token from 'markdown-it/lib/token.mjs';
 import type { CslReference, ResolvedReference } from './types';
 
 /** Convert a Zotero-style id (e.g. "3005271/NGAA6PM6") into a URL-safe slug. */
@@ -10,28 +11,33 @@ function getYear(ref: CslReference): string {
 	return String(ref.issued?.['date-parts']?.[0]?.[0] ?? 'n.d.');
 }
 
+/** "A", "A and B", "A, B, and C" — including the serial comma. */
+const nameList = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+
+/** Authors, falling back to editors when a work has no author. */
+function contributorsOf(ref: CslReference) {
+	return ref.author?.length ? ref.author : (ref.editor ?? []);
+}
+
+/**
+ * Surnames for the short form. Chicago author-date lists up to three names
+ * in full and only abbreviates to "et al." from four onwards.
+ */
 function authorLastNames(ref: CslReference): string {
-	const people = ref.author?.length ? ref.author : ref.editor;
-	if (!people?.length) return 'Anonymous';
-	const families = people.map((p) => p.family ?? p.literal ?? '').filter(Boolean);
+	const families = contributorsOf(ref)
+		.map((p) => p.family ?? p.literal ?? '')
+		.filter(Boolean);
 	if (families.length === 0) return 'Anonymous';
-	if (families.length === 1) return families[0];
-	if (families.length === 2) return `${families[0]} and ${families[1]}`;
-	return `${families[0]} et al.`;
+	if (families.length > 3) return `${families[0]} et al.`;
+	return nameList.format(families);
 }
 
 function authorsFull(ref: CslReference): string {
-	const people = ref.author?.length ? ref.author : ref.editor;
-	if (!people?.length) return 'Anonymous';
-	const formatted = people.map((p) => {
-		if (p.literal) return p.literal;
-		const given = p.given ?? '';
-		const family = p.family ?? '';
-		return [given, family].filter(Boolean).join(' ').trim() || 'Anonymous';
-	});
-	if (formatted.length === 1) return formatted[0];
-	if (formatted.length === 2) return `${formatted[0]} and ${formatted[1]}`;
-	return `${formatted.slice(0, -1).join(', ')}, and ${formatted[formatted.length - 1]}`;
+	const formatted = contributorsOf(ref)
+		.map((p) => p.literal ?? [p.given, p.family].filter(Boolean).join(' ').trim())
+		.filter(Boolean);
+	if (formatted.length === 0) return 'Anonymous';
+	return nameList.format(formatted);
 }
 
 /** Chicago author-date short form: "Madore 2023" or "Madore 2023, 45". */
@@ -67,25 +73,10 @@ export function formatFull(ref: CslReference): string {
 const REF_PATTERN = /^\[\^ref:([A-Za-z0-9/_-]+)(?:,\s*([^\]]+))?\]/;
 
 // markdown-it-footnote's env structure, described as the plugin uses it.
-interface FootnoteTokenLike {
-	type: string;
-	tag: string;
-	attrs: null;
-	map: null;
-	nesting: number;
-	level: number;
-	children: null;
-	content: string;
-	markup: string;
-	info: string;
-	meta: null;
-	block: boolean;
-	hidden: boolean;
-}
 interface FootnoteEntry {
 	label: string;
 	count: number;
-	tokens?: FootnoteTokenLike[];
+	tokens?: Token[];
 }
 interface FootnoteEnv {
 	refs: Record<string, number>;
@@ -136,12 +127,13 @@ export function createReferenceRule(references: CslReference[]) {
 			if (!env.resolvedRefs) env.resolvedRefs = {};
 
 			const slug = refIdToSlug(refId);
+			const fullCitation = formatFull(csl);
 			if (!env.resolvedRefs[slug]) {
 				env.resolvedRefs[slug] = {
 					refId,
 					slug,
 					short: formatShort(csl),
-					full: formatFull(csl),
+					full: fullCitation,
 					csl
 				};
 			}
@@ -152,30 +144,12 @@ export function createReferenceRule(references: CslReference[]) {
 			if (env.footnotes.refs[key] === undefined) {
 				footnoteId = env.footnotes.list.length;
 				env.footnotes.refs[key] = footnoteId;
-				// Use a plain text token for the footnote body — avoids re-entering
-				// the parser (which would re-trigger the footnote_tail rule and
-				// produce a nested footnote block).
-				env.footnotes.list.push({
-					label,
-					count: 0,
-					tokens: [
-						{
-							type: 'text',
-							tag: '',
-							attrs: null,
-							map: null,
-							nesting: 0,
-							level: 0,
-							children: null,
-							content: formatFull(csl),
-							markup: '',
-							info: '',
-							meta: null,
-							block: false,
-							hidden: false
-						}
-					]
-				});
+				// A plain text token for the footnote body — avoids re-entering the
+				// parser, which would re-trigger the footnote_tail rule and produce
+				// a nested footnote block.
+				const bodyToken = new state.Token('text', '', 0);
+				bodyToken.content = fullCitation;
+				env.footnotes.list.push({ label, count: 0, tokens: [bodyToken] });
 			} else {
 				footnoteId = env.footnotes.refs[key];
 			}

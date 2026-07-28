@@ -22,18 +22,8 @@
 		})
 	);
 
-	let authorNames = $derived(
-		meta.authors.length <= 1
-			? meta.authors.map((a) => a.name).join('')
-			: meta.authors.length === 2
-				? meta.authors.map((a) => a.name).join(' and ')
-				: meta.authors
-						.slice(0, -1)
-						.map((a) => a.name)
-						.join(', ') +
-					', and ' +
-					meta.authors[meta.authors.length - 1].name
-	);
+	const nameList = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+	let authorNames = $derived(nameList.format(meta.authors.map((a) => a.name)));
 </script>
 
 <header class="reader-masthead">
