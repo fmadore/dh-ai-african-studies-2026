@@ -1,89 +1,586 @@
 [
   {
-    "id": "3005271/C4RJFAH3",
-    "type": "article",
-    "abstract": "Hausa Natural Language Processing (NLP) has gained increasing attention in recent years, yet remains understudied as a low-resource language despite having over 120 million first-language (L1) and 80 million second-language (L2) speakers worldwide. While significant advances have been made in high-resource languages, Hausa NLP faces persistent challenges, including limited open-source datasets and inadequate model representation. This paper presents an overview of the current state of Hausa NLP, systematically examining existing resources, research contributions, and gaps across fundamental NLP tasks: text classification, machine translation, named entity recognition, speech recognition, and question answering. We introduce HausaNLP (https://catalog.hausanlp.org), a curated catalog that aggregates datasets, tools, and research works to enhance accessibility and drive further development. Furthermore, we discuss challenges in integrating Hausa into large language models (LLMs), addressing issues of suboptimal tokenization and dialectal variation. Finally, we propose strategic research directions emphasizing dataset expansion, improved language modeling approaches, and strengthened community collaboration to advance Hausa NLP. Our work provides both a foundation for accelerating Hausa NLP progress and valuable insights for broader multilingual NLP research.",
-    "citation-key": "muhammadHausaNLPCurrentStatus2025",
-    "DOI": "10.48550/arXiv.2505.14311",
-    "language": "en",
-    "note": "arXiv:2505.14311 [cs.CL]",
-    "number": "arXiv:2505.14311",
-    "publisher": "arXiv",
-    "shortTitle": "HausaNLP",
-    "title": "HausaNLP: Current Status, Challenges and Future Directions for Hausa Natural Language Processing",
-    "title-short": "HausaNLP",
+    "id": "3005271/8JI976BG",
+    "type": "motion_picture",
+    "abstract": "Et si le futur le plus utile de l'IA s'écrivait en Afrique ? Alors que l’Unesco et l'AI Movement de Rabat les mettent à l'honneur, zoom sur les recherches de cinq femmes scientifiques, du Bénin au Maroc en passant par le Sénégal, le Cameroun et la Côte d'Ivoire. Leur point commun ? Elles refusent l'IA \"gadget\" et s'attaquent à des urgences du quotidien : purifier l'eau, anticiper les fuites, sauver les récoltes ou encore éradiquer le paludisme.\n#IA #Afrique #Sénégal",
+    "citation-key": "france24BeninAuSenegal2026",
+    "dimensions": "06:40",
+    "language": "fr",
+    "source": "YouTube",
+    "title": "Du Bénin au Sénégal, ces chercheuses en IA qui s'attaquent aux vrais problèmes",
+    "URL": "https://www.youtube.com/watch?v=qi9tVNA488Q",
     "author": [
       {
-        "family": "Muhammad",
-        "given": "Shamsuddeen Hassan"
-      },
-      {
-        "family": "Ahmad",
-        "given": "Ibrahim Said"
-      },
-      {
-        "family": "Abdulmumin",
-        "given": "Idris"
-      },
-      {
-        "family": "Lawan",
-        "given": "Falalu Ibrahim"
-      },
-      {
-        "family": "Sani",
-        "given": "Babangida"
-      },
-      {
-        "family": "Imam",
-        "given": "Sukairaj Hafiz"
-      },
-      {
-        "family": "Aliyu",
-        "given": "Yusuf"
-      },
-      {
-        "family": "Sani",
-        "given": "Sani Abdullahi"
-      },
-      {
-        "family": "Umar",
-        "given": "Ali Usman"
-      },
-      {
-        "family": "Gwadabe",
-        "given": "Tajuddeen"
-      },
-      {
-        "family": "Church",
-        "given": "Kenneth"
-      },
-      {
-        "family": "Marivate",
-        "given": "Vukosi"
+        "family": "FRANCE 24",
+        "given": ""
       }
     ],
     "accessed": {
       "date-parts": [
         [
           2026,
-          6,
-          26
+          3,
+          29
         ]
       ]
     },
     "issued": {
       "date-parts": [
         [
-          2025,
-          7,
-          22
+          2026,
+          3,
+          27
         ]
       ]
     },
     "tags": [
-      "Computer Science - Computation and Language"
+      "Benin",
+      "Cameroon",
+      "Côte d'Ivoire",
+      "Francophone Africa",
+      "Morocco",
+      "Senegal",
+      "UNESCO",
+      "agriculture",
+      "artificial intelligence",
+      "gender and AI",
+      "gender and technology",
+      "health"
+    ]
+  },
+  {
+    "id": "3005271/M8ZQF5HL",
+    "type": "broadcast",
+    "abstract": "Dr. Frédérick Madore, postdoctoral research fellow at ZMO Berlin, works at the intersection of African Studies, Islamic Studies, and the digital humanities. Building on fieldwork and archival research conducted since 2013, he is developing the Islam West Africa Collection—an open-access digital archive of more than 14,500 documents on Islamic print culture and Muslim life in West Africa. In this episode, we explore how artificial intelligence is transforming research practices: How can AI support historical and anthropological research—and where are its limits? And how might AI change the future of the humanities—opening up new possibilities while also raising pressing questions about language equity, digitisation gaps, and academic responsibility?",
+    "citation-key": "nobel-dilatyArtificialIntelligenceAI2025",
+    "collection-title": "ZMO kitchen talks",
+    "language": "en",
+    "number": "14",
+    "title": "Artificial Intelligence (AI) in African and Islamic Studies",
+    "URL": "https://repositorium.zmo.de/receive/zmo_mods_00002426",
+    "author": [
+      {
+        "family": "Nobel-Dilaty",
+        "given": "Elisa"
+      },
+      {
+        "family": "Madore",
+        "given": "Frédérick"
+      }
     ],
-    "URL": "https://doi.org/10.48550/arXiv.2505.14311"
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          12,
+          9
+        ]
+      ]
+    },
+    "tags": [
+      "African studies",
+      "Islam",
+      "Islam West Africa Collection",
+      "Islamic studies",
+      "West Africa",
+      "artificial intelligence",
+      "digital archive",
+      "digital humanities",
+      "digitisation",
+      "language equity",
+      "open access",
+      "print culture"
+    ]
+  },
+  {
+    "id": "3005271/8PSCT6UN",
+    "type": "book",
+    "abstract": "Analyzing the innovative and popular uses of digital media technologies across many African countries, African Digital Cultures reveals how digitization, through its inherent computational and epistemological logics, is deeply embedded in the daily lives of millions of people, producing new structures of feeling and new possibilities for political participation, cultural expression, and creative agency.\nThis book grapples with the affective elements of mediatized social relations and consciousness, as platforms like WhatsApp, Facebook, and TikTok increasingly inform the construction of diverse kinds of publics—from the religious and political to the sexual and the literary. Focusing on the creative and disruptive uses of social media platforms, financial technologies, digital infrastructures, and artificial intelligence, this collection brings together scholars whose work challenges the notion of Africa as a place of technological lack, underscoring the rich histories and contributions of the continent to global digital media.\nThis interdisciplinary volume offers an essential and decolonizing understanding of digital media cultures and histories from an African perspective.",
+    "citation-key": "yekuAfricanDigitalCultures2026",
+    "DOI": "10.4324/9781003690511",
+    "ISBN": "978-1-003-69051-1",
+    "language": "en",
+    "number-of-pages": "298",
+    "publisher": "Routledge",
+    "publisher-place": "London",
+    "shortTitle": "African Digital Cultures",
+    "title": "African Digital Cultures: Platforms, Publics, and Infrastructures",
+    "title-short": "African Digital Cultures",
+    "editor": [
+      {
+        "family": "Yeku",
+        "given": "James"
+      },
+      {
+        "family": "Junck",
+        "given": "Leah"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "tags": [
+      "Africa",
+      "Facebook",
+      "TikTok",
+      "WhatsApp",
+      "artificial intelligence",
+      "decolonisation",
+      "digital infrastructure",
+      "digital media",
+      "digital religion",
+      "fintech",
+      "platform economy",
+      "social media"
+    ],
+    "URL": "https://doi.org/10.4324/9781003690511"
+  },
+  {
+    "id": "3005271/DUBLA7VY",
+    "type": "book",
+    "abstract": "Written from a digital humanities perspective, this book combines historical sources, maps, and a walking cartography to create new perspectives on the nineteenth-century history of Lagos, West Africa’s most populous city.\n\nWhat traces do people leave in the places where they live, and even where they die? This book addresses the spatial history of nineteenth-century Lagos, rebuilding its past as a series of encounters: between men and women, between past and present, between enslaved and free, between living and dead, and finally between land and lagoon. In Imagine Lagos, Ademide Adelusi-Adeluyi argues that the invention, destruction, and reinvention of spatial markers in Lagos—the streets, markets, roads, squares, palaces, and lagoons where these encounters occurred—was crucial to negotiations over identity, power, and freedom. Research for this book combines oral and archival sources from three countries with the experience of three summers of walking the streets of Lagos. Contrary to historical interpretations that render the physical city as a blank, featureless space in desperate need of constant repair, this book offers a variety of visual and textual narratives to push readers to imagine the old city.\n\nThroughout Imagine Lagos, historical maps join other texts—including colonial correspondence and reports, missionary letters, oríkì (Yoruba praise poetry), and newspaper articles—to create a complex collage of urban life in Lagos. Streets emerge as sites of historical memories, and Adelusi-Adeluyi’s maps of the mid-nineteenth-century city reveal and catalog layers of change. A focus on the city as a whole—as both a physical and social landscape—brings us closer than ever to understanding the lives of Lagosians between 1845 and 1872. In old Lagos, the streets keep their histories.\n\nThe story maps and full-resolution maps for this book are available at https://newmapsoldlagos.com and https://imaginelagos.com.",
+    "citation-key": "adelusi-adeluyiImagineLagosMapping2024",
+    "ISBN": "978-0-8214-2489-6",
+    "language": "en",
+    "number-of-pages": "216",
+    "publisher": "Ohio University Press",
+    "publisher-place": "Athens, OH",
+    "shortTitle": "Imagine Lagos",
+    "title": "Imagine Lagos: Mapping History, Place, and Politics in a Nineteenth-Century African City",
+    "title-short": "Imagine Lagos",
+    "URL": "https://www.ohioswallow.com/9780821424896/imagine-lagos/",
+    "author": [
+      {
+        "family": "Adelusi-Adeluyi",
+        "given": "Ademide"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          1,
+          2
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "tags": [
+      "Lagos",
+      "Nigeria",
+      "West Africa",
+      "Yoruba",
+      "cartography",
+      "colonial history",
+      "digital humanities",
+      "digital mapping",
+      "historical GIS",
+      "missionary archive",
+      "oral sources",
+      "urban history"
+    ]
+  },
+  {
+    "id": "3005271/MZKSU9ST",
+    "type": "motion_picture",
+    "abstract": "DH2.0 Symposium: \"Digital Humanities & Digital Scholarship: Exploring Opportunities & Possibilities for African Scholars\". This is a programme, jointly organised by the Centre for Digital Humanities, University of Lagos & Digital Humanities Association of Nigeria, as one of the planned (quarterly) activities (virtual symposium, networking, collaborative project conception and execution, workshop, etc) towards the promotion and expansion of DH scholarship and research globally but with particular focus on  Nigeria,  Africa and the Global South.",
+    "citation-key": "digitalhumanitiesassociationofnigeriaPotentialsDigitalHumanities2020",
+    "dimensions": "17:09",
+    "language": "en",
+    "source": "YouTube",
+    "title": "Potentials of Digital Humanities in Africa and Impacts to the world - Dr. James Yeku",
+    "URL": "https://www.youtube.com/watch?v=6mLufOYbcZk",
+    "author": [
+      {
+        "family": "Digital Humanities Association of Nigeria",
+        "given": ""
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          1,
+          15
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2020,
+          5,
+          30
+        ]
+      ]
+    },
+    "tags": [
+      "Africa",
+      "African digital humanities",
+      "African scholar",
+      "Global South",
+      "Nigeria",
+      "University of Lagos",
+      "capacity building",
+      "digital humanities",
+      "knowledge production",
+      "symposium"
+    ]
+  },
+  {
+    "id": "3005271/66552WV5",
+    "type": "chapter",
+    "abstract": "Digital technologies help researchers gather, analyze, store, and share data in novel ways. But how do digital humanists ensure that these new practices help us also achieve the good life and further moral progress? What new challenges does digital humanities research bring to our ethical values of the equitable distribution of knowledge, balancing risks and minimizing harms to research subjects and researchers themselves, and respecting autonomy? This chapter outlines key contemporary ethical questions that digital humanities scholars face today. These include dilemmas about the ethics of data storage and curation of cultural materials, consent of users in the context of big data research, data use and re-use, open-access and meeting moral obligations to share research outputs with non-academic communities, researcher reflexivity in scholarship, the ethical complexities of research funding while maintaining humanist ideals.\n\nWhile researchers have always wrestled with many of these ethical dilemmas, the particular characteristics of digital humanities scholarship and its contextual position in the academe raise novel facets. After describing some of the pressing ethical questions facing DH today around storage and curation, consent, data use and re-use, open access, reflexivity, and maintaining humanist ideals, this chapter argues that digital humanists, as part of their work, need to engage in what Brey (2000) describes as disclosive ethics. Disclosive ethics facilitates practitioners in identifying morally opaque facets of digital work, flagging situations in which our previous models of thinking fall short and helping us navigate moral vacuums when answers to these dilemmas are not readily available in rules or guidebooks. Disclosive ethical analysis can help researchers interrogate the embedded values of storage and curation, consent, data use and re-use, open access, reflexivity, and maintaining humanist ideals, with an eye to how we can refines these practices to uphold equitable distribution of knowledge, appropriate balancing of risks and minimizing harms to research subjects and researchers themselves, and respect autonomy.",
+    "citation-key": "proferesWhatEthicsCan2020",
+    "container-title": "Routledge International Handbook of Research Methods in Digital Humanities",
+    "DOI": "10.4324/9780429777028-29",
+    "ISBN": "978-0-429-77702-8",
+    "page": "416-427",
+    "publisher": "Routledge",
+    "publisher-place": "London",
+    "title": "What Ethics can Offer the Digital Humanities and What the Digital Humanities can Offer Ethics",
+    "author": [
+      {
+        "family": "Proferes",
+        "given": "Nicholas"
+      },
+      {
+        "family": "Schuster",
+        "given": "Kristen"
+      },
+      {
+        "family": "Dunn",
+        "given": "Stuart"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "tags": [
+      "big data",
+      "data ethics",
+      "data preservation",
+      "digital curation",
+      "digital humanities",
+      "ethics",
+      "informed consent",
+      "knowledge production",
+      "methodology",
+      "open access",
+      "reflexivity",
+      "research ethics"
+    ],
+    "URL": "https://doi.org/10.4324/9780429777028-29"
+  },
+  {
+    "id": "3005271/XCYJWBGR",
+    "type": "thesis",
+    "abstract": "This mini-dissertation is a personal, methodological , and scholarly study of a seven month visual art program at !Khwa ttu: San Culture Education Centre. It centres on the fraught issue of the representation of the Bushmen, with a particular focus on the violence of representation through the photographic genre. Through this mini-dissertation I attempt to re-imagine the photograph in relation to the Bushmen; through an interrogation of the medium as one that has the potential for healing, dialogue and empowerment. The act of looking is discussed, and I raise questions of ethics and photographs as well as questions of ownership of photographs in relation to the Bushmen of southern Africa. Since this project was an opportunity to engage in rhetoric, particularly on the definition of the Bushmen, a core element of this project is the participation and the voice of the !Khwa ttu Reference Group.This participation was underscored by the group both engaging in the past through historical imagery, and attempting to use the past as a springboard to re-imagine their future.",
+    "citation-key": "oconnellNoHuntingFinding2008",
+    "genre": "master",
+    "language": "en",
+    "number-of-pages": "139",
+    "publisher": "University of Cape Town",
+    "publisher-place": "Cape Town",
+    "shortTitle": "No hunting",
+    "source": "open.uct.ac.za",
+    "title": "No hunting : finding a new f. stop for the Bushmen",
+    "title-short": "No hunting",
+    "URL": "http://hdl.handle.net/11427/11762",
+    "author": [
+      {
+        "family": "O'Connell",
+        "given": "Siona"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2008
+        ]
+      ]
+    },
+    "tags": [
+      "Indigenous community",
+      "San",
+      "South Africa",
+      "Southern Africa",
+      "archive",
+      "colonial photography",
+      "cultural heritage",
+      "ethics",
+      "ethnography",
+      "memory",
+      "museums",
+      "photography"
+    ]
+  },
+  {
+    "id": "3005271/EXTPEXZT",
+    "type": "entry-encyclopedia",
+    "abstract": "The Internet and social media increasingly are becoming sources about the African past and present in ways that will influence to some extent how history will be learnt and the form that methods of historical research will take. Social media have increasingly dislodged print journalism as “the first rough draft of history” and tended to democratize and hasten information sharing and communication. Historians are working through difficult debates about the Internet as a source archive, the usability of websites, and related matters. The debate over online resources and their use in historical and other studies on one level remains unresolved. Nevertheless, online sources add another rich layer to narratives, stories, and perspectives that are already being recorded or told, and in this regard they will add to the storehouse of empirical data to be crunched by future historians.",
+    "citation-key": "bloomfieldInternetSocialMedia2018",
+    "container-title": "Oxford Research Encyclopedia of African History",
+    "DOI": "10.1093/acrefore/9780190277734.013.225",
+    "language": "en",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "title": "The Internet and Social Media as Sources",
+    "author": [
+      {
+        "family": "Bloomfield",
+        "given": "Aubrey"
+      },
+      {
+        "family": "Jacobs",
+        "given": "Sean"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2019,
+          10,
+          21
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": [
+      "African history",
+      "archival methodology",
+      "digital evidence",
+      "digital history",
+      "digital media",
+      "historiography",
+      "journalism",
+      "knowledge production",
+      "methodology",
+      "primary sources",
+      "social media",
+      "web archiving"
+    ],
+    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.225"
+  },
+  {
+    "id": "3005271/4NTKLYH6",
+    "type": "entry-encyclopedia",
+    "abstract": "There are copious resources for the study of African history on the internet. They include manuscripts and documentary archives, maps, museum collections, newspapers, printed books, picture collections, and sound and moving images. The websites of European institutions provide a good proportion of this content, reflecting the long, entangled, and troubled histories that connect Europe and Africa, as well as new partnerships with African institutions.This plethora of digital resources enables both specialized researchers and the public to access information about Africa more quickly and easily, and on a larger scale than ever before. Digitization comes with a strong democratic impulse, and the new technology has been instrumental in making libraries, archives, museums, and art galleries much more open. But all is not smooth sailing, and there are two particular aspects of which researchers should be aware.The first is that there are still huge collections, or parts of collections, that have not been digitized, and that resources have been—on the whole—most focused on items with visual appeal. The twin brakes of cost and copyright restrain the process, and researchers need to understand how what they can get online relates to what still exists only in hard copy.The second consideration is that digitized resources can be difficult to find. Information about the riches of the web in this area is very fragmented, and exclusive use of one search engine, however dominant, is clearly not enough. As a counter to this fragmentation, a listing of the major websites for African history in Europe is given in a handy guide for researchers, which covers these resources by format and by region of Africa. The listing also provides websites in two particular areas of interest to historians and to the public: the transatlantic slave trade, and the liberation struggles in southern Africa.",
+    "citation-key": "wallaceDigitalSourcesEurope2018",
+    "container-title": "Oxford Research Encyclopedia of African History",
+    "DOI": "10.1093/acrefore/9780190277734.013.338",
+    "language": "en",
+    "note": "QID: Q115765742",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "title": "Digital Sources in Europe for African History",
+    "author": [
+      {
+        "family": "Wallace",
+        "given": "Marion"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2019,
+          6,
+          12
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": [
+      "African history",
+      "access to information",
+      "archives",
+      "digital archive",
+      "digital library",
+      "digitisation",
+      "intellectual property",
+      "liberation struggle",
+      "museums",
+      "newspaper archives",
+      "research infrastructure",
+      "transatlantic slave trade"
+    ],
+    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.338"
+  },
+  {
+    "id": "3005271/UH7UVNQN",
+    "type": "entry-encyclopedia",
+    "abstract": "The Horn of Africa has an exceptional cultural heritage, starting with its manuscript sources, which are among the most important on the continent. It is a heritage that is rich but scattered throughout the region and not always easily accessible, prompting researchers to rely on cutting-edge technology. Since the 1970s, photography and microfilm have been key for preserving this especially valuable heritage. In the Horn of Africa, the “digital turn” has been the latest development in the close relationship between technology and research. For Ethiopian manuscript studies, the advent of digitization has meant more than simply improving old techniques. A new generation of projects is experimenting with innovative methods of research made possible by digital technology. The purpose is no longer just to provide digital copies of manuscripts but to explore the possibilities that computerization offers to study documents and other historical sources.Increasingly competitive prices and low operating costs have made the digital revolution attractive even for African institutions, which, in recent years, have sought answers to the pressing needs of preserving and enhancing their historical sources. These technological developments have significantly broadened the range of sources investigated. While important, manuscripts represent only a part of the documentary heritage of the Horn of Africa. Numerous archives and a long-overlooked print culture offer equally interesting access points for studying the region.The experience gained, though temporally circumscribed, has highlighted a number of more or less predictable problems. The projects to date, although they have often yielded only partial results, have highlighted the wealth of sources still present in the Horn of Africa and the way in which digital technology is making a valuable contribution to their preservation. Access remains perhaps the most critical issue. In the Horn of Africa, as in other African regions, digitization does not necessarily lead to Internet access.",
+    "citation-key": "zaccariaDigitalSourcesHistory2018",
+    "container-title": "Oxford Research Encyclopedia of African History",
+    "language": "en",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "title": "Digital Sources for the History of the Horn of Africa",
+    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.341",
+    "author": [
+      {
+        "family": "Zaccaria",
+        "given": "Massimo"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2019,
+          7,
+          5
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "tags": [
+      "African history",
+      "African manuscripts",
+      "East Africa",
+      "Ethiopia",
+      "Horn of Africa",
+      "access to archives",
+      "cultural heritage",
+      "digital preservation",
+      "digital turn",
+      "digitisation",
+      "manuscript",
+      "print culture"
+    ]
+  },
+  {
+    "id": "3005271/KBAHAWRS",
+    "type": "article-journal",
+    "abstract": "This article examines how three generations of jasare – Zarma genealogists and historian griots from Niger – have responded to the challenges of recording and digitizing their performances, from analogue archives to social media platforms. It explores the tensions between performance and fixation, the transformation and circulation of narratives, and the question of ownership in the context of mediated orality. The first generation resisted state-led archival initiatives in the 1960s. The second adapted their discourse to radio audiences, navigating censorship and self-regulation. Since the death of Jeliba Baaje in 2018, the third generation – no longer active performers – has grappled with the ethical and symbolic stakes of managing digital archives, especially as renewed interest in jasare narratives emerges on platforms such as YouTube and WhatsApp. Drawing on long-term ethnographic collaboration, the article analyses the aesthetic and political strategies employed to preserve control over sensitive narratives in contexts where audience composition is diffuse or unknown. These strategies are situated within broader transformations of patronage systems, memory politics and digital circulation. Ultimately, the article reflects on how oral knowledge systems engage with global regimes of authorship, highlighting the dynamic interplay between tradition, performance ethics and the logics of new media.",
+    "citation-key": "bornandControllingNarrativesThree2026",
+    "container-title": "Africa",
+    "DOI": "10.1017/S0001972026101788",
+    "ISSN": "0001-9720, 1750-0184",
+    "issue": "1",
+    "language": "en",
+    "page": "80-103",
+    "shortTitle": "Controlling the narratives",
+    "title": "Controlling the narratives: three generations of Zarma genealogists and historian-griots from Niger confronting recording and digitization",
+    "title-short": "Controlling the narratives",
+    "volume": "96",
+    "author": [
+      {
+        "family": "Bornand",
+        "given": "Sandra"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          9
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "tags": [
+      "Niger",
+      "WhatsApp",
+      "authorship",
+      "digitisation",
+      "ethnography",
+      "genealogy",
+      "memory",
+      "oral epistemologies",
+      "oral tradition",
+      "orality",
+      "social media",
+      "sound archive"
+    ],
+    "URL": "https://doi.org/10.1017/S0001972026101788"
+  },
+  {
+    "id": "3005271/A67W9DU8",
+    "type": "article-journal",
+    "citation-key": "zotero-item-105493",
+    "container-title": "Plateia",
+    "issue": "5",
+    "language": "en",
+    "title": "Heritage Protection in Ghadames, Libya: Dâr al-Qâdî as a Laboratory of Community-Based Practices",
+    "URL": "Heritage Protection in Ghadames, Libya",
+    "author": [
+      {
+        "family": "Lafi",
+        "given": "Nora"
+      },
+      {
+        "family": "Alghafal",
+        "given": "Suaad"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "tags": [
+      "African manuscripts",
+      "Libya",
+      "archival governance",
+      "archival preservation",
+      "civil society",
+      "community archive",
+      "community engagement",
+      "cultural heritage",
+      "digitisation",
+      "manuscript",
+      "record-keeping"
+    ]
   },
   {
     "id": "3005271/7NQNCWE7",
@@ -123,8 +620,696 @@
         ]
       ]
     },
-    "tags": [],
+    "tags": [
+      "KwaZulu-Natal",
+      "South Africa",
+      "colonial archives",
+      "community archive",
+      "critical cataloguing",
+      "cultural heritage",
+      "decolonisation",
+      "digitisation",
+      "epistemic injustice",
+      "knowledge production",
+      "museums",
+      "oral history"
+    ],
     "URL": "https://doi.org/10.3167/armw.2024.120104"
+  },
+  {
+    "id": "3005271/83NIJ54F",
+    "type": "article-newspaper",
+    "abstract": "M-PESA revolutionized mobile money. But behind its global success lies a complex, troubling story.",
+    "citation-key": "MPESACONTROVERSYDISTURBING2025",
+    "container-title": "Info Kenya",
+    "language": "en",
+    "shortTitle": "The M‑PESA Controversy",
+    "title": "The M‑PESA Controversy: A Disturbing History of Power, Profit and Control",
+    "title-short": "The M‑PESA Controversy",
+    "URL": "https://info-kenya.com/the-m-pesa-controversy-a-disturbing-history-of-power-profit-and-control/",
+    "author": [
+      {
+        "family": "Wekesa",
+        "given": "Domnic"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          23
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          2,
+          12
+        ]
+      ]
+    },
+    "tags": [
+      "Global South",
+      "Kenya",
+      "corporate monopoly",
+      "data extraction",
+      "digital colonialism",
+      "digital economy",
+      "digital finance",
+      "financial inclusion",
+      "fintech",
+      "intellectual property",
+      "mobile money",
+      "surveillance"
+    ]
+  },
+  {
+    "id": "3005271/L269LVXL",
+    "type": "post-weblog",
+    "abstract": "At 3 AM in Kibera, Grace processes torture and murder for $1.32/hour while OpenAI raises $40 billion. This is the hidden human cost of AI supremacy.",
+    "citation-key": "ajuzieoguGhostWorkersBuilding2025",
+    "language": "en",
+    "note": "Citation Key: ajuzieoguGhostWorkersBuilding2025",
+    "shortTitle": "The Ghost Workers Building OpenAI's Empire",
+    "title": "The Ghost Workers Building OpenAI's Empire: A $10 Billion Monument To Digital Colonialism",
+    "title-short": "The Ghost Workers Building OpenAI's Empire",
+    "URL": "https://aylgorith.com/openai-gpt5-digital-colonialism/",
+    "author": [
+      {
+        "family": "Ajuzieogu",
+        "given": "Uchechukwu"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          6,
+          22
+        ]
+      ]
+    },
+    "tags": [
+      "Kenya",
+      "Nairobi",
+      "OpenAI",
+      "Silicon Valley",
+      "content moderation",
+      "data labour",
+      "digital colonialism",
+      "digital labour",
+      "ghost work",
+      "labour exploitation",
+      "mental health",
+      "precarity"
+    ]
+  },
+  {
+    "id": "3005271/ERARN2SX",
+    "type": "post-weblog",
+    "abstract": "How Silicon Valley's AI revolution is built on the backs of exploited workers in Africa's \"Silicon Savannah\"",
+    "citation-key": "ajuzieoguKenyasDataWorkers2025",
+    "language": "en",
+    "note": "Citation Key: ajuzieoguKenyasDataWorkers2025",
+    "shortTitle": "Kenya's Data Workers",
+    "title": "Kenya's Data Workers: The $2/Hour Labor Force Training Western AI",
+    "title-short": "Kenya's Data Workers",
+    "URL": "https://aylgorith.com/kenyas-data-workers-the-2-hour-labor-force-training-western-ai/",
+    "author": [
+      {
+        "family": "Ajuzieogu",
+        "given": "Uchechukwu"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          6,
+          23
+        ]
+      ]
+    },
+    "tags": [
+      "Global South",
+      "Kenya",
+      "Nairobi",
+      "content moderation",
+      "data annotation",
+      "data labelling",
+      "data labour",
+      "digital labour",
+      "gig economy",
+      "labour exploitation",
+      "platform labour",
+      "precarity"
+    ]
+  },
+  {
+    "id": "3005271/KQXK5YEK",
+    "type": "post-weblog",
+    "abstract": "Mercy earned $1.32/hour training ChatGPT by watching child abuse videos. Her PTSD is AI's hidden cost.",
+    "citation-key": "ajuzieoguMindMinersHow2025",
+    "language": "en",
+    "note": "Citation Key: ajuzieoguMindMinersHow2025",
+    "shortTitle": "The Mind Miners",
+    "title": "The Mind Miners: How Silicon Valley's AI Gold Rush Is Built On African Trauma",
+    "title-short": "The Mind Miners",
+    "URL": "https://aylgorith.com/mind-miners-ai-trauma/",
+    "author": [
+      {
+        "family": "Ajuzieogu",
+        "given": "Uchechukwu"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          8,
+          31
+        ]
+      ]
+    },
+    "tags": [
+      "ChatGPT",
+      "Kenya",
+      "Nairobi",
+      "OpenAI",
+      "Silicon Valley",
+      "content moderation",
+      "data labour",
+      "digital labour",
+      "ghost work",
+      "labour exploitation",
+      "mental health",
+      "precarity"
+    ]
+  },
+  {
+    "id": "3005271/3BC76U3A",
+    "type": "post-weblog",
+    "abstract": "While GPT's dazzles English speakers, it recognizes only 10 percent of sentences in Hausa, spoken by 94 million West Africans.",
+    "citation-key": "ajuzieoguWhenAIDoesnt2025",
+    "language": "en",
+    "note": "Section: Digital Divide\nCitation Key: ajuzieoguWhenAIDoesnt2025",
+    "shortTitle": "When AI Doesn't Speak Your Language",
+    "title": "When AI Doesn't Speak Your Language: The Hidden Cost Of Building Tomorrow's Technology",
+    "title-short": "When AI Doesn't Speak Your Language",
+    "URL": "https://aylgorith.com/ai-language-inequality/",
+    "author": [
+      {
+        "family": "Ajuzieogu",
+        "given": "Uchechukwu"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          26
+        ]
+      ]
+    },
+    "tags": [
+      "Africa",
+      "African languages",
+      "Hausa",
+      "Kenya",
+      "Meta",
+      "West Africa",
+      "content moderation",
+      "digital divide",
+      "digital labour",
+      "language bias",
+      "large language models",
+      "low-resource languages"
+    ]
+  },
+  {
+    "id": "3005271/VLZGH72W",
+    "type": "post-weblog",
+    "abstract": "Dorsen was 8, mining cobalt for 10 cents daily. His labor powers AI systems he'll never use.",
+    "citation-key": "ajuzieoguHowAfricaBuilds2025",
+    "language": "en",
+    "note": "Section: Digital Divide\nCitation Key: ajuzieoguHowAfricaBuilds2025",
+    "title": "How Africa Builds The Future It Cannot Use",
+    "URL": "https://aylgorith.com/how-africa-builds-the-future/",
+    "author": [
+      {
+        "family": "Ajuzieogu",
+        "given": "Uchechukwu"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          30
+        ]
+      ]
+    },
+    "tags": [
+      "Africa",
+      "China-Africa relations",
+      "Democratic Republic of Congo",
+      "artificial intelligence",
+      "child labour",
+      "cobalt mining",
+      "critical minerals",
+      "digital colonialism",
+      "digital divide",
+      "extractivism",
+      "labour exploitation",
+      "mining"
+    ]
+  },
+  {
+    "id": "3005271/LBJWRZJY",
+    "type": "chapter",
+    "abstract": "This research envisions an African data commons regime, rooted in the philosophy of Ubuntu, where training data for AI is pooled and shared as a common-pool resource. Artificial Intelligence (AI) is gaining traction in Africa but it is still in its nascent phase. While investment in Africa’s AI infrastructure has become a battleground in the U.S.–China race for influence, Africa suffers from a scarcity of high-quality training data. Currently, data governance centers on the notion of “privacy,” emphasizing the rights of individuals with respect to their personal information, resulting in data that is predominantly controlled by companies located outside of Africa, a phenomenon some describe as “data colonialism.” To foster a localized, African AI data ecosystem, the article proposes constructing a data governance regime rooted in the essence of collective responsibility. This approach fosters data sharing, given the intertwining of the philosophy of Ubuntu with the governance of commons. To highlight the importance of the infrastructural component of data governance, the article, grounded in Nobel Laureate Elinor Ostrom’s theories of the commons, proposes to treat training data as a common-pool resource. In this view, the analysis of various data commons will center on the physical components of data governance, specifically through the lens of the Institutional Analysis and Development (IAD) framework. The goal is to provide an analytical framework to decide what must be undertaken to cultivate a localized data ecosystem, drawing upon a governance system deeply embedded in an African worldview.",
+    "citation-key": "sunFosteringAfricanData2025",
+    "container-title": "Oxford Intersections: AI in Society",
+    "ISBN": "978-0-19-894521-5",
+    "language": "en",
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "shortTitle": "Fostering African Data Commons",
+    "title": "Fostering African Data Commons: Embracing the Philosophy of Ubuntu",
+    "title-short": "Fostering African Data Commons",
+    "URL": "https://doi.org/10.1093/9780198945215.003.0044",
+    "author": [
+      {
+        "family": "Sun",
+        "given": "Simon (Chieh-Jan)"
+      },
+      {
+        "family": "Shabaya",
+        "given": "Marie Muhadia"
+      },
+      {
+        "family": "Kalema",
+        "given": "Nai Lee"
+      }
+    ],
+    "editor": [
+      {
+        "family": "Hacker",
+        "given": "Philipp"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          4,
+          11
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          3,
+          20
+        ]
+      ]
+    },
+    "tags": [
+      "AI infrastructure",
+      "Africa",
+      "African philosophy",
+      "US-China rivalry",
+      "Ubuntu",
+      "artificial intelligence",
+      "data colonialism",
+      "data commons",
+      "data governance",
+      "data sovereignty",
+      "open data",
+      "training data"
+    ]
+  },
+  {
+    "id": "3005271/SWB59JEE",
+    "type": "article-journal",
+    "abstract": "In the last decade, several organisations, and national and international agencies have developed impact assessments (IAs) to mitigate the risks and impact of AI systems as well as to promote responsible, just and trustworthy design, development and deployment. However, through a critical review of current AI IAs, we identify the failure of these IAs to address fundamental questions regarding who defines problems, whose knowledge is valued, and who truly benefits from AI innovation or generally what we term the ‘coloniality problem’. Developed primarily within Global North normative frameworks, these IAs risk perpetuating the very inequalities they aim to address by neglecting Global South perspectives and the extractive logic underpinning data practices. Thus, we propose a novel approach: Decoloniality Impact Assessment (DIA) as a critical, context-sensitive evaluative approach that assesses AI systems in relation to their inherent colonial legacies, global power asymmetries, and epistemic injustices. It moves beyond traditional ethical frameworks by interrogating how the AI innovation lifecycle and practices reinforce structural inequalities, marginalise local knowledge systems, and perpetuate exploitative systems. The paper advocates for an AI innovation lifecycle approach to DIA, recognising that coloniality manifests at every stage of AI development, from ideation to deployment. DIA is not a new impact assessment framework but an approach that can be integrated into already existing frameworks such as the Council of Europe’s HUDERIA framework. It is a call to reframe AI innovation in a way that technological futures are rooted in justice, pluriversality, and sovereignty.",
+    "citation-key": "ekeDecolonialityImpactAssessment2026",
+    "container-title": "AI & SOCIETY",
+    "DOI": "10.1007/s00146-025-02649-4",
+    "ISSN": "1435-5655",
+    "issue": "3",
+    "language": "en",
+    "page": "2213-2228",
+    "title": "Decoloniality impact assessment for AI",
+    "volume": "41",
+    "author": [
+      {
+        "family": "Eke",
+        "given": "Damian"
+      },
+      {
+        "family": "Chavarriaga",
+        "given": "Ricardo"
+      },
+      {
+        "family": "Stahl",
+        "given": "Bernd"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          23
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "tags": [
+      "AI ethics",
+      "AI governance",
+      "Global South",
+      "Ubuntu",
+      "artificial intelligence",
+      "coloniality",
+      "data colonialism",
+      "data sovereignty",
+      "decoloniality",
+      "epistemic justice",
+      "impact assessment",
+      "responsible AI"
+    ],
+    "URL": "https://doi.org/10.1007/s00146-025-02649-4"
+  },
+  {
+    "id": "3005271/HH7SJGAG",
+    "type": "report",
+    "citation-key": "DRAFTStudyHuman2025",
+    "language": "en",
+    "title": "DRAFT Study on human and peoples' rights and artificial intelligence, robotics, and other new and emerging technologies in Africa",
+    "URL": "https://achpr.au.int/en/documents/2025-04-08/draft-study-human-peoples-rights-artificial-intelligence-robotics",
+    "author": [
+      {
+        "family": "African Commission on Human and Peoples' Rights",
+        "given": ""
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          4,
+          8
+        ]
+      ]
+    },
+    "tags": [
+      "AI ethics",
+      "AI governance",
+      "Africa",
+      "African Union",
+      "algorithmic accountability",
+      "artificial intelligence",
+      "data protection",
+      "digital rights",
+      "freedom of expression",
+      "human rights",
+      "regulatory framework",
+      "surveillance"
+    ]
+  },
+  {
+    "id": "3005271/WZRINTIX",
+    "type": "document",
+    "citation-key": "ministryofinformationcommunicationtechnologypostal&courierservicesZimbabweNationalArtificial2026",
+    "language": "en",
+    "title": "Zimbabwe National Artificial Intelligence (AI) Strategy 2026 – 2030",
+    "URL": "https://africadataprotection.org/Zimbabwe_National_AI_Strategy.pdf",
+    "author": [
+      {
+        "family": "Ministry of Information Communication Technology Postal & Courier Services",
+        "given": ""
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "tags": [
+      "AI governance",
+      "AI infrastructure",
+      "AI policy",
+      "AI readiness",
+      "AI strategy",
+      "Ubuntu",
+      "Zimbabwe",
+      "capacity building",
+      "data protection",
+      "digital sovereignty",
+      "national AI strategy",
+      "regulatory sandbox"
+    ]
+  },
+  {
+    "id": "3005271/LH94VTXB",
+    "type": "document",
+    "citation-key": "KenyaAIStrategy",
+    "language": "en",
+    "title": "Kenya artificial intelligence Strategy 2025 - 2030",
+    "URL": "https://ict.go.ke/sites/default/files/2025-03/Kenya%20AI%20Strategy%202025%20-%202030.pdf",
+    "author": [
+      {
+        "family": "Ministry of Information, Communications & The Digital Economy",
+        "given": ""
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          22
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          3
+        ]
+      ]
+    },
+    "tags": [
+      "AI governance",
+      "AI policy",
+      "AI readiness",
+      "AI strategy",
+      "Kenya",
+      "capacity building",
+      "data governance",
+      "data protection",
+      "digital economy",
+      "digital infrastructure",
+      "national AI strategy",
+      "responsible AI"
+    ]
+  },
+  {
+    "id": "3005271/NQYWYI7M",
+    "type": "webpage",
+    "abstract": "New research raises concerns that moderation tools can't detect violent threats in Tigray and elsewhere.",
+    "citation-key": "deckAIModerationNo2023",
+    "container-title": "Rest of World",
+    "language": "en",
+    "title": "AI moderation is no match for hate speech in Ethiopian languages",
+    "URL": "https://restofworld.org/2023/ai-content-moderation-hate-speech/",
+    "author": [
+      {
+        "family": "Deck",
+        "given": "Andrew"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          4,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2023,
+          6,
+          27
+        ]
+      ]
+    },
+    "tags": [
+      "Amharic",
+      "Ethiopia",
+      "Facebook",
+      "Meta",
+      "algorithmic bias",
+      "content moderation",
+      "hate speech",
+      "language bias",
+      "low-resource languages",
+      "multilingual AI",
+      "platform governance",
+      "social media"
+    ]
+  },
+  {
+    "id": "3005271/XGNCIZ9X",
+    "type": "article-journal",
+    "abstract": "Emerging linguistic problems are data-driven and multidisciplinary, requiring richly transcribed corpora. Accurate corpus transcription therefore demands intelligent protocols that satisfy the following important criteria: 1) acceptability by end-users, computers/machines; 2) conformity to existing language standards, rules and structures; and 3) representation within the context of the intended language domain. To demonstrate the feasibility of these criteria, a template-based framework for multilingual transcription was proposed and implemented. The first version of the developed transcription tool, also called SCAnnAL (Speech Corpus Annotator for African Languages), applies signal processing to pre-segment waveforms of a recorded speech corpus, into word, syllable and phoneme units, resulting in a pre-segmented TextGrid file with empty labels. Using preformatted templates, the front-end or linguistic aspects/datasets (the text corpus, vowels inventory, consonants inventory, and a set of syllabification rules) are specified in a default language. A Natural Language Understanding (NLU) algorithm then uses these datasets with a data-driven syllabification algorithm to relabel subtrees of the TextGrid file. Tone pattern models were finally constructed from translations of experimental data, using the Ibadan 400 words (a list of basic items of a language), for four Nigerian tone languages. Integration of the tone pattern models into the transcription system is expected in a future paper. This research will benefit emerging digital humanists and computational linguists working on language data, as well as open new opportunities for improved African tone language speech processing systems.",
+    "citation-key": "ekpenyongTemplateBasedApproachIntelligent2022",
+    "container-title": "International Journal of Humanities and Arts Computing",
+    "DOI": "10.3366/ijhac.2022.0290",
+    "ISSN": "1753-8548",
+    "issue": "2",
+    "language": "en",
+    "note": "Citation Key: ekpenyongTemplateBasedApproachIntelligent2022",
+    "page": "182-213",
+    "title": "A Template-Based Approach to Intelligent Multilingual Corpora Transcription",
+    "volume": "16",
+    "author": [
+      {
+        "family": "Ekpenyong",
+        "given": "Moses Effiong"
+      },
+      {
+        "family": "Urua",
+        "given": "Eno-Abasi Essien"
+      },
+      {
+        "family": "Akpan",
+        "given": "Aniefon Daniel"
+      },
+      {
+        "family": "Adeoye",
+        "given": "Olufemi Sunday"
+      },
+      {
+        "family": "Suleiman",
+        "given": "Aminu Alhaji"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2025,
+          7,
+          9
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "tags": [
+      "African languages",
+      "Nigeria",
+      "annotation",
+      "computational linguistics",
+      "corpus construction",
+      "corpus linguistics",
+      "digital humanities",
+      "language documentation",
+      "low-resource languages",
+      "natural language processing",
+      "speech recognition",
+      "tone language"
+    ],
+    "URL": "https://doi.org/10.3366/ijhac.2022.0290"
   },
   {
     "id": "3005271/XEF7S7YP",
@@ -153,7 +1338,20 @@
         ]
       ]
     },
-    "tags": []
+    "tags": [
+      "AI infrastructure",
+      "Africa",
+      "African languages",
+      "Lelapa AI",
+      "Masakhane",
+      "computing capacity",
+      "digital sovereignty",
+      "large language models",
+      "linguistic diversity",
+      "multilingual AI",
+      "public-private partnership",
+      "telecom"
+    ]
   },
   {
     "id": "3005271/QIDDP83D",
@@ -182,7 +1380,19 @@
         ]
       ]
     },
-    "tags": []
+    "tags": [
+      "Africa",
+      "African languages",
+      "African startups",
+      "Lelapa AI",
+      "language preservation",
+      "large language models",
+      "linguistic diversity",
+      "low-resource languages",
+      "multilingual AI",
+      "natural language processing",
+      "open source AI"
+    ]
   },
   {
     "id": "3005271/5XR9AFW7",
@@ -324,8 +1534,264 @@
         ]
       ]
     },
-    "tags": [],
+    "tags": [
+      "African languages",
+      "Masakhane",
+      "benchmarks",
+      "computational linguistics",
+      "dataset",
+      "dataset creation",
+      "language bias",
+      "large language models",
+      "low-resource languages",
+      "machine translation",
+      "multilingual AI",
+      "natural language processing"
+    ],
     "URL": "https://doi.org/10.48550/arXiv.2406.03368"
+  },
+  {
+    "id": "3005271/C4RJFAH3",
+    "type": "article",
+    "abstract": "Hausa Natural Language Processing (NLP) has gained increasing attention in recent years, yet remains understudied as a low-resource language despite having over 120 million first-language (L1) and 80 million second-language (L2) speakers worldwide. While significant advances have been made in high-resource languages, Hausa NLP faces persistent challenges, including limited open-source datasets and inadequate model representation. This paper presents an overview of the current state of Hausa NLP, systematically examining existing resources, research contributions, and gaps across fundamental NLP tasks: text classification, machine translation, named entity recognition, speech recognition, and question answering. We introduce HausaNLP (https://catalog.hausanlp.org), a curated catalog that aggregates datasets, tools, and research works to enhance accessibility and drive further development. Furthermore, we discuss challenges in integrating Hausa into large language models (LLMs), addressing issues of suboptimal tokenization and dialectal variation. Finally, we propose strategic research directions emphasizing dataset expansion, improved language modeling approaches, and strengthened community collaboration to advance Hausa NLP. Our work provides both a foundation for accelerating Hausa NLP progress and valuable insights for broader multilingual NLP research.",
+    "citation-key": "muhammadHausaNLPCurrentStatus2025",
+    "DOI": "10.48550/arXiv.2505.14311",
+    "language": "en",
+    "note": "arXiv:2505.14311 [cs.CL]",
+    "number": "arXiv:2505.14311",
+    "publisher": "arXiv",
+    "shortTitle": "HausaNLP",
+    "title": "HausaNLP: Current Status, Challenges and Future Directions for Hausa Natural Language Processing",
+    "title-short": "HausaNLP",
+    "author": [
+      {
+        "family": "Muhammad",
+        "given": "Shamsuddeen Hassan"
+      },
+      {
+        "family": "Ahmad",
+        "given": "Ibrahim Said"
+      },
+      {
+        "family": "Abdulmumin",
+        "given": "Idris"
+      },
+      {
+        "family": "Lawan",
+        "given": "Falalu Ibrahim"
+      },
+      {
+        "family": "Sani",
+        "given": "Babangida"
+      },
+      {
+        "family": "Imam",
+        "given": "Sukairaj Hafiz"
+      },
+      {
+        "family": "Aliyu",
+        "given": "Yusuf"
+      },
+      {
+        "family": "Sani",
+        "given": "Sani Abdullahi"
+      },
+      {
+        "family": "Umar",
+        "given": "Ali Usman"
+      },
+      {
+        "family": "Gwadabe",
+        "given": "Tajuddeen"
+      },
+      {
+        "family": "Church",
+        "given": "Kenneth"
+      },
+      {
+        "family": "Marivate",
+        "given": "Vukosi"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          26
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          7,
+          22
+        ]
+      ]
+    },
+    "tags": [
+      "African languages",
+      "Hausa",
+      "Niger",
+      "Nigeria",
+      "computational linguistics",
+      "language resources",
+      "large language models",
+      "low-resource languages",
+      "machine translation",
+      "named entity recognition",
+      "natural language processing",
+      "sentiment analysis"
+    ],
+    "URL": "https://doi.org/10.48550/arXiv.2505.14311"
+  },
+  {
+    "id": "3005271/X8AMXZRQ",
+    "type": "article-journal",
+    "abstract": "The importance of intellectual capital in the digital economy implies an increasingly central role of intellectual property rights (IPR). However, there are concerns that the expansion of intellectual property rights concentrates profits from innovation, creating “intellectual monopolies”. This is particularly concerning with respect to strong global regimes of intellectual property that foster economic inequities between the Global South and North. Such arguments imply that IPR is a core driver of structural inequality in the digital economy, yet there is very little empirical analysis of how such conceptual ideas unfold. This study focuses on IPR in the Kenyan mobile money service M-Pesa. It charts how M-Pesa expanded from a development-orientated innovation in Kenya to become part of a global enterprise. Control of IPR has led to bottlenecks in innovation in Kenya and significant South-to-North financial transfers. Overall, this case contributes to expanding the debate about patterns of innovation and governance of the digital economy. As digital firms expand, unpacking the processes by which global intellectual property regimes and cross-border IPR practices shape uneven power relations and inequality is vital.",
+    "citation-key": "fosterIntellectualPropertyRights2024",
+    "container-title": "The Information Society",
+    "DOI": "10.1080/01972243.2023.2259895",
+    "ISSN": "0197-2243",
+    "issue": "1",
+    "language": "en",
+    "page": "1-17",
+    "publisher": "Routledge",
+    "shortTitle": "Intellectual property rights and control in the digital economy",
+    "source": "Taylor and Francis+NEJM",
+    "title": "Intellectual property rights and control in the digital economy: Examining the expansion of M-Pesa",
+    "title-short": "Intellectual property rights and control in the digital economy",
+    "volume": "40",
+    "author": [
+      {
+        "family": "Foster",
+        "given": "Christopher"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          24
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "tags": [
+      "Global South",
+      "Kenya",
+      "corporate monopoly",
+      "data governance",
+      "digital economy",
+      "intellectual property",
+      "mobile money",
+      "patents",
+      "political economy",
+      "structural inequality"
+    ],
+    "URL": "https://doi.org/10.1080/01972243.2023.2259895"
+  },
+  {
+    "id": "3005271/LUXIN3XX",
+    "type": "post-weblog",
+    "abstract": "From 28 to 30 April 2026, a team from the University of Luxembourg had the privilege of traveling to Nairobi, Kenya, for a week-long exchange centred on public and participatory history.",
+    "citation-key": "CraftingSharedMemory",
+    "container-title": "Luxembourg Centre for Contemporary and Digital History (C²DH)",
+    "language": "en",
+    "shortTitle": "Crafting Shared Memory",
+    "title": "Crafting Shared Memory: Exploring Public and Digital History in Kenya",
+    "title-short": "Crafting Shared Memory",
+    "URL": "https://www.uni.lu/c2dh-en/articles/exploring-public-and-digital-history-in-kenya/",
+    "author": [
+      {
+        "family": "Napolitano",
+        "given": "Vanessa"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          7,
+          7
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          12
+        ]
+      ]
+    },
+    "tags": [
+      "Kenya",
+      "collective memory",
+      "community archives",
+      "cultural heritage",
+      "decolonization",
+      "digital heritage",
+      "oral history",
+      "participatory research",
+      "public history"
+    ]
+  },
+  {
+    "id": "3005271/L5II4VKY",
+    "type": "webpage",
+    "abstract": "If AI is not designed properly, inequalities can reappear in new, digital forms.",
+    "citation-key": "naidooCouldAICreate2026",
+    "container-title": "The Conversation",
+    "DOI": "10.64628/AAJ.tktp55vdc",
+    "language": "en",
+    "title": "Could AI create a new form of inequality in South Africa?",
+    "author": [
+      {
+        "family": "Naidoo",
+        "given": "Rennie"
+      }
+    ],
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          7,
+          7
+        ]
+      ]
+    },
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          29
+        ]
+      ]
+    },
+    "tags": [
+      "AI ethics",
+      "Africa",
+      "Ubuntu",
+      "artificial intelligence",
+      "automation",
+      "generative AI",
+      "human-AI collaboration",
+      "inequality",
+      "large language models"
+    ],
+    "URL": "https://doi.org/10.64628/AAJ.tktp55vdc"
   },
   {
     "id": "3005271/JBGVIURJ",
@@ -380,48 +1846,6 @@
       "ethics"
     ],
     "URL": "https://doi.org/10.1093/9780198945215.003.0029"
-  },
-  {
-    "id": "3005271/X8AMXZRQ",
-    "type": "article-journal",
-    "abstract": "The importance of intellectual capital in the digital economy implies an increasingly central role of intellectual property rights (IPR). However, there are concerns that the expansion of intellectual property rights concentrates profits from innovation, creating “intellectual monopolies”. This is particularly concerning with respect to strong global regimes of intellectual property that foster economic inequities between the Global South and North. Such arguments imply that IPR is a core driver of structural inequality in the digital economy, yet there is very little empirical analysis of how such conceptual ideas unfold. This study focuses on IPR in the Kenyan mobile money service M-Pesa. It charts how M-Pesa expanded from a development-orientated innovation in Kenya to become part of a global enterprise. Control of IPR has led to bottlenecks in innovation in Kenya and significant South-to-North financial transfers. Overall, this case contributes to expanding the debate about patterns of innovation and governance of the digital economy. As digital firms expand, unpacking the processes by which global intellectual property regimes and cross-border IPR practices shape uneven power relations and inequality is vital.",
-    "citation-key": "fosterIntellectualPropertyRights2024",
-    "container-title": "The Information Society",
-    "DOI": "10.1080/01972243.2023.2259895",
-    "ISSN": "0197-2243",
-    "issue": "1",
-    "language": "en",
-    "page": "1-17",
-    "publisher": "Routledge",
-    "shortTitle": "Intellectual property rights and control in the digital economy",
-    "source": "Taylor and Francis+NEJM",
-    "title": "Intellectual property rights and control in the digital economy: Examining the expansion of M-Pesa",
-    "title-short": "Intellectual property rights and control in the digital economy",
-    "volume": "40",
-    "author": [
-      {
-        "family": "Foster",
-        "given": "Christopher"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          6,
-          24
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2024
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.1080/01972243.2023.2259895"
   },
   {
     "id": "3005271/YF75RKC6",
@@ -771,43 +2195,6 @@
     "URL": "https://doi.org/10.4314/innovation.v30i1.26493"
   },
   {
-    "id": "3005271/83NIJ54F",
-    "type": "article-newspaper",
-    "abstract": "M-PESA revolutionized mobile money. But behind its global success lies a complex, troubling story.",
-    "citation-key": "MPESACONTROVERSYDISTURBING2025",
-    "container-title": "Info Kenya",
-    "language": "en",
-    "shortTitle": "The M‑PESA Controversy",
-    "title": "The M‑PESA Controversy: A Disturbing History of Power, Profit and Control",
-    "title-short": "The M‑PESA Controversy",
-    "URL": "https://info-kenya.com/the-m-pesa-controversy-a-disturbing-history-of-power-profit-and-control/",
-    "author": [
-      {
-        "family": "Wekesa",
-        "given": "Domnic"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          6,
-          23
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          2,
-          12
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
     "id": "3005271/8AUGBEMB",
     "type": "post-weblog",
     "abstract": "Artificial intelligence (AI) is increasingly recognized as a technology that can improve government operations in Africa. It enhances policy processes, strengthens decision-making, increases efficiency, and transforms public service delivery. Yet, public sector adoption of AI systems in African countries remains low.",
@@ -1128,40 +2515,6 @@
     "URL": "https://doi.org/10.1002/aiv2.70004"
   },
   {
-    "id": "3005271/8PSCT6UN",
-    "type": "book",
-    "abstract": "Analyzing the innovative and popular uses of digital media technologies across many African countries, African Digital Cultures reveals how digitization, through its inherent computational and epistemological logics, is deeply embedded in the daily lives of millions of people, producing new structures of feeling and new possibilities for political participation, cultural expression, and creative agency.\nThis book grapples with the affective elements of mediatized social relations and consciousness, as platforms like WhatsApp, Facebook, and TikTok increasingly inform the construction of diverse kinds of publics—from the religious and political to the sexual and the literary. Focusing on the creative and disruptive uses of social media platforms, financial technologies, digital infrastructures, and artificial intelligence, this collection brings together scholars whose work challenges the notion of Africa as a place of technological lack, underscoring the rich histories and contributions of the continent to global digital media.\nThis interdisciplinary volume offers an essential and decolonizing understanding of digital media cultures and histories from an African perspective.",
-    "citation-key": "yekuAfricanDigitalCultures2026",
-    "DOI": "10.4324/9781003690511",
-    "ISBN": "978-1-003-69051-1",
-    "language": "en",
-    "number-of-pages": "298",
-    "publisher": "Routledge",
-    "publisher-place": "London",
-    "shortTitle": "African Digital Cultures",
-    "title": "African Digital Cultures: Platforms, Publics, and Infrastructures",
-    "title-short": "African Digital Cultures",
-    "editor": [
-      {
-        "family": "Yeku",
-        "given": "James"
-      },
-      {
-        "family": "Junck",
-        "given": "Leah"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2026
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.4324/9781003690511"
-  },
-  {
     "id": "3005271/PTNWS8H9",
     "type": "post-weblog",
     "abstract": "Vom 18. bis 20. Februar 2026 kamen 26 Forschende aus 16 Ländern im Schloss Herrenhausen in Hannover zusammen. Vorträge gab es keine. Stattdessen wechselten sich Plenarsitzungen, vier thematische Arbeitsgruppen, World-Café-Runden, Posterpräsentationen und gemeinsames Schreiben ab. Das Ziel war nicht bloß ein Austausch über die eigene Forschung, sondern ein kollektives Positionspapier. Am Ende des zweiten Tages schrieb die Gruppe bereits gemeinsam.",
@@ -1271,41 +2624,6 @@
       "natural language processing",
       "oral tradition"
     ]
-  },
-  {
-    "id": "3005271/NQYWYI7M",
-    "type": "webpage",
-    "abstract": "New research raises concerns that moderation tools can't detect violent threats in Tigray and elsewhere.",
-    "citation-key": "deckAIModerationNo2023",
-    "container-title": "Rest of World",
-    "language": "en",
-    "title": "AI moderation is no match for hate speech in Ethiopian languages",
-    "URL": "https://restofworld.org/2023/ai-content-moderation-hate-speech/",
-    "author": [
-      {
-        "family": "Deck",
-        "given": "Andrew"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          24
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2023,
-          6,
-          27
-        ]
-      ]
-    },
-    "tags": []
   },
   {
     "id": "3005271/BQ3VGYP5",
@@ -1930,184 +3248,6 @@
     ]
   },
   {
-    "id": "3005271/66552WV5",
-    "type": "chapter",
-    "abstract": "Digital technologies help researchers gather, analyze, store, and share data in novel ways. But how do digital humanists ensure that these new practices help us also achieve the good life and further moral progress? What new challenges does digital humanities research bring to our ethical values of the equitable distribution of knowledge, balancing risks and minimizing harms to research subjects and researchers themselves, and respecting autonomy? This chapter outlines key contemporary ethical questions that digital humanities scholars face today. These include dilemmas about the ethics of data storage and curation of cultural materials, consent of users in the context of big data research, data use and re-use, open-access and meeting moral obligations to share research outputs with non-academic communities, researcher reflexivity in scholarship, the ethical complexities of research funding while maintaining humanist ideals.\n\nWhile researchers have always wrestled with many of these ethical dilemmas, the particular characteristics of digital humanities scholarship and its contextual position in the academe raise novel facets. After describing some of the pressing ethical questions facing DH today around storage and curation, consent, data use and re-use, open access, reflexivity, and maintaining humanist ideals, this chapter argues that digital humanists, as part of their work, need to engage in what Brey (2000) describes as disclosive ethics. Disclosive ethics facilitates practitioners in identifying morally opaque facets of digital work, flagging situations in which our previous models of thinking fall short and helping us navigate moral vacuums when answers to these dilemmas are not readily available in rules or guidebooks. Disclosive ethical analysis can help researchers interrogate the embedded values of storage and curation, consent, data use and re-use, open access, reflexivity, and maintaining humanist ideals, with an eye to how we can refines these practices to uphold equitable distribution of knowledge, appropriate balancing of risks and minimizing harms to research subjects and researchers themselves, and respect autonomy.",
-    "citation-key": "proferesWhatEthicsCan2020",
-    "container-title": "Routledge International Handbook of Research Methods in Digital Humanities",
-    "DOI": "10.4324/9780429777028-29",
-    "ISBN": "978-0-429-77702-8",
-    "page": "416-427",
-    "publisher": "Routledge",
-    "publisher-place": "London",
-    "title": "What Ethics can Offer the Digital Humanities and What the Digital Humanities can Offer Ethics",
-    "author": [
-      {
-        "family": "Proferes",
-        "given": "Nicholas"
-      },
-      {
-        "family": "Schuster",
-        "given": "Kristen"
-      },
-      {
-        "family": "Dunn",
-        "given": "Stuart"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2020
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.4324/9780429777028-29"
-  },
-  {
-    "id": "3005271/SWB59JEE",
-    "type": "article-journal",
-    "abstract": "In the last decade, several organisations, and national and international agencies have developed impact assessments (IAs) to mitigate the risks and impact of AI systems as well as to promote responsible, just and trustworthy design, development and deployment. However, through a critical review of current AI IAs, we identify the failure of these IAs to address fundamental questions regarding who defines problems, whose knowledge is valued, and who truly benefits from AI innovation or generally what we term the ‘coloniality problem’. Developed primarily within Global North normative frameworks, these IAs risk perpetuating the very inequalities they aim to address by neglecting Global South perspectives and the extractive logic underpinning data practices. Thus, we propose a novel approach: Decoloniality Impact Assessment (DIA) as a critical, context-sensitive evaluative approach that assesses AI systems in relation to their inherent colonial legacies, global power asymmetries, and epistemic injustices. It moves beyond traditional ethical frameworks by interrogating how the AI innovation lifecycle and practices reinforce structural inequalities, marginalise local knowledge systems, and perpetuate exploitative systems. The paper advocates for an AI innovation lifecycle approach to DIA, recognising that coloniality manifests at every stage of AI development, from ideation to deployment. DIA is not a new impact assessment framework but an approach that can be integrated into already existing frameworks such as the Council of Europe’s HUDERIA framework. It is a call to reframe AI innovation in a way that technological futures are rooted in justice, pluriversality, and sovereignty.",
-    "citation-key": "ekeDecolonialityImpactAssessment2026",
-    "container-title": "AI & SOCIETY",
-    "DOI": "10.1007/s00146-025-02649-4",
-    "ISSN": "1435-5655",
-    "issue": "3",
-    "language": "en",
-    "page": "2213-2228",
-    "title": "Decoloniality impact assessment for AI",
-    "volume": "41",
-    "author": [
-      {
-        "family": "Eke",
-        "given": "Damian"
-      },
-      {
-        "family": "Chavarriaga",
-        "given": "Ricardo"
-      },
-      {
-        "family": "Stahl",
-        "given": "Bernd"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          23
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2026
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.1007/s00146-025-02649-4"
-  },
-  {
-    "id": "3005271/HH7SJGAG",
-    "type": "report",
-    "citation-key": "DRAFTStudyHuman2025",
-    "language": "en",
-    "title": "DRAFT Study on human and peoples' rights and artificial intelligence, robotics, and other new and emerging technologies in Africa",
-    "URL": "https://achpr.au.int/en/documents/2025-04-08/draft-study-human-peoples-rights-artificial-intelligence-robotics",
-    "author": [
-      {
-        "family": "African Commission on Human and Peoples' Rights",
-        "given": ""
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          4,
-          8
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/LH94VTXB",
-    "type": "document",
-    "citation-key": "KenyaAIStrategy",
-    "language": "en",
-    "title": "Kenya artificial intelligence Strategy 2025 - 2030",
-    "URL": "https://ict.go.ke/sites/default/files/2025-03/Kenya%20AI%20Strategy%202025%20-%202030.pdf",
-    "author": [
-      {
-        "family": "Ministry of Information, Communications & The Digital Economy",
-        "given": ""
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          3
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/WZRINTIX",
-    "type": "document",
-    "citation-key": "ministryofinformationcommunicationtechnologypostal&courierservicesZimbabweNationalArtificial2026",
-    "language": "en",
-    "title": "Zimbabwe National Artificial Intelligence (AI) Strategy 2026 – 2030",
-    "URL": "https://africadataprotection.org/Zimbabwe_National_AI_Strategy.pdf",
-    "author": [
-      {
-        "family": "Ministry of Information Communication Technology Postal & Courier Services",
-        "given": ""
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2026
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
     "id": "3005271/QAR9BDEP",
     "type": "article-journal",
     "abstract": "Founded in 2002, Nineteenth-Century Art Worldwide is a scholarly, refereed e-journal devoted to the study of nineteenth-century painting, sculpture, graphic art",
@@ -2157,45 +3297,6 @@
       "ethical reflexivity"
     ],
     "URL": "https://doi.org/10.29411/ncaw.2025.24.2.2"
-  },
-  {
-    "id": "3005271/XCYJWBGR",
-    "type": "thesis",
-    "abstract": "This mini-dissertation is a personal, methodological , and scholarly study of a seven month visual art program at !Khwa ttu: San Culture Education Centre. It centres on the fraught issue of the representation of the Bushmen, with a particular focus on the violence of representation through the photographic genre. Through this mini-dissertation I attempt to re-imagine the photograph in relation to the Bushmen; through an interrogation of the medium as one that has the potential for healing, dialogue and empowerment. The act of looking is discussed, and I raise questions of ethics and photographs as well as questions of ownership of photographs in relation to the Bushmen of southern Africa. Since this project was an opportunity to engage in rhetoric, particularly on the definition of the Bushmen, a core element of this project is the participation and the voice of the !Khwa ttu Reference Group.This participation was underscored by the group both engaging in the past through historical imagery, and attempting to use the past as a springboard to re-imagine their future.",
-    "citation-key": "oconnellNoHuntingFinding2008",
-    "genre": "master",
-    "language": "en",
-    "number-of-pages": "139",
-    "publisher": "University of Cape Town",
-    "publisher-place": "Cape Town",
-    "shortTitle": "No hunting",
-    "source": "open.uct.ac.za",
-    "title": "No hunting : finding a new f. stop for the Bushmen",
-    "title-short": "No hunting",
-    "URL": "http://hdl.handle.net/11427/11762",
-    "author": [
-      {
-        "family": "O'Connell",
-        "given": "Siona"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          22
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2008
-        ]
-      ]
-    },
-    "tags": []
   },
   {
     "id": "3005271/NGAA6PM6",
@@ -8299,110 +9400,6 @@
     ]
   },
   {
-    "id": "3005271/KBAHAWRS",
-    "type": "article-journal",
-    "abstract": "This article examines how three generations of jasare – Zarma genealogists and historian griots from Niger – have responded to the challenges of recording and digitizing their performances, from analogue archives to social media platforms. It explores the tensions between performance and fixation, the transformation and circulation of narratives, and the question of ownership in the context of mediated orality. The first generation resisted state-led archival initiatives in the 1960s. The second adapted their discourse to radio audiences, navigating censorship and self-regulation. Since the death of Jeliba Baaje in 2018, the third generation – no longer active performers – has grappled with the ethical and symbolic stakes of managing digital archives, especially as renewed interest in jasare narratives emerges on platforms such as YouTube and WhatsApp. Drawing on long-term ethnographic collaboration, the article analyses the aesthetic and political strategies employed to preserve control over sensitive narratives in contexts where audience composition is diffuse or unknown. These strategies are situated within broader transformations of patronage systems, memory politics and digital circulation. Ultimately, the article reflects on how oral knowledge systems engage with global regimes of authorship, highlighting the dynamic interplay between tradition, performance ethics and the logics of new media.",
-    "citation-key": "bornandControllingNarrativesThree2026",
-    "container-title": "Africa",
-    "DOI": "10.1017/S0001972026101788",
-    "ISSN": "0001-9720, 1750-0184",
-    "issue": "1",
-    "language": "en",
-    "page": "80-103",
-    "shortTitle": "Controlling the narratives",
-    "title": "Controlling the narratives: three generations of Zarma genealogists and historian-griots from Niger confronting recording and digitization",
-    "title-short": "Controlling the narratives",
-    "volume": "96",
-    "author": [
-      {
-        "family": "Bornand",
-        "given": "Sandra"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          4,
-          9
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2026
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.1017/S0001972026101788"
-  },
-  {
-    "id": "3005271/A67W9DU8",
-    "type": "article-journal",
-    "citation-key": "zotero-item-105493",
-    "container-title": "Plateia",
-    "issue": "5",
-    "language": "en",
-    "title": "Heritage Protection in Ghadames, Libya: Dâr al-Qâdî as a Laboratory of Community-Based Practices",
-    "URL": "Heritage Protection in Ghadames, Libya",
-    "author": [
-      {
-        "family": "Lafi",
-        "given": "Nora"
-      },
-      {
-        "family": "Alghafal",
-        "given": "Suaad"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2025
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/8JI976BG",
-    "type": "motion_picture",
-    "abstract": "Et si le futur le plus utile de l'IA s'écrivait en Afrique ? Alors que l’Unesco et l'AI Movement de Rabat les mettent à l'honneur, zoom sur les recherches de cinq femmes scientifiques, du Bénin au Maroc en passant par le Sénégal, le Cameroun et la Côte d'Ivoire. Leur point commun ? Elles refusent l'IA \"gadget\" et s'attaquent à des urgences du quotidien : purifier l'eau, anticiper les fuites, sauver les récoltes ou encore éradiquer le paludisme.\n#IA #Afrique #Sénégal",
-    "citation-key": "france24BeninAuSenegal2026",
-    "dimensions": "06:40",
-    "language": "fr",
-    "source": "YouTube",
-    "title": "Du Bénin au Sénégal, ces chercheuses en IA qui s'attaquent aux vrais problèmes",
-    "URL": "https://www.youtube.com/watch?v=qi9tVNA488Q",
-    "author": [
-      {
-        "family": "FRANCE 24",
-        "given": ""
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          3,
-          29
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2026,
-          3,
-          27
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
     "id": "3005271/X6C22YAC",
     "type": "legislation",
     "citation-key": "ArtificialIntelligenceBill2026",
@@ -8444,114 +9441,6 @@
       "regulatory sandbox",
       "risk-based regulation"
     ]
-  },
-  {
-    "id": "3005271/EXTPEXZT",
-    "type": "entry-encyclopedia",
-    "abstract": "The Internet and social media increasingly are becoming sources about the African past and present in ways that will influence to some extent how history will be learnt and the form that methods of historical research will take. Social media have increasingly dislodged print journalism as “the first rough draft of history” and tended to democratize and hasten information sharing and communication. Historians are working through difficult debates about the Internet as a source archive, the usability of websites, and related matters. The debate over online resources and their use in historical and other studies on one level remains unresolved. Nevertheless, online sources add another rich layer to narratives, stories, and perspectives that are already being recorded or told, and in this regard they will add to the storehouse of empirical data to be crunched by future historians.",
-    "citation-key": "bloomfieldInternetSocialMedia2018",
-    "container-title": "Oxford Research Encyclopedia of African History",
-    "DOI": "10.1093/acrefore/9780190277734.013.225",
-    "language": "en",
-    "publisher": "Oxford University Press",
-    "publisher-place": "Oxford",
-    "title": "The Internet and Social Media as Sources",
-    "author": [
-      {
-        "family": "Bloomfield",
-        "given": "Aubrey"
-      },
-      {
-        "family": "Jacobs",
-        "given": "Sean"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2019,
-          10,
-          21
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2018
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.225"
-  },
-  {
-    "id": "3005271/4NTKLYH6",
-    "type": "entry-encyclopedia",
-    "abstract": "There are copious resources for the study of African history on the internet. They include manuscripts and documentary archives, maps, museum collections, newspapers, printed books, picture collections, and sound and moving images. The websites of European institutions provide a good proportion of this content, reflecting the long, entangled, and troubled histories that connect Europe and Africa, as well as new partnerships with African institutions.This plethora of digital resources enables both specialized researchers and the public to access information about Africa more quickly and easily, and on a larger scale than ever before. Digitization comes with a strong democratic impulse, and the new technology has been instrumental in making libraries, archives, museums, and art galleries much more open. But all is not smooth sailing, and there are two particular aspects of which researchers should be aware.The first is that there are still huge collections, or parts of collections, that have not been digitized, and that resources have been—on the whole—most focused on items with visual appeal. The twin brakes of cost and copyright restrain the process, and researchers need to understand how what they can get online relates to what still exists only in hard copy.The second consideration is that digitized resources can be difficult to find. Information about the riches of the web in this area is very fragmented, and exclusive use of one search engine, however dominant, is clearly not enough. As a counter to this fragmentation, a listing of the major websites for African history in Europe is given in a handy guide for researchers, which covers these resources by format and by region of Africa. The listing also provides websites in two particular areas of interest to historians and to the public: the transatlantic slave trade, and the liberation struggles in southern Africa.",
-    "citation-key": "wallaceDigitalSourcesEurope2018",
-    "container-title": "Oxford Research Encyclopedia of African History",
-    "DOI": "10.1093/acrefore/9780190277734.013.338",
-    "language": "en",
-    "note": "QID: Q115765742",
-    "publisher": "Oxford University Press",
-    "publisher-place": "Oxford",
-    "title": "Digital Sources in Europe for African History",
-    "author": [
-      {
-        "family": "Wallace",
-        "given": "Marion"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2019,
-          6,
-          12
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2018
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.338"
-  },
-  {
-    "id": "3005271/M8ZQF5HL",
-    "type": "broadcast",
-    "abstract": "Dr. Frédérick Madore, postdoctoral research fellow at ZMO Berlin, works at the intersection of African Studies, Islamic Studies, and the digital humanities. Building on fieldwork and archival research conducted since 2013, he is developing the Islam West Africa Collection—an open-access digital archive of more than 14,500 documents on Islamic print culture and Muslim life in West Africa. In this episode, we explore how artificial intelligence is transforming research practices: How can AI support historical and anthropological research—and where are its limits? And how might AI change the future of the humanities—opening up new possibilities while also raising pressing questions about language equity, digitisation gaps, and academic responsibility?",
-    "citation-key": "nobel-dilatyArtificialIntelligenceAI2025",
-    "collection-title": "ZMO kitchen talks",
-    "language": "en",
-    "number": "14",
-    "title": "Artificial Intelligence (AI) in African and Islamic Studies",
-    "URL": "https://repositorium.zmo.de/receive/zmo_mods_00002426",
-    "author": [
-      {
-        "family": "Nobel-Dilaty",
-        "given": "Elisa"
-      },
-      {
-        "family": "Madore",
-        "given": "Frédérick"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          12,
-          9
-        ]
-      ]
-    },
-    "tags": []
   },
   {
     "id": "3005271/WM28JJU5",
@@ -8882,44 +9771,6 @@
       "social media"
     ],
     "URL": "https://doi.org/10.1080/00083968.2025.2491679"
-  },
-  {
-    "id": "3005271/DUBLA7VY",
-    "type": "book",
-    "abstract": "Written from a digital humanities perspective, this book combines historical sources, maps, and a walking cartography to create new perspectives on the nineteenth-century history of Lagos, West Africa’s most populous city.\n\nWhat traces do people leave in the places where they live, and even where they die? This book addresses the spatial history of nineteenth-century Lagos, rebuilding its past as a series of encounters: between men and women, between past and present, between enslaved and free, between living and dead, and finally between land and lagoon. In Imagine Lagos, Ademide Adelusi-Adeluyi argues that the invention, destruction, and reinvention of spatial markers in Lagos—the streets, markets, roads, squares, palaces, and lagoons where these encounters occurred—was crucial to negotiations over identity, power, and freedom. Research for this book combines oral and archival sources from three countries with the experience of three summers of walking the streets of Lagos. Contrary to historical interpretations that render the physical city as a blank, featureless space in desperate need of constant repair, this book offers a variety of visual and textual narratives to push readers to imagine the old city.\n\nThroughout Imagine Lagos, historical maps join other texts—including colonial correspondence and reports, missionary letters, oríkì (Yoruba praise poetry), and newspaper articles—to create a complex collage of urban life in Lagos. Streets emerge as sites of historical memories, and Adelusi-Adeluyi’s maps of the mid-nineteenth-century city reveal and catalog layers of change. A focus on the city as a whole—as both a physical and social landscape—brings us closer than ever to understanding the lives of Lagosians between 1845 and 1872. In old Lagos, the streets keep their histories.\n\nThe story maps and full-resolution maps for this book are available at https://newmapsoldlagos.com and https://imaginelagos.com.",
-    "citation-key": "adelusi-adeluyiImagineLagosMapping2024",
-    "ISBN": "978-0-8214-2489-6",
-    "language": "en",
-    "number-of-pages": "216",
-    "publisher": "Ohio University Press",
-    "publisher-place": "Athens, OH",
-    "shortTitle": "Imagine Lagos",
-    "title": "Imagine Lagos: Mapping History, Place, and Politics in a Nineteenth-Century African City",
-    "title-short": "Imagine Lagos",
-    "URL": "https://www.ohioswallow.com/9780821424896/imagine-lagos/",
-    "author": [
-      {
-        "family": "Adelusi-Adeluyi",
-        "given": "Ademide"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          1,
-          2
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2024
-        ]
-      ]
-    },
-    "tags": []
   },
   {
     "id": "3005271/8RZRKZ3S",
@@ -9268,131 +10119,6 @@
       "language equity",
       "large language models"
     ]
-  },
-  {
-    "id": "3005271/LBJWRZJY",
-    "type": "chapter",
-    "abstract": "This research envisions an African data commons regime, rooted in the philosophy of Ubuntu, where training data for AI is pooled and shared as a common-pool resource. Artificial Intelligence (AI) is gaining traction in Africa but it is still in its nascent phase. While investment in Africa’s AI infrastructure has become a battleground in the U.S.–China race for influence, Africa suffers from a scarcity of high-quality training data. Currently, data governance centers on the notion of “privacy,” emphasizing the rights of individuals with respect to their personal information, resulting in data that is predominantly controlled by companies located outside of Africa, a phenomenon some describe as “data colonialism.” To foster a localized, African AI data ecosystem, the article proposes constructing a data governance regime rooted in the essence of collective responsibility. This approach fosters data sharing, given the intertwining of the philosophy of Ubuntu with the governance of commons. To highlight the importance of the infrastructural component of data governance, the article, grounded in Nobel Laureate Elinor Ostrom’s theories of the commons, proposes to treat training data as a common-pool resource. In this view, the analysis of various data commons will center on the physical components of data governance, specifically through the lens of the Institutional Analysis and Development (IAD) framework. The goal is to provide an analytical framework to decide what must be undertaken to cultivate a localized data ecosystem, drawing upon a governance system deeply embedded in an African worldview.",
-    "citation-key": "sunFosteringAfricanData2025",
-    "container-title": "Oxford Intersections: AI in Society",
-    "ISBN": "978-0-19-894521-5",
-    "language": "en",
-    "publisher": "Oxford University Press",
-    "publisher-place": "Oxford",
-    "shortTitle": "Fostering African Data Commons",
-    "title": "Fostering African Data Commons: Embracing the Philosophy of Ubuntu",
-    "title-short": "Fostering African Data Commons",
-    "URL": "https://doi.org/10.1093/9780198945215.003.0044",
-    "author": [
-      {
-        "family": "Sun",
-        "given": "Simon (Chieh-Jan)"
-      },
-      {
-        "family": "Shabaya",
-        "given": "Marie Muhadia"
-      },
-      {
-        "family": "Kalema",
-        "given": "Nai Lee"
-      }
-    ],
-    "editor": [
-      {
-        "family": "Hacker",
-        "given": "Philipp"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          4,
-          11
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          3,
-          20
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/MZKSU9ST",
-    "type": "motion_picture",
-    "abstract": "DH2.0 Symposium: \"Digital Humanities & Digital Scholarship: Exploring Opportunities & Possibilities for African Scholars\". This is a programme, jointly organised by the Centre for Digital Humanities, University of Lagos & Digital Humanities Association of Nigeria, as one of the planned (quarterly) activities (virtual symposium, networking, collaborative project conception and execution, workshop, etc) towards the promotion and expansion of DH scholarship and research globally but with particular focus on  Nigeria,  Africa and the Global South.",
-    "citation-key": "digitalhumanitiesassociationofnigeriaPotentialsDigitalHumanities2020",
-    "dimensions": "17:09",
-    "language": "en",
-    "source": "YouTube",
-    "title": "Potentials of Digital Humanities in Africa and Impacts to the world - Dr. James Yeku",
-    "URL": "https://www.youtube.com/watch?v=6mLufOYbcZk",
-    "author": [
-      {
-        "family": "Digital Humanities Association of Nigeria",
-        "given": ""
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          1,
-          15
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2020,
-          5,
-          30
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/UH7UVNQN",
-    "type": "entry-encyclopedia",
-    "abstract": "The Horn of Africa has an exceptional cultural heritage, starting with its manuscript sources, which are among the most important on the continent. It is a heritage that is rich but scattered throughout the region and not always easily accessible, prompting researchers to rely on cutting-edge technology. Since the 1970s, photography and microfilm have been key for preserving this especially valuable heritage. In the Horn of Africa, the “digital turn” has been the latest development in the close relationship between technology and research. For Ethiopian manuscript studies, the advent of digitization has meant more than simply improving old techniques. A new generation of projects is experimenting with innovative methods of research made possible by digital technology. The purpose is no longer just to provide digital copies of manuscripts but to explore the possibilities that computerization offers to study documents and other historical sources.Increasingly competitive prices and low operating costs have made the digital revolution attractive even for African institutions, which, in recent years, have sought answers to the pressing needs of preserving and enhancing their historical sources. These technological developments have significantly broadened the range of sources investigated. While important, manuscripts represent only a part of the documentary heritage of the Horn of Africa. Numerous archives and a long-overlooked print culture offer equally interesting access points for studying the region.The experience gained, though temporally circumscribed, has highlighted a number of more or less predictable problems. The projects to date, although they have often yielded only partial results, have highlighted the wealth of sources still present in the Horn of Africa and the way in which digital technology is making a valuable contribution to their preservation. Access remains perhaps the most critical issue. In the Horn of Africa, as in other African regions, digitization does not necessarily lead to Internet access.",
-    "citation-key": "zaccariaDigitalSourcesHistory2018",
-    "container-title": "Oxford Research Encyclopedia of African History",
-    "language": "en",
-    "publisher": "Oxford University Press",
-    "publisher-place": "Oxford",
-    "title": "Digital Sources for the History of the Horn of Africa",
-    "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.341",
-    "author": [
-      {
-        "family": "Zaccaria",
-        "given": "Massimo"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2019,
-          7,
-          5
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2018
-        ]
-      ]
-    },
-    "tags": []
   },
   {
     "id": "3005271/WN4AF8MV",
@@ -10471,61 +11197,6 @@
     ]
   },
   {
-    "id": "3005271/XGNCIZ9X",
-    "type": "article-journal",
-    "abstract": "Emerging linguistic problems are data-driven and multidisciplinary, requiring richly transcribed corpora. Accurate corpus transcription therefore demands intelligent protocols that satisfy the following important criteria: 1) acceptability by end-users, computers/machines; 2) conformity to existing language standards, rules and structures; and 3) representation within the context of the intended language domain. To demonstrate the feasibility of these criteria, a template-based framework for multilingual transcription was proposed and implemented. The first version of the developed transcription tool, also called SCAnnAL (Speech Corpus Annotator for African Languages), applies signal processing to pre-segment waveforms of a recorded speech corpus, into word, syllable and phoneme units, resulting in a pre-segmented TextGrid file with empty labels. Using preformatted templates, the front-end or linguistic aspects/datasets (the text corpus, vowels inventory, consonants inventory, and a set of syllabification rules) are specified in a default language. A Natural Language Understanding (NLU) algorithm then uses these datasets with a data-driven syllabification algorithm to relabel subtrees of the TextGrid file. Tone pattern models were finally constructed from translations of experimental data, using the Ibadan 400 words (a list of basic items of a language), for four Nigerian tone languages. Integration of the tone pattern models into the transcription system is expected in a future paper. This research will benefit emerging digital humanists and computational linguists working on language data, as well as open new opportunities for improved African tone language speech processing systems.",
-    "citation-key": "ekpenyongTemplateBasedApproachIntelligent2022",
-    "container-title": "International Journal of Humanities and Arts Computing",
-    "DOI": "10.3366/ijhac.2022.0290",
-    "ISSN": "1753-8548",
-    "issue": "2",
-    "language": "en",
-    "note": "Citation Key: ekpenyongTemplateBasedApproachIntelligent2022",
-    "page": "182-213",
-    "title": "A Template-Based Approach to Intelligent Multilingual Corpora Transcription",
-    "volume": "16",
-    "author": [
-      {
-        "family": "Ekpenyong",
-        "given": "Moses Effiong"
-      },
-      {
-        "family": "Urua",
-        "given": "Eno-Abasi Essien"
-      },
-      {
-        "family": "Akpan",
-        "given": "Aniefon Daniel"
-      },
-      {
-        "family": "Adeoye",
-        "given": "Olufemi Sunday"
-      },
-      {
-        "family": "Suleiman",
-        "given": "Aminu Alhaji"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          7,
-          9
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2022
-        ]
-      ]
-    },
-    "tags": [],
-    "URL": "https://doi.org/10.3366/ijhac.2022.0290"
-  },
-  {
     "id": "3005271/7FNJAEQE",
     "type": "post-weblog",
     "abstract": "Policy-makers must grapple with an uncomfortable truth: without deliberate action, AI will magnify global divides.",
@@ -10659,189 +11330,6 @@
       "social media",
       "urban history"
     ]
-  },
-  {
-    "id": "3005271/ERARN2SX",
-    "type": "post-weblog",
-    "abstract": "How Silicon Valley's AI revolution is built on the backs of exploited workers in Africa's \"Silicon Savannah\"",
-    "citation-key": "ajuzieoguKenyasDataWorkers2025",
-    "language": "en",
-    "note": "Citation Key: ajuzieoguKenyasDataWorkers2025",
-    "shortTitle": "Kenya's Data Workers",
-    "title": "Kenya's Data Workers: The $2/Hour Labor Force Training Western AI",
-    "title-short": "Kenya's Data Workers",
-    "URL": "https://aylgorith.com/kenyas-data-workers-the-2-hour-labor-force-training-western-ai/",
-    "author": [
-      {
-        "family": "Ajuzieogu",
-        "given": "Uchechukwu"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          6,
-          23
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/VLZGH72W",
-    "type": "post-weblog",
-    "abstract": "Dorsen was 8, mining cobalt for 10 cents daily. His labor powers AI systems he'll never use.",
-    "citation-key": "ajuzieoguHowAfricaBuilds2025",
-    "language": "en",
-    "note": "Section: Digital Divide\nCitation Key: ajuzieoguHowAfricaBuilds2025",
-    "title": "How Africa Builds The Future It Cannot Use",
-    "URL": "https://aylgorith.com/how-africa-builds-the-future/",
-    "author": [
-      {
-        "family": "Ajuzieogu",
-        "given": "Uchechukwu"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          10,
-          30
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/L269LVXL",
-    "type": "post-weblog",
-    "abstract": "At 3 AM in Kibera, Grace processes torture and murder for $1.32/hour while OpenAI raises $40 billion. This is the hidden human cost of AI supremacy.",
-    "citation-key": "ajuzieoguGhostWorkersBuilding2025",
-    "language": "en",
-    "note": "Citation Key: ajuzieoguGhostWorkersBuilding2025",
-    "shortTitle": "The Ghost Workers Building OpenAI's Empire",
-    "title": "The Ghost Workers Building OpenAI's Empire: A $10 Billion Monument To Digital Colonialism",
-    "title-short": "The Ghost Workers Building OpenAI's Empire",
-    "URL": "https://aylgorith.com/openai-gpt5-digital-colonialism/",
-    "author": [
-      {
-        "family": "Ajuzieogu",
-        "given": "Uchechukwu"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          6,
-          22
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/KQXK5YEK",
-    "type": "post-weblog",
-    "abstract": "Mercy earned $1.32/hour training ChatGPT by watching child abuse videos. Her PTSD is AI's hidden cost.",
-    "citation-key": "ajuzieoguMindMinersHow2025",
-    "language": "en",
-    "note": "Citation Key: ajuzieoguMindMinersHow2025",
-    "shortTitle": "The Mind Miners",
-    "title": "The Mind Miners: How Silicon Valley's AI Gold Rush Is Built On African Trauma",
-    "title-short": "The Mind Miners",
-    "URL": "https://aylgorith.com/mind-miners-ai-trauma/",
-    "author": [
-      {
-        "family": "Ajuzieogu",
-        "given": "Uchechukwu"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          8,
-          31
-        ]
-      ]
-    },
-    "tags": []
-  },
-  {
-    "id": "3005271/3BC76U3A",
-    "type": "post-weblog",
-    "abstract": "While GPT's dazzles English speakers, it recognizes only 10 percent of sentences in Hausa, spoken by 94 million West Africans.",
-    "citation-key": "ajuzieoguWhenAIDoesnt2025",
-    "language": "en",
-    "note": "Section: Digital Divide\nCitation Key: ajuzieoguWhenAIDoesnt2025",
-    "shortTitle": "When AI Doesn't Speak Your Language",
-    "title": "When AI Doesn't Speak Your Language: The Hidden Cost Of Building Tomorrow's Technology",
-    "title-short": "When AI Doesn't Speak Your Language",
-    "URL": "https://aylgorith.com/ai-language-inequality/",
-    "author": [
-      {
-        "family": "Ajuzieogu",
-        "given": "Uchechukwu"
-      }
-    ],
-    "accessed": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          24
-        ]
-      ]
-    },
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          10,
-          26
-        ]
-      ]
-    },
-    "tags": []
   },
   {
     "id": "3005271/4GRQ83UZ",
