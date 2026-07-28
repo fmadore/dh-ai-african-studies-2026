@@ -23,3 +23,13 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 nul
 .claude/
+
+# Position paper reader — kept off the public site.
+# This repository is PUBLIC and GitHub Pages deploys from a fresh checkout,
+# so anything ignored here can reach neither the repo nor the built site.
+#
+#   1. Generated route stubs (`npm run paper:on` / `paper:off`). Without them
+#      SvelteKit has no /position-paper/read route to build at all.
+#   2. The real, unpublished draft. Only position-paper.example.md is committed.
+src/routes/position-paper/read/
+src/lib/content/position-paper.md

@@ -110,7 +110,33 @@ export interface JsonLdWebPage {
 	dateModified?: string;
 }
 
-export type JsonLdSchema = JsonLdEvent | JsonLdWebSite | JsonLdWebPage;
+export interface JsonLdPeriodical {
+	'@type': 'Periodical';
+	name: string;
+	issn?: string;
+	publisher?: JsonLdOrganization;
+}
+
+export interface JsonLdScholarlyArticle {
+	'@context': 'https://schema.org';
+	'@type': 'ScholarlyArticle';
+	headline: string;
+	name: string;
+	author: JsonLdPerson | JsonLdPerson[];
+	datePublished: string;
+	dateModified?: string;
+	abstract?: string;
+	inLanguage?: string;
+	keywords?: string;
+	publisher?: JsonLdOrganization;
+	isPartOf?: JsonLdPeriodical;
+	isAccessibleForFree?: boolean;
+	mainEntityOfPage?: string;
+	url?: string;
+	identifier?: string;
+}
+
+export type JsonLdSchema = JsonLdEvent | JsonLdWebSite | JsonLdWebPage | JsonLdScholarlyArticle;
 
 const SITE_NAME = 'Digital Humanities and AI in African Studies 2026';
 const SITE_DESCRIPTION =
@@ -457,6 +483,166 @@ export function createWebPageJsonLd(options: CreateWebPageJsonLdOptions): JsonLd
 	if (options.dateModified) {
 		jsonLd.dateModified = options.dateModified;
 	}
+
+	return jsonLd;
+}
+
+// ============================================
+// Scholarly Article Meta (Google Scholar + Dublin Core + OG article:*)
+// ============================================
+
+export interface ScholarlyMetaOptions {
+	title: string;
+	authors: Author[];
+	/** ISO 8601 'YYYY-MM-DD' — required for Google Scholar. */
+	publicationDate: string;
+	/** ISO 8601 'YYYY-MM-DD'. */
+	revisedDate?: string;
+	abstract: string;
+	keywords: string[];
+	/** BCP 47 tag, e.g. 'en'. */
+	language: string;
+	publisher: string;
+	/** Parent periodical / series title. Mapped to `citation_journal_title`. */
+	journalTitle?: string;
+	/** Absolute URL of the HTML landing page (what Google Scholar indexes). */
+	abstractUrl: string;
+	/** Absolute URL of the PDF, when available. */
+	pdfUrl?: string;
+	doi?: string;
+	issn?: string;
+}
+
+/**
+ * Emit Google Scholar (`citation_*`), Dublin Core (`DC.*`), and OpenGraph
+ * (`article:*`) meta tags for a scholarly article. Concatenate the result
+ * with `createSeoMeta(...).meta` before rendering in `<svelte:head>`.
+ */
+export function createScholarlyMeta(opts: ScholarlyMetaOptions): SeoMetaTag[] {
+	const tags: SeoMetaTag[] = [];
+	const scholarDate = opts.publicationDate.replace(/-/g, '/');
+
+	// --- Google Scholar ---
+	tags.push({ key: 'citation_title', name: 'citation_title', content: opts.title });
+	opts.authors.forEach((a, i) =>
+		tags.push({
+			key: `citation_author_${i}`,
+			name: 'citation_author',
+			content: a.name
+		})
+	);
+	tags.push({
+		key: 'citation_publication_date',
+		name: 'citation_publication_date',
+		content: scholarDate
+	});
+	if (opts.journalTitle) {
+		tags.push({
+			key: 'citation_journal_title',
+			name: 'citation_journal_title',
+			content: opts.journalTitle
+		});
+	}
+	tags.push({ key: 'citation_publisher', name: 'citation_publisher', content: opts.publisher });
+	tags.push({
+		key: 'citation_abstract_html_url',
+		name: 'citation_abstract_html_url',
+		content: opts.abstractUrl
+	});
+	if (opts.pdfUrl) {
+		tags.push({ key: 'citation_pdf_url', name: 'citation_pdf_url', content: opts.pdfUrl });
+	}
+	if (opts.doi) tags.push({ key: 'citation_doi', name: 'citation_doi', content: opts.doi });
+	if (opts.issn) tags.push({ key: 'citation_issn', name: 'citation_issn', content: opts.issn });
+	tags.push({ key: 'citation_language', name: 'citation_language', content: opts.language });
+	opts.keywords.forEach((k, i) =>
+		tags.push({ key: `citation_keywords_${i}`, name: 'citation_keywords', content: k })
+	);
+
+	// --- Dublin Core ---
+	tags.push({ key: 'DC.title', name: 'DC.title', content: opts.title });
+	opts.authors.forEach((a, i) =>
+		tags.push({ key: `DC.creator_${i}`, name: 'DC.creator', content: a.name })
+	);
+	tags.push({ key: 'DC.date', name: 'DC.date', content: opts.publicationDate });
+	tags.push({ key: 'DC.language', name: 'DC.language', content: opts.language });
+	tags.push({ key: 'DC.publisher', name: 'DC.publisher', content: opts.publisher });
+	tags.push({ key: 'DC.description', name: 'DC.description', content: opts.abstract });
+	tags.push({ key: 'DC.type', name: 'DC.type', content: 'Text' });
+	tags.push({ key: 'DC.format', name: 'DC.format', content: 'text/html' });
+	if (opts.doi) {
+		tags.push({ key: 'DC.identifier', name: 'DC.identifier', content: `doi:${opts.doi}` });
+	} else {
+		tags.push({ key: 'DC.identifier', name: 'DC.identifier', content: opts.abstractUrl });
+	}
+	opts.keywords.forEach((k, i) =>
+		tags.push({ key: `DC.subject_${i}`, name: 'DC.subject', content: k })
+	);
+
+	// --- OpenGraph article:* ---
+	tags.push({
+		key: 'article:published_time',
+		property: 'article:published_time',
+		content: opts.publicationDate
+	});
+	if (opts.revisedDate) {
+		tags.push({
+			key: 'article:modified_time',
+			property: 'article:modified_time',
+			content: opts.revisedDate
+		});
+	}
+	tags.push({ key: 'article:section', property: 'article:section', content: 'Research' });
+	opts.keywords.forEach((k, i) =>
+		tags.push({ key: `article:tag_${i}`, property: 'article:tag', content: k })
+	);
+
+	return tags;
+}
+
+/**
+ * JSON-LD `ScholarlyArticle` structured data for Google Scholar / Rich Results.
+ */
+export function createScholarlyArticleJsonLd(opts: ScholarlyMetaOptions): JsonLdScholarlyArticle {
+	const authorNodes: JsonLdPerson[] = opts.authors.map((a) => ({
+		'@type': 'Person' as const,
+		name: a.name,
+		url: a.url
+	}));
+
+	const publisherOrg: JsonLdOrganization = {
+		'@type': 'Organization',
+		name: opts.publisher
+	};
+
+	const jsonLd: JsonLdScholarlyArticle = {
+		'@context': 'https://schema.org',
+		'@type': 'ScholarlyArticle',
+		headline: opts.title,
+		name: opts.title,
+		author: authorNodes.length === 1 ? authorNodes[0] : authorNodes,
+		datePublished: opts.publicationDate,
+		abstract: opts.abstract,
+		inLanguage: opts.language,
+		keywords: opts.keywords.join(', '),
+		publisher: publisherOrg,
+		isAccessibleForFree: true,
+		url: opts.abstractUrl,
+		mainEntityOfPage: opts.abstractUrl
+	};
+
+	if (opts.revisedDate) jsonLd.dateModified = opts.revisedDate;
+
+	if (opts.journalTitle) {
+		jsonLd.isPartOf = {
+			'@type': 'Periodical',
+			name: opts.journalTitle,
+			publisher: publisherOrg
+		};
+		if (opts.issn) jsonLd.isPartOf.issn = opts.issn;
+	}
+
+	if (opts.doi) jsonLd.identifier = `doi:${opts.doi}`;
 
 	return jsonLd;
 }

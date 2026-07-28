@@ -1,6 +1,8 @@
 /* Self-hosted variable fonts: Outfit (Display) and Plus Jakarta Sans (Body).
    Bundled locally instead of Google Fonts — faster (no render-blocking
-   third-party request) and avoids the GDPR issues of Google-hosted fonts. */
+   third-party request) and avoids the GDPR issues of Google-hosted fonts.
+   The position paper reader's serif/accessible fonts are deliberately NOT
+   imported here — see src/lib/reader/reader.css. */
 @import '@fontsource-variable/outfit';
 @import '@fontsource-variable/plus-jakarta-sans';
 

@@ -36,6 +36,45 @@ Requires `ZOTERO_API_KEY` in `.env` file (see `.env.example`).
 npm run optimize:images
 ```
 
+**Work on the (unpublished) position paper reader:**
+
+```bash
+npm run dev:paper    # enable the reader + start dev server
+npm run paper:status # is the reader currently enabled?
+npm run paper:off    # disable again (do this before a public build)
+```
+
+## Position Paper Reader (Not Public)
+
+`/position-paper` is the **public landing page** describing the forthcoming
+paper. Separately, `/position-paper/read` is a **full-text reader** for the
+paper itself, which must stay off the public site until publication.
+
+**This repository is public and GitHub Pages builds from a fresh checkout, so
+"hidden" is enforced with `.gitignore` — anything ignored can reach neither the
+repo nor the deployed site.** Two things are ignored:
+
+| Ignored path                        | Why                                                                                                                                            |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/routes/position-paper/read/`   | Generated route stubs. SvelteKit only routes `+`-prefixed files, so without them the route does not exist and nothing imports the reader code. |
+| `src/lib/content/position-paper.md` | The real draft. Only `position-paper.example.md` is committed.                                                                                 |
+
+Everything else is committed normally: the reader lives in `src/lib/reader/`
+and `src/lib/components/reader/`, and is simply unreferenced (so Rollup never
+bundles it) until `npm run paper:on` generates the stubs.
+
+**Rules when touching the reader:**
+
+- Never commit `src/lib/content/position-paper.md`. Put the real text there; it
+  stays local. Update `position-paper.example.md` only for structural changes.
+- Never import `src/lib/reader/reader.css` from `app.css`. It is imported by
+  `PositionPaperReader.svelte` so its rules and its two webfonts (~229 kB:
+  Source Serif 4, Atkinson Hyperlegible) load only with the reader.
+- Never link to `/position-paper/read` from navigation or the sitemap.
+- To publish the paper later: commit the route stubs and the markdown, remove
+  both `.gitignore` entries, drop the `noindex` in `PositionPaperReader.svelte`,
+  and add the route to `src/routes/sitemap.xml/+server.ts`.
+
 ## Technology Stack
 
 - **Framework:** SvelteKit with Svelte 5 (runes syntax mandatory)

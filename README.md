@@ -64,6 +64,24 @@ npm run check
 npm run lint
 ```
 
+### Position paper reader
+
+The workshop's position paper has a full-text reader at `/position-paper/read`.
+It is **deliberately excluded from the public site** until the paper is
+published: the route stubs and the draft markdown are gitignored, so neither
+this repository nor the GitHub Pages build ever contains them. (`/position-paper`
+itself — the page describing the forthcoming paper — is public and unaffected.)
+
+Enable it locally:
+
+```sh
+npm run dev:paper
+```
+
+Then edit `src/lib/content/position-paper.md`, which stays out of git. Run
+`npm run paper:off` to remove the route again. See `CLAUDE.md` for the full
+contract, including how to publish the reader when the time comes.
+
 ## Building
 
 Create a production build:
