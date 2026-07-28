@@ -367,7 +367,15 @@
 	}
 
 	/* ---- Footnote popover panel ---- */
+	/* Native <dialog>: the UA gives us centring, the top layer, focus trapping
+	   and Escape-to-close, so only presentation is set here. */
 	.footnote-popover-panel {
+		position: fixed;
+		inset: 0;
+		margin: auto;
+		width: min(32rem, calc(100vw - 2rem));
+		max-height: calc(100vh - 4rem);
+		overflow-y: auto;
 		padding: var(--space-lg);
 		font-size: var(--text-sm);
 		color: var(--text-primary);
@@ -377,6 +385,37 @@
 		box-shadow: var(--shadow-xl);
 		overflow-wrap: anywhere;
 		word-break: break-word;
+	}
+	.footnote-popover-panel::backdrop {
+		background: var(--bg-scrim);
+	}
+	/* The UA makes the page inert but still lets it scroll behind the dialog. */
+	html:has(.footnote-popover-panel[open]) {
+		overflow: hidden;
+	}
+	.footnote-popover-panel__close {
+		position: absolute;
+		inset-block-start: var(--space-xs);
+		inset-inline-end: var(--space-sm);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.75rem;
+		height: 1.75rem;
+		border: 0;
+		background: transparent;
+		color: var(--text-muted);
+		font-size: 1.5rem;
+		line-height: 1;
+		cursor: pointer;
+		border-radius: var(--radius-full);
+		transition:
+			background var(--transition-micro),
+			color var(--transition-micro);
+	}
+	.footnote-popover-panel__close:hover {
+		background: var(--bg-sunken);
+		color: var(--text-primary);
 	}
 	.footnote-popover-panel__short {
 		font-weight: var(--font-weight-semibold);
