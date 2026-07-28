@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ResolvedReference } from '$lib/reader/types';
+	import { copyToClipboard } from '$lib/utils/clipboard';
 	import FootnotePopover from './FootnotePopover.svelte';
 
 	interface Props {
@@ -35,31 +36,21 @@
 			btn.setAttribute('aria-label', `Copy link to section: ${heading.textContent ?? ''}`);
 			btn.innerHTML = '<span aria-hidden="true">#</span>';
 
+			let resetTimer: ReturnType<typeof setTimeout> | undefined;
 			const handler = async () => {
 				const url = `${window.location.origin}${window.location.pathname}#${heading.id}`;
-				try {
-					if (navigator.clipboard?.writeText) {
-						await navigator.clipboard.writeText(url);
-					} else {
-						const ta = document.createElement('textarea');
-						ta.value = url;
-						document.body.appendChild(ta);
-						ta.select();
-						document.execCommand('copy');
-						document.body.removeChild(ta);
-					}
-					btn.dataset.copied = 'true';
-					setTimeout(() => {
-						delete btn.dataset.copied;
-					}, 1500);
-				} catch (err) {
-					console.error('Anchor copy failed', err);
-				}
+				if (!(await copyToClipboard(url))) return;
+				btn.dataset.copied = 'true';
+				clearTimeout(resetTimer);
+				resetTimer = setTimeout(() => {
+					delete btn.dataset.copied;
+				}, 1500);
 			};
 
 			btn.addEventListener('click', handler);
 			heading.appendChild(btn);
 			cleanups.push(() => {
+				clearTimeout(resetTimer);
 				btn.removeEventListener('click', handler);
 				btn.remove();
 			});

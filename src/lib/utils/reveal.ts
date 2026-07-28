@@ -4,6 +4,8 @@
  * Respects prefers-reduced-motion
  */
 
+import { prefersReducedMotion } from '$lib/utils/motion';
+
 export interface RevealOptions {
 	/**
 	 * Intersection threshold (0-1, default 0).
@@ -29,10 +31,7 @@ const DEFAULT_OPTIONS: Required<RevealOptions> = {
 };
 
 export function reveal(node: HTMLElement, options: RevealOptions = {}) {
-	// Check for reduced motion preference
-	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-	if (prefersReducedMotion) {
+	if (prefersReducedMotion()) {
 		// Immediately show content without animation
 		node.classList.add('revealed');
 		return { destroy: () => {} };
