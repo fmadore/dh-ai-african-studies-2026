@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { Heading, P, Accordion, AccordionItem, Alert, Card, List, Li } from 'flowbite-svelte';
+	import { Heading, P, Accordion, AccordionItem, List, Li } from 'flowbite-svelte';
 	import { BookOpenOutline, ChevronDownOutline } from 'flowbite-svelte-icons';
 	import type { PositionPaperMeta } from '$lib/reader/types';
-	import { workStreams } from '$lib/data/work-streams';
+	import SeriesNote from '$lib/components/SeriesNote.svelte';
+	import WorkStreamCards from '$lib/components/WorkStreamCards.svelte';
+	import { positionPaperAbout } from '$lib/data/position-paper-about';
 
 	interface Props {
 		meta: PositionPaperMeta;
@@ -10,24 +12,7 @@
 
 	let { meta }: Props = $props();
 
-	const audiences = [
-		{
-			title: 'Research funders',
-			description: 'seeking models for sustainable, equitable project support'
-		},
-		{
-			title: 'Universities',
-			description: 'developing curricula and training in digital methods'
-		},
-		{
-			title: 'Technology developers',
-			description: 'building tools for multilingual and cross-cultural research'
-		},
-		{
-			title: 'Policy makers',
-			description: 'working on data governance and digital infrastructure'
-		}
-	];
+	const { purpose, contentsIntro, audienceIntro, audiences, process } = positionPaperAbout;
 
 	let formattedDate = $derived(
 		new Date(meta.publicationDate).toLocaleDateString('en-GB', {
@@ -109,32 +94,18 @@
 			<div class="stack-lg">
 				<section class="stack-xs">
 					<Heading tag="h3" class="heading-sub text-lg">Purpose</Heading>
-					<P class="body-text">
-						The paper synthesises the discussions from the workshop into a set of recommendations
-						for researchers, funders and institutions working at the intersection of digital
-						humanities, AI and African studies. It aims to provide a strategic reference point for
-						this emerging field, which currently lacks shared standards and clear direction. The
-						paper centres African perspectives while addressing infrastructure gaps and linguistic
-						diversity.
-					</P>
+					<P class="body-text">{purpose}</P>
 				</section>
 
 				<section class="stack-xs">
 					<Heading tag="h3" class="heading-sub text-lg">Contents</Heading>
-					<P class="body-text">The paper addresses three areas:</P>
-					<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-						{#each workStreams as stream (stream.id)}
-							<Card class="card-surface surface-padding-xs stack-xs h-full">
-								<Heading tag="h4" class="heading-sub text-base">{stream.title}</Heading>
-								<P class="text-body-sm">{stream.description}</P>
-							</Card>
-						{/each}
-					</div>
+					<P class="body-text">{contentsIntro}</P>
+					<WorkStreamCards headingTag="h4" />
 				</section>
 
 				<section class="stack-xs">
 					<Heading tag="h3" class="heading-sub text-lg">Audience</Heading>
-					<P class="body-text">The paper is addressed to:</P>
+					<P class="body-text">{audienceIntro}</P>
 					<List tag="ul" class="mt-2 space-y-2">
 						{#each audiences as audience (audience.title)}
 							<Li class="body-text">
@@ -147,36 +118,10 @@
 
 				<section class="stack-xs">
 					<Heading tag="h3" class="heading-sub text-lg">Process</Heading>
-					<P class="body-text">
-						A drafting committee prepared the paper in the months following the workshop,
-						incorporating participant feedback and professional editing. The goal was a document
-						that is both rigorous and accessible to non-specialist readers in policy and funding
-						contexts.
-					</P>
+					<P class="body-text">{process.published}</P>
 				</section>
 
-				<Alert color="teal" class="max-w-3xl">
-					{#snippet icon()}
-						<BookOpenOutline class="h-5 w-5" />
-					{/snippet}
-					<span class="font-semibold">About ZMO Programmatic Texts</span>
-					<p class="mt-1 text-sm">
-						This <a
-							href="https://www.zmo.de/en/publications/translate-to-english-zmo-programmatic-texts"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="font-medium underline hover:no-underline">series</a
-						>
-						publishes conceptual articles engaging with interdisciplinary and inter-regional research
-						conducted at the
-						<a
-							href="https://www.zmo.de/en"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="font-medium underline hover:no-underline">Leibniz-Zentrum Moderner Orient</a
-						>.
-					</p>
-				</Alert>
+				<SeriesNote />
 			</div>
 		</AccordionItem>
 	</Accordion>
