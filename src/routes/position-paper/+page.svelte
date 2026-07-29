@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '$lib/utils/seo';
 	import SeoHead from '$lib/components/SeoHead.svelte';
-	import SectionNav from '$lib/components/SectionNav.svelte';
-	import WorkStreamCards from '$lib/components/WorkStreamCards.svelte';
 	import AuthorByline from '$lib/components/AuthorByline.svelte';
 	import { positionPaperAbout } from '$lib/data/position-paper-about';
 	import { positionPaperMeta } from '$lib/data/position-paper-meta';
@@ -38,7 +36,7 @@
 		url: seo.canonical
 	});
 
-	const { purpose, contentsIntro, audienceIntro, audiences, process, series } = positionPaperAbout;
+	const { series } = positionPaperAbout;
 
 	/** Expected period, from the bibliographic record the reader already uses. */
 	const expected = new Date(positionPaperMeta.publicationDate).toLocaleDateString('en-GB', {
@@ -79,26 +77,15 @@
 		citationCopied = await copyToClipboard(provisionalCitation);
 		if (citationCopied) setTimeout(() => (citationCopied = false), 2000);
 	}
-
-	const sections = [
-		{ id: 'abstract', label: 'Abstract' },
-		{ id: 'purpose', label: 'Purpose' },
-		{ id: 'contents', label: 'Contents' },
-		{ id: 'audience', label: 'Audience' },
-		{ id: 'process', label: 'Process' }
-	];
 </script>
 
 <SeoHead {seo} jsonLd={[eventJsonLd, webPageJsonLd]} />
 
-<!-- Set as a publication rather than a landing page: one article column, a
-     sticky mini-TOC and the reading face, so it previews the paper itself. -->
+<!-- Until the text exists, this is a bibliographic record, not a landing page:
+     the masthead carries everything a reader can act on, and the body says
+     when the rest arrives. -->
 <article class="paper padding-inline-section band-tight">
-	<div class="content-width-wide paper__layout">
-		<div class="paper__aside">
-			<SectionNav {sections} label="Contents" />
-		</div>
-
+	<div class="content-width">
 		<div class="paper__body print-expand-links">
 			<header class="paper__masthead">
 				<p class="text-label text-accent">Workshop output</p>
@@ -131,10 +118,6 @@
 						</div>
 					{/each}
 				</dl>
-				<p class="text-body-sm">
-					Publication will be announced here. For questions before then, contact the
-					<a href={resolveAppPath('/about')} class="link-secondary">co-organisers</a>.
-				</p>
 
 				<!-- Citation up front: the point of publishing this open access is
 				     that it gets cited, so the reference is offered rather than
@@ -149,82 +132,28 @@
 				</div>
 			</header>
 
-			<section id="abstract" class="paper__section">
+			<section>
 				<div class="section-head">
-					<p class="section-head__eyebrow">Abstract</p>
-					<h2 class="heading-section">What the paper argues</h2>
+					<p class="section-head__eyebrow">Full text</p>
+					<h2 class="heading-section">Coming soon</h2>
 				</div>
-				<p class="prose-serif">{positionPaperMeta.abstract}</p>
-			</section>
-
-			<section id="purpose" class="paper__section">
-				<div class="section-head">
-					<p class="section-head__eyebrow">01</p>
-					<h2 class="heading-section">Purpose</h2>
-				</div>
-				<p class="prose-serif">{purpose}</p>
-			</section>
-
-			<section id="contents" class="paper__section">
-				<div class="section-head">
-					<p class="section-head__eyebrow">02</p>
-					<h2 class="heading-section">Contents</h2>
-				</div>
-				<p class="prose-serif mb-lg">{contentsIntro}</p>
-
-				<WorkStreamCards />
-			</section>
-
-			<section id="audience" class="paper__section">
-				<div class="section-head">
-					<p class="section-head__eyebrow">03</p>
-					<h2 class="heading-section">Audience</h2>
-				</div>
-				<p class="prose-serif mb-md">{audienceIntro}</p>
-				<dl class="audience-list">
-					{#each audiences as audience (audience.title)}
-						<div>
-							<dt>{audience.title}</dt>
-							<dd class="text-body-sm">{audience.description}</dd>
-						</div>
-					{/each}
-				</dl>
-			</section>
-
-			<section id="process" class="paper__section">
-				<div class="section-head">
-					<p class="section-head__eyebrow">04</p>
-					<h2 class="heading-section">Process</h2>
-				</div>
-				<p class="prose-serif">{process.forthcoming}</p>
+				<p class="prose-serif">
+					The full text will be published on this page, in open access, as soon as
+					{series.name} releases it. For questions before then, contact the
+					<a href={resolveAppPath('/about')} class="link-secondary">co-organisers</a>.
+				</p>
 			</section>
 		</div>
 	</div>
 </article>
 
 <style>
-	.paper__layout {
-		display: grid;
-		gap: var(--space-xl);
-		align-items: start;
-	}
-
-	@media (min-width: 1024px) {
-		.paper__layout {
-			grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
-			gap: var(--space-3xl);
-		}
-	}
-
-	.paper__aside {
-		order: -1;
-	}
-
 	.paper__body {
 		display: grid;
 		gap: var(--space-3xl);
 		min-width: 0;
 		max-width: 46rem;
+		margin-inline: auto;
 	}
 
 	.paper__masthead {
@@ -238,10 +167,6 @@
 		font-size: var(--text-sm);
 		font-weight: var(--font-weight-medium);
 		color: var(--text-secondary);
-	}
-
-	.paper__section {
-		scroll-margin-top: var(--scroll-offset);
 	}
 
 	/* ---------- Status block ---------- */
@@ -307,22 +232,5 @@
 
 	.cite-block__copy:hover {
 		color: var(--text-link-hover);
-	}
-
-	/* ---------- Audience ---------- */
-	.audience-list {
-		display: grid;
-		gap: var(--space-sm);
-		margin: 0;
-	}
-
-	.audience-list dt {
-		font-family: var(--font-family-display);
-		font-weight: var(--font-weight-semibold);
-		color: var(--text-primary);
-	}
-
-	.audience-list dd {
-		margin: 0;
 	}
 </style>
