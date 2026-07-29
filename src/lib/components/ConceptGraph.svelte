@@ -25,6 +25,9 @@
 
 	let { data }: Props = $props();
 
+	/** An edge after d3-force has resolved its string ids to node objects. */
+	type ResolvedEdge = { s: ConceptNode; t: ConceptNode };
+
 	// --- Dark mode ---
 	const darkMode = useDarkMode();
 	let isDarkMode = $derived(darkMode.isDark);
@@ -34,111 +37,281 @@
 		return isDarkMode ? colors.dark : colors.light;
 	}
 
-	// --- State ---
+	// --- Elements ---
 	let svgEl: SVGSVGElement;
+	let canvasEl: HTMLCanvasElement;
+	let viewportEl: SVGGElement;
 	let containerEl: HTMLDivElement;
+
 	let containerWidth = $state(800);
 	let containerHeight = $state(500);
-	let simNodes = $state<ConceptNode[]>([]);
-	let simEdges = $state<ConceptEdge[]>([]);
-	let hoveredNode = $state<ConceptNode | null>(null);
-	let selectedNode = $state<ConceptNode | null>(null);
-	let activeGroups = $state<Set<ConceptGroup>>(new Set(ALL_GROUPS));
-	let transform = $state({ x: 0, y: 0, k: 1 });
+
+	// d3-force mutates every node object in place, sixty times a second.
+	// `$state.raw` keeps those objects out of Svelte's proxy, so a tick costs
+	// nothing reactively; the arrays themselves are assigned exactly once, when
+	// the simulation is built.
+	let simNodes = $state.raw<ConceptNode[]>([]);
+	let simEdges = $state.raw<ConceptEdge[]>([]);
+	let hoveredNode = $state.raw<ConceptNode | null>(null);
+	let selectedNode = $state.raw<ConceptNode | null>(null);
+	let draggedNode = $state.raw<ConceptNode | null>(null);
+	let activeGroups = $state.raw<Set<ConceptGroup>>(new Set(ALL_GROUPS));
 	let simulationReady = $state(false);
-	let draggedNode = $state<ConceptNode | null>(null);
+	let isFullscreen = $state(false);
 
 	// --- Tooltip state ---
 	let tooltipX = $state(0);
 	let tooltipY = $state(0);
+
+	// The zoom transform is written straight to the DOM each frame, so it is
+	// deliberately not reactive: held in `$state` it re-evaluated every node and
+	// label expression in the template on every single wheel event.
+	const view = { x: 0, y: 0, k: 1 };
 
 	// Track references for programmatic control
 	let zoomBehaviorRef: any = null;
 	let svgSelectionRef: any = null;
 	let d3ZoomModuleRef: any = null;
 	let applyDragRef: (() => void) | null = null;
-	let isFullscreen = $state(false);
+
+	// --- Adjacency, built once from the source data ---
+	// The spotlight used to rediscover a node's neighbours by walking all 863
+	// edges on every pointerenter. Precomputed, that lookup is O(1).
+	let adjacency = $derived.by(() => {
+		const map = new Map<string, string[]>(); // eslint-disable-line svelte/prefer-svelte-reactivity
+		const link = (from: string, to: string) => {
+			const list = map.get(from);
+			if (list) list.push(to);
+			else map.set(from, [to]);
+		};
+		for (const e of data.edges) {
+			const s = typeof e.source === 'string' ? e.source : e.source.id;
+			const t = typeof e.target === 'string' ? e.target : e.target.id;
+			link(s, t);
+			link(t, s);
+		}
+		return map;
+	});
 
 	// --- Filtered data ---
+	// `simNodes` is now stable across ticks, so these recompute only when the
+	// user toggles a group filter.
 	let filteredNodes = $derived(simNodes.filter((n) => activeGroups.has(n.group)));
 	let filteredNodeIds = $derived(new Set(filteredNodes.map((n) => n.id)));
-	let filteredEdges = $derived(
-		simEdges.filter((e) => {
-			const srcId = typeof e.source === 'string' ? e.source : e.source.id;
-			const tgtId = typeof e.target === 'string' ? e.target : e.target.id;
-			return filteredNodeIds.has(srcId) && filteredNodeIds.has(tgtId);
-		})
-	);
+	let filteredEdges = $derived.by(() => {
+		const ids = filteredNodeIds;
+		const out: ResolvedEdge[] = [];
+		for (const e of simEdges) {
+			const s = e.source;
+			const t = e.target;
+			if (typeof s === 'string' || typeof t === 'string') continue;
+			if (ids.has(s.id) && ids.has(t.id)) out.push({ s, t });
+		}
+		return out;
+	});
 
 	// --- Spotlight: hover takes priority, then selected ---
 	let spotlightNode = $derived(hoveredNode ?? selectedNode);
 	let spotlightNeighborIds = $derived.by(() => {
-		if (!spotlightNode) return new Set<string>();
-		const ids = new Set<string>(); // eslint-disable-line svelte/prefer-svelte-reactivity
-		ids.add(spotlightNode.id);
-		for (const e of simEdges) {
-			const srcId = typeof e.source === 'string' ? e.source : e.source.id;
-			const tgtId = typeof e.target === 'string' ? e.target : e.target.id;
-			if (srcId === spotlightNode.id) ids.add(tgtId);
-			if (tgtId === spotlightNode.id) ids.add(srcId);
-		}
+		if (!spotlightNode) return null;
+		const ids = new Set<string>([spotlightNode.id]); // eslint-disable-line svelte/prefer-svelte-reactivity
+		for (const id of adjacency.get(spotlightNode.id) ?? []) ids.add(id);
 		return ids;
 	});
 
 	// --- Selected node neighbors for detail panel ---
 	let selectedNeighbors = $derived.by(() => {
 		if (!selectedNode) return [];
-		const names: string[] = [];
-		for (const e of simEdges) {
-			const srcId = typeof e.source === 'string' ? e.source : e.source.id;
-			const tgtId = typeof e.target === 'string' ? e.target : e.target.id;
-			if (srcId === selectedNode.id) names.push(tgtId);
-			else if (tgtId === selectedNode.id) names.push(srcId);
-		}
-		return [...new Set(names)].sort();
+		return [...new Set(adjacency.get(selectedNode.id) ?? [])].sort();
 	});
 
-	// --- Label visibility based on zoom ---
-	function shouldShowLabel(node: ConceptNode): boolean {
-		if (spotlightNode && spotlightNeighborIds.has(node.id)) return true;
-		if (transform.k >= 2.5) return true;
-		if (transform.k >= 1.5 && node.degree >= 10) return true;
-		if (node.degree >= 15) return true;
-		return false;
+	// ---------------------------------------------------------------------------
+	// Imperative render layer
+	//
+	// Edges go to a <canvas>: there are 863 of them, they carry no pointer
+	// events, no focus and no aria, and as SVG they were ~80% of the element
+	// count and the bulk of every repaint. Nodes and labels stay in the SVG so
+	// each one keeps its role, tabindex, aria-label, keyboard focus and drag.
+	//
+	// `paint` mirrors everything the renderer needs out of Svelte's reactive
+	// graph, so render() reads no reactive state at all — a simulation tick or a
+	// wheel event can never invalidate a component expression.
+	// ---------------------------------------------------------------------------
+	const paint: {
+		nodes: ConceptNode[];
+		edges: ResolvedEdge[];
+		spot: ConceptNode | null;
+		spotIds: Set<string> | null;
+		dark: boolean;
+	} = { nodes: [], edges: [], spot: null, spotIds: null, dark: false };
+
+	let nodeEls: SVGGElement[] = [];
+	let labelEls: SVGTextElement[] = [];
+	let canvasCtx: CanvasRenderingContext2D | null = null;
+	let canvasDpr = 1;
+	let canvasW = 0;
+	let canvasH = 0;
+
+	let frame = 0;
+	let positionsDirty = true;
+
+	function scheduleRender(movedNodes = false) {
+		if (movedNodes) positionsDirty = true;
+		// A hidden tab never fires rAF, which would leave the graph blank until it
+		// is focused. There is no frame to coalesce into there, so paint now.
+		if (typeof document !== 'undefined' && document.hidden) {
+			render();
+			return;
+		}
+		if (frame) return;
+		frame = requestAnimationFrame(() => {
+			frame = 0;
+			render();
+		});
 	}
 
-	// --- Edge key helper ---
-	function edgeKey(e: ConceptEdge): string {
-		const s = typeof e.source === 'string' ? e.source : e.source.id;
-		const t = typeof e.target === 'string' ? e.target : e.target.id;
-		return `${s}-${t}`;
+	function render() {
+		viewportEl?.setAttribute('transform', `translate(${view.x},${view.y}) scale(${view.k})`);
+		drawEdges();
+		layoutNodes();
+		positionsDirty = false;
 	}
 
-	// --- Edge coordinates helper ---
-	function edgeCoords(e: ConceptEdge) {
-		const src = typeof e.source === 'string' ? simNodes.find((n) => n.id === e.source) : e.source;
-		const tgt = typeof e.target === 'string' ? simNodes.find((n) => n.id === e.target) : e.target;
-		return {
-			x1: src?.x ?? 0,
-			y1: src?.y ?? 0,
-			x2: tgt?.x ?? 0,
-			y2: tgt?.y ?? 0,
-			srcId: src?.id ?? '',
-			tgtId: tgt?.id ?? ''
-		};
+	/** All 863 edges in three batched strokes — one per spotlight state. */
+	function drawEdges() {
+		const ctx = canvasCtx;
+		if (!ctx) return;
+
+		ctx.setTransform(canvasDpr, 0, 0, canvasDpr, 0, 0);
+		ctx.clearRect(0, 0, canvasW, canvasH);
+		ctx.translate(view.x, view.y);
+		ctx.scale(view.k, view.k);
+		// Line widths are set inside the scaled space so they thicken with zoom,
+		// matching what the SVG <g> used to do.
+		ctx.strokeStyle = paint.dark ? '#94a3b8' : '#64748b';
+		ctx.lineCap = 'round';
+
+		const { edges, spot } = paint;
+		const spotId = spot?.id;
+
+		// One path per spotlight state, so all 863 edges cost at most two strokes.
+		ctx.globalAlpha = spotId ? 0.04 : 0.3;
+		ctx.lineWidth = 0.7;
+		ctx.beginPath();
+		for (let i = 0; i < edges.length; i++) {
+			const { s, t } = edges[i];
+			if (spotId && (s.id === spotId || t.id === spotId)) continue;
+			ctx.moveTo(s.x ?? 0, s.y ?? 0);
+			ctx.lineTo(t.x ?? 0, t.y ?? 0);
+		}
+		ctx.stroke();
+
+		if (spotId) {
+			ctx.globalAlpha = 0.7;
+			ctx.lineWidth = 1.5;
+			ctx.beginPath();
+			for (let i = 0; i < edges.length; i++) {
+				const { s, t } = edges[i];
+				if (s.id !== spotId && t.id !== spotId) continue;
+				ctx.moveTo(s.x ?? 0, s.y ?? 0);
+				ctx.lineTo(t.x ?? 0, t.y ?? 0);
+			}
+			ctx.stroke();
+		}
+
+		ctx.globalAlpha = 1;
 	}
 
-	// --- Opacity helpers for spotlight effect ---
-	function nodeOpacity(node: ConceptNode): number {
-		if (!spotlightNode) return 1;
-		return spotlightNeighborIds.has(node.id) ? 1 : 0.12;
+	function labelVisible(node: ConceptNode): boolean {
+		if (paint.spot && paint.spotIds?.has(node.id)) return true;
+		if (view.k >= 2.5) return true;
+		if (view.k >= 1.5 && node.degree >= 10) return true;
+		return node.degree >= 15;
 	}
 
-	function edgeOpacity(srcId: string, tgtId: string): number {
-		if (!spotlightNode) return 0.3;
-		if (srcId === spotlightNode.id || tgtId === spotlightNode.id) return 0.7;
-		return 0.04;
+	function layoutNodes() {
+		const { nodes, spot, spotIds } = paint;
+		for (let i = 0; i < nodes.length; i++) {
+			const node = nodes[i];
+			const g = nodeEls[i];
+			if (!g) continue;
+
+			const x = node.x ?? 0;
+			const y = node.y ?? 0;
+			if (positionsDirty) g.setAttribute('transform', `translate(${x},${y})`);
+
+			const alpha = !spot || spotIds?.has(node.id) ? '' : '0.12';
+			if (g.style.opacity !== alpha) g.style.opacity = alpha;
+
+			const label = labelEls[i];
+			if (!label) continue;
+
+			if (labelVisible(node)) {
+				const wasHidden = label.style.display === 'none';
+				if (wasHidden) label.style.display = '';
+				// Hidden labels are not kept up to date, so one revealed by a zoom
+				// or a spotlight must be placed even when nothing has moved —
+				// otherwise it lands at the origin.
+				if (positionsDirty || wasHidden) {
+					label.setAttribute('x', String(x));
+					label.setAttribute('y', String(y - getNodeRadius(node.degree) - 5));
+				}
+				const focused = spot?.id === node.id;
+				const size = focused ? '12' : '10';
+				const weight = focused ? '600' : '400';
+				if (label.getAttribute('font-size') !== size) label.setAttribute('font-size', size);
+				if (label.getAttribute('font-weight') !== weight) label.setAttribute('font-weight', weight);
+				if (label.style.opacity !== alpha) label.style.opacity = alpha;
+			} else if (label.style.display !== 'none') {
+				label.style.display = 'none';
+			}
+		}
 	}
+
+	// Mirror reactive state into `paint`, then repaint. This is the only bridge
+	// between Svelte and the renderer.
+	$effect(() => {
+		paint.nodes = filteredNodes;
+		paint.edges = filteredEdges;
+		paint.spot = spotlightNode;
+		paint.spotIds = spotlightNeighborIds;
+		paint.dark = isDarkMode;
+		scheduleRender();
+	});
+
+	// Re-cache element references whenever the node elements are recreated, which
+	// now happens only on a group-filter toggle. querySelectorAll returns
+	// document order, so both lists stay index-aligned with `filteredNodes`.
+	$effect(() => {
+		const expected = filteredNodes.length;
+		if (!svgEl || expected === 0) return;
+		nodeEls = Array.from(svgEl.querySelectorAll<SVGGElement>('.node-group'));
+		labelEls = Array.from(svgEl.querySelectorAll<SVGTextElement>('.node-label'));
+		applyDragRef?.();
+		scheduleRender(true);
+	});
+
+	// --- Canvas backing store ---
+	$effect(() => {
+		const w = containerWidth;
+		const h = containerHeight;
+		if (!canvasEl) return;
+		const dpr = window.devicePixelRatio || 1;
+		canvasEl.width = Math.round(w * dpr);
+		canvasEl.height = Math.round(h * dpr);
+		canvasEl.style.width = `${w}px`;
+		canvasEl.style.height = `${h}px`;
+		canvasCtx = canvasEl.getContext('2d');
+		canvasDpr = dpr;
+		canvasW = w;
+		canvasH = h;
+		scheduleRender();
+	});
+
+	$effect(() => () => {
+		if (frame) cancelAnimationFrame(frame);
+		frame = 0;
+	});
 
 	// --- Zoom to node (called by search) ---
 	function zoomToNode(node: ConceptNode) {
@@ -233,6 +406,7 @@
 
 			simulation.on('end', () => {
 				simulationReady = true;
+				scheduleRender(true);
 			});
 
 			setTimeout(() => {
@@ -249,7 +423,10 @@
 					return true;
 				})
 				.on('zoom', (event: any) => {
-					transform = { x: event.transform.x, y: event.transform.y, k: event.transform.k };
+					view.x = event.transform.x;
+					view.y = event.transform.y;
+					view.k = event.transform.k;
+					scheduleRender();
 				});
 
 			svg.call(zoomBehavior as any);
@@ -292,23 +469,19 @@
 					draggedNode = null;
 				});
 
-			const applyDrag = () => {
+			applyDragRef = () => {
 				if (destroyed || !svgEl) return;
 				d3Selection.select(svgEl).selectAll<SVGGElement, unknown>('.node-group').call(dragBehavior);
 			};
-			applyDragRef = applyDrag;
 
-			// Edge array membership never changes after init; only node positions do
-			simEdges = [...edges];
+			// A tick only moves nodes; it never changes which nodes or edges exist.
+			// So it schedules a repaint rather than touching reactive state.
+			simulation.on('tick', () => scheduleRender(true));
 
-			let firstDragApplied = false;
-			simulation.on('tick', () => {
-				simNodes = [...nodes];
-				if (!firstDragApplied) {
-					firstDragApplied = true;
-					requestAnimationFrame(applyDrag);
-				}
-			});
+			// Assigned once. `$state.raw` means d3's in-place writes to x/y on these
+			// very objects stay invisible to Svelte.
+			simEdges = edges;
+			simNodes = nodes;
 
 			cleanup = () => {
 				simulation.stop();
@@ -330,11 +503,7 @@
 	// --- Click handling ---
 	function onNodeClick(event: MouseEvent, node: ConceptNode) {
 		event.stopPropagation();
-		if (selectedNode?.id === node.id) {
-			selectedNode = null;
-		} else {
-			selectedNode = node;
-		}
+		selectedNode = selectedNode?.id === node.id ? null : node;
 	}
 
 	function onBackgroundClick() {
@@ -350,12 +519,10 @@
 			next.add(group);
 		}
 		activeGroups = next;
-		requestAnimationFrame(() => applyDragRef?.());
 	}
 
 	function activateAllGroups() {
 		activeGroups = new Set(ALL_GROUPS);
-		requestAnimationFrame(() => applyDragRef?.());
 	}
 
 	// --- Zoom controls ---
@@ -420,8 +587,8 @@
 	function onNodeFocus(node: ConceptNode) {
 		hoveredNode = node;
 		// Position the tooltip at the node itself (no pointer coords on focus)
-		tooltipX = (node.x ?? 0) * transform.k + transform.x;
-		tooltipY = (node.y ?? 0) * transform.k + transform.y;
+		tooltipX = (node.x ?? 0) * view.k + view.x;
+		tooltipY = (node.y ?? 0) * view.k + view.y;
 	}
 </script>
 
@@ -458,6 +625,11 @@
 			</div>
 		{/if}
 
+		<!-- Edges: purely decorative, so they are rasterised rather than kept as
+		     863 live SVG elements. Hidden from assistive tech; every relationship
+		     is also reachable as text in the detail panel. -->
+		<canvas bind:this={canvasEl} class="graph-edges" aria-hidden="true"></canvas>
+
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<svg
 			bind:this={svgEl}
@@ -473,35 +645,16 @@
 				if (e.key === 'Escape') selectedNode = null;
 			}}
 		>
-			<g transform="translate({transform.x},{transform.y}) scale({transform.k})">
-				<!-- Edges -->
-				{#each filteredEdges as edge (edgeKey(edge))}
-					{@const coords = edgeCoords(edge)}
-					<line
-						x1={coords.x1}
-						y1={coords.y1}
-						x2={coords.x2}
-						y2={coords.y2}
-						stroke={isDarkMode ? '#94a3b8' : '#64748b'}
-						stroke-width={spotlightNode &&
-						(coords.srcId === spotlightNode.id || coords.tgtId === spotlightNode.id)
-							? 1.5
-							: 0.7}
-						opacity={edgeOpacity(coords.srcId, coords.tgtId)}
-					/>
-				{/each}
-
-				<!-- Nodes (circles only) -->
+			<g bind:this={viewportEl}>
+				<!-- Nodes (circles only). Position, opacity and the zoom transform are
+				     written imperatively by render(); the template stays structural. -->
 				{#each filteredNodes as node (node.id)}
 					{@const r = getNodeRadius(node.degree)}
-					{@const nx = node.x ?? 0}
-					{@const ny = node.y ?? 0}
 					<g
 						class="node-group"
 						role="button"
 						tabindex="0"
 						aria-label="{node.label} — {node.degree} connections"
-						style="cursor: grab; opacity: {nodeOpacity(node)}; outline: none;"
 						data-node-id={node.id}
 						onpointerenter={() => (hoveredNode = node)}
 						onpointermove={onNodePointerMove}
@@ -523,8 +676,6 @@
 						<!-- Seed glow ring -->
 						{#if node.seed}
 							<circle
-								cx={nx}
-								cy={ny}
 								r={r + 4}
 								fill="none"
 								stroke={getNodeColor(node.group)}
@@ -535,8 +686,6 @@
 
 						<!-- Main circle -->
 						<circle
-							cx={nx}
-							cy={ny}
 							{r}
 							fill={getNodeColor(node.group)}
 							stroke={isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.8)'}
@@ -545,24 +694,20 @@
 					</g>
 				{/each}
 
-				<!-- Labels (separate top layer, always rendered above all nodes) -->
+				<!-- Labels (separate top layer, always rendered above all nodes).
+				     All of them stay in the DOM and are shown or hidden by render(),
+				     so zooming past a threshold no longer creates ~100 text nodes. -->
 				{#each filteredNodes as node (node.id)}
-					{#if shouldShowLabel(node)}
-						{@const r = getNodeRadius(node.degree)}
-						<text
-							x={node.x ?? 0}
-							y={(node.y ?? 0) - r - 5}
-							text-anchor="middle"
-							class="node-label"
-							fill={isDarkMode ? '#e2e8f0' : '#1e293b'}
-							font-size={spotlightNode?.id === node.id ? '12' : '10'}
-							font-weight={spotlightNode?.id === node.id ? '600' : '400'}
-							opacity={nodeOpacity(node)}
-							style="pointer-events: none;"
-						>
-							{node.label}
-						</text>
-					{/if}
+					<text
+						text-anchor="middle"
+						class="node-label"
+						fill={isDarkMode ? '#e2e8f0' : '#1e293b'}
+						font-size="10"
+						font-weight="400"
+						style="display: none;"
+					>
+						{node.label}
+					</text>
 				{/each}
 			</g>
 		</svg>
@@ -723,9 +868,24 @@
 		border-radius: var(--radius-xl);
 	}
 
+	/* Edge layer sits under the interactive SVG and never takes a pointer event. */
+	.graph-edges {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+	}
+
 	.graph-svg {
 		display: block;
+		position: relative;
+		z-index: 1;
 		touch-action: pan-y;
+	}
+
+	.node-group {
+		cursor: grab;
+		outline: none;
 	}
 
 	/* Fullscreen mode */
@@ -815,6 +975,7 @@
 		pointer-events: none;
 		white-space: nowrap;
 		border: 1px solid var(--border-subtle);
+		z-index: 2;
 	}
 
 	/* Node labels — halo sized to the current page background */
