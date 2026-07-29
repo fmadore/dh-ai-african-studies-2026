@@ -5,8 +5,13 @@
 		ConceptGraphData,
 		ConceptGroup
 	} from '$lib/types/concept-graph';
-	import { useDarkMode } from '$lib/utils/dark-mode.svelte';
-	import { GROUP_COLORS, ALL_GROUPS, getNodeRadius } from './concept-graph/graph-config';
+	import {
+		GROUP_COLORS,
+		ALL_GROUPS,
+		getNodeRadius,
+		LABEL_COLOR,
+		EDGE_COLOR
+	} from './concept-graph/graph-config';
 	import { Spinner } from 'flowbite-svelte';
 	import {
 		CloseOutline,
@@ -28,13 +33,10 @@
 	/** An edge after d3-force has resolved its string ids to node objects. */
 	type ResolvedEdge = { s: ConceptNode; t: ConceptNode };
 
-	// --- Dark mode ---
-	const darkMode = useDarkMode();
-	let isDarkMode = $derived(darkMode.isDark);
-
+	// The stage is dark in both themes, so the palette is fixed rather than
+	// following the page theme — see graph-config.ts.
 	function getNodeColor(group: ConceptGroup): string {
-		const colors = GROUP_COLORS[group];
-		return isDarkMode ? colors.dark : colors.light;
+		return GROUP_COLORS[group];
 	}
 
 	// --- Elements ---
@@ -142,8 +144,7 @@
 		edges: ResolvedEdge[];
 		spot: ConceptNode | null;
 		spotIds: Set<string> | null;
-		dark: boolean;
-	} = { nodes: [], edges: [], spot: null, spotIds: null, dark: false };
+	} = { nodes: [], edges: [], spot: null, spotIds: null };
 
 	let nodeEls: SVGGElement[] = [];
 	let labelEls: SVGTextElement[] = [];
@@ -188,14 +189,14 @@
 		ctx.scale(view.k, view.k);
 		// Line widths are set inside the scaled space so they thicken with zoom,
 		// matching what the SVG <g> used to do.
-		ctx.strokeStyle = paint.dark ? '#94a3b8' : '#64748b';
+		ctx.strokeStyle = EDGE_COLOR;
 		ctx.lineCap = 'round';
 
 		const { edges, spot } = paint;
 		const spotId = spot?.id;
 
 		// One path per spotlight state, so all 863 edges cost at most two strokes.
-		ctx.globalAlpha = spotId ? 0.04 : 0.3;
+		ctx.globalAlpha = spotId ? 0.07 : 0.38;
 		ctx.lineWidth = 0.7;
 		ctx.beginPath();
 		for (let i = 0; i < edges.length; i++) {
@@ -275,7 +276,6 @@
 		paint.edges = filteredEdges;
 		paint.spot = spotlightNode;
 		paint.spotIds = spotlightNeighborIds;
-		paint.dark = isDarkMode;
 		scheduleRender();
 	});
 
@@ -688,7 +688,7 @@
 						<circle
 							{r}
 							fill={getNodeColor(node.group)}
-							stroke={isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.8)'}
+							stroke="rgba(255,255,255,0.18)"
 							stroke-width="1.5"
 						/>
 					</g>
@@ -701,7 +701,7 @@
 					<text
 						text-anchor="middle"
 						class="node-label"
-						fill={isDarkMode ? '#e2e8f0' : '#1e293b'}
+						fill={LABEL_COLOR}
 						font-size="10"
 						font-weight="400"
 						style="display: none;"
@@ -810,7 +810,50 @@
 </div>
 
 <style>
+	/* The graph carries its own dark stage rather than borrowing the page's
+	 * surfaces. Two reasons:
+	 *
+	 * 1. It is always painted on ink — inside `.band-ink` on /concepts, and
+	 *    standalone on /concepts/embed. Reading the *page* theme meant that in
+	 *    light mode the light palette landed on a near-black band: labels at
+	 *    1.05:1, edges at 1.39:1.
+	 * 2. `.band-ink` redefines --bg-raised to rgba(255,255,255,0.05), so every
+	 *    piece of chrome built on it — tooltip, controls, selection pill, search
+	 *    field and its results, filter chips, detail panel — was 95%
+	 *    transparent, with nodes and edges showing straight through.
+	 *
+	 * Declaring the on-ink token set here makes the graph self-contained, so it
+	 * looks the same in both themes, on both routes, and in fullscreen. */
 	.concept-graph-wrapper {
+		/* Fixed, not mixed from --surface-ink: that token is #1c1917 in light mode
+		 * but pure black in dark, and an oklab mix off black barely moves (11%
+		 * white gave #040404), leaving the tooltip indistinguishable from the
+		 * stage. Explicit steps keep the stage identical in both themes. Warm
+		 * darks, to sit with the site's stone ramp rather than against it. */
+		--graph-ink: #171514;
+		--graph-surface: #201d1b;
+		--graph-raised: #2c2926;
+		--graph-sunken: #1a1817;
+
+		--bg-page: var(--graph-ink);
+		--bg-raised: var(--graph-raised);
+		--bg-sunken: var(--graph-sunken);
+		--bg-overlay: #3a3633;
+
+		--text-primary: var(--color-gray-50);
+		--text-secondary: var(--color-gray-200);
+		--text-muted: var(--color-gray-300);
+		--text-subtle: var(--color-gray-400);
+		--text-accent: var(--color-secondary-300);
+		--text-link: var(--color-secondary-300);
+		--text-link-hover: var(--color-secondary-200);
+
+		--border-subtle: rgba(255, 255, 255, 0.1);
+		--border-default: rgba(255, 255, 255, 0.18);
+		--border-strong: rgba(255, 255, 255, 0.3);
+		--accent: var(--color-secondary-400);
+
+		color: var(--text-primary);
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-md);
@@ -866,6 +909,8 @@
 		position: relative;
 		overflow: hidden;
 		border-radius: var(--radius-xl);
+		/* Opaque, so the stage does not depend on whatever is behind it. */
+		background-color: var(--graph-surface);
 	}
 
 	/* Edge layer sits under the interactive SVG and never takes a pointer event. */
@@ -888,12 +933,19 @@
 		outline: none;
 	}
 
-	/* Fullscreen mode */
+	/* Fullscreen mode. The ink, not --bg-page: the ancestor band stops painting
+	 * once this element is in the top layer, and --bg-page is the *page*
+	 * background, so fullscreen used to swap the dark stage for a near-white
+	 * one in light mode. */
 	.concept-graph-wrapper:fullscreen {
-		background: var(--bg-page);
+		background: var(--graph-ink);
 		padding: var(--space-md);
 		display: flex;
 		flex-direction: column;
+	}
+
+	.concept-graph-wrapper:fullscreen::backdrop {
+		background: var(--graph-ink);
 	}
 
 	.concept-graph-wrapper:fullscreen .graph-canvas {
@@ -934,8 +986,10 @@
 		box-shadow: var(--shadow-sm);
 	}
 
+	/* Lift, not sink: on the ink stage --bg-sunken is darker than --bg-raised,
+	 * so the old hover made the control recede. */
 	.control-btn:hover {
-		background: var(--bg-sunken);
+		background: var(--bg-overlay);
 		color: var(--text-primary);
 		box-shadow: var(--shadow-md);
 	}
@@ -978,14 +1032,15 @@
 		z-index: 2;
 	}
 
-	/* Node labels — halo sized to the current page background */
+	/* Node labels — the halo must match the stage the text sits on, not the page
+	 * behind it, or it reads as a pale outline around every label. */
 	.node-label {
 		pointer-events: none;
 		user-select: none;
 		text-shadow:
-			0 0 4px var(--bg-page),
-			0 0 4px var(--bg-page),
-			0 0 8px var(--bg-page);
+			0 0 4px var(--graph-surface),
+			0 0 4px var(--graph-surface),
+			0 0 8px var(--graph-surface);
 	}
 
 	/* Selection pill */
@@ -1013,7 +1068,7 @@
 	}
 
 	.selection-pill:hover {
-		background: var(--bg-sunken);
+		background: var(--bg-overlay);
 		box-shadow: var(--shadow-md);
 	}
 

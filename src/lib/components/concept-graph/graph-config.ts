@@ -1,13 +1,26 @@
 import type { ConceptGroup } from '$lib/types/concept-graph';
 
-export const GROUP_COLORS: Record<ConceptGroup, { light: string; dark: string }> = {
-	'Infrastructure, Governance & Access': { light: '#0d9488', dark: '#2dd4bf' },
-	'Cross-cutting': { light: '#059669', dark: '#34d399' },
-	Extended: { light: '#64748b', dark: '#94a3b8' },
-	'Language Technologies, NLP & Corpora': { light: '#dc2626', dark: '#f87171' },
-	'The Archive': { light: '#d97706', dark: '#fbbf24' },
-	'Epistemologies, Decoloniality & Ethical Frameworks': { light: '#7c3aed', dark: '#a78bfa' }
+/**
+ * One palette, not a light/dark pair: the graph always paints on its own dark
+ * stage (see the note above `.graph-stage` in /concepts), so a second set of
+ * tones could only ever be wrong. These used to switch on the *page* theme,
+ * which meant the light-mode tones — chosen for a white card — were being
+ * drawn on a near-black band at 2.7:1 to 4.8:1, with labels at 1.05:1.
+ *
+ * Every tone below clears 7:1 against `--graph-surface`.
+ */
+export const GROUP_COLORS: Record<ConceptGroup, string> = {
+	'Infrastructure, Governance & Access': '#2dd4bf',
+	'Cross-cutting': '#34d399',
+	Extended: '#94a3b8',
+	'Language Technologies, NLP & Corpora': '#f87171',
+	'The Archive': '#fbbf24',
+	'Epistemologies, Decoloniality & Ethical Frameworks': '#a78bfa'
 };
+
+/** Node labels and edges, both measured against the same dark stage. */
+export const LABEL_COLOR = '#e8ecf1';
+export const EDGE_COLOR = '#9aa8bd';
 
 export const ALL_GROUPS: ConceptGroup[] = [
 	'Cross-cutting',

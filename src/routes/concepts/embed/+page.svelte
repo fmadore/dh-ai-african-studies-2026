@@ -25,11 +25,17 @@
 </div>
 
 <style>
+	/* The graph is a dark stage in both themes (see ConceptGraph.svelte), and on
+	 * /concepts it gets that from the surrounding .band-ink. Standalone it has
+	 * to supply its own, or the padding around it stays page-coloured.
+	 * Literal rather than var(--graph-ink): that token is declared on
+	 * .concept-graph-wrapper, which is this element's child. */
 	.embed-wrapper {
 		width: 100vw;
 		height: 100vh;
 		padding: 1rem;
 		box-sizing: border-box;
 		overflow: hidden;
+		background-color: #171514;
 	}
 </style>
