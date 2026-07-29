@@ -138,6 +138,7 @@ export interface JsonLdScholarlyArticle {
 	publisher?: JsonLdOrganization;
 	isPartOf?: JsonLdPeriodical;
 	isAccessibleForFree?: boolean;
+	license?: string;
 	mainEntityOfPage?: string;
 	url?: string;
 	identifier?: string;
@@ -518,6 +519,8 @@ export interface ScholarlyMetaOptions {
 	pdfUrl?: string;
 	doi?: string;
 	issn?: string;
+	/** Reuse terms, emitted as `DC.rights` and schema.org `license`. */
+	licence?: { name: string; url: string };
 }
 
 /**
@@ -577,6 +580,10 @@ export function createScholarlyMeta(opts: ScholarlyMetaOptions): SeoMetaTag[] {
 	tags.push({ key: 'DC.description', name: 'DC.description', content: opts.abstract });
 	tags.push({ key: 'DC.type', name: 'DC.type', content: 'Text' });
 	tags.push({ key: 'DC.format', name: 'DC.format', content: 'text/html' });
+	// The licence URI, not its short name: `dc:rights` is machine-read.
+	if (opts.licence) {
+		tags.push({ key: 'DC.rights', name: 'DC.rights', content: opts.licence.url });
+	}
 	if (opts.doi) {
 		tags.push({ key: 'DC.identifier', name: 'DC.identifier', content: `doi:${opts.doi}` });
 	} else {
@@ -639,6 +646,8 @@ export function createScholarlyArticleJsonLd(opts: ScholarlyMetaOptions): JsonLd
 	};
 
 	if (opts.revisedDate) jsonLd.dateModified = opts.revisedDate;
+
+	if (opts.licence) jsonLd.license = opts.licence.url;
 
 	if (opts.journalTitle) {
 		jsonLd.isPartOf = {

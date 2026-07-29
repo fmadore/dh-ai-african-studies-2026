@@ -91,11 +91,15 @@ export const positionPaperMeta: PositionPaperMeta = {
 	publisher: 'Leibniz-Zentrum Moderner Orient (ZMO)',
 	journalTitle: 'ZMO Programmatic Texts',
 	doi: undefined,
-	issn: undefined,
-	// Set once ZMO Programmatic Texts confirms the series' terms. Until then the
-	// landing page says "confirmed on publication" rather than implying the
-	// site's own CC BY-NC licence also governs the paper.
-	licence: undefined,
+	// The series ISSN, not the paper's own identifier.
+	issn: '2191-3242',
+	// The series' terms, deliberately not the site's own CC BY-NC: this licence
+	// permits commercial reuse and requires share-alike, which the site licence
+	// does neither.
+	licence: {
+		name: 'CC BY-SA 4.0',
+		url: 'https://creativecommons.org/licenses/by-sa/4.0/'
+	},
 	pdfPath: '/documents/position-paper.pdf',
 	pdfAvailable: false
 };

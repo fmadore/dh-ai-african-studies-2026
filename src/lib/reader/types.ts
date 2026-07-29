@@ -56,8 +56,8 @@ export interface PositionPaperMeta {
 	issn?: string;
 	/**
 	 * The paper's own reuse terms, set by the publishing series — deliberately
-	 * not the site licence. Leave undefined until the series confirms it; the
-	 * landing page then says so rather than guessing.
+	 * not the site licence. While undefined the landing page says the terms
+	 * follow on publication rather than guessing at them.
 	 */
 	licence?: { name: string; url: string };
 	/** Static asset path to the PDF. */

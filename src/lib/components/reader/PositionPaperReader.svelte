@@ -51,7 +51,8 @@
 		journalTitle: meta.journalTitle,
 		abstractUrl: seo.canonical,
 		doi: meta.doi,
-		issn: meta.issn
+		issn: meta.issn,
+		licence: meta.licence
 	});
 
 	// Google Scholar / Dublin Core tags ride alongside the standard SEO set.

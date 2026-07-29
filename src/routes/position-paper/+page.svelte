@@ -52,6 +52,9 @@
 		{ term: 'Status', detail: 'Forthcoming — in preparation' },
 		{ term: 'Expected', detail: expected },
 		{ term: 'Series', detail: series.name, href: series.url },
+		// Identifies the series, so it belongs beside it rather than next to the
+		// paper's own (still unassigned) DOI.
+		...(positionPaperMeta.issn ? [{ term: 'ISSN', detail: positionPaperMeta.issn }] : []),
 		{ term: 'Publisher', detail: series.publisher, href: series.publisherUrl },
 		{
 			term: 'Access',
