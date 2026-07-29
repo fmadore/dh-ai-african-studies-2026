@@ -9,11 +9,12 @@
 
 	let { src, alt, size = 'md' }: Props = $props();
 
-	// Map our sizes to Tailwind classes (Flowbite Avatar uses w-/h- for custom sizing)
+	// A teal halo plus a shadow plus 4px of padding, on 28 faces, is a lot of
+	// chrome. A hairline ring is enough to separate a portrait from the card.
 	const sizeClasses: Record<NonNullable<Props['size']>, string> = {
 		sm: 'w-12 h-12',
 		md: 'w-24 h-24',
-		lg: 'w-28 h-28 md:w-36 md:h-36'
+		lg: 'w-24 h-24 md:w-28 md:h-28'
 	};
 </script>
 
@@ -24,14 +25,15 @@
 		{alt}
 		loading="lazy"
 		decoding="async"
-		class="{sizeClasses[
-			size
-		]} ring-secondary-200 dark:ring-secondary-700 rounded-full object-cover p-1 shadow-md ring-2"
+		class="{sizeClasses[size]} participant-avatar rounded-full object-cover"
 	/>
 {:else}
-	<Avatar
-		{alt}
-		border
-		class="{sizeClasses[size]} ring-secondary-200 dark:ring-secondary-700 object-cover shadow-md"
-	/>
+	<Avatar {alt} class="{sizeClasses[size]} participant-avatar object-cover" />
 {/if}
+
+<style>
+	:global(.participant-avatar) {
+		flex-shrink: 0;
+		box-shadow: 0 0 0 1px var(--border-default);
+	}
+</style>

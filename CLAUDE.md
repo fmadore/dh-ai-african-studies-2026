@@ -68,8 +68,9 @@ bundles it) until `npm run paper:on` generates the stubs.
 - Never commit `src/lib/content/position-paper.md`. Put the real text there; it
   stays local. Update `position-paper.example.md` only for structural changes.
 - Never import `src/lib/reader/reader.css` from `app.css`. It is imported by
-  `PositionPaperReader.svelte` so its rules and its two webfonts (~229 kB:
-  Source Serif 4, Atkinson Hyperlegible) load only with the reader.
+  `PositionPaperReader.svelte` so its rules and its remaining reader-only
+  webfont (Atkinson Hyperlegible) load only with the reader. Source Serif 4 is
+  now a site-wide font, imported by `app.css`.
 - Never link to `/position-paper/read` from navigation or the sitemap.
 - To publish the paper later: commit the route stubs and the markdown, remove
   both `.gitignore` entries, drop the `noindex` in `PositionPaperReader.svelte`,
@@ -82,7 +83,8 @@ bundles it) until `npm run paper:on` generates the stubs.
 - **Styling:** Tailwind CSS v4
 - **Maps:** Leaflet (dynamically imported)
 - **Graph:** D3 force layout (dynamically imported)
-- **Fonts:** Self-hosted via @fontsource-variable (no Google Fonts requests)
+- **Fonts:** Self-hosted via @fontsource-variable (no Google Fonts requests) —
+  Outfit (display), Plus Jakarta Sans (UI), Source Serif 4 (reading voice)
 - **Deployment:** GitHub Pages (static adapter)
 
 ## Svelte 5 Runes (Required)
@@ -190,25 +192,43 @@ The site uses a **"Future Forward"** aesthetic - sophisticated and tech-forward 
 1. **Teal (secondary) as dominant accent** over terra cotta (primary)
    - Teal represents digital/future themes
    - Terra cotta reserved for CTAs and warmth accents
-   - Use `.text-gradient-teal` for headings, `.link-secondary` for links
+   - `.text-gradient-teal` is reserved for the **homepage h1 only** — nine
+     gradient page titles turn a signature into wallpaper. `.link-secondary`
+     for links.
 
-2. **Grid/mesh backgrounds** instead of blurry blobs
-   - `.bg-grid-mesh` - Subtle dot grid pattern
-   - `.bg-radial-glow` - Teal radial glow from top
-   - `.bg-radial-glow-bottom` - Subtle terra cotta glow from bottom
+2. **One ambient field, page-level** — not one per section
+   - The dot mesh is a single fixed pseudo-element on `.app-shell` in
+     `+layout.svelte`, masked to fade out by 65% of the viewport.
+     `.app-shell--no-mesh` turns it off (used on `/concepts`).
+   - `.bg-radial-glow` is for the homepage hero only.
 
-3. **Orchestrated entrance animations** with staggered timing
+3. **Rhythm comes from bands, not from floating slabs**
+   - `.band` / `.band-tight` for vertical rhythm, `.band-sunken` for a
+     recessed band, `.band-ink` for a dark band, `.band-bleed` for full width.
+   - One sunken band and one ink band per long page — no more.
+   - `.surface-panel` is solid (no `backdrop-filter`). Glass survives only in
+     `.surface-glass`: the sticky header and the lightbox chrome.
+
+4. **Orchestrated entrance animations** with staggered timing
    - Hero: title (50ms) → subtitle (150ms) → CTAs (250ms+)
    - Sections: Use `use:reveal` action with `.animate-section-reveal`
-   - Children: Use `.stagger-children` class for automatic staggering
+   - Children: `.stagger-children` staggers the first six only; anything past
+     that joins the tail, so large grids don't all land at once.
 
-4. **Glow effects for depth**
-   - `.glow-teal` - Ambient teal glow on key elements
-   - `.glow-border` - Glowing border on hover
-   - Card hovers use teal glow instead of primary border
+5. **Section headers: eyebrow + heading + left rule**
+   - Use the `.section-head` pattern (`.section-head__eyebrow` + a heading);
+     the rule is drawn by a pseudo-element. Centred `.accent-underline` is no
+     longer the default.
 
-5. **Teal accent underlines** on section headers
-   - Use `.accent-underline` class on headings
+6. **Cap the measure on running text**
+   - `--measure-prose` (68ch) via `.prose-serif` / `.prose-measure`, and
+     `--measure-lede` (46ch) via `.text-lead`. Wide containers are for grids;
+     text inside them still needs a column.
+
+7. **Static cards by default**
+   - `.card-surface` does not lift. Use `.card-surface--link` only when the
+     card really is a link or a button — hover feedback on a non-target is a
+     false affordance.
 
 ### Page Structure Pattern
 
@@ -218,15 +238,17 @@ The site uses a **"Future Forward"** aesthetic - sophisticated and tech-forward 
   // ... other imports
 </script>
 
-<!-- Hero/Header Section — subpages use the shared PageHero component -->
-<PageHero title="Page Title" lede="One-sentence description." />
+<!-- Hero/Header Section — every page uses the shared PageHero component -->
+<PageHero eyebrow="Section" title="Page Title" lede="One-sentence description." />
 
-<!-- Content Sections -->
-<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
-  <div class="bg-grid-mesh opacity-30"></div>
-  <div class="content-width-wide surface-panel surface-padding animate-section-reveal" use:reveal>
-    <Heading class="heading-section accent-underline">Title</Heading>
-    <!-- Content -->
+<!-- Content Sections: a band, not a floating panel -->
+<section class="band padding-inline-section">
+  <div class="content-width-wide animate-section-reveal" use:reveal>
+    <div class="section-head">
+      <p class="section-head__eyebrow">01 — Context</p>
+      <h2 class="heading-section">Title</h2>
+    </div>
+    <p class="prose-serif">Running text, capped at 68ch.</p>
   </div>
 </section>
 ```
@@ -245,30 +267,38 @@ Use these defined in `src/app.css` instead of arbitrary Tailwind:
 
 ### Surfaces
 
-- `.surface-panel`, `.card-surface`, `.bg-page`
+- `.surface-panel` (solid), `.card-surface` / `.card-surface--link`,
+  `.surface-glass` (sticky header + lightbox only), `.section-plain`
+- `--surface-1` / `--surface-2` / `--surface-3` / `--surface-ink`
+
+### Bands (vertical rhythm)
+
+- `.band`, `.band-tight` — section padding from `--section-gap*`
+- `.band-sunken`, `.band-ink`, `.band-bleed`
 
 ### Typography
 
 - `.heading-display`, `.heading-section`, `.heading-sub`
-- `.text-gradient`, `.text-gradient-teal` (preferred)
-- `.accent-underline` - Teal underline decoration
+- `.section-head` + `.section-head__eyebrow` — the standard section header
+- `.prose-serif`, `.prose-serif-sm`, `.text-lead` — the Source Serif 4 voice
+- `.prose-measure` (68ch), `.lede-measure` (46ch)
+- `.text-gradient-teal` — homepage h1 only
 
-### Backgrounds (Future Forward)
+### Backgrounds
 
-- `.bg-grid-mesh` - Dot grid pattern
-- `.bg-radial-glow` - Teal glow from top
-- `.bg-radial-glow-bottom` - Terra cotta glow from bottom
-- `.gradient-hero-future` - Teal-dominant hero gradient
+- `.app-shell::before` — the single page-level dot mesh
+- `.bg-radial-glow` — homepage hero only
+- `.gradient-hero-future` — teal-dominant hero gradient
 
-### Effects
+### Accessibility
 
-- `.glow-teal` - Teal box shadow glow
-- `.glow-border` - Gradient border on hover
+- `.tap-target` — 44px minimum hit area for text-only controls
+- Focus is a real `outline` in teal (`--focus-ring`), never a `box-shadow`
 
 ### Animations
 
 - `.animate-section-reveal` + `use:reveal` - Scroll-triggered fade-up
-- `.stagger-children` - Auto-stagger child animations
+- `.stagger-children` - Auto-stagger (first six children only)
 - `.animate-hero-title`, `.animate-hero-subtitle` - Hero entrance
 
 **Theme colors:** primary (Deep Terra Cotta #e05d44), secondary (African Teal #0d9488)

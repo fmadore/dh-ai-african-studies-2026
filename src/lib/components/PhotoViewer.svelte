@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount, untrack } from 'svelte';
+	import { replaceState } from '$app/navigation';
 	import type { Photo, PhotoCategory } from '$lib/types/photo';
 	import { resolveAssetPath } from '$lib/utils/paths';
 	import { portal } from '$lib/utils/portal';
@@ -13,13 +15,27 @@
 
 	let {
 		photos,
-		categories
+		categories,
+		initialCategory = 'All'
 	}: {
 		photos: Photo[];
 		categories: PhotoCategory[];
+		/** Seeded from `?day=` so the schedule can deep-link a single day. */
+		initialCategory?: string;
 	} = $props();
 
+	/**
+	 * Starts at 'All' so the prerendered markup and the first client render
+	 * agree; the URL-derived category is applied after hydration. Seeding it
+	 * during initialisation would render a different photo list on the client
+	 * than the server produced.
+	 */
 	let activeCategory = $state<string>('All');
+
+	onMount(() => {
+		const seed = untrack(() => initialCategory);
+		if (seed && seed !== 'All') activeCategory = seed;
+	});
 	let lightboxOpen = $state(false);
 	let lightboxIndex = $state(0);
 	let gridButtonRefs: HTMLButtonElement[] = $state([]);
@@ -143,14 +159,42 @@
 	function setCategory(cat: string) {
 		activeCategory = cat;
 		lightboxIndex = 0;
+		if (typeof window === 'undefined') return;
+		// SvelteKit's own replaceState — the native one conflicts with its router
+		const url = new URL(window.location.href);
+		if (cat === 'All') url.searchParams.delete('day');
+		else url.searchParams.set('day', cat);
+		replaceState(url.pathname + url.search, {});
 	}
+
+	/**
+	 * A uniform thumbnail grid flattens 65 images into wallpaper. Portraits keep
+	 * their shape, and one frame per day is given a wide span, so the gallery
+	 * reads with an editorial rhythm instead of a single repeating tile.
+	 */
+	function spanClass(photo: Photo, index: number): string {
+		const portrait = photo.width && photo.height ? photo.height > photo.width : false;
+		if (portrait) return 'is-portrait';
+		return index % 7 === 0 ? 'is-wide' : '';
+	}
+
+	/** Grouped by day, so the scroll always has a date attached. */
+	let groupedPhotos = $derived.by(() => {
+		const groups: { category: string; photos: { photo: Photo; index: number }[] }[] = [];
+		filteredPhotos.forEach((photo, index) => {
+			const last = groups.at(-1);
+			if (last && last.category === photo.category) last.photos.push({ photo, index });
+			else groups.push({ category: photo.category, photos: [{ photo, index }] });
+		});
+		return groups;
+	});
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
 
 <!-- Category filter pills (toggle buttons — not a tablist, which would require
      full tab keyboard semantics) -->
-<div class="flex flex-wrap justify-center gap-2" role="group" aria-label="Filter photos by day">
+<div class="photo-filters" role="group" aria-label="Filter photos by day">
 	<Button
 		pill
 		size="sm"
@@ -178,37 +222,45 @@
 	{/each}
 </div>
 
-<!-- Gallery grid -->
+<!-- Gallery -->
 {#if filteredPhotos.length > 0}
-	<div class="photo-grid">
-		{#each filteredPhotos as photo, i (photo.id)}
-			{@const delay = Math.min(i * 40, 400)}
-			<div class="animate-section-reveal" use:reveal style="transition-delay: {delay}ms">
-				<button
-					type="button"
-					class="photo-card card-surface glow-border group"
-					onclick={() => openLightbox(i)}
-					bind:this={gridButtonRefs[i]}
-					aria-label="View {photo.alt}"
-				>
-					<div class="photo-card-image-wrapper">
-						<img
-							src={resolveAssetPath(photo.thumbnail ?? photo.src)}
-							alt={photo.alt}
-							loading="lazy"
-							decoding="async"
-							class="photo-card-image"
-						/>
-						{#if photo.caption}
-							<div class="photo-card-overlay">
-								<span class="text-sm font-medium text-white">{photo.caption}</span>
-							</div>
-						{/if}
+	{#each groupedPhotos as group (group.category)}
+		<section class="photo-day" aria-label={group.category}>
+			<h3 class="photo-day__header">
+				{group.category}
+				<span class="photo-day__count">{group.photos.length}</span>
+			</h3>
+			<div class="photo-grid">
+				{#each group.photos as { photo, index } (photo.id)}
+					{@const delay = Math.min((index % 8) * 40, 320)}
+					<div
+						class="photo-cell animate-section-reveal {spanClass(photo, index)}"
+						use:reveal
+						style="transition-delay: {delay}ms"
+					>
+						<button
+							type="button"
+							class="photo-card"
+							onclick={() => openLightbox(index)}
+							bind:this={gridButtonRefs[index]}
+							aria-label="View {photo.alt}"
+						>
+							<img
+								src={resolveAssetPath(photo.thumbnail ?? photo.src)}
+								alt={photo.alt}
+								loading="lazy"
+								decoding="async"
+								class="photo-card-image"
+							/>
+							{#if photo.caption}
+								<span class="photo-card-overlay">{photo.caption}</span>
+							{/if}
+						</button>
 					</div>
-				</button>
+				{/each}
 			</div>
-		{/each}
-	</div>
+		</section>
+	{/each}
 {:else}
 	<div class="empty-state">
 		<div class="empty-state__icon">
@@ -312,29 +364,82 @@
 {/if}
 
 <style>
-	/* Grid */
-	.photo-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-		gap: var(--space-lg);
+	.photo-filters {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2xs);
+		margin-bottom: var(--space-lg);
 	}
 
-	/* Card */
+	/* Day markers: the grouping already existed; making the label sticky keeps a
+	   date attached to wherever the scroll happens to be. */
+	.photo-day + .photo-day {
+		margin-top: var(--space-xl);
+	}
+
+	.photo-day__header {
+		position: sticky;
+		top: var(--scroll-offset);
+		z-index: var(--z-sticky);
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-xs);
+		margin-bottom: var(--space-sm);
+		padding: var(--space-3xs) var(--space-sm);
+		border-radius: var(--radius-full);
+		background-color: var(--bg-glass);
+		-webkit-backdrop-filter: blur(12px);
+		backdrop-filter: blur(12px);
+		border: 1px solid var(--border-subtle);
+		font-family: var(--font-family-display);
+		font-weight: var(--font-weight-semibold);
+		font-size: var(--text-sm);
+		color: var(--text-primary);
+	}
+
+	.photo-day__count {
+		font-variant-numeric: tabular-nums;
+		font-weight: var(--font-weight-regular);
+		color: var(--text-subtle);
+	}
+
+	/* Mixed-span grid */
+	.photo-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+		gap: var(--space-2xs);
+	}
+
+	.photo-cell {
+		min-width: 0;
+	}
+
+	@media (min-width: 768px) {
+		.photo-cell.is-wide {
+			grid-column: span 2;
+		}
+	}
+
+	/* Card — no border, no radius, no shadow: the photograph is the object */
 	.photo-card {
+		position: relative;
 		display: block;
 		width: 100%;
 		overflow: hidden;
-		border-radius: var(--radius-lg);
 		cursor: pointer;
 		padding: 0;
 		border: none;
+		background: var(--bg-sunken);
 		text-align: left;
+		aspect-ratio: 4 / 3;
 	}
 
-	.photo-card-image-wrapper {
-		position: relative;
-		overflow: hidden;
-		aspect-ratio: 4 / 3;
+	.is-portrait .photo-card {
+		aspect-ratio: 3 / 4;
+	}
+
+	.is-wide .photo-card {
+		aspect-ratio: 16 / 9;
 	}
 
 	.photo-card-image {
@@ -346,14 +451,17 @@
 
 	.photo-card:hover .photo-card-image,
 	.photo-card:focus-visible .photo-card-image {
-		transform: scale(1.05);
+		transform: scale(1.04);
 	}
 
 	.photo-card-overlay {
 		position: absolute;
 		inset: auto 0 0 0;
 		background: linear-gradient(transparent, var(--bg-scrim));
-		padding: var(--space-xl) var(--space-md) var(--space-md);
+		padding: var(--space-xl) var(--space-sm) var(--space-sm);
+		color: #ffffff;
+		font-size: var(--text-sm);
+		font-weight: var(--font-weight-medium);
 		opacity: 0;
 		transition: opacity var(--transition-base);
 	}

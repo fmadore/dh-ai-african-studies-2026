@@ -49,9 +49,7 @@
 <ReaderProgressBar target={proseRoot} />
 
 <section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
-	<div class="bg-grid-mesh"></div>
-	<div class="bg-radial-glow"></div>
-
+	<!-- The ambient dot mesh is a single fixed layer on the layout shell now -->
 	<div class="content-width-wide reader-shell relative">
 		<div class="reader-shell__masthead surface-panel surface-padding">
 			<ReaderMasthead {meta} />

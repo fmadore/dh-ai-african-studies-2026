@@ -8,6 +8,17 @@ export interface Interview {
 	youtubeId: string;
 	topic: string;
 	description: string;
+	/**
+	 * Runtime in minutes. "Short interviews" was the only indication of length
+	 * anywhere on the site. Fill these in per interview; the card omits the
+	 * line when the value is absent rather than guessing.
+	 */
+	durationMinutes?: number;
+}
+
+/** YouTube carries the captions, which matter for accessibility and citation. */
+export function captionsUrl(interview: Interview): string {
+	return `https://www.youtube.com/watch?v=${interview.youtubeId}`;
 }
 
 export const interviews: Interview[] = [

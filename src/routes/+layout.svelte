@@ -8,12 +8,19 @@
 	let { children } = $props();
 
 	let isEmbed = $derived(page.url.pathname.endsWith('/embed'));
+
+	/**
+	 * The ambient dot mesh is a single fixed layer on the shell rather than a
+	 * per-section div. It is suppressed on the concept map, where a 32px dot
+	 * lattice sits directly behind a force layout of dots.
+	 */
+	let suppressMesh = $derived(page.url.pathname.replace(/\/$/, '').endsWith('/concepts'));
 </script>
 
 {#if isEmbed}
 	{@render children?.()}
 {:else}
-	<div class="bg-page relative flex min-h-screen flex-col overflow-x-hidden">
+	<div class="app-shell bg-page flex min-h-screen flex-col" class:app-shell--no-mesh={suppressMesh}>
 		<!-- Navigation -->
 		<Header />
 

@@ -9,4 +9,7 @@ export interface Photo {
 	category: PhotoCategory;
 	photographer?: string;
 	photographerUrl?: string;
+	/** Pixel dimensions, when readable — drives the gallery's mixed-span grid. */
+	width?: number;
+	height?: number;
 }

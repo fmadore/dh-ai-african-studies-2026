@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Heading, P, Badge } from 'flowbite-svelte';
-	import { UsersGroupSolid, UsersGroupOutline } from 'flowbite-svelte-icons';
+	import { Button } from 'flowbite-svelte';
+	import { UsersGroupSolid, UsersGroupOutline, SearchOutline } from 'flowbite-svelte-icons';
 	import { SvelteSet } from 'svelte/reactivity';
 	import ParticipantAvatar from '$lib/components/ParticipantAvatar.svelte';
 	import SeoHead from '$lib/components/SeoHead.svelte';
@@ -14,20 +14,17 @@
 	import { resolveAssetPath } from '$lib/utils/paths';
 
 	let searchQuery = $state('');
+	let directoryEl: HTMLElement | undefined = $state();
 
-	/** Bios longer than this get clamped with a "Read more" toggle */
-	const BIO_CLAMP_THRESHOLD = 260;
-	let expandedBios = new SvelteSet<string>();
+	/** Which cards have their bio and regions revealed. The whole card is the
+	 *  trigger — a resting card carries only what you scan by. */
+	let expanded = new SvelteSet<string>();
 
-	function toggleBio(name: string) {
-		if (expandedBios.has(name)) {
-			expandedBios.delete(name);
-		} else {
-			expandedBios.add(name);
-		}
+	function toggleCard(name: string) {
+		if (expanded.has(name)) expanded.delete(name);
+		else expanded.add(name);
 	}
 
-	// Define tabs for URL-synced navigation
 	const viewTabs = [
 		{ id: 'all', label: 'All Participants', icon: UsersGroupOutline },
 		{ id: 'groups', label: 'By Thematic Group', icon: UsersGroupSolid }
@@ -39,7 +36,6 @@
 	const totalParticipants = baseParticipants.length;
 	const totalCountries = new Set(baseParticipants.map((participant) => participant.country)).size;
 
-	// Get participants for a specific thematic group
 	function getGroupParticipants(groupName: string) {
 		return baseParticipants
 			.filter((p) => p.thematicGroup === groupName)
@@ -72,6 +68,12 @@
 		photoUrl: resolveAssetPath(participant.photoUrl)
 	}));
 
+	/** A pin click filters the directory below rather than only opening a popup. */
+	function filterByLocation(affiliation: string) {
+		searchQuery = affiliation;
+		directoryEl?.scrollIntoView({ block: 'start' });
+	}
+
 	const seo = createSeoMeta({
 		title: 'Participants',
 		description:
@@ -98,200 +100,199 @@
 <SeoHead {seo} jsonLd={webPageJsonLd} />
 
 <PageHero
+	eyebrow="Who was there"
 	title="Participants"
-	lede="Meet the {totalParticipants} international experts from {totalCountries} countries who took part in this scoping workshop on Digital Humanities and AI in African Studies."
+	lede="The {totalParticipants} researchers from {totalCountries} countries who took part in this scoping workshop."
+	size="compact"
 />
 
-<!-- Tabs Section -->
-<section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
-	<div class="bg-grid-mesh opacity-30"></div>
-	<div class="content-width-wide relative">
+<!-- The map first: it is the most compelling artefact on the page, and it used
+     to sit below roughly ten screens of cards. -->
+<section class="participants-map band-bleed" aria-label="Global distribution of participants">
+	<ParticipantsMap participants={mapParticipants} onselectlocation={filterByLocation} />
+	<p class="participants-map__hint text-caption padding-inline-section content-width-wide">
+		Select a pin to filter the directory below by institution.
+	</p>
+</section>
+
+<section class="band-tight padding-inline-section" bind:this={directoryEl}>
+	<div class="content-width-wide">
 		<UrlTabs tabs={viewTabs} paramName="view" defaultTab="all" tabStyle="underline" class="mb-xl">
 			{#snippet children(activeTab)}
 				{#if activeTab === 'all'}
-					<!-- All Participants View -->
-					<div class="surface-panel surface-padding stack-lg relative">
-						<h2 class="sr-only">All participants</h2>
-						<div class="mb-lg mx-auto w-full max-w-md">
-							<SearchFilter
-								bind:value={searchQuery}
-								placeholder="Search by name, affiliation, or region..."
-							/>
-						</div>
+					<h2 class="sr-only">All participants</h2>
 
-						{#if displayedParticipants.length > 0}
-							<div class="gap-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-								{#each displayedParticipants as participant (participant.name)}
-									<div class="card-surface surface-padding-sm glow-border h-full">
-										<div class="stack-xs flex flex-col items-center text-center">
-											<!-- Participant Photo -->
+					<div class="directory-toolbar">
+						<SearchFilter
+							bind:value={searchQuery}
+							placeholder="Search by name, affiliation, or region..."
+						/>
+						<div class="directory-status">
+							<p class="text-body-sm">
+								<span class="text-accent font-bold">{displayedParticipants.length}</span>
+								of {totalParticipants} participants
+							</p>
+							{#if searchQuery}
+								<button
+									type="button"
+									class="directory-clear tap-target"
+									onclick={() => (searchQuery = '')}
+								>
+									Clear search
+								</button>
+							{/if}
+						</div>
+					</div>
+
+					{#if displayedParticipants.length > 0}
+						<ul class="participant-grid">
+							{#each displayedParticipants as participant (participant.name)}
+								{@const isOpen = expanded.has(participant.name)}
+								{@const hasDetail =
+									Boolean(participant.bio) || participant.researchRegions.length > 0}
+								<li class="card-surface participant-card" class:is-open={isOpen}>
+									{#if hasDetail}
+										<button
+											type="button"
+											class="participant-card__trigger"
+											aria-expanded={isOpen}
+											aria-controls="detail-{participant.name}"
+											onclick={() => toggleCard(participant.name)}
+										>
 											<ParticipantAvatar
 												src={participant.photoUrl}
 												alt={participant.name}
-												size="md"
+												size="sm"
 											/>
+											<span class="participant-card__identity">
+												<span class="participant-card__name">{participant.name}</span>
+												<span class="text-body-sm body-text-muted">{participant.affiliation}</span>
+												<span class="text-caption">{participant.country}</span>
+											</span>
+											<svg class="participant-card__chevron" viewBox="0 0 10 6" aria-hidden="true">
+												<path
+													d="M1 1l4 4 4-4"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="1.5"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												/>
+											</svg>
+										</button>
+									{:else}
+										<div class="participant-card__trigger participant-card__trigger--static">
+											<ParticipantAvatar
+												src={participant.photoUrl}
+												alt={participant.name}
+												size="sm"
+											/>
+											<span class="participant-card__identity">
+												<span class="participant-card__name">{participant.name}</span>
+												<span class="text-body-sm body-text-muted">{participant.affiliation}</span>
+												<span class="text-caption">{participant.country}</span>
+											</span>
+										</div>
+									{/if}
 
-											<!-- Participant Name -->
-											<Heading tag="h3" class="heading-sub heading-color-light heading-sm">
-												{#if participant.website}
-													<a
-														href={participant.website}
-														target="_blank"
-														rel="noopener noreferrer"
-														class="link-secondary hover:underline"
-													>
-														{participant.name}
-													</a>
-												{:else}
-													{participant.name}
-												{/if}
-											</Heading>
-
-											<!-- Affiliation -->
-											<P class="text-body-sm body-text-muted font-medium">
-												{participant.affiliation}
-											</P>
-
-											<!-- Country Badge -->
-											<Badge color="secondary">{participant.country}</Badge>
-
-											<!-- Bio (clamped, with expand toggle for long bios) -->
+									{#if hasDetail && isOpen}
+										<div class="participant-card__detail" id="detail-{participant.name}">
 											{#if participant.bio}
-												{@const isLong = participant.bio.length > BIO_CLAMP_THRESHOLD}
-												{@const isExpanded = expandedBios.has(participant.name)}
-												<P
-													id="bio-{participant.name}"
-													class="text-body-sm {isLong && !isExpanded ? 'line-clamp-4' : ''}"
+												<p class="prose-serif-sm">{participant.bio}</p>
+											{/if}
+											{#if participant.researchRegions.length > 0}
+												<p class="text-caption">
+													{participant.researchRegions.toSorted().join(' · ')}
+												</p>
+											{/if}
+											{#if participant.website}
+												<a
+													href={participant.website}
+													target="_blank"
+													rel="noopener noreferrer"
+													class="link-secondary text-body-sm">Personal website</a
 												>
-													{participant.bio}
-												</P>
-												{#if isLong}
-													<button
-														type="button"
-														class="bio-toggle"
-														aria-expanded={isExpanded}
-														aria-controls="bio-{participant.name}"
-														onclick={() => toggleBio(participant.name)}
-													>
-														{isExpanded ? 'Show less' : 'Read more'}
-													</button>
-												{/if}
 											{/if}
 										</div>
-
-										<!-- Research Regions -->
-										{#if participant.researchRegions.length > 0}
-											<div
-												class="stack-xs mt-auto border-t border-gray-200 pt-4 dark:border-gray-700/50"
-											>
-												<P class="text-caption text-center font-medium tracking-wider uppercase">
-													Research Regions
-												</P>
-												<div class="flex flex-wrap justify-center gap-2">
-													{#each participant.researchRegions.toSorted() as region (region)}
-														<Badge color="secondary" class="text-xs">{region}</Badge>
-													{/each}
-												</div>
-											</div>
-										{/if}
-									</div>
-								{/each}
+									{/if}
+								</li>
+							{/each}
+						</ul>
+					{:else}
+						<div class="empty-state">
+							<div class="empty-state__icon">
+								<SearchOutline class="size-icon-md" />
 							</div>
-						{:else}
-							<div class="py-lg text-center">
-								<P class="text-lead">No participants found matching your search.</P>
-							</div>
-						{/if}
-					</div>
+							<h3 class="body-text-strong text-lg font-medium">No participants found</h3>
+							<p class="body-text-muted mx-auto max-w-xs text-sm">
+								Try a different name, institution or region.
+							</p>
+							<Button color="primary" outline size="sm" onclick={() => (searchQuery = '')}>
+								Clear search
+							</Button>
+						</div>
+					{/if}
 				{:else if activeTab === 'groups'}
-					<!-- Thematic Groups View -->
-					<div class="stack-xl">
+					<!-- Flattened: the guiding questions are a definition list on the
+					     panel, and the participant chips lost their cards. Panel →
+					     card → card was three nested surfaces deep. -->
+					<div class="stack-2xl">
 						{#each thematicGroups as group, index (group.id)}
 							{@const groupParticipants = getGroupParticipants(group.name)}
-							<div class="surface-panel surface-padding stack-md">
-								<!-- Group Header -->
-								<div class="stack-sm">
-									<div class="gap-sm flex flex-wrap items-center">
-										<Badge color="primary" class="text-sm font-semibold">Group {index + 1}</Badge>
-										<Heading tag="h2" class="heading-section heading-md heading-color-light">
-											{group.name}
-										</Heading>
-									</div>
-									<P class="body-text max-w-4xl">
-										{group.description}
-									</P>
+							<section class="thematic-group">
+								<div class="section-head">
+									<p class="section-head__eyebrow">Group {index + 1}</p>
+									<h2 class="heading-section heading-md">{group.name}</h2>
 								</div>
+								<p class="prose-serif mb-lg">{group.description}</p>
 
-								<!-- Guiding Questions -->
-								<div class="stack-sm">
-									<Heading tag="h3" class="heading-sub heading-sm heading-color-light">
-										Guiding Questions
-									</Heading>
-									<div class="gap-md grid sm:grid-cols-3">
-										{#each group.guidingQuestions as question (question.category)}
-											<div class="card-surface surface-padding-sm stack-xs">
-												<p
-													class="text-primary-600 dark:text-primary-400 text-sm font-medium tracking-wider uppercase"
-												>
-													{question.category}
-												</p>
-												<P class="text-body-sm">{question.question}</P>
-											</div>
-										{/each}
-									</div>
-								</div>
-
-								<!-- Group Participants -->
-								<div class="stack-sm">
-									<Heading tag="h3" class="heading-sub heading-sm heading-color-light">
-										Participants ({groupParticipants.length})
-									</Heading>
-									{#if groupParticipants.length > 0}
-										<div
-											class="gap-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-										>
-											{#each groupParticipants as participant (participant.name)}
-												<div class="card-surface surface-padding-sm glow-border">
-													<div class="gap-sm flex items-center">
-														<!-- Participant Photo (smaller) -->
-														<div class="shrink-0">
-															<ParticipantAvatar
-																src={participant.photoUrl}
-																alt={participant.name}
-																size="sm"
-															/>
-														</div>
-														<!-- Participant Info -->
-														<div class="min-w-0">
-															<P class="heading-color-light truncate font-semibold">
-																{#if participant.website}
-																	<a
-																		href={participant.website}
-																		target="_blank"
-																		rel="noopener noreferrer"
-																		class="link-secondary hover:underline"
-																	>
-																		{participant.name}
-																	</a>
-																{:else}
-																	{participant.name}
-																{/if}
-															</P>
-															<P class="text-body-sm body-text-muted truncate">
-																{participant.affiliation}
-															</P>
-														</div>
-													</div>
-												</div>
-											{/each}
+								<dl class="guiding-questions">
+									{#each group.guidingQuestions as question (question.category)}
+										<div>
+											<dt class="text-label text-accent">{question.category}</dt>
+											<dd class="text-body-sm">{question.question}</dd>
 										</div>
-									{:else}
-										<P class="text-body-sm body-text-muted italic">
-											No participants were assigned to this group.
-										</P>
-									{/if}
-								</div>
-							</div>
+									{/each}
+								</dl>
+
+								<h3 class="text-label mb-sm mt-lg">
+									Participants ({groupParticipants.length})
+								</h3>
+								{#if groupParticipants.length > 0}
+									<ul class="group-people">
+										{#each groupParticipants as participant (participant.name)}
+											<li class="group-person">
+												<ParticipantAvatar
+													src={participant.photoUrl}
+													alt={participant.name}
+													size="sm"
+												/>
+												<span class="min-w-0">
+													<span class="participant-card__name block truncate">
+														{#if participant.website}
+															<a
+																href={participant.website}
+																target="_blank"
+																rel="noopener noreferrer"
+																class="link-secondary">{participant.name}</a
+															>
+														{:else}
+															{participant.name}
+														{/if}
+													</span>
+													<span class="text-body-sm body-text-muted block truncate"
+														>{participant.affiliation}</span
+													>
+												</span>
+											</li>
+										{/each}
+									</ul>
+								{:else}
+									<p class="text-body-sm body-text-muted italic">
+										No participants were assigned to this group.
+									</p>
+								{/if}
+							</section>
 						{/each}
 					</div>
 				{/if}
@@ -300,36 +301,159 @@
 	</div>
 </section>
 
-<!-- Interactive Map -->
-<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
-	<div class="bg-grid-mesh opacity-30"></div>
-	<div class="bg-radial-glow-bottom"></div>
-	<div class="content-width-wide surface-panel surface-padding stack-md relative">
-		<Heading
-			tag="h2"
-			class="heading-section heading-lg heading-color-light accent-underline text-center"
-			>Global Distribution</Heading
-		>
-		<P class="text-lead mx-auto max-w-2xl text-center">
-			Explore where our participants are based around the world.
-		</P>
-		<ParticipantsMap participants={mapParticipants} />
-	</div>
-</section>
-
 <style>
-	.bio-toggle {
+	.participants-map {
+		border-block: 1px solid var(--border-subtle);
+		background-color: var(--bg-sunken);
+	}
+
+	.participants-map__hint {
+		padding-block: var(--space-xs);
+		max-width: none;
+	}
+
+	.directory-toolbar {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-sm);
+		padding-bottom: var(--space-md);
+		margin-bottom: var(--space-lg);
+		border-bottom: 1px solid var(--border-subtle);
+	}
+
+	@media (min-width: 640px) {
+		.directory-toolbar {
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
+
+	.directory-status {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+	}
+
+	.directory-clear {
 		font-size: var(--text-xs);
 		font-weight: var(--font-weight-semibold);
 		color: var(--text-link);
 		background: transparent;
 		border: none;
-		padding: 0;
 		cursor: pointer;
-		transition: color var(--transition-micro);
 	}
 
-	.bio-toggle:hover {
+	.directory-clear:hover {
 		color: var(--text-link-hover);
+	}
+
+	.participant-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+		gap: var(--space-md);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		align-items: start;
+	}
+
+	.participant-card {
+		overflow: hidden;
+	}
+
+	.participant-card.is-open {
+		border-color: var(--border-accent);
+	}
+
+	.participant-card__trigger {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+		width: 100%;
+		padding: var(--space-sm);
+		background: transparent;
+		border: none;
+		text-align: left;
+		font: inherit;
+		color: inherit;
+		cursor: pointer;
+	}
+
+	.participant-card__trigger--static {
+		cursor: default;
+	}
+
+	.participant-card__identity {
+		display: grid;
+		gap: 0.125rem;
+		min-width: 0;
+		flex: 1;
+	}
+
+	.participant-card__name {
+		font-family: var(--font-family-display);
+		font-weight: var(--font-weight-semibold);
+		font-size: var(--text-base);
+		line-height: var(--leading-snug);
+		color: var(--text-primary);
+	}
+
+	.participant-card__chevron {
+		width: 0.75rem;
+		height: 0.45rem;
+		flex-shrink: 0;
+		color: var(--text-subtle);
+		transition: transform var(--transition-micro);
+	}
+
+	.is-open .participant-card__chevron {
+		transform: rotate(180deg);
+	}
+
+	.participant-card__detail {
+		display: grid;
+		gap: var(--space-xs);
+		padding: 0 var(--space-sm) var(--space-sm);
+		border-top: 1px solid var(--border-subtle);
+		padding-top: var(--space-sm);
+	}
+
+	/* ---------- Thematic groups ---------- */
+	.thematic-group {
+		padding-bottom: var(--space-xl);
+		border-bottom: 1px solid var(--border-subtle);
+	}
+
+	.guiding-questions {
+		display: grid;
+		gap: var(--space-md);
+		margin: 0;
+	}
+
+	@media (min-width: 640px) {
+		.guiding-questions {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.guiding-questions dd {
+		margin: var(--space-3xs) 0 0;
+	}
+
+	.group-people {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+		gap: var(--space-sm) var(--space-md);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.group-person {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+		min-width: 0;
 	}
 </style>

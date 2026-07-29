@@ -31,10 +31,7 @@
 		{meta.journalTitle} · {meta.language.toUpperCase()}
 	</p>
 
-	<Heading
-		tag="h1"
-		class="heading-display heading-lg text-gradient-teal animate-hero-title pb-2 tracking-tight drop-shadow-md"
-	>
+	<Heading tag="h1" class="heading-display heading-lg animate-hero-title pb-2 tracking-tight">
 		{meta.title}
 	</Heading>
 

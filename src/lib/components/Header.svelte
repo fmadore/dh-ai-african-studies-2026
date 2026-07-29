@@ -5,20 +5,40 @@
 
 	let activeUrl = $derived(page.url.pathname);
 	let menuOpen = $state(false);
+	let outcomesOpen = $state(false);
+	let scrolled = $state(false);
+	let navEl: HTMLElement | undefined = $state();
 
 	const homeHref = resolveAppPath('/');
 
-	const navLinks = [
+	interface NavLink {
+		href: string;
+		label: string;
+		children?: { href: string; label: string }[];
+	}
+
+	/**
+	 * Six top-level items, not nine. The four archive routes live under one
+	 * "Outcomes" group so the inline nav fits from 1024px — previously every
+	 * 1024–1280px laptop got a hamburger menu on a wide screen.
+	 */
+	const navLinks: NavLink[] = [
 		{ href: homeHref, label: 'Home' },
 		{ href: resolveAppPath('/about'), label: 'About' },
 		{ href: resolveAppPath('/participants'), label: 'Participants' },
-		{ href: resolveAppPath('/concepts'), label: 'Concepts' },
 		{ href: resolveAppPath('/schedule'), label: 'Schedule' },
 		{ href: resolveAppPath('/position-paper'), label: 'Position Paper' },
-		{ href: resolveAppPath('/references'), label: 'References' },
-		{ href: resolveAppPath('/photos'), label: 'Photos' },
-		{ href: resolveAppPath('/interviews'), label: 'Interviews' }
-	] as const;
+		{
+			href: resolveAppPath('/photos'),
+			label: 'Outcomes',
+			children: [
+				{ href: resolveAppPath('/photos'), label: 'Photos' },
+				{ href: resolveAppPath('/interviews'), label: 'Interviews' },
+				{ href: resolveAppPath('/concepts'), label: 'Concept Map' },
+				{ href: resolveAppPath('/references'), label: 'References' }
+			]
+		}
+	];
 
 	function stripTrailingSlash(path: string): string {
 		return path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
@@ -38,26 +58,51 @@
 		return path === target || path.startsWith(`${target}/`);
 	}
 
+	function isGroupActive(link: NavLink, current: string): boolean {
+		if (link.children) {
+			return link.children.some((child) => isActive(child.href, current));
+		}
+		return isActive(link.href, current);
+	}
+
 	function toggleMenu() {
 		menuOpen = !menuOpen;
 	}
 
 	function closeMenu() {
 		menuOpen = false;
+		outcomesOpen = false;
+	}
+
+	function handleWindowClick(event: MouseEvent) {
+		if (!outcomesOpen || !navEl) return;
+		if (event.target instanceof Node && !navEl.contains(event.target)) {
+			outcomesOpen = false;
+		}
 	}
 </script>
 
 <svelte:window
 	onkeydown={(e) => {
-		if (e.key === 'Escape' && menuOpen) closeMenu();
+		if (e.key !== 'Escape') return;
+		if (outcomesOpen) outcomesOpen = false;
+		else if (menuOpen) closeMenu();
 	}}
+	onclick={handleWindowClick}
+	onscroll={() => (scrolled = window.scrollY > 12)}
 />
 
-<header class="bg-page padding-inline-lg relative z-(--z-overlay) py-3">
-	<nav class="content-width-wide surface-panel surface-padding-xs">
+<!-- Sticky: on References, Participants and Photos the navigation used to
+     scroll away entirely. This is also the one surface where backdrop-filter
+     earns its cost, because it genuinely overlaps moving content. -->
+<header class="site-header surface-glass" class:site-header--scrolled={scrolled}>
+	<nav class="content-width-wide site-nav" bind:this={navEl} aria-label="Primary">
 		<div class="nav-bar">
-			<a href={resolveAppPath('/')} class="logo-link">
-				<span class="brand-wordmark"> DH &amp; AI in African Studies </span>
+			<a href={homeHref} class="logo-link brand-lockup" onclick={closeMenu}>
+				<span class="brand-monogram" aria-hidden="true">
+					<span>DH</span><span class="brand-monogram__dot">·</span><span>AI</span>
+				</span>
+				<span class="brand-wordmark">DH &amp; AI in African Studies</span>
 			</a>
 
 			<div class="nav-actions">
@@ -90,17 +135,61 @@
 
 			<div class="nav-menu" class:nav-menu--open={menuOpen} id="site-nav-menu">
 				<ul class="nav-links">
-					{#each navLinks as link (link.href)}
-						<li>
-							<a
-								href={link.href}
-								class="nav-link"
-								class:active={isActive(link.href, activeUrl)}
-								aria-current={isActive(link.href, activeUrl) ? 'page' : undefined}
-								onclick={closeMenu}
-							>
-								{link.label}
-							</a>
+					{#each navLinks as link (link.label)}
+						{@const active = isGroupActive(link, activeUrl)}
+						<li class="nav-item">
+							{#if link.children}
+								<button
+									type="button"
+									class="nav-link nav-link--group"
+									class:active
+									aria-expanded={outcomesOpen}
+									aria-haspopup="true"
+									onclick={() => (outcomesOpen = !outcomesOpen)}
+								>
+									{link.label}
+									<svg
+										class="nav-chevron"
+										class:nav-chevron--open={outcomesOpen}
+										viewBox="0 0 10 6"
+										aria-hidden="true"
+									>
+										<path
+											d="M1 1l4 4 4-4"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="1.5"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</button>
+								<ul class="nav-submenu" class:nav-submenu--open={outcomesOpen}>
+									{#each link.children as child (child.href)}
+										<li>
+											<a
+												href={child.href}
+												class="nav-sublink"
+												class:active={isActive(child.href, activeUrl)}
+												aria-current={isActive(child.href, activeUrl) ? 'page' : undefined}
+												onclick={closeMenu}
+											>
+												{child.label}
+											</a>
+										</li>
+									{/each}
+								</ul>
+							{:else}
+								<a
+									href={link.href}
+									class="nav-link"
+									class:active
+									aria-current={active ? 'page' : undefined}
+									onclick={closeMenu}
+								>
+									{link.label}
+								</a>
+							{/if}
 						</li>
 					{/each}
 				</ul>
@@ -110,15 +199,78 @@
 </header>
 
 <style>
+	/* The blur itself comes from .surface-glass — one of only two places on the
+	   site that keeps it, because this bar genuinely overlaps moving content. */
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: var(--z-overlay);
+		border-inline: 0;
+		border-top: 0;
+		border-bottom-color: transparent;
+		transition:
+			border-color var(--transition-base),
+			box-shadow var(--transition-base);
+	}
+
+	.site-header--scrolled {
+		border-bottom-color: var(--border-default);
+		box-shadow: var(--shadow-xs);
+	}
+
+	.site-nav {
+		padding-block: var(--space-sm);
+		transition: padding-block var(--transition-base);
+	}
+
+	.site-header--scrolled .site-nav {
+		padding-block: var(--space-2xs);
+	}
+
+	.brand-lockup {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-xs);
+		text-decoration: none;
+		min-height: 2.5rem;
+	}
+
+	/* Text-only wordmarks give a site no mark above the fold. The funder logos
+	   in static/images/logo/ belong to institutions, not to this project, so
+	   the identity here is a typographic monogram instead. */
+	.brand-monogram {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.05em;
+		padding: 0.2em 0.45em;
+		border-radius: var(--radius-md);
+		background: linear-gradient(135deg, var(--color-secondary-600), var(--color-secondary-800));
+		color: #ffffff;
+		font-family: var(--font-family-display);
+		font-weight: var(--font-weight-extrabold);
+		font-size: var(--text-sm);
+		letter-spacing: 0.02em;
+		line-height: 1;
+		flex-shrink: 0;
+	}
+
+	.brand-monogram__dot {
+		color: var(--color-primary-300);
+	}
+
 	.brand-wordmark {
 		font-family: var(--font-family-display);
 		font-weight: var(--font-weight-bold);
-		font-size: var(--text-xl);
+		font-size: var(--text-lg);
 		letter-spacing: var(--tracking-tight);
 		color: var(--text-primary);
 		white-space: nowrap;
-		padding-bottom: 0.125rem;
-		align-self: center;
+	}
+
+	@media (max-width: 400px) {
+		.brand-wordmark {
+			display: none;
+		}
 	}
 
 	.nav-bar {
@@ -126,6 +278,7 @@
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
+		gap: var(--space-xs);
 	}
 
 	.nav-actions {
@@ -140,7 +293,8 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		padding: var(--space-2xs);
+		min-width: 2.75rem;
+		min-height: 2.75rem;
 		border-radius: var(--radius-md);
 		color: var(--text-muted);
 		background-color: transparent;
@@ -178,12 +332,23 @@
 		gap: var(--space-3xs);
 	}
 
+	.nav-item {
+		position: relative;
+	}
+
 	.nav-link {
-		display: block;
+		display: flex;
+		align-items: center;
+		gap: var(--space-3xs);
+		width: 100%;
 		padding: var(--space-xs) var(--space-sm);
 		border-radius: var(--radius-md);
 		color: var(--text-secondary);
 		text-decoration: none;
+		background: transparent;
+		border: none;
+		font: inherit;
+		text-align: left;
 		transition:
 			color var(--transition-micro),
 			background-color var(--transition-micro);
@@ -199,8 +364,51 @@
 		color: var(--text-link);
 	}
 
-	/* Desktop: inline nav at 1280px+ */
-	@media (min-width: 1280px) {
+	.nav-chevron {
+		width: 0.625rem;
+		height: 0.375rem;
+		transition: transform var(--transition-micro);
+	}
+
+	.nav-chevron--open {
+		transform: rotate(180deg);
+	}
+
+	.nav-submenu {
+		display: none;
+		list-style: none;
+		margin: 0;
+		padding: 0 0 0 var(--space-sm);
+	}
+
+	.nav-submenu--open {
+		display: block;
+	}
+
+	.nav-sublink {
+		display: block;
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: var(--radius-md);
+		color: var(--text-secondary);
+		text-decoration: none;
+		font-size: var(--text-sm);
+		transition:
+			color var(--transition-micro),
+			background-color var(--transition-micro);
+	}
+
+	.nav-sublink:hover {
+		background-color: var(--bg-sunken);
+		color: var(--text-primary);
+	}
+
+	.nav-sublink.active {
+		color: var(--text-link);
+		font-weight: var(--font-weight-semibold);
+	}
+
+	/* Desktop: inline nav from 1024px — six items fit comfortably */
+	@media (min-width: 1024px) {
 		.nav-hamburger {
 			display: none;
 		}
@@ -220,13 +428,17 @@
 
 		.nav-links {
 			flex-direction: row;
+			align-items: center;
 			gap: var(--space-3xs);
 		}
 
 		.nav-link {
-			border-radius: var(--radius-full);
-			padding-inline: var(--space-md);
+			width: auto;
+			border-radius: var(--radius-md);
+			padding-inline: var(--space-sm);
 			padding-block: var(--space-2xs);
+			position: relative;
+			white-space: nowrap;
 		}
 
 		.nav-link:hover:not(.active) {
@@ -234,10 +446,25 @@
 			color: var(--text-link);
 		}
 
+		/* A solid soft fill plus a 2px underline reads as a state. The former
+		   40px teal bloom on a 90px pill read as a halo. */
 		.nav-link.active {
 			background-color: var(--accent-soft);
 			color: var(--text-link);
-			box-shadow: var(--glow-accent);
+			box-shadow: inset 0 -2px 0 0 var(--accent);
+		}
+
+		.nav-submenu {
+			position: absolute;
+			top: calc(100% + var(--space-2xs));
+			left: 0;
+			min-width: 12rem;
+			padding: var(--space-2xs);
+			border-radius: var(--radius-card);
+			background-color: var(--surface-2);
+			border: 1px solid var(--border-subtle);
+			box-shadow: var(--shadow-md);
+			z-index: var(--z-dropdown);
 		}
 	}
 

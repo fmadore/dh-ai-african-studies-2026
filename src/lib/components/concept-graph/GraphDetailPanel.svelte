@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ConceptNode, ConceptGroup } from '$lib/types/concept-graph';
+	import { resolveAppPath } from '$lib/utils/paths';
 
 	interface Props {
 		node: ConceptNode;
@@ -13,6 +14,16 @@
 	let { node, neighbors, isMobile, getNodeColor, onclose, onnavigate }: Props = $props();
 
 	let closeButtonEl: HTMLButtonElement | undefined;
+
+	/**
+	 * The map's value is that it connects concepts to the reading behind them.
+	 * The graph data carries no reference IDs, so the link searches the
+	 * bibliography for the concept label — enough to turn the map from an
+	 * ornament into navigation into /references.
+	 */
+	let bibliographyHref = $derived(
+		`${resolveAppPath('/references')}?q=${encodeURIComponent(node.label)}`
+	);
 
 	// The mobile bottom sheet overlays content, so announce it and move focus in
 	$effect(() => {
@@ -67,6 +78,9 @@
 			</div>
 		</div>
 	{/if}
+	<a href={bibliographyHref} class="detail-reading">
+		Find “{node.label}” in the bibliography →
+	</a>
 </div>
 
 <style>
@@ -77,13 +91,27 @@
 		gap: var(--space-sm);
 	}
 
+	.detail-reading {
+		align-self: flex-start;
+		font-size: var(--text-xs);
+		font-weight: var(--font-weight-semibold);
+		color: var(--text-link);
+		text-decoration: none;
+	}
+
+	.detail-reading:hover {
+		color: var(--text-link-hover);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
 	.detail-panel.bottom-sheet {
 		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
 		z-index: var(--z-overlay);
-		border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+		border-radius: var(--radius-panel) var(--radius-panel) 0 0;
 		max-height: 50vh;
 		overflow-y: auto;
 		box-shadow: var(--shadow-xl);

@@ -47,7 +47,7 @@
 
 <style>
 	:global(.btn-refined) {
-		box-shadow: var(--shadow-md);
+		box-shadow: var(--shadow-xs);
 		transition:
 			transform var(--transition-base),
 			box-shadow var(--transition-base);
@@ -61,11 +61,9 @@
 	:global(.btn-refined--primary:hover) {
 		box-shadow: var(--shadow-brand);
 	}
-	:global(.btn-refined--secondary) {
-		-webkit-backdrop-filter: blur(6px);
-		backdrop-filter: blur(6px);
-	}
+	/* No backdrop-filter: an outline button over a flat page promoted a
+	   compositing layer to blur nothing. */
 	:global(.btn-refined--secondary:hover) {
-		box-shadow: var(--shadow-accent);
+		box-shadow: var(--shadow-sm);
 	}
 </style>

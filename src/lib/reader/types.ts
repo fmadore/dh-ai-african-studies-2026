@@ -49,6 +49,12 @@ export interface PositionPaperMeta {
 	journalTitle: string;
 	doi?: string;
 	issn?: string;
+	/**
+	 * The paper's own reuse terms, set by the publishing series — deliberately
+	 * not the site licence. Leave undefined until the series confirms it; the
+	 * landing page then says so rather than guessing.
+	 */
+	licence?: { name: string; url: string };
 	/** Static asset path to the PDF. */
 	pdfPath: string;
 	/** Flip to `true` once the PDF is uploaded. */

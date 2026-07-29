@@ -23,6 +23,14 @@ export interface DaySchedule {
 	dayNumber: number;
 	theme: string;
 	themeDescription: string;
+	/**
+	 * What the day produced. The workshop has happened, so the page is a record
+	 * rather than a live programme; each day header says what came of it and
+	 * links into the gallery for that date.
+	 */
+	outcome?: string;
+	/** Matches a PhotoCategory, so the day header can deep-link the gallery. */
+	photoCategory?: 'Day 1' | 'Day 2' | 'Day 3';
 	items: ScheduleItem[];
 }
 
@@ -33,6 +41,9 @@ export const schedule: DaySchedule[] = [
 		theme: 'Methodological Integration & Digital Preservation',
 		themeDescription:
 			'Participants documented existing computational methods, preservation infrastructure and implementation barriers before developing technical standards, preservation protocols and implementation strategies. Areas of focus included adapting AI for African languages and establishing sustainable digital preservation models.',
+		outcome:
+			'Four working groups produced flipchart posters that anchored the World Café tables, and rapporteurs presented the first cross-group synthesis.',
+		photoCategory: 'Day 1',
 		items: [
 			{
 				time: '08:00–09:00',
@@ -83,12 +94,8 @@ export const schedule: DaySchedule[] = [
 				title: 'World Café',
 				type: 'world-cafe',
 				rooms: ['SR 5'],
-				details: [
-					'Interactive discussion format where participants rotate between four thematic tables in three timed rounds (25 minutes each)',
-					'Each table is anchored by a table host who stays for the entire session, briefs newcomers on prior discussions, and captures key points',
-					'Participants build on the keywords and key pointers prepared during the small-group working sessions',
-					'Between rounds, participants disperse individually across tables to maximise cross-pollination of ideas'
-				]
+				// The format itself is described once, in `worldCafeFormat` below.
+				description: 'Three rounds of 25 minutes across four thematic tables.'
 			},
 			{
 				time: '16:00–16:30',
@@ -123,6 +130,9 @@ export const schedule: DaySchedule[] = [
 		theme: 'Fostering Equitable Collaboration',
 		themeDescription:
 			'Centred African epistemologies to redesign research partnerships and resource distribution. This stream worked on concrete mechanisms for North-South and South-South collaboration that dismantle power imbalances and promote genuine reciprocity.',
+		outcome:
+			'Poster presentations set out concrete mechanisms for North–South and South–South partnership, which fed the ethical framework drafted on Day Three.',
+		photoCategory: 'Day 2',
 		items: [
 			{
 				time: '08:30–09:30',
@@ -218,6 +228,9 @@ export const schedule: DaySchedule[] = [
 		theme: 'Ethical Frameworks & Digital Sovereignty',
 		themeDescription:
 			'Developed guidelines for data governance and responsible AI implementation. The focus shifted from passive consultation to active co-creation, establishing standards that protect digital sovereignty and ensure equitable knowledge dissemination.',
+		outcome:
+			'The writing session produced a finalised position-paper outline, agreed writing responsibilities and a timeline, plus a list of follow-up commitments.',
+		photoCategory: 'Day 3',
 		items: [
 			{
 				time: '08:30–09:00',
@@ -312,61 +325,48 @@ export const schedule: DaySchedule[] = [
 	}
 ];
 
-/** Session type metadata for styling and display */
 /** When the schedule data was last edited — shown on the schedule page */
 export const scheduleLastUpdated = '19 February 2026';
 
-export const sessionTypes: Record<
-	SessionType,
-	{
-		label: string;
-		colorClass: string;
-		/** Card background/border/icon styling — single source for type→style */
-		cardBg: string;
-		cardBorder: string;
-		iconColor: string;
-	}
-> = {
-	plenary: {
-		label: 'Plenary',
-		colorClass: 'bg-primary-300 dark:bg-primary-600',
-		cardBg: 'bg-primary-50 dark:bg-primary-900/20',
-		cardBorder: 'border-l-4 border-primary-300 dark:border-primary-600',
-		iconColor: 'text-primary-600 dark:text-primary-400'
-	},
-	subgroups: {
-		label: 'Subgroups Work',
-		colorClass: 'bg-secondary-500',
-		cardBg: 'bg-secondary-50 dark:bg-secondary-900/20',
-		cardBorder: 'border-l-4 border-secondary-500',
-		iconColor: 'text-accent'
-	},
-	'world-cafe': {
-		label: 'World Café',
-		colorClass: 'bg-amber-500',
-		cardBg: 'bg-amber-50 dark:bg-amber-900/20',
-		cardBorder: 'border-l-4 border-amber-500',
-		iconColor: 'text-amber-600 dark:text-amber-400'
-	},
-	poster: {
-		label: 'Poster Presentations',
-		colorClass: 'bg-violet-500',
-		cardBg: 'bg-violet-50 dark:bg-violet-900/20',
-		cardBorder: 'border-l-4 border-violet-500',
-		iconColor: 'text-violet-600 dark:text-violet-400'
-	},
-	break: {
-		label: 'Break',
-		colorClass: 'bg-gray-300 dark:bg-gray-600',
-		cardBg: 'bg-gray-50 dark:bg-gray-800/50',
-		cardBorder: 'border-l-4 border-gray-300 dark:border-gray-600',
-		iconColor: 'text-gray-500 dark:text-gray-400'
-	},
-	social: {
-		label: 'Social Event',
-		colorClass: 'bg-primary-500',
-		cardBg: 'bg-primary-100 dark:bg-primary-900/30',
-		cardBorder: 'border-l-4 border-primary-500',
-		iconColor: 'text-primary-600 dark:text-primary-400'
-	}
+/**
+ * Session type metadata.
+ *
+ * Deliberately no per-type card background, left border or icon colour any
+ * more: six tinted rows (two of them in hues — violet, amber — that are not in
+ * the palette) made the timetable the most colourful page on the site and the
+ * hardest to scan. The type is now a small uppercase chip on one neutral card,
+ * which also makes the six-dot legend unnecessary.
+ *
+ * `chipTone` maps onto the tokenised accent/brand/neutral trio only.
+ */
+export type SessionTone = 'brand' | 'accent' | 'neutral';
+
+export const sessionTypes: Record<SessionType, { label: string; chipTone: SessionTone }> = {
+	plenary: { label: 'Plenary', chipTone: 'brand' },
+	subgroups: { label: 'Subgroups', chipTone: 'accent' },
+	'world-cafe': { label: 'World Café', chipTone: 'accent' },
+	poster: { label: 'Posters', chipTone: 'accent' },
+	break: { label: 'Break', chipTone: 'neutral' },
+	social: { label: 'Social', chipTone: 'neutral' }
 };
+
+/** Catering and registration rows are demoted to one-liners. */
+export const QUIET_TYPES: ReadonlySet<SessionType> = new Set<SessionType>(['break']);
+
+export function isQuietItem(item: ScheduleItem): boolean {
+	if (!QUIET_TYPES.has(item.type)) return false;
+	// A break with facilitators, rooms or deliverables is not really a break.
+	return !item.description && !item.details?.length && !item.deliverables?.length;
+}
+
+/**
+ * The World Café format was explained three times over — once per day tab, in
+ * an identical popover — plus a fourth time in the day-one `details` array.
+ * It lives here once and is rendered once, as a footnote.
+ */
+export const worldCafeFormat = [
+	'Participants rotate between four thematic tables in three timed rounds of 25 minutes.',
+	'Each table is anchored by a host who stays for the whole session, briefs newcomers on prior discussions and captures key points.',
+	'Rounds build on the keywords and pointers prepared during the small-group working sessions.',
+	'Between rounds participants disperse individually across tables to maximise cross-pollination.'
+];

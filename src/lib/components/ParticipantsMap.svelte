@@ -6,9 +6,16 @@
 
 	interface Props {
 		participants: Participant[];
+		/**
+		 * Called with an institution name when its pin is clicked, so a host
+		 * page can filter a directory below the map. The map is the most
+		 * compelling artefact on the participants page; making it a control
+		 * rather than an illustration is most of its value.
+		 */
+		onselectlocation?: (_affiliation: string) => void;
 	}
 
-	let { participants }: Props = $props();
+	let { participants, onselectlocation }: Props = $props();
 
 	let mapContainer: HTMLDivElement;
 	let map: Leaflet.Map | null = null;
@@ -142,6 +149,11 @@
 					maxWidth: 350,
 					className: 'participant-popup'
 				});
+
+				if (onselectlocation) {
+					const affiliation = participantsAtLocation[0].affiliation;
+					marker.on('click', () => onselectlocation(affiliation));
+				}
 			});
 
 			mapReady = true;
@@ -167,15 +179,12 @@
 	});
 </script>
 
-<div class="card-surface surface-padding-xs glow-border w-full">
-	<div bind:this={mapContainer} class="map-canvas"></div>
-</div>
+<div bind:this={mapContainer} class="map-canvas"></div>
 
 <style>
 	:global(.map-canvas) {
-		height: clamp(24rem, 55vw, 36rem);
+		height: clamp(22rem, 48vw, 32rem);
 		width: 100%;
-		border-radius: var(--radius-xl);
 		overflow: hidden;
 		background: var(--bg-sunken);
 	}

@@ -32,6 +32,10 @@ export const positionPaperMeta: PositionPaperMeta = {
 	journalTitle: 'ZMO Programmatic Texts',
 	doi: undefined,
 	issn: undefined,
+	// Set once ZMO Programmatic Texts confirms the series' terms. Until then the
+	// landing page says "confirmed on publication" rather than implying the
+	// site's own CC BY-NC licence also governs the paper.
+	licence: undefined,
 	pdfPath: '/documents/position-paper.pdf',
 	pdfAvailable: false
 };

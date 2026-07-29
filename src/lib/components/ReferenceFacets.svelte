@@ -287,10 +287,15 @@
 		color: var(--text-subtle);
 	}
 
-	:global(.facets-text-input:focus) {
+	:global(.facets-text-input:focus-visible) {
+		border-color: var(--border-accent);
+		outline: var(--focus-ring-width) solid var(--focus-ring);
+		outline-offset: var(--focus-ring-offset);
+	}
+
+	:global(.facets-text-input:focus:not(:focus-visible)) {
 		outline: none;
 		border-color: var(--border-accent);
-		box-shadow: 0 0 0 3px var(--focus-ring);
 	}
 
 	:global(.facets-text-input--sm) {

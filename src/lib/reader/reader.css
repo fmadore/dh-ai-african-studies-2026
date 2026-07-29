@@ -2,19 +2,21 @@
    POSITION PAPER READER — scoped stylesheet
    ==========================================================================
    Imported by PositionPaperReader.svelte, NOT by app.css, so that neither
-   these rules nor the two reader-only webfonts (~229 kB) ship on the public
-   site. They are bundled only when the reader route exists — see
-   scripts/paper-reader.mjs.
+   these rules nor the reader-only webfont ship on the public site. They are
+   bundled only when the reader route exists — see scripts/paper-reader.mjs.
+
+   Source Serif 4 is no longer imported here: app.css now ships it as the
+   site's reading voice, so the reader inherits it and only Atkinson
+   Hyperlegible (the accessible-font switch) remains reader-only.
 
    Self-hosted for the same reason as the global fonts: no render-blocking
    third-party request and no GDPR exposure from Google-hosted fonts. */
-@import '@fontsource-variable/source-serif-4';
 @import '@fontsource/atkinson-hyperlegible';
 
 :root {
-	/* Alternative reading fonts, selected via the reader's font switch. */
-	--font-family-reader-serif:
-		'Source Serif 4 Variable', 'Source Serif 4', Georgia, 'Times New Roman', serif;
+	/* Alternative reading fonts, selected via the reader's font switch.
+	   The serif is the site-wide reading voice, defined in app.css. */
+	--font-family-reader-serif: var(--font-family-serif);
 	--font-family-reader-accessible: 'Atkinson Hyperlegible', system-ui, -apple-system, sans-serif;
 }
 

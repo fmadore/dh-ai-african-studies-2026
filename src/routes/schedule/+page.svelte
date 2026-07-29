@@ -1,36 +1,28 @@
 <script lang="ts">
-	import { Heading, P, Card, Popover, Alert } from 'flowbite-svelte';
-	import {
-		CalendarMonthOutline,
-		MapPinAltOutline,
-		UsersGroupOutline,
-		LightbulbOutline,
-		MessageCaptionOutline,
-		MugSaucerOutline,
-		BowlFoodOutline,
-		BurgerOutline,
-		ClipboardCheckOutline,
-		InfoCircleOutline
-	} from 'flowbite-svelte-icons';
+	import { CalendarMonthOutline, MapPinAltOutline } from 'flowbite-svelte-icons';
 	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '$lib/utils/seo';
 	import { workshopInfo } from '$lib/data/workshop-info';
 	import {
 		schedule,
 		scheduleLastUpdated,
 		sessionTypes,
-		type SessionType,
+		isQuietItem,
+		worldCafeFormat,
 		type ScheduleItem
 	} from '$lib/data/schedule';
 	import UrlTabs, { type Tab } from '$lib/components/UrlTabs.svelte';
 	import SeoHead from '$lib/components/SeoHead.svelte';
+	import PageHero from '$lib/components/PageHero.svelte';
+	import { resolveAppPath } from '$lib/utils/paths';
 	import { reveal } from '$lib/utils/reveal';
 
-	// Extended tab interface for schedule days
 	interface DayTab extends Tab {
 		dayNumber: number;
 		date: string;
 		theme: string;
 		themeDescription: string;
+		outcome?: string;
+		photoCategory?: 'Day 1' | 'Day 2' | 'Day 3';
 		items: ScheduleItem[];
 	}
 
@@ -61,7 +53,6 @@
 		url: seo.canonical
 	});
 
-	// Transform schedule data to tabs format
 	const dayTabs = schedule.map((day) => ({
 		id: `day${day.dayNumber}`,
 		label: `Day ${day.dayNumber}`,
@@ -69,91 +60,67 @@
 		date: day.date,
 		theme: day.theme,
 		themeDescription: day.themeDescription,
+		outcome: day.outcome,
+		photoCategory: day.photoCategory,
 		items: day.items
 	}));
 
-	const listFormatter = new Intl.ListFormat('en', {
-		style: 'long',
-		type: 'conjunction'
-	});
+	const listFormatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
 
-	function getItemIcon(type: SessionType, title: string) {
-		// Check title for specific meal/break types
-		const lowerTitle = title.toLowerCase();
-		if (lowerTitle.includes('lunch')) {
-			return BowlFoodOutline;
-		}
-		if (lowerTitle.includes('coffee') || lowerTitle.includes('registration')) {
-			return MugSaucerOutline;
-		}
-		if (lowerTitle.includes('dinner')) {
-			return BurgerOutline;
-		}
-
-		switch (type) {
-			case 'plenary':
-				return UsersGroupOutline;
-			case 'subgroups':
-				return MessageCaptionOutline;
-			case 'world-cafe':
-				return LightbulbOutline;
-			case 'poster':
-				return ClipboardCheckOutline;
-			case 'break':
-				return MugSaucerOutline;
-			case 'social':
-				return CalendarMonthOutline;
-			default:
-				return MessageCaptionOutline;
-		}
+	/** "09:00–09:45" → ["09:00", "09:45"] so the column can stack start over end */
+	function splitTime(time: string): [string, string | null] {
+		const parts = time.split(/[–-]/).map((part) => part.trim());
+		return [parts[0], parts[1] ?? null];
 	}
 
-	function getItemStyles(type: SessionType) {
-		const meta = sessionTypes[type];
-		return { bg: meta.cardBg, border: meta.cardBorder, icon: meta.iconColor };
+	function photosHref(category?: string) {
+		const base = resolveAppPath('/photos');
+		return category ? `${base}?day=${encodeURIComponent(category)}` : base;
 	}
+
+	function isMapLink(detail: string) {
+		return detail.includes('maps.app.goo.gl') || detail.includes('google.com/maps');
+	}
+
+	const interviewsHref = resolveAppPath('/interviews');
 </script>
 
 <SeoHead {seo} jsonLd={[eventJsonLd, webPageJsonLd]} />
 
-<!-- Page Header -->
-<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
-	<div class="bg-grid-mesh"></div>
-	<div class="bg-radial-glow"></div>
-	<div class="content-width surface-panel surface-padding stack-sm relative text-center">
-		<Heading
-			tag="h1"
-			class="heading-display heading-xl text-gradient-teal animate-hero-title pb-2 tracking-tight drop-shadow-md"
-			>Workshop Schedule</Heading
+<PageHero
+	eyebrow="Programme"
+	title="Workshop Schedule"
+	lede="Three days of collaborative dialogue, knowledge sharing and strategic planning at the intersection of Digital Humanities and AI in African Studies."
+	width="wide"
+>
+	<div class="gap-lg text-body-sm mt-sm flex flex-wrap items-center">
+		<span class="gap-xs flex items-center">
+			<CalendarMonthOutline class="size-icon-md text-accent" aria-hidden="true" />
+			{workshopInfo.dates.full}
+		</span>
+		<span class="gap-xs flex items-center">
+			<MapPinAltOutline class="size-icon-md text-accent" aria-hidden="true" />
+			<a
+				href={workshopInfo.location.url}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="link-secondary">{workshopInfo.location.venue}, {workshopInfo.location.city}</a
+			>
+		</span>
+		<span class="text-caption" style="max-width:none"
+			>Schedule as run · last edited {scheduleLastUpdated}</span
 		>
-		<P class="text-lead animate-hero-subtitle mx-auto max-w-3xl">
-			Three days of collaborative dialogue, knowledge sharing, and strategic planning at the
-			intersection of Digital Humanities and AI in African Studies.
-		</P>
-		<div class="gap-md stack-item-md animate-hero-lede flex flex-wrap justify-center">
-			<div class="gap-sm text-body-sm flex items-center">
-				<CalendarMonthOutline class="size-icon-md text-accent" />
-				<span>{workshopInfo.dates.full}</span>
-			</div>
-			<div class="gap-sm text-body-sm flex items-center">
-				<MapPinAltOutline class="size-icon-md text-accent" />
-				<span>{workshopInfo.location.venue}, {workshopInfo.location.city}</span>
-			</div>
-		</div>
-		<P class="text-caption stack-item-md">Last updated: {scheduleLastUpdated}</P>
 	</div>
-</section>
+</PageHero>
 
-<!-- Schedule Tabs -->
-<section class="bg-page padding-block-section-sm padding-inline-section relative overflow-hidden">
-	<div class="bg-grid-mesh opacity-30"></div>
-	<div class="content-width-wide relative">
+<section class="band-tight padding-inline-section">
+	<div class="content-width-wide">
 		<UrlTabs
 			tabs={dayTabs}
 			paramName="day"
 			defaultTab="day1"
 			tabStyle="pill"
-			class="stack-item-md schedule-tabs"
+			class="schedule-tabs"
 			contentClass="stack-item-md"
 		>
 			{#snippet tabTitle(tab)}
@@ -164,253 +131,303 @@
 					<span class="text-body-sm hidden sm:inline">{day.theme}</span>
 				</div>
 			{/snippet}
+
 			{#snippet children(_activeTabId, tab)}
 				{@const day = tab as DayTab}
-				<!-- Day Header with integrated legend -->
-				<div class="surface-panel surface-padding mb-lg stack-sm animate-section-reveal" use:reveal>
-					<div class="stack-sm text-center">
-						<P class="text-label text-accent">{day.date}</P>
-						<Heading
-							tag="h2"
-							class="heading-section heading-lg heading-color-light accent-underline"
-						>
-							{day.theme}
-						</Heading>
-						<P class="text-lead mx-auto max-w-2xl">
-							{day.themeDescription}
-						</P>
-					</div>
-					<!-- Session type legend -->
-					<div
-						class="gap-x-lg gap-y-sm pt-md stack-item-md flex flex-wrap justify-center border-t border-(--border-subtle)"
-					>
-						{#each Object.entries(sessionTypes) as [type, meta] (type)}
-							<div class="gap-xs flex items-center">
-								<div class="size-legend-dot rounded-sm {meta.colorClass}"></div>
-								<span class="text-caption">{meta.label}</span>
-								{#if type === 'world-cafe'}
-									<button
-										id="world-cafe-info-{day.dayNumber}"
-										type="button"
-										class="cursor-pointer text-amber-500 transition-colors hover:text-amber-600 dark:text-amber-400 dark:hover:text-amber-300"
-										aria-label="What is a World Café?"
-									>
-										<InfoCircleOutline class="size-icon-sm" />
-									</button>
-									<Popover
-										triggeredBy="#world-cafe-info-{day.dayNumber}"
-										trigger="click"
-										placement="bottom"
-										arrow
-										class="z-(--z-popover) w-80 text-sm sm:w-96"
-									>
-										<div class="p-1">
-											<h4 class="text-primary-ink mb-2 font-semibold">What is a World Café?</h4>
-											<ul class="text-body-sm space-y-1.5 leading-relaxed">
-												<li class="flex items-start gap-1.5">
-													<span class="mt-0.5 shrink-0 text-amber-500">•</span>
-													<span
-														>Interactive discussion format where participants rotate between four
-														thematic tables in three timed rounds (25 minutes each)</span
-													>
-												</li>
-												<li class="flex items-start gap-1.5">
-													<span class="mt-0.5 shrink-0 text-amber-500">•</span>
-													<span
-														>Each table is anchored by a table host who stays for the entire
-														session, briefs newcomers on prior discussions, and captures key points</span
-													>
-												</li>
-												<li class="flex items-start gap-1.5">
-													<span class="mt-0.5 shrink-0 text-amber-500">•</span>
-													<span
-														>Participants build on the keywords and key pointers prepared during the
-														small-group working sessions</span
-													>
-												</li>
-												<li class="flex items-start gap-1.5">
-													<span class="mt-0.5 shrink-0 text-amber-500">•</span>
-													<span
-														>Between rounds, participants disperse individually across tables to
-														maximise cross-pollination of ideas</span
-													>
-												</li>
-											</ul>
-										</div>
-									</Popover>
-								{/if}
-							</div>
-						{/each}
-					</div>
-				</div>
+				{@const hasWorldCafe = day.items.some((item) => item.type === 'world-cafe')}
 
-				<!-- Schedule Items -->
-				<div class="stack-md stagger-children" use:reveal>
+				<!-- Day header — a record of what happened, not a live programme -->
+				<header class="day-head animate-section-reveal" use:reveal>
+					<div class="section-head">
+						<p class="section-head__eyebrow">{day.date}</p>
+						<h2 class="heading-section">{day.theme}</h2>
+					</div>
+					<p class="prose-serif">{day.themeDescription}</p>
+					{#if day.outcome}
+						<p class="day-outcome">
+							<span class="text-label text-accent">What came of it</span>
+							{day.outcome}
+							<a href={photosHref(day.photoCategory)} class="link-secondary">Photos from this day</a
+							>
+							· <a href={interviewsHref} class="link-secondary">Participant interviews</a>
+						</p>
+					{/if}
+				</header>
+
+				<!-- One neutral card. Session type is a chip, not a tinted row with a
+				     4px left border fighting a 20px radius. -->
+				<ol class="day-list card-surface">
 					{#each day.items as item (item.time + item.title)}
-						{@const styles = getItemStyles(item.type)}
-						{@const Icon = getItemIcon(item.type, item.title)}
-						<article
-							class="card-surface {styles.border} {styles.bg} surface-padding-sm glow-border"
-						>
-							<div class="gap-md flex flex-col sm:flex-row">
-								<!-- Time Column -->
-								<div class="gap-sm flex shrink-0 items-start sm:w-40">
-									<div class="p-sm schedule-time-icon rounded-md">
-										<Icon class="size-icon-md {styles.icon}" />
-									</div>
-									<span
-										class="text-body-sm text-secondary-ink font-mono font-semibold whitespace-nowrap"
-									>
-										{item.time}
+						{@const [start, end] = splitTime(item.time)}
+						{#if isQuietItem(item)}
+							<li class="day-row day-row--quiet avoid-break">
+								<span class="day-row__time">{start}</span>
+								<p class="text-body-sm">
+									{item.title}{#if item.rooms?.length}<span class="text-subtle-ink"
+											>&nbsp;· {item.rooms.join(', ')}</span
+										>{/if}
+								</p>
+							</li>
+						{:else}
+							<li class="day-row avoid-break">
+								<span class="day-row__time">
+									{start}{#if end}<br /><span class="day-row__time-end">{end}</span>{/if}
+								</span>
+								<div class="day-row__body">
+									<span class="session-chip session-chip--{sessionTypes[item.type].chipTone}">
+										{sessionTypes[item.type].label}
 									</span>
-								</div>
-								<!-- Content Column -->
-								<div class="stack-xs flex-1">
-									<Heading tag="h3" class="heading-sub heading-color-light text-lg">
-										{item.title}
-									</Heading>
+									<h3 class="day-row__title">{item.title}</h3>
+
+									{#if item.facilitators?.length || item.rooms?.length}
+										<p class="day-row__meta">
+											{#if item.facilitators?.length}{listFormatter.format(item.facilitators)}{/if}
+											{#if item.facilitators?.length && item.rooms?.length}&nbsp;·&nbsp;{/if}
+											{#if item.rooms?.length}{item.rooms.join(' · ')}{/if}
+										</p>
+									{/if}
+
 									{#if item.description}
-										<P class="body-text">
-											{item.description}
-										</P>
+										<p class="text-body-sm">{item.description}</p>
 									{/if}
-									{#if (item.facilitators && item.facilitators.length > 0) || (item.rooms && item.rooms.length > 0)}
-										<div class="gap-md text-body-sm flex flex-wrap">
-											{#if item.facilitators && item.facilitators.length > 0}
-												<span class="gap-xs text-muted-ink inline-flex items-center">
-													<UsersGroupOutline class="size-icon-sm" />
-													<span class="font-medium">Facilitators:</span>
-													{listFormatter.format(item.facilitators)}
-												</span>
-											{/if}
-											{#if item.rooms && item.rooms.length > 0}
-												<div class="gap-xs inline-flex items-center">
-													<MapPinAltOutline class="size-icon-sm text-accent" />
-													{#each item.rooms as room (room)}
-														<span class="px-sm py-xs schedule-room-pill rounded-full">
-															{room}
-														</span>
-													{/each}
-												</div>
-											{/if}
-										</div>
-									{/if}
-									{#if item.details && item.details.length > 0}
-										<ul class="stack-xs stack-item-sm">
+
+									{#if item.details?.length}
+										<ul class="day-row__details">
 											{#each item.details as detail (detail)}
-												<li class="body-text gap-sm text-body-sm flex items-baseline">
-													<span class="text-accent shrink-0">•</span>
-													<span
-														>{#if detail.startsWith('https://') || detail.startsWith('http://')}<a
-																href={detail}
-																target="_blank"
-																rel="noopener noreferrer"
-																class="link-secondary"
-																>{detail.includes('maps.app.goo.gl') ||
-																detail.includes('google.com/maps')
-																	? 'View on Google Maps'
-																	: detail}</a
-															>{:else}{detail}{/if}</span
-													>
+												<li>
+													{#if detail.startsWith('http')}
+														<a
+															href={detail}
+															target="_blank"
+															rel="noopener noreferrer"
+															class="link-secondary"
+															>{isMapLink(detail) ? 'View on Google Maps' : detail}</a
+														>
+													{:else}
+														{detail}
+													{/if}
 												</li>
 											{/each}
 										</ul>
 									{/if}
-									{#if item.deliverables && item.deliverables.length > 0}
-										<Alert color="teal" class="stack-item-sm !p-3">
-											{#snippet icon()}
-												<ClipboardCheckOutline class="h-4 w-4" />
-											{/snippet}
-											<span class="text-body-sm font-semibold">
-												{item.deliverables.length > 1 ? 'Deliverables:' : 'Deliverable:'}
+
+									{#if item.deliverables?.length}
+										<div class="day-row__deliverable">
+											<span class="text-label text-accent">
+												{item.deliverables.length > 1 ? 'Deliverables' : 'Deliverable'}
 											</span>
 											{#if item.deliverables.length === 1}
-												<p class="text-body-sm mt-1">{item.deliverables[0]}</p>
+												<p class="text-body-sm">{item.deliverables[0]}</p>
 											{:else}
-												<ul class="mt-1 space-y-1">
+												<ul class="day-row__details">
 													{#each item.deliverables as deliverable (deliverable)}
-														<li class="text-body-sm gap-sm flex items-baseline">
-															<span class="shrink-0">•</span>
-															<span>{deliverable}</span>
-														</li>
+														<li>{deliverable}</li>
 													{/each}
 												</ul>
 											{/if}
-										</Alert>
+										</div>
 									{/if}
 								</div>
-							</div>
-						</article>
+							</li>
+						{/if}
 					{/each}
-				</div>
+				</ol>
+
+				{#if hasWorldCafe}
+					<!-- Explained once, as a footnote, rather than in an identical
+					     popover instantiated on every day tab -->
+					<aside class="day-footnote" aria-label="World Café format">
+						<p class="text-label text-accent">The World Café format</p>
+						<ul class="day-row__details">
+							{#each worldCafeFormat as line (line)}
+								<li>{line}</li>
+							{/each}
+						</ul>
+					</aside>
+				{/if}
 			{/snippet}
 		</UrlTabs>
 	</div>
 </section>
 
-<!-- Important Information -->
-<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
-	<div class="bg-grid-mesh opacity-30"></div>
-	<div class="bg-radial-glow-bottom"></div>
-	<div
-		class="content-width-wide surface-panel surface-padding stack-md animate-section-reveal relative"
-		use:reveal
-	>
-		<Heading
-			tag="h2"
-			class="heading-section heading-lg heading-color-light accent-underline text-center"
-		>
-			Important Information
-		</Heading>
-		<div
-			class="gap-lg stagger-children mx-auto grid max-w-3xl grid-cols-1 sm:grid-cols-2"
-			use:reveal
-		>
-			<Card class="card-surface surface-padding-sm stack-xs glow-border text-center">
-				<div class="stack-item-sm flex justify-center">
-					<CalendarMonthOutline class="size-icon-lg text-accent" />
-				</div>
-				<P class="text-label text-accent">Workshop Dates</P>
-				<P class="heading-sub heading-sm">{workshopInfo.dates.full}</P>
-				<P class="text-body-sm">{workshopInfo.duration.description}</P>
-			</Card>
-			<Card class="card-surface surface-padding-sm stack-xs glow-border text-center">
-				<div class="stack-item-sm flex justify-center">
-					<MapPinAltOutline class="size-icon-lg text-accent" />
-				</div>
-				<P class="text-label text-accent">Venue</P>
-				<P class="heading-sub heading-sm">
+<!-- Practical details -->
+<section class="band-tight band-sunken padding-inline-section">
+	<div class="content-width-wide">
+		<div class="section-head">
+			<p class="section-head__eyebrow">Practical</p>
+			<h2 class="heading-section">Dates and Venue</h2>
+		</div>
+		<dl class="practical-grid">
+			<div>
+				<dt class="text-label">Workshop dates</dt>
+				<dd class="heading-sub heading-sm">{workshopInfo.dates.full}</dd>
+				<dd class="text-body-sm">{workshopInfo.duration.description}</dd>
+			</div>
+			<div>
+				<dt class="text-label">Venue</dt>
+				<dd class="heading-sub heading-sm">
 					<a
 						href={workshopInfo.location.url}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="link-secondary"
+						class="link-secondary">{workshopInfo.location.venue}</a
 					>
-						{workshopInfo.location.venue}
-					</a>
-				</P>
-				<P class="text-body-sm">{workshopInfo.location.city}, {workshopInfo.location.country}</P>
-			</Card>
-		</div>
+				</dd>
+				<dd class="text-body-sm">
+					{workshopInfo.location.city}, {workshopInfo.location.country}
+				</dd>
+			</div>
+		</dl>
 	</div>
 </section>
 
 <style>
-	.schedule-time-icon {
-		background-color: color-mix(in srgb, var(--bg-raised) 60%, transparent);
+	.day-head {
+		margin-bottom: var(--space-lg);
 	}
 
-	:global(.dark) .schedule-time-icon {
-		background-color: color-mix(in srgb, var(--bg-overlay) 60%, transparent);
-	}
-
-	.schedule-room-pill {
-		background-color: var(--bg-sunken);
+	.day-outcome {
+		margin-top: var(--space-md);
+		padding-left: var(--space-md);
+		border-left: 2px solid var(--border-accent);
+		font-size: var(--text-sm);
+		line-height: var(--leading-relaxed);
 		color: var(--text-secondary);
-		font-size: var(--text-xs);
+		max-width: var(--measure-prose);
 	}
 
-	:global(.dark) .schedule-room-pill {
-		background-color: color-mix(in srgb, var(--bg-overlay) 70%, transparent);
+	.day-outcome :global(.text-label) {
+		display: block;
+	}
+
+	.day-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+	}
+
+	.day-row {
+		display: grid;
+		grid-template-columns: 5.25rem minmax(0, 1fr);
+		gap: var(--space-md);
+		padding: var(--space-md) var(--space-lg);
+		border-bottom: 1px solid var(--border-subtle);
+	}
+
+	.day-row:last-child {
+		border-bottom: none;
+	}
+
+	/* Roughly 40% of every day's height went to catering, at full card weight */
+	.day-row--quiet {
+		align-items: baseline;
+		padding-block: var(--space-xs);
+		background-color: var(--bg-sunken);
+		color: var(--text-muted);
+	}
+
+	.day-row__time {
+		font-family: var(--font-family-mono);
+		font-size: var(--text-xs);
+		font-weight: var(--font-weight-medium);
+		font-variant-numeric: tabular-nums;
+		color: var(--text-primary);
+		line-height: 1.5;
+	}
+
+	.day-row--quiet .day-row__time {
+		color: var(--text-subtle);
+	}
+
+	.day-row__time-end {
+		color: var(--text-subtle);
+	}
+
+	.day-row__body {
+		display: grid;
+		gap: var(--space-2xs);
+		justify-items: start;
+		min-width: 0;
+	}
+
+	.day-row__title {
+		font-family: var(--font-family-display);
+		font-weight: var(--font-weight-semibold);
+		font-size: var(--text-lg);
+		line-height: var(--leading-heading);
+		color: var(--text-primary);
+	}
+
+	.day-row__meta {
+		font-size: var(--text-sm);
+		color: var(--text-muted);
+	}
+
+	.day-row__details {
+		display: grid;
+		gap: var(--space-3xs);
+		margin: 0;
+		padding-left: 1.1em;
+		font-size: var(--text-sm);
+		line-height: var(--leading-relaxed);
+		color: var(--text-secondary);
+	}
+
+	.day-row__deliverable {
+		margin-top: var(--space-2xs);
+		padding-left: var(--space-sm);
+		border-left: 2px solid var(--border-accent);
+	}
+
+	/* ---------- Session chips ---------- */
+	.session-chip {
+		font-size: 0.6875rem;
+		font-weight: var(--font-weight-bold);
+		letter-spacing: var(--tracking-wider);
+		text-transform: uppercase;
+		line-height: 1;
+	}
+
+	.session-chip--brand {
+		color: var(--brand);
+	}
+
+	.session-chip--accent {
+		color: var(--text-accent);
+	}
+
+	.session-chip--neutral {
+		color: var(--text-subtle);
+	}
+
+	.day-footnote {
+		margin-top: var(--space-lg);
+		padding: var(--space-md) var(--space-lg);
+		border-radius: var(--radius-card);
+		background-color: var(--bg-sunken);
+		border: 1px solid var(--border-subtle);
+		max-width: var(--measure-prose);
+	}
+
+	.day-footnote :global(.text-label) {
+		display: block;
+		margin-bottom: var(--space-2xs);
+	}
+
+	.practical-grid {
+		display: grid;
+		gap: var(--space-xl);
+		margin: 0;
+	}
+
+	@media (min-width: 640px) {
+		.practical-grid {
+			grid-template-columns: repeat(2, minmax(0, 20rem));
+		}
+	}
+
+	.practical-grid dd {
+		margin: var(--space-3xs) 0 0;
 	}
 </style>
