@@ -77,8 +77,8 @@
 	let applyDragRef: (() => void) | null = null;
 
 	// --- Adjacency, built once from the source data ---
-	// The spotlight used to rediscover a node's neighbours by walking all 863
-	// edges on every pointerenter. Precomputed, that lookup is O(1).
+	// The spotlight used to rediscover a node's neighbours by walking every
+	// edge on each pointerenter. Precomputed, that lookup is O(1).
 	let adjacency = $derived.by(() => {
 		const map = new Map<string, string[]>(); // eslint-disable-line svelte/prefer-svelte-reactivity
 		const link = (from: string, to: string) => {
@@ -130,9 +130,9 @@
 	// ---------------------------------------------------------------------------
 	// Imperative render layer
 	//
-	// Edges go to a <canvas>: there are 863 of them, they carry no pointer
-	// events, no focus and no aria, and as SVG they were ~80% of the element
-	// count and the bulk of every repaint. Nodes and labels stay in the SVG so
+	// Edges go to a <canvas>: there are over a thousand of them, they carry no
+	// pointer events, no focus and no aria, and as SVG they were ~80% of the
+	// element count and the bulk of every repaint. Nodes and labels stay in the SVG so
 	// each one keeps its role, tabindex, aria-label, keyboard focus and drag.
 	//
 	// `paint` mirrors everything the renderer needs out of Svelte's reactive
@@ -178,7 +178,7 @@
 		positionsDirty = false;
 	}
 
-	/** All 863 edges in three batched strokes — one per spotlight state. */
+	/** Every edge in three batched strokes — one per spotlight state. */
 	function drawEdges() {
 		const ctx = canvasCtx;
 		if (!ctx) return;
@@ -195,7 +195,7 @@
 		const { edges, spot } = paint;
 		const spotId = spot?.id;
 
-		// One path per spotlight state, so all 863 edges cost at most two strokes.
+		// One path per spotlight state, so the whole edge set costs at most two strokes.
 		ctx.globalAlpha = spotId ? 0.07 : 0.38;
 		ctx.lineWidth = 0.7;
 		ctx.beginPath();
@@ -626,8 +626,8 @@
 		{/if}
 
 		<!-- Edges: purely decorative, so they are rasterised rather than kept as
-		     863 live SVG elements. Hidden from assistive tech; every relationship
-		     is also reachable as text in the detail panel. -->
+		     a thousand-odd live SVG elements. Hidden from assistive tech; every
+		     relationship is also reachable as text in the detail panel. -->
 		<canvas bind:this={canvasEl} class="graph-edges" aria-hidden="true"></canvas>
 
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->

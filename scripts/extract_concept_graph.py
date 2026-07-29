@@ -33,23 +33,93 @@ RESEARCH_NOTE_REL = (
 )
 
 
+FRONTMATTER_RE = re.compile(r"\A---\r?\n(.*?)\r?\n---", re.S)
+
+# Vault notes naming a specific AI vendor, product or working practice. They are
+# well linked inside the vault, so they otherwise surface as 2nd-degree concepts,
+# but they belong to a tooling landscape rather than to the workshop's
+# intellectual agenda — and named model versions date badly on a published map.
+# Concepts stay in: "Large Language Models" yes, "Gemini 3 Pro" no.
+EXCLUDED_CONCEPTS = {
+    "ai agent skills",
+    "chatgpt",
+    "claude (ai)",
+    "context engineering",
+    "gemini 3 pro",
+    "llama",
+    "mistral",
+    "model context protocol",
+    "openai",
+}
+
+
+def normalise_target(target: str) -> str:
+    """Reduce a wiki-link target to a bare note name.
+
+    Drops the display alias ([[Note|shown]]), any #heading or ^block anchor,
+    and any folder path — the vault links to some notes by full path, e.g.
+    [[Zotero/Concepts/Metadata]].
+    """
+    target = target.split("|")[0]
+    target = re.split(r"[#^]", target)[0]
+    return target.strip().rstrip("/").split("/")[-1].strip()
+
+
 def extract_wikilinks(text: str) -> list[str]:
-    """Extract all [[wiki-links]] from markdown text, handling piped links."""
-    return [m.group(1).split("|")[0] for m in re.finditer(r"\[\[([^\]]+)\]\]", text)]
+    """Extract all [[wiki-links]] from markdown text as bare note names."""
+    return [
+        normalise_target(m.group(1)) for m in re.finditer(r"\[\[([^\]]+)\]\]", text)
+    ]
+
+
+def parse_aliases(text: str) -> list[str]:
+    """Read the `aliases:` frontmatter field (inline `[a, b]` or block `- a` form)."""
+    match = FRONTMATTER_RE.match(text)
+    if not match:
+        return []
+    lines = match.group(1).split("\n")
+    aliases: list[str] = []
+    for i, line in enumerate(lines):
+        if not re.match(r"^aliases\s*:", line):
+            continue
+        inline = line.split(":", 1)[1].strip()
+        if inline.startswith("["):
+            aliases += inline.strip("[]").split(",")
+        else:
+            for follow in lines[i + 1:]:
+                item = follow.strip()
+                if not item.startswith("- "):
+                    break
+                aliases.append(item[2:])
+        break
+    return [a for a in (a.strip().strip("\"'") for a in aliases) if a]
 
 
 def build_concept_lookup(concepts_dir: Path) -> dict[str, Path]:
-    """Build a case-insensitive lookup of concept note filenames."""
-    lookup: dict[str, Path] = {}
-    for f in concepts_dir.iterdir():
-        if f.suffix == ".md":
-            lookup[f.stem.lower()] = f
+    """Build a case-insensitive lookup of concept notes by filename and alias.
+
+    Filenames are registered first so a real note always wins over another
+    note's alias; among aliases the alphabetically first note wins, which
+    keeps the output stable between runs.
+
+    Excluded notes are left out of the lookup entirely, so nothing resolves to
+    them and they contribute neither nodes nor edges.
+    """
+    notes = sorted(
+        f for f in concepts_dir.iterdir()
+        if f.suffix == ".md" and f.stem.lower() not in EXCLUDED_CONCEPTS
+    )
+    lookup: dict[str, Path] = {f.stem.lower(): f for f in notes}
+    for f in notes:
+        for alias in parse_aliases(f.read_text(encoding="utf-8")):
+            if alias.lower() not in EXCLUDED_CONCEPTS:
+                lookup.setdefault(alias.lower(), f)
     return lookup
 
 
 def resolve_concept(name: str, lookup: dict[str, Path]) -> str | None:
     """Check if a wiki-link target corresponds to a concept note."""
-    key = name.lower()
+    key = normalise_target(name).lower()
     if key in lookup:
         return lookup[key].stem
     return None
@@ -132,7 +202,9 @@ def main():
         raise FileNotFoundError(f"Research note not found: {research_note_path}")
 
     lookup = build_concept_lookup(concepts_dir)
-    print(f"Concept notes in vault: {len(lookup)}")
+    note_count = len({f for f in lookup.values()})
+    print(f"Concept notes in vault: {note_count} "
+          f"({len(lookup) - note_count} extra alias spellings)")
 
     # --- Step 1: Identify seed concepts from the research note ---
     research_content = research_note_path.read_text(encoding="utf-8")
@@ -219,10 +291,13 @@ def main():
         print(f"  {n['id']}: {n['degree']} ({n['group']})")
 
     # --- Step 7: Write output ---
+    # newline="\n" + a trailing newline keep the output Prettier-clean, since
+    # concept-graph.json is checked by `npm run format:check` in CI.
     OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
     data = {"nodes": nodes, "edges": edges}
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    with open(OUTPUT_FILE, "w", encoding="utf-8", newline="\n") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+        f.write("\n")
     print(f"\nOutput: {OUTPUT_FILE}")
 
 
