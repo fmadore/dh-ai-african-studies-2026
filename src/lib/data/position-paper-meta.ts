@@ -70,7 +70,9 @@ export const positionPaperMeta: PositionPaperMeta = {
 	],
 	authorshipNote:
 		'Frédérick Madore and Vincent Hiribarren, who convened the workshop, are listed first, followed by the remaining authors in alphabetical order. The order reflects the collaborative writing process and implies no hierarchy of contribution. We thank the two reviewers for their thoughtful comments on an earlier version of this text.',
-	publicationDate: '2026-05-01',
+	// Day is a placeholder until the series fixes one; only the month is public
+	// ("Expected: September 2026" on the landing page).
+	publicationDate: '2026-09-01',
 	revisedDate: undefined,
 	abstract:
 		'This position paper synthesises the outcomes of the workshop "Charting New Territory: Digital Humanities and AI in African Studies" (Hanover, 18–20 February 2026) into a set of recommendations for researchers, funders, and institutions working at the intersection of digital humanities, artificial intelligence, and African studies. It centres African perspectives and addresses infrastructure gaps, linguistic diversity, equity, methodology, and ethics.',
