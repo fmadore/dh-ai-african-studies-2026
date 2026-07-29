@@ -244,7 +244,7 @@
 									<p class="section-head__eyebrow">Group {index + 1}</p>
 									<h2 class="heading-section heading-md">{group.name}</h2>
 								</div>
-								<p class="prose-serif mb-lg">{group.description}</p>
+								<p class="prose-serif">{group.description}</p>
 
 								<dl class="guiding-questions">
 									{#each group.guidingQuestions as question (question.category)}
@@ -255,7 +255,7 @@
 									{/each}
 								</dl>
 
-								<h3 class="text-label mb-sm mt-lg">
+								<h3 class="text-label thematic-group__people-heading">
 									Participants ({groupParticipants.length})
 								</h3>
 								{#if groupParticipants.length > 0}
@@ -419,10 +419,19 @@
 		padding-top: var(--space-sm);
 	}
 
-	/* ---------- Thematic groups ---------- */
+	/* ---------- Thematic groups ----------
+	 * The rhythm is a grid gap rather than per-child margin utilities, so it
+	 * cannot quietly collapse if one of those classes stops resolving. */
 	.thematic-group {
+		display: grid;
+		gap: var(--space-lg);
 		padding-bottom: var(--space-xl);
 		border-bottom: 1px solid var(--border-subtle);
+	}
+
+	.thematic-group__people-heading {
+		margin-top: var(--space-sm);
+		margin-bottom: calc(var(--space-lg) * -1 + var(--space-2xs));
 	}
 
 	.guiding-questions {

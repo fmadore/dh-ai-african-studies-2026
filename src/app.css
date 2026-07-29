@@ -993,6 +993,25 @@
 		margin-bottom: var(--space-xl);
 	}
 
+	/* The `mt-*` half of the pair. These read like Tailwind utilities but are
+	   ours — `--space-*` is not in Tailwind's `--spacing-*` namespace, so
+	   `mt-lg` generates nothing unless it is declared here. */
+	.mt-xs {
+		margin-top: var(--space-xs);
+	}
+	.mt-sm {
+		margin-top: var(--space-sm);
+	}
+	.mt-md {
+		margin-top: var(--space-md);
+	}
+	.mt-lg {
+		margin-top: var(--space-lg);
+	}
+	.mt-xl {
+		margin-top: var(--space-xl);
+	}
+
 	/* ---------- Icon sizes (semantic) ---------- */
 	.size-icon-sm {
 		width: 1rem;

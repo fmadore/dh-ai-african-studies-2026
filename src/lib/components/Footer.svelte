@@ -3,23 +3,39 @@
 	import { citationString, siteCitation, siteLicence } from '$lib/data/site-meta';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 
-	const foundationLogo = resolveAssetPath('/images/logo/VWST-logo.jpg');
-	const zmoLogo = resolveAssetPath('/images/logo/ZMO-logo.png');
-	const kclLogo = resolveAssetPath("/images/logo/King's_College_London_logo.svg");
-	const bayreuthLogo = resolveAssetPath('/images/logo/uni-bayreuth-africa-multiple-logo.jpeg');
-
+	/**
+	 * The trimmed marks (see scripts/optimize_images.mjs) — the originals carry
+	 * so much whitespace that at a shared box height the Africa Multiple logo
+	 * rendered barely a third the size of its neighbours.
+	 *
+	 * `height` is per-mark on purpose: a 5:1 wordmark and a square roundel look
+	 * the same weight only at different heights, so one shared value would make
+	 * the wide ones dominate.
+	 */
 	const funders = [
 		{
 			href: 'https://www.volkswagenstiftung.de/en',
-			src: foundationLogo,
-			alt: 'Volkswagen Foundation'
+			src: resolveAssetPath('/images/logo/trimmed/vwst.webp'),
+			alt: 'Volkswagen Foundation',
+			height: '1.4rem'
 		},
-		{ href: 'https://www.zmo.de/en', src: zmoLogo, alt: 'Leibniz-Zentrum Moderner Orient' },
-		{ href: 'https://www.kcl.ac.uk/', src: kclLogo, alt: "King's College London" },
+		{
+			href: 'https://www.zmo.de/en',
+			src: resolveAssetPath('/images/logo/trimmed/zmo.webp'),
+			alt: 'Leibniz-Zentrum Moderner Orient',
+			height: '2.5rem'
+		},
+		{
+			href: 'https://www.kcl.ac.uk/',
+			src: resolveAssetPath("/images/logo/King's_College_London_logo.svg"),
+			alt: "King's College London",
+			height: '2.75rem'
+		},
 		{
 			href: 'https://www.africamultiple.uni-bayreuth.de/en/index.html',
-			src: bayreuthLogo,
-			alt: 'Africa Multiple Cluster of Excellence'
+			src: resolveAssetPath('/images/logo/trimmed/africa-multiple.webp'),
+			alt: 'Africa Multiple Cluster of Excellence',
+			height: '1.6rem'
 		}
 	];
 
@@ -65,19 +81,21 @@
 
 <footer class="site-footer band-sunken mt-auto">
 	<div class="content-width-wide padding-inline-lg py-2xl stack-xl">
-		<!-- Funder + host marks. Same-height chips, dimmed as a whole in dark
-		     mode: at 4rem and full brightness these were the brightest thing on
-		     a near-black page, at the very bottom of it, on other people's
-		     logos. -->
-		<ul class="logo-row">
-			{#each funders as funder (funder.href)}
-				<li>
-					<a href={funder.href} target="_blank" rel="noopener noreferrer" class="logo-chip">
-						<img src={funder.src} alt={funder.alt} />
-					</a>
-				</li>
-			{/each}
-		</ul>
+		<!-- One plate, not four chips. Two of these marks are raster files with
+		     their own white background and a third is a red brand block, so a
+		     light plate is unavoidable; making it a single band means it reads
+		     as a funders strip instead of four ragged rectangles. -->
+		<div class="funder-plate">
+			<ul class="funder-row">
+				{#each funders as funder (funder.href)}
+					<li>
+						<a href={funder.href} target="_blank" rel="noopener noreferrer" class="funder-link">
+							<img src={funder.src} alt={funder.alt} style="--mark-height: {funder.height}" />
+						</a>
+					</li>
+				{/each}
+			</ul>
+		</div>
 
 		<div class="footer-grid">
 			{#each columns as column (column.title)}
@@ -143,57 +161,62 @@
 		border-top: 1px solid var(--border-default);
 	}
 
-	.logo-row {
+	.funder-plate {
+		/* White, and the raster marks are flattened onto white at build time, so
+		   image and plate meet without a visible seam. Dark mode dims the whole
+		   plate rather than tinting the background, for the same reason. */
+		background: #ffffff;
+		border: 1px solid var(--border-subtle);
+		border-radius: var(--radius-card);
+		padding: var(--space-md) var(--space-lg);
+		transition: opacity var(--transition-base);
+	}
+
+	:global(.dark) .funder-plate {
+		opacity: 0.86;
+		border-color: rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark) .funder-plate:hover {
+		opacity: 1;
+	}
+
+	.funder-row {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: var(--space-sm);
+		gap: var(--space-md) clamp(1.5rem, 5vw, 3.5rem);
 		list-style: none;
 		margin: 0;
 		padding: 0;
 	}
 
-	/* One height, one padding, images centred — the marks have wildly different
-	   aspect ratios, so sizing the chip to its image made four different boxes. */
-	.logo-chip {
-		display: flex;
+	.funder-link {
+		display: inline-flex;
 		align-items: center;
-		justify-content: center;
-		height: 3.25rem;
-		min-width: 5.5rem;
-		padding-inline: var(--space-sm);
-		border-radius: var(--radius-sm);
-		/* Pure white, not #f2f1ef: half these marks are JPEGs carrying their own
-		   white background, and any other tint leaves a visible rectangle inside
-		   the chip. The dimming below is applied to the whole chip instead, so
-		   image and backdrop darken together and the seam disappears. */
-		background: #ffffff;
-		border: 1px solid var(--border-subtle);
-		transition:
-			opacity var(--transition-micro),
-			box-shadow var(--transition-micro);
+		min-height: 2.75rem;
+		transition: opacity var(--transition-micro);
 	}
 
-	/* Cap by width as well as height, so a very wide mark (Volkswagen Stiftung)
-	   is not squeezed to half the optical size of a square one. */
-	.logo-chip img {
-		max-height: 2rem;
-		max-width: 8rem;
+	.funder-link:hover {
+		opacity: 0.7;
+	}
+
+	.funder-link img {
+		height: var(--mark-height, 2rem);
 		width: auto;
+		max-width: 11rem;
 		object-fit: contain;
 	}
 
-	:global(.dark) .logo-chip {
-		opacity: 0.82;
-		border-color: rgba(255, 255, 255, 0.1);
-	}
+	@media (max-width: 480px) {
+		.funder-plate {
+			padding: var(--space-sm) var(--space-md);
+		}
 
-	.logo-chip:hover {
-		box-shadow: var(--shadow-xs);
-	}
-
-	:global(.dark) .logo-chip:hover {
-		opacity: 1;
+		.funder-row {
+			gap: var(--space-md) var(--space-lg);
+		}
 	}
 
 	.footer-grid {
