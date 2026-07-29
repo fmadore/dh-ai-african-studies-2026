@@ -16,6 +16,13 @@ export interface SeoLinkTag {
 export interface Author {
 	name: string;
 	url?: string;
+	/**
+	 * Explicit name parts for citation formatting. Set them only where the
+	 * default rule — last whitespace-delimited word is the family name — gets
+	 * it wrong, e.g. "Menno van Zaanen" or "Emmanuel Ngue Um".
+	 */
+	family?: string;
+	given?: string;
 }
 
 export interface CreateSeoMetaOptions {

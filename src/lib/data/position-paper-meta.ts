@@ -6,12 +6,70 @@ import type { PositionPaperMeta } from '$lib/reader/types';
  * "How to cite" widget.
  */
 export const positionPaperMeta: PositionPaperMeta = {
-	title: 'Charting New Territory: Digital Humanities and AI in African Studies',
-	subtitle: 'A Position Paper',
+	title:
+		'For Whom and For What Purpose? A Position Paper on Digital Humanities and AI in African Studies',
+	// The order is load-bearing and explained by `authorshipNote` below: the two
+	// conveners, then everyone else alphabetically. `url` mirrors the `website`
+	// field on the matching participant record. `family`/`given` are set only
+	// where the last-word-is-the-surname rule would mis-invert the name in a
+	// citation.
 	authors: [
 		{ name: 'Frédérick Madore', url: 'https://www.frederickmadore.com/' },
-		{ name: 'Vincent Hiribarren', url: 'https://www.kcl.ac.uk/people/vincent-hiribarren' }
+		{ name: 'Vincent Hiribarren', url: 'https://www.kcl.ac.uk/people/vincent-hiribarren' },
+		{ name: 'Agata Błoch', url: 'https://www.agatabloch.com/' },
+		{
+			name: 'Albrecht Hofheinz',
+			url: 'https://www.hf.uio.no/ikos/english/people/aca/middle-east-studies/tenured/albrech/'
+		},
+		{
+			name: 'Ashleigh Harris',
+			url: 'https://www.uu.se/en/contact-and-organisation/staff?query=N7-1606'
+		},
+		{ name: 'Augustin Ndione', url: 'https://annuairechercheurs.ucad.sn/augustin.ndione' },
+		{
+			name: 'Britta Frede',
+			url: 'https://www.islamwissenschaft.uni-bayreuth.de/en/team/britta-frede/index.php'
+		},
+		{
+			name: 'Cassandra Mark-Thiesen',
+			url: 'https://www.uni-regensburg.de/en/university/dimas/team/dr-cassandra-mark-thiesen'
+		},
+		{ name: 'Duncan Money', url: 'https://duncan.money/' },
+		{
+			name: 'Emmanuel Ngue Um',
+			url: 'https://github.com/Ngue-Um',
+			family: 'Ngue Um',
+			given: 'Emmanuel'
+		},
+		{ name: 'Érika Melek Delgado', url: 'https://www.kcl.ac.uk/people/erika-melek-delgado' },
+		{ name: 'Fallou Ngom', url: 'https://www.bu.edu/anthrop/profile/fallou-ngom/' },
+		{ name: 'Fu’ad Lawal', url: 'https://archivi.ng/' },
+		{ name: 'Irene Mwendwa', url: 'https://www.linkedin.com/in/irenemwendwa/' },
+		{ name: 'James Yékú', url: 'https://jamesyeku.com/' },
+		{ name: 'Janeth David Nzenga' },
+		{ name: 'Johannes Sibeko', url: 'https://applang.mandela.ac.za/Staff/Johannes-Sibeko' },
+		{ name: 'Karen Byera Ijumba', url: 'https://openrestitution.africa/about-the-project/' },
+		{ name: 'Kọ́lá Túbọ̀sún', url: 'https://kolatubosun.com/' },
+		{ name: 'Leah Junck', url: 'https://www.globalcenter.ai/about/leah-junck' },
+		{
+			name: 'Menno van Zaanen',
+			url: 'https://sadilar.org/en/dh-prof/',
+			family: 'van Zaanen',
+			given: 'Menno'
+		},
+		{ name: 'Nuraddin Aman' },
+		{ name: 'Oumou Sidibé', url: 'https://www.archivesfemmesmali.com/' },
+		{
+			name: 'Susan Elizabeth Gagliardi',
+			url: 'https://arthistory.emory.edu/people/bios/gagliardi-susan-elizabeth.html'
+		},
+		{
+			name: 'Thompson Gyedu Kwarkye',
+			url: 'https://economics.universityofgalway.ie/business-public-policy-law/school-of-law/research/researchclusters/technologyandrights/drthompsongyedukwarkye/'
+		}
 	],
+	authorshipNote:
+		'Frédérick Madore and Vincent Hiribarren, who convened the workshop, are listed first, followed by the remaining authors in alphabetical order. The order reflects the collaborative writing process and implies no hierarchy of contribution. We thank the two reviewers for their thoughtful comments on an earlier version of this text.',
 	publicationDate: '2026-05-01',
 	revisedDate: undefined,
 	abstract:

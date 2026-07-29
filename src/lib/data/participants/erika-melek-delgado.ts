@@ -1,7 +1,7 @@
 import type { Participant } from '$lib/types/participant';
 
 export const erikaMelekDelgado: Participant = {
-	name: 'Erika Melek Delgado',
+	name: 'Érika Melek Delgado',
 	affiliation: "King's College London",
 	affiliationCoordinates: {
 		latitude: 51.5114,

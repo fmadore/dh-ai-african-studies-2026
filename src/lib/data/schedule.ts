@@ -249,7 +249,7 @@ export const schedule: DaySchedule[] = [
 				title:
 					'Ethical Dilemmas and Best Practices in DH and AI Implementation in African Institutions and Archives 1/2',
 				type: 'world-cafe',
-				facilitators: ['Fallou Ngom', 'Erika Melek Delgado'],
+				facilitators: ['Fallou Ngom', 'Érika Melek Delgado'],
 				rooms: ['SR 6']
 			},
 			{

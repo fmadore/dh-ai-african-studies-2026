@@ -2,6 +2,7 @@
 	import { Heading, P, Accordion, AccordionItem, List, Li } from 'flowbite-svelte';
 	import { BookOpenOutline, ChevronDownOutline } from 'flowbite-svelte-icons';
 	import type { PositionPaperMeta } from '$lib/reader/types';
+	import AuthorByline from '$lib/components/AuthorByline.svelte';
 	import SeriesNote from '$lib/components/SeriesNote.svelte';
 	import WorkStreamCards from '$lib/components/WorkStreamCards.svelte';
 	import { positionPaperAbout } from '$lib/data/position-paper-about';
@@ -21,9 +22,6 @@
 			day: 'numeric'
 		})
 	);
-
-	const nameList = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
-	let authorNames = $derived(nameList.format(meta.authors.map((a) => a.name)));
 </script>
 
 <header class="reader-masthead">
@@ -40,9 +38,11 @@
 	{/if}
 
 	<dl class="reader-masthead__meta">
-		<div>
+		<div class="reader-masthead__authors">
 			<dt class="text-caption">Authors</dt>
-			<dd class="body-text-strong">{authorNames}</dd>
+			<dd class="body-text-strong">
+				<AuthorByline authors={meta.authors} note={meta.authorshipNote} />
+			</dd>
 		</div>
 		<div>
 			<dt class="text-caption">Published</dt>
@@ -133,6 +133,10 @@
 		padding-block: var(--space-md);
 		border-block: 1px solid var(--border-subtle);
 		margin: 0;
+	}
+	/* A byline this long needs the full measure, not a 12rem column. */
+	.reader-masthead__authors {
+		grid-column: 1 / -1;
 	}
 	.reader-masthead__meta dt {
 		margin-block-end: var(--space-3xs);

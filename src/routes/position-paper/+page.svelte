@@ -3,8 +3,10 @@
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import SectionNav from '$lib/components/SectionNav.svelte';
 	import WorkStreamCards from '$lib/components/WorkStreamCards.svelte';
+	import AuthorByline from '$lib/components/AuthorByline.svelte';
 	import { positionPaperAbout } from '$lib/data/position-paper-about';
 	import { positionPaperMeta } from '$lib/data/position-paper-meta';
+	import { toChicago } from '$lib/reader/citation-formatters';
 	import { resolveAppPath } from '$lib/utils/paths';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 
@@ -61,15 +63,12 @@
 		{ term: 'DOI', detail: positionPaperMeta.doi ?? 'Assigned on publication' }
 	];
 
-	/** The paper is meant to be cited, so the page offers the citation up front. */
-	const provisionalCitation = `${positionPaperMeta.authors
-		.map((author) => {
-			const [first, ...rest] = author.name.split(' ');
-			return `${rest.join(' ')}, ${first}`;
-		})
-		.join(' & ')} (${new Date(positionPaperMeta.publicationDate).getFullYear()}). ${
-		positionPaperMeta.title
-	}. ${positionPaperMeta.journalTitle}. ${positionPaperMeta.publisher}.`;
+	/**
+	 * The paper is meant to be cited, so the page offers the citation up front —
+	 * from the same formatter the reader's "How to cite" widget uses, so the two
+	 * cannot drift apart.
+	 */
+	const provisionalCitation = toChicago(positionPaperMeta, seo.canonical);
 
 	let citationCopied = $state(false);
 
@@ -101,10 +100,12 @@
 			<header class="paper__masthead">
 				<p class="text-label text-accent">Workshop output</p>
 				<h1 class="heading-display">{positionPaperMeta.title}</h1>
-				<p class="paper__subtitle">{positionPaperMeta.subtitle}</p>
-				<p class="paper__authors">
-					{positionPaperMeta.authors.map((author) => author.name).join(' and ')}
-				</p>
+				<div class="paper__authors">
+					<AuthorByline
+						authors={positionPaperMeta.authors}
+						note={positionPaperMeta.authorshipNote}
+					/>
+				</div>
 
 				<!-- The page previously said "forthcoming" and "open access" but gave
 				     no date and no follow-up path. -->
@@ -228,12 +229,6 @@
 		gap: var(--space-sm);
 		padding-bottom: var(--space-xl);
 		border-bottom: 1px solid var(--border-default);
-	}
-
-	.paper__subtitle {
-		font-family: var(--font-family-serif);
-		font-size: var(--text-xl);
-		color: var(--text-muted);
 	}
 
 	.paper__authors {

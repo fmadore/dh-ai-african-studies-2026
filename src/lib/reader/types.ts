@@ -35,6 +35,11 @@ export interface PositionPaperMeta {
 	title: string;
 	subtitle?: string;
 	authors: Author[];
+	/**
+	 * Note on how the byline is ordered, shown behind a marker after the last
+	 * author. Bibliographic rather than editorial, so it lives with `authors`.
+	 */
+	authorshipNote?: string;
 	/** ISO 8601 date, e.g. '2026-04-15'. */
 	publicationDate: string;
 	/** ISO 8601 date of last revision, if any. */
