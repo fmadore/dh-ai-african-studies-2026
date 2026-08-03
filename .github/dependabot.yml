@@ -18,6 +18,18 @@ updates:
       prefix: 'chore'
       prefix-development: 'chore'
       include: 'scope'
+    ignore:
+      # TypeScript 7 is the native port: its npm package exports only
+      # `version` and `versionMajorMinor`, so the compiler JS API that
+      # svelte-check, typescript-eslint and svelte2tsx are built on is gone.
+      # All three still cap at TypeScript 6 (typescript-eslint's canary too),
+      # and this project never runs `tsc` — svelte-check does the type
+      # checking and Vite the transpiling — so there is nothing to gain and
+      # `check` plus `lint` to lose. Drop this once svelte-check and
+      # typescript-eslint declare a TypeScript 7 peer.
+      - dependency-name: 'typescript'
+        update-types:
+          - 'version-update:semver-major'
     groups:
       svelte:
         patterns:
