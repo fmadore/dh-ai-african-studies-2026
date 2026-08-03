@@ -1,5 +1,4 @@
-import type MarkdownIt from 'markdown-it';
-import type Token from 'markdown-it/lib/token.mjs';
+import type { MarkdownIt, Token } from 'markdown-it';
 import type { CslReference, ResolvedReference } from './types';
 
 /** Convert a Zotero-style id (e.g. "3005271/NGAA6PM6") into a URL-safe slug. */
@@ -77,6 +76,12 @@ interface FootnoteEntry {
 	label: string;
 	count: number;
 	tokens?: Token[];
+	/**
+	 * Raw source of the note body. `footnote_tail` copies this onto the inline
+	 * token it builds, and the core `linkify` rule reads it — linkify-it 6
+	 * dereferences `.length` directly, so leaving it undefined throws.
+	 */
+	content?: string;
 }
 interface FootnoteEnv {
 	refs: Record<string, number>;
@@ -149,7 +154,12 @@ export function createReferenceRule(references: CslReference[]) {
 				// a nested footnote block.
 				const bodyToken = new state.Token('text', '', 0);
 				bodyToken.content = fullCitation;
-				env.footnotes.list.push({ label, count: 0, tokens: [bodyToken] });
+				env.footnotes.list.push({
+					label,
+					count: 0,
+					tokens: [bodyToken],
+					content: fullCitation
+				});
 			} else {
 				footnoteId = env.footnotes.refs[key];
 			}
