@@ -1,4 +1,4 @@
-import type Token from 'markdown-it/lib/token.mjs';
+import type { Token } from 'markdown-it';
 import type { TocItem } from './types';
 
 /**
@@ -15,8 +15,10 @@ export function extractToc(tokens: Token[]): TocItem[] {
 		const inline = tokens[i + 1];
 		if (!inline || inline.type !== 'inline') continue;
 
+		// markdown-it 15 types attribute values as `string | number`; anchor
+		// slugs are always strings, so narrow rather than coerce.
 		const id = t.attrGet('id');
-		if (!id) continue;
+		if (typeof id !== 'string' || !id) continue;
 
 		items.push({
 			level: t.tag === 'h2' ? 2 : 3,

@@ -1,4 +1,4 @@
-import MarkdownIt from 'markdown-it';
+import markdownit, { type MarkdownIt } from 'markdown-it';
 import footnote from 'markdown-it-footnote';
 import anchor from 'markdown-it-anchor';
 import GithubSlugger from 'github-slugger';
@@ -15,7 +15,7 @@ import type { CslReference } from './types';
  *    `data-ref-slug` attributes so client-side Svelte can hydrate popovers.
  */
 export function createMarkdownIt(references: CslReference[]): MarkdownIt {
-	const md = new MarkdownIt({
+	const md = markdownit({
 		html: false,
 		linkify: true,
 		typographer: true
