@@ -82,9 +82,7 @@ export interface JsonLdEvent {
 	url?: string;
 	eventStatus?: 'EventScheduled' | 'EventCancelled' | 'EventPostponed' | 'EventRescheduled';
 	eventAttendanceMode?:
-		| 'OfflineEventAttendanceMode'
-		| 'OnlineEventAttendanceMode'
-		| 'MixedEventAttendanceMode';
+		'OfflineEventAttendanceMode' | 'OnlineEventAttendanceMode' | 'MixedEventAttendanceMode';
 }
 
 export interface JsonLdWebSite {
