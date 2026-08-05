@@ -148,6 +148,16 @@ const SITE_NAME = 'Digital Humanities and AI in African Studies 2026';
 const SITE_DESCRIPTION =
 	'Charting New Territory: Digital Humanities and AI in African Studies — A conference funded by Volkswagen Foundation.';
 const SITE_BASE_URL = 'https://fmadore.github.io/dh-ai-african-studies-2026';
+
+/**
+ * Social card used by every page that does not pass its own `image`.
+ * Regenerate with `npm run og:image` after changing the photo or the wording.
+ */
+const DEFAULT_OG_IMAGE = '/images/og-image.jpg';
+const OG_IMAGE_WIDTH = '1200';
+const OG_IMAGE_HEIGHT = '630';
+const DEFAULT_OG_IMAGE_ALT =
+	'Workshop participants at the Xplanatorium Herrenhausen, over the title "Charting New Territory: Digital Humanities and AI in African Studies".';
 const DEFAULT_LOCALE = 'en_US';
 
 // Default authors for all pages
@@ -191,7 +201,7 @@ export function createSeoMeta(options: CreateSeoMetaOptions = {}): SeoMetaResult
 		title: options.title?.trim() || DEFAULT_OPTIONS.title,
 		description: options.description?.trim() || DEFAULT_OPTIONS.description,
 		path: normalisePath(options.path ?? DEFAULT_OPTIONS.path),
-		image: options.image,
+		image: options.image ?? DEFAULT_OG_IMAGE,
 		authors: options.authors ?? DEFAULT_AUTHORS,
 		keywords: options.keywords ?? DEFAULT_KEYWORDS
 	} satisfies NormalisedSeoOptions;
@@ -245,6 +255,17 @@ export function createSeoMeta(options: CreateSeoMetaOptions = {}): SeoMetaResult
 			{ key: 'og:image', property: 'og:image', content: imageUrl },
 			{ key: 'twitter:image', name: 'twitter:image', content: imageUrl }
 		);
+
+		// Dimensions let crawlers reserve the right slot before fetching the file;
+		// they are only known for the default card, not for a caller's own image.
+		if (merged.image === DEFAULT_OG_IMAGE) {
+			meta.push(
+				{ key: 'og:image:width', property: 'og:image:width', content: OG_IMAGE_WIDTH },
+				{ key: 'og:image:height', property: 'og:image:height', content: OG_IMAGE_HEIGHT },
+				{ key: 'og:image:alt', property: 'og:image:alt', content: DEFAULT_OG_IMAGE_ALT },
+				{ key: 'twitter:image:alt', name: 'twitter:image:alt', content: DEFAULT_OG_IMAGE_ALT }
+			);
+		}
 	}
 
 	return {

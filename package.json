@@ -17,6 +17,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "optimize:images": "node scripts/optimize_images.mjs",
+    "og:image": "node scripts/make_og_image.mjs",
     "fetch:references": "python scripts/fetch_references.py",
     "paper:on": "node scripts/paper-reader.mjs on",
     "paper:off": "node scripts/paper-reader.mjs off",

@@ -1,0 +1,130 @@
+cff-version: 1.2.0
+title: >-
+  Charting New Territory: Digital Humanities and AI in African
+  Studies — workshop website
+message: >-
+  If you refer to this website or reuse its code or data,
+  please cite it using the metadata below. To cite the
+  workshop's position paper instead, see `references`.
+type: software
+authors:
+  - given-names: Frédérick
+    family-names: Madore
+    orcid: 'https://orcid.org/0000-0003-0959-2092'
+    affiliation: University of Bayreuth
+  - given-names: Vincent
+    family-names: Hiribarren
+    affiliation: King's College London
+repository-code: 'https://github.com/fmadore/dh-ai-african-studies-2026'
+url: 'https://fmadore.github.io/dh-ai-african-studies-2026/'
+abstract: >-
+  Post-event archive for "Charting New Territory: Digital
+  Humanities and AI in African Studies", a three-day
+  international scoping workshop held 18–20 February 2026 at
+  the Xplanatorium Herrenhausen in Hanover, Germany, and
+  funded by the Volkswagen Foundation. The site documents the
+  workshop's outcomes: a photo gallery, participant
+  interviews, an interactive concept map, a participant
+  directory and map, and a faceted bibliography.
+keywords:
+  - digital humanities
+  - artificial intelligence
+  - African studies
+  - workshop
+  - Volkswagen Foundation
+# Two licences, matching README.md and src/lib/data/site-meta.ts: MIT for the
+# source code, CC BY-NC 4.0 for the site's text and compiled data. Photographs
+# and video interviews are excluded from both — they stay with their author.
+license:
+  - MIT
+  - CC-BY-NC-4.0
+version: 2.0.0
+date-released: '2026-08-05'
+references:
+  # The workshop's principal output. Bibliographic source of truth is
+  # src/lib/data/position-paper-meta.ts — keep this entry in step with it.
+  # Author order is load-bearing: the two conveners, then everyone else
+  # alphabetically. It implies no hierarchy of contribution.
+  - type: article
+    title: >-
+      For Whom and For What Purpose? A Position Paper on Digital
+      Humanities and AI in African Studies
+    status: submitted
+    year: 2026
+    month: 9
+    journal: ZMO Programmatic Texts
+    issn: '2191-3242'
+    publisher:
+      name: Leibniz-Zentrum Moderner Orient (ZMO)
+    license: CC-BY-SA-4.0
+    languages:
+      - eng
+    abstract: >-
+      Synthesises the outcomes of the workshop into a set of
+      recommendations for researchers, funders, and institutions
+      working at the intersection of digital humanities, artificial
+      intelligence, and African studies. It centres African
+      perspectives and addresses infrastructure gaps, linguistic
+      diversity, equity, methodology, and ethics.
+    keywords:
+      - digital humanities
+      - artificial intelligence
+      - African studies
+      - open science
+      - research infrastructure
+      - multilingualism
+      - data governance
+      - ethics
+      - policy
+    authors:
+      - given-names: Frédérick
+        family-names: Madore
+        orcid: 'https://orcid.org/0000-0003-0959-2092'
+      - given-names: Vincent
+        family-names: Hiribarren
+      - given-names: Agata
+        family-names: Błoch
+      - given-names: Albrecht
+        family-names: Hofheinz
+      - given-names: Ashleigh
+        family-names: Harris
+      - given-names: Augustin
+        family-names: Ndione
+      - given-names: Britta
+        family-names: Frede
+      - given-names: Cassandra
+        family-names: Mark-Thiesen
+      - given-names: Duncan
+        family-names: Money
+      - given-names: Emmanuel
+        family-names: Ngue Um
+      - given-names: Érika Melek
+        family-names: Delgado
+      - given-names: Fallou
+        family-names: Ngom
+      - given-names: Fu’ad
+        family-names: Lawal
+      - given-names: Irene
+        family-names: Mwendwa
+      - given-names: James
+        family-names: Yékú
+      - given-names: Janeth David
+        family-names: Nzenga
+      - given-names: Johannes
+        family-names: Sibeko
+      - given-names: Karen Byera
+        family-names: Ijumba
+      - given-names: Kọ́lá
+        family-names: Túbọ̀sún
+      - given-names: Leah
+        family-names: Junck
+      - given-names: Menno
+        family-names: van Zaanen
+      - given-names: Nuraddin
+        family-names: Aman
+      - given-names: Oumou
+        family-names: Sidibé
+      - given-names: Susan Elizabeth
+        family-names: Gagliardi
+      - given-names: Thompson Gyedu
+        family-names: Kwarkye
