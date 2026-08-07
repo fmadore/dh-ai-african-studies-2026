@@ -2,6 +2,7 @@
 	import type { ResolvedReference } from '$lib/reader/types';
 	import { copyToClipboard } from '$lib/utils/clipboard';
 	import FootnotePopover from './FootnotePopover.svelte';
+	import CitationPopover from './CitationPopover.svelte';
 
 	interface Props {
 		/** Server-rendered HTML of the position paper body. */
@@ -66,3 +67,4 @@
 </div>
 
 <FootnotePopover container={proseEl} {resolvedRefs} />
+<CitationPopover container={proseEl} />

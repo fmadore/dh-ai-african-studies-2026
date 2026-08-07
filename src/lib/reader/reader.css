@@ -13,6 +13,16 @@
    third-party request and no GDPR exposure from Google-hosted fonts. */
 @import '@fontsource/atkinson-hyperlegible';
 
+/* Layer order must be declared here as well as in app.css. Cascade layers are
+   ordered by first appearance across the whole document, and this file is a
+   separate stylesheet that can be injected before app.css. When that happened,
+   the `@layer components` block below registered `components` first, Tailwind's
+   layer statement then appended `base` after it, and preflight — `margin: 0` on
+   every block, `font-size: inherit` on every heading — outranked the entire
+   reader stylesheet. Restating the canonical order makes it identical whichever
+   file the browser parses first. */
+@layer theme, base, components, utilities;
+
 :root {
 	/* Alternative reading fonts, selected via the reader's font switch.
 	   The serif is the site-wide reading voice, defined in app.css. */
@@ -93,6 +103,19 @@
 		position: relative;
 	}
 
+	/* The paper's fourth level. Deliberately not in the TOC — a 28-entry
+	   contents list is already long — so it carries no anchor button and drops
+	   to the UI face to read as a run-in label rather than a section. */
+	.reader-prose h4 {
+		font-family: var(--font-family-sans);
+		font-weight: var(--font-weight-semibold);
+		font-size: calc(var(--text-lg) * var(--reader-font-scale));
+		line-height: var(--leading-snug);
+		color: var(--text-primary);
+		margin-block: var(--space-md) var(--space-xs);
+		scroll-margin-block-start: 5rem;
+	}
+
 	.reader-prose p {
 		color: var(--text-primary);
 	}
@@ -106,6 +129,60 @@
 	}
 	.reader-prose a:hover {
 		color: var(--text-link-hover, var(--accent));
+	}
+
+	/* ---- Author-date citations (linked to the reference list below) ---- */
+
+	/* A citation appears every few sentences, so a full underline would stripe
+	   the page. A dotted rule reads as "there is more here" without competing
+	   with genuine links, and the colour stays body text until hover. */
+	.reader-prose a.reader-citation {
+		color: inherit;
+		text-decoration: underline dotted;
+		text-decoration-thickness: from-font;
+		text-decoration-color: var(--border-strong, var(--border-subtle));
+		text-underline-offset: 0.2em;
+		cursor: pointer;
+	}
+	.reader-prose a.reader-citation:hover,
+	.reader-prose a.reader-citation:focus-visible {
+		color: var(--text-link-hover, var(--accent));
+		text-decoration-style: solid;
+		text-decoration-color: currentColor;
+	}
+
+	/* ---- The reference list ---- */
+	.reader-prose p.reader-bib-entry {
+		/* Hanging indent, the convention for a bibliography: the author's name
+		   stays flush left so the alphabetical order is scannable. */
+		padding-inline-start: var(--space-lg);
+		text-indent: calc(var(--space-lg) * -1);
+		font-size: calc(var(--text-sm) * var(--reader-font-scale));
+		line-height: var(--leading-snug);
+		color: var(--text-secondary);
+		scroll-margin-block: 6rem;
+	}
+	.reader-prose p.reader-bib-entry + p.reader-bib-entry {
+		margin-block-start: var(--space-sm);
+	}
+	/* Arriving from a citation link: mark the entry so it is findable in a
+	   73-item list. Fades out, since a permanent highlight reads as selection. */
+	.reader-prose p.reader-bib-entry:target {
+		animation: reader-bib-flash 2.4s ease-out;
+	}
+	@keyframes reader-bib-flash {
+		from {
+			background: var(--accent-soft);
+		}
+		to {
+			background: transparent;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.reader-prose p.reader-bib-entry:target {
+			animation: none;
+			background: var(--accent-soft);
+		}
 	}
 
 	.reader-prose blockquote {

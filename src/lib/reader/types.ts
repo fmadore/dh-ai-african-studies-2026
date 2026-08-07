@@ -1,5 +1,6 @@
 import type { Author } from '$lib/utils/seo';
 import type { CslReference } from '$lib/types/csl';
+import type { CitationReport } from './citations';
 
 export type { CslReference };
 
@@ -29,6 +30,8 @@ export interface ProcessedPaper {
 	toc: TocItem[];
 	/** Map of ref slug → resolved reference, for popover rendering. */
 	resolvedRefs: Record<string, ResolvedReference>;
+	/** How the author-date citation linker fared; logged at build time. */
+	citations: CitationReport;
 }
 
 export interface PositionPaperMeta {

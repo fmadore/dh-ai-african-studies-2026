@@ -46,8 +46,27 @@ export interface PositionPaperData {
  * `src/routes/position-paper/read/+page.ts` (see `npm run paper:on`).
  */
 export function loadPositionPaper(): PositionPaperData {
-	return {
-		paper: processPaper(resolveSource(), referencesData as unknown as CslReference[]),
-		meta: positionPaperMeta
-	};
+	const paper = processPaper(resolveSource(), referencesData as unknown as CslReference[]);
+
+	// The paper's citations are plain text converted from .docx, so the only
+	// check that an in-text citation matches the reference list is this one.
+	// Printed at build time rather than thrown: a mismatch is the author's to
+	// fix in the manuscript, not a reason to fail the build.
+	const { linked, issues } = paper.citations;
+	if (issues.length > 0) {
+		console.warn(
+			`[position paper] linked ${linked} citations; ${issues.length} need attention:\n` +
+				issues
+					.map((issue) => {
+						const detail =
+							issue.reason === 'partial-author-match'
+								? ` (linked to ${issue.slug}; not in that entry: ${issue.unmatchedNames?.join(', ')})`
+								: '';
+						return `  • ${issue.reason}: "${issue.text}"${detail}`;
+					})
+					.join('\n')
+		);
+	}
+
+	return { paper, meta: positionPaperMeta };
 }

@@ -1,19 +1,13 @@
 <script lang="ts">
-	import { Heading, P, Accordion, AccordionItem, List, Li } from 'flowbite-svelte';
-	import { BookOpenOutline, ChevronDownOutline } from 'flowbite-svelte-icons';
+	import { Heading, P } from 'flowbite-svelte';
 	import type { PositionPaperMeta } from '$lib/reader/types';
 	import AuthorByline from '$lib/components/AuthorByline.svelte';
-	import SeriesNote from '$lib/components/SeriesNote.svelte';
-	import WorkStreamCards from '$lib/components/WorkStreamCards.svelte';
-	import { positionPaperAbout } from '$lib/data/position-paper-about';
 
 	interface Props {
 		meta: PositionPaperMeta;
 	}
 
 	let { meta }: Props = $props();
-
-	const { purpose, contentsIntro, audienceIntro, audiences, process } = positionPaperAbout;
 
 	let formattedDate = $derived(
 		new Date(meta.publicationDate).toLocaleDateString('en-GB', {
@@ -65,56 +59,6 @@
 		<Heading tag="h2" id="abstract-heading" class="text-caption">Abstract</Heading>
 		<P class="body-text">{meta.abstract}</P>
 	</section>
-
-	<!-- Demoted landing-page content — still indexable and discoverable -->
-	<Accordion class="reader-masthead__about">
-		<AccordionItem>
-			{#snippet header()}
-				<span class="flex items-center gap-2 font-semibold">
-					<BookOpenOutline class="h-4 w-4" />
-					About this paper
-				</span>
-			{/snippet}
-			{#snippet arrowup()}
-				<ChevronDownOutline class="rotate-180" />
-			{/snippet}
-			{#snippet arrowdown()}
-				<ChevronDownOutline />
-			{/snippet}
-			<div class="stack-lg">
-				<section class="stack-xs">
-					<Heading tag="h3" class="heading-sub text-lg">Purpose</Heading>
-					<P class="body-text">{purpose}</P>
-				</section>
-
-				<section class="stack-xs">
-					<Heading tag="h3" class="heading-sub text-lg">Contents</Heading>
-					<P class="body-text">{contentsIntro}</P>
-					<WorkStreamCards headingTag="h4" />
-				</section>
-
-				<section class="stack-xs">
-					<Heading tag="h3" class="heading-sub text-lg">Audience</Heading>
-					<P class="body-text">{audienceIntro}</P>
-					<List tag="ul" class="mt-2 space-y-2">
-						{#each audiences as audience (audience.title)}
-							<Li class="body-text">
-								<strong>{audience.title}</strong>
-								{audience.description}
-							</Li>
-						{/each}
-					</List>
-				</section>
-
-				<section class="stack-xs">
-					<Heading tag="h3" class="heading-sub text-lg">Process</Heading>
-					<P class="body-text">{process.published}</P>
-				</section>
-
-				<SeriesNote />
-			</div>
-		</AccordionItem>
-	</Accordion>
 </header>
 
 <style>

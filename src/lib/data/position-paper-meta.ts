@@ -74,18 +74,22 @@ export const positionPaperMeta: PositionPaperMeta = {
 	// ("Expected: September 2026" on the landing page).
 	publicationDate: '2026-09-01',
 	revisedDate: undefined,
+	// Verbatim from the paper's own abstract — this is what the scholarly meta
+	// tags and JSON-LD advertise, so it must match the published text.
 	abstract:
-		'This position paper synthesises the outcomes of the workshop "Charting New Territory: Digital Humanities and AI in African Studies" (Hanover, 18–20 February 2026) into a set of recommendations for researchers, funders, and institutions working at the intersection of digital humanities, artificial intelligence, and African studies. It centres African perspectives and addresses infrastructure gaps, linguistic diversity, equity, methodology, and ethics.',
+		'African Studies scholars have been involved in Digital Humanities (DH) projects since the 2000s. Recent advances in artificial intelligence (AI), particularly large language models (LLMs), have expanded the possibilities for textual analysis and archival research, but implementation raises difficult questions: who controls access, whose data trains these systems without consent, whose languages remain underserved, and who bears the labour and environmental costs. This position paper is the collective work of a Volkswagen Foundation–funded scoping workshop in Hannover, Germany, in February 2026, with twenty-six scholars from sixteen countries. Across four working groups — language technologies; archives and visual heritage; infrastructure, governance, and access; and epistemologies, decoloniality, and ethics — one question recurred: for whom and for what purpose is this work undertaken? Ownership and sovereignty, access, sustainability, and standardisation emerged as transversal problems, which we set in dialogue with critiques of data colonialism and extractivism. We propose situated practices: licensing that conditions openness on return to source communities; digitisation agreements as living documents; ontologies built collaboratively; design grounded in access, governance, and sovereignty; and ethics treated as a process rather than a deliverable. Many of the problems we examine are common across DH and AI: consent, standardisation that erases variation, algorithmic bias, hidden labour, and the funding of innovation over maintenance. African contexts make them sharper and more visible, and Africa-based practice has produced concrete responses. We therefore argue that African epistemologies and decolonial critique belong at the centre of both fields, and that African scholars, practitioners, and institutions belong where these technologies are designed and governed.',
+	// The paper's own keyword list, in its order.
 	keywords: [
-		'Digital Humanities',
-		'Artificial Intelligence',
-		'African Studies',
-		'Open Science',
-		'Research Infrastructure',
-		'Multilingualism',
-		'Data Governance',
-		'Ethics',
-		'Policy'
+		'African epistemologies',
+		'African languages',
+		'data colonialism',
+		'decolonial Digital Humanities (DH)',
+		'digital archives',
+		'digital preservation',
+		'digital sovereignty',
+		'large language models (LLMs)',
+		'natural language processing (NLP)',
+		'standardisation'
 	],
 	language: 'en',
 	publisher: 'Leibniz-Zentrum Moderner Orient (ZMO)',

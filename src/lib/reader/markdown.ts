@@ -3,6 +3,7 @@ import footnote from 'markdown-it-footnote';
 import anchor from 'markdown-it-anchor';
 import GithubSlugger from 'github-slugger';
 import { createReferenceRule } from './reference-resolver';
+import { createCitationRule, type CitationReport } from './citations';
 import type { CslReference } from './types';
 
 /**
@@ -13,13 +14,25 @@ import type { CslReference } from './types';
  *  - heading anchors on H2/H3 via github-slugger (used by the TOC extractor)
  *  - renderer overrides adding stable `data-footnote-ref` / `data-ref-key` /
  *    `data-ref-slug` attributes so client-side Svelte can hydrate popovers.
+ *  - author-date citations linked to the paper's own reference list
  */
-export function createMarkdownIt(references: CslReference[]): MarkdownIt {
+export function createMarkdownIt(
+	references: CslReference[],
+	onCitationReport?: (_report: CitationReport) => void
+): MarkdownIt {
 	const md = markdownit({
 		html: false,
 		linkify: true,
 		typographer: true
 	});
+
+	// `typographer` bundles two core rules. `smartquotes` is kept as a safety net
+	// for hand-edits, but `replacements` is disabled: it rewrites `(c)` as `©`,
+	// which mangles the paper's `(a) Access + (b) Governance + (c) Sovereignty`
+	// label. Its useful substitutions (`---`, `--`, `...`) have nothing to do
+	// here — the markdown is converted from .docx and already carries literal
+	// em dashes, en dashes, and ellipses.
+	md.core.ruler.disable('replacements');
 
 	md.use(footnote);
 	md.use(anchor, {
@@ -32,6 +45,9 @@ export function createMarkdownIt(references: CslReference[]): MarkdownIt {
 		tabIndex: false
 	});
 	md.use(createReferenceRule(references));
+	// Registered last so its core rule runs at the end of the chain, after
+	// linkify and smartquotes have settled the text it scans.
+	md.use(createCitationRule(onCitationReport));
 
 	// Render footnote refs ourselves so the `data-*` hooks the Svelte popover
 	// reads are emitted directly, rather than being spliced into the plugin's
