@@ -2,7 +2,7 @@
 	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '$lib/utils/seo';
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import AuthorByline from '$lib/components/AuthorByline.svelte';
-	import { positionPaperAbout } from '$lib/data/position-paper-about';
+	import { positionPaperSeries as series } from '$lib/data/position-paper-series';
 	import { positionPaperMeta } from '$lib/data/position-paper-meta';
 	import { toChicago } from '$lib/reader/citation-formatters';
 	import { resolveAppPath } from '$lib/utils/paths';
@@ -35,8 +35,6 @@
 		description: seo.description,
 		url: seo.canonical
 	});
-
-	const { series } = positionPaperAbout;
 
 	/** Expected period, from the bibliographic record the reader already uses. */
 	const expected = new Date(positionPaperMeta.publicationDate).toLocaleDateString('en-GB', {
