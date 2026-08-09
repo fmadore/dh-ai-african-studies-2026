@@ -269,6 +269,7 @@
 						bind:selectedTags
 						bind:selectedLanguages
 						bind:selectedSort
+						fillHeight
 					/>
 				</aside>
 			{/if}
@@ -376,10 +377,16 @@
 </section>
 
 <style>
-	/* Was `sticky top-24` — a magic number with no sticky header to clear */
+	/* Was `sticky top-24` — a magic number with no sticky header to clear.
+	 * Capped to the viewport and turned into a flex column: the facets panel
+	 * scrolls its own body rather than hanging below the fold for the length of
+	 * the results list. */
 	.reference-sidebar {
 		position: sticky;
 		top: var(--scroll-offset);
+		display: flex;
+		flex-direction: column;
+		max-height: calc(100dvh - var(--scroll-offset) - var(--space-lg));
 	}
 
 	.results-toolbar {

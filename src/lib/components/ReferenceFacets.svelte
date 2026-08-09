@@ -13,6 +13,11 @@
 		selectedLanguages: string[];
 		selectedSort: string;
 		idPrefix?: string;
+		/**
+		 * Sidebar mode: the panel fills its (viewport-capped) container and scrolls
+		 * its own body, so every facet is reachable without scrolling the results.
+		 */
+		fillHeight?: boolean;
 		showCloseButton?: boolean;
 		closeLabel?: string;
 		onclose?: () => void;
@@ -27,6 +32,7 @@
 		selectedLanguages = $bindable(),
 		selectedSort = $bindable(),
 		idPrefix = 'reference-facets',
+		fillHeight = false,
 		showCloseButton = false,
 		closeLabel = 'Close filters',
 		onclose
@@ -136,7 +142,7 @@
 	}
 </script>
 
-<div class="card-surface p-5 sm:p-6">
+<div class="card-surface facets-panel p-5 sm:p-6" class:facets-panel--fill={fillHeight}>
 	<!-- Header -->
 	<div class="facets-header mb-4 flex flex-wrap items-center justify-between gap-3 pb-4">
 		<div class="flex items-center gap-2">
@@ -162,7 +168,7 @@
 		</div>
 	</div>
 
-	<div class="space-y-5">
+	<div class="facets-body custom-scrollbar space-y-5">
 		<!-- Search -->
 		<div class="space-y-2">
 			<Label for={searchInputId} class="facets-label">Search</Label>
@@ -231,7 +237,7 @@
 							</div>
 						</div>
 						<!-- Keywords list -->
-						<div class="custom-scrollbar max-h-52 space-y-1.5 overflow-y-auto pr-1">
+						<div class="facets-list custom-scrollbar max-h-52 space-y-1.5 overflow-y-auto pr-1">
 							{#each visibleTags as tag (tag)}
 								<Checkbox color="teal" bind:group={selectedTags} value={tag}>
 									<span class="text-muted-ink truncate text-xs">{tag}</span>
@@ -283,7 +289,9 @@
 					{#snippet header()}
 						<span class="facets-label">Year</span>
 					{/snippet}
-					<div class="custom-scrollbar max-h-40 space-y-2 overflow-y-auto pr-1">
+					<div
+						class="facets-list facets-list--years custom-scrollbar max-h-40 space-y-2 overflow-y-auto pr-1"
+					>
 						{#each availableYears as year (year)}
 							<Checkbox color="teal" bind:group={selectedYears} value={year}>
 								<span class="text-muted-ink text-sm">{year}</span>
@@ -299,6 +307,35 @@
 <style>
 	.facets-header {
 		border-bottom: 1px solid var(--border-default);
+	}
+
+	/* Sidebar mode. The panel is capped to the viewport by its container, so the
+	 * body — not the page — is what scrolls: a pinned panel taller than the
+	 * viewport hid its lower facets until you reached the end of the results. */
+	.facets-panel--fill {
+		display: flex;
+		flex-direction: column;
+		min-height: 0;
+	}
+
+	.facets-panel--fill .facets-header {
+		flex: 0 0 auto;
+	}
+
+	.facets-panel--fill .facets-body {
+		flex: 1 1 auto;
+		min-height: 0;
+		overflow-y: auto;
+		/* Room for focus outlines against the scroll edge */
+		padding-inline-end: var(--space-2xs);
+		margin-inline-end: calc(var(--space-2xs) * -1);
+	}
+
+	/* One scroll region, not three. The keyword list is already bounded to
+	 * 16–24 entries, so it can flow; only the year list stays capped. */
+	.facets-panel--fill .facets-list:not(.facets-list--years) {
+		max-height: none;
+		overflow-y: visible;
 	}
 
 	.facets-close-btn {
