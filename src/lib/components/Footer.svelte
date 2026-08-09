@@ -88,7 +88,7 @@
 </script>
 
 <footer class="site-footer band-sunken mt-auto">
-	<div class="content-width-wide padding-inline-lg py-2xl stack-xl">
+	<div class="footer-inner content-width-wide padding-inline-lg">
 		<!-- One plate, not four chips. Two of these marks are raster files with
 		     their own white background and a third is a red brand block, so a
 		     light plate is unavoidable; making it a single band means it reads
@@ -184,8 +184,12 @@
 		background: #ffffff;
 		border: 1px solid var(--border-subtle);
 		border-radius: var(--radius-card);
-		padding: var(--space-md) var(--space-lg);
+		padding: var(--space-sm) var(--space-lg);
 		transition: opacity var(--transition-base);
+	}
+
+	.footer-inner {
+		padding-block: var(--space-2xl);
 	}
 
 	:global(.dark) .funder-plate {
@@ -198,13 +202,25 @@
 	}
 
 	.funder-row {
-		display: flex;
-		flex-wrap: wrap;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		align-items: center;
-		gap: var(--space-md) clamp(1.5rem, 5vw, 3.5rem);
+		gap: var(--space-md) var(--space-lg);
 		list-style: none;
 		margin: 0;
 		padding: 0;
+	}
+
+	.funder-row li {
+		display: flex;
+		min-width: 0;
+		justify-content: center;
+	}
+
+	@media (min-width: 768px) {
+		.funder-row {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
 	}
 
 	.funder-link {
@@ -221,17 +237,17 @@
 	.funder-link img {
 		height: var(--mark-height, 2rem);
 		width: auto;
-		max-width: 11rem;
+		max-width: min(100%, 11rem);
 		object-fit: contain;
 	}
 
 	@media (max-width: 480px) {
 		.funder-plate {
-			padding: var(--space-sm) var(--space-md);
+			padding-inline: var(--space-md);
 		}
 
 		.funder-row {
-			gap: var(--space-md) var(--space-lg);
+			gap: var(--space-sm) var(--space-md);
 		}
 	}
 
@@ -239,7 +255,8 @@
 		display: grid;
 		gap: var(--space-xl);
 		grid-template-columns: 1fr;
-		padding-top: var(--space-lg);
+		margin-top: var(--space-xl);
+		padding-top: var(--space-xl);
 		border-top: 1px solid var(--border-subtle);
 	}
 
@@ -310,7 +327,8 @@
 	}
 
 	.footer-colophon {
-		padding-top: var(--space-lg);
+		margin-top: var(--space-md);
+		padding-top: var(--space-md);
 		border-top: 1px solid var(--border-subtle);
 	}
 </style>
