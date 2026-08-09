@@ -142,9 +142,11 @@
 	}
 
 	.pagination__page.is-active {
-		background: var(--accent);
+		/* Secondary-700 keeps white page numbers above the AA contrast floor in
+		   both themes; the brighter dark-mode accent does not. */
+		background: var(--color-secondary-700);
 		color: var(--text-on-accent);
-		border-color: var(--accent);
+		border-color: var(--color-secondary-700);
 		box-shadow: var(--shadow-accent);
 	}
 

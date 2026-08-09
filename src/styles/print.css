@@ -1,0 +1,40 @@
+/* ==========================================================================
+   PRINT
+   ========================================================================== */
+@media print {
+	nav,
+	footer,
+	.site-header,
+	.no-print {
+		display: none !important;
+	}
+
+	body {
+		color: #000 !important;
+		background: #fff !important;
+	}
+
+	/* Only inside running prose. Applied globally it turned every Google Maps
+	   link on the schedule — the one page anyone prints — into a line of URL. */
+	.print-expand-links a[href^='http']:after {
+		content: ' (' attr(href) ')';
+		font-size: 0.8em;
+		word-break: break-all;
+	}
+
+	.page-break-before {
+		page-break-before: always;
+	}
+
+	.avoid-break {
+		page-break-inside: avoid;
+	}
+
+	/* Bands are a screen device; on paper they only burn toner. */
+	.band-ink,
+	.band-sunken {
+		background: transparent !important;
+		color: #000 !important;
+		border-color: var(--color-gray-500) !important;
+	}
+}

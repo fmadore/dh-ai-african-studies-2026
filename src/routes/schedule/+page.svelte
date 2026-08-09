@@ -382,7 +382,7 @@
 
 	/* ---------- Session chips ---------- */
 	.session-chip {
-		font-size: 0.6875rem;
+		font-size: var(--text-xs);
 		font-weight: var(--font-weight-bold);
 		letter-spacing: var(--tracking-wider);
 		text-transform: uppercase;

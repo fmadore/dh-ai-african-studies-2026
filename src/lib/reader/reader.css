@@ -186,10 +186,21 @@
 	}
 
 	.reader-prose blockquote {
-		border-inline-start: 3px solid var(--accent);
-		padding-inline-start: var(--space-md);
+		position: relative;
+		padding-inline-start: var(--space-xl);
 		color: var(--text-secondary);
 		font-style: italic;
+	}
+	.reader-prose blockquote::before {
+		content: '“';
+		position: absolute;
+		inset-block-start: -0.1em;
+		inset-inline-start: 0;
+		font-family: var(--font-family-serif);
+		font-size: var(--text-2xl);
+		font-style: normal;
+		line-height: 1;
+		color: var(--text-accent);
 	}
 
 	.reader-prose code {
@@ -490,7 +501,7 @@
 		border: 0;
 		background: transparent;
 		color: var(--text-muted);
-		font-size: 1.5rem;
+		font-size: var(--text-2xl);
 		line-height: 1;
 		cursor: pointer;
 		border-radius: var(--radius-full);

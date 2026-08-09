@@ -213,6 +213,8 @@
 			<img
 				src={resolveAssetPath(photo.thumbnail ?? photo.src)}
 				alt={photo.alt}
+				width={photo.width}
+				height={photo.height}
 				loading="lazy"
 				decoding="async"
 			/>
@@ -239,6 +241,8 @@
 							<img
 								src={resolveAssetPath(stripPhotos[0].thumbnail ?? stripPhotos[0].src)}
 								alt=""
+								width={stripPhotos[0].width}
+								height={stripPhotos[0].height}
 								loading="lazy"
 								decoding="async"
 							/>
@@ -246,6 +250,8 @@
 							<img
 								src="https://i.ytimg.com/vi/{firstInterview.youtubeId}/hqdefault.jpg"
 								alt=""
+								width="480"
+								height="360"
 								loading="lazy"
 								decoding="async"
 							/>

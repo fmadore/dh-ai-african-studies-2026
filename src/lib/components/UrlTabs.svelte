@@ -21,6 +21,7 @@
 		paramName?: string;
 		defaultTab?: string;
 		tabStyle?: 'underline' | 'pill' | 'full';
+		activeClass?: string;
 		class?: string;
 		contentClass?: string;
 		children: Snippet<[string, Tab]>;
@@ -32,6 +33,7 @@
 		paramName = 'view',
 		defaultTab = tabs[0]?.id ?? '',
 		tabStyle = 'underline',
+		activeClass,
 		class: className = '',
 		contentClass = '',
 		children,
@@ -65,7 +67,7 @@
 	}
 </script>
 
-<Tabs {tabStyle} class={className} classes={{ content: contentClass }}>
+<Tabs {tabStyle} class={className} classes={{ content: contentClass, active: activeClass }}>
 	{#each tabs as tab (tab.id)}
 		{@const Icon = tab.icon}
 		<TabItem open={activeTab === tab.id} onclick={() => setActiveTab(tab.id)}>

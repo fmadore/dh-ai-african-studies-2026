@@ -4,6 +4,7 @@ const STORAGE_KEY = 'dh2026:reader-prefs';
 
 const VALID_FAMILIES: ReadonlyArray<ReaderFontFamily> = ['sans', 'serif', 'accessible'];
 const VALID_SIZES: ReadonlyArray<ReaderFontSize> = [90, 100, 115, 130];
+const DEFAULT_FONT_FAMILY: ReaderFontFamily = VALID_FAMILIES[0];
 
 /**
  * Applies the stored preferences to <html> before the first paint.
@@ -26,7 +27,7 @@ export const readerPrefsBootScript = `<script>(function(){try{var p=JSON.parse(l
 )}.indexOf(p.fontSize)>-1)e.setAttribute("data-reader-size",p.fontSize);}catch(_){}})()</script>`;
 
 const DEFAULTS = {
-	fontFamily: 'sans' as ReaderFontFamily,
+	fontFamily: DEFAULT_FONT_FAMILY,
 	fontSize: 100 as ReaderFontSize
 };
 

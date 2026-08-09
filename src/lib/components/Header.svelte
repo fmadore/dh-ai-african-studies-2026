@@ -1,69 +1,20 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import ThemeToggle from './ThemeToggle.svelte';
-	import { resolveAppPath } from '$lib/utils/paths';
+	import {
+		homeHref,
+		isNavigationGroupActive,
+		isNavigationLinkActive,
+		primaryNavigation
+	} from '$lib/data/navigation';
 
 	let activeUrl = $derived(page.url.pathname);
 	let menuOpen = $state(false);
 	let outcomesOpen = $state(false);
 	let scrolled = $state(false);
 	let navEl: HTMLElement | undefined = $state();
-
-	const homeHref = resolveAppPath('/');
-
-	interface NavLink {
-		href: string;
-		label: string;
-		children?: { href: string; label: string }[];
-	}
-
-	/**
-	 * Six top-level items, not nine. The four archive routes live under one
-	 * "Outcomes" group so the inline nav fits from 1024px — previously every
-	 * 1024–1280px laptop got a hamburger menu on a wide screen.
-	 */
-	const navLinks: NavLink[] = [
-		{ href: homeHref, label: 'Home' },
-		{ href: resolveAppPath('/about'), label: 'About' },
-		{ href: resolveAppPath('/participants'), label: 'Participants' },
-		{ href: resolveAppPath('/schedule'), label: 'Schedule' },
-		{ href: resolveAppPath('/position-paper'), label: 'Position Paper' },
-		{
-			href: resolveAppPath('/photos'),
-			label: 'Outcomes',
-			children: [
-				{ href: resolveAppPath('/photos'), label: 'Photos' },
-				{ href: resolveAppPath('/interviews'), label: 'Interviews' },
-				{ href: resolveAppPath('/concepts'), label: 'Concept Map' },
-				{ href: resolveAppPath('/references'), label: 'References' }
-			]
-		}
-	];
-
-	function stripTrailingSlash(path: string): string {
-		return path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
-	}
-
-	/**
-	 * Trailing-slash-tolerant match that also highlights parent routes for
-	 * nested paths (e.g. /participants/x keeps Participants active).
-	 * The Home link only matches exactly, so it doesn't light up everywhere.
-	 */
-	function isActive(href: string, current: string): boolean {
-		const target = stripTrailingSlash(href);
-		const path = stripTrailingSlash(current);
-		if (target === stripTrailingSlash(homeHref)) {
-			return path === target;
-		}
-		return path === target || path.startsWith(`${target}/`);
-	}
-
-	function isGroupActive(link: NavLink, current: string): boolean {
-		if (link.children) {
-			return link.children.some((child) => isActive(child.href, current));
-		}
-		return isActive(link.href, current);
-	}
+	let hamburgerEl: HTMLButtonElement | undefined = $state();
+	let outcomesButtonEl: HTMLButtonElement | undefined = $state();
 
 	function toggleMenu() {
 		menuOpen = !menuOpen;
@@ -85,8 +36,13 @@
 <svelte:window
 	onkeydown={(e) => {
 		if (e.key !== 'Escape') return;
-		if (outcomesOpen) outcomesOpen = false;
-		else if (menuOpen) closeMenu();
+		if (outcomesOpen) {
+			outcomesOpen = false;
+			outcomesButtonEl?.focus();
+		} else if (menuOpen) {
+			closeMenu();
+			hamburgerEl?.focus();
+		}
 	}}
 	onclick={handleWindowClick}
 	onscroll={() => (scrolled = window.scrollY > 12)}
@@ -98,7 +54,12 @@
 <header class="site-header surface-glass" class:site-header--scrolled={scrolled}>
 	<nav class="content-width-wide site-nav" bind:this={navEl} aria-label="Primary">
 		<div class="nav-bar">
-			<a href={homeHref} class="logo-link brand-lockup" onclick={closeMenu}>
+			<a
+				href={homeHref}
+				class="logo-link brand-lockup"
+				onclick={closeMenu}
+				aria-label="DH & AI in African Studies"
+			>
 				<span class="brand-monogram" aria-hidden="true">
 					<span>DH</span><span class="brand-monogram__dot">·</span><span>AI</span>
 				</span>
@@ -108,6 +69,7 @@
 			<div class="nav-actions">
 				<ThemeToggle />
 				<button
+					bind:this={hamburgerEl}
 					type="button"
 					class="nav-hamburger"
 					aria-label="Toggle navigation menu"
@@ -135,11 +97,12 @@
 
 			<div class="nav-menu" class:nav-menu--open={menuOpen} id="site-nav-menu">
 				<ul class="nav-links">
-					{#each navLinks as link (link.label)}
-						{@const active = isGroupActive(link, activeUrl)}
+					{#each primaryNavigation as link (link.label)}
+						{@const active = isNavigationGroupActive(link, activeUrl)}
 						<li class="nav-item">
 							{#if link.children}
 								<button
+									bind:this={outcomesButtonEl}
 									type="button"
 									class="nav-link nav-link--group"
 									class:active
@@ -170,8 +133,10 @@
 											<a
 												href={child.href}
 												class="nav-sublink"
-												class:active={isActive(child.href, activeUrl)}
-												aria-current={isActive(child.href, activeUrl) ? 'page' : undefined}
+												class:active={isNavigationLinkActive(child.href, activeUrl)}
+												aria-current={isNavigationLinkActive(child.href, activeUrl)
+													? 'page'
+													: undefined}
 												onclick={closeMenu}
 											>
 												{child.label}
@@ -220,11 +185,6 @@
 
 	.site-nav {
 		padding-block: var(--space-sm);
-		transition: padding-block var(--transition-base);
-	}
-
-	.site-header--scrolled .site-nav {
-		padding-block: var(--space-2xs);
 	}
 
 	.brand-lockup {

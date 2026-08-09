@@ -109,13 +109,11 @@
 	.author-byline__marker::after {
 		content: '';
 		position: absolute;
-		inset: -0.6rem -0.25rem;
-	}
-
-	@media (pointer: coarse) {
-		.author-byline__marker::after {
-			inset: -0.9rem -0.5rem;
-		}
+		width: 2.75rem;
+		height: 2.75rem;
+		inset-inline-start: 50%;
+		inset-block-start: 50%;
+		transform: translate(-50%, -50%);
 	}
 
 	.author-byline__marker:hover {
@@ -139,7 +137,6 @@
 		color: var(--text-secondary);
 		background: var(--bg-raised);
 		border: 1px solid var(--border-subtle);
-		border-inline-start: 3px solid var(--accent);
 		border-radius: var(--radius-lg);
 		box-shadow: var(--shadow-xl);
 	}

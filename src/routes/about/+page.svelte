@@ -122,6 +122,8 @@
 							<img
 								src={resolveAssetPath(backgroundPhoto.thumbnail ?? backgroundPhoto.src)}
 								alt={backgroundPhoto.alt}
+								width={backgroundPhoto.width}
+								height={backgroundPhoto.height}
 								loading="lazy"
 								decoding="async"
 							/>
@@ -290,6 +292,7 @@
 <style>
 	.about-layout {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-xl);
 		align-items: start;
 	}
@@ -353,11 +356,11 @@
 		gap: var(--space-md);
 	}
 
-	/* 20px, not heading-md (up to 38px): the bio is the content, not the frame */
+	/* A restrained title step: the bio is the content, not the frame. */
 	.person-card__name {
 		font-family: var(--font-family-display);
 		font-weight: var(--font-weight-semibold);
-		font-size: 1.25rem;
+		font-size: var(--text-xl);
 		line-height: var(--leading-heading);
 		color: var(--text-primary);
 	}

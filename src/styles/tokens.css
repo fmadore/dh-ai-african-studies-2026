@@ -1,0 +1,342 @@
+/* ==========================================================================
+   DESIGN TOKENS (primitive layer)
+   Palette, type scale, spacing scale, radii, motion primitives.
+   Don't read these directly from components — prefer semantic tokens below.
+   ========================================================================== */
+@theme {
+	/* ---------- Brand palette ---------- */
+	--color-primary-50: #fff0ed;
+	--color-primary-100: #ffded8;
+	--color-primary-200: #ffc0b5;
+	--color-primary-300: #ff9480;
+	--color-primary-400: #ff5d42;
+	--color-primary-500: #e05d44;
+	--color-primary-600: #c23a24;
+	--color-primary-700: #a12b18;
+	--color-primary-800: #852516;
+	--color-primary-900: #6e2218;
+	--color-primary-950: #3b0e08;
+
+	--color-secondary-50: #f0fdfa;
+	--color-secondary-100: #ccfbf1;
+	--color-secondary-200: #99f6e4;
+	--color-secondary-300: #5eead4;
+	--color-secondary-400: #2dd4bf;
+	--color-secondary-500: #14b8a6;
+	--color-secondary-600: #0d9488;
+	--color-secondary-700: #0f766e;
+	--color-secondary-800: #115e59;
+	--color-secondary-900: #134e4a;
+	--color-secondary-950: #042f2e;
+
+	/* Warm neutral scale — used for surfaces and text */
+	--color-gray-50: #fbfaf9;
+	--color-gray-100: #f5f4f2;
+	--color-gray-200: #e8e6e3;
+	--color-gray-300: #d6d3ce;
+	--color-gray-400: #a8a29e;
+	/* Half-step between 400 and 500. Exists so dark mode has a "subtle" text
+	   tone that still clears WCAG AA on the near-black page background —
+	   gray-500 only reaches 4.08:1 there. */
+	--color-gray-450: #8d8681;
+	--color-gray-500: #78716c;
+	--color-gray-600: #57534e;
+	--color-gray-700: #44403c;
+	--color-gray-800: #292524;
+	--color-gray-900: #1c1917;
+	--color-gray-950: #0c0a09;
+
+	/* Status palette (used by semantic status tokens below) */
+	--color-warning-500: #d97706;
+	--color-warning-400: #f59e0b;
+	--color-warning-300: #fbbf24;
+	--color-warning-100: #fef3c7;
+	--color-warning-900: #78350f;
+	--color-error-500: #dc2626;
+	--color-error-400: #ef4444;
+	--color-error-300: #f87171;
+	--color-info-500: #2563eb;
+
+	/* ---------- Type system ---------- */
+	--font-family-display: 'Outfit Variable', system-ui, -apple-system, sans-serif;
+	--font-family-body: 'Plus Jakarta Sans Variable', system-ui, -apple-system, sans-serif;
+	/* Reading voice: running prose, ledes, bibliography, bios. Structural UI
+	   (nav, buttons, badges, facets, timetable metadata) stays on the body sans. */
+	--font-family-serif: 'Source Serif 4 Variable', Georgia, 'Times New Roman', serif;
+	--font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+	--font-weight-extrabold: 800;
+
+	/* Fluid modular scale, ratio ≈ 1.2 (minor third) → 1.25 (major third).
+	   The top two steps are deliberately tamer than a pure ratio would give:
+	   at 4rem/3.125rem the single h1 and the many h2s below it sat only 1.28
+	   apart, which reads as one size rather than a hierarchy. */
+	--text-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+	--text-sm: clamp(0.875rem, 0.84rem + 0.18vw, 0.9375rem);
+	--text-base: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+	--text-lg: clamp(1.125rem, 1.08rem + 0.25vw, 1.25rem);
+	--text-xl: clamp(1.25rem, 1.18rem + 0.4vw, 1.5rem);
+	--text-2xl: clamp(1.5rem, 1.38rem + 0.6vw, 1.875rem);
+	--text-3xl: clamp(1.875rem, 1.7rem + 0.9vw, 2.375rem);
+	--text-4xl: clamp(2rem, 1.8rem + 1vw, 2.5rem);
+	--text-5xl: clamp(2.5rem, 2.1rem + 1.6vw, 3.5rem);
+
+	--leading-tight: 1.1;
+	--leading-snug: 1.25;
+	--leading-normal: 1.5;
+	--leading-relaxed: 1.625;
+	--leading-body: 1.6;
+	--leading-heading: 1.15;
+	--leading-ui: 1.4;
+
+	--tracking-tight: -0.02em;
+	--tracking-normal: 0;
+	--tracking-wide: 0.025em;
+	--tracking-wider: 0.05em;
+
+	/* ---------- Fluid spacing (single scale) ---------- */
+	--space-3xs: clamp(0.25rem, 0.22rem + 0.12vw, 0.3125rem);
+	--space-2xs: clamp(0.375rem, 0.35rem + 0.15vw, 0.5rem);
+	--space-xs: clamp(0.5rem, 0.45rem + 0.25vw, 0.625rem);
+	--space-sm: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+	--space-md: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+	--space-lg: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+	--space-xl: clamp(1.5rem, 1.35rem + 0.6vw, 2rem);
+	--space-2xl: clamp(2rem, 1.8rem + 1vw, 2.5rem);
+	--space-3xl: clamp(2.5rem, 2.2rem + 1.5vw, 3.5rem);
+	--space-4xl: clamp(3rem, 2.5rem + 2.5vw, 4.5rem);
+	--space-5xl: clamp(4rem, 3.3rem + 3.5vw, 6rem);
+	--space-6xl: clamp(5rem, 4rem + 5vw, 8rem);
+
+	/* Match Tailwind numeric spacing to the fluid scale where we override */
+	--spacing-6: clamp(0.875rem, 0.8rem + 0.15vw, 1.125rem);
+	--spacing-8: clamp(1.25rem, 1.1rem + 0.35vw, 1.625rem);
+	--spacing-12: clamp(1.75rem, 1.55rem + 0.6vw, 2.25rem);
+	--spacing-16: clamp(2.125rem, 1.9rem + 0.8vw, 2.625rem);
+
+	/* ---------- Layout ---------- */
+	--container-xs: 20rem;
+	--container-sm: 24rem;
+	--container-md: 28rem;
+	--container-lg: 32rem;
+	--container-xl: 36rem;
+	--container-2xl: 42rem;
+	--container-3xl: 48rem;
+	--container-4xl: 56rem;
+	--container-5xl: 64rem;
+	--container-6xl: 72rem;
+	--container-7xl: 80rem;
+
+	/* 5-step radius scale. `full` for pills; `sm` for inputs; the rest tier cards. */
+	--radius-sm: 0.375rem;
+	--radius-md: 0.625rem;
+	--radius-lg: 0.875rem;
+	--radius-xl: 1.25rem;
+	--radius-2xl: 1.75rem;
+	--radius-full: 9999px;
+
+	/* ---------- Motion primitives ----------
+	 * Two families:
+	 *   • standard (ease-out) for entrances, hovers, layout
+	 *   • spring (back-out) reserved for playful confirmations
+	 * Durations are deliberately few — micro, base, slow.
+	 */
+	--duration-micro: 150ms;
+	--duration-base: 220ms;
+	--duration-slow: 360ms;
+	--ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+	--ease-emphasized: cubic-bezier(0.3, 0.9, 0.25, 1);
+	--ease-in: cubic-bezier(0.5, 0, 1, 1);
+
+	--transition-micro: var(--duration-micro) var(--ease-standard);
+	--transition-base: var(--duration-base) var(--ease-standard);
+	--transition-slow: var(--duration-slow) var(--ease-emphasized);
+
+	/* ---------- Z-index scale ---------- */
+	--z-base: 0;
+	--z-dropdown: 10;
+	--z-sticky: 20;
+	--z-overlay: 30;
+	--z-modal: 40;
+	--z-popover: 50;
+	--z-tooltip: 60;
+	--z-notification: 70;
+	--z-lightbox: 9999;
+}
+
+/* ==========================================================================
+   SEMANTIC TOKENS (the layer components should use)
+   These swap automatically between light and dark mode.
+   ========================================================================== */
+:root {
+	/* Text */
+	--text-primary: var(--color-gray-900);
+	--text-secondary: var(--color-gray-700);
+	--text-muted: var(--color-gray-600);
+	/* Not gray-500: #78716c on the page background is 4.52:1 — AA by two
+	   hundredths, and this tone carries 12–13px captions and credit lines. */
+	--text-subtle: var(--color-gray-600);
+	--text-disabled: var(--color-gray-400);
+	--text-inverse: var(--color-gray-50);
+	--text-on-accent: #ffffff;
+	--text-link: var(--color-secondary-700);
+	--text-link-hover: var(--color-secondary-800);
+	--text-accent: var(--color-secondary-700);
+
+	/* ---------- Surfaces: three explicit steps, no glass ----------
+	 * 1 = page, 2 = raised (cards, panels), 3 = sunken band, ink = dark band.
+	 * The old --bg-* names alias onto these so component styles keep working. */
+	--surface-1: var(--color-gray-50);
+	--surface-2: #ffffff;
+	--surface-3: var(--color-gray-100);
+	--surface-ink: var(--color-gray-900);
+
+	--bg-page: var(--surface-1);
+	--bg-raised: var(--surface-2);
+	--bg-sunken: var(--surface-3);
+	--bg-overlay: var(--color-gray-200);
+	/* Reserved for the sticky header and lightbox chrome — the only two
+	   surfaces that genuinely overlap scrolling content. */
+	--bg-glass: rgba(255, 255, 255, 0.82);
+	--bg-scrim: rgba(12, 10, 9, 0.72);
+	--bg-scrim-strong: rgba(12, 10, 9, 0.92);
+
+	/* ---------- Borders + shadows: warm tint ----------
+	 * The neutral ramp is stone-warm; borders and shadows are mixed from
+	 * gray-900 (#1c1917) so they agree with it. Slate rgba(15,23,42,…) made
+	 * every card read faintly grubby against a warm page. */
+	--shadow-tint: 28 25 23;
+	--border-subtle: color-mix(in oklab, var(--color-gray-900) 7%, transparent);
+	--border-default: color-mix(in oklab, var(--color-gray-900) 12%, transparent);
+	--border-strong: color-mix(in oklab, var(--color-gray-900) 20%, transparent);
+	--border-accent: rgba(13, 148, 136, 0.28);
+
+	/* ---------- Measure ----------
+	 * 68ch keeps running text inside the comfortable 45–75 character band even
+	 * when the container around it is 64–80rem wide for a grid's sake. */
+	--measure-prose: 68ch;
+	--measure-lede: 46ch;
+	--measure-caption: 42ch;
+
+	/* ---------- Section rhythm ---------- */
+	--section-gap-tight: var(--space-3xl);
+	--section-gap: var(--space-4xl);
+	--section-gap-loose: var(--space-5xl);
+
+	/* ---------- Layout chrome ---------- */
+	--header-height: 4.5rem;
+	--scroll-offset: calc(var(--header-height) + var(--space-md));
+
+	/* ---------- Semantic radii ----------
+	 * Controls < cards < panels. Panels stepped down from 28px: at 1280px wide
+	 * that radius reads as a consumer app card, not an academic surface. */
+	--radius-control: var(--radius-sm);
+	--radius-card: var(--radius-lg);
+	--radius-panel: var(--radius-xl);
+	--radius-pill: var(--radius-full);
+
+	/* Focus + selection — a real outline, in the interactive hue (teal) */
+	--focus-ring: var(--color-secondary-600);
+	--focus-ring-width: 3px;
+	--focus-ring-offset: 2px;
+	--selection-bg: rgba(13, 148, 136, 0.18);
+	--selection-fg: var(--color-secondary-900);
+
+	/* Accent token aliases (saves repeating var(--color-secondary-600) everywhere) */
+	--accent: var(--color-secondary-600);
+	--accent-muted: var(--color-secondary-500);
+	--accent-soft: var(--color-secondary-100);
+	--brand: var(--color-primary-600);
+	--brand-muted: var(--color-primary-500);
+	--brand-soft: var(--color-primary-50);
+
+	/* Semantic status — auto dark-mode via .dark override below */
+	--warning: var(--color-warning-500);
+	--warning-soft: var(--color-warning-100);
+	--warning-on-soft: var(--color-warning-900);
+	--danger: var(--color-error-500);
+	--danger-hover: #b91c1c;
+
+	/* Shadows — one set, warm-tinted and deliberately shallow. Depth on this
+	   site comes from surface steps and bands, not from lift. */
+	--shadow-xs: 0 1px 2px 0 rgb(var(--shadow-tint) / 0.06);
+	--shadow-sm:
+		0 1px 2px -1px rgb(var(--shadow-tint) / 0.08), 0 2px 6px -2px rgb(var(--shadow-tint) / 0.06);
+	--shadow-md:
+		0 4px 12px -4px rgb(var(--shadow-tint) / 0.1), 0 2px 4px -2px rgb(var(--shadow-tint) / 0.06);
+	--shadow-lg: 0 12px 28px -10px rgb(var(--shadow-tint) / 0.14);
+	--shadow-xl: 0 28px 60px -20px rgb(var(--shadow-tint) / 0.2);
+
+	/* Colored elevations (hover affordances) */
+	--shadow-accent: 0 10px 28px -10px rgba(13, 148, 136, 0.38);
+	--shadow-brand: 0 10px 28px -10px rgba(224, 93, 68, 0.4);
+	--glow-accent: 0 0 0 1px rgba(13, 148, 136, 0.18), 0 0 40px -12px rgba(13, 148, 136, 0.35);
+}
+
+.dark {
+	color-scheme: dark;
+
+	--text-primary: var(--color-gray-50);
+	--text-secondary: var(--color-gray-200);
+	--text-muted: var(--color-gray-400);
+	/* Not gray-500: on the dark page background that lands at 4.08:1, under
+	   the 4.5:1 AA floor for the small text these tones are used for. */
+	--text-subtle: var(--color-gray-450);
+	--text-disabled: var(--color-gray-600);
+	--text-inverse: var(--color-gray-900);
+	--text-on-accent: #ffffff;
+	--text-link: var(--color-secondary-300);
+	--text-link-hover: var(--color-secondary-200);
+	--text-accent: var(--color-secondary-300);
+
+	/* Wider steps than before (#0c/#14 was a 4/255 gap): a card must read as a
+	   card without relying on the 1px white ring baked into --shadow-sm. */
+	--surface-1: #0c0c0d;
+	--surface-2: #17171a;
+	--surface-3: #202024;
+	--surface-ink: #000000;
+
+	--bg-overlay: #1c1c1f;
+	--bg-glass: rgba(18, 18, 21, 0.76);
+	--bg-scrim: rgba(0, 0, 0, 0.75);
+	--bg-scrim-strong: rgba(0, 0, 0, 0.92);
+
+	--shadow-tint: 0 0 0;
+	--border-subtle: rgba(255, 255, 255, 0.08);
+	--border-default: rgba(255, 255, 255, 0.13);
+	--border-strong: rgba(255, 255, 255, 0.22);
+	--border-accent: rgba(45, 212, 191, 0.3);
+
+	--focus-ring: var(--color-secondary-300);
+	--selection-bg: rgba(45, 212, 191, 0.24);
+	--selection-fg: var(--color-secondary-50);
+
+	--accent: var(--color-secondary-400);
+	--accent-muted: var(--color-secondary-500);
+	--accent-soft: rgba(13, 148, 136, 0.16);
+	--brand: var(--color-primary-400);
+	--brand-muted: var(--color-primary-500);
+	--brand-soft: rgba(224, 93, 68, 0.14);
+
+	--warning: var(--color-warning-400);
+	--warning-soft: rgba(245, 158, 11, 0.15);
+	--warning-on-soft: var(--color-warning-300);
+	--danger: var(--color-error-400);
+	--danger-hover: var(--color-error-300);
+
+	/* No white hairline rings any more — the surface steps above carry the
+	   separation, so shadows only need to describe depth. */
+	--shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+	--shadow-sm: 0 1px 2px -1px rgba(0, 0, 0, 0.55), 0 2px 6px -2px rgba(0, 0, 0, 0.45);
+	--shadow-md: 0 6px 16px -6px rgba(0, 0, 0, 0.6), 0 2px 4px -2px rgba(0, 0, 0, 0.45);
+	--shadow-lg: 0 16px 36px -12px rgba(0, 0, 0, 0.65);
+	--shadow-xl: 0 32px 72px -20px rgba(0, 0, 0, 0.7);
+
+	--shadow-accent: 0 10px 36px -10px rgba(45, 212, 191, 0.32), 0 0 0 1px rgba(45, 212, 191, 0.12);
+	--shadow-brand: 0 10px 36px -10px rgba(224, 93, 68, 0.32), 0 0 0 1px rgba(224, 93, 68, 0.14);
+	--glow-accent: 0 0 0 1px rgba(45, 212, 191, 0.2), 0 0 48px -10px rgba(45, 212, 191, 0.4);
+}

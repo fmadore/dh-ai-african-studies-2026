@@ -88,7 +88,4 @@
 	.reader-masthead__meta dd {
 		margin: 0;
 	}
-	.reader-masthead__abstract {
-		border-inline-start: 3px solid var(--accent);
-	}
 </style>

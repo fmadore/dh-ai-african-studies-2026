@@ -96,17 +96,35 @@
 			// Add markers for each location
 			groups.forEach((participantsAtLocation, coordsKey) => {
 				const [lat, lng] = coordsKey.split(',').map(Number);
+				const affiliation = participantsAtLocation[0].affiliation;
+				const participantCount = participantsAtLocation.length;
+				const markerLabel = `Show ${participantCount} participant${participantCount === 1 ? '' : 's'} from ${affiliation}`;
 
-				// Custom marker icon
+				// The visual pin stays compact while its surrounding Leaflet icon offers a
+				// 44px target for touch and keyboard users.
 				const customIcon = L.divIcon({
 					className: 'custom-map-marker',
-					html: `<div class="marker-pin"></div>`,
-					iconSize: [30, 30],
-					iconAnchor: [15, 30],
-					popupAnchor: [0, -30]
+					html: '<span class="marker-hit-area"><span class="marker-pin"></span></span>',
+					iconSize: [44, 44],
+					iconAnchor: [22, 43],
+					popupAnchor: [0, -43]
 				});
 
-				const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map!);
+				const marker = L.marker([lat, lng], {
+					icon: customIcon,
+					keyboard: true,
+					title: markerLabel,
+					alt: markerLabel
+				});
+
+				marker.on('add', () => {
+					const element = marker.getElement();
+					element?.setAttribute('aria-label', markerLabel);
+					element?.setAttribute('title', markerLabel);
+					element?.setAttribute('role', 'button');
+				});
+
+				marker.addTo(map!);
 
 				// Create popup content with profile photos
 				const popupContent = `
@@ -123,6 +141,8 @@
 												? `<img
 											src="${escapeHtml(p.photoUrl)}"
 											alt="${escapeHtml(p.name)}"
+											width="40"
+											height="40"
 											class="popup-avatar"
 											loading="lazy"
 											onerror="this.style.display='none'"
@@ -151,7 +171,6 @@
 				});
 
 				if (onselectlocation) {
-					const affiliation = participantsAtLocation[0].affiliation;
 					marker.on('click', () => onselectlocation(affiliation));
 				}
 			});
@@ -214,6 +233,19 @@
 
 	:global(.leaflet-container) {
 		background: transparent !important;
+	}
+
+	/* Leaflet's translucent white attribution plate blends into dark map tiles,
+	   dropping its default blue links below AA contrast. Use the site's semantic
+	   surface and link tokens so the legal attribution remains readable in both
+	   themes. */
+	:global(.leaflet-control-attribution) {
+		background: var(--bg-raised) !important;
+		color: var(--text-muted);
+	}
+
+	:global(.leaflet-control-attribution a) {
+		color: var(--text-link);
 	}
 
 	:global(.participant-popup .leaflet-popup-content div::-webkit-scrollbar-track) {
@@ -314,6 +346,13 @@
 	:global(.custom-map-marker) {
 		background: transparent;
 		border: none;
+	}
+
+	:global(.marker-hit-area) {
+		display: block;
+		width: 44px;
+		height: 44px;
+		position: relative;
 	}
 
 	:global(.marker-pin) {

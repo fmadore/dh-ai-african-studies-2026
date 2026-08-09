@@ -76,6 +76,8 @@
 		position: sticky;
 		top: var(--scroll-offset);
 		z-index: var(--z-sticky);
+		min-width: 0;
+		width: 100%;
 	}
 
 	.section-nav__label {
@@ -94,6 +96,8 @@
 		list-style: none;
 		margin: 0;
 		padding: 0 0 var(--space-2xs);
+		min-width: 0;
+		max-width: 100%;
 		overflow-x: auto;
 		scrollbar-width: none;
 	}

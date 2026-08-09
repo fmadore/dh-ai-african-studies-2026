@@ -2,7 +2,13 @@
 	import { Input } from 'flowbite-svelte';
 	import { SearchOutline } from 'flowbite-svelte-icons';
 
-	let { value = $bindable(''), placeholder = 'Search...' } = $props();
+	let {
+		value = $bindable(''),
+		label = 'Search',
+		placeholder = 'Search...'
+	}: { value?: string; label?: string; placeholder?: string } = $props();
+
+	const inputId = $props.id();
 </script>
 
 {#snippet leftIcon()}
@@ -10,8 +16,11 @@
 {/snippet}
 
 <div class="search-filter mx-auto w-full max-w-md">
+	<label class="search-filter__label" for={inputId}>{label}</label>
 	<Input
 		bind:value
+		id={inputId}
+		type="search"
 		{placeholder}
 		size="lg"
 		class="search-filter__input py-3! pl-12! text-lg!"
@@ -31,5 +40,13 @@
 	.search-filter :global(.search-filter__input:focus-within) {
 		box-shadow: var(--shadow-accent);
 		border-color: var(--border-accent);
+	}
+
+	.search-filter__label {
+		display: block;
+		margin-bottom: var(--space-2xs);
+		color: var(--text-secondary);
+		font-size: var(--text-sm);
+		font-weight: var(--font-weight-semibold);
 	}
 </style>

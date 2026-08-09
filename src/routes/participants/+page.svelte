@@ -25,6 +25,18 @@
 		else expanded.add(name);
 	}
 
+	/** Keep ARIA ID references valid even when a name contains spaces or accents. */
+	function participantDetailId(name: string) {
+		const slug = name
+			.toLowerCase()
+			.normalize('NFKD')
+			.replace(/[\u0300-\u036f]/g, '')
+			.replace(/[^a-z0-9]+/g, '-')
+			.replace(/^-|-$/g, '');
+
+		return `participant-detail-${slug}`;
+	}
+
 	const viewTabs = [
 		{ id: 'all', label: 'All Participants', icon: UsersGroupOutline },
 		{ id: 'groups', label: 'By Thematic Group', icon: UsersGroupSolid }
@@ -117,7 +129,14 @@
 
 <section class="band-tight padding-inline-section" bind:this={directoryEl}>
 	<div class="content-width-wide">
-		<UrlTabs tabs={viewTabs} paramName="view" defaultTab="all" tabStyle="underline" class="mb-xl">
+		<UrlTabs
+			tabs={viewTabs}
+			paramName="view"
+			defaultTab="all"
+			tabStyle="underline"
+			activeClass="text-primary-700 border-primary-700 dark:text-primary-300 dark:border-primary-300"
+			class="mb-xl"
+		>
 			{#snippet children(activeTab)}
 				{#if activeTab === 'all'}
 					<h2 class="sr-only">All participants</h2>
@@ -125,6 +144,7 @@
 					<div class="directory-toolbar">
 						<SearchFilter
 							bind:value={searchQuery}
+							label="Search participants"
 							placeholder="Search by name, affiliation, or region..."
 						/>
 						<div class="directory-status">
@@ -150,13 +170,14 @@
 								{@const isOpen = expanded.has(participant.name)}
 								{@const hasDetail =
 									Boolean(participant.bio) || participant.researchRegions.length > 0}
+								{@const detailId = participantDetailId(participant.name)}
 								<li class="card-surface participant-card" class:is-open={isOpen}>
 									{#if hasDetail}
 										<button
 											type="button"
 											class="participant-card__trigger"
 											aria-expanded={isOpen}
-											aria-controls="detail-{participant.name}"
+											aria-controls={detailId}
 											onclick={() => toggleCard(participant.name)}
 										>
 											<ParticipantAvatar
@@ -195,8 +216,8 @@
 										</div>
 									{/if}
 
-									{#if hasDetail && isOpen}
-										<div class="participant-card__detail" id="detail-{participant.name}">
+									{#if hasDetail}
+										<div class="participant-card__detail" id={detailId} hidden={!isOpen}>
 											{#if participant.bio}
 												<p class="prose-serif-sm">{participant.bio}</p>
 											{/if}

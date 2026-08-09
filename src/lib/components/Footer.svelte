@@ -17,24 +17,32 @@
 			href: 'https://www.volkswagenstiftung.de/en',
 			src: resolveAssetPath('/images/logo/trimmed/vwst.webp'),
 			alt: 'Volkswagen Foundation',
+			width: 460,
+			heightPx: 89,
 			height: '1.4rem'
 		},
 		{
 			href: 'https://www.zmo.de/en',
 			src: resolveAssetPath('/images/logo/trimmed/zmo.webp'),
 			alt: 'Leibniz-Zentrum Moderner Orient',
+			width: 600,
+			heightPx: 520,
 			height: '2.5rem'
 		},
 		{
 			href: 'https://www.kcl.ac.uk/',
 			src: resolveAssetPath("/images/logo/King's_College_London_logo.svg"),
 			alt: "King's College London",
+			width: 923,
+			heightPx: 703,
 			height: '2.75rem'
 		},
 		{
 			href: 'https://www.africamultiple.uni-bayreuth.de/en/index.html',
 			src: resolveAssetPath('/images/logo/trimmed/africa-multiple.webp'),
 			alt: 'Africa Multiple Cluster of Excellence',
+			width: 600,
+			heightPx: 148,
 			height: '1.6rem'
 		}
 	];
@@ -90,7 +98,15 @@
 				{#each funders as funder (funder.href)}
 					<li>
 						<a href={funder.href} target="_blank" rel="noopener noreferrer" class="funder-link">
-							<img src={funder.src} alt={funder.alt} style="--mark-height: {funder.height}" />
+							<img
+								src={funder.src}
+								alt={funder.alt}
+								width={funder.width}
+								height={funder.heightPx}
+								loading="lazy"
+								decoding="async"
+								style="--mark-height: {funder.height}"
+							/>
 						</a>
 					</li>
 				{/each}

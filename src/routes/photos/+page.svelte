@@ -5,6 +5,7 @@
 	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
 	import { photoCategories, mediaCredit } from '$lib/data/photos';
 	import SeoHead from '$lib/components/SeoHead.svelte';
+	import PageHero from '$lib/components/PageHero.svelte';
 	import PhotoViewer from '$lib/components/PhotoViewer.svelte';
 
 	let { data } = $props();
@@ -44,21 +45,14 @@
 
 <SeoHead {seo} jsonLd={webPageJsonLd} />
 
-<!-- One compact row, then images. A centred glass panel with a 64px gradient
-     title used to push the first photograph below the fold. -->
-<section class="photos-head padding-inline-section">
-	<div class="content-width-wide photos-head__row">
-		<div>
-			<h1 class="heading-section">Photos</h1>
-			<p class="text-body-sm">
-				{photos.length} images from the workshop, 18–20 February 2026, Hanover. Photography by
-				<a href={mediaCredit.url} target="_blank" rel="noopener noreferrer" class="link-secondary"
-					>{mediaCredit.name}</a
-				>.
-			</p>
-		</div>
-	</div>
-</section>
+<PageHero title="Photos" width="wide" size="compact">
+	<p class="text-body-sm">
+		{photos.length} images from the workshop, 18–20 February 2026, Hanover. Photography by
+		<a href={mediaCredit.url} target="_blank" rel="noopener noreferrer" class="link-secondary"
+			>{mediaCredit.name}</a
+		>.
+	</p>
+</PageHero>
 
 <!-- Full bleed: photographs are the one thing on this site that should touch
      the edges of the viewport. -->
@@ -81,18 +75,6 @@
 </section>
 
 <style>
-	.photos-head {
-		padding-block: var(--space-xl) var(--space-md);
-	}
-
-	.photos-head__row {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: var(--space-sm);
-	}
-
 	.gallery {
 		padding-bottom: var(--space-3xl);
 	}

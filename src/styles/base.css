@@ -1,0 +1,81 @@
+/* ==========================================================================
+   BASE LAYER
+   ========================================================================== */
+@layer base {
+	:root {
+		color-scheme: light;
+		background-color: var(--bg-page);
+		color: var(--text-primary);
+	}
+
+	body {
+		font-family: var(--font-family-body);
+		line-height: var(--leading-body);
+		background-color: var(--bg-page);
+		color: var(--text-primary);
+		min-height: 100vh;
+		text-rendering: optimizeLegibility;
+		accent-color: var(--brand);
+	}
+
+	.dark body {
+		accent-color: var(--accent);
+	}
+
+	html {
+		/* Not global: a filter change that calls scrollIntoView() would animate
+		   a long, slow scroll. :focus-within limits smoothness to genuine
+		   anchor navigation, which is the only place it is wanted. */
+		scroll-behavior: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	html:focus-within {
+		scroll-behavior: smooth;
+	}
+
+	/* Anything that can be an anchor target clears the sticky header */
+	[id] {
+		scroll-margin-top: var(--scroll-offset);
+	}
+
+	/* A real outline, not a transparent outline plus a box-shadow: shadows are
+	   clipped by every `overflow: hidden` ancestor and are dropped entirely in
+	   forced-colors mode, where the transparent outline is then honoured. */
+	:focus-visible {
+		outline: var(--focus-ring-width) solid var(--focus-ring);
+		outline-offset: var(--focus-ring-offset);
+		box-shadow: none;
+	}
+
+	::selection,
+	::-moz-selection {
+		background-color: var(--selection-bg);
+		color: var(--selection-fg);
+	}
+
+	button,
+	[role='button'],
+	a,
+	[tabindex]:not([tabindex='-1']) {
+		cursor: pointer;
+		transition:
+			color var(--transition-micro),
+			background-color var(--transition-micro);
+	}
+
+	/* An explicit token, not compounded opacity: 0.55 on top of already-muted
+	   ink lands below the 3:1 floor for disabled-but-readable controls. */
+	:disabled,
+	[aria-disabled='true'] {
+		cursor: not-allowed;
+		color: var(--text-disabled);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html:focus-within {
+			scroll-behavior: auto !important;
+		}
+	}
+}

@@ -12,6 +12,7 @@
 		selectedTags: string[];
 		selectedLanguages: string[];
 		selectedSort: string;
+		idPrefix?: string;
 		showCloseButton?: boolean;
 		closeLabel?: string;
 		onclose?: () => void;
@@ -25,6 +26,7 @@
 		selectedTags = $bindable(),
 		selectedLanguages = $bindable(),
 		selectedSort = $bindable(),
+		idPrefix = 'reference-facets',
 		showCloseButton = false,
 		closeLabel = 'Close filters',
 		onclose
@@ -54,22 +56,59 @@
 		return Array.from(languages).sort();
 	});
 
-	let availableTags = $derived.by(() => {
-		const tags = new Set<string>(); // eslint-disable-line svelte/prefer-svelte-reactivity
+	let tagCounts = $derived.by(() => {
+		const counts: Record<string, number> = Object.create(null) as Record<string, number>;
 		references.forEach((r) => {
 			if (r.tags && Array.isArray(r.tags)) {
-				r.tags.forEach((t) => tags.add(t));
+				r.tags.forEach((tag) => (counts[tag] = (counts[tag] ?? 0) + 1));
 			}
 		});
-		return Array.from(tags).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+		return counts;
 	});
 
-	// Filtered keywords based on search
-	let filteredTags = $derived.by(() => {
-		if (!keywordSearch.trim()) return availableTags;
-		const search = keywordSearch.toLowerCase();
-		return availableTags.filter((tag) => tag.toLowerCase().includes(search));
+	let availableTags = $derived(
+		Object.keys(tagCounts).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+	);
+
+	const DEFAULT_TAG_LIMIT = 16;
+	const SEARCH_TAG_LIMIT = 24;
+
+	let matchingTags = $derived.by(() => {
+		const search = keywordSearch.trim().toLowerCase();
+		return search ? availableTags.filter((tag) => tag.toLowerCase().includes(search)) : [];
 	});
+
+	let popularTags = $derived(
+		[...availableTags]
+			.sort(
+				(a, b) =>
+					(tagCounts[b] ?? 0) - (tagCounts[a] ?? 0) ||
+					a.toLowerCase().localeCompare(b.toLowerCase())
+			)
+			.slice(0, DEFAULT_TAG_LIMIT)
+	);
+
+	/**
+	 * A checkbox for every one of the 944 keywords created a very large hidden
+	 * DOM tree on every route visit. Keep chosen keywords visible, then offer a
+	 * bounded useful starting set or a bounded type-ahead result set instead.
+	 */
+	let visibleTags = $derived.by(() => {
+		const candidates = keywordSearch.trim() ? matchingTags : popularTags;
+		const limit = keywordSearch.trim() ? SEARCH_TAG_LIMIT : DEFAULT_TAG_LIMIT;
+		const tags = [...selectedTags];
+
+		for (const tag of candidates) {
+			if (tags.length >= limit && !selectedTags.includes(tag)) break;
+			if (!tags.includes(tag)) tags.push(tag);
+		}
+
+		return tags;
+	});
+
+	let searchInputId = $derived(`${idPrefix}-search`);
+	let sortInputId = $derived(`${idPrefix}-sort`);
+	let keywordInputId = $derived(`${idPrefix}-keyword-search`);
 
 	let activeFiltersCount = $derived(
 		(searchQuery ? 1 : 0) +
@@ -126,12 +165,12 @@
 	<div class="space-y-5">
 		<!-- Search -->
 		<div class="space-y-2">
-			<Label for="search" class="facets-label">Search</Label>
+			<Label for={searchInputId} class="facets-label">Search</Label>
 			<div class="relative">
 				<SearchOutline class="text-subtle-ink absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
 				<input
-					id="search"
-					type="text"
+					id={searchInputId}
+					type="search"
 					placeholder="Title, author, keyword..."
 					bind:value={searchQuery}
 					class="facets-text-input w-full py-2.5 pr-4 pl-10 text-sm"
@@ -141,8 +180,8 @@
 
 		<!-- Sort -->
 		<div class="space-y-2">
-			<Label class="facets-label">Sort by</Label>
-			<Select items={sortOptions} bind:value={selectedSort} class="text-sm" />
+			<Label for={sortInputId} class="facets-label">Sort by</Label>
+			<Select id={sortInputId} items={sortOptions} bind:value={selectedSort} class="text-sm" />
 		</div>
 
 		<!-- Filter Sections -->
@@ -176,34 +215,50 @@
 					{/snippet}
 					<div class="space-y-3">
 						<!-- Keyword search -->
-						<div class="relative">
-							<SearchOutline
-								class="text-subtle-ink absolute top-1/2 left-2.5 h-3.5 w-3.5 -translate-y-1/2"
-							/>
-							<input
-								type="text"
-								placeholder="Filter keywords..."
-								bind:value={keywordSearch}
-								class="facets-text-input facets-text-input--sm w-full py-1.5 pr-3 pl-8 text-xs"
-							/>
+						<div class="space-y-1.5">
+							<Label for={keywordInputId} class="facets-keyword-label">Find a keyword</Label>
+							<div class="relative">
+								<SearchOutline
+									class="text-subtle-ink absolute top-1/2 left-2.5 h-3.5 w-3.5 -translate-y-1/2"
+								/>
+								<input
+									id={keywordInputId}
+									type="search"
+									placeholder="Search all keywords..."
+									bind:value={keywordSearch}
+									class="facets-text-input facets-text-input--sm w-full py-1.5 pr-3 pl-8 text-xs"
+								/>
+							</div>
 						</div>
 						<!-- Keywords list -->
 						<div class="custom-scrollbar max-h-52 space-y-1.5 overflow-y-auto pr-1">
-							{#each filteredTags as tag (tag)}
+							{#each visibleTags as tag (tag)}
 								<Checkbox color="teal" bind:group={selectedTags} value={tag}>
 									<span class="text-muted-ink truncate text-xs">{tag}</span>
 								</Checkbox>
 							{:else}
 								<p class="text-subtle-ink py-1 text-xs italic">
-									No keywords match "{keywordSearch}"
+									No keywords match "{keywordSearch.trim()}"
 								</p>
 							{/each}
 						</div>
-						{#if availableTags.length > 10}
-							<p class="text-subtle-ink text-xs">
-								{filteredTags.length} of {availableTags.length} keywords
-							</p>
-						{/if}
+						<p class="text-subtle-ink text-xs" aria-live="polite">
+							{#if keywordSearch.trim()}
+								{#if matchingTags.length > 0}
+									Showing {visibleTags.length} of {matchingTags.length} matching keywords. Refine the
+									search to narrow the list.
+								{:else}
+									No additional keywords match this search.
+								{/if}
+							{:else}
+								{#if selectedTags.length > 0}
+									Showing {visibleTags.length} selected and frequently used keywords.
+								{:else}
+									Showing the {Math.min(DEFAULT_TAG_LIMIT, availableTags.length)} most-used keywords.
+								{/if}
+								Search all {availableTags.length} keywords to find another.
+							{/if}
+						</p>
 					</div>
 				</AccordionItem>
 			{/if}
@@ -259,6 +314,13 @@
 		font-size: var(--text-sm);
 		font-weight: var(--font-weight-semibold);
 		color: var(--text-secondary);
+	}
+
+	:global(.facets-keyword-label) {
+		display: block;
+		font-size: var(--text-xs);
+		font-weight: var(--font-weight-medium);
+		color: var(--text-muted);
 	}
 
 	:global(.facets-count-pill) {

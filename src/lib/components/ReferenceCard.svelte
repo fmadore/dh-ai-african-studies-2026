@@ -16,6 +16,12 @@
 
 	let info = $derived(formatCitation(ref));
 	let accessLink = $derived(getAccessLink(ref));
+	const TAG_LIMIT = 6;
+	let tagsExpanded = $state(false);
+	let tags = $derived(ref.tags ?? []);
+	let visibleTags = $derived(tagsExpanded ? tags : tags.slice(0, TAG_LIMIT));
+	let hiddenTagCount = $derived(Math.max(0, tags.length - TAG_LIMIT));
+	const tagRegionId = $derived(`reference-tags-${ref.id}`);
 </script>
 
 <!--
@@ -75,10 +81,10 @@
 		{/if}
 
 		<!-- Tags & Actions -->
-		{#if (ref.tags && ref.tags.length > 0) || accessLink}
+		{#if tags.length > 0 || accessLink}
 			<div class="reference-card__foot">
-				<div class="flex flex-wrap gap-2">
-					{#each ref.tags ?? [] as tag (tag)}
+				<div id={tagRegionId} class="flex flex-wrap gap-2">
+					{#each visibleTags as tag (tag)}
 						<button
 							type="button"
 							onclick={() => ontoggletag(tag)}
@@ -89,6 +95,17 @@
 							#{tag}
 						</button>
 					{/each}
+					{#if hiddenTagCount > 0}
+						<button
+							type="button"
+							class="tag-overflow tap-target-compact"
+							aria-expanded={tagsExpanded}
+							aria-controls={tagRegionId}
+							onclick={() => (tagsExpanded = !tagsExpanded)}
+						>
+							{tagsExpanded ? 'Show fewer keywords' : `+${hiddenTagCount} more keywords`}
+						</button>
+					{/if}
 				</div>
 
 				{#if accessLink}
@@ -236,6 +253,25 @@
 		background-color: var(--accent-soft);
 		border-color: var(--border-accent);
 		color: var(--text-link);
+	}
+
+	.tag-overflow {
+		padding-inline: var(--space-xs);
+		border: 1px dashed var(--border-strong);
+		border-radius: var(--radius-control);
+		background: transparent;
+		color: var(--text-link);
+		font-size: var(--text-xs);
+		font-weight: var(--font-weight-semibold);
+		cursor: pointer;
+		transition:
+			border-color var(--transition-micro),
+			color var(--transition-micro);
+	}
+
+	.tag-overflow:hover {
+		border-color: var(--border-accent);
+		color: var(--text-link-hover);
 	}
 
 	.reference-card__access {

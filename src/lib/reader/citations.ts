@@ -286,7 +286,13 @@ function findSpans(
 
 			const found = findEntry(entries, resolvedNames, year, part.trim());
 			if (!found) {
-				issues.push({ text: part.trim(), reason: 'no-match' });
+				// A parenthesised year with no explicit or nearby matching author is
+				// usually a publication date ("the project (2025)"), not a broken
+				// citation. Leave it as prose without turning an intentional refusal
+				// to guess into a noisy build warning.
+				if (names.length > 0 || resolvedNames.length > 0) {
+					issues.push({ text: part.trim(), reason: 'no-match' });
+				}
 				continue;
 			}
 			if (found.issue) issues.push(found.issue);

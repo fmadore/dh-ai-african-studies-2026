@@ -58,7 +58,22 @@
 	let selectedLanguages = $state<string[]>([]);
 	let selectedSort = $state('newest');
 	let showMobileFilters = $state(false);
+	let isDesktop = $state(false);
 	let expandedReferences = new SvelteSet<string>();
+
+	// Only one facets tree exists at a time. The previous CSS-hidden desktop
+	// sidebar still mounted 900+ keyword controls on mobile.
+	onMount(() => {
+		const desktopQuery = window.matchMedia('(min-width: 1024px)');
+		const syncViewport = () => {
+			isDesktop = desktopQuery.matches;
+			if (isDesktop) showMobileFilters = false;
+		};
+
+		syncViewport();
+		desktopQuery.addEventListener('change', syncViewport);
+		return () => desktopQuery.removeEventListener('change', syncViewport);
+	});
 
 	/**
 	 * Pagination. For a bibliography the browser's own find-in-page is often the
@@ -198,27 +213,54 @@
 
 <section class="band-tight padding-inline-section">
 	<div class="content-width-wide">
-		<div class="lg:hidden">
-			<Button
-				color="light"
-				onclick={toggleMobileFilters}
-				class="w-full items-center justify-between text-left"
-				aria-expanded={showMobileFilters}
-			>
-				<span class="flex items-center gap-2 font-semibold">
-					<FilterOutline class="h-4 w-4" />
-					Filters
-				</span>
-				<span class="flex items-center gap-1 text-xs font-medium">
-					{#if activeFiltersCount > 0}
-						<span class="filter-count">{activeFiltersCount}</span>
-					{/if}
-					<span>{showMobileFilters ? 'Hide' : 'Show'}</span>
-				</span>
-			</Button>
+		{#if !isDesktop}
+			<div>
+				<Button
+					color="light"
+					onclick={toggleMobileFilters}
+					class="w-full items-center justify-between text-left"
+					aria-expanded={showMobileFilters}
+					aria-controls={showMobileFilters ? 'reference-filters' : undefined}
+				>
+					<span class="flex items-center gap-2 font-semibold">
+						<FilterOutline class="h-4 w-4" />
+						Filters
+					</span>
+					<span class="flex items-center gap-1 text-xs font-medium">
+						{#if activeFiltersCount > 0}
+							<span class="filter-count">{activeFiltersCount}</span>
+						{/if}
+						<span>{showMobileFilters ? 'Hide' : 'Show'}</span>
+					</span>
+				</Button>
 
-			{#if showMobileFilters}
-				<div class="mt-4" in:slide={{ duration: 200 }} out:fade={{ duration: 150 }}>
+				{#if showMobileFilters}
+					<div
+						id="reference-filters"
+						class="mt-4"
+						in:slide={{ duration: 200 }}
+						out:fade={{ duration: 150 }}
+					>
+						<ReferenceFacets
+							{references}
+							bind:searchQuery
+							bind:selectedTypes
+							bind:selectedYears
+							bind:selectedTags
+							bind:selectedLanguages
+							bind:selectedSort
+							showCloseButton
+							onclose={() => (showMobileFilters = false)}
+						/>
+					</div>
+				{/if}
+			</div>
+		{/if}
+
+		<div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
+			<!-- Sidebar / Facets -->
+			{#if isDesktop}
+				<aside class="reference-sidebar lg:col-span-3">
 					<ReferenceFacets
 						{references}
 						bind:searchQuery
@@ -227,26 +269,9 @@
 						bind:selectedTags
 						bind:selectedLanguages
 						bind:selectedSort
-						showCloseButton
-						onclose={() => (showMobileFilters = false)}
 					/>
-				</div>
+				</aside>
 			{/if}
-		</div>
-
-		<div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
-			<!-- Sidebar / Facets -->
-			<aside class="reference-sidebar hidden lg:col-span-3 lg:block">
-				<ReferenceFacets
-					{references}
-					bind:searchQuery
-					bind:selectedTypes
-					bind:selectedYears
-					bind:selectedTags
-					bind:selectedLanguages
-					bind:selectedSort
-				/>
-			</aside>
 
 			<!-- Main Content -->
 			<div class="stack-md lg:col-span-9">
@@ -306,7 +331,11 @@
 
 				<div class="stack-md" bind:this={resultsEl}>
 					{#each pagedReferences as ref (ref.id)}
-						<div in:slide|local={{ duration: 200 }} out:fade|local={{ duration: 150 }}>
+						<div
+							class:reference-result={pageSize === 0}
+							in:slide|local={{ duration: 200 }}
+							out:fade|local={{ duration: 150 }}
+						>
 							<ReferenceCard
 								reference={ref}
 								{selectedTags}
@@ -377,7 +406,8 @@
 	}
 
 	.page-size__option {
-		min-width: 2.25rem;
+		min-width: 2.75rem;
+		min-height: 2.75rem;
 		padding: var(--space-3xs) var(--space-2xs);
 		border-radius: var(--radius-control);
 		border: 1px solid transparent;
@@ -399,6 +429,13 @@
 		background-color: var(--accent-soft);
 		border-color: var(--border-accent);
 		color: var(--text-link);
+	}
+
+	/* "All" is deliberate, but a long bibliography should not continuously lay
+	 * out and paint cards that remain far below the viewport. */
+	.reference-result {
+		content-visibility: auto;
+		contain-intrinsic-size: auto 22rem;
 	}
 
 	.active-filters {
@@ -437,8 +474,8 @@
 
 	@media (pointer: coarse) {
 		.filter-chip button {
-			width: 2.25rem;
-			height: 2.25rem;
+			width: 2.75rem;
+			height: 2.75rem;
 		}
 	}
 

@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { Avatar } from 'flowbite-svelte';
-
 	interface Props {
 		src?: string;
 		alt: string;
@@ -23,17 +21,47 @@
 	<img
 		{src}
 		{alt}
+		width="112"
+		height="112"
 		loading="lazy"
 		decoding="async"
 		class="{sizeClasses[size]} participant-avatar rounded-full object-cover"
 	/>
 {:else}
-	<Avatar {alt} class="{sizeClasses[size]} participant-avatar object-cover" />
+	<!-- The person’s name is already adjacent to every avatar use. Keep this
+	     fallback decorative rather than nesting Flowbite’s role="button" inside
+	     a participant disclosure button. -->
+	<div
+		class="{sizeClasses[size]} participant-avatar participant-avatar--fallback"
+		aria-hidden="true"
+	>
+		<svg viewBox="0 0 16 16" fill="currentColor">
+			<path
+				fill-rule="evenodd"
+				d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-7 7a7 7 0 0 1 14 0H1Z"
+				clip-rule="evenodd"
+			/>
+		</svg>
+	</div>
 {/if}
 
 <style>
 	:global(.participant-avatar) {
 		flex-shrink: 0;
 		box-shadow: 0 0 0 1px var(--border-default);
+	}
+
+	.participant-avatar--fallback {
+		display: grid;
+		place-items: center;
+		padding: 22%;
+		border-radius: var(--radius-full);
+		background: var(--bg-sunken);
+		color: var(--text-subtle);
+	}
+
+	.participant-avatar--fallback svg {
+		width: 100%;
+		height: 100%;
 	}
 </style>

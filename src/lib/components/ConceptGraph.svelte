@@ -9,8 +9,7 @@
 		GROUP_COLORS,
 		ALL_GROUPS,
 		getNodeRadius,
-		LABEL_COLOR,
-		EDGE_COLOR
+		LABEL_COLOR
 	} from './concept-graph/graph-config';
 	import { Spinner } from 'flowbite-svelte';
 	import {
@@ -23,15 +22,27 @@
 	import GraphSearch from './concept-graph/GraphSearch.svelte';
 	import GraphDetailPanel from './concept-graph/GraphDetailPanel.svelte';
 	import GraphFilters from './concept-graph/GraphFilters.svelte';
+	import { nextGraphNode, type GraphNavigationKey } from './concept-graph/graph-navigation';
+	import { GraphRenderer, type ResolvedGraphEdge } from './concept-graph/graph-renderer';
+	import type { D3DragEvent } from 'd3-drag';
+	import type { Selection } from 'd3-selection';
+	import type { D3ZoomEvent, ZoomBehavior } from 'd3-zoom';
 
 	interface Props {
 		data: ConceptGraphData;
 	}
 
 	let { data }: Props = $props();
+	const graphInstructionsId = $props.id();
 
-	/** An edge after d3-force has resolved its string ids to node objects. */
-	type ResolvedEdge = { s: ConceptNode; t: ConceptNode };
+	type GraphDragSubject = { x?: number; y?: number };
+	type GraphTransition = {
+		duration: (_milliseconds: number) => GraphTransition;
+		call: (_callback: unknown, ..._args: unknown[]) => GraphTransition;
+	};
+	type GraphSelection = Selection<SVGSVGElement, unknown, null, undefined> & {
+		transition: () => GraphTransition;
+	};
 
 	// The stage is dark in both themes, so the palette is fixed rather than
 	// following the page theme — see graph-config.ts.
@@ -60,20 +71,22 @@
 	let activeGroups = $state.raw<Set<ConceptGroup>>(new Set(ALL_GROUPS));
 	let simulationReady = $state(false);
 	let isFullscreen = $state(false);
+	let prefersReducedMotion = $state(false);
+	let focusedNodeId = $state<string | null>(null);
 
 	// --- Tooltip state ---
 	let tooltipX = $state(0);
 	let tooltipY = $state(0);
 
-	// The zoom transform is written straight to the DOM each frame, so it is
-	// deliberately not reactive: held in `$state` it re-evaluated every node and
-	// label expression in the template on every single wheel event.
-	const view = { x: 0, y: 0, k: 1 };
+	// The renderer owns DOM writes and the non-reactive view transform, keeping
+	// high-frequency D3 ticks out of Svelte's reactive graph.
+	const graphRenderer = new GraphRenderer({ getNodeRadius });
+	const view = graphRenderer.view;
 
 	// Track references for programmatic control
-	let zoomBehaviorRef: any = null;
-	let svgSelectionRef: any = null;
-	let d3ZoomModuleRef: any = null;
+	let zoomBehaviorRef: ZoomBehavior<SVGSVGElement, unknown> | null = null;
+	let svgSelectionRef: GraphSelection | null = null;
+	let d3ZoomModuleRef: typeof import('d3-zoom') | null = null;
 	let applyDragRef: (() => void) | null = null;
 
 	// --- Adjacency, built once from the source data ---
@@ -100,9 +113,18 @@
 	// user toggles a group filter.
 	let filteredNodes = $derived(simNodes.filter((n) => activeGroups.has(n.group)));
 	let filteredNodeIds = $derived(new Set(filteredNodes.map((n) => n.id)));
+
+	$effect(() => {
+		const nodes = filteredNodes;
+		if (nodes.length === 0) {
+			focusedNodeId = null;
+		} else if (!focusedNodeId || !nodes.some((node) => node.id === focusedNodeId)) {
+			focusedNodeId = nodes[0].id;
+		}
+	});
 	let filteredEdges = $derived.by(() => {
 		const ids = filteredNodeIds;
-		const out: ResolvedEdge[] = [];
+		const out: ResolvedGraphEdge[] = [];
 		for (const e of simEdges) {
 			const s = e.source;
 			const t = e.target;
@@ -127,191 +149,53 @@
 		return [...new Set(adjacency.get(selectedNode.id) ?? [])].sort();
 	});
 
-	// ---------------------------------------------------------------------------
-	// Imperative render layer
-	//
-	// Edges go to a <canvas>: there are over a thousand of them, they carry no
-	// pointer events, no focus and no aria, and as SVG they were ~80% of the
-	// element count and the bulk of every repaint. Nodes and labels stay in the SVG so
-	// each one keeps its role, tabindex, aria-label, keyboard focus and drag.
-	//
-	// `paint` mirrors everything the renderer needs out of Svelte's reactive
-	// graph, so render() reads no reactive state at all — a simulation tick or a
-	// wheel event can never invalidate a component expression.
-	// ---------------------------------------------------------------------------
-	const paint: {
-		nodes: ConceptNode[];
-		edges: ResolvedEdge[];
-		spot: ConceptNode | null;
-		spotIds: Set<string> | null;
-	} = { nodes: [], edges: [], spot: null, spotIds: null };
-
-	let nodeEls: SVGGElement[] = [];
-	let labelEls: SVGTextElement[] = [];
-	let canvasCtx: CanvasRenderingContext2D | null = null;
-	let canvasDpr = 1;
-	let canvasW = 0;
-	let canvasH = 0;
-
-	let frame = 0;
-	let positionsDirty = true;
-
-	function scheduleRender(movedNodes = false) {
-		if (movedNodes) positionsDirty = true;
-		// A hidden tab never fires rAF, which would leave the graph blank until it
-		// is focused. There is no frame to coalesce into there, so paint now.
-		if (typeof document !== 'undefined' && document.hidden) {
-			render();
-			return;
-		}
-		if (frame) return;
-		frame = requestAnimationFrame(() => {
-			frame = 0;
-			render();
-		});
-	}
-
-	function render() {
-		viewportEl?.setAttribute('transform', `translate(${view.x},${view.y}) scale(${view.k})`);
-		drawEdges();
-		layoutNodes();
-		positionsDirty = false;
-	}
-
-	/** Every edge in three batched strokes — one per spotlight state. */
-	function drawEdges() {
-		const ctx = canvasCtx;
-		if (!ctx) return;
-
-		ctx.setTransform(canvasDpr, 0, 0, canvasDpr, 0, 0);
-		ctx.clearRect(0, 0, canvasW, canvasH);
-		ctx.translate(view.x, view.y);
-		ctx.scale(view.k, view.k);
-		// Line widths are set inside the scaled space so they thicken with zoom,
-		// matching what the SVG <g> used to do.
-		ctx.strokeStyle = EDGE_COLOR;
-		ctx.lineCap = 'round';
-
-		const { edges, spot } = paint;
-		const spotId = spot?.id;
-
-		// One path per spotlight state, so the whole edge set costs at most two strokes.
-		ctx.globalAlpha = spotId ? 0.07 : 0.38;
-		ctx.lineWidth = 0.7;
-		ctx.beginPath();
-		for (let i = 0; i < edges.length; i++) {
-			const { s, t } = edges[i];
-			if (spotId && (s.id === spotId || t.id === spotId)) continue;
-			ctx.moveTo(s.x ?? 0, s.y ?? 0);
-			ctx.lineTo(t.x ?? 0, t.y ?? 0);
-		}
-		ctx.stroke();
-
-		if (spotId) {
-			ctx.globalAlpha = 0.7;
-			ctx.lineWidth = 1.5;
-			ctx.beginPath();
-			for (let i = 0; i < edges.length; i++) {
-				const { s, t } = edges[i];
-				if (s.id !== spotId && t.id !== spotId) continue;
-				ctx.moveTo(s.x ?? 0, s.y ?? 0);
-				ctx.lineTo(t.x ?? 0, t.y ?? 0);
-			}
-			ctx.stroke();
-		}
-
-		ctx.globalAlpha = 1;
-	}
-
-	function labelVisible(node: ConceptNode): boolean {
-		if (paint.spot && paint.spotIds?.has(node.id)) return true;
-		if (view.k >= 2.5) return true;
-		if (view.k >= 1.5 && node.degree >= 10) return true;
-		return node.degree >= 15;
-	}
-
-	function layoutNodes() {
-		const { nodes, spot, spotIds } = paint;
-		for (let i = 0; i < nodes.length; i++) {
-			const node = nodes[i];
-			const g = nodeEls[i];
-			if (!g) continue;
-
-			const x = node.x ?? 0;
-			const y = node.y ?? 0;
-			if (positionsDirty) g.setAttribute('transform', `translate(${x},${y})`);
-
-			const alpha = !spot || spotIds?.has(node.id) ? '' : '0.12';
-			if (g.style.opacity !== alpha) g.style.opacity = alpha;
-
-			const label = labelEls[i];
-			if (!label) continue;
-
-			if (labelVisible(node)) {
-				const wasHidden = label.style.display === 'none';
-				if (wasHidden) label.style.display = '';
-				// Hidden labels are not kept up to date, so one revealed by a zoom
-				// or a spotlight must be placed even when nothing has moved —
-				// otherwise it lands at the origin.
-				if (positionsDirty || wasHidden) {
-					label.setAttribute('x', String(x));
-					label.setAttribute('y', String(y - getNodeRadius(node.degree) - 5));
-				}
-				const focused = spot?.id === node.id;
-				const size = focused ? '12' : '10';
-				const weight = focused ? '600' : '400';
-				if (label.getAttribute('font-size') !== size) label.setAttribute('font-size', size);
-				if (label.getAttribute('font-weight') !== weight) label.setAttribute('font-weight', weight);
-				if (label.style.opacity !== alpha) label.style.opacity = alpha;
-			} else if (label.style.display !== 'none') {
-				label.style.display = 'none';
-			}
-		}
-	}
-
-	// Mirror reactive state into `paint`, then repaint. This is the only bridge
-	// between Svelte and the renderer.
+	// Mirror reactive state into the renderer. It is the only bridge between
+	// Svelte state and the imperative canvas/SVG paint loop.
 	$effect(() => {
-		paint.nodes = filteredNodes;
-		paint.edges = filteredEdges;
-		paint.spot = spotlightNode;
-		paint.spotIds = spotlightNeighborIds;
-		scheduleRender();
+		graphRenderer.setPaint({
+			nodes: filteredNodes,
+			edges: filteredEdges,
+			spot: spotlightNode,
+			spotIds: spotlightNeighborIds
+		});
 	});
 
-	// Re-cache element references whenever the node elements are recreated, which
-	// now happens only on a group-filter toggle. querySelectorAll returns
-	// document order, so both lists stay index-aligned with `filteredNodes`.
+	$effect(() => {
+		graphRenderer.setViewport(viewportEl);
+	});
+
+	// Re-cache element references whenever nodes are recreated by a filter toggle.
 	$effect(() => {
 		const expected = filteredNodes.length;
 		if (!svgEl || expected === 0) return;
-		nodeEls = Array.from(svgEl.querySelectorAll<SVGGElement>('.node-group'));
-		labelEls = Array.from(svgEl.querySelectorAll<SVGTextElement>('.node-label'));
+		graphRenderer.setNodeElements(
+			Array.from(svgEl.querySelectorAll<SVGGElement>('.node-group')),
+			Array.from(svgEl.querySelectorAll<SVGTextElement>('.node-label'))
+		);
 		applyDragRef?.();
-		scheduleRender(true);
 	});
 
 	// --- Canvas backing store ---
 	$effect(() => {
-		const w = containerWidth;
-		const h = containerHeight;
 		if (!canvasEl) return;
-		const dpr = window.devicePixelRatio || 1;
-		canvasEl.width = Math.round(w * dpr);
-		canvasEl.height = Math.round(h * dpr);
-		canvasEl.style.width = `${w}px`;
-		canvasEl.style.height = `${h}px`;
-		canvasCtx = canvasEl.getContext('2d');
-		canvasDpr = dpr;
-		canvasW = w;
-		canvasH = h;
-		scheduleRender();
+		graphRenderer.setCanvas(canvasEl);
+		graphRenderer.resize(containerWidth, containerHeight);
 	});
 
-	$effect(() => () => {
-		if (frame) cancelAnimationFrame(frame);
-		frame = 0;
+	$effect(() => () => graphRenderer.destroy());
+
+	$effect(() => {
+		if (typeof window === 'undefined') return;
+		const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const syncPreference = () => (prefersReducedMotion = query.matches);
+		syncPreference();
+		query.addEventListener('change', syncPreference);
+		return () => query.removeEventListener('change', syncPreference);
 	});
+
+	function motionDuration(duration: number) {
+		return prefersReducedMotion ? 0 : duration;
+	}
 
 	// --- Zoom to node (called by search) ---
 	function zoomToNode(node: ConceptNode) {
@@ -323,9 +207,10 @@
 		const ty = containerHeight / 2 - ny * scale;
 		svgSelectionRef
 			.transition()
-			.duration(500)
+			.duration(motionDuration(500))
 			.call(zoomBehaviorRef.transform, d3ZoomModuleRef.zoomIdentity.translate(tx, ty).scale(scale));
 		selectedNode = node;
+		focusGraphNode(node);
 	}
 
 	// --- Tooltip positioning ---
@@ -406,7 +291,7 @@
 
 			simulation.on('end', () => {
 				simulationReady = true;
-				scheduleRender(true);
+				graphRenderer.scheduleRender(true);
 			});
 
 			setTimeout(() => {
@@ -418,20 +303,23 @@
 			const zoomBehavior = d3Zoom
 				.zoom<SVGSVGElement, unknown>()
 				.scaleExtent([0.3, 5])
-				.filter((event: any) => {
-					if (event.type === 'wheel') return event.ctrlKey || event.metaKey;
+				.filter((event: Event) => {
+					if (event.type === 'wheel') {
+						const wheelEvent = event as WheelEvent;
+						return wheelEvent.ctrlKey || wheelEvent.metaKey;
+					}
 					return true;
 				})
-				.on('zoom', (event: any) => {
+				.on('zoom', (event: D3ZoomEvent<SVGSVGElement, unknown>) => {
 					view.x = event.transform.x;
 					view.y = event.transform.y;
 					view.k = event.transform.k;
-					scheduleRender();
+					graphRenderer.scheduleRender();
 				});
 
-			svg.call(zoomBehavior as any);
+			svg.call(zoomBehavior);
 			zoomBehaviorRef = zoomBehavior;
-			svgSelectionRef = svg;
+			svgSelectionRef = svg as GraphSelection;
 			d3ZoomModuleRef = d3Zoom;
 
 			// --- d3-drag on nodes ---
@@ -441,12 +329,12 @@
 			}
 
 			const dragBehavior = d3Drag
-				.drag<SVGGElement, unknown>()
+				.drag<SVGGElement, unknown, GraphDragSubject>()
 				.subject(function () {
 					const node = findNode(this);
 					return node ? { x: node.x, y: node.y } : { x: 0, y: 0 };
 				})
-				.on('start', function (event: any) {
+				.on('start', function (event: D3DragEvent<SVGGElement, unknown, GraphDragSubject>) {
 					const node = findNode(this);
 					if (!node) return;
 					if (!event.active) simulation.alphaTarget(0.3).restart();
@@ -454,13 +342,13 @@
 					node.fy = node.y;
 					draggedNode = node;
 				})
-				.on('drag', function (event: any) {
+				.on('drag', function (event: D3DragEvent<SVGGElement, unknown, GraphDragSubject>) {
 					const node = findNode(this);
 					if (!node) return;
 					node.fx = event.x;
 					node.fy = event.y;
 				})
-				.on('end', function (event: any) {
+				.on('end', function (event: D3DragEvent<SVGGElement, unknown, GraphDragSubject>) {
 					const node = findNode(this);
 					if (!node) return;
 					if (!event.active) simulation.alphaTarget(0);
@@ -476,7 +364,7 @@
 
 			// A tick only moves nodes; it never changes which nodes or edges exist.
 			// So it schedules a repaint rather than touching reactive state.
-			simulation.on('tick', () => scheduleRender(true));
+			simulation.on('tick', () => graphRenderer.scheduleRender(true));
 
 			// Assigned once. `$state.raw` means d3's in-place writes to x/y on these
 			// very objects stay invisible to Svelte.
@@ -501,7 +389,7 @@
 	});
 
 	// --- Click handling ---
-	function onNodeClick(event: MouseEvent, node: ConceptNode) {
+	function onNodeClick(event: MouseEvent | KeyboardEvent, node: ConceptNode) {
 		event.stopPropagation();
 		selectedNode = selectedNode?.id === node.id ? null : node;
 	}
@@ -528,14 +416,14 @@
 	// --- Zoom controls ---
 	function zoomIn() {
 		if (!zoomBehaviorRef || !svgSelectionRef) return;
-		svgSelectionRef.transition().duration(300).call(zoomBehaviorRef.scaleBy, 1.5);
+		svgSelectionRef.transition().duration(motionDuration(300)).call(zoomBehaviorRef.scaleBy, 1.5);
 	}
 
 	function zoomOut() {
 		if (!zoomBehaviorRef || !svgSelectionRef) return;
 		svgSelectionRef
 			.transition()
-			.duration(300)
+			.duration(motionDuration(300))
 			.call(zoomBehaviorRef.scaleBy, 1 / 1.5);
 	}
 
@@ -543,7 +431,7 @@
 		if (!zoomBehaviorRef || !svgSelectionRef || !d3ZoomModuleRef) return;
 		svgSelectionRef
 			.transition()
-			.duration(400)
+			.duration(motionDuration(400))
 			.call(zoomBehaviorRef.transform, d3ZoomModuleRef.zoomIdentity);
 	}
 
@@ -585,10 +473,41 @@
 
 	// --- Keyboard focus spotlight (parity with pointer hover) ---
 	function onNodeFocus(node: ConceptNode) {
+		focusedNodeId = node.id;
 		hoveredNode = node;
 		// Position the tooltip at the node itself (no pointer coords on focus)
 		tooltipX = (node.x ?? 0) * view.k + view.x;
 		tooltipY = (node.y ?? 0) * view.k + view.y;
+	}
+
+	function focusGraphNode(node: ConceptNode) {
+		focusedNodeId = node.id;
+		requestAnimationFrame(() => {
+			graphRenderer.focusNode(node.id);
+		});
+	}
+
+	function onNodeKeydown(event: KeyboardEvent, node: ConceptNode) {
+		if (event.key === 'Enter' || event.key === ' ') {
+			event.preventDefault();
+			onNodeClick(event, node);
+			return;
+		}
+
+		if (
+			event.key !== 'ArrowUp' &&
+			event.key !== 'ArrowDown' &&
+			event.key !== 'ArrowLeft' &&
+			event.key !== 'ArrowRight' &&
+			event.key !== 'Home' &&
+			event.key !== 'End'
+		) {
+			return;
+		}
+
+		event.preventDefault();
+		const next = nextGraphNode(filteredNodes, node.id, event.key as GraphNavigationKey);
+		if (next) focusGraphNode(next);
 	}
 </script>
 
@@ -618,6 +537,9 @@
 
 	<!-- Graph canvas -->
 	<div class="graph-canvas card-surface" class:has-selection={selectedNode !== null}>
+		<p id={graphInstructionsId} class="sr-only">
+			Use the arrow keys to move between concepts. Press Enter or Space to show a concept's details.
+		</p>
 		{#if !simulationReady}
 			<div class="loading-overlay">
 				<Spinner size="8" color="teal" />
@@ -637,8 +559,9 @@
 			height={containerHeight}
 			viewBox="0 0 {containerWidth} {containerHeight}"
 			class="graph-svg"
-			role="application"
+			role="group"
 			aria-label="Interactive concept network graph showing relationships between workshop themes"
+			aria-describedby={graphInstructionsId}
 			tabindex="-1"
 			onclick={onBackgroundClick}
 			onkeydown={(e) => {
@@ -653,8 +576,9 @@
 					<g
 						class="node-group"
 						role="button"
-						tabindex="0"
+						tabindex={node.id === focusedNodeId ? 0 : -1}
 						aria-label="{node.label} — {node.degree} connections"
+						aria-pressed={selectedNode?.id === node.id}
 						data-node-id={node.id}
 						onpointerenter={() => (hoveredNode = node)}
 						onpointermove={onNodePointerMove}
@@ -666,12 +590,7 @@
 							if (hoveredNode?.id === node.id) hoveredNode = null;
 						}}
 						onclick={(e) => onNodeClick(e, node)}
-						onkeydown={(e) => {
-							if (e.key === 'Enter' || e.key === ' ') {
-								e.preventDefault();
-								onNodeClick(e as any, node);
-							}
-						}}
+						onkeydown={(event) => onNodeKeydown(event, node)}
 					>
 						<!-- Seed glow ring -->
 						{#if node.seed}
@@ -773,7 +692,7 @@
 			{#if isMobile}
 				Pinch to zoom · Drag nodes · Tap for details
 			{:else}
-				Ctrl+scroll to zoom · Drag background to pan · Drag nodes to reposition · Click for details
+				Arrow keys move between concepts · Enter opens details · Ctrl+scroll zooms
 			{/if}
 		</div>
 
@@ -930,7 +849,15 @@
 
 	.node-group {
 		cursor: grab;
+	}
+
+	.node-group:focus-visible {
 		outline: none;
+	}
+
+	.node-group:focus-visible circle:last-child {
+		stroke: var(--color-secondary-100);
+		stroke-width: 3;
 	}
 
 	/* Fullscreen mode. The ink, not --bg-page: the ancestor band stops painting
@@ -971,8 +898,8 @@
 	.control-btn {
 		display: grid;
 		place-items: center;
-		width: 2rem;
-		height: 2rem;
+		width: 2.75rem;
+		height: 2.75rem;
 		border-radius: var(--radius-md);
 		background: var(--bg-raised);
 		color: var(--text-muted);
@@ -1065,6 +992,7 @@
 			background var(--transition-micro),
 			box-shadow var(--transition-micro);
 		max-width: 14rem;
+		min-height: 2.75rem;
 	}
 
 	.selection-pill:hover {

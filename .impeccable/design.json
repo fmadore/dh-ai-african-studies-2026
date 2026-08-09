@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-08T00:00:00+02:00",
+  "title": "Design System: Charting New Territory",
+  "extensions": {
+    "colorMeta": {
+      "brand-terracotta": {
+        "role": "secondary",
+        "displayName": "Archive Terracotta",
+        "canonical": "#e05d44",
+        "tonalRamp": [
+          "#3b0e08",
+          "#6e2218",
+          "#852516",
+          "#a12b18",
+          "#c23a24",
+          "#e05d44",
+          "#ff9480",
+          "#fff0ed"
+        ]
+      },
+      "interactive-teal": {
+        "role": "primary",
+        "displayName": "Field Teal",
+        "canonical": "#0d9488",
+        "tonalRamp": [
+          "#042f2e",
+          "#134e4a",
+          "#115e59",
+          "#0f766e",
+          "#0d9488",
+          "#14b8a6",
+          "#5eead4",
+          "#f0fdfa"
+        ]
+      },
+      "interactive-teal-bright": {
+        "role": "primary",
+        "displayName": "Signal Teal",
+        "canonical": "#2dd4bf",
+        "tonalRamp": [
+          "#042f2e",
+          "#134e4a",
+          "#115e59",
+          "#0f766e",
+          "#0d9488",
+          "#2dd4bf",
+          "#99f6e4",
+          "#f0fdfa"
+        ]
+      },
+      "warm-paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "#fbfaf9",
+        "tonalRamp": [
+          "#1c1917",
+          "#292524",
+          "#44403c",
+          "#78716c",
+          "#a8a29e",
+          "#d6d3ce",
+          "#f5f4f2",
+          "#fbfaf9"
+        ]
+      },
+      "raised-paper": {
+        "role": "neutral",
+        "displayName": "Raised Paper",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#1c1917",
+          "#44403c",
+          "#78716c",
+          "#a8a29e",
+          "#d6d3ce",
+          "#e8e6e3",
+          "#f5f4f2",
+          "#ffffff"
+        ]
+      },
+      "warm-ink": {
+        "role": "neutral",
+        "displayName": "Warm Ink",
+        "canonical": "#1c1917",
+        "tonalRamp": [
+          "#0c0a09",
+          "#1c1917",
+          "#292524",
+          "#44403c",
+          "#78716c",
+          "#a8a29e",
+          "#e8e6e3",
+          "#fbfaf9"
+        ]
+      },
+      "night": {
+        "role": "neutral",
+        "displayName": "Night",
+        "canonical": "#0c0c0d",
+        "tonalRamp": [
+          "#050506",
+          "#0c0c0d",
+          "#17171a",
+          "#202024",
+          "#3a3a40",
+          "#6a6a72",
+          "#b8b8bf",
+          "#f5f5f7"
+        ]
+      },
+      "night-raised": {
+        "role": "neutral",
+        "displayName": "Night Raised",
+        "canonical": "#17171a",
+        "tonalRamp": [
+          "#050506",
+          "#0c0c0d",
+          "#17171a",
+          "#202024",
+          "#3a3a40",
+          "#6a6a72",
+          "#b8b8bf",
+          "#f5f5f7"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page titles and major archival statements."
+      },
+      "headline": { "displayName": "Headline", "purpose": "Primary section headings." },
+      "body": {
+        "displayName": "Interface Body",
+        "purpose": "Controls, navigation, metadata, and explanatory text."
+      },
+      "reading": { "displayName": "Reading Voice", "purpose": "Long-form prose and bibliography." },
+      "label": { "displayName": "Label", "purpose": "Compact metadata and orientation." }
+    },
+    "shadows": [
+      {
+        "name": "hairline-lift",
+        "value": "0 1px 2px 0 rgb(28 25 23 / 0.06)",
+        "purpose": "Sticky and lightly raised surfaces."
+      },
+      {
+        "name": "interactive-lift",
+        "value": "0 4px 12px -4px rgb(28 25 23 / 0.1), 0 2px 4px -2px rgb(28 25 23 / 0.06)",
+        "purpose": "Hover elevation for linked controls and cards."
+      },
+      {
+        "name": "overlay-depth",
+        "value": "0 28px 60px -20px rgb(28 25 23 / 0.2)",
+        "purpose": "Dialogs, tooltips, and overlay content."
+      }
+    ],
+    "motion": [
+      {
+        "name": "standard",
+        "value": "cubic-bezier(0.2, 0.7, 0.2, 1)",
+        "purpose": "Short state transitions."
+      },
+      {
+        "name": "emphasized",
+        "value": "cubic-bezier(0.3, 0.9, 0.25, 1)",
+        "purpose": "The authored hero and section entrance."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main teal action control with a stable 44px target.",
+      "html": "<button class=\"ds-btn-primary\">View workshop outcomes</button>",
+      "css": ".ds-btn-primary{min-height:44px;padding:12px 16px;border:0;border-radius:var(--radius-control,6px);background:var(--accent,#0d9488);color:#fff;font:600 14px 'Plus Jakarta Sans Variable',system-ui,sans-serif;transition:background-color 160ms cubic-bezier(.2,.7,.2,1)}.ds-btn-primary:hover{background:#0f766e}.ds-btn-primary:focus-visible{outline:3px solid var(--focus-ring,#0d9488);outline-offset:2px}"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "A labelled archive search field on a semantic raised surface.",
+      "html": "<label class=\"ds-field\"><span>Search the archive</span><input type=\"search\" placeholder=\"Title, author, keyword…\"></label>",
+      "css": ".ds-field{display:grid;gap:8px;color:var(--text-secondary,#44403c);font:600 13px 'Plus Jakarta Sans Variable',system-ui,sans-serif}.ds-field input{min-height:44px;padding:12px 16px;border:1px solid var(--border-default,rgba(28,25,23,.12));border-radius:var(--radius-control,6px);background:var(--bg-raised,#fff);color:var(--text-primary,#1c1917);font:400 16px 'Plus Jakarta Sans Variable',system-ui,sans-serif}.ds-field input:focus-visible{outline:3px solid var(--focus-ring,#0d9488);outline-offset:2px}"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Compact teal-tinted filter state with text carrying the meaning.",
+      "html": "<button class=\"ds-chip\" aria-pressed=\"true\">Digital humanities</button>",
+      "css": ".ds-chip{min-height:36px;padding:6px 12px;border:1px solid rgba(13,148,136,.28);border-radius:9999px;background:#ccfbf1;color:#0f766e;font:600 12px 'Plus Jakarta Sans Variable',system-ui,sans-serif}.ds-chip:hover{background:#99f6e4}.ds-chip:focus-visible{outline:3px solid #0d9488;outline-offset:2px}"
+    },
+    {
+      "name": "Archive Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A tonal scholarly container with restrained border and depth.",
+      "html": "<article class=\"ds-card\"><h3>Research record</h3><p>Metadata and scholarly context remain the visual focus.</p></article>",
+      "css": ".ds-card{max-width:480px;padding:20px;border:1px solid rgba(28,25,23,.12);border-radius:14px;background:#fff;color:#1c1917;box-shadow:0 1px 2px rgb(28 25 23/.06);font-family:'Plus Jakarta Sans Variable',system-ui,sans-serif}.ds-card h3{margin:0 0 8px;font:700 20px 'Outfit Variable',system-ui,sans-serif}.ds-card p{margin:0;line-height:1.6;color:#57534e}"
+    },
+    {
+      "name": "Primary Navigation",
+      "kind": "nav",
+      "description": "Warm editorial navigation with teal active state and no layout shift.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">About</a><a class=\"is-active\" href=\"#\" aria-current=\"page\">Participants</a><a href=\"#\">Outcomes</a></nav>",
+      "css": ".ds-nav{display:flex;gap:8px;align-items:center;font:600 14px 'Plus Jakarta Sans Variable',system-ui,sans-serif}.ds-nav a{min-height:44px;display:inline-flex;align-items:center;padding:8px 12px;border-radius:6px;color:#44403c;text-decoration:none}.ds-nav a:hover{color:#0f766e;background:#f5f4f2}.ds-nav a.is-active{color:#0f766e;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}.ds-nav a:focus-visible{outline:3px solid #0d9488;outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Editorial Field Atlas",
+    "overview": "The interface treats the workshop as a living research archive: rigorous enough for citation and long-form reading, but spatial and visual enough to invite exploration. Warm paper, restrained borders, and serif passages establish an editorial base; teal identifies interaction and terracotta supplies a rarer institutional signature. The system is content-led rather than dashboard-like, moving between quiet paper surfaces, sunken archive bands, and occasional ink-dark stages.",
+    "keyCharacteristics": [
+      "Warm editorial neutrals rather than blue-gray application chrome.",
+      "Teal for interaction, focus, and navigation; terracotta for brand emphasis.",
+      "Tonal layering and bands before shadows.",
+      "Dense scholarly information with comfortable reading measure and generous section rhythm.",
+      "Dark mode as an equivalent reading environment, not a color inversion."
+    ],
+    "rules": [
+      {
+        "name": "The Two-Voice Rule",
+        "body": "Teal communicates interaction; terracotta communicates identity. Do not create additional accent families for individual features.",
+        "section": "colors"
+      },
+      {
+        "name": "The Contrast-Before-Consistency Rule",
+        "body": "Dark mode may use a brighter member of the same hue ramp when the light-mode token would fail text or control contrast.",
+        "section": "colors"
+      },
+      {
+        "name": "The Reading-Voice Rule",
+        "body": "Use Source Serif only where sustained reading benefits from it; controls, metadata, maps, and filters remain sans-serif.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tonal-First Rule",
+        "body": "If two adjacent surfaces are unclear, correct their tonal step or border before adding a larger shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use semantic tokens so light and dark surfaces stay equivalent.",
+      "Do keep scholarly prose within the established reading measure.",
+      "Do reserve wide containers for content that genuinely needs spatial breadth.",
+      "Do test every new interactive component at keyboard, 390px, and dark-mode contrast states.",
+      "Do give images intrinsic dimensions and preserve their real aspect ratios."
+    ],
+    "donts": [
+      "Don't introduce a new accent hue for a route or content category.",
+      "Don't animate layout-driving dimensions or ignore reduced-motion preferences.",
+      "Don't turn lists of scholarly content into repetitive decorative cards without an information need.",
+      "Don't use placeholder text as the only form label.",
+      "Don't hide horizontal overflow to conceal a layout containment bug."
+    ]
+  }
+}

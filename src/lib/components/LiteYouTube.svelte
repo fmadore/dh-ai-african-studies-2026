@@ -31,7 +31,7 @@
 			onclick={() => (activated = true)}
 			aria-label="Play video: {title}"
 		>
-			<img src={thumbnailUrl} alt="" loading="lazy" />
+			<img src={thumbnailUrl} alt="" width="480" height="360" loading="lazy" decoding="async" />
 			<span class="lite-yt-play" aria-hidden="true">
 				<svg viewBox="0 0 68 48" width="68" height="48">
 					<path
@@ -79,6 +79,6 @@
 
 	.lite-yt-poster:hover .lite-yt-play,
 	.lite-yt-poster:focus-visible .lite-yt-play {
-		color: #f03;
+		color: var(--text-accent);
 	}
 </style>

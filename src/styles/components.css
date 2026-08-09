@@ -1,0 +1,273 @@
+/* ==========================================================================
+   COMPONENTS LAYER
+   ========================================================================== */
+@layer components {
+	/* ---------- Typography primitives ---------- */
+	.heading-display {
+		font-family: var(--font-family-display);
+		font-weight: var(--font-weight-extrabold);
+		font-size: var(--text-5xl);
+		line-height: var(--leading-tight);
+		letter-spacing: var(--tracking-tight);
+		color: var(--text-primary);
+	}
+
+	.heading-section {
+		font-family: var(--font-family-display);
+		font-weight: var(--font-weight-bold);
+		font-size: var(--text-3xl);
+		line-height: var(--leading-heading);
+		letter-spacing: var(--tracking-tight);
+		color: var(--text-primary);
+	}
+
+	.heading-sub {
+		font-family: var(--font-family-display);
+		font-weight: var(--font-weight-semibold);
+		font-size: var(--text-2xl);
+		line-height: var(--leading-heading);
+		color: var(--text-primary);
+	}
+
+	/* ---------- Section header ----------
+	 * Eyebrow → heading → left rule. Replaces the centred accent-underline that
+	 * ran on ~30 headings: eight identical centred h2s give a page no shape. */
+	.section-head {
+		display: grid;
+		justify-items: start;
+		gap: var(--space-2xs);
+		margin-bottom: var(--space-lg);
+		max-width: var(--measure-prose);
+	}
+
+	.section-head__eyebrow {
+		font-size: var(--text-xs);
+		font-weight: var(--font-weight-bold);
+		letter-spacing: var(--tracking-wider);
+		text-transform: uppercase;
+		color: var(--text-accent);
+	}
+
+	/* The left rule, as a pseudo-element so no page has to author it */
+	.section-head::after {
+		content: '';
+		width: 2.5rem;
+		height: 2px;
+		margin-top: var(--space-3xs);
+		border-radius: var(--radius-full);
+		background: linear-gradient(90deg, var(--accent-muted), var(--accent));
+	}
+
+	.section-head--bare::after {
+		display: none;
+	}
+
+	/* ---------- Surfaces ---------- */
+	/* Solid panel — section wrappers. No blur: --bg-glass over the page resolved
+	   to a 2/255 step, so ten promoted compositing layers per page bought
+	   nothing but scroll cost. Glass now lives in .surface-glass only. */
+	.surface-panel {
+		border-radius: var(--radius-panel);
+		background-color: var(--surface-2);
+		border: 1px solid var(--border-subtle);
+		box-shadow: var(--shadow-sm);
+	}
+
+	/* Glass survives in exactly two places: the sticky header and the lightbox
+	   chrome — the only surfaces that genuinely overlap moving content. */
+	.surface-glass {
+		background-color: var(--bg-glass);
+		-webkit-backdrop-filter: blur(18px) saturate(140%);
+		backdrop-filter: blur(18px) saturate(140%);
+		border: 1px solid var(--border-subtle);
+	}
+
+	/* Solid card — the primary content container. Static by default: hover
+	   feedback on a non-target is a false affordance. */
+	.card-surface {
+		position: relative;
+		border-radius: var(--radius-card);
+		background-color: var(--surface-2);
+		border: 1px solid var(--border-subtle);
+		box-shadow: var(--shadow-xs);
+		transition: border-color var(--transition-base);
+	}
+
+	/* Opt-in variant for cards that really are links or buttons */
+	.card-surface--link {
+		transition:
+			transform var(--transition-base),
+			box-shadow var(--transition-base),
+			border-color var(--transition-base);
+	}
+
+	.card-surface--link:hover,
+	.card-surface--link:focus-within {
+		transform: translateY(-2px);
+		border-color: var(--border-accent);
+		box-shadow: var(--shadow-md);
+	}
+
+	.dark .card-surface--link:hover,
+	.dark .card-surface--link:focus-within {
+		box-shadow: var(--shadow-accent);
+	}
+
+	/* Empty-state card — dashed border, centered copy */
+	.empty-state {
+		display: grid;
+		gap: var(--space-md);
+		justify-items: center;
+		border: 1px dashed var(--border-strong);
+		border-radius: var(--radius-xl);
+		background-color: transparent;
+		padding: var(--space-3xl) var(--space-lg);
+		text-align: center;
+	}
+
+	.empty-state__icon {
+		display: grid;
+		place-items: center;
+		width: 3rem;
+		height: 3rem;
+		border-radius: var(--radius-full);
+		background: var(--bg-sunken);
+		color: var(--text-muted);
+	}
+
+	/* ---------- Gradients ---------- */
+	.gradient-accent {
+		background: linear-gradient(135deg, var(--color-secondary-500), var(--color-secondary-700));
+	}
+
+	.text-gradient-teal {
+		background: linear-gradient(
+			130deg,
+			var(--color-secondary-600) 0%,
+			var(--color-secondary-500) 45%,
+			var(--color-primary-500) 100%
+		);
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		padding-bottom: 0.1em;
+	}
+
+	.dark .text-gradient-teal {
+		background: linear-gradient(
+			130deg,
+			var(--color-secondary-300) 0%,
+			var(--color-secondary-400) 45%,
+			var(--color-primary-300) 100%
+		);
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	/* Hero backdrop — teal-dominant with warm counterweight */
+	.gradient-hero-future {
+		background:
+			radial-gradient(ellipse 80% 50% at 50% -10%, rgba(13, 148, 136, 0.14), transparent 70%),
+			radial-gradient(ellipse 60% 40% at 90% 100%, rgba(224, 93, 68, 0.08), transparent 70%),
+			linear-gradient(180deg, var(--bg-page), var(--color-gray-100));
+	}
+
+	.dark .gradient-hero-future {
+		background:
+			radial-gradient(ellipse 90% 60% at 30% 0%, rgba(13, 148, 136, 0.2), transparent 60%),
+			radial-gradient(ellipse 70% 50% at 85% 100%, rgba(224, 93, 68, 0.08), transparent 65%),
+			linear-gradient(180deg, #0a0a0b, #050606);
+	}
+
+	/* ---------- App shell ---------- */
+	.app-shell {
+		position: relative;
+		isolation: isolate;
+		/* `clip`, not `hidden`: `overflow-x: hidden` computes overflow-y to
+		   `auto`, which makes the shell a scroll container and silently breaks
+		   `position: sticky` on the header and the gallery's day markers.
+		   `clip` contains the full-bleed bands without that side effect. */
+		overflow-x: clip;
+	}
+
+	/* Kept for the homepage hero only — one glow, where the entrance is. */
+	.bg-radial-glow {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(
+			ellipse 80% 50% at 50% -15%,
+			rgba(13, 148, 136, 0.14),
+			transparent 70%
+		);
+		pointer-events: none;
+	}
+
+	.dark .bg-radial-glow {
+		background: radial-gradient(
+			ellipse 80% 50% at 50% -15%,
+			rgba(45, 212, 191, 0.22),
+			transparent 70%
+		);
+	}
+
+	.theme-card {
+		display: grid;
+		gap: var(--space-sm);
+		height: 100%;
+	}
+
+	/* ---------- Schedule tabs ---------- */
+	.schedule-tabs [role='tablist'] {
+		background-color: var(--bg-sunken);
+		border-radius: var(--radius-lg);
+		padding: var(--space-2xs);
+		gap: var(--space-2xs);
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.schedule-tabs [role='tablist'] > * {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+
+	.dark .schedule-tabs [role='tablist'] {
+		background-color: var(--bg-overlay);
+	}
+
+	.schedule-tabs [role='tab'] {
+		color: var(--text-secondary);
+		font-weight: var(--font-weight-medium);
+		border-radius: var(--radius-md);
+		transition: all var(--transition-micro);
+		min-width: 0;
+	}
+
+	.schedule-tabs [role='tab']:hover:not([aria-selected='true']) {
+		background-color: var(--bg-raised);
+		color: var(--text-primary);
+	}
+
+	/* Ink, not terracotta: this was the only place the brand colour acted as a
+	   selection fill, against a philosophy that reserves it for CTAs. */
+	.schedule-tabs [role='tab'][aria-selected='true'],
+	.dark .schedule-tabs [role='tab'][aria-selected='true'] {
+		background-color: var(--color-secondary-700);
+		color: var(--text-on-accent);
+		box-shadow: var(--shadow-xs);
+	}
+
+	.schedule-tabs [role='tab'][aria-selected='true'] * {
+		color: var(--text-on-accent) !important;
+	}
+
+	/* ---------- Navigation ---------- */
+	.logo-link {
+		transition: opacity var(--transition-micro);
+	}
+
+	.logo-link:hover {
+		opacity: 0.85;
+	}
+}

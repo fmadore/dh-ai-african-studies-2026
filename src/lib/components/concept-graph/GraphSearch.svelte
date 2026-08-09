@@ -90,7 +90,7 @@
 			}}
 			aria-label="Search concepts"
 			aria-expanded={searchOpen && searchResults.length > 0}
-			aria-controls="search-results"
+			aria-controls={searchOpen && searchResults.length > 0 ? 'search-results' : undefined}
 			aria-activedescendant={searchOpen && searchResults.length > 0
 				? `search-result-${searchHighlightIndex}`
 				: undefined}

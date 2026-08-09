@@ -60,7 +60,7 @@ Two routes are involved, and only one of them is public:
 - 📚 **References** - Filterable bibliography with faceted search and BibTeX/RIS export
 - 🌓 **Dark Mode** - System-aware theme toggle
 - 📱 **Responsive** - Mobile-first design
-- ♿ **Accessible** - WCAG 2.1 Level AA compliance
+- ♿ **Accessible** - WCAG 2.1 Level AA target, enforced on key routes with axe and Playwright
 - 🔍 **SEO Optimized** - Structured data (JSON-LD) and meta tags
 
 ## Development
@@ -96,6 +96,24 @@ npm run check
 ```sh
 npm run lint
 ```
+
+### Tests and production checks
+
+```sh
+npm run test:unit      # reference, path, SEO, and citation utilities
+npm run build
+npm run test:bundle    # gzip size budgets for generated CSS and JavaScript
+npm run test:links     # generated internal links and fragments
+npm run test:e2e       # desktop/mobile, light/dark, keyboard, and axe checks
+```
+
+Install the Chromium test runtime once with `npm run test:e2e:install`. Pull requests run the
+browser suite, dependency review, and the existing format/lint/type/build workflow in GitHub
+Actions. A scheduled CodeQL workflow covers JavaScript and TypeScript.
+
+The durable visual rules and machine-readable design tokens live in [`DESIGN.md`](DESIGN.md) and
+`.impeccable/design.json`. New UI should preserve that system and extend semantic tokens rather
+than introduce route-specific palettes.
 
 ### Position paper reader
 
