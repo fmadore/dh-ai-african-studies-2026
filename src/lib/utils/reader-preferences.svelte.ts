@@ -7,6 +7,20 @@ const VALID_SIZES: ReadonlyArray<ReaderFontSize> = [90, 100, 115, 130];
 const DEFAULT_FONT_FAMILY: ReaderFontFamily = VALID_FAMILIES[0];
 
 /**
+ * Serialises a value for embedding inside an inline `<script>` element.
+ *
+ * JSON is not a subset of script content: `</script>` closes the element
+ * early, and U+2028/U+2029 are literal line terminators in JS source. Escaping
+ * them keeps the payload inert no matter what the constants below grow into.
+ */
+function toScriptLiteral(value: unknown): string {
+	return JSON.stringify(value).replace(
+		/[<>&\u2028\u2029]/g,
+		(char) => `\\u${char.charCodeAt(0).toString(16).padStart(4, '0')}`
+	);
+}
+
+/**
  * Applies the stored preferences to <html> before the first paint.
  *
  * Without this the reader renders at the default sans/100%, then reflows to
@@ -18,11 +32,11 @@ const DEFAULT_FONT_FAMILY: ReaderFontFamily = VALID_FAMILIES[0];
  * ReaderShell. The valid-value lists are serialised from the constants above
  * so the script cannot drift from them.
  */
-export const readerPrefsBootScript = `<script>(function(){try{var p=JSON.parse(localStorage.getItem(${JSON.stringify(
+export const readerPrefsBootScript = `<script>(function(){try{var p=JSON.parse(localStorage.getItem(${toScriptLiteral(
 	STORAGE_KEY
-)})||"{}"),e=document.documentElement;if(${JSON.stringify(
+)})||"{}"),e=document.documentElement;if(${toScriptLiteral(
 	VALID_FAMILIES
-)}.indexOf(p.fontFamily)>-1)e.setAttribute("data-reader-font",p.fontFamily);if(${JSON.stringify(
+)}.indexOf(p.fontFamily)>-1)e.setAttribute("data-reader-font",p.fontFamily);if(${toScriptLiteral(
 	VALID_SIZES
 )}.indexOf(p.fontSize)>-1)e.setAttribute("data-reader-size",p.fontSize);}catch(_){}})()</script>`;
 

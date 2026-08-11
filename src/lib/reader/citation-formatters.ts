@@ -4,6 +4,7 @@
  * `positionPaperMeta`, used by the "How to cite" widget.
  */
 
+import { escapeBibtex } from '$lib/utils/citation-export';
 import type { Author } from '$lib/utils/seo';
 import type { PositionPaperMeta } from './types';
 
@@ -29,14 +30,6 @@ function bibtexKey(meta: PositionPaperMeta): string {
 // Reference managers want the whole byline, so BibTeX and RIS never truncate.
 function bibtexAuthors(meta: PositionPaperMeta): string {
 	return meta.authors.map((a) => `${familyName(a)}, ${givenName(a)}`).join(' and ');
-}
-
-function escapeBibtex(s: string): string {
-	return s
-		.replace(/\\/g, '\\textbackslash{}')
-		.replace(/[&%$#_{}]/g, '\\$&')
-		.replace(/~/g, '\\textasciitilde{}')
-		.replace(/\^/g, '\\textasciicircum{}');
 }
 
 export function toBibtex(meta: PositionPaperMeta): string {
