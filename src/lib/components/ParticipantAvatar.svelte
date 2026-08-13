@@ -54,14 +54,16 @@
 	.participant-avatar--fallback {
 		display: grid;
 		place-items: center;
-		padding: 22%;
 		border-radius: var(--radius-full);
 		background: var(--bg-sunken);
 		color: var(--text-subtle);
 	}
 
+	/* Inset the glyph from the SVG, not from padding: percentage padding
+	   resolves against the *card* width, and border-box then refuses to shrink
+	   the avatar below it — which blew the placeholder up to ~3x a real photo. */
 	.participant-avatar--fallback svg {
-		width: 100%;
-		height: 100%;
+		width: 56%;
+		height: 56%;
 	}
 </style>
