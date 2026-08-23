@@ -1,0 +1,29 @@
+{
+  "hook": {
+    "enabled": true,
+    "limits": {
+      "maxFindings": 5,
+      "maxChars": 8000
+    }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": ["build/*.html", "src/styles/components.css"],
+        "createdAt": "2026-08-23T15:53:39.473Z",
+        "reason": "User confirmed: .text-gradient-teal is the homepage h1 signature (one use in source, sanctioned by CLAUDE.md); its CSS ships in the shared bundle so the rule fires on every built page"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": ["build/*.html"],
+        "createdAt": "2026-08-23T15:53:39.625Z",
+        "reason": "Agent: .app-shell overflow-x clip is deliberate and documented in components.css - overflow hidden would compute overflow-y auto and break position: sticky on the header"
+      }
+    ]
+  }
+}
