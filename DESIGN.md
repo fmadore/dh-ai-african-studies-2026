@@ -267,7 +267,7 @@ Content sits in centered containers ranging from 48rem for focused reading throu
 
 Vertical rhythm comes from bands, not from floating slabs: a plain band, a tight band, a recessed band, an ink band, and a full-bleed variant. One recessed band and one ink band per long page. Grids are auto-fit with a 15rem, 20rem, or 25rem minimum track.
 
-The three breakpoints in use are 640px, 768px, and 1024px. Mobile layouts must use shrinkable grid tracks (`minmax(0, 1fr)`) and `min-width: 0` on content-bearing children. Horizontal scrolling is reserved for clearly bounded navigation or filter strips; page content itself must remain within the viewport. Interactive targets are at least 2.75rem on coarse pointers and on dense visual controls such as maps and graph chrome; text-only controls get a 44px minimum hit area, and dense chip rows are compact on a mouse and 44px on touch.
+The three breakpoints in use are 640px, 768px, and 1024px. Mobile layouts must use shrinkable grid tracks (`minmax(0, 1fr)`) and `min-width: 0` on content-bearing children. Horizontal scrolling is reserved for clearly bounded navigation or filter strips; page content itself must remain within the viewport. Interactive targets are at least 2.75rem on coarse pointers and on dense visual controls such as maps and graph chrome; text-only controls get a 44px minimum hit area (`.tap-target`, or `.tap-target-flush` when the control must stay flush with the text column it sits in), and dense chip rows are compact on a mouse and 44px on touch. Where a target's size carries meaning — the concept graph's degree-scaled nodes — the visual mark stays honest and an invisible touch surface supplies the floor on coarse pointers only.
 
 ## Elevation & Depth
 
