@@ -1,55 +1,48 @@
 <script lang="ts">
 	import ConceptGraph from '$lib/components/ConceptGraph.svelte';
-	import graphData from '$lib/data/concept-graph.json';
 	import { resolveAppPath } from '$lib/utils/paths';
 	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import PageHero from '$lib/components/PageHero.svelte';
 	import { reveal } from '$lib/utils/reveal';
 	import type { ConceptGraphData } from '$lib/types/concept-graph';
+	import type { PageData } from './$types';
 
-	const data = graphData as ConceptGraphData;
-	const nodeCount = data.nodes.length;
-	const edgeCount = data.edges.length;
-	const seedCount = data.nodes.filter((n) => n.seed).length;
-	const extendedCount = nodeCount - seedCount;
-	// Only the workshop's own groups: the graph also buckets nodes as
-	// "Cross-cutting" and "Extended", which are not thematic groups.
-	const NON_THEMATIC_GROUPS = new Set(['Cross-cutting', 'Extended']);
-	const groupCount = new Set(
-		data.nodes.map((n) => n.group).filter((group) => !NON_THEMATIC_GROUPS.has(group))
-	).size;
+	// Graph data and its build-time stats arrive as prerendered page data from
+	// +page.server.ts, so the 128 KB JSON stays out of the route's JS chunk.
+	let { data }: { data: PageData } = $props();
+	let graph = $derived(data.graph as ConceptGraphData);
 
 	const referencesHref = resolveAppPath('/references');
 
 	/** The hero and the section intro used to state the same numbers 200px
 	 *  apart. They are stated once, here, as a strip that doubles as a legend. */
-	const stats = [
-		{ value: nodeCount, label: 'concepts' },
-		{ value: seedCount, label: 'seeds' },
-		{ value: extendedCount, label: 'expanded' },
-		{ value: edgeCount, label: 'relationships' },
-		{ value: groupCount, label: 'thematic groups' }
-	];
+	let stats = $derived([
+		{ value: data.nodeCount, label: 'concepts' },
+		{ value: data.seedCount, label: 'seeds' },
+		{ value: data.extendedCount, label: 'expanded' },
+		{ value: data.edgeCount, label: 'relationships' },
+		{ value: data.groupCount, label: 'thematic groups' }
+	]);
 
-	const steps = [
+	let steps = $derived([
 		{
 			title: 'Reading & annotation',
 			body: 'Every reference in the bibliography was read and annotated in an Obsidian vault, capturing key themes as interlinked concept notes.'
 		},
 		{
 			title: 'Seed concepts',
-			body: `A research note maps ${seedCount} seed concepts to the workshop's four thematic groups, drawn directly from the literature.`
+			body: `A research note maps ${data.seedCount} seed concepts to the workshop's four thematic groups, drawn directly from the literature.`
 		},
 		{
 			title: 'Network expansion',
-			body: `Wiki-links between notes reveal implicit connections. Concepts linked by two or more seeds are included, adding ${extendedCount} nodes and ${edgeCount} relationships.`
+			body: `Wiki-links between notes reveal implicit connections. Concepts linked by two or more seeds are included, adding ${data.extendedCount} nodes and ${data.edgeCount} relationships.`
 		},
 		{
 			title: 'Visualisation',
 			body: 'A Python script exports the graph as JSON. Node size reflects degree, so cross-cutting ideas stand out; seed concepts carry a glow ring.'
 		}
-	];
+	]);
 
 	const seo = createSeoMeta({
 		title: 'Concept Map',
@@ -97,7 +90,7 @@
      wants to stand alone. -->
 <section class="graph-stage band-ink band-bleed" aria-label="Thematic concept network">
 	<div class="graph-stage__inner">
-		<ConceptGraph {data} />
+		<ConceptGraph data={graph} />
 	</div>
 	<p class="graph-stage__hint content-width-wide padding-inline-section">
 		Select a node to see its connections and to find it in the

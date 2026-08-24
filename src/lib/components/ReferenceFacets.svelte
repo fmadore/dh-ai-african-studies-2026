@@ -4,8 +4,12 @@
 	import { formatType, formatLanguage } from '$lib/utils/formatters';
 	import type { CslReference } from '$lib/types/csl';
 
+	/* Structural: the facets only read classification fields, so both the full
+	 * CSL records and the lean list index satisfy this. */
+	type FacetSource = Pick<CslReference, 'type' | 'issued' | 'tags' | 'language'>;
+
 	interface Props {
-		references: CslReference[];
+		references: FacetSource[];
 		searchQuery: string;
 		selectedTypes: string[];
 		selectedYears: string[];

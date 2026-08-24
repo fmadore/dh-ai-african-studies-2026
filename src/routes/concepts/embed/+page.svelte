@@ -1,9 +1,11 @@
 <script lang="ts">
 	import ConceptGraph from '$lib/components/ConceptGraph.svelte';
-	import graphData from '$lib/data/concept-graph.json';
 	import type { ConceptGraphData } from '$lib/types/concept-graph';
+	import type { PageData } from './$types';
 
-	const data = graphData as ConceptGraphData;
+	// Prerendered page data from +page.server.ts — see that file for why.
+	let { data: pageData }: { data: PageData } = $props();
+	let graph = $derived(pageData.graph as ConceptGraphData);
 </script>
 
 <svelte:head>
@@ -21,7 +23,7 @@
 </svelte:head>
 
 <div class="embed-wrapper">
-	<ConceptGraph {data} />
+	<ConceptGraph data={graph} />
 </div>
 
 <style>

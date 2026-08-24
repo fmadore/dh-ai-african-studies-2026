@@ -42,3 +42,29 @@ export interface CslReference {
 	/** Custom field added by scripts/fetch_references.py from Zotero tags */
 	tags?: string[];
 }
+
+/**
+ * The lean per-record shape the references list renders from. Everything the
+ * collapsed card, the facets, search, and sorting touch — and nothing else.
+ * The complete records stay in the prerendered /references/data.json and are
+ * fetched only for abstract expansion and Zotero export.
+ */
+export type ReferenceListItem = Pick<
+	CslReference,
+	| 'id'
+	| 'type'
+	| 'title'
+	| 'author'
+	| 'editor'
+	| 'issued'
+	| 'container-title'
+	| 'DOI'
+	| 'URL'
+	| 'language'
+	| 'tags'
+> & {
+	/** Opening of the abstract — enough to fill the collapsed three-line clamp. */
+	abstractPreview?: string;
+	/** True when the preview IS the whole abstract, so expanding needs no fetch. */
+	abstractIsComplete: boolean;
+};

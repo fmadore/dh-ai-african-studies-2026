@@ -1,18 +1,35 @@
 <script lang="ts">
 	import { ChevronDownOutline, ChevronUpOutline } from 'flowbite-svelte-icons';
-	import type { CslReference } from '$lib/types/csl';
+	import type { ReferenceListItem } from '$lib/types/csl';
 	import { formatCitation, getAccessLink } from '$lib/utils/references';
 	import { formatType } from '$lib/utils/formatters';
 
 	interface Props {
-		reference: CslReference;
+		reference: ReferenceListItem;
 		selectedTags: string[];
 		expanded: boolean;
+		/** The complete abstract once /references/data.json has loaded. */
+		fullAbstract?: string | null;
+		/** True when that fetch failed — the card keeps the preview and says so. */
+		abstractFailed?: boolean;
 		ontoggleexpand: (_id: string) => void;
 		ontoggletag: (_tag: string) => void;
 	}
 
-	let { reference: ref, selectedTags, expanded, ontoggleexpand, ontoggletag }: Props = $props();
+	let {
+		reference: ref,
+		selectedTags,
+		expanded,
+		fullAbstract = null,
+		abstractFailed = false,
+		ontoggleexpand,
+		ontoggletag
+	}: Props = $props();
+
+	let abstractText = $derived(
+		expanded && !ref.abstractIsComplete && fullAbstract ? fullAbstract : ref.abstractPreview
+	);
+	let abstractPending = $derived(expanded && !ref.abstractIsComplete && !fullAbstract);
 
 	let info = $derived(formatCitation(ref));
 	let accessLink = $derived(getAccessLink(ref));
@@ -58,11 +75,20 @@
 		<!-- Authors: a plain line of names, not a pull-quote -->
 		<p class="reference-card__authors">{info.authors}</p>
 
-		<!-- Abstract with dedicated expand toggle -->
-		{#if ref.abstract}
+		<!-- Abstract with dedicated expand toggle. The bundled preview fills the
+		     collapsed clamp; expanding past it swaps in the lazily fetched full
+		     text once it arrives. -->
+		{#if ref.abstractPreview}
 			<p id="abstract-{ref.id}" class="reference-card__abstract {expanded ? '' : 'line-clamp-3'}">
-				{ref.abstract}
+				{abstractText}
 			</p>
+			{#if abstractPending}
+				<p class="reference-card__abstract-note" role="status">
+					{abstractFailed
+						? 'The full abstract could not be loaded — collapse and expand to retry.'
+						: 'Loading the full abstract…'}
+				</p>
+			{/if}
 			<button
 				type="button"
 				class="abstract-toggle tap-target tap-target-flush"
@@ -146,6 +172,13 @@
 
 	.reference-card__abstract {
 		margin-top: var(--space-sm);
+	}
+
+	/* Status line for the lazy abstract fetch: quiet metadata, not an alert. */
+	.reference-card__abstract-note {
+		margin-top: var(--space-3xs);
+		font-size: var(--text-xs);
+		color: var(--text-muted);
 	}
 
 	/* Not uppercase: this line carries container titles like "Luxembourg Centre

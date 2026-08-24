@@ -5,20 +5,27 @@
 	import { generateBibtex, generateRis } from '$lib/utils/citation-export';
 
 	interface Props {
-		references: CslReference[];
+		/** How many records the current filters select — drives the disabled state. */
+		count: number;
+		/** Resolves the complete CSL records for the current selection; the list
+		 * itself only holds the lean index, and export needs every field. */
+		getRecords: () => Promise<CslReference[]>;
 		filename?: string;
 	}
 
-	let { references, filename = 'references' }: Props = $props();
+	let { count, getRecords, filename = 'references' }: Props = $props();
 
 	let isExporting = $state(false);
 
 	async function exportToFormat(format: 'bibtex' | 'ris') {
-		if (references.length === 0) return;
+		if (count === 0) return;
 
 		isExporting = true;
 
 		try {
+			const references = await getRecords();
+			if (references.length === 0) return;
+
 			let content: string;
 			let extension: string;
 			let mimeType: string;
@@ -51,12 +58,7 @@
 	}
 </script>
 
-<Button
-	color="light"
-	size="sm"
-	class="font-medium"
-	disabled={isExporting || references.length === 0}
->
+<Button color="light" size="sm" class="font-medium" disabled={isExporting || count === 0}>
 	{#if isExporting}
 		<Spinner size="4" class="mr-2" />
 		Exporting...

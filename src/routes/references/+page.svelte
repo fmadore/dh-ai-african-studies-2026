@@ -5,10 +5,11 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
-	import referencesData from '$lib/data/references.json';
 	import { fade, slide } from 'svelte/transition';
 	import type { CslReference } from '$lib/types/csl';
-	import { stripReadingStatusTags, filterReferences, sortReferences } from '$lib/utils/references';
+	import type { PageData } from './$types';
+	import { filterReferences, sortReferences } from '$lib/utils/references';
+	import { resolveAppPath } from '$lib/utils/paths';
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import PageHero from '$lib/components/PageHero.svelte';
 	import ReferenceFacets from '$lib/components/ReferenceFacets.svelte';
@@ -40,8 +41,49 @@
 		url: seo.canonical
 	});
 
-	// Static data — computed once, no reactivity needed
-	const references = stripReadingStatusTags(referencesData as unknown as CslReference[]);
+	let { data }: { data: PageData } = $props();
+
+	// The lean index, derived at prerender time in +page.server.ts — the full
+	// 437 KB of CSL records never enters the client bundle.
+	let references = $derived(data.referenceIndex);
+
+	/**
+	 * The complete records, fetched once from the prerendered
+	 * /references/data.json — on the first abstract expansion that outgrows its
+	 * preview, or on export. Concurrent requests share one promise; a failed
+	 * fetch resets it so the next expansion retries.
+	 */
+	let fullRecords = $state<Map<string, CslReference> | null>(null);
+	let fullRecordsFailed = $state(false);
+	let fullRecordsPromise: Promise<Map<string, CslReference>> | null = null;
+
+	function ensureFullRecords(): Promise<Map<string, CslReference>> {
+		fullRecordsPromise ??= fetch(resolveAppPath('/references/data.json'))
+			.then((res) => {
+				if (!res.ok) throw new Error(`references data: HTTP ${res.status}`);
+				return res.json() as Promise<CslReference[]>;
+			})
+			.then((records) => {
+				const map = new Map(records.map((r) => [r.id, r]));
+				fullRecords = map;
+				fullRecordsFailed = false;
+				return map;
+			})
+			.catch((error) => {
+				fullRecordsPromise = null;
+				fullRecordsFailed = true;
+				throw error;
+			});
+		return fullRecordsPromise;
+	}
+
+	/** Export needs every field, in the filtered list's own order. */
+	async function getExportRecords(): Promise<CslReference[]> {
+		const map = await ensureFullRecords();
+		return filteredReferences
+			.map((r) => map.get(r.id))
+			.filter((r): r is CslReference => Boolean(r));
+	}
 
 	// Filter state. `?q=` is honoured so the concept map (and any external link)
 	// can hand the bibliography a starting query — applied after hydration, so
@@ -183,8 +225,15 @@
 	function toggleReference(id: string) {
 		if (expandedReferences.has(id)) {
 			expandedReferences.delete(id);
-		} else {
-			expandedReferences.add(id);
+			return;
+		}
+		expandedReferences.add(id);
+		// The bundled preview covers the collapsed clamp; the first expansion
+		// past it pulls the complete records in. Failure keeps the preview and
+		// the card shows a quiet note; re-expanding retries.
+		const ref = references.find((r) => r.id === id);
+		if (ref && !ref.abstractIsComplete && !fullRecords) {
+			ensureFullRecords().catch(() => {});
 		}
 	}
 
@@ -310,7 +359,8 @@
 								{/each}
 							</div>
 							<ExportReferences
-								references={filteredReferences}
+								count={filteredReferences.length}
+								getRecords={getExportRecords}
 								filename="dh-ai-african-studies-references"
 							/>
 						</div>
@@ -347,6 +397,8 @@
 									reference={ref}
 									{selectedTags}
 									expanded={expandedReferences.has(ref.id)}
+									fullAbstract={fullRecords?.get(ref.id)?.abstract ?? null}
+									abstractFailed={fullRecordsFailed}
 									ontoggleexpand={toggleReference}
 									ontoggletag={toggleTagFilter}
 								/>
