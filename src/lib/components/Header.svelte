@@ -204,7 +204,9 @@
 		gap: 0.05em;
 		padding: 0.2em 0.45em;
 		border-radius: var(--radius-md);
-		background: linear-gradient(135deg, var(--color-secondary-600), var(--color-secondary-800));
+		/* Starts at secondary-700, not -600: white at 14px only reached 3.7:1 on
+		   the lighter end of the old ramp. */
+		background: linear-gradient(135deg, var(--color-secondary-700), var(--color-secondary-800));
 		color: #ffffff;
 		font-family: var(--font-family-display);
 		font-weight: var(--font-weight-extrabold);
@@ -214,8 +216,10 @@
 		flex-shrink: 0;
 	}
 
+	/* A step up the terracotta ramp: against the deepened teal tile, -300 sat at
+	   1.75:1 and read as a smudge rather than as punctuation. */
 	.brand-monogram__dot {
-		color: var(--color-primary-300);
+		color: var(--color-primary-200);
 	}
 
 	.brand-wordmark {
@@ -301,6 +305,9 @@
 		align-items: center;
 		gap: var(--space-3xs);
 		width: 100%;
+		/* The documented 2.75rem control target; the padding alone left these at
+		   39px on the desktop bar. */
+		min-height: 2.75rem;
 		padding: var(--space-xs) var(--space-sm);
 		border-radius: var(--radius-md);
 		color: var(--text-secondary);

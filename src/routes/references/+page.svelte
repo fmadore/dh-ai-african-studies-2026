@@ -5,10 +5,11 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
-	import referencesData from '$lib/data/references.json';
 	import { fade, slide } from 'svelte/transition';
 	import type { CslReference } from '$lib/types/csl';
-	import { stripReadingStatusTags, filterReferences, sortReferences } from '$lib/utils/references';
+	import type { PageData } from './$types';
+	import { filterReferences, sortReferences } from '$lib/utils/references';
+	import { resolveAppPath } from '$lib/utils/paths';
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import PageHero from '$lib/components/PageHero.svelte';
 	import ReferenceFacets from '$lib/components/ReferenceFacets.svelte';
@@ -40,8 +41,49 @@
 		url: seo.canonical
 	});
 
-	// Static data — computed once, no reactivity needed
-	const references = stripReadingStatusTags(referencesData as unknown as CslReference[]);
+	let { data }: { data: PageData } = $props();
+
+	// The lean index, derived at prerender time in +page.server.ts — the full
+	// 437 KB of CSL records never enters the client bundle.
+	let references = $derived(data.referenceIndex);
+
+	/**
+	 * The complete records, fetched once from the prerendered
+	 * /references/data.json — on the first abstract expansion that outgrows its
+	 * preview, or on export. Concurrent requests share one promise; a failed
+	 * fetch resets it so the next expansion retries.
+	 */
+	let fullRecords = $state<Map<string, CslReference> | null>(null);
+	let fullRecordsFailed = $state(false);
+	let fullRecordsPromise: Promise<Map<string, CslReference>> | null = null;
+
+	function ensureFullRecords(): Promise<Map<string, CslReference>> {
+		fullRecordsPromise ??= fetch(resolveAppPath('/references/data.json'))
+			.then((res) => {
+				if (!res.ok) throw new Error(`references data: HTTP ${res.status}`);
+				return res.json() as Promise<CslReference[]>;
+			})
+			.then((records) => {
+				const map = new Map(records.map((r) => [r.id, r]));
+				fullRecords = map;
+				fullRecordsFailed = false;
+				return map;
+			})
+			.catch((error) => {
+				fullRecordsPromise = null;
+				fullRecordsFailed = true;
+				throw error;
+			});
+		return fullRecordsPromise;
+	}
+
+	/** Export needs every field, in the filtered list's own order. */
+	async function getExportRecords(): Promise<CslReference[]> {
+		const map = await ensureFullRecords();
+		return filteredReferences
+			.map((r) => map.get(r.id))
+			.filter((r): r is CslReference => Boolean(r));
+	}
 
 	// Filter state. `?q=` is honoured so the concept map (and any external link)
 	// can hand the bibliography a starting query — applied after hydration, so
@@ -183,8 +225,15 @@
 	function toggleReference(id: string) {
 		if (expandedReferences.has(id)) {
 			expandedReferences.delete(id);
-		} else {
-			expandedReferences.add(id);
+			return;
+		}
+		expandedReferences.add(id);
+		// The bundled preview covers the collapsed clamp; the first expansion
+		// past it pulls the complete records in. Failure keeps the preview and
+		// the card shows a quiet note; re-expanding retries.
+		const ref = references.find((r) => r.id === id);
+		if (ref && !ref.abstractIsComplete && !fullRecords) {
+			ensureFullRecords().catch(() => {});
 		}
 	}
 
@@ -214,7 +263,7 @@
 <section class="band-tight padding-inline-section">
 	<div class="content-width-wide">
 		{#if !isDesktop}
-			<div>
+			<div class="mobile-filters">
 				<Button
 					color="light"
 					onclick={toggleMobileFilters}
@@ -257,7 +306,7 @@
 			</div>
 		{/if}
 
-		<div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
+		<div class="gap-xl grid grid-cols-1 items-start lg:grid-cols-12">
 			<!-- Sidebar / Facets -->
 			{#if isDesktop}
 				<aside class="reference-sidebar lg:col-span-3">
@@ -275,102 +324,112 @@
 			{/if}
 
 			<!-- Main Content -->
-			<div class="stack-md lg:col-span-9">
+			<div class="lg:col-span-9">
+				<!-- Outside the stack on purpose: `.sr-only` is out of flow but still an
+				     adjacent sibling, so as a stack child it pushed the toolbar down and
+				     knocked the results column out of alignment with the facets panel. -->
 				<h2 class="sr-only">Results</h2>
 
-				<!-- A status readout, not a card: this used to lift and glow on hover -->
-				<div class="results-toolbar">
-					<p class="text-body-sm">
-						{#if paginated && filteredReferences.length > pageSize}
-							Showing <span class="text-accent font-bold">{pageStart + 1}–{pageEnd}</span>
-							of <span class="text-accent font-bold">{filteredReferences.length}</span> references
-						{:else}
-							Showing <span class="text-accent font-bold">{filteredReferences.length}</span>
-							references
-						{/if}
-					</p>
+				<div class="stack-md">
+					<!-- A status readout, not a card: this used to lift and glow on hover -->
+					<div class="results-toolbar">
+						<p class="text-body-sm">
+							{#if paginated && filteredReferences.length > pageSize}
+								Showing <span class="results-toolbar__figure">{pageStart + 1}–{pageEnd}</span>
+								of <span class="results-toolbar__figure">{filteredReferences.length}</span> references
+							{:else}
+								Showing <span class="results-toolbar__figure">{filteredReferences.length}</span>
+								references
+							{/if}
+						</p>
 
-					<div class="results-toolbar__actions">
-						<div class="page-size" role="group" aria-label="References per page">
-							<span class="text-caption" style="max-width:none">Per page</span>
-							{#each PAGE_SIZE_OPTIONS as size (size)}
-								<button
-									type="button"
-									class="page-size__option"
-									class:is-active={pageSize === size}
-									aria-pressed={pageSize === size}
-									onclick={() => (pageSize = size)}
-								>
-									{pageSizeLabel(size)}
-								</button>
-							{/each}
-						</div>
-						<ExportReferences
-							references={filteredReferences}
-							filename="dh-ai-african-studies-references"
-						/>
-					</div>
-				</div>
-
-				{#if activeFiltersCount > 0}
-					<div class="active-filters">
-						{#each activeFilters as filter (filter.key)}
-							<span class="filter-chip tap-target-compact">
-								{filter.label}
-								<button
-									type="button"
-									aria-label="Remove filter: {filter.label}"
-									onclick={filter.clear}
-								>
-									<CloseOutline class="h-3 w-3" />
-								</button>
-							</span>
-						{/each}
-						<button type="button" class="filter-reset" onclick={resetFilters}>Clear all</button>
-					</div>
-				{/if}
-
-				<div class="stack-md" bind:this={resultsEl}>
-					{#each pagedReferences as ref (ref.id)}
-						<div
-							class:reference-result={pageSize === 0}
-							in:slide|local={{ duration: 200 }}
-							out:fade|local={{ duration: 150 }}
-						>
-							<ReferenceCard
-								reference={ref}
-								{selectedTags}
-								expanded={expandedReferences.has(ref.id)}
-								ontoggleexpand={toggleReference}
-								ontoggletag={toggleTagFilter}
+						<div class="results-toolbar__actions">
+							<div class="page-size" role="group" aria-label="References per page">
+								<span class="page-size__label">Per page</span>
+								{#each PAGE_SIZE_OPTIONS as size (size)}
+									<button
+										type="button"
+										class="page-size__option"
+										class:is-active={pageSize === size}
+										aria-pressed={pageSize === size}
+										onclick={() => (pageSize = size)}
+									>
+										{pageSizeLabel(size)}
+									</button>
+								{/each}
+							</div>
+							<ExportReferences
+								count={filteredReferences.length}
+								getRecords={getExportRecords}
+								filename="dh-ai-african-studies-references"
 							/>
 						</div>
-					{/each}
+					</div>
 
-					{#if filteredReferences.length === 0}
-						<div class="empty-state">
-							<div class="empty-state__icon">
-								<SearchOutline class="size-icon-md" />
-							</div>
-							<h3 class="body-text-strong text-lg font-medium">No references found</h3>
-							<p class="body-text-muted mx-auto max-w-xs text-sm">
-								Try adjusting your search terms or filters to find what you're looking for.
-							</p>
-							<Button color="primary" outline size="sm" onclick={resetFilters}>
-								Clear all filters
-							</Button>
+					{#if activeFiltersCount > 0}
+						<div class="active-filters">
+							{#each activeFilters as filter (filter.key)}
+								<span class="filter-chip tap-target-compact">
+									{filter.label}
+									<button
+										type="button"
+										aria-label="Remove filter: {filter.label}"
+										onclick={filter.clear}
+									>
+										<CloseOutline class="h-3 w-3" />
+									</button>
+								</span>
+							{/each}
+							<button type="button" class="filter-reset" onclick={resetFilters}>Clear all</button>
 						</div>
 					{/if}
-				</div>
 
-				{#if paginated && totalPages > 1}
-					<Pagination
-						currentPage={clampedPage}
-						{totalPages}
-						label="References pagination"
-						onnavigate={goToPage}
-					/>
-				{/if}
+					<!-- `stack-lg`, not `stack-md`: the interval between two records has to
+					     beat the 24px inside one, or twenty cards read as a single block. -->
+					<div class="stack-lg" bind:this={resultsEl}>
+						{#each pagedReferences as ref (ref.id)}
+							<div
+								class:reference-result={pageSize === 0}
+								in:slide|local={{ duration: 200 }}
+								out:fade|local={{ duration: 150 }}
+							>
+								<ReferenceCard
+									reference={ref}
+									{selectedTags}
+									expanded={expandedReferences.has(ref.id)}
+									fullAbstract={fullRecords?.get(ref.id)?.abstract ?? null}
+									abstractFailed={fullRecordsFailed}
+									ontoggleexpand={toggleReference}
+									ontoggletag={toggleTagFilter}
+								/>
+							</div>
+						{/each}
+
+						{#if filteredReferences.length === 0}
+							<div class="empty-state">
+								<div class="empty-state__icon">
+									<SearchOutline class="size-icon-md" />
+								</div>
+								<h3 class="body-text-strong text-lg font-medium">No references match</h3>
+								<p class="body-text-muted mx-auto max-w-xs text-sm">
+									Adjust the search or filters, or clear them to see all {references.length} references.
+								</p>
+								<Button color="primary" outline size="sm" onclick={resetFilters}>
+									Clear all filters
+								</Button>
+							</div>
+						{/if}
+					</div>
+
+					{#if paginated && totalPages > 1}
+						<Pagination
+							currentPage={clampedPage}
+							{totalPages}
+							label="References pagination"
+							onnavigate={goToPage}
+						/>
+					{/if}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -389,6 +448,12 @@
 		max-height: calc(100dvh - var(--scroll-offset) - var(--space-lg));
 	}
 
+	/* The disclosure is a control for the results below it, not a page banner —
+	   it used to sit flush against the results toolbar's top rule. */
+	.mobile-filters {
+		margin-bottom: var(--space-md);
+	}
+
 	.results-toolbar {
 		display: flex;
 		flex-wrap: wrap;
@@ -397,6 +462,15 @@
 		gap: var(--space-sm);
 		padding-block: var(--space-sm);
 		border-block: 1px solid var(--border-subtle);
+	}
+
+	/* A running count that changes on every keystroke: tabular figures stop the
+	   sentence around it from reflowing. Semibold, not bold — these are three
+	   numerals inside a 15px muted line, not a headline. */
+	.results-toolbar__figure {
+		color: var(--text-accent);
+		font-weight: var(--font-weight-semibold);
+		font-variant-numeric: tabular-nums;
 	}
 
 	.results-toolbar__actions {
@@ -410,6 +484,13 @@
 		display: flex;
 		align-items: center;
 		gap: var(--space-3xs);
+	}
+
+	/* Was `.text-caption` plus an inline `max-width:none` to undo the 42ch cap
+	   that class carries for photo credits. This is a control label. */
+	.page-size__label {
+		font-size: var(--text-xs);
+		color: var(--text-muted);
 	}
 
 	.page-size__option {

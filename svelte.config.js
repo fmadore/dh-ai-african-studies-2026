@@ -20,8 +20,10 @@ const config = {
 			base: process.env.BASE_PATH || ''
 		},
 		prerender: {
-			// sitemap.xml is not linked from any page, so the crawler needs a hint
-			entries: ['*', '/sitemap.xml']
+			// Neither endpoint is linked from any page (the sitemap is for
+			// crawlers, the references data is fetched at runtime), so the
+			// prerenderer needs the hints
+			entries: ['*', '/sitemap.xml', '/references/data.json']
 		}
 	},
 	compilerOptions: {

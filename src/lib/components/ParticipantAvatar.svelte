@@ -7,16 +7,25 @@
 
 	let { src, alt, size = 'md' }: Props = $props();
 
+	// A missing photo and a photo that 404s should land in the same place:
+	// the glyph fallback, never a broken-image icon inside the ring.
+	let failed = $state(false);
+
 	// A teal halo plus a shadow plus 4px of padding, on 28 faces, is a lot of
 	// chrome. A hairline ring is enough to separate a portrait from the card.
+	//
+	// Sized by class rather than by Tailwind's numeric width scale: this project
+	// redefines `--spacing-12` as a fluid clamp, so `w-12 h-12` did not resolve
+	// to 3rem — it rendered a 28–33px thumbnail beside a three-line identity
+	// block. A portrait is a fixed object, not a spacing step.
 	const sizeClasses: Record<NonNullable<Props['size']>, string> = {
-		sm: 'w-12 h-12',
-		md: 'w-24 h-24',
-		lg: 'w-24 h-24 md:w-28 md:h-28'
+		sm: 'participant-avatar--sm',
+		md: 'participant-avatar--md',
+		lg: 'participant-avatar--lg'
 	};
 </script>
 
-{#if src}
+{#if src && !failed}
 	<!-- Plain img so loading="lazy" works (Flowbite Avatar doesn't forward it) -->
 	<img
 		{src}
@@ -25,6 +34,7 @@
 		height="112"
 		loading="lazy"
 		decoding="async"
+		onerror={() => (failed = true)}
 		class="{sizeClasses[size]} participant-avatar rounded-full object-cover"
 	/>
 {:else}
@@ -49,6 +59,28 @@
 	:global(.participant-avatar) {
 		flex-shrink: 0;
 		box-shadow: 0 0 0 1px var(--border-default);
+	}
+
+	:global(.participant-avatar--sm) {
+		width: 3rem;
+		height: 3rem;
+	}
+
+	:global(.participant-avatar--md) {
+		width: 6rem;
+		height: 6rem;
+	}
+
+	:global(.participant-avatar--lg) {
+		width: 6rem;
+		height: 6rem;
+	}
+
+	@media (min-width: 768px) {
+		:global(.participant-avatar--lg) {
+			width: 7rem;
+			height: 7rem;
+		}
 	}
 
 	.participant-avatar--fallback {

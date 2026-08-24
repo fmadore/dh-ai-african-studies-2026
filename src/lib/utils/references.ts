@@ -27,10 +27,15 @@ export interface ReferenceFilters {
 	selectedLanguages: string[];
 }
 
-export function filterReferences(
-	references: CslReference[],
+/* The helpers are structural so they serve both the full CSL records and the
+ * lean ReferenceListItem index the page actually renders from. */
+type Filterable = Pick<CslReference, 'title' | 'author' | 'type' | 'issued' | 'tags' | 'language'>;
+type Sortable = Pick<CslReference, 'issued' | 'title' | 'author'>;
+
+export function filterReferences<T extends Filterable>(
+	references: T[],
 	filters: ReferenceFilters
-): CslReference[] {
+): T[] {
 	const query = filters.searchQuery.toLowerCase();
 
 	return references.filter((ref) => {
@@ -60,8 +65,8 @@ export function filterReferences(
 
 export type ReferenceSort = 'newest' | 'oldest' | 'title' | 'author';
 
-export function sortReferences(references: CslReference[], sort: string): CslReference[] {
-	const numericYear = (ref: CslReference) => ref.issued?.['date-parts']?.[0]?.[0] ?? 0;
+export function sortReferences<T extends Sortable>(references: T[], sort: string): T[] {
+	const numericYear = (ref: Sortable) => ref.issued?.['date-parts']?.[0]?.[0] ?? 0;
 
 	return [...references].sort((a, b) => {
 		switch (sort) {
@@ -99,7 +104,10 @@ export function buildPageItems(currentPage: number, totalPages: number): (number
 	return pages;
 }
 
-export function formatCitation(ref: CslReference): { authors: string; year: string } {
+export function formatCitation(ref: Pick<CslReference, 'author' | 'editor' | 'issued'>): {
+	authors: string;
+	year: string;
+} {
 	let authors = 'Unknown Author';
 
 	if (ref.author && ref.author.length > 0) {
@@ -113,7 +121,7 @@ export function formatCitation(ref: CslReference): { authors: string; year: stri
 	return { authors, year };
 }
 
-export function getAccessLink(ref: CslReference): string {
+export function getAccessLink(ref: Pick<CslReference, 'DOI' | 'URL'>): string {
 	if (ref.DOI) {
 		return ref.DOI.startsWith('http') ? ref.DOI : `https://doi.org/${ref.DOI}`;
 	}

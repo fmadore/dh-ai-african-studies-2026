@@ -1,18 +1,35 @@
 <script lang="ts">
 	import { ChevronDownOutline, ChevronUpOutline } from 'flowbite-svelte-icons';
-	import type { CslReference } from '$lib/types/csl';
+	import type { ReferenceListItem } from '$lib/types/csl';
 	import { formatCitation, getAccessLink } from '$lib/utils/references';
 	import { formatType } from '$lib/utils/formatters';
 
 	interface Props {
-		reference: CslReference;
+		reference: ReferenceListItem;
 		selectedTags: string[];
 		expanded: boolean;
+		/** The complete abstract once /references/data.json has loaded. */
+		fullAbstract?: string | null;
+		/** True when that fetch failed — the card keeps the preview and says so. */
+		abstractFailed?: boolean;
 		ontoggleexpand: (_id: string) => void;
 		ontoggletag: (_tag: string) => void;
 	}
 
-	let { reference: ref, selectedTags, expanded, ontoggleexpand, ontoggletag }: Props = $props();
+	let {
+		reference: ref,
+		selectedTags,
+		expanded,
+		fullAbstract = null,
+		abstractFailed = false,
+		ontoggleexpand,
+		ontoggletag
+	}: Props = $props();
+
+	let abstractText = $derived(
+		expanded && !ref.abstractIsComplete && fullAbstract ? fullAbstract : ref.abstractPreview
+	);
+	let abstractPending = $derived(expanded && !ref.abstractIsComplete && !fullAbstract);
 
 	let info = $derived(formatCitation(ref));
 	let accessLink = $derived(getAccessLink(ref));
@@ -31,13 +48,13 @@
 	twenty of these per page made for a very long and very twitchy scroll.
 -->
 <article class="card-surface reference-card">
-	<div class="stack-xs">
+	<div class="reference-card__body">
 		<!-- Type & Year -->
 		<div class="reference-card__head">
 			<span class="reference-type-pill">{formatType(ref.type)}</span>
 			{#if ref['container-title']}
 				<span class="text-subtle-ink hidden sm:inline">•</span>
-				<span class="body-text-muted hidden truncate italic sm:inline">
+				<span class="reference-card__container hidden truncate italic sm:inline">
 					{ref['container-title']}
 				</span>
 			{/if}
@@ -58,14 +75,23 @@
 		<!-- Authors: a plain line of names, not a pull-quote -->
 		<p class="reference-card__authors">{info.authors}</p>
 
-		<!-- Abstract with dedicated expand toggle -->
-		{#if ref.abstract}
+		<!-- Abstract with dedicated expand toggle. The bundled preview fills the
+		     collapsed clamp; expanding past it swaps in the lazily fetched full
+		     text once it arrives. -->
+		{#if ref.abstractPreview}
 			<p id="abstract-{ref.id}" class="reference-card__abstract {expanded ? '' : 'line-clamp-3'}">
-				{ref.abstract}
+				{abstractText}
 			</p>
+			{#if abstractPending}
+				<p class="reference-card__abstract-note" role="status">
+					{abstractFailed
+						? 'The full abstract could not be loaded — collapse and expand to retry.'
+						: 'Loading the full abstract…'}
+				</p>
+			{/if}
 			<button
 				type="button"
-				class="abstract-toggle tap-target"
+				class="abstract-toggle tap-target tap-target-flush"
 				aria-expanded={expanded}
 				aria-controls="abstract-{ref.id}"
 				onclick={() => ontoggleexpand(ref.id)}
@@ -113,7 +139,7 @@
 						href={accessLink}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="reference-card__access tap-target"
+						class="reference-card__access tap-target tap-target-flush"
 					>
 						Access publication
 					</a>
@@ -133,21 +159,56 @@
 		border-color: var(--border-accent);
 	}
 
+	/* Rhythm, not a single repeated interval. The head is the title's own kicker
+	   and the authors belong to the title, so both sit tight against it; the
+	   abstract opens a second block and gets real air; its toggle closes back up
+	   against the paragraph it controls. `.stack-xs` put an identical 10px
+	   between all five, which gave the title no more standing than its metadata. */
+	.reference-card__title,
+	.reference-card__authors,
+	.abstract-toggle {
+		margin-top: var(--space-3xs);
+	}
+
+	.reference-card__abstract {
+		margin-top: var(--space-sm);
+	}
+
+	/* Status line for the lazy abstract fetch: quiet metadata, not an alert. */
+	.reference-card__abstract-note {
+		margin-top: var(--space-3xs);
+		font-size: var(--text-xs);
+		color: var(--text-muted);
+	}
+
+	/* Not uppercase: this line carries container titles like "Luxembourg Centre
+	   for Contemporary and Digital History (C²DH)", where the casing is part of
+	   the name. Size and weight keep it reading as metadata instead. Tracking is
+	   gone with the uppercase it was compensating for — on mixed-case 12px text
+	   it only loosened the words. */
 	.reference-card__head {
 		display: flex;
 		align-items: center;
 		gap: var(--space-xs);
 		font-size: var(--text-xs);
-		font-weight: var(--font-weight-semibold);
-		letter-spacing: var(--tracking-wider);
-		text-transform: uppercase;
+		font-weight: var(--font-weight-medium);
 		color: var(--text-muted);
 		min-width: 0;
+	}
+
+	/* The row has its own order of importance: classification and year are scan
+	   anchors, the container title is context. It used to carry
+	   `.body-text-muted`, which re-set it to 15px inside a 12px row — the least
+	   important item in the card's metadata was the largest. */
+	.reference-card__container {
+		min-width: 0;
+		color: var(--text-muted);
 	}
 
 	.reference-card__year {
 		margin-left: auto;
 		flex-shrink: 0;
+		font-weight: var(--font-weight-semibold);
 		font-variant-numeric: tabular-nums;
 	}
 
@@ -156,6 +217,7 @@
 		color: var(--text-link);
 		border-radius: var(--radius-control);
 		padding: var(--space-3xs) var(--space-xs);
+		font-weight: var(--font-weight-semibold);
 		flex-shrink: 0;
 	}
 
@@ -163,7 +225,9 @@
 		font-family: var(--font-family-serif);
 		font-size: var(--text-xl);
 		font-weight: var(--font-weight-semibold);
-		line-height: var(--leading-snug);
+		/* Explicit, not `--leading-snug`: scholarly titles wrap to two or three
+		   lines in a serif with long descenders, which needs the looser step. */
+		line-height: 1.35;
 		color: var(--text-primary);
 		max-width: var(--measure-prose);
 	}
@@ -210,11 +274,14 @@
 		color: var(--text-link-hover);
 	}
 
+	/* More air above the rule than below it, so it reads as the boundary between
+	   the record and its controls. At 6px above / 12px below it was glued to the
+	   paragraph it was meant to separate from. */
 	.reference-card__foot {
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-sm);
-		margin-top: var(--space-2xs);
+		margin-top: var(--space-md);
 		padding-top: var(--space-sm);
 		border-top: 1px solid var(--border-subtle);
 	}
@@ -255,9 +322,12 @@
 		color: var(--text-link);
 	}
 
+	/* Solid, not dashed: a dashed strong border is this system's empty-state
+	   silhouette, and borrowing it for a live control in a chip row read as a
+	   placeholder. Teal text is what marks it as the row's one action. */
 	.tag-overflow {
 		padding-inline: var(--space-xs);
-		border: 1px dashed var(--border-strong);
+		border: 1px solid var(--border-default);
 		border-radius: var(--radius-control);
 		background: transparent;
 		color: var(--text-link);

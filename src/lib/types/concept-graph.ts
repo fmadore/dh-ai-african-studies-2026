@@ -6,11 +6,13 @@ export type ConceptGroup =
 	| 'The Archive'
 	| 'Epistemologies, Decoloniality & Ethical Frameworks';
 
+// The export script also writes a per-node `color`, but the renderer maps
+// group → color itself (graph-config.ts), so the loads strip it rather than
+// ship six dead hex literals into the prerendered page data.
 export interface ConceptNode {
 	id: string;
 	label: string;
 	group: ConceptGroup;
-	color: string;
 	seed: boolean;
 	degree: number;
 	// d3 simulation fields

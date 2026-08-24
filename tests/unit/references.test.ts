@@ -8,6 +8,7 @@ import {
 	sortReferences,
 	stripReadingStatusTags
 } from '$lib/utils/references';
+import { toReferenceListItem } from '$lib/utils/reference-index';
 
 const references: CslReference[] = [
 	{
@@ -74,5 +75,42 @@ describe('reference utilities', () => {
 		expect(getAccessLink(references[0])).toBe('https://doi.org/10.1234/example');
 		expect(getAccessLink(references[1])).toBe('https://example.org/article');
 		expect(getAccessLink(references[2])).toBe('');
+	});
+});
+
+describe('toReferenceListItem', () => {
+	it('keeps a short abstract whole and marks it complete', () => {
+		const item = toReferenceListItem({
+			id: 'short',
+			type: 'book',
+			abstract: 'A brief note.'
+		});
+
+		expect(item.abstractPreview).toBe('A brief note.');
+		expect(item.abstractIsComplete).toBe(true);
+	});
+
+	it('truncates a long abstract at a word boundary with an ellipsis', () => {
+		const abstract = `${'word '.repeat(80)}final`;
+		const item = toReferenceListItem({ id: 'long', type: 'book', abstract });
+
+		expect(item.abstractIsComplete).toBe(false);
+		expect(item.abstractPreview!.length).toBeLessThanOrEqual(301);
+		expect(item.abstractPreview!.endsWith('…')).toBe(true);
+		expect(item.abstractPreview).not.toMatch(/wor…$/);
+	});
+
+	it('omits the preview when there is no abstract and drops heavy fields', () => {
+		const item = toReferenceListItem({
+			id: 'bare',
+			type: 'report',
+			note: 'internal note',
+			accessed: { 'date-parts': [[2026, 1, 1]] }
+		});
+
+		expect(item.abstractPreview).toBeUndefined();
+		expect(item.abstractIsComplete).toBe(true);
+		expect('note' in item).toBe(false);
+		expect('accessed' in item).toBe(false);
 	});
 });

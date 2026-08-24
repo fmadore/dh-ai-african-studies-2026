@@ -71,11 +71,15 @@
 		border-top: 1px solid var(--border-subtle);
 	}
 
+	/* Height matched to `.pagination__page` (2.25rem): the two control shapes
+	   share one row, and a 41px Previous beside a 36px "3" made the row read as
+	   two bands rather than one. */
 	.pagination__nav {
 		display: inline-flex;
 		align-items: center;
+		height: 2.25rem;
 		gap: var(--space-2xs);
-		padding: var(--space-2xs) var(--space-sm);
+		padding: 0 var(--space-sm);
 		border-radius: var(--radius-md);
 		border: 1px solid var(--border-default);
 		background: var(--bg-raised);
@@ -143,11 +147,12 @@
 
 	.pagination__page.is-active {
 		/* Secondary-700 keeps white page numbers above the AA contrast floor in
-		   both themes; the brighter dark-mode accent does not. */
+		   both themes; the brighter dark-mode accent does not. The state is the
+		   solid fill — a 36px control does not need a 28px halo to say it. */
 		background: var(--color-secondary-700);
 		color: var(--text-on-accent);
 		border-color: var(--color-secondary-700);
-		box-shadow: var(--shadow-accent);
+		box-shadow: var(--shadow-xs);
 	}
 
 	.pagination__ellipsis {
@@ -157,5 +162,19 @@
 		min-width: 2rem;
 		color: var(--text-subtle);
 		font-size: var(--text-sm);
+	}
+
+	/* 36px is a comfortable mouse target and an uncomfortable thumb one; on a
+	   coarse pointer both shapes grow to the 2.75rem floor the rest of the site
+	   uses, and the row still reads as one band because they grow together. */
+	@media (pointer: coarse) {
+		.pagination__nav,
+		.pagination__page {
+			height: 2.75rem;
+		}
+
+		.pagination__page {
+			min-width: 2.75rem;
+		}
 	}
 </style>

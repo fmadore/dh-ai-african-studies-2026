@@ -592,6 +592,11 @@
 						onclick={(e) => onNodeClick(e, node)}
 						onkeydown={(event) => onNodeKeydown(event, node)}
 					>
+						<!-- Invisible touch surface, coarse pointers only (via CSS): the
+						     radius encodes degree, so low-degree nodes stay visually small
+						     while fingers get a tappable disc. -->
+						<circle class="node-hit-area" r={Math.max(r + 4, 22)} fill="transparent" />
+
 						<!-- Seed glow ring -->
 						{#if node.seed}
 							<circle
@@ -849,6 +854,18 @@
 
 	.node-group {
 		cursor: grab;
+	}
+
+	/* The invisible touch disc exists only where fingers do — a mouse keeps
+	   the precise degree-sized target, so dense clusters stay disambiguable. */
+	.node-hit-area {
+		display: none;
+	}
+
+	@media (pointer: coarse) {
+		.node-hit-area {
+			display: block;
+		}
 	}
 
 	.node-group:focus-visible {

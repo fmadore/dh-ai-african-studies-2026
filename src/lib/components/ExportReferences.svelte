@@ -5,20 +5,29 @@
 	import { generateBibtex, generateRis } from '$lib/utils/citation-export';
 
 	interface Props {
-		references: CslReference[];
+		/** How many records the current filters select — drives the disabled state. */
+		count: number;
+		/** Resolves the complete CSL records for the current selection; the list
+		 * itself only holds the lean index, and export needs every field. */
+		getRecords: () => Promise<CslReference[]>;
 		filename?: string;
 	}
 
-	let { references, filename = 'references' }: Props = $props();
+	let { count, getRecords, filename = 'references' }: Props = $props();
 
 	let isExporting = $state(false);
+	let exportFailed = $state(false);
 
 	async function exportToFormat(format: 'bibtex' | 'ris') {
-		if (references.length === 0) return;
+		if (count === 0) return;
 
 		isExporting = true;
+		exportFailed = false;
 
 		try {
+			const references = await getRecords();
+			if (references.length === 0) return;
+
 			let content: string;
 			let extension: string;
 			let mimeType: string;
@@ -44,6 +53,9 @@
 			document.body.removeChild(link);
 			URL.revokeObjectURL(url);
 		} catch (error) {
+			// The only async dependency is the reference-data fetch; say so and
+			// name the recovery instead of failing into silence.
+			exportFailed = true;
 			console.error('Export failed:', error);
 		} finally {
 			isExporting = false;
@@ -51,12 +63,7 @@
 	}
 </script>
 
-<Button
-	color="light"
-	size="sm"
-	class="font-medium"
-	disabled={isExporting || references.length === 0}
->
+<Button color="light" size="sm" class="font-medium" disabled={isExporting || count === 0}>
 	{#if isExporting}
 		<Spinner size="4" class="mr-2" />
 		Exporting...
@@ -76,3 +83,18 @@
 		<span class="text-subtle-ink block text-xs">Universal format</span>
 	</DropdownItem>
 </Dropdown>
+
+{#if exportFailed}
+	<p class="export-failed" role="status">
+		The export could not load the reference data — check your connection and try again.
+	</p>
+{/if}
+
+<style>
+	/* Quiet and adjacent, in the same voice as the abstract-fetch note. */
+	.export-failed {
+		flex-basis: 100%;
+		font-size: var(--text-xs);
+		color: var(--danger);
+	}
+</style>

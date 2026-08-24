@@ -23,6 +23,11 @@
 	const photoSrc = $derived(resolveAssetPath(photo.src));
 	const hasMultiple = $derived(total > 1);
 
+	// Tracked per photo id so navigating away from a broken image clears the
+	// message, and coming back to it shows it again without a re-request loop.
+	let failedPhotoId = $state<string | null>(null);
+	const imageFailed = $derived(failedPhotoId === photo.id);
+
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape') onclose();
 		else if (event.key === 'ArrowLeft' && hasMultiple) onprevious();
@@ -126,14 +131,24 @@
 
 		<div class="lightbox-image-container">
 			{#key photo.id}
-				<img
-					src={photoSrc}
-					alt={photo.alt}
-					width={photo.width}
-					height={photo.height}
-					decoding="async"
-					class="lightbox-image"
-				/>
+				{#if imageFailed}
+					<div class="lightbox-image-failed" role="status">
+						<p>This photo could not be loaded.</p>
+						{#if hasMultiple}
+							<p class="lightbox-image-failed__hint">The arrows still move through the rest.</p>
+						{/if}
+					</div>
+				{:else}
+					<img
+						src={photoSrc}
+						alt={photo.alt}
+						width={photo.width}
+						height={photo.height}
+						decoding="async"
+						onerror={() => (failedPhotoId = photo.id)}
+						class="lightbox-image"
+					/>
+				{/if}
 			{/key}
 		</div>
 
@@ -279,6 +294,28 @@
 		object-fit: contain;
 		border-radius: var(--radius-md);
 		box-shadow: 0 25px 80px -15px rgba(0, 0, 0, 0.6);
+	}
+
+	/* Stands where the photo would: same footprint class of treatment as the
+	   site's other empty states, adapted to the lightbox's dark stage. */
+	.lightbox-image-failed {
+		display: grid;
+		gap: var(--space-2xs);
+		place-content: center;
+		min-width: min(24rem, 80vw);
+		min-height: 16rem;
+		border: 1px dashed rgba(255, 255, 255, 0.35);
+		border-radius: var(--radius-md);
+		text-align: center;
+		padding: var(--space-lg);
+		color: var(--color-gray-100);
+		font-weight: var(--font-weight-medium);
+	}
+
+	.lightbox-image-failed__hint {
+		font-size: var(--text-sm);
+		font-weight: var(--font-weight-regular);
+		color: var(--color-gray-400);
 	}
 
 	.lightbox-bottombar {

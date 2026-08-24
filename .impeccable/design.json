@@ -1,24 +1,9 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-09T10:13:25+02:00",
+  "generatedAt": "2026-08-24T09:30:00+02:00",
   "title": "Design System: Charting New Territory",
   "extensions": {
     "colorMeta": {
-      "brand-terracotta": {
-        "role": "secondary",
-        "displayName": "Archive Terracotta",
-        "canonical": "#e05d44",
-        "tonalRamp": [
-          "#3b0e08",
-          "#6e2218",
-          "#852516",
-          "#a12b18",
-          "#c23a24",
-          "#e05d44",
-          "#ff9480",
-          "#fff0ed"
-        ]
-      },
       "interactive-teal": {
         "role": "primary",
         "displayName": "Field Teal",
@@ -31,8 +16,33 @@
           "#0d9488",
           "#14b8a6",
           "#5eead4",
-          "#f0fdfa"
-        ]
+          "#ccfbf1"
+        ],
+        "notes": "The --accent alias and the light-mode focus outline. Dark mode remaps --accent to Signal Teal (#2dd4bf) and --focus-ring to Signal Teal Light (#5eead4)."
+      },
+      "interactive-teal-deep": {
+        "role": "primary",
+        "displayName": "Field Teal Deep",
+        "canonical": "#0f766e",
+        "notes": "Light-mode --text-link, --text-accent, and the selected schedule-tab fill."
+      },
+      "interactive-teal-darker": {
+        "role": "primary",
+        "displayName": "Field Teal Darker",
+        "canonical": "#115e59",
+        "notes": "Light-mode --text-link-hover and the brand monogram's gradient end."
+      },
+      "interactive-teal-abyss": {
+        "role": "primary",
+        "displayName": "Field Teal Abyss",
+        "canonical": "#134e4a",
+        "notes": "Light-mode --selection-fg."
+      },
+      "interactive-teal-muted": {
+        "role": "primary",
+        "displayName": "Muted Teal",
+        "canonical": "#14b8a6",
+        "notes": "--accent-muted in both themes; the lighter end of the section-head rule gradient."
       },
       "interactive-teal-bright": {
         "role": "primary",
@@ -47,130 +57,403 @@
           "#2dd4bf",
           "#99f6e4",
           "#f0fdfa"
-        ]
+        ],
+        "notes": "Dark-mode --accent, dark --border-accent, and the concept network's 'Infrastructure, Governance & Access' tone."
+      },
+      "interactive-teal-light": {
+        "role": "primary",
+        "displayName": "Signal Teal Light",
+        "canonical": "#5eead4",
+        "notes": "Dark-mode --text-link, --text-accent and --focus-ring; the ink band's accent text."
+      },
+      "interactive-teal-pale": {
+        "role": "primary",
+        "displayName": "Signal Teal Pale",
+        "canonical": "#99f6e4",
+        "notes": "Dark-mode --text-link-hover; the ink band's link hover."
+      },
+      "interactive-teal-tint": {
+        "role": "primary",
+        "displayName": "Teal Tint",
+        "canonical": "#ccfbf1",
+        "notes": "Light-mode --accent-soft: chip fills and facet count pills. Dark mode replaces it with a 16% teal wash."
+      },
+      "interactive-teal-wash": {
+        "role": "primary",
+        "displayName": "Teal Wash",
+        "canonical": "#f0fdfa",
+        "notes": "Dark-mode --selection-fg."
+      },
+      "brand-terracotta": {
+        "role": "secondary",
+        "displayName": "Archive Terracotta",
+        "canonical": "#e05d44",
+        "tonalRamp": [
+          "#3b0e08",
+          "#6e2218",
+          "#852516",
+          "#a12b18",
+          "#c23a24",
+          "#e05d44",
+          "#ff9480",
+          "#ffded8"
+        ],
+        "notes": "--brand-muted in both themes; the warm counterweight in the hero gradient."
+      },
+      "brand-terracotta-deep": {
+        "role": "secondary",
+        "displayName": "Terracotta Deep",
+        "canonical": "#c23a24",
+        "notes": "Light-mode --brand: .link-primary and the native accent-color."
+      },
+      "brand-terracotta-strong": {
+        "role": "secondary",
+        "displayName": "Terracotta Strong",
+        "canonical": "#a12b18",
+        "notes": "The primary button's rest fill."
+      },
+      "brand-terracotta-darkest": {
+        "role": "secondary",
+        "displayName": "Terracotta Darkest",
+        "canonical": "#852516",
+        "notes": "The primary button's hover fill."
+      },
+      "brand-terracotta-bright": {
+        "role": "secondary",
+        "displayName": "Terracotta Bright",
+        "canonical": "#ff5d42",
+        "notes": "Dark-mode --brand; the deep steps go muddy on near-black."
+      },
+      "brand-terracotta-light": {
+        "role": "secondary",
+        "displayName": "Terracotta Light",
+        "canonical": "#ff9480",
+        "notes": "The monogram's punctuation dot and the dark gradient-title terminus."
+      },
+      "brand-terracotta-soft": {
+        "role": "secondary",
+        "displayName": "Terracotta Soft",
+        "canonical": "#fff0ed",
+        "notes": "Light-mode --brand-soft. Dark mode replaces it with a 14% terracotta wash."
       },
       "warm-paper": {
         "role": "neutral",
         "displayName": "Warm Paper",
         "canonical": "#fbfaf9",
         "tonalRamp": [
+          "#0c0a09",
           "#1c1917",
           "#292524",
           "#44403c",
+          "#57534e",
           "#78716c",
-          "#a8a29e",
           "#d6d3ce",
-          "#f5f4f2",
           "#fbfaf9"
-        ]
+        ],
+        "notes": "--surface-1 in light mode, --text-inverse, and the ink band's text."
       },
       "raised-paper": {
         "role": "neutral",
         "displayName": "Raised Paper",
         "canonical": "#ffffff",
-        "tonalRamp": [
-          "#1c1917",
-          "#44403c",
-          "#78716c",
-          "#a8a29e",
-          "#d6d3ce",
-          "#e8e6e3",
-          "#f5f4f2",
-          "#ffffff"
-        ]
+        "notes": "--surface-2 in light mode and --text-on-accent in both."
+      },
+      "sunken-paper": {
+        "role": "neutral",
+        "displayName": "Sunken Paper",
+        "canonical": "#f5f4f2",
+        "notes": "--surface-3: the recessed band and the hero gradient's base."
+      },
+      "warm-line": {
+        "role": "neutral",
+        "displayName": "Warm Line",
+        "canonical": "#e8e6e3",
+        "notes": "Light-mode --bg-overlay."
+      },
+      "warm-rule": {
+        "role": "neutral",
+        "displayName": "Warm Rule",
+        "canonical": "#d6d3ce",
+        "notes": "Concept-graph chrome and the lightest structural stone step."
+      },
+      "stone-mute": {
+        "role": "neutral",
+        "displayName": "Stone Mute",
+        "canonical": "#a8a29e",
+        "notes": "Light --text-disabled; dark --text-muted and the ink band's muted text."
+      },
+      "stone-subtle": {
+        "role": "neutral",
+        "displayName": "Stone Subtle",
+        "canonical": "#8d8681",
+        "notes": "A deliberate half-step: dark --text-subtle, because the next step down lands at 4.08:1 on the dark page."
+      },
+      "stone-print": {
+        "role": "neutral",
+        "displayName": "Stone Print",
+        "canonical": "#78716c",
+        "notes": "The print stylesheet's body grey. Not used on screen — it clears AA by two hundredths."
+      },
+      "stone-graphite": {
+        "role": "neutral",
+        "displayName": "Stone Graphite",
+        "canonical": "#57534e",
+        "notes": "Light --text-muted and --text-subtle: every page-hero eyebrow, caption and credit line. Dark --text-disabled."
+      },
+      "stone-slate": {
+        "role": "neutral",
+        "displayName": "Stone Slate",
+        "canonical": "#44403c",
+        "notes": "Light --text-secondary; nav link rest colour."
+      },
+      "warm-charcoal": {
+        "role": "neutral",
+        "displayName": "Warm Charcoal",
+        "canonical": "#292524",
+        "notes": "The darkest interface fill before ink; the shadow tint source."
       },
       "warm-ink": {
         "role": "neutral",
         "displayName": "Warm Ink",
         "canonical": "#1c1917",
-        "tonalRamp": [
-          "#0c0a09",
-          "#1c1917",
-          "#292524",
-          "#44403c",
-          "#78716c",
-          "#a8a29e",
-          "#e8e6e3",
-          "#fbfaf9"
-        ]
+        "notes": "Light --text-primary and --surface-ink; the hue every border is colour-mixed from at 7/12/20%."
+      },
+      "warm-ink-deep": {
+        "role": "neutral",
+        "displayName": "Warm Ink Deep",
+        "canonical": "#0c0a09",
+        "notes": "The light-mode scrim source (72% and 92%)."
       },
       "night": {
         "role": "neutral",
         "displayName": "Night",
         "canonical": "#0c0c0d",
         "tonalRamp": [
-          "#050506",
+          "#000000",
           "#0c0c0d",
           "#17171a",
+          "#1c1c1f",
           "#202024",
-          "#3a3a40",
-          "#6a6a72",
-          "#b8b8bf",
-          "#f5f5f7"
-        ]
+          "#292524",
+          "#44403c",
+          "#57534e"
+        ],
+        "notes": "Dark --surface-1. The steps are wider than a 4/255 gap so a card reads as a card without a white ring."
       },
       "night-raised": {
         "role": "neutral",
         "displayName": "Night Raised",
         "canonical": "#17171a",
-        "tonalRamp": [
-          "#050506",
-          "#0c0c0d",
-          "#17171a",
-          "#202024",
-          "#3a3a40",
-          "#6a6a72",
-          "#b8b8bf",
-          "#f5f5f7"
-        ]
+        "notes": "Dark --surface-2: cards, panels, controls."
+      },
+      "night-sunken": {
+        "role": "neutral",
+        "displayName": "Night Sunken",
+        "canonical": "#202024",
+        "notes": "Dark --surface-3: the recessed band."
+      },
+      "night-overlay": {
+        "role": "neutral",
+        "displayName": "Night Overlay",
+        "canonical": "#1c1c1f",
+        "notes": "Dark --bg-overlay: tab strips and inset chrome."
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Night Ink",
+        "canonical": "#000000",
+        "notes": "Dark --surface-ink: the ink band bottoms out at true black so it still reads as a stage."
+      },
+      "status-warning": {
+        "role": "tertiary",
+        "displayName": "Warning",
+        "canonical": "#d97706",
+        "tonalRamp": ["#78350f", "#d97706", "#f59e0b", "#fbbf24", "#fef3c7"],
+        "notes": "Light --warning. Dark mode steps up to #f59e0b."
+      },
+      "status-warning-bright": {
+        "role": "tertiary",
+        "displayName": "Warning Bright",
+        "canonical": "#f59e0b",
+        "notes": "Dark --warning; the 15% wash behind dark warning badges."
+      },
+      "status-warning-wash": {
+        "role": "tertiary",
+        "displayName": "Warning Wash",
+        "canonical": "#fef3c7",
+        "notes": "Light --warning-soft badge fill."
+      },
+      "status-warning-deep": {
+        "role": "tertiary",
+        "displayName": "Warning Deep",
+        "canonical": "#78350f",
+        "notes": "Light --warning-on-soft: text on the warning badge."
+      },
+      "status-danger": {
+        "role": "tertiary",
+        "displayName": "Danger",
+        "canonical": "#dc2626",
+        "tonalRamp": ["#b91c1c", "#dc2626", "#ef4444", "#f87171"],
+        "notes": "Light --danger: removal and destructive controls."
+      },
+      "status-danger-bright": {
+        "role": "tertiary",
+        "displayName": "Danger Bright",
+        "canonical": "#ef4444",
+        "notes": "Dark --danger."
+      },
+      "status-danger-deep": {
+        "role": "tertiary",
+        "displayName": "Danger Deep",
+        "canonical": "#b91c1c",
+        "notes": "Light --danger-hover."
+      },
+      "signal-amber": {
+        "role": "tertiary",
+        "displayName": "Signal Amber",
+        "canonical": "#fbbf24",
+        "notes": "Dual role: the concept network's 'The Archive' tone, and dark --warning-on-soft."
+      },
+      "signal-coral": {
+        "role": "tertiary",
+        "displayName": "Signal Coral",
+        "canonical": "#f87171",
+        "notes": "Dual role: the concept network's 'Language Technologies, NLP & Corpora' tone, and dark --danger-hover."
+      },
+      "graph-mint": {
+        "role": "tertiary",
+        "displayName": "Graph Mint",
+        "canonical": "#34d399",
+        "notes": "Concept network, 'Cross-cutting'. Measured at 7:1 against the graph stage, not against either page theme."
+      },
+      "graph-slate": {
+        "role": "tertiary",
+        "displayName": "Graph Slate",
+        "canonical": "#94a3b8",
+        "notes": "Concept network, 'Extended'."
+      },
+      "graph-violet": {
+        "role": "tertiary",
+        "displayName": "Graph Violet",
+        "canonical": "#a78bfa",
+        "notes": "Concept network, 'Epistemologies, Decoloniality & Ethical Frameworks'."
+      },
+      "graph-label": {
+        "role": "tertiary",
+        "displayName": "Graph Label",
+        "canonical": "#e8ecf1",
+        "notes": "Node labels on the graph stage."
+      },
+      "graph-edge": {
+        "role": "tertiary",
+        "displayName": "Graph Edge",
+        "canonical": "#9aa8bd",
+        "notes": "Edges on the graph stage; decorative, never load-bearing for meaning."
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Page titles and major archival statements."
+        "purpose": "One page title or major archival statement per page. Outfit at 800, fluid 2.5–3.5rem."
       },
-      "headline": { "displayName": "Headline", "purpose": "Primary section headings." },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Principal section headings under a section-head eyebrow. Outfit at 700."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Cards, days, sessions, and local content groups. Outfit at 600."
+      },
       "body": {
-        "displayName": "Interface Body",
-        "purpose": "Controls, navigation, metadata, and explanatory text."
+        "displayName": "Body",
+        "purpose": "Interface and explanatory text; all structural chrome. Plus Jakarta Sans at 400/1.6."
       },
-      "reading": { "displayName": "Reading Voice", "purpose": "Long-form prose and bibliography." },
-      "label": { "displayName": "Label", "purpose": "Compact metadata and orientation." }
+      "reading": {
+        "displayName": "Reading",
+        "purpose": "Running prose, ledes, bios and the bibliography. Source Serif 4, capped at a 68ch measure (46ch for ledes)."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Section eyebrows, metadata, and navigational orientation. Uppercase, 0.05em tracked, never a substitute for a heading."
+      }
     },
     "shadows": [
       {
-        "name": "hairline-lift",
+        "name": "hairline-lift-xs",
         "value": "0 1px 2px 0 rgb(28 25 23 / 0.06)",
-        "purpose": "Sticky and lightly raised surfaces."
+        "purpose": "Cards and buttons at rest. The default; flat enough to read as a border with weight."
+      },
+      {
+        "name": "hairline-lift-sm",
+        "value": "0 1px 2px -1px rgb(28 25 23 / 0.08), 0 2px 6px -2px rgb(28 25 23 / 0.06)",
+        "purpose": "Sticky header, panels, and the secondary button on hover."
       },
       {
         "name": "interactive-lift",
         "value": "0 4px 12px -4px rgb(28 25 23 / 0.1), 0 2px 4px -2px rgb(28 25 23 / 0.06)",
-        "purpose": "Hover elevation for linked controls and cards."
+        "purpose": "A linked card on hover or focus-within, paired with a 2px translate. Never on a non-target."
       },
       {
         "name": "overlay-depth",
+        "value": "0 12px 28px -10px rgb(28 25 23 / 0.14)",
+        "purpose": "Tooltips, dropdowns, and dialogs that float over content."
+      },
+      {
+        "name": "overlay-depth-max",
         "value": "0 28px 60px -20px rgb(28 25 23 / 0.2)",
-        "purpose": "Dialogs, tooltips, and overlay content."
+        "purpose": "Lightbox imagery — the only surface that fully detaches from the page."
       }
     ],
     "motion": [
       {
-        "name": "standard",
-        "value": "cubic-bezier(0.2, 0.7, 0.2, 1)",
-        "purpose": "Short state transitions."
+        "name": "duration-micro",
+        "value": "150ms",
+        "purpose": "Colour and background state changes on links, tabs and nav."
       },
       {
-        "name": "emphasized",
+        "name": "duration-base",
+        "value": "220ms",
+        "purpose": "Hover elevation, border shifts, transform feedback."
+      },
+      {
+        "name": "duration-slow",
+        "value": "360ms",
+        "purpose": "Scroll-reveal fades and section entrances."
+      },
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.2, 0.7, 0.2, 1)",
+        "purpose": "Default easing for entrances, hovers and layout."
+      },
+      {
+        "name": "ease-emphasized",
         "value": "cubic-bezier(0.3, 0.9, 0.25, 1)",
-        "purpose": "The authored hero and section entrance."
+        "purpose": "The hero title's entrance and slow reveals."
+      },
+      {
+        "name": "ease-in",
+        "value": "cubic-bezier(0.5, 0, 1, 1)",
+        "purpose": "Exits only."
+      },
+      {
+        "name": "stagger-step",
+        "value": "60ms",
+        "purpose": "Between staggered children, for six steps; everything past the sixth joins the tail at 300ms."
       }
     ],
     "breakpoints": [
-      { "name": "sm", "value": "640px" },
-      { "name": "md", "value": "768px" },
-      { "name": "lg", "value": "1024px" }
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
     ]
   },
   "components": [
@@ -178,48 +461,73 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The main teal action control with a stable 44px target.",
-      "html": "<button class=\"ds-btn-primary\">View workshop outcomes</button>",
-      "css": ".ds-btn-primary{min-height:44px;padding:12px 16px;border:0;border-radius:var(--radius-control,6px);background:var(--accent,#0d9488);color:#fff;font:600 14px 'Plus Jakarta Sans Variable',system-ui,sans-serif;transition:background-color 160ms cubic-bezier(.2,.7,.2,1)}.ds-btn-primary:hover{background:#0f766e}.ds-btn-primary:focus-visible{outline:3px solid var(--focus-ring,#0d9488);outline-offset:2px}"
+      "description": "The call-to-action voice: terracotta fill, one or two per page.",
+      "html": "<button class=\"ds-btn-primary\">Read the position paper</button>",
+      "css": ".ds-btn-primary { font-family: var(--font-family-body, 'Plus Jakarta Sans Variable', system-ui, sans-serif); font-size: 1rem; font-weight: 500; line-height: 1.4; color: #ffffff; background-color: var(--color-primary-700, #a12b18); border: none; border-radius: var(--radius-lg, 0.875rem); padding: 0.75rem 1.25rem; min-height: 2.75rem; cursor: pointer; box-shadow: 0 1px 2px 0 rgb(28 25 23 / 0.06); transition: background-color 220ms cubic-bezier(0.2,0.7,0.2,1), transform 220ms cubic-bezier(0.2,0.7,0.2,1), box-shadow 220ms cubic-bezier(0.2,0.7,0.2,1); } .ds-btn-primary:hover { background-color: var(--color-primary-800, #852516); transform: translateY(-1px); } .ds-btn-primary:active { transform: translateY(0); } .ds-btn-primary:focus-visible { outline: 3px solid var(--focus-ring, #0d9488); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Teal outline on a transparent surface, used where the content should stay visually dominant.",
+      "html": "<button class=\"ds-btn-secondary\">Browse the bibliography</button>",
+      "css": ".ds-btn-secondary { font-family: var(--font-family-body, 'Plus Jakarta Sans Variable', system-ui, sans-serif); font-size: 1rem; font-weight: 500; line-height: 1.4; color: var(--color-secondary-700, #0f766e); background-color: transparent; border: 1px solid var(--color-secondary-700, #0f766e); border-radius: var(--radius-lg, 0.875rem); padding: 0.75rem 1.25rem; min-height: 2.75rem; cursor: pointer; box-shadow: 0 1px 2px 0 rgb(28 25 23 / 0.06); transition: background-color 220ms cubic-bezier(0.2,0.7,0.2,1), color 220ms cubic-bezier(0.2,0.7,0.2,1), transform 220ms cubic-bezier(0.2,0.7,0.2,1); } .ds-btn-secondary:hover { background-color: var(--color-secondary-800, #115e59); color: #ffffff; transform: translateY(-1px); } .ds-btn-secondary:active { transform: translateY(0); } .ds-btn-secondary:focus-visible { outline: 3px solid var(--focus-ring, #0d9488); outline-offset: 2px; }"
+    },
+    {
+      "name": "Content Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The primary content container. Static at rest; the link variant shown here is the only one that lifts.",
+      "html": "<a class=\"ds-card-link\" href=\"#\"><span class=\"ds-card-link__eyebrow\">Work stream 02</span><span class=\"ds-card-link__title\">Language Technologies &amp; Corpora</span><span class=\"ds-card-link__body\">How multilingual corpora are built, licensed and kept legible to the communities they come from.</span></a>",
+      "css": ".ds-card-link { display: grid; gap: 0.5rem; position: relative; text-decoration: none; border-radius: var(--radius-lg, 0.875rem); background-color: var(--surface-2, #ffffff); border: 1px solid var(--border-subtle, rgba(28,25,23,0.07)); box-shadow: 0 1px 2px 0 rgb(28 25 23 / 0.06); padding: 1.25rem; transition: transform 220ms cubic-bezier(0.2,0.7,0.2,1), box-shadow 220ms cubic-bezier(0.2,0.7,0.2,1), border-color 220ms cubic-bezier(0.2,0.7,0.2,1); } .ds-card-link:hover, .ds-card-link:focus-within { transform: translateY(-2px); border-color: rgba(13,148,136,0.28); box-shadow: 0 4px 12px -4px rgb(28 25 23 / 0.1), 0 2px 4px -2px rgb(28 25 23 / 0.06); } .ds-card-link:focus-visible { outline: 3px solid var(--focus-ring, #0d9488); outline-offset: 2px; } .ds-card-link__eyebrow { font-family: var(--font-family-body, 'Plus Jakarta Sans Variable', system-ui, sans-serif); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-accent, #0f766e); } .ds-card-link__title { font-family: var(--font-family-display, 'Outfit Variable', system-ui, sans-serif); font-size: 1.5rem; font-weight: 600; line-height: 1.15; color: var(--text-primary, #1c1917); } .ds-card-link__body { font-family: var(--font-family-serif, 'Source Serif 4 Variable', Georgia, serif); font-size: 1.0625rem; line-height: 1.6; color: var(--text-secondary, #44403c); }"
     },
     {
       "name": "Search Field",
       "kind": "input",
-      "refersTo": "input",
-      "description": "A labelled archive search field on a semantic raised surface.",
-      "html": "<label class=\"ds-field\"><span>Search the archive</span><input type=\"search\" placeholder=\"Title, author, keyword…\"></label>",
-      "css": ".ds-field{display:grid;gap:8px;color:var(--text-secondary,#44403c);font:600 13px 'Plus Jakarta Sans Variable',system-ui,sans-serif}.ds-field input{min-height:44px;padding:12px 16px;border:1px solid var(--border-default,rgba(28,25,23,.12));border-radius:var(--radius-control,6px);background:var(--bg-raised,#fff);color:var(--text-primary,#1c1917);font:400 16px 'Plus Jakarta Sans Variable',system-ui,sans-serif}.ds-field input:focus-visible{outline:3px solid var(--focus-ring,#0d9488);outline-offset:2px}"
+      "refersTo": "input-search",
+      "description": "The standalone search input: panel radius and a leading icon, because it reads as a surface rather than a control.",
+      "html": "<div class=\"ds-search\"><label class=\"ds-search__label\" for=\"ds-search-input\">Search references</label><div class=\"ds-search__field\"><svg class=\"ds-search__icon\" viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><circle cx=\"9\" cy=\"9\" r=\"6\"/><path d=\"m14 14 4 4\" stroke-linecap=\"round\"/></svg><input id=\"ds-search-input\" class=\"ds-search__input\" type=\"search\" placeholder=\"Author, title, keyword…\"></div></div>",
+      "css": ".ds-search { display: block; max-width: 28rem; } .ds-search__label { display: block; margin-bottom: 0.5rem; font-family: var(--font-family-body, 'Plus Jakarta Sans Variable', system-ui, sans-serif); font-size: 0.9375rem; font-weight: 600; color: var(--text-secondary, #44403c); } .ds-search__field { position: relative; display: block; } .ds-search__icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 1.25rem; height: 1.25rem; color: var(--text-muted, #57534e); pointer-events: none; } .ds-search__input { width: 100%; font-family: var(--font-family-body, 'Plus Jakarta Sans Variable', system-ui, sans-serif); font-size: 1.125rem; color: var(--text-primary, #1c1917); background-color: var(--bg-raised, #ffffff); border: 1px solid var(--border-default, rgba(28,25,23,0.12)); border-radius: var(--radius-xl, 1.25rem); padding: 0.75rem 1rem 0.75rem 3rem; box-shadow: 0 1px 2px 0 rgb(28 25 23 / 0.06); transition: border-color 220ms cubic-bezier(0.2,0.7,0.2,1), box-shadow 220ms cubic-bezier(0.2,0.7,0.2,1); } .ds-search__input::placeholder { color: var(--text-subtle, #57534e); } .ds-search__input:hover { border-color: rgba(13,148,136,0.28); } .ds-search__input:focus-visible { outline: 3px solid var(--focus-ring, #0d9488); outline-offset: 2px; border-color: rgba(13,148,136,0.28); }"
     },
     {
-      "name": "Filter Chip",
+      "name": "Facet Chip",
       "kind": "chip",
       "refersTo": "chip",
-      "description": "Compact teal-tinted filter state with text carrying the meaning.",
-      "html": "<button class=\"ds-chip\" aria-pressed=\"true\">Digital humanities</button>",
-      "css": ".ds-chip{min-height:36px;padding:6px 12px;border:1px solid rgba(13,148,136,.28);border-radius:9999px;background:#ccfbf1;color:#0f766e;font:600 12px 'Plus Jakarta Sans Variable',system-ui,sans-serif}.ds-chip:hover{background:#99f6e4}.ds-chip:focus-visible{outline:3px solid #0d9488;outline-offset:2px}"
+      "description": "A teal-tinted pill for an active filter, with its own accessible removal control and a count pill sibling.",
+      "html": "<div class=\"ds-chip-row\"><button class=\"ds-chip\" type=\"button\">West Africa<span class=\"ds-chip__remove\" aria-hidden=\"true\">×</span><span class=\"ds-sr\">Remove West Africa filter</span></button><span class=\"ds-count-pill\">24</span></div>",
+      "css": ".ds-chip-row { display: inline-flex; align-items: center; gap: 0.5rem; } .ds-chip { display: inline-flex; align-items: center; gap: 0.375rem; min-height: 2rem; font-family: var(--font-family-body, 'Plus Jakarta Sans Variable', system-ui, sans-serif); font-size: 0.9375rem; font-weight: 500; color: var(--color-secondary-700, #0f766e); background-color: var(--accent-soft, #ccfbf1); border: 1px solid rgba(13,148,136,0.28); border-radius: 9999px; padding: 0.375rem 0.75rem; cursor: pointer; transition: background-color 150ms cubic-bezier(0.2,0.7,0.2,1), color 150ms cubic-bezier(0.2,0.7,0.2,1); } @media (pointer: coarse) { .ds-chip { min-height: 44px; } } .ds-chip:hover { background-color: var(--color-secondary-200, #99f6e4); } .ds-chip:focus-visible { outline: 3px solid var(--focus-ring, #0d9488); outline-offset: 2px; } .ds-chip__remove { font-size: 1rem; line-height: 1; opacity: 0.75; } .ds-count-pill { display: inline-block; font-family: var(--font-family-body, 'Plus Jakarta Sans Variable', system-ui, sans-serif); font-size: 0.8125rem; font-weight: 500; color: var(--text-accent, #0f766e); background-color: var(--accent-soft, #ccfbf1); border-radius: var(--radius-sm, 0.375rem); padding: 0 0.375rem; } .ds-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }"
     },
     {
-      "name": "Archive Card",
-      "kind": "card",
-      "refersTo": "card",
-      "description": "A tonal scholarly container with restrained border and depth.",
-      "html": "<article class=\"ds-card\"><h3>Research record</h3><p>Metadata and scholarly context remain the visual focus.</p></article>",
-      "css": ".ds-card{max-width:480px;padding:20px;border:1px solid rgba(28,25,23,.12);border-radius:14px;background:#fff;color:#1c1917;box-shadow:0 1px 2px rgb(28 25 23/.06);font-family:'Plus Jakarta Sans Variable',system-ui,sans-serif}.ds-card h3{margin:0 0 8px;font:700 20px 'Outfit Variable',system-ui,sans-serif}.ds-card p{margin:0;line-height:1.6;color:#57534e}"
+      "name": "Section Header",
+      "kind": "custom",
+      "refersTo": "typography.headline",
+      "description": "The standard section opener: eyebrow, heading, and a short teal gradient rule drawn by a pseudo-element.",
+      "html": "<div class=\"ds-section-head\"><p class=\"ds-section-head__eyebrow\">01 — Context</p><h2 class=\"ds-section-head__title\">What the workshop set out to chart</h2></div>",
+      "css": ".ds-section-head { display: grid; justify-items: start; gap: 0.5rem; margin-bottom: 1.5rem; max-width: 68ch; } .ds-section-head__eyebrow { margin: 0; font-family: var(--font-family-body, 'Plus Jakarta Sans Variable', system-ui, sans-serif); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-accent, #0f766e); } .ds-section-head__title { margin: 0; font-family: var(--font-family-display, 'Outfit Variable', system-ui, sans-serif); font-size: 2.375rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary, #1c1917); } .ds-section-head::after { content: ''; width: 2.5rem; height: 2px; margin-top: 0.3125rem; border-radius: 9999px; background: linear-gradient(90deg, var(--accent-muted, #14b8a6), var(--accent, #0d9488)); }"
     },
     {
-      "name": "Primary Navigation",
+      "name": "Navigation Link",
       "kind": "nav",
-      "description": "Warm editorial navigation with teal active state and no layout shift.",
-      "html": "<nav class=\"ds-nav\"><a href=\"#\">About</a><a class=\"is-active\" href=\"#\" aria-current=\"page\">Participants</a><a href=\"#\">Outcomes</a></nav>",
-      "css": ".ds-nav{display:flex;gap:8px;align-items:center;font:600 14px 'Plus Jakarta Sans Variable',system-ui,sans-serif}.ds-nav a{min-height:44px;display:inline-flex;align-items:center;padding:8px 12px;border-radius:6px;color:#44403c;text-decoration:none}.ds-nav a:hover{color:#0f766e;background:#f5f4f2}.ds-nav a.is-active{color:#0f766e;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}.ds-nav a:focus-visible{outline:3px solid #0d9488;outline-offset:2px}"
+      "refersTo": "nav-link",
+      "description": "Header navigation: medium-weight small sans at control radius, 2.75rem target, one active treatment.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav__link\" href=\"#\">Schedule</a><a class=\"ds-nav__link\" href=\"#\">Participants</a><a class=\"ds-nav__link ds-nav__link--active\" href=\"#\" aria-current=\"page\">Outcomes</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 0.25rem; font-family: var(--font-family-body, 'Plus Jakarta Sans Variable', system-ui, sans-serif); } .ds-nav__link { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.5rem 0.75rem; font-size: 0.9375rem; font-weight: 500; text-decoration: none; color: var(--text-secondary, #44403c); background-color: transparent; border-radius: var(--radius-md, 0.625rem); transition: color 150ms cubic-bezier(0.2,0.7,0.2,1), background-color 150ms cubic-bezier(0.2,0.7,0.2,1); } .ds-nav__link:hover { color: var(--text-primary, #1c1917); background-color: var(--bg-sunken, #f5f4f2); } .ds-nav__link:focus-visible { outline: 3px solid var(--focus-ring, #0d9488); outline-offset: 2px; } .ds-nav__link--active { color: var(--text-accent, #0f766e); font-weight: 600; }"
+    },
+    {
+      "name": "Ink Band",
+      "kind": "custom",
+      "refersTo": "colors.warm-ink",
+      "description": "The dark stage used once per long page. It remaps its own text and surface tokens rather than inverting the theme.",
+      "html": "<section class=\"ds-band-ink\"><p class=\"ds-band-ink__eyebrow\">Outcome</p><h2 class=\"ds-band-ink__title\">A position paper, a concept map, and twelve interviews</h2><p class=\"ds-band-ink__body\">The workshop's record is published in full, and <a class=\"ds-band-ink__link\" href=\"#\">openly licensed</a>.</p></section>",
+      "css": ".ds-band-ink { background-color: var(--surface-ink, #1c1917); color: #fbfaf9; padding: 3.5rem 1.5rem; border-radius: var(--radius-xl, 1.25rem); } .ds-band-ink__eyebrow { margin: 0 0 0.5rem; font-family: var(--font-family-body, 'Plus Jakarta Sans Variable', system-ui, sans-serif); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-secondary-300, #5eead4); } .ds-band-ink__title { margin: 0 0 1rem; font-family: var(--font-family-display, 'Outfit Variable', system-ui, sans-serif); font-size: 2.375rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; color: #fbfaf9; max-width: 20ch; } .ds-band-ink__body { margin: 0; font-family: var(--font-family-serif, 'Source Serif 4 Variable', Georgia, serif); font-size: 1.25rem; line-height: 1.625; color: #e8e6e3; max-width: 46ch; } .ds-band-ink__link { color: var(--color-secondary-300, #5eead4); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; text-decoration-color: rgba(94,234,212,0.4); transition: text-decoration-color 150ms cubic-bezier(0.2,0.7,0.2,1), color 150ms cubic-bezier(0.2,0.7,0.2,1); } .ds-band-ink__link:hover { color: var(--color-secondary-200, #99f6e4); text-decoration-color: #99f6e4; } .ds-band-ink__link:focus-visible { outline: 3px solid var(--color-secondary-300, #5eead4); outline-offset: 2px; }"
     }
   ],
   "narrative": {
     "northStar": "The Editorial Field Atlas",
-    "overview": "The interface treats the workshop as a living research archive: rigorous enough for citation and long-form reading, but spatial and visual enough to invite exploration. Warm paper, restrained borders, and serif passages establish an editorial base; teal identifies interaction and terracotta supplies a rarer institutional signature. The system is content-led rather than dashboard-like, moving between quiet paper surfaces, sunken archive bands, and occasional ink-dark stages.",
+    "overview": "The interface treats the workshop as a living research archive: rigorous enough for citation and long-form reading, but spatial and visual enough to invite exploration. Warm paper, restrained borders, and serif passages establish an editorial base; teal identifies interaction and terracotta supplies a rarer institutional signature.\n\nThe system is content-led rather than dashboard-like. Pages move between quiet paper surfaces, sunken archive bands, and occasional ink-dark stages. Maps, photographs, the concept network, and bibliographic records keep their own material character while sharing the same typography, spacing, focus, and color language.\n\nIts neutrals are a full warm stone ramp rather than a handful of greys, and both accents ship as complete ten-step and seven-step ramps: the ramps exist because dark mode is a second reading environment with its own contrast arithmetic, not a filter over the first. Nothing outside those ramps enters a page except the concept network's categorical set and the status tones.",
     "keyCharacteristics": [
       "Warm editorial neutrals rather than blue-gray application chrome.",
-      "Teal for interaction, focus, and navigation; terracotta for brand emphasis.",
+      "Teal for interaction, focus, and navigation; terracotta for brand emphasis and calls to action.",
       "Tonal layering and bands before shadows.",
       "Dense scholarly information with comfortable reading measure and generous section rhythm.",
       "Dark mode as an equivalent reading environment, not a color inversion."
@@ -227,22 +535,27 @@
     "rules": [
       {
         "name": "The Two-Voice Rule",
-        "body": "Teal communicates interaction; terracotta communicates identity. Do not create additional accent families for individual features.",
+        "body": "Teal communicates interaction; terracotta communicates identity and the primary call to action. Do not create additional accent families for individual features. The concept network's categorical set is the single sanctioned exception, and it never leaves the graph stage.",
         "section": "colors"
       },
       {
         "name": "The Contrast-Before-Consistency Rule",
-        "body": "Dark mode may use a brighter member of the same hue ramp when the light-mode token would fail text or control contrast.",
+        "body": "Dark mode may use a brighter member of the same hue ramp when the light-mode token would fail text or control contrast. This is why the ramps exist; a token that only ever resolves to one value does not need one.",
         "section": "colors"
       },
       {
         "name": "The Reading-Voice Rule",
-        "body": "Use Source Serif only where sustained reading benefits from it; controls, metadata, maps, and filters remain sans-serif.",
+        "body": "Use Source Serif only where sustained reading benefits from it: running prose, ledes, bios, the bibliography. Controls, metadata, maps, filters, timetable chrome, and navigation stay on the body sans.",
         "section": "typography"
       },
       {
         "name": "The Tonal-First Rule",
         "body": "If two adjacent surfaces are unclear, correct their tonal step or border before adding a larger shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Neutral-Elevation Rule",
+        "body": "Elevation is neutral. A shadow describes distance from the surface below it, never hue; do not reach for a colored glow to signal state when a tonal step, a border shift, or the focus outline already says it.",
         "section": "elevation"
       }
     ],
@@ -251,14 +564,17 @@
       "Do keep scholarly prose within the established reading measure.",
       "Do reserve wide containers for content that genuinely needs spatial breadth.",
       "Do test every new interactive component at keyboard, 390px, and dark-mode contrast states.",
-      "Do give images intrinsic dimensions and preserve their real aspect ratios."
+      "Do give images intrinsic dimensions and preserve their real aspect ratios.",
+      "Do reach for a ramp step that clears contrast in the target theme rather than reusing the light-mode token and accepting the miss."
     ],
     "donts": [
       "Don't introduce a new accent hue for a route or content category.",
       "Don't animate layout-driving dimensions or ignore reduced-motion preferences.",
       "Don't turn lists of scholarly content into repetitive decorative cards without an information need.",
       "Don't use placeholder text as the only form label.",
-      "Don't hide horizontal overflow to conceal a layout containment bug."
+      "Don't hide horizontal overflow to conceal a layout containment bug.",
+      "Don't signal state with a colored glow when a tonal step, a border shift, or the focus outline already carries it.",
+      "Don't spend the gradient title anywhere but the homepage h1; nine gradient page titles turn a signature into wallpaper."
     ]
   }
 }

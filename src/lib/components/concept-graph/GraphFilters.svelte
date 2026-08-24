@@ -89,6 +89,14 @@
 		background: var(--bg-overlay);
 	}
 
+	/* Measured 40x38 on a phone — just under the 2.75rem floor DESIGN.md sets
+	   for graph chrome on coarse pointers. */
+	@media (pointer: coarse) {
+		.filter-btn {
+			min-height: 2.75rem;
+		}
+	}
+
 	.filter-btn.active {
 		background: color-mix(in srgb, var(--group-color, var(--accent)) 12%, var(--bg-raised));
 		color: var(--text-primary);
@@ -124,7 +132,10 @@
 		color: var(--text-secondary);
 	}
 
+	/* A border tone on text is invisible: `--border-strong` put these dots at
+	   2.7:1. Mixed from the surrounding text instead, they stay quieter than the
+	   counts while clearing the 3:1 floor for non-text marks in both themes. */
 	.stats-sep {
-		color: var(--border-strong);
+		color: color-mix(in oklab, var(--text-muted) 55%, transparent);
 	}
 </style>
