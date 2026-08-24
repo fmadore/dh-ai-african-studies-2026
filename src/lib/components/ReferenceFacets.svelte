@@ -155,12 +155,15 @@
 		</div>
 		<div class="gap-2xs flex items-center">
 			{#if activeFiltersCount > 0}
+				<!-- Same action, same name as the chip row's "Clear all" below the
+				     toolbar: one concept, one verb. Muted, not danger — clearing
+				     filters is safe and instantly reversible. -->
 				<button
 					type="button"
 					onclick={resetFilters}
-					class="text-danger tap-target tap-target-flush text-xs font-semibold"
+					class="facets-clear tap-target tap-target-flush text-xs font-semibold"
 				>
-					Reset ({activeFiltersCount})
+					Clear all ({activeFiltersCount})
 				</button>
 			{/if}
 			{#if showCloseButton}
@@ -372,6 +375,20 @@
 	/* This panel is the mobile filter sheet: its dismiss control was a bare 16px
 	   icon. The target is a full 2.75rem square, pulled back out to the panel's
 	   padding edge so the glyph still sits where the eye expects it. */
+	/* Mirrors the chip row's .filter-reset treatment on the page. */
+	.facets-clear {
+		color: var(--text-muted);
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.facets-clear:hover {
+		color: var(--text-primary);
+	}
+
 	.facets-close-btn {
 		display: inline-flex;
 		align-items: center;

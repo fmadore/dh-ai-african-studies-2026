@@ -21,6 +21,7 @@
 	let map: Leaflet.Map | null = null;
 	let tileLayer: Leaflet.TileLayer | null = null;
 	let mapReady = $state(false);
+	let mapFailed = $state(false);
 
 	const TILE_URLS = {
 		light: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -67,67 +68,68 @@
 		const initialDark = isDarkMode;
 		let destroyed = false;
 
-		import('leaflet').then((L) => {
-			if (destroyed || map || !mapContainer) return;
-			map = L.map(mapContainer, {
-				center: [20, 0],
-				zoom: 2,
-				zoomControl: true,
-				scrollWheelZoom: true,
-				// Set world bounds to prevent panning too far
-				maxBounds: [
-					[-90, -180], // Southwest coordinates
-					[90, 180] // Northeast coordinates
-				],
-				maxBoundsViscosity: 0.9, // Keep within bounds but allow slight elastic feel
-				minZoom: 2, // Prevent zooming out too far
-				maxZoom: 18,
-				worldCopyJump: true // Ensure the map snaps to the base world copy so markers stay visible
-			});
-
-			// Add appropriate tile layer based on theme
-			tileLayer = L.tileLayer(initialDark ? TILE_URLS.dark : TILE_URLS.light, {
-				attribution:
-					'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-				subdomains: 'abcd',
-				maxZoom: 18
-			}).addTo(map);
-
-			// Add markers for each location
-			groups.forEach((participantsAtLocation, coordsKey) => {
-				const [lat, lng] = coordsKey.split(',').map(Number);
-				const affiliation = participantsAtLocation[0].affiliation;
-				const participantCount = participantsAtLocation.length;
-				const markerLabel = `Show ${participantCount} participant${participantCount === 1 ? '' : 's'} from ${affiliation}`;
-
-				// The visual pin stays compact while its surrounding Leaflet icon offers a
-				// 44px target for touch and keyboard users.
-				const customIcon = L.divIcon({
-					className: 'custom-map-marker',
-					html: '<span class="marker-hit-area"><span class="marker-pin"></span></span>',
-					iconSize: [44, 44],
-					iconAnchor: [22, 43],
-					popupAnchor: [0, -43]
+		import('leaflet')
+			.then((L) => {
+				if (destroyed || map || !mapContainer) return;
+				map = L.map(mapContainer, {
+					center: [20, 0],
+					zoom: 2,
+					zoomControl: true,
+					scrollWheelZoom: true,
+					// Set world bounds to prevent panning too far
+					maxBounds: [
+						[-90, -180], // Southwest coordinates
+						[90, 180] // Northeast coordinates
+					],
+					maxBoundsViscosity: 0.9, // Keep within bounds but allow slight elastic feel
+					minZoom: 2, // Prevent zooming out too far
+					maxZoom: 18,
+					worldCopyJump: true // Ensure the map snaps to the base world copy so markers stay visible
 				});
 
-				const marker = L.marker([lat, lng], {
-					icon: customIcon,
-					keyboard: true,
-					title: markerLabel,
-					alt: markerLabel
-				});
+				// Add appropriate tile layer based on theme
+				tileLayer = L.tileLayer(initialDark ? TILE_URLS.dark : TILE_URLS.light, {
+					attribution:
+						'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+					subdomains: 'abcd',
+					maxZoom: 18
+				}).addTo(map);
 
-				marker.on('add', () => {
-					const element = marker.getElement();
-					element?.setAttribute('aria-label', markerLabel);
-					element?.setAttribute('title', markerLabel);
-					element?.setAttribute('role', 'button');
-				});
+				// Add markers for each location
+				groups.forEach((participantsAtLocation, coordsKey) => {
+					const [lat, lng] = coordsKey.split(',').map(Number);
+					const affiliation = participantsAtLocation[0].affiliation;
+					const participantCount = participantsAtLocation.length;
+					const markerLabel = `Show ${participantCount} participant${participantCount === 1 ? '' : 's'} from ${affiliation}`;
 
-				marker.addTo(map!);
+					// The visual pin stays compact while its surrounding Leaflet icon offers a
+					// 44px target for touch and keyboard users.
+					const customIcon = L.divIcon({
+						className: 'custom-map-marker',
+						html: '<span class="marker-hit-area"><span class="marker-pin"></span></span>',
+						iconSize: [44, 44],
+						iconAnchor: [22, 43],
+						popupAnchor: [0, -43]
+					});
 
-				// Create popup content with profile photos
-				const popupContent = `
+					const marker = L.marker([lat, lng], {
+						icon: customIcon,
+						keyboard: true,
+						title: markerLabel,
+						alt: markerLabel
+					});
+
+					marker.on('add', () => {
+						const element = marker.getElement();
+						element?.setAttribute('aria-label', markerLabel);
+						element?.setAttribute('title', markerLabel);
+						element?.setAttribute('role', 'button');
+					});
+
+					marker.addTo(map!);
+
+					// Create popup content with profile photos
+					const popupContent = `
 						<div class="popup-card">
 							<h3 class="popup-title">${escapeHtml(participantsAtLocation[0].affiliation)}</h3>
 							<p class="popup-meta"><strong>${participantsAtLocation.length}</strong> participant${participantsAtLocation.length > 1 ? 's' : ''}</p>
@@ -165,18 +167,23 @@
 						</div>
 					`;
 
-				marker.bindPopup(popupContent, {
-					maxWidth: 350,
-					className: 'participant-popup'
+					marker.bindPopup(popupContent, {
+						maxWidth: 350,
+						className: 'participant-popup'
+					});
+
+					if (onselectlocation) {
+						marker.on('click', () => onselectlocation(affiliation));
+					}
 				});
 
-				if (onselectlocation) {
-					marker.on('click', () => onselectlocation(affiliation));
-				}
+				mapReady = true;
+			})
+			.catch(() => {
+				// A failed chunk load (flaky network) should degrade to a stated
+				// alternative, not an empty grey rectangle.
+				if (!destroyed) mapFailed = true;
 			});
-
-			mapReady = true;
-		});
 
 		return () => {
 			// Cleanup map on component destroy
@@ -198,7 +205,16 @@
 	});
 </script>
 
-<div bind:this={mapContainer} class="map-canvas"></div>
+{#if mapFailed}
+	<div class="map-canvas map-canvas--failed" role="status">
+		<p class="map-failed__lead">The interactive map could not be loaded.</p>
+		<p class="map-failed__body">
+			The directory above lists every participant with their affiliation and country.
+		</p>
+	</div>
+{:else}
+	<div bind:this={mapContainer} class="map-canvas"></div>
+{/if}
 
 <style>
 	:global(.map-canvas) {
@@ -206,6 +222,28 @@
 		width: 100%;
 		overflow: hidden;
 		background: var(--bg-sunken);
+	}
+
+	/* Same footprint as the map it replaces, in the system's empty-state
+	   silhouette, so a failed chunk load doesn't collapse the page rhythm. */
+	.map-canvas--failed {
+		display: grid;
+		place-content: center;
+		gap: var(--space-2xs);
+		border: 1px dashed var(--border-strong);
+		border-radius: var(--radius-xl);
+		text-align: center;
+		padding: var(--space-lg);
+	}
+
+	.map-failed__lead {
+		font-weight: var(--font-weight-semibold);
+		color: var(--text-primary);
+	}
+
+	.map-failed__body {
+		font-size: var(--text-sm);
+		color: var(--text-muted);
 	}
 
 	:global(.participant-popup .leaflet-popup-content-wrapper) {

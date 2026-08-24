@@ -16,11 +16,13 @@
 	let { count, getRecords, filename = 'references' }: Props = $props();
 
 	let isExporting = $state(false);
+	let exportFailed = $state(false);
 
 	async function exportToFormat(format: 'bibtex' | 'ris') {
 		if (count === 0) return;
 
 		isExporting = true;
+		exportFailed = false;
 
 		try {
 			const references = await getRecords();
@@ -51,6 +53,9 @@
 			document.body.removeChild(link);
 			URL.revokeObjectURL(url);
 		} catch (error) {
+			// The only async dependency is the reference-data fetch; say so and
+			// name the recovery instead of failing into silence.
+			exportFailed = true;
 			console.error('Export failed:', error);
 		} finally {
 			isExporting = false;
@@ -78,3 +83,18 @@
 		<span class="text-subtle-ink block text-xs">Universal format</span>
 	</DropdownItem>
 </Dropdown>
+
+{#if exportFailed}
+	<p class="export-failed" role="status">
+		The export could not load the reference data — check your connection and try again.
+	</p>
+{/if}
+
+<style>
+	/* Quiet and adjacent, in the same voice as the abstract-fetch note. */
+	.export-failed {
+		flex-basis: 100%;
+		font-size: var(--text-xs);
+		color: var(--danger);
+	}
+</style>

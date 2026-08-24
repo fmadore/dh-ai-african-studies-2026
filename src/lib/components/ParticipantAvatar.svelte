@@ -7,6 +7,10 @@
 
 	let { src, alt, size = 'md' }: Props = $props();
 
+	// A missing photo and a photo that 404s should land in the same place:
+	// the glyph fallback, never a broken-image icon inside the ring.
+	let failed = $state(false);
+
 	// A teal halo plus a shadow plus 4px of padding, on 28 faces, is a lot of
 	// chrome. A hairline ring is enough to separate a portrait from the card.
 	//
@@ -21,7 +25,7 @@
 	};
 </script>
 
-{#if src}
+{#if src && !failed}
 	<!-- Plain img so loading="lazy" works (Flowbite Avatar doesn't forward it) -->
 	<img
 		{src}
@@ -30,6 +34,7 @@
 		height="112"
 		loading="lazy"
 		decoding="async"
+		onerror={() => (failed = true)}
 		class="{sizeClasses[size]} participant-avatar rounded-full object-cover"
 	/>
 {:else}

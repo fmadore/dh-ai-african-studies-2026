@@ -410,9 +410,9 @@
 								<div class="empty-state__icon">
 									<SearchOutline class="size-icon-md" />
 								</div>
-								<h3 class="body-text-strong text-lg font-medium">No references found</h3>
+								<h3 class="body-text-strong text-lg font-medium">No references match</h3>
 								<p class="body-text-muted mx-auto max-w-xs text-sm">
-									Try adjusting your search terms or filters to find what you're looking for.
+									Adjust the search or filters, or clear them to see all {references.length} references.
 								</p>
 								<Button color="primary" outline size="sm" onclick={resetFilters}>
 									Clear all filters

@@ -187,16 +187,22 @@
 		</section>
 	{/each}
 {:else}
+	<!-- Reachable only through a stale or mistyped ?day= link: every category
+	     with photos gets a pill, and the archive is complete. Past tense, with
+	     a way back to the full gallery. -->
 	<div class="empty-state">
 		<div class="empty-state__icon">
 			<ImageOutline class="size-icon-md" />
 		</div>
 		<Heading tag="h4" class="body-text-strong text-lg font-medium"
-			>No photos in this category yet</Heading
+			>No photos match this selection</Heading
 		>
 		<P class="body-text-muted mx-auto max-w-xs text-sm">
-			Photos will be added here soon. Check back later!
+			Every photograph from the workshop is in the full gallery.
 		</P>
+		<Button color="primary" outline size="sm" onclick={() => setCategory('All')}>
+			Show all photos
+		</Button>
 	</div>
 {/if}
 
