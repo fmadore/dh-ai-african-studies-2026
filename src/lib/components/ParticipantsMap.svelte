@@ -17,7 +17,9 @@
 
 	let { participants, onselectlocation }: Props = $props();
 
-	let mapContainer: HTMLDivElement;
+	// $state because the element now lives in an {#if} branch: the binding can
+	// come and go, and a plain let would not re-run anything that reads it.
+	let mapContainer = $state<HTMLDivElement | undefined>(undefined);
 	let map: Leaflet.Map | null = null;
 	let tileLayer: Leaflet.TileLayer | null = null;
 	let mapReady = $state(false);
