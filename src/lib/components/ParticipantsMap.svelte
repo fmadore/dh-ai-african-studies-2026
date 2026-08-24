@@ -226,6 +226,17 @@
 		background: var(--bg-sunken);
 	}
 
+	/* Leaflet ships 30px zoom buttons; DESIGN.md puts map chrome on the same
+	   2.75rem coarse-pointer floor as every other control. */
+	@media (pointer: coarse) {
+		:global(.map-canvas .leaflet-control-zoom a) {
+			width: 2.75rem;
+			height: 2.75rem;
+			line-height: 2.75rem;
+			font-size: 1.25rem;
+		}
+	}
+
 	/* Same footprint as the map it replaces, in the system's empty-state
 	   silhouette, so a failed chunk load doesn't collapse the page rhythm. */
 	.map-canvas--failed {

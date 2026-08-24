@@ -89,6 +89,14 @@
 		background: var(--bg-overlay);
 	}
 
+	/* Measured 40x38 on a phone — just under the 2.75rem floor DESIGN.md sets
+	   for graph chrome on coarse pointers. */
+	@media (pointer: coarse) {
+		.filter-btn {
+			min-height: 2.75rem;
+		}
+	}
+
 	.filter-btn.active {
 		background: color-mix(in srgb, var(--group-color, var(--accent)) 12%, var(--bg-raised));
 		color: var(--text-primary);
