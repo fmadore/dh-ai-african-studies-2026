@@ -71,11 +71,15 @@
 		border-top: 1px solid var(--border-subtle);
 	}
 
+	/* Height matched to `.pagination__page` (2.25rem): the two control shapes
+	   share one row, and a 41px Previous beside a 36px "3" made the row read as
+	   two bands rather than one. */
 	.pagination__nav {
 		display: inline-flex;
 		align-items: center;
+		height: 2.25rem;
 		gap: var(--space-2xs);
-		padding: var(--space-2xs) var(--space-sm);
+		padding: 0 var(--space-sm);
 		border-radius: var(--radius-md);
 		border: 1px solid var(--border-default);
 		background: var(--bg-raised);
@@ -158,5 +162,19 @@
 		min-width: 2rem;
 		color: var(--text-subtle);
 		font-size: var(--text-sm);
+	}
+
+	/* 36px is a comfortable mouse target and an uncomfortable thumb one; on a
+	   coarse pointer both shapes grow to the 2.75rem floor the rest of the site
+	   uses, and the row still reads as one band because they grow together. */
+	@media (pointer: coarse) {
+		.pagination__nav,
+		.pagination__page {
+			height: 2.75rem;
+		}
+
+		.pagination__page {
+			min-width: 2.75rem;
+		}
 	}
 </style>

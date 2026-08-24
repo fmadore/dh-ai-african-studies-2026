@@ -142,16 +142,20 @@
 	}
 </script>
 
-<div class="card-surface facets-panel p-5 sm:p-6" class:facets-panel--fill={fillHeight}>
+<div class="card-surface facets-panel" class:facets-panel--fill={fillHeight}>
 	<!-- Header -->
-	<div class="facets-header mb-4 flex flex-wrap items-center justify-between gap-3 pb-4">
-		<div class="flex items-center gap-2">
-			<FilterOutline class="text-accent h-5 w-5" />
-			<span class="text-primary-ink text-lg font-semibold">Filters</span>
+	<div class="facets-header flex flex-wrap items-center justify-between gap-3">
+		<div class="gap-2xs flex items-center">
+			<FilterOutline class="text-accent size-icon-md" />
+			<span class="facets-panel__title">Filters</span>
 		</div>
-		<div class="gap-sm flex items-center">
+		<div class="gap-2xs flex items-center">
 			{#if activeFiltersCount > 0}
-				<button onclick={resetFilters} class="text-danger text-xs font-medium">
+				<button
+					type="button"
+					onclick={resetFilters}
+					class="text-danger tap-target tap-target-flush text-xs font-semibold"
+				>
 					Reset ({activeFiltersCount})
 				</button>
 			{/if}
@@ -159,10 +163,10 @@
 				<button
 					type="button"
 					onclick={() => onclose?.()}
-					class="facets-close-btn text-subtle-ink flex items-center gap-1 text-xs font-semibold tracking-wide uppercase"
+					class="facets-close-btn text-subtle-ink"
 					aria-label={closeLabel}
 				>
-					<CloseOutline class="h-4 w-4" />
+					<CloseOutline class="size-icon-sm" />
 				</button>
 			{/if}
 		</div>
@@ -305,8 +309,31 @@
 </div>
 
 <style>
+	/* Token padding, matching the reference card it sits beside. `p-5 sm:p-6`
+	   resolved through this project's fluid `--spacing-6` override to 15px —
+	   the tightest surface on the page, next to a 24px card. */
+	.facets-panel {
+		padding: var(--space-md);
+	}
+
+	@media (min-width: 640px) {
+		.facets-panel {
+			padding: var(--space-lg);
+		}
+	}
+
 	.facets-header {
+		margin-bottom: var(--space-md);
+		padding-bottom: var(--space-md);
 		border-bottom: 1px solid var(--border-default);
+	}
+
+	/* The panel's own name, not a section heading: `text-lg` made it the largest
+	   type in a 303px column of 13–15px controls. */
+	.facets-panel__title {
+		font-size: var(--text-base);
+		font-weight: var(--font-weight-semibold);
+		color: var(--text-primary);
 	}
 
 	/* Sidebar mode. The panel is capped to the viewport by its container, so the
@@ -338,7 +365,17 @@
 		overflow-y: visible;
 	}
 
+	/* This panel is the mobile filter sheet: its dismiss control was a bare 16px
+	   icon. The target is a full 2.75rem square, pulled back out to the panel's
+	   padding edge so the glyph still sits where the eye expects it. */
 	.facets-close-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.75rem;
+		height: 2.75rem;
+		margin-inline-end: calc(var(--space-sm) * -1);
+		border-radius: var(--radius-control);
 		transition: color var(--transition-micro);
 	}
 
@@ -346,10 +383,16 @@
 		color: var(--accent);
 	}
 
-	/* Reusable label — replaces the repeated gray-700/gray-300 pair */
+	/* The group headings take the system's label role. At 15px/600 they were the
+	   same size as the option rows beneath them and separated only by weight,
+	   so nothing in the panel told you which line was the question and which
+	   were the answers. */
 	:global(.facets-label) {
-		font-size: var(--text-sm);
+		font-size: var(--text-xs);
 		font-weight: var(--font-weight-semibold);
+		line-height: var(--leading-ui);
+		letter-spacing: var(--tracking-wider);
+		text-transform: uppercase;
 		color: var(--text-secondary);
 	}
 
@@ -362,13 +405,15 @@
 
 	:global(.facets-count-pill) {
 		display: inline-block;
-		margin-left: 0.375rem;
-		padding: 0 0.375rem;
+		margin-left: var(--space-3xs);
+		padding: 0 var(--space-3xs);
 		border-radius: var(--radius-sm);
 		background-color: var(--accent-soft);
 		color: var(--text-accent);
 		font-size: var(--text-xs);
-		font-weight: var(--font-weight-medium);
+		font-weight: var(--font-weight-semibold);
+		font-variant-numeric: tabular-nums;
+		letter-spacing: var(--tracking-normal);
 	}
 
 	/* Text inputs (shared look for search + keyword filter) */
@@ -402,32 +447,59 @@
 		border-radius: var(--radius-sm);
 	}
 
-	/* Override default Accordion borders to blend with card-surface */
+	/* One form-control vocabulary in the panel. The sort <select> arrived with
+	   Flowbite's own 14px radius and gray-600 border, sitting directly under a
+	   10px search field on the semantic border — two controls, two looks. */
+	.facets-body :global(select) {
+		border-radius: var(--radius-md);
+		border-color: var(--border-default);
+		background-color: var(--bg-raised);
+		color: var(--text-primary);
+	}
+
+	/* A 21px label is a fine mouse target and a poor thumb one. */
+	@media (pointer: coarse) {
+		.facets-body :global(label:has(input[type='checkbox'])) {
+			min-height: 2.75rem;
+		}
+	}
+
+	/* Strip the Flowbite accordion's own chrome so the facet groups read as rules
+	   inside this panel rather than as a second, nested card.
+	 *
+	 * These selectors were `> div > h2 > button`, matching a per-item wrapper
+	 * that the current Flowbite markup does not emit — so none of them applied
+	 * and every group header shipped as a filled grey bar with a 20px radius,
+	 * 20px padding and a full border, inside a card that already has one. */
 	:global(.facets-accordion) {
 		border: none !important;
 		border-radius: 0 !important;
 	}
 
-	:global(.facets-accordion > div > h2 > button) {
-		padding: 0.75rem 0 !important;
+	:global(.facets-accordion h2 > button) {
+		padding: var(--space-sm) 0 !important;
 		background-color: transparent !important;
 		border: none !important;
 		border-top: 1px solid var(--border-default) !important;
 		border-radius: 0 !important;
+		color: var(--text-secondary) !important;
 	}
 
-	:global(.facets-accordion > div > h2 > button:hover) {
+	:global(.facets-accordion h2 > button:hover) {
 		background-color: transparent !important;
+		color: var(--text-primary) !important;
 	}
 
 	/* Remove body border and adjust padding */
-	:global(.facets-accordion > div > div:not(:first-child)) {
+	:global(.facets-accordion h2 + div),
+	:global(.facets-accordion h2 + div > div) {
 		border: none !important;
+		border-radius: 0 !important;
+		background-color: transparent !important;
 	}
 
-	:global(.facets-accordion > div > div:not(:first-child) > div) {
-		padding: 0.5rem 0 0.25rem !important;
-		border: none !important;
+	:global(.facets-accordion h2 + div > div) {
+		padding: var(--space-xs) 0 var(--space-sm) !important;
 	}
 
 	.custom-scrollbar::-webkit-scrollbar {

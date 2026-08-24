@@ -15,7 +15,10 @@
 	<SearchOutline class="size-icon-md text-muted-ink" />
 {/snippet}
 
-<div class="search-filter mx-auto w-full max-w-md">
+<!-- No `mx-auto`: as a flex item in a space-between toolbar those auto margins
+     ate the free space and floated the field into the middle of the row, 320px
+     off the left edge that every card below it aligns to. -->
+<div class="search-filter w-full max-w-md">
 	<label class="search-filter__label" for={inputId}>{label}</label>
 	<Input
 		bind:value
@@ -23,7 +26,7 @@
 		type="search"
 		{placeholder}
 		size="lg"
-		class="search-filter__input py-3! pl-12! text-lg!"
+		class="search-filter__input py-3! pl-12! text-base!"
 		left={leftIcon}
 	/>
 </div>

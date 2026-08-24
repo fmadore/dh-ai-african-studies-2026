@@ -149,13 +149,13 @@
 						/>
 						<div class="directory-status">
 							<p class="text-body-sm">
-								<span class="text-accent font-bold">{displayedParticipants.length}</span>
+								<span class="directory-status__figure">{displayedParticipants.length}</span>
 								of {totalParticipants} participants
 							</p>
 							{#if searchQuery}
 								<button
 									type="button"
-									class="directory-clear tap-target"
+									class="directory-clear tap-target tap-target-flush"
 									onclick={() => (searchQuery = '')}
 								>
 									Clear search
@@ -187,8 +187,8 @@
 											/>
 											<span class="participant-card__identity">
 												<span class="participant-card__name">{participant.name}</span>
-												<span class="text-body-sm body-text-muted">{participant.affiliation}</span>
-												<span class="text-caption">{participant.country}</span>
+												<span class="participant-card__affiliation">{participant.affiliation}</span>
+												<span class="participant-card__country">{participant.country}</span>
 											</span>
 											<svg class="participant-card__chevron" viewBox="0 0 10 6" aria-hidden="true">
 												<path
@@ -210,8 +210,8 @@
 											/>
 											<span class="participant-card__identity">
 												<span class="participant-card__name">{participant.name}</span>
-												<span class="text-body-sm body-text-muted">{participant.affiliation}</span>
-												<span class="text-caption">{participant.country}</span>
+												<span class="participant-card__affiliation">{participant.affiliation}</span>
+												<span class="participant-card__country">{participant.country}</span>
 											</span>
 										</div>
 									{/if}
@@ -276,43 +276,49 @@
 									{/each}
 								</dl>
 
-								<h3 class="text-label thematic-group__people-heading">
-									Participants ({groupParticipants.length})
-								</h3>
-								{#if groupParticipants.length > 0}
-									<ul class="group-people">
-										{#each groupParticipants as participant (participant.name)}
-											<li class="group-person">
-												<ParticipantAvatar
-													src={participant.photoUrl}
-													alt={participant.name}
-													size="sm"
-												/>
-												<span class="min-w-0">
-													<span class="participant-card__name block truncate">
-														{#if participant.website}
-															<a
-																href={participant.website}
-																target="_blank"
-																rel="noopener noreferrer"
-																class="link-secondary">{participant.name}</a
-															>
-														{:else}
-															{participant.name}
-														{/if}
+								<!-- Heading and list are one group, so they live in one container
+								     with its own gap. They used to be two children of the section
+								     grid, pulled back together with a negative margin computed
+								     from that grid's gap. -->
+								<div class="thematic-group__people">
+									<h3 class="text-label">
+										Participants ({groupParticipants.length})
+									</h3>
+									{#if groupParticipants.length > 0}
+										<ul class="group-people">
+											{#each groupParticipants as participant (participant.name)}
+												<li class="group-person">
+													<ParticipantAvatar
+														src={participant.photoUrl}
+														alt={participant.name}
+														size="sm"
+													/>
+													<span class="min-w-0">
+														<span class="participant-card__name block truncate">
+															{#if participant.website}
+																<a
+																	href={participant.website}
+																	target="_blank"
+																	rel="noopener noreferrer"
+																	class="link-secondary">{participant.name}</a
+																>
+															{:else}
+																{participant.name}
+															{/if}
+														</span>
+														<span class="participant-card__affiliation block truncate"
+															>{participant.affiliation}</span
+														>
 													</span>
-													<span class="text-body-sm body-text-muted block truncate"
-														>{participant.affiliation}</span
-													>
-												</span>
-											</li>
-										{/each}
-									</ul>
-								{:else}
-									<p class="text-body-sm body-text-muted italic">
-										No participants were assigned to this group.
-									</p>
-								{/if}
+												</li>
+											{/each}
+										</ul>
+									{:else}
+										<p class="text-body-sm body-text-muted italic">
+											No participants were assigned to this group.
+										</p>
+									{/if}
+								</div>
 							</section>
 						{/each}
 					</div>
@@ -356,6 +362,14 @@
 		gap: var(--space-md);
 	}
 
+	/* The count changes on every keystroke; tabular figures keep the sentence
+	   around it from shifting. Semibold, not bold — it is two digits. */
+	.directory-status__figure {
+		color: var(--text-accent);
+		font-weight: var(--font-weight-semibold);
+		font-variant-numeric: tabular-nums;
+	}
+
 	.directory-clear {
 		font-size: var(--text-xs);
 		font-weight: var(--font-weight-semibold);
@@ -369,10 +383,12 @@
 		color: var(--text-link-hover);
 	}
 
+	/* The interval between two people has to beat the padding inside one, or a
+	   26-card grid reads as one field of text rather than 26 entries. */
 	.participant-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
-		gap: var(--space-md);
+		gap: var(--space-lg);
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -392,7 +408,7 @@
 		align-items: center;
 		gap: var(--space-sm);
 		width: 100%;
-		padding: var(--space-sm);
+		padding: var(--space-md);
 		background: transparent;
 		border: none;
 		text-align: left;
@@ -418,6 +434,25 @@
 		font-size: var(--text-base);
 		line-height: var(--leading-snug);
 		color: var(--text-primary);
+		/* The name is the entry; affiliation and country are one metadata pair
+		   below it. A uniform 2px between all three made them a single block. */
+		margin-bottom: var(--space-3xs);
+	}
+
+	/* Institutional strings run long and wrap to two or three lines. At 1.5 a
+	   wrapped affiliation spread wider than the name above it; the snug step
+	   keeps it a paragraph-shaped object under the name. */
+	.participant-card__affiliation {
+		font-size: var(--text-sm);
+		line-height: var(--leading-snug);
+		color: var(--text-muted);
+	}
+
+	.participant-card__country {
+		font-size: var(--text-xs);
+		line-height: var(--leading-ui);
+		letter-spacing: var(--tracking-wide);
+		color: var(--text-subtle);
 	}
 
 	.participant-card__chevron {
@@ -432,12 +467,13 @@
 		transform: rotate(180deg);
 	}
 
+	/* One padding value, matching the trigger above it: the revealed bio sits on
+	   the same inset as the portrait rather than a step tighter. */
 	.participant-card__detail {
 		display: grid;
 		gap: var(--space-xs);
-		padding: 0 var(--space-sm) var(--space-sm);
+		padding: var(--space-md);
 		border-top: 1px solid var(--border-subtle);
-		padding-top: var(--space-sm);
 	}
 
 	/* ---------- Thematic groups ----------
@@ -450,9 +486,10 @@
 		border-bottom: 1px solid var(--border-subtle);
 	}
 
-	.thematic-group__people-heading {
-		margin-top: var(--space-sm);
-		margin-bottom: calc(var(--space-lg) * -1 + var(--space-2xs));
+	.thematic-group__people {
+		display: grid;
+		gap: var(--space-sm);
+		margin-top: var(--space-2xs);
 	}
 
 	.guiding-questions {
