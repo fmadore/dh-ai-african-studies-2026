@@ -55,7 +55,7 @@
 		background-color: var(--accent);
 		border-color: var(--accent);
 		color: var(--text-on-accent);
-		box-shadow: var(--shadow-accent);
+		box-shadow: var(--shadow-lg);
 		transform: translateY(-2px);
 	}
 

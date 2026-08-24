@@ -37,8 +37,10 @@
 			border-color var(--transition-base);
 	}
 
+	/* The focus outline is the state signal; the shadow only says the field has
+	   come forward, so it steps up one neutral rung rather than glowing teal. */
 	.search-filter :global(.search-filter__input:focus-within) {
-		box-shadow: var(--shadow-accent);
+		box-shadow: var(--shadow-sm);
 		border-color: var(--border-accent);
 	}
 

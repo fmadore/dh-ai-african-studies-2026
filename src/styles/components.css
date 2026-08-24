@@ -108,9 +108,11 @@
 		box-shadow: var(--shadow-md);
 	}
 
+	/* Dark mode needs a deeper shadow to register at all against a near-black
+	   page — but a deeper neutral one. The warmed border carries the hue. */
 	.dark .card-surface--link:hover,
 	.dark .card-surface--link:focus-within {
-		box-shadow: var(--shadow-accent);
+		box-shadow: var(--shadow-lg);
 	}
 
 	/* Empty-state card — dashed border, centered copy */
@@ -165,6 +167,17 @@
 		-webkit-text-fill-color: transparent;
 	}
 
+	/* High Contrast Mode drops the background image but keeps the transparent
+	   fill, which erases the page title. Hand the h1 back to the system palette. */
+	@media (forced-colors: active) {
+		.text-gradient-teal,
+		.dark .text-gradient-teal {
+			background: none;
+			-webkit-text-fill-color: currentColor;
+			color: CanvasText;
+		}
+	}
+
 	/* Hero backdrop — teal-dominant with warm counterweight */
 	.gradient-hero-future {
 		background:
@@ -189,6 +202,31 @@
 		   `position: sticky` on the header and the gallery's day markers.
 		   `clip` contains the full-bleed bands without that side effect. */
 		overflow-x: clip;
+	}
+
+	/* ---------- Ambient field ----------
+	 * One dot mesh for the whole page, not one per section, masked so it has
+	 * faded out by 65% of the viewport and never competes with content below. */
+	.app-shell::before {
+		content: '';
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		background-image: radial-gradient(circle, var(--accent-muted) 1px, transparent 1px);
+		background-size: 32px 32px;
+		opacity: 0.05;
+		-webkit-mask-image: linear-gradient(180deg, #000, transparent 65%);
+		mask-image: linear-gradient(180deg, #000, transparent 65%);
+	}
+
+	.dark .app-shell::before {
+		opacity: 0.09;
+	}
+
+	/* The mesh is direct visual competition for a node-link diagram */
+	.app-shell--no-mesh::before {
+		display: none;
 	}
 
 	/* Kept for the homepage hero only — one glow, where the entrance is. */

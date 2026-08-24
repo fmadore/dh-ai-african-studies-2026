@@ -58,8 +58,10 @@
 	:global(.btn-refined:active) {
 		transform: translateY(0);
 	}
+	/* Neutral: a shadow describes distance from the surface below, never hue —
+	   the darker terracotta fill already says the button is hovered. */
 	:global(.btn-refined--primary:hover) {
-		box-shadow: var(--shadow-brand);
+		box-shadow: var(--shadow-md);
 	}
 	/* No backdrop-filter: an outline button over a flat page promoted a
 	   compositing layer to blur nothing. */

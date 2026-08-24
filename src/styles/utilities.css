@@ -395,7 +395,9 @@
 		font-family: var(--font-family-serif);
 		font-size: var(--text-xl);
 		line-height: var(--leading-relaxed);
-		color: var(--text-muted);
+		/* Not muted: the lede is the first sentence a reader meets, and dimming
+		   it below the body prose that follows inverts the hierarchy. */
+		color: var(--text-secondary);
 		font-weight: var(--font-weight-regular);
 		max-width: var(--measure-lede);
 	}
@@ -427,8 +429,12 @@
 	.heading-md {
 		font-size: var(--text-3xl);
 	}
+	/* At --text-2xl this was the same size as `.heading-sub`, so it modified
+	   nothing and `heading-sub heading-sm` card titles rendered at 29.76px while
+	   the work-stream cards beside them sat at 20px. --text-lg is the size the
+	   rest of the card titles already use, which is the point of the class. */
 	.heading-sm {
-		font-size: var(--text-2xl);
+		font-size: var(--text-lg);
 	}
 
 	/* ---------- Links ---------- */
@@ -492,10 +498,16 @@
 		transform: translateY(0);
 	}
 
+	/* This list replaces whatever the child declared — the utilities layer wins —
+	   so it has to carry `.card-surface--link`'s hover properties too, at that
+	   component's own duration. Without them the lift crept over 360ms while the
+	   border and shadow snapped. */
 	.stagger-children > * {
 		transition:
 			opacity var(--transition-slow),
-			transform var(--transition-slow);
+			transform var(--transition-slow),
+			box-shadow var(--transition-base),
+			border-color var(--transition-base);
 	}
 
 	.stagger-children.animating:not(.revealed) > * {
@@ -528,6 +540,12 @@
 
 	.stagger-children.revealed > * {
 		opacity: 1;
+	}
+
+	/* Once revealed, the resting transform has to yield to a hovered link card —
+	   this rule is in a later layer than `.card-surface--link:hover`, so without
+	   the exception it held every staggered card flat and killed the 2px lift. */
+	.stagger-children.revealed > *:not(:hover, :focus-within) {
 		transform: translateY(0);
 	}
 

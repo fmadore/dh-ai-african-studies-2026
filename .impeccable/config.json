@@ -23,6 +23,34 @@
         "files": ["build/*.html"],
         "createdAt": "2026-08-23T15:53:39.625Z",
         "reason": "Agent: .app-shell overflow-x clip is deliberate and documented in components.css - overflow hidden would compute overflow-y auto and break position: sticky on the header"
+      },
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": ["build/*.html", "src/styles/components.css"],
+        "createdAt": "2026-08-24T01:11:21.634Z",
+        "reason": "User confirmed: the page-level ambient dot mesh is the documented Future Forward signature (CLAUDE.md/DESIGN.md), deliberately reinstated per issue #46 after accidental loss in b5b7704"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": ["build/*.html"],
+        "createdAt": "2026-08-24T01:11:22.203Z",
+        "reason": "Agent: browser-engine audit verified every flagged pair false - the static engine cannot resolve var() backgrounds under .band-ink token remaps (measured 6.9:1-16.8:1 in both themes); real contrast regressions are caught by the axe e2e runs in both themes"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": ["build/*.html"],
+        "createdAt": "2026-08-24T01:11:22.757Z",
+        "reason": "Agent: detector does not resolve var()/clamp() padding - audit measured 12-29px computed padding on representative flagged selectors (hero-fact, card-surface, footer-grid, footer-colophon, reference-card__foot, method-step); page shells legitimately delegate inset to children"
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": ["build/index.html", "src/routes/+page.svelte"],
+        "createdAt": "2026-08-24T01:11:23.333Z",
+        "reason": "Agent: the 50-char hero eyebrow is the design-system label role (uppercase, tracked, 12px), misclassified as body text; audit confirmed label semantics"
       }
     ]
   }

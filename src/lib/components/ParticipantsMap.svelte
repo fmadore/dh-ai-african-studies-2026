@@ -365,9 +365,7 @@
 		left: 50%;
 		top: 50%;
 		margin: -15px 0 0 -15px;
-		box-shadow:
-			var(--shadow-md),
-			0 0 12px -2px rgba(13, 148, 136, 0.4);
+		box-shadow: var(--shadow-md);
 		border: 2px solid var(--bg-raised);
 	}
 

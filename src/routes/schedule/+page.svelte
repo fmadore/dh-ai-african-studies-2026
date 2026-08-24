@@ -327,8 +327,10 @@
 		color: var(--text-muted);
 	}
 
+	/* Tabular figures in the body sans line the times up just as well as a mono
+	   stack would, without borrowing an undeclared system face for it. */
 	.day-row__time {
-		font-family: var(--font-family-mono);
+		font-family: var(--font-family-body);
 		font-size: var(--text-xs);
 		font-weight: var(--font-weight-medium);
 		font-variant-numeric: tabular-nums;

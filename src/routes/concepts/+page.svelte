@@ -217,8 +217,11 @@
 		border-top: 2px solid var(--border-accent);
 	}
 
+	/* The body sans with tabular figures, not the undeclared system mono stack:
+	   these are step markers, not code. */
 	.method-step__number {
-		font-family: var(--font-family-mono);
+		font-family: var(--font-family-body);
+		font-variant-numeric: tabular-nums;
 		font-size: var(--text-xs);
 		color: var(--text-accent);
 	}

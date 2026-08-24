@@ -8,12 +8,15 @@
 	let { children } = $props();
 
 	let isEmbed = $derived(page.url.pathname.endsWith('/embed'));
+	/* The dot mesh is direct visual competition for the concept map's own
+	   node-link stage, so that one page runs without it. */
+	let suppressMesh = $derived(page.url.pathname.replace(/\/$/, '').endsWith('/concepts'));
 </script>
 
 {#if isEmbed}
 	{@render children?.()}
 {:else}
-	<div class="app-shell bg-page flex min-h-screen flex-col">
+	<div class="app-shell bg-page flex min-h-screen flex-col" class:app-shell--no-mesh={suppressMesh}>
 		<a class="skip-link" href="#main-content">Skip to main content</a>
 
 		<!-- Navigation -->

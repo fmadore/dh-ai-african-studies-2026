@@ -282,12 +282,25 @@
 	}
 
 	.footer-link {
+		position: relative;
 		display: block;
 		font-size: var(--text-sm);
 		color: var(--text-secondary);
 		text-decoration: none;
 		padding-block: var(--space-3xs);
 		transition: color var(--transition-micro);
+	}
+
+	/* Hit area, not visual box. These lines are ~34px tall; giving each one a
+	   44px min-height would add 30px to every footer column, so the target is
+	   extended past the text instead of pushing the column apart. */
+	.footer-link::after {
+		content: '';
+		position: absolute;
+		inset-inline: 0;
+		top: 50%;
+		height: 44px;
+		transform: translateY(-50%);
 	}
 
 	.footer-link:hover {

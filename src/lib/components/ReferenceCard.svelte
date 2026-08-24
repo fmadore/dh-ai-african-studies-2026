@@ -133,14 +133,16 @@
 		border-color: var(--border-accent);
 	}
 
+	/* Not uppercase: this line carries container titles like "Luxembourg Centre
+	   for Contemporary and Digital History (C²DH)", where the casing is part of
+	   the name. Size and weight keep it reading as metadata instead. */
 	.reference-card__head {
 		display: flex;
 		align-items: center;
 		gap: var(--space-xs);
 		font-size: var(--text-xs);
 		font-weight: var(--font-weight-semibold);
-		letter-spacing: var(--tracking-wider);
-		text-transform: uppercase;
+		letter-spacing: var(--tracking-wide);
 		color: var(--text-muted);
 		min-width: 0;
 	}
@@ -163,7 +165,9 @@
 		font-family: var(--font-family-serif);
 		font-size: var(--text-xl);
 		font-weight: var(--font-weight-semibold);
-		line-height: var(--leading-snug);
+		/* Explicit, not `--leading-snug`: scholarly titles wrap to two or three
+		   lines in a serif with long descenders, which needs the looser step. */
+		line-height: 1.35;
 		color: var(--text-primary);
 		max-width: var(--measure-prose);
 	}

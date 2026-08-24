@@ -65,6 +65,17 @@
 			background-color var(--transition-micro);
 	}
 
+	/* Set by ThemeToggle for the duration of a theme flip. Every rule above that
+	   transitions `color` would otherwise animate the whole page from the old
+	   palette to the new one — and an element whose transition is interrupted
+	   part-way keeps the old theme's colour indefinitely, which stranded
+	   `.link-secondary` at the dark-mode teal on a light page (1.4:1). */
+	html.theme-switching *,
+	html.theme-switching *::before,
+	html.theme-switching *::after {
+		transition: none !important;
+	}
+
 	/* An explicit token, not compounded opacity: 0.55 on top of already-muted
 	   ink lands below the 3:1 floor for disabled-but-readable controls. */
 	:disabled,

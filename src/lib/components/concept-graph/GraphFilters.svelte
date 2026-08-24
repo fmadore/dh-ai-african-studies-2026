@@ -124,7 +124,10 @@
 		color: var(--text-secondary);
 	}
 
+	/* A border tone on text is invisible: `--border-strong` put these dots at
+	   2.7:1. Mixed from the surrounding text instead, they stay quieter than the
+	   counts while clearing the 3:1 floor for non-text marks in both themes. */
 	.stats-sep {
-		color: var(--border-strong);
+		color: color-mix(in oklab, var(--text-muted) 55%, transparent);
 	}
 </style>

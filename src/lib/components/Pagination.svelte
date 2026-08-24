@@ -143,11 +143,12 @@
 
 	.pagination__page.is-active {
 		/* Secondary-700 keeps white page numbers above the AA contrast floor in
-		   both themes; the brighter dark-mode accent does not. */
+		   both themes; the brighter dark-mode accent does not. The state is the
+		   solid fill — a 36px control does not need a 28px halo to say it. */
 		background: var(--color-secondary-700);
 		color: var(--text-on-accent);
 		border-color: var(--color-secondary-700);
-		box-shadow: var(--shadow-accent);
+		box-shadow: var(--shadow-xs);
 	}
 
 	.pagination__ellipsis {

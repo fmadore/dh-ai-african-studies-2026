@@ -2,6 +2,9 @@
  * One-shot / repeatable image optimization for the static assets.
  *
  * - static/images/participants/*  → resized (max 640px) WebP portraits
+ * - static/images/interviews/*    → resized (max 640px) WebP video posters
+ *                                   (saved copies of the YouTube thumbnails, so
+ *                                   the homepage makes no third-party request)
  * - static/images/photos/*        → resized (max 1920px) JPEGs, EXIF preserved
  *                                   (the photos page reads DateTimeOriginal to
  *                                   group by workshop day) + 640px WebP thumbs
@@ -14,12 +17,13 @@
  */
 
 import sharp from 'sharp';
-import { readdirSync, mkdirSync, unlinkSync, statSync, writeFileSync } from 'node:fs';
+import { readdirSync, mkdirSync, readFileSync, unlinkSync, statSync, writeFileSync } from 'node:fs';
 import { join, extname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const PARTICIPANTS_DIR = join(ROOT, 'static', 'images', 'participants');
+const INTERVIEWS_DIR = join(ROOT, 'static', 'images', 'interviews');
 const PHOTOS_DIR = join(ROOT, 'static', 'images', 'photos');
 const THUMBS_DIR = join(PHOTOS_DIR, 'thumbs');
 const LOGO_DIR = join(ROOT, 'static', 'images', 'logo');
@@ -33,6 +37,15 @@ function listImages(dir) {
 	return readdirSync(dir).filter((f) => IMAGE_EXTENSIONS.has(extname(f).toLowerCase()));
 }
 
+/**
+ * Hand sharp a buffer, never a path, wherever the output overwrites the input.
+ * Given a path sharp keeps its own handle open, and on Windows the subsequent
+ * `writeFileSync` to the same file then fails with an opaque UNKNOWN errno.
+ */
+function loadImage(path) {
+	return sharp(readFileSync(path));
+}
+
 async function optimizeParticipants() {
 	let before = 0;
 	let after = 0;
@@ -43,7 +56,7 @@ async function optimizeParticipants() {
 		const output = join(PARTICIPANTS_DIR, `${slug}.webp`);
 
 		before += statSync(input).size;
-		const buffer = await sharp(input)
+		const buffer = await loadImage(input)
 			.rotate()
 			.resize(640, 640, { fit: 'inside', withoutEnlargement: true })
 			.webp({ quality: 82 })
@@ -54,6 +67,34 @@ async function optimizeParticipants() {
 	}
 
 	console.log(`participants: ${kb(before)} → ${kb(after)}`);
+}
+
+/**
+ * Video posters are saved locally rather than hotlinked from i.ytimg.com, so no
+ * page ships a third-party image request before the visitor asks for the video.
+ * File names are the YouTube id, which is what the interview data keys on.
+ */
+async function optimizeInterviews() {
+	mkdirSync(INTERVIEWS_DIR, { recursive: true });
+	let before = 0;
+	let after = 0;
+
+	for (const file of listImages(INTERVIEWS_DIR)) {
+		const input = join(INTERVIEWS_DIR, file);
+		const id = basename(file, extname(file));
+		const output = join(INTERVIEWS_DIR, `${id}.webp`);
+
+		before += statSync(input).size;
+		const buffer = await loadImage(input)
+			.resize(640, 640, { fit: 'inside', withoutEnlargement: true })
+			.webp({ quality: 82 })
+			.toBuffer();
+		if (input !== output) unlinkSync(input);
+		writeFileSync(output, buffer);
+		after += statSync(output).size;
+	}
+
+	console.log(`interviews: ${kb(before)} → ${kb(after)}`);
 }
 
 async function optimizePhotos() {
@@ -69,7 +110,7 @@ async function optimizePhotos() {
 		before += statSync(input).size;
 
 		// Full-size image for the lightbox — EXIF kept for day categorisation
-		const fullBuffer = await sharp(input)
+		const fullBuffer = await loadImage(input)
 			.rotate()
 			.resize(1920, 1920, { fit: 'inside', withoutEnlargement: true })
 			.jpeg({ quality: 80, mozjpeg: true })
@@ -77,7 +118,7 @@ async function optimizePhotos() {
 			.toBuffer();
 
 		// Grid thumbnail (no EXIF needed)
-		await sharp(input)
+		await loadImage(input)
 			.rotate()
 			.resize(640, 640, { fit: 'inside', withoutEnlargement: true })
 			.webp({ quality: 75 })
@@ -136,6 +177,7 @@ async function optimizeLogos() {
 }
 
 await optimizeParticipants();
+await optimizeInterviews();
 await optimizePhotos();
 await optimizeLogos();
 console.log('done');
