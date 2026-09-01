@@ -80,7 +80,7 @@
     "github-slugger": "^2.0.0",
     "leaflet": "^1.9.4",
     "maplibre-gl": "^5.24.0",
-    "markdown-it": "^15.0.0",
+    "markdown-it": "^15.0.1",
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-footnote": "^4.0.0"
   }
