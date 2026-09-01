@@ -1,6 +1,13 @@
 <script lang="ts">
 	import type { Participant } from '$lib/types/participant';
 	import type * as Leaflet from 'leaflet';
+	// maplibre-gl is pinned to v5 on purpose. @maplibre/maplibre-gl-leaflet@0.1.4
+	// added v6 support against 6.3.0, and something in 6.4-6.6 broke the pairing:
+	// the style, sprite and TileJSON all resolve, but the map never marks its
+	// sources dirty, so it renders the style's background colour and requests not
+	// one tile. Symptom is a blank coloured rectangle with the markers on top and
+	// no console error. Re-test with a real render before widening this range.
+	import type { Map as MaplibreMap } from 'maplibre-gl';
 	import { useDarkMode } from '$lib/utils/dark-mode.svelte';
 	import 'leaflet/dist/leaflet.css';
 
@@ -21,14 +28,32 @@
 	// come and go, and a plain let would not re-run anything that reads it.
 	let mapContainer = $state<HTMLDivElement | undefined>(undefined);
 	let map: Leaflet.Map | null = null;
-	let tileLayer: Leaflet.TileLayer | null = null;
+	let glMap: MaplibreMap | null = null;
+	// Which style URL the GL map is currently showing. Plain `let`, not $state:
+	// the theme effect writes it, and making it reactive would re-trigger that
+	// effect. setStyle() tears down and refetches the whole style, so calling it
+	// with the style already in place is not a no-op — it re-enters the load
+	// while the first one is still settling and the map ends up clean-but-empty,
+	// never requesting a single tile.
+	let appliedStyle: string | null = null;
 	let mapReady = $state(false);
 	let mapFailed = $state(false);
 
-	const TILE_URLS = {
-		light: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-		dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+	// OpenFreeMap vector styles. CARTO began watermarking keyless raster tiles
+	// and is considering freezing that endpoint entirely; OpenFreeMap needs no
+	// key and no account, and its Positron/Dark pair is the same cartography
+	// this map was already borrowing.
+	const STYLE_URLS = {
+		light: 'https://tiles.openfreemap.org/styles/positron',
+		dark: 'https://tiles.openfreemap.org/styles/dark'
 	} as const;
+
+	// The style JSON carries no attribution of its own, so OpenFreeMap's
+	// required credit is stated on Leaflet's control instead.
+	const ATTRIBUTION =
+		'<a href="https://openfreemap.org">OpenFreeMap</a> ' +
+		'<a href="https://www.openmaptiles.org/">&copy; OpenMapTiles</a> ' +
+		'Data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 
 	const darkMode = useDarkMode();
 	let isDarkMode = $derived(darkMode.isDark);
@@ -70,18 +95,21 @@
 		const initialDark = isDarkMode;
 		let destroyed = false;
 
-		import('leaflet')
-			.then((L) => {
+		Promise.all([import('leaflet'), import('@maplibre/maplibre-gl-leaflet')])
+			.then(([L, { maplibreGL }]) => {
 				if (destroyed || map || !mapContainer) return;
 				map = L.map(mapContainer, {
 					center: [20, 0],
 					zoom: 2,
 					zoomControl: true,
 					scrollWheelZoom: true,
-					// Set world bounds to prevent panning too far
+					// Set world bounds to prevent panning too far. Web Mercator
+					// tops out near +/-85.05 degrees: MapLibre clamps there while
+					// Leaflet would happily pan to the poles, which slides the GL
+					// canvas out from under the markers.
 					maxBounds: [
-						[-90, -180], // Southwest coordinates
-						[90, 180] // Northeast coordinates
+						[-85, -180], // Southwest coordinates
+						[85, 180] // Northeast coordinates
 					],
 					maxBoundsViscosity: 0.9, // Keep within bounds but allow slight elastic feel
 					minZoom: 2, // Prevent zooming out too far
@@ -89,13 +117,17 @@
 					worldCopyJump: true // Ensure the map snaps to the base world copy so markers stay visible
 				});
 
-				// Add appropriate tile layer based on theme
-				tileLayer = L.tileLayer(initialDark ? TILE_URLS.dark : TILE_URLS.light, {
-					attribution:
-						'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-					subdomains: 'abcd',
-					maxZoom: 18
-				}).addTo(map);
+				// Add the vector basemap for the current theme. MapLibre would
+				// draw its own attribution inside the canvas; suppressed so the
+				// credit sits in Leaflet's control with the rest of the chrome.
+				appliedStyle = initialDark ? STYLE_URLS.dark : STYLE_URLS.light;
+				glMap = maplibreGL({
+					style: appliedStyle,
+					attributionControl: false
+				})
+					.addTo(map)
+					.getMaplibreMap();
+				map.attributionControl.addAttribution(ATTRIBUTION);
 
 				// Add markers for each location
 				groups.forEach((participantsAtLocation, coordsKey) => {
@@ -193,16 +225,18 @@
 			if (map) {
 				map.remove();
 				map = null;
-				tileLayer = null;
+				glMap = null;
 				mapReady = false;
 			}
 		};
 	});
 
-	// Update tile layer when theme changes
+	// Update basemap when theme changes
 	$effect(() => {
-		if (mapReady && tileLayer) {
-			tileLayer.setUrl(isDarkMode ? TILE_URLS.dark : TILE_URLS.light);
+		const nextStyle = isDarkMode ? STYLE_URLS.dark : STYLE_URLS.light;
+		if (mapReady && glMap && appliedStyle !== nextStyle) {
+			appliedStyle = nextStyle;
+			glMap.setStyle(nextStyle);
 		}
 	});
 </script>
@@ -284,6 +318,22 @@
 
 	:global(.leaflet-container) {
 		background: transparent !important;
+	}
+
+	/* maplibre-gl.css is 83 KB of control, popup, marker and gesture rules for
+	   chrome this layer never renders: the GL map is created non-interactive
+	   with its attribution control off, so Leaflet owns every gesture and every
+	   piece of visible UI. These are the two rules that actually position the
+	   canvas, lifted from that stylesheet rather than shipping all of it. */
+	:global(.maplibregl-map) {
+		position: relative;
+		overflow: hidden;
+	}
+
+	:global(.maplibregl-canvas) {
+		position: absolute;
+		top: 0;
+		left: 0;
 	}
 
 	/* Leaflet's translucent white attribution plate blends into dark map tiles,

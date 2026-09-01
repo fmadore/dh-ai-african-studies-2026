@@ -46,7 +46,9 @@ Two routes are involved, and only one of them is public:
 - **Framework**: [SvelteKit](https://svelte.dev/docs/kit) with [Svelte 5](https://svelte.dev/) (runes syntax)
 - **UI Library**: [Flowbite Svelte](https://flowbite-svelte.com/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) with custom design system
-- **Maps**: [Leaflet](https://leafletjs.com/) for interactive participant map
+- **Maps**: [Leaflet](https://leafletjs.com/) for interactive participant map, with
+  [MapLibre GL](https://maplibre.org/) drawing [OpenFreeMap](https://openfreemap.org/)
+  vector basemaps (no API key, no request limit)
 - **Graph**: [D3](https://d3js.org/) force layout for the concept map
 - **Deployment**: GitHub Pages (static site generation)
 

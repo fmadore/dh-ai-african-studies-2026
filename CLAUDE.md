@@ -81,7 +81,10 @@ bundles it) until `npm run paper:on` generates the stubs.
 - **Framework:** SvelteKit with Svelte 5 (runes syntax mandatory)
 - **UI:** Flowbite Svelte
 - **Styling:** Tailwind CSS v4
-- **Maps:** Leaflet (dynamically imported)
+- **Maps:** Leaflet + MapLibre GL basemap (both dynamically imported) —
+  OpenFreeMap vector styles, keyless; never reintroduce a keyed raster provider.
+  `maplibre-gl` is pinned to v5: 6.4+ silently breaks the Leaflet adapter (blank
+  basemap, no error). Any bump needs a real rendered screenshot, not a green build.
 - **Graph:** D3 force layout (dynamically imported)
 - **Fonts:** Self-hosted via @fontsource-variable (no Google Fonts requests) —
   Outfit (display), Plus Jakarta Sans (UI), Source Serif 4 (reading voice)
@@ -177,7 +180,7 @@ Only home, about, and schedule additionally pass `createWorkshopEventJsonLd({ de
 - `SeoHead.svelte`, `PageHero.svelte` - Shared page head + hero (use on every page)
 - `AppButton.svelte` - Primary/secondary CTA button (`variant` prop)
 - `UrlTabs.svelte` - URL-synced tab navigation
-- `ParticipantsMap.svelte` - Leaflet interactive map
+- `ParticipantsMap.svelte` - Leaflet interactive map on an OpenFreeMap basemap
 - `ConceptGraph.svelte` (+ `concept-graph/`) - D3 force-directed concept map
 - `PhotoViewer.svelte` - Photo grid + lightbox
 - `LiteYouTube.svelte` - Click-to-load YouTube facade (never embed iframes eagerly)
