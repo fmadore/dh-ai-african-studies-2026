@@ -61,6 +61,7 @@
 			title: 'Outcomes',
 			links: [
 				{ href: resolveAppPath('/position-paper'), label: 'Position paper' },
+				{ href: resolveAppPath('/publications'), label: 'Publications & reports' },
 				{ href: resolveAppPath('/photos'), label: 'Photos' },
 				{ href: resolveAppPath('/interviews'), label: 'Interviews' }
 			]

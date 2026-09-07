@@ -22,6 +22,7 @@ export const primaryNavigation: NavLink[] = [
 		href: resolveAppPath('/photos'),
 		label: 'Outcomes',
 		children: [
+			{ href: resolveAppPath('/publications'), label: 'Publications & reports' },
 			{ href: resolveAppPath('/photos'), label: 'Photos' },
 			{ href: resolveAppPath('/interviews'), label: 'Interviews' },
 			{ href: resolveAppPath('/concepts'), label: 'Concept Map' },
