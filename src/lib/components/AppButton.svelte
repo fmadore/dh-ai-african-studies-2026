@@ -15,6 +15,7 @@
 		onclick?: HTMLButtonAttributes['onclick'];
 		target?: HTMLAnchorAttributes['target'];
 		rel?: HTMLAnchorAttributes['rel'];
+		download?: HTMLAnchorAttributes['download'];
 	}
 
 	let {
@@ -27,10 +28,11 @@
 		class: className = '',
 		onclick,
 		target,
-		rel
+		rel,
+		download
 	}: Props = $props();
 
-	let extraProps = $derived(href ? { href, target, rel } : { onclick });
+	let extraProps = $derived(href ? { href, target, rel, download } : { onclick });
 	let isOutline = $derived(outline ?? variant === 'secondary');
 </script>
 

@@ -25,11 +25,9 @@
     "optimize:images": "node scripts/optimize_images.mjs",
     "og:image": "node scripts/make_og_image.mjs",
     "fetch:references": "python scripts/fetch_references.py",
-    "paper:on": "node scripts/paper-reader.mjs on",
-    "paper:off": "node scripts/paper-reader.mjs off",
-    "paper:status": "node scripts/paper-reader.mjs status",
-    "dev:paper": "node scripts/paper-reader.mjs on && vite dev",
-    "build:paper": "node scripts/paper-reader.mjs on && vite build"
+    "dev:paper": "vite dev",
+    "build:paper": "npm run export:epub && vite build",
+    "export:epub": "node scripts/export-paper-epub.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

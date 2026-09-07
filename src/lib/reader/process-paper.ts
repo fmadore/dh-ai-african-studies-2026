@@ -8,7 +8,7 @@ import type { CslReference, ProcessedPaper, ResolvedReference } from './types';
  * CSL-JSON reference database, links author-date citations to the paper's own
  * reference list, and returns the SSR HTML + TOC + resolved reference map.
  *
- * Run at build time from the +page.ts load() function.
+ * Run at build time from the +page.server.ts load() function.
  */
 export function processPaper(source: string, references: CslReference[]): ProcessedPaper {
 	let citations: CitationReport = { linked: 0, issues: [] };

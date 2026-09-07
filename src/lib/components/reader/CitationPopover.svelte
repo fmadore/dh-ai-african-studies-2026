@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { tick } from 'svelte';
+	import { CloseOutline } from 'flowbite-svelte-icons';
 
 	interface Props {
 		/** The prose container to delegate click events from. */
@@ -86,14 +87,17 @@
 	onclose={clearState}
 >
 	{#if entryHtml}
-		<button
-			type="button"
-			class="footnote-popover-panel__close"
-			aria-label="Close reference"
-			onclick={close}
-		>
-			×
-		</button>
+		<div class="footnote-popover-panel__header">
+			<p class="footnote-popover-panel__title">Reference</p>
+			<button
+				type="button"
+				class="footnote-popover-panel__close"
+				aria-label="Close reference"
+				onclick={close}
+			>
+				<CloseOutline class="h-5 w-5" aria-hidden="true" />
+			</button>
+		</div>
 		<p class="footnote-popover-panel__full">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -- lifted from this page's own prerendered reference list -->
 			{@html entryHtml}

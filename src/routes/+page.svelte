@@ -45,8 +45,7 @@
 		{ value: String(attendees.length), label: 'participants' },
 		{ value: String(new Set(attendees.map((p) => p.country)).size), label: 'countries' },
 		{ value: String(workStreams.length), label: 'work streams' },
-		/* Four things the archive actually holds. The paper is still forthcoming,
-		   so counting it here made the grid promise something it cannot deliver. */
+		/* Workshop participation and recorded outcomes. */
 		{ value: String(interviews.length), label: 'video interviews' }
 	];
 
@@ -79,7 +78,7 @@
 	const outcomes = [
 		{
 			title: 'Position Paper',
-			description: 'A co-authored roadmap for the field, forthcoming in open access.',
+			description: 'Published open access in ZMO Programmatic Texts, no. 16, on 7 September 2026.',
 			href: positionPaperHref,
 			media: 'paper' as const
 		},
@@ -158,16 +157,17 @@
 					</span>
 				</div>
 
-				<!-- The terracotta goes to the outcome that exists and can be read
-				     today; the paper is named honestly rather than promised. -->
+				<!-- Lead with the published workshop outcome. -->
 				<div class="gap-md flex flex-col sm:flex-row">
 					<div class="animate-hero-cta">
-						<AppButton href={conceptsHref} size="xl">Explore the concept map</AppButton>
+						<AppButton href={resolveAppPath('/position-paper/read')} size="xl"
+							>Read the position paper</AppButton
+						>
 					</div>
 					<div class="animate-hero-cta-2">
-						<AppButton variant="secondary" href={positionPaperHref} size="xl">
-							Position paper — forthcoming
-						</AppButton>
+						<AppButton variant="secondary" href={resolveAppPath('/concepts')} size="xl"
+							>Explore the concept map</AppButton
+						>
 					</div>
 				</div>
 			</div>

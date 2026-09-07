@@ -131,7 +131,15 @@ export interface JsonLdScholarlyArticle {
 	inLanguage?: string;
 	keywords?: string;
 	publisher?: JsonLdOrganization;
-	isPartOf?: JsonLdPeriodical;
+	isPartOf?:
+		| JsonLdPeriodical
+		| {
+				'@type': 'PublicationIssue';
+				issueNumber: string;
+				isPartOf: JsonLdPeriodical;
+		  };
+	pageStart?: string;
+	pageEnd?: string;
 	isAccessibleForFree?: boolean;
 	license?: string;
 	mainEntityOfPage?: string;
@@ -183,6 +191,9 @@ export interface ScholarlyMetaOptions {
 	publisher: string;
 	/** Parent periodical / series title. Mapped to `citation_journal_title`. */
 	journalTitle?: string;
+	issue?: string;
+	pageStart?: string;
+	pageEnd?: string;
 	/** Absolute URL of the HTML landing page (what Google Scholar indexes). */
 	abstractUrl: string;
 	/** Absolute URL of the PDF, when available. */

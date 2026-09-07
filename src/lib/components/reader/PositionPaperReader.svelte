@@ -24,16 +24,13 @@
 	let meta = $derived(data.meta);
 	let paper = $derived(data.paper);
 
-	// `noindex` is belt-and-braces: this route is excluded from the public
-	// build entirely (see scripts/paper-reader.mjs), so search engines should
-	// never reach it. The tag only matters for a flagged preview deployment.
 	let seo = $derived(
 		createSeoMeta({
 			title: 'Position Paper',
 			description: meta.abstract,
 			path: '/position-paper/read',
 			type: 'article',
-			robots: 'noindex,nofollow',
+			robots: 'index,follow',
 			authors: [...meta.authors],
 			keywords: [...meta.keywords]
 		})
@@ -49,6 +46,9 @@
 		language: meta.language,
 		publisher: meta.publisher,
 		journalTitle: meta.journalTitle,
+		issue: meta.issue,
+		pageStart: meta.pageStart,
+		pageEnd: meta.pageEnd,
 		abstractUrl: seo.canonical,
 		doi: meta.doi,
 		issn: meta.issn,

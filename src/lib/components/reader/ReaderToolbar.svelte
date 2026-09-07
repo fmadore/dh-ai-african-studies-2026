@@ -3,6 +3,9 @@
 	import type { PositionPaperMeta, ReaderFontFamily, ReaderFontSize } from '$lib/reader/types';
 	import CiteThisWidget from './CiteThisWidget.svelte';
 	import PdfDownloadButton from './PdfDownloadButton.svelte';
+	import { resolveAssetPath } from '$lib/utils/paths';
+	import { Button } from 'flowbite-svelte';
+	import { DownloadOutline } from 'flowbite-svelte-icons';
 
 	interface Props {
 		meta: PositionPaperMeta;
@@ -63,7 +66,18 @@
 	<div class="reader-toolbar__spacer"></div>
 
 	<CiteThisWidget {meta} {canonicalUrl} />
-	<PdfDownloadButton pdfPath={meta.pdfPath} pdfAvailable={meta.pdfAvailable} />
+	{#if import.meta.env.PAPER_EPUB_AVAILABLE}
+		<Button
+			color="light"
+			size="sm"
+			href={resolveAssetPath('/documents/position-paper.epub')}
+			download="position-paper.epub"
+			class="font-medium"
+		>
+			<DownloadOutline class="mr-2 h-4 w-4" />Download EPUB
+		</Button>
+	{/if}
+	<PdfDownloadButton pdfPath={meta.pdfPath} pdfAvailable={meta.pdfAvailable} doi={meta.doi} />
 </div>
 
 <style>

@@ -42,13 +42,17 @@
 		};
 	});
 
-	let toc: TocItem[] = $derived(paper.toc);
+	let toc: TocItem[] = $derived(
+		paper.html.includes('id="reader-footnotes-heading"')
+			? [...paper.toc, { level: 2, id: 'reader-footnotes-heading', text: 'Notes' }]
+			: paper.toc
+	);
 	let resolvedRefs: Record<string, ResolvedReference> = $derived(paper.resolvedRefs);
 </script>
 
 <ReaderProgressBar target={proseRoot} />
 
-<section class="bg-page padding-block-section padding-inline-section relative overflow-hidden">
+<section class="bg-page padding-block-section padding-inline-section relative overflow-clip">
 	<!-- The ambient dot mesh is a single fixed layer on the layout shell now -->
 	<div class="content-width-wide reader-shell relative">
 		<div class="reader-shell__masthead surface-panel surface-padding">
@@ -96,9 +100,11 @@
 		min-width: 0;
 	}
 	.reader-shell__toolbar-wrap {
-		position: sticky;
-		top: 4.5rem;
-		z-index: var(--z-sticky);
+		@media (min-width: 1024px) {
+			position: sticky;
+			top: 4.5rem;
+			z-index: var(--z-sticky);
+		}
 	}
 	.reader-shell__prose-wrap {
 		padding-block: var(--space-lg);

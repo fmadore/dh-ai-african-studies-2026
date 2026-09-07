@@ -69,21 +69,19 @@ export const positionPaperMeta: PositionPaperMeta = {
 		}
 	],
 	authorshipNote:
-		'Frédérick Madore and Vincent Hiribarren, who convened the workshop, are listed first, followed by the remaining authors in alphabetical order. The order reflects the collaborative writing process and implies no hierarchy of contribution. We thank the two reviewers for their thoughtful comments on an earlier version of this text.',
-	// Day is a placeholder until the series fixes one; only the month is public
-	// ("Expected: September 2026" on the landing page).
-	publicationDate: '2026-09-01',
+		'Frédérick Madore and Vincent Hiribarren, who convened the workshop, are listed first, followed by the remaining authors in alphabetical order. The order reflects the collaborative writing process and implies no hierarchy of contribution. Affiliations and short biographies of all workshop participants are available on the workshop website: https://fmadore.github.io/dh-ai-african-studies-2026/participants. We thank the two reviewers for their thoughtful comments on an earlier version of this text.',
+	publicationDate: '2026-09-07',
 	revisedDate: undefined,
 	// Verbatim from the paper's own abstract — this is what the scholarly meta
 	// tags and JSON-LD advertise, so it must match the published text.
 	abstract:
-		'African Studies scholars have been involved in Digital Humanities (DH) projects since the 2000s. Recent advances in artificial intelligence (AI), particularly large language models (LLMs), have expanded the possibilities for textual analysis and archival research, but implementation raises difficult questions: who controls access, whose data trains these systems without consent, whose languages remain underserved, and who bears the labour and environmental costs. This position paper is the collective work of a Volkswagen Foundation–funded scoping workshop in Hannover, Germany, in February 2026, with twenty-six scholars from sixteen countries. Across four working groups — language technologies; archives and visual heritage; infrastructure, governance, and access; and epistemologies, decoloniality, and ethics — one question recurred: for whom and for what purpose is this work undertaken? Ownership and sovereignty, access, sustainability, and standardisation emerged as transversal problems, which we set in dialogue with critiques of data colonialism and extractivism. We propose situated practices: licensing that conditions openness on return to source communities; digitisation agreements as living documents; ontologies built collaboratively; design grounded in access, governance, and sovereignty; and ethics treated as a process rather than a deliverable. Many of the problems we examine are common across DH and AI: consent, standardisation that erases variation, algorithmic bias, hidden labour, and the funding of innovation over maintenance. African contexts make them sharper and more visible, and Africa-based practice has produced concrete responses. We therefore argue that African epistemologies and decolonial critique belong at the centre of both fields, and that African scholars, practitioners, and institutions belong where these technologies are designed and governed.',
+		'African Studies scholars have been involved in Digital Humanities (DH) projects since the 2000s. Recent advances in artificial intelligence (AI), particularly large language models (LLMs), have expanded the possibilities for textual analysis and archival research, but implementation raises difficult questions: who controls access, whose data trains these systems without consent, whose languages remain underserved, and who bears the labour and environmental costs. This position paper is the collective work of a Volkswagen Foundation-funded scoping workshop in Hanover, Germany, in February 2026, with twenty-six scholars from sixteen countries. Across four working groups – language technologies; archives and visual heritage; infrastructure, governance, and access; and epistemologies, decoloniality, and ethics – one question recurred: for whom and for what purpose is this work undertaken? Ownership and sovereignty, access, sustainability, and standardisation emerged as transversal problems, which we set in dialogue with critiques of data colonialism and extractivism. We propose situated practices: licensing that conditions openness on return to source communities; digitisation agreements as living documents; ontologies built collaboratively; design grounded in access, governance, and sovereignty; and ethics treated as a process rather than a deliverable. Many of the problems we examine are common across DH and AI: consent, standardisation that erases variation, algorithmic bias, hidden labour, and the funding of innovation over maintenance. African contexts make them sharper and more visible, and Africa-based practice has produced concrete responses. We therefore argue that African epistemologies and decolonial critique belong at the centre of both fields, and that African scholars, practitioners, and institutions belong where these technologies are designed and governed.',
 	// The paper's own keyword list, in its order.
 	keywords: [
 		'African epistemologies',
 		'African languages',
 		'data colonialism',
-		'decolonial Digital Humanities (DH)',
+		'decolonial digital humanities (DH)',
 		'digital archives',
 		'digital preservation',
 		'digital sovereignty',
@@ -94,7 +92,10 @@ export const positionPaperMeta: PositionPaperMeta = {
 	language: 'en',
 	publisher: 'Leibniz-Zentrum Moderner Orient (ZMO)',
 	journalTitle: 'ZMO Programmatic Texts',
-	doi: undefined,
+	issue: '16',
+	pageStart: '1',
+	pageEnd: '24',
+	doi: '10.58144/20260827-000',
 	// The series ISSN, not the paper's own identifier.
 	issn: '2191-3242',
 	// The series' terms, deliberately not the site's own CC BY-NC: this licence

@@ -38,6 +38,13 @@ export function createScholarlyMeta(opts: ScholarlyMetaOptions): SeoMetaTag[] {
 	}
 	if (opts.doi) tags.push({ key: 'citation_doi', name: 'citation_doi', content: opts.doi });
 	if (opts.issn) tags.push({ key: 'citation_issn', name: 'citation_issn', content: opts.issn });
+	for (const [name, content] of [
+		['citation_issue', opts.issue],
+		['citation_firstpage', opts.pageStart],
+		['citation_lastpage', opts.pageEnd]
+	]) {
+		if (content && name) tags.push({ key: name, name, content });
+	}
 	tags.push({ key: 'citation_language', name: 'citation_language', content: opts.language });
 	opts.keywords.forEach((keyword, index) =>
 		tags.push({ key: `citation_keywords_${index}`, name: 'citation_keywords', content: keyword })
@@ -124,7 +131,16 @@ export function createScholarlyArticleJsonLd(opts: ScholarlyMetaOptions): JsonLd
 			publisher: publisherOrg
 		};
 		if (opts.issn) jsonLd.isPartOf.issn = opts.issn;
+		if (opts.issue) {
+			jsonLd.isPartOf = {
+				'@type': 'PublicationIssue',
+				issueNumber: opts.issue,
+				isPartOf: jsonLd.isPartOf
+			};
+		}
 	}
+	if (opts.pageStart) jsonLd.pageStart = opts.pageStart;
+	if (opts.pageEnd) jsonLd.pageEnd = opts.pageEnd;
 
 	if (opts.doi) jsonLd.identifier = `doi:${opts.doi}`;
 

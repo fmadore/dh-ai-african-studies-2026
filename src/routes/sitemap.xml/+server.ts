@@ -15,6 +15,7 @@ const routes: { path: string; priority: string }[] = [
 	{ path: '/concepts', priority: '0.7' },
 	{ path: '/schedule', priority: '0.8' },
 	{ path: '/position-paper', priority: '0.8' },
+	{ path: '/position-paper/read', priority: '0.9' },
 	{ path: '/references', priority: '0.7' },
 	{ path: '/publications', priority: '0.7' },
 	{ path: '/photos', priority: '0.6' },

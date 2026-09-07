@@ -6,7 +6,7 @@ A SvelteKit-powered static website for the **"Charting New Territory: Digital Hu
 
 ## About
 
-This repository hosts the conference website for a three-day international workshop (18-20 February 2026) that addressed the critical convergence of digital humanities and AI within African studies. The workshop was funded by the Volkswagen Foundation and brought together experts from Africa, Europe, and beyond at the Xplanatorium Herrenhausen in Hanover, Germany. The site now documents the workshop's outcomes: photos, participant interviews, a concept map, and the forthcoming position paper.
+This repository hosts the conference website for a three-day international workshop (18-20 February 2026) that addressed the critical convergence of digital humanities and AI within African studies. The workshop was funded by the Volkswagen Foundation and brought together experts from Africa, Europe, and beyond at the Xplanatorium Herrenhausen in Hanover, Germany. The site now documents the workshop's outcomes: photos, participant interviews, a concept map, and the published position paper.
 
 ## The position paper
 
@@ -15,13 +15,13 @@ The workshop's principal output is a collectively written position paper:
 > **For Whom and For What Purpose? A Position Paper on Digital Humanities and AI
 > in African Studies**
 
-|              |                                                                                                                                                                                                                |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Authors**  | 25 — Frédérick Madore and Vincent Hiribarren (the conveners) first, then all other participants alphabetically. The order reflects the collaborative writing process and implies no hierarchy of contribution. |
-| **Venue**    | _ZMO Programmatic Texts_ (ISSN 2191-3242), Leibniz-Zentrum Moderner Orient                                                                                                                                     |
-| **Expected** | September 2026                                                                                                                                                                                                 |
-| **Licence**  | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) — the series' terms, not the site licence                                                                                                      |
-| **Status**   | Forthcoming. No DOI or PDF yet.                                                                                                                                                                                |
+|               |                                                                                                                                                                                                                |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Authors**   | 25 — Frédérick Madore and Vincent Hiribarren (the conveners) first, then all other participants alphabetically. The order reflects the collaborative writing process and implies no hierarchy of contribution. |
+| **Venue**     | _ZMO Programmatic Texts_ (ISSN 2191-3242), Leibniz-Zentrum Moderner Orient                                                                                                                                     |
+| **Published** | 7 September 2026                                                                                                                                                                                               |
+| **Licence**   | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) — the series' terms, not the site licence                                                                                                      |
+| **Status**    | Published. DOI: 10.58144/20260827-000. Full text and EPUB available; corrected PDF pending.                                                                                                                    |
 
 It synthesises the workshop into recommendations for researchers, funders, and
 institutions working at the intersection of digital humanities, AI, and African
@@ -34,12 +34,28 @@ publication date — lives in one place,
 which drives the landing page, the Google Scholar and Dublin Core meta tags, the
 JSON-LD, and the "How to cite" widget. Change it there and nowhere else.
 
-Two routes are involved, and only one of them is public:
+Both publication routes are public:
 
-| Route                  | Status                                                                               |
-| ---------------------- | ------------------------------------------------------------------------------------ |
-| `/position-paper`      | **Public.** Landing page describing the forthcoming paper.                           |
-| `/position-paper/read` | **Not public.** Full-text reader, withheld until the paper is published — see below. |
+| Route                  | Status                                                             |
+| ---------------------- | ------------------------------------------------------------------ |
+| `/position-paper`      | **Public.** Publication details, citation, abstract and downloads. |
+| `/position-paper/read` | **Public.** Complete article, linked references, notes and photo.  |
+
+## Export the position paper as EPUB
+
+Run `npm run export:epub` to create `static/documents/position-paper.epub`
+from the local final Markdown, using the reader's parser and publication metadata.
+Python 3 is required (standard library only); set `EPUB_PYTHON` to its executable
+path if it is not available as `python` on Windows or `python3` elsewhere.
+The export includes the Day 3 photo, project links, references, and numbered notes.
+The packager checks XML, internal link targets, and ZIP integrity.
+
+`npm run build:paper` regenerates the EPUB before building the reader. For direct
+`npm run build` usage, rerun `npm run export:epub` after changing the paper first.
+The reader shows **Download EPUB** when the generated file exists at build time.
+The final Markdown, reader routes and generated EPUB are included in the repository.
+The PDF's page range is retained as publication metadata; EPUB pagination reflows
+with each device's screen and font settings.
 
 ## Technology Stack
 
@@ -119,26 +135,10 @@ than introduce route-specific palettes.
 
 ### Position paper reader
 
-Working on the full-text reader at `/position-paper/read` (see
-[The position paper](#the-position-paper) above for what it is).
-
-"Not public" is enforced with `.gitignore`, not with a config flag: this
-repository is public and GitHub Pages builds from a fresh checkout, so anything
-ignored can reach neither the repo nor the deployed site. Two paths are ignored —
-the generated route stubs (`src/routes/position-paper/read/`) and the real draft
-(`src/lib/content/position-paper.md`). Without the `+`-prefixed stubs SvelteKit
-has no such route, so nothing imports the reader code and Rollup never bundles
-it. Only `position-paper.example.md` is committed.
-
-Enable it locally:
-
-```sh
-npm run dev:paper
-```
-
-Then edit `src/lib/content/position-paper.md`, which stays out of git. Run
-`npm run paper:off` to remove the route again. See `CLAUDE.md` for the full
-contract, including how to publish the reader when the time comes.
+The published full text lives in `src/lib/content/position-paper.md` and loads at
+`/position-paper/read` in every build. Edit it, run `npm run export:epub` to update
+the downloadable edition, then `npm run build` (or use `npm run build:paper`).
+The manuscript and EPUB are versioned along with the website.
 
 ## Building
 

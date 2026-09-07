@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { tick } from 'svelte';
+	import { CloseOutline } from 'flowbite-svelte-icons';
 	import type { ResolvedReference } from '$lib/reader/types';
 	import { resolveAppPath } from '$lib/utils/paths';
 
@@ -81,14 +82,17 @@
 	onclose={clearState}
 >
 	{#if activeRef}
-		<button
-			type="button"
-			class="footnote-popover-panel__close"
-			aria-label="Close reference"
-			onclick={close}
-		>
-			×
-		</button>
+		<div class="footnote-popover-panel__header">
+			<p class="footnote-popover-panel__title">Reference</p>
+			<button
+				type="button"
+				class="footnote-popover-panel__close"
+				aria-label="Close reference"
+				onclick={close}
+			>
+				<CloseOutline class="h-5 w-5" aria-hidden="true" />
+			</button>
+		</div>
 		<p class="footnote-popover-panel__short">
 			{activeRef.short}{#if locator}, {locator}{/if}
 		</p>

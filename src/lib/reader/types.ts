@@ -55,6 +55,10 @@ export interface PositionPaperMeta {
 	publisher: string;
 	/** Parent periodical / series title. */
 	journalTitle: string;
+	/** Number within the journal or publication series (not a volume). */
+	issue?: string;
+	pageStart?: string;
+	pageEnd?: string;
 	doi?: string;
 	issn?: string;
 	/**

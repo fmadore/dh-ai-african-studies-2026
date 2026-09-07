@@ -267,7 +267,12 @@
 		margin-block-end: var(--space-md);
 	}
 	.reader-footnotes .footnotes-list {
-		padding-inline-start: var(--space-lg);
+		list-style: decimal outside;
+		padding-inline-start: 2.5em;
+	}
+	.reader-footnotes .footnote-item::marker {
+		color: var(--text-primary);
+		font-variant-numeric: tabular-nums;
 	}
 	.reader-footnotes .footnote-item + .footnote-item {
 		margin-block-start: var(--space-xs);
@@ -360,9 +365,62 @@
 		inset-block-start: 5.5rem;
 		font-size: var(--text-sm);
 		color: var(--text-secondary);
-		max-height: calc(100vh - 7rem);
-		overflow-y: auto;
 		padding-inline-end: var(--space-xs);
+	}
+	#reader-toc-desktop-panel {
+		max-height: calc(100dvh - 11rem);
+		overflow-y: auto;
+		overscroll-behavior: contain;
+	}
+	.reader-toc__toggle {
+		display: flex;
+		align-items: center;
+		gap: var(--space-xs);
+		min-height: 44px;
+		padding: var(--space-xs) var(--space-sm);
+		margin-block-end: var(--space-xs);
+		border: 1px solid var(--border-subtle);
+		border-radius: var(--radius-md);
+		background: var(--bg-raised);
+		color: var(--text-primary);
+		font-size: var(--text-sm);
+		font-weight: var(--font-weight-semibold);
+		cursor: pointer;
+	}
+	.reader-toc__toggle:hover {
+		background: var(--bg-sunken);
+	}
+	.reader-toc__toggle:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+	}
+	.reader-toc-mobile {
+		position: fixed;
+		inset-inline-start: var(--space-md);
+		inset-block-end: calc(var(--space-md) + env(safe-area-inset-bottom));
+		z-index: var(--z-sticky);
+	}
+	.reader-toc-mobile__toggle {
+		margin: 0;
+		box-shadow: var(--shadow-md);
+	}
+	.reader-toc-mobile__panel {
+		position: absolute;
+		inset-block-end: calc(100% + var(--space-xs));
+		inset-inline-start: 0;
+		width: min(24rem, calc(100vw - 2 * var(--space-md)));
+		max-height: calc(100dvh - 11rem);
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		border: 1px solid var(--border-subtle);
+		border-radius: var(--radius-md);
+		background: var(--bg-raised);
+		box-shadow: var(--shadow-md);
+	}
+	@media (min-width: 1024px) {
+		.reader-prose :is(h2, h3, h4) {
+			scroll-margin-block-start: 11rem;
+		}
 	}
 	.reader-toc__heading {
 		font-family: var(--font-family-display);
@@ -489,19 +547,27 @@
 	html:has(.footnote-popover-panel[open]) {
 		overflow: hidden;
 	}
+	.footnote-popover-panel__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-md);
+		margin-block-end: var(--space-sm);
+	}
+	.footnote-popover-panel__title {
+		margin: 0;
+		font-weight: var(--font-weight-semibold);
+	}
 	.footnote-popover-panel__close {
-		position: absolute;
-		inset-block-start: var(--space-xs);
-		inset-inline-end: var(--space-sm);
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 1.75rem;
-		height: 1.75rem;
+		width: 44px;
+		height: 44px;
+		flex-shrink: 0;
 		border: 0;
 		background: transparent;
-		color: var(--text-muted);
-		font-size: var(--text-2xl);
+		color: var(--text-secondary);
 		line-height: 1;
 		cursor: pointer;
 		border-radius: var(--radius-full);
@@ -513,11 +579,14 @@
 		background: var(--bg-sunken);
 		color: var(--text-primary);
 	}
+	.footnote-popover-panel__close:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
 	.footnote-popover-panel__short {
 		font-weight: var(--font-weight-semibold);
 		color: var(--text-primary);
 		margin-block-end: var(--space-xs);
-		padding-inline-end: var(--space-lg);
 	}
 	.footnote-popover-panel__full {
 		color: var(--text-secondary);

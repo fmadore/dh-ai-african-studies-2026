@@ -2,6 +2,8 @@
 	import { Heading, P } from 'flowbite-svelte';
 	import type { PositionPaperMeta } from '$lib/reader/types';
 	import AuthorByline from '$lib/components/AuthorByline.svelte';
+	import { resolveAssetPath } from '$lib/utils/paths';
+	import { mediaCredit } from '$lib/data/photos';
 
 	interface Props {
 		meta: PositionPaperMeta;
@@ -59,6 +61,21 @@
 		<Heading tag="h2" id="abstract-heading" class="text-caption">Abstract</Heading>
 		<P class="body-text">{meta.abstract}</P>
 	</section>
+
+	<figure class="reader-masthead__photo">
+		<img
+			src={resolveAssetPath('/images/photos/3V7A0875.jpg')}
+			alt="Workshop participants posing together on the outdoor steps at Xplanatorium Herrenhausen on Day 3."
+			width="1920"
+			height="1280"
+			loading="lazy"
+			decoding="async"
+		/>
+		<figcaption class="text-caption">
+			Some of the workshop participants at Xplanatorium Herrenhausen. Photo by
+			<a class="link-secondary" href={mediaCredit.url}>{mediaCredit.name}</a>.
+		</figcaption>
+	</figure>
 </header>
 
 <style>
@@ -87,5 +104,17 @@
 	}
 	.reader-masthead__meta dd {
 		margin: 0;
+	}
+	.reader-masthead__photo {
+		margin: 0;
+	}
+	.reader-masthead__photo img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: var(--radius-md);
+	}
+	.reader-masthead__photo figcaption {
+		margin-block-start: var(--space-xs);
 	}
 </style>

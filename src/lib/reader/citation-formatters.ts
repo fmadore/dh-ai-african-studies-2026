@@ -32,6 +32,13 @@ function bibtexAuthors(meta: PositionPaperMeta): string {
 	return meta.authors.map((a) => `${familyName(a)}, ${givenName(a)}`).join(' and ');
 }
 
+function pageRange(meta: PositionPaperMeta, separator = '–'): string {
+	if (!meta.pageStart) return '';
+	return meta.pageEnd && meta.pageEnd !== meta.pageStart
+		? `${meta.pageStart}${separator}${meta.pageEnd}`
+		: meta.pageStart;
+}
+
 export function toBibtex(meta: PositionPaperMeta): string {
 	const fields: string[] = [];
 	fields.push(`  author = {${bibtexAuthors(meta)}}`);
@@ -39,6 +46,8 @@ export function toBibtex(meta: PositionPaperMeta): string {
 	fields.push(`  year = {${meta.publicationDate.slice(0, 4)}}`);
 	fields.push(`  date = {${meta.publicationDate}}`);
 	fields.push(`  journal = {${escapeBibtex(meta.journalTitle)}}`);
+	if (meta.issue) fields.push(`  number = {${escapeBibtex(meta.issue)}}`);
+	if (meta.pageStart) fields.push(`  pages = {${pageRange(meta, '--')}}`);
 	fields.push(`  publisher = {${escapeBibtex(meta.publisher)}}`);
 	fields.push(`  language = {${meta.language}}`);
 	if (meta.doi) fields.push(`  doi = {${meta.doi}}`);
@@ -54,6 +63,9 @@ export function toRis(meta: PositionPaperMeta): string {
 	meta.authors.forEach((a) => lines.push(`AU  - ${familyName(a)}, ${givenName(a)}`));
 	lines.push(`TI  - ${meta.title}`);
 	lines.push(`JO  - ${meta.journalTitle}`);
+	if (meta.issue) lines.push(`IS  - ${meta.issue}`);
+	if (meta.pageStart) lines.push(`SP  - ${meta.pageStart}`);
+	if (meta.pageEnd) lines.push(`EP  - ${meta.pageEnd}`);
 	lines.push(`PB  - ${meta.publisher}`);
 	lines.push(`PY  - ${meta.publicationDate.slice(0, 4)}`);
 	lines.push(`DA  - ${meta.publicationDate.replace(/-/g, '/')}`);
@@ -95,7 +107,9 @@ export function toChicago(meta: PositionPaperMeta, canonicalUrl?: string): strin
 	parts.push(authors.endsWith('.') ? authors : `${authors}.`);
 	parts.push(`${year}.`);
 	parts.push(`"${meta.title}."`);
-	parts.push(`${meta.journalTitle}.`);
+	const issue = meta.issue ? `, no. ${meta.issue}` : '';
+	const pages = pageRange(meta);
+	parts.push(`${meta.journalTitle}${issue}${pages ? `: ${pages}` : ''}.`);
 	if (meta.doi) parts.push(`https://doi.org/${meta.doi}.`);
 	else if (canonicalUrl) parts.push(`${canonicalUrl}.`);
 	return parts.join(' ').replace(/\s+/g, ' ').trim();
@@ -133,7 +147,9 @@ export function toApa(meta: PositionPaperMeta, canonicalUrl?: string): string {
 	const parts: string[] = [];
 	parts.push(`${authorsApa(meta)} (${year}).`);
 	parts.push(`${meta.title}.`);
-	parts.push(`${meta.journalTitle}.`);
+	const issue = meta.issue ? ` (${meta.issue})` : '';
+	const pages = pageRange(meta);
+	parts.push(`${meta.journalTitle}${issue}${pages ? `, ${pages}` : ''}.`);
 	if (meta.doi) parts.push(`https://doi.org/${meta.doi}`);
 	else if (canonicalUrl) parts.push(canonicalUrl);
 	return parts.join(' ').replace(/\s+/g, ' ').trim();

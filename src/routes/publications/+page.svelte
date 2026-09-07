@@ -66,7 +66,7 @@
 <div class="padding-inline-section archive">
 	<div class="content-width-wide">
 		<section class="paper-lead" aria-labelledby="paper-title">
-			<p class="text-label text-accent">Central workshop outcome · Forthcoming</p>
+			<p class="text-label text-accent">Central workshop outcome · Published 7 September 2026</p>
 			<h2 id="paper-title">
 				<a href={resolveAppPath('/position-paper')}>{positionPaperMeta.title}</a>
 			</h2>
@@ -75,9 +75,15 @@
 				responsibilities and conditions of digital humanities and AI in African studies.
 			</p>
 			<p class="byline">Frédérick Madore, Vincent Hiribarren and fellow workshop participants</p>
-			<p class="text-caption">{positionPaperMeta.journalTitle} · {positionPaperMeta.publisher}</p>
+			<p class="text-caption">
+				{positionPaperMeta.journalTitle}, no. {positionPaperMeta.issue}, pp. {positionPaperMeta.pageStart}–{positionPaperMeta.pageEnd}
+				· {positionPaperMeta.publisher}
+			</p>
 			<div class="paper-action">
-				<AppButton href={resolveAppPath('/position-paper')}>Read the position paper</AppButton>
+				<AppButton href={resolveAppPath('/position-paper/read')}>Read the position paper</AppButton>
+				<a class="link-secondary" href={resolveAppPath('/position-paper')}
+					>Publication details and downloads</a
+				>
 			</div>
 		</section>
 		<section class="reports" aria-labelledby="reports-title">

@@ -44,10 +44,8 @@ shipping.
   every route must remain prerenderable. Internal links and assets must go
   through the `resolveAppPath` / `resolveAssetPath` helpers.
 - Svelte 5 runes syntax only (`$state`, `$derived`, `$props`, `$effect`).
-- The position-paper full-text reader (`/position-paper/read`) is
-  unpublished until the paper appears: its route stubs and the real
-  manuscript are gitignored, and only the public `/position-paper` landing
-  page is in scope for design work.
+- The position paper was published on 7 September 2026. Its landing page,
+  full-text reader, and EPUB are public outcomes and part of production builds.
 - Heavy libraries (Leaflet map, D3 concept graph) are dynamically imported;
   YouTube embeds load via a click-to-load facade, never eagerly.
 
