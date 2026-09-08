@@ -99,13 +99,6 @@
 		gap: var(--space-lg);
 		min-width: 0;
 	}
-	.reader-shell__toolbar-wrap {
-		@media (min-width: 1024px) {
-			position: sticky;
-			top: 4.5rem;
-			z-index: var(--z-sticky);
-		}
-	}
 	.reader-shell__prose-wrap {
 		padding-block: var(--space-lg);
 	}

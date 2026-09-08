@@ -50,7 +50,7 @@ npm run optimize:images
 
 ## Published Position Paper
 
-The paper was published on 7 September 2026 in ZMO Programmatic Texts, no. 16,
+The paper was published on 8 September 2026 in ZMO Programmatic Texts, no. 16,
 
 pages 1–24 (DOI: 10.58144/20260827-000).
 

@@ -7,26 +7,33 @@
 		pdfPath: string;
 		pdfAvailable: boolean;
 		doi?: string;
+		size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 		/** Filename offered to the browser's download prompt. */
 		filename?: string;
 	}
 
-	let { pdfPath, pdfAvailable, doi, filename = 'position-paper.pdf' }: Props = $props();
+	let {
+		pdfPath,
+		pdfAvailable,
+		doi,
+		size = 'sm',
+		filename = 'position-paper.pdf'
+	}: Props = $props();
 
 	let href = $derived(resolveAssetPath(pdfPath));
 </script>
 
 {#if pdfAvailable && href}
-	<Button color="primary" size="sm" {href} download={filename} class="font-medium">
+	<Button color="primary" {size} {href} download={filename} class="font-medium">
 		<FileCheckOutline class="mr-2 h-4 w-4" />
 		Download PDF
 	</Button>
 {:else if doi}
-	<Button color="light" size="sm" href="https://doi.org/{doi}" class="font-medium">
+	<Button color="light" {size} href="https://doi.org/{doi}" class="font-medium">
 		<FileCheckOutline class="mr-2 h-4 w-4" />Publisher edition
 	</Button>
 {:else}
-	<Button color="light" size="sm" disabled class="font-medium">
+	<Button color="light" {size} disabled class="font-medium">
 		<ClockOutline class="mr-2 h-4 w-4" />
 		PDF available soon
 	</Button>

@@ -417,11 +417,6 @@
 		background: var(--bg-raised);
 		box-shadow: var(--shadow-md);
 	}
-	@media (min-width: 1024px) {
-		.reader-prose :is(h2, h3, h4) {
-			scroll-margin-block-start: 11rem;
-		}
-	}
 	.reader-toc__heading {
 		font-family: var(--font-family-display);
 		font-size: var(--text-xs);
@@ -468,6 +463,7 @@
 
 	/* ---- Reader toolbar ---- */
 	.reader-toolbar {
+		container: reader-toolbar / inline-size;
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;

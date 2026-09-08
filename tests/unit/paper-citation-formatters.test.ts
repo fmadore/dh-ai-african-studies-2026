@@ -1,8 +1,24 @@
 import { describe, expect, it } from 'vitest';
 import { positionPaperMeta } from '$lib/data/position-paper-meta';
-import { toApa, toBibtex, toChicago, toRis } from '$lib/reader/citation-formatters';
+import {
+	recommendedCitation,
+	toApa,
+	toBibtex,
+	toChicago,
+	toRis
+} from '$lib/reader/citation-formatters';
 
 describe('position paper publication details', () => {
+	it('names every contributor and gives total pages in the recommended citation', () => {
+		const citation = recommendedCitation(positionPaperMeta);
+		expect(citation.text).toMatch(/^Madore, Frédérick,/);
+		for (const author of positionPaperMeta.authors.slice(1)) {
+			expect(citation.text).toContain(author.name);
+		}
+		expect(citation.text).not.toContain('et al.');
+		expect(citation.series).toBe('ZMO Programmatic Texts');
+		expect(citation.afterSeries).toBe(', no. 16. 24 p. https://doi.org/10.58144/20260827-000.');
+	});
 	it('includes the series number and printed page range in every export', () => {
 		expect(toChicago(positionPaperMeta)).toContain('ZMO Programmatic Texts, no. 16: 1–24.');
 		expect(toApa(positionPaperMeta)).toContain('ZMO Programmatic Texts (16), 1–24.');

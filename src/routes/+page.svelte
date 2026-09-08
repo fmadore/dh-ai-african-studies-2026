@@ -78,7 +78,7 @@
 	const outcomes = [
 		{
 			title: 'Position Paper',
-			description: 'Published open access in ZMO Programmatic Texts, no. 16, on 7 September 2026.',
+			description: 'Published open access in ZMO Programmatic Texts, no. 16, on 8 September 2026.',
 			href: positionPaperHref,
 			media: 'paper' as const
 		},

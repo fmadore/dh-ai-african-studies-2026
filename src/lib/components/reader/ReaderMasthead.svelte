@@ -37,13 +37,19 @@
 		<div class="reader-masthead__authors">
 			<dt class="text-caption">Authors</dt>
 			<dd class="body-text-strong">
-				<AuthorByline authors={meta.authors} note={meta.authorshipNote} />
+				<AuthorByline authors={meta.authors} />
 			</dd>
 		</div>
 		<div>
 			<dt class="text-caption">Published</dt>
 			<dd class="body-text">{formattedDate}</dd>
 		</div>
+		{#if meta.issue}
+			<div>
+				<dt class="text-caption">Issue</dt>
+				<dd class="body-text">{meta.issue}</dd>
+			</div>
+		{/if}
 		{#if meta.doi}
 			<div>
 				<dt class="text-caption">DOI</dt>
@@ -60,6 +66,7 @@
 	>
 		<Heading tag="h2" id="abstract-heading" class="text-caption">Abstract</Heading>
 		<P class="body-text">{meta.abstract}</P>
+		<p class="text-caption"><strong>Keywords:</strong> {meta.keywords.join(', ')}</p>
 	</section>
 
 	<figure class="reader-masthead__photo">

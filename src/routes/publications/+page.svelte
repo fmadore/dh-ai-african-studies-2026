@@ -66,7 +66,7 @@
 <div class="padding-inline-section archive">
 	<div class="content-width-wide">
 		<section class="paper-lead" aria-labelledby="paper-title">
-			<p class="text-label text-accent">Central workshop outcome · Published 7 September 2026</p>
+			<p class="text-label text-accent">Central workshop outcome · Published 8 September 2026</p>
 			<h2 id="paper-title">
 				<a href={resolveAppPath('/position-paper')}>{positionPaperMeta.title}</a>
 			</h2>

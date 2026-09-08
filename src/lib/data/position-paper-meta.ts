@@ -70,7 +70,7 @@ export const positionPaperMeta: PositionPaperMeta = {
 	],
 	authorshipNote:
 		'Frédérick Madore and Vincent Hiribarren, who convened the workshop, are listed first, followed by the remaining authors in alphabetical order. The order reflects the collaborative writing process and implies no hierarchy of contribution. Affiliations and short biographies of all workshop participants are available on the workshop website: https://fmadore.github.io/dh-ai-african-studies-2026/participants. We thank the two reviewers for their thoughtful comments on an earlier version of this text.',
-	publicationDate: '2026-09-07',
+	publicationDate: '2026-09-08',
 	revisedDate: undefined,
 	// Verbatim from the paper's own abstract — this is what the scholarly meta
 	// tags and JSON-LD advertise, so it must match the published text.

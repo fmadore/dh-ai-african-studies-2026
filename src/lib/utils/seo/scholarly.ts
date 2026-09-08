@@ -12,6 +12,7 @@ export function createScholarlyMeta(opts: ScholarlyMetaOptions): SeoMetaTag[] {
 	const scholarDate = opts.publicationDate.replace(/-/g, '/');
 
 	tags.push({ key: 'citation_title', name: 'citation_title', content: opts.title });
+	tags.push({ key: 'citation_abstract', name: 'citation_abstract', content: opts.abstract });
 	opts.authors.forEach((author, index) =>
 		tags.push({ key: `citation_author_${index}`, name: 'citation_author', content: author.name })
 	);

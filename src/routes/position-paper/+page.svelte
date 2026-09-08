@@ -19,7 +19,7 @@
 
 	import { positionPaperMeta } from '$lib/data/position-paper-meta';
 
-	import { toChicago } from '$lib/reader/citation-formatters';
+	import { recommendedCitation } from '$lib/reader/citation-formatters';
 
 	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
 
@@ -30,8 +30,7 @@
 
 		title: 'Position Paper',
 
-		description:
-			'Read the workshop’s position paper, published open access on 7 September 2026 in ZMO Programmatic Texts, no. 16. Full text, EPUB, references and citation downloads.',
+		description: positionPaperMeta.abstract,
 
 		type: 'article',
 
@@ -85,7 +84,7 @@
 
 		{ term: 'Published', detail: published },
 
-		{ term: 'Number', detail: positionPaperMeta.issue },
+		{ term: 'Issue', detail: positionPaperMeta.issue },
 
 		{ term: 'Pages', detail: `${positionPaperMeta.pageStart}–${positionPaperMeta.pageEnd}` },
 
@@ -114,13 +113,11 @@
 
 	 * The paper is meant to be cited, so the page offers the citation up front —
 
-	 * from the same formatter the reader's "How to cite" widget uses, so the two
-
-	 * cannot drift apart.
+	 * with every contributor named and the publication's total length.
 
 	 */
 
-	const citation = toChicago(positionPaperMeta, seo.canonical);
+	const citation = recommendedCitation(positionPaperMeta, seo.canonical);
 
 	const scholarlyOptions = { ...positionPaperMeta, abstractUrl: seo.canonical };
 
@@ -131,7 +128,7 @@
 	let citationCopied = $state(false);
 
 	async function copyCitation() {
-		citationCopied = await copyToClipboard(citation);
+		citationCopied = await copyToClipboard(citation.text);
 
 		if (citationCopied) setTimeout(() => (citationCopied = false), 2000);
 	}
@@ -168,6 +165,7 @@
 					{/if}
 
 					<PdfDownloadButton
+						size="lg"
 						pdfPath={positionPaperMeta.pdfPath}
 						pdfAvailable={positionPaperMeta.pdfAvailable}
 						doi={positionPaperMeta.doi}
@@ -204,7 +202,9 @@
 				<div class="cite-block">
 					<p class="text-label text-accent">Cite this paper</p>
 
-					<p class="cite-block__text">{citation}</p>
+					<p class="cite-block__text">
+						{citation.beforeSeries} <em>{citation.series}</em>{citation.afterSeries}
+					</p>
 
 					<button type="button" class="cite-block__copy tap-target" onclick={copyCitation}>
 						{citationCopied ? 'Citation copied' : 'Copy citation'}
@@ -216,6 +216,10 @@
 				<h2 id="paper-abstract" class="heading-section">Abstract</h2>
 
 				<p class="prose-serif">{positionPaperMeta.abstract}</p>
+				<p class="text-caption">
+					<strong>Keywords:</strong>
+					{positionPaperMeta.keywords.join(', ')}
+				</p>
 			</section>
 		</div>
 	</div>

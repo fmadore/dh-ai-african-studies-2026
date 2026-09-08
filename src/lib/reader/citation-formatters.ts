@@ -85,9 +85,9 @@ export function toRis(meta: PositionPaperMeta): string {
 const CHICAGO_LIST_LIMIT = 10;
 const CHICAGO_NAMES_SHOWN = 7;
 
-function authorsChicago(meta: PositionPaperMeta): string {
+function authorsChicago(meta: PositionPaperMeta, allAuthors = false): string {
 	if (!meta.authors.length) return 'Anonymous';
-	const truncated = meta.authors.length > CHICAGO_LIST_LIMIT;
+	const truncated = !allAuthors && meta.authors.length > CHICAGO_LIST_LIMIT;
 	const listed = truncated ? meta.authors.slice(0, CHICAGO_NAMES_SHOWN) : meta.authors;
 	const formatted = listed.map((a, i) => {
 		if (i === 0) return `${familyName(a)}, ${givenName(a)}`;
@@ -113,6 +113,26 @@ export function toChicago(meta: PositionPaperMeta, canonicalUrl?: string): strin
 	if (meta.doi) parts.push(`https://doi.org/${meta.doi}.`);
 	else if (canonicalUrl) parts.push(`${canonicalUrl}.`);
 	return parts.join(' ').replace(/\s+/g, ' ').trim();
+}
+
+/** Recommended landing-page citation, with every contributor and total extent. */
+export function recommendedCitation(meta: PositionPaperMeta, canonicalUrl?: string) {
+	const authors = authorsChicago(meta, true);
+	const beforeSeries = `${authors.endsWith('.') ? authors : `${authors}.`} ${meta.publicationDate.slice(0, 4)}. "${meta.title}."`;
+	const start = Number(meta.pageStart);
+	const end = Number(meta.pageEnd);
+	const pageCount =
+		Number.isInteger(start) && start > 0 && Number.isInteger(end) && end >= start
+			? end - start + 1
+			: undefined;
+	const url = meta.doi ? `https://doi.org/${meta.doi}` : canonicalUrl;
+	const afterSeries = `${meta.issue ? `, no. ${meta.issue}` : ''}.${pageCount ? ` ${pageCount} p.` : ''}${url ? ` ${url}.` : ''}`;
+	return {
+		beforeSeries,
+		series: meta.journalTitle,
+		afterSeries,
+		text: `${beforeSeries} ${meta.journalTitle}${afterSeries}`
+	};
 }
 
 /**
