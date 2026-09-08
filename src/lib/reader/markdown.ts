@@ -5,6 +5,7 @@ import GithubSlugger from 'github-slugger';
 import { createReferenceRule } from './reference-resolver';
 import { createCitationRule, type CitationReport } from './citations';
 import type { CslReference } from './types';
+import { SITE_BASE_URL } from '$lib/utils/seo/constants';
 
 /**
  * Builds a configured markdown-it instance for the position paper.
@@ -48,6 +49,26 @@ export function createMarkdownIt(
 	// Registered last so its core rule runs at the end of the chain, after
 	// linkify and smartquotes have settled the text it scans.
 	md.use(createCitationRule(onCitationReport));
+
+	const defaultLinkOpen = md.renderer.rules.link_open;
+	md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+		const token = tokens[idx];
+		const href = String(token.attrGet('href') ?? '');
+		if (/^(?:https?:)?\/\//i.test(href)) {
+			const url = new URL(href, SITE_BASE_URL);
+			const site = new URL(SITE_BASE_URL);
+			const internal =
+				url.origin === site.origin &&
+				(url.pathname === site.pathname || url.pathname.startsWith(`${site.pathname}/`));
+			if (!internal) {
+				token.attrSet('target', '_blank');
+				token.attrSet('rel', 'noopener noreferrer');
+			}
+		}
+		return defaultLinkOpen
+			? defaultLinkOpen(tokens, idx, options, env, self)
+			: self.renderToken(tokens, idx, options);
+	};
 
 	// Render footnote refs ourselves so the `data-*` hooks the Svelte popover
 	// reads are emitted directly, rather than being spliced into the plugin's

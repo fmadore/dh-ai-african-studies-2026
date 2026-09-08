@@ -2,6 +2,7 @@
 	import PageHero from '$lib/components/PageHero.svelte';
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import AppButton from '$lib/components/AppButton.svelte';
+	import AuthorByline from '$lib/components/AuthorByline.svelte';
 	import { positionPaperMeta } from '$lib/data/position-paper-meta';
 	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
 	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
@@ -74,15 +75,25 @@
 				The workshop’s central outcome is a collectively authored position paper on the purposes,
 				responsibilities and conditions of digital humanities and AI in African studies.
 			</p>
-			<p class="byline">Frédérick Madore, Vincent Hiribarren and fellow workshop participants</p>
-			<p class="text-caption">
-				{positionPaperMeta.journalTitle}, no. {positionPaperMeta.issue}, pp. {positionPaperMeta.pageStart}–{positionPaperMeta.pageEnd}
+			<div class="paper-authors"><AuthorByline authors={positionPaperMeta.authors} /></div>
+			<p class="paper-publication">
+				<em>{positionPaperMeta.journalTitle}</em>, issue {positionPaperMeta.issue}, pp. {positionPaperMeta.pageStart}–{positionPaperMeta.pageEnd}
 				· {positionPaperMeta.publisher}
 			</p>
+			{#if positionPaperMeta.doi}
+				<p class="paper-doi">
+					DOI: <a
+						class="link-secondary"
+						href="https://doi.org/{positionPaperMeta.doi}"
+						target="_blank"
+						rel="noopener noreferrer">{positionPaperMeta.doi}</a
+					>
+				</p>
+			{/if}
 			<div class="paper-action">
 				<AppButton href={resolveAppPath('/position-paper/read')}>Read the position paper</AppButton>
-				<a class="link-secondary" href={resolveAppPath('/position-paper')}
-					>Publication details and downloads</a
+				<AppButton variant="secondary" href={resolveAppPath('/position-paper')}
+					>Publication details and downloads</AppButton
 				>
 			</div>
 		</section>
@@ -192,7 +203,29 @@
 		max-width: 68ch;
 	}
 	.paper-action {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-sm);
 		margin-top: var(--space-lg);
+	}
+	.paper-action > :global(a) {
+		max-width: 100%;
+		white-space: normal;
+		text-align: center;
+	}
+	.paper-authors {
+		margin-block: var(--space-md) var(--space-sm);
+		font-size: var(--text-base);
+		line-height: var(--leading-relaxed);
+		color: var(--text-primary);
+	}
+	.paper-publication,
+	.paper-doi {
+		margin-block: var(--space-xs);
+		font-size: var(--text-sm);
+		line-height: var(--leading-relaxed);
+		color: var(--text-secondary);
 	}
 	.feature {
 		display: grid;

@@ -2,6 +2,7 @@
 	import { Heading, P } from 'flowbite-svelte';
 	import type { PositionPaperMeta } from '$lib/reader/types';
 	import AuthorByline from '$lib/components/AuthorByline.svelte';
+	import PaperKeywords from '$lib/components/PaperKeywords.svelte';
 	import { resolveAssetPath } from '$lib/utils/paths';
 	import { mediaCredit } from '$lib/data/photos';
 
@@ -54,7 +55,12 @@
 			<div>
 				<dt class="text-caption">DOI</dt>
 				<dd class="body-text">
-					<a class="link-secondary" href="https://doi.org/{meta.doi}">{meta.doi}</a>
+					<a
+						class="link-secondary"
+						href="https://doi.org/{meta.doi}"
+						target="_blank"
+						rel="noopener noreferrer">{meta.doi}</a
+					>
 				</dd>
 			</div>
 		{/if}
@@ -66,7 +72,7 @@
 	>
 		<Heading tag="h2" id="abstract-heading" class="text-caption">Abstract</Heading>
 		<P class="body-text">{meta.abstract}</P>
-		<p class="text-caption"><strong>Keywords:</strong> {meta.keywords.join(', ')}</p>
+		<PaperKeywords keywords={meta.keywords} />
 	</section>
 
 	<figure class="reader-masthead__photo">
@@ -80,7 +86,9 @@
 		/>
 		<figcaption class="text-caption">
 			Some of the workshop participants at Xplanatorium Herrenhausen. Photo by
-			<a class="link-secondary" href={mediaCredit.url}>{mediaCredit.name}</a>.
+			<a class="link-secondary" href={mediaCredit.url} target="_blank" rel="noopener noreferrer"
+				>{mediaCredit.name}</a
+			>.
 		</figcaption>
 	</figure>
 </header>

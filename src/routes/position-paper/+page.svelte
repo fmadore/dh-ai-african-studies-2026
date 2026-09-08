@@ -14,6 +14,7 @@
 	import SeoHead from '$lib/components/SeoHead.svelte';
 
 	import AuthorByline from '$lib/components/AuthorByline.svelte';
+	import PaperKeywords from '$lib/components/PaperKeywords.svelte';
 
 	import { positionPaperSeries as series } from '$lib/data/position-paper-series';
 
@@ -216,10 +217,7 @@
 				<h2 id="paper-abstract" class="heading-section">Abstract</h2>
 
 				<p class="prose-serif">{positionPaperMeta.abstract}</p>
-				<p class="text-caption">
-					<strong>Keywords:</strong>
-					{positionPaperMeta.keywords.join(', ')}
-				</p>
+				<PaperKeywords keywords={positionPaperMeta.keywords} />
 			</section>
 		</div>
 	</div>

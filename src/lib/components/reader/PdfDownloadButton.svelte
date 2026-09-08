@@ -29,7 +29,14 @@
 		Download PDF
 	</Button>
 {:else if doi}
-	<Button color="light" {size} href="https://doi.org/{doi}" class="font-medium">
+	<Button
+		color="light"
+		{size}
+		href="https://doi.org/{doi}"
+		target="_blank"
+		rel="noopener noreferrer"
+		class="font-medium"
+	>
 		<FileCheckOutline class="mr-2 h-4 w-4" />Publisher edition
 	</Button>
 {:else}
