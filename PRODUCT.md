@@ -44,7 +44,7 @@ shipping.
   every route must remain prerenderable. Internal links and assets must go
   through the `resolveAppPath` / `resolveAssetPath` helpers.
 - Svelte 5 runes syntax only (`$state`, `$derived`, `$props`, `$effect`).
-- The position paper was published on 8 September 2026. Its landing page,
+- The position paper was published on 9 September 2026. Its landing page,
   full-text reader, and EPUB are public outcomes and part of production builds.
 - Heavy libraries (Leaflet map, D3 concept graph) are dynamically imported;
   YouTube embeds load via a click-to-load facade, never eagerly.

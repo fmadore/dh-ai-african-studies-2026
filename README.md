@@ -19,7 +19,7 @@ The workshop's principal output is a collectively written position paper:
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Authors**   | 25 — Frédérick Madore and Vincent Hiribarren (the conveners) first, then all other participants alphabetically. The order reflects the collaborative writing process and implies no hierarchy of contribution. |
 | **Venue**     | _ZMO Programmatic Texts_ (ISSN 2191-3242), Leibniz-Zentrum Moderner Orient                                                                                                                                     |
-| **Published** | 8 September 2026                                                                                                                                                                                               |
+| **Published** | 9 September 2026                                                                                                                                                                                               |
 | **Licence**   | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) — the series' terms, not the site licence                                                                                                      |
 | **Status**    | Published. DOI: 10.58144/20260827-000. Full text and EPUB available; corrected PDF pending.                                                                                                                    |
 
