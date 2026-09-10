@@ -1,12 +1,7 @@
 <script lang="ts">
 	import type { Participant } from '$lib/types/participant';
+	import { untrack } from 'svelte';
 	import type * as Leaflet from 'leaflet';
-	// maplibre-gl is pinned to v5 on purpose. @maplibre/maplibre-gl-leaflet@0.1.4
-	// added v6 support against 6.3.0, and something in 6.4-6.6 broke the pairing:
-	// the style, sprite and TileJSON all resolve, but the map never marks its
-	// sources dirty, so it renders the style's background colour and requests not
-	// one tile. Symptom is a blank coloured rectangle with the markers on top and
-	// no console error. Re-test with a real render before widening this range.
 	import type { Map as MaplibreMap } from 'maplibre-gl';
 	import { useDarkMode } from '$lib/utils/dark-mode.svelte';
 	import 'leaflet/dist/leaflet.css';
@@ -92,12 +87,21 @@
 
 		// Snapshot reactive values synchronously so the effect tracks them
 		const groups = markerGroups;
-		const initialDark = isDarkMode;
+		// Theme changes use setStyle below; they must not recreate the Leaflet map.
+		const initialDark = untrack(() => isDarkMode);
 		let destroyed = false;
 
-		Promise.all([import('leaflet'), import('@maplibre/maplibre-gl-leaflet')])
-			.then(([L, { maplibreGL }]) => {
+		Promise.all([
+			import('leaflet'),
+			import('@maplibre/maplibre-gl-leaflet'),
+			import('maplibre-gl'),
+			import('maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url')
+		])
+			.then(([L, { maplibreGL }, { setWorkerUrl }, { default: workerUrl }]) => {
 				if (destroyed || map || !mapContainer) return;
+				// v6 ships a separate ESM worker. Vite must bundle its shared imports,
+				// not copy it with ?url, or production maps silently lose their tiles.
+				setWorkerUrl(workerUrl);
 				map = L.map(mapContainer, {
 					center: [20, 0],
 					zoom: 2,

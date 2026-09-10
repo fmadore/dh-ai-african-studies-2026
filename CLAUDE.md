@@ -88,9 +88,15 @@ pages 1–24 (DOI: 10.58144/20260827-000).
 
   OpenFreeMap vector styles, keyless; never reintroduce a keyed raster provider.
 
-  `maplibre-gl` is pinned to v5: 6.4+ silently breaks the Leaflet adapter (blank
+  `maplibre-gl` uses the 6.8 patch line with `@maplibre/maplibre-gl-leaflet` 0.1.4.
 
-  basemap, no error). Any bump needs a real rendered screenshot, not a green build.
+  v6 requires `setWorkerUrl()` with Vite's `?worker&url` import before map creation.
+
+  Plain `?url` omits the worker's shared module in production and can leave a blank
+
+  basemap. WebGL2 is required; unsupported browsers show the directory fallback.
+
+  Run the map browser regressions and inspect real rendered tiles on dependency bumps.
 
 - **Graph:** D3 force layout (dynamically imported)
 
