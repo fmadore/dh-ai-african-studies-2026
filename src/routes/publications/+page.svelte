@@ -45,7 +45,7 @@
 	const seo = createSeoMeta({
 		title: 'Publications & reports',
 		description:
-			'Publications, workshop reports, news coverage and conference presentations from Charting New Territory: Digital Humanities and AI in African Studies.',
+			'Publications from and referring to Charting New Territory: Digital Humanities and AI in African Studies, alongside workshop reports, news coverage and conference presentations.',
 		path: '/publications'
 	});
 	const jsonLd = createWebPageJsonLd({
@@ -59,7 +59,7 @@
 <PageHero
 	eyebrow="Outcomes"
 	title="Publications & reports"
-	lede="The workshop’s collective position paper, alongside reports, reflections and conference contributions."
+	lede="The workshop’s collective position paper, publications drawing on its discussions, reports and conference contributions."
 	width="wide"
 	size="compact"
 />
@@ -97,6 +97,38 @@
 				>
 			</div>
 		</section>
+		<section class="conference" aria-labelledby="related-publications-title">
+			<div>
+				<h2 id="related-publications-title" class="heading-section">
+					Publications referring to the workshops
+				</h2>
+				<p class="prose-serif-sm">
+					Scholarship that cites the workshops or draws on their discussions.
+				</p>
+			</div>
+			<article>
+				<p class="text-label text-accent">Journal article · English</p>
+				<h3>
+					<a href="https://doi.org/10.1162/AFAR.a.847"
+						>Are We Ready Not to Know, to Unlearn, and to Learn Anew?</a
+					>
+				</h3>
+				<p class="byline">Susan Elizabeth Gagliardi</p>
+				<p class="text-caption">
+					<em>African Arts</em> 59 (3): 1–9 · <time datetime="2026">2026</time>
+				</p>
+				<p class="prose-serif-sm">
+					Gagliardi opens with the February 2026 Hanover workshop’s discussions of audience, aims
+					and the limits of universal best practices. She draws on these exchanges to reflect on
+					listening, multiple ways of knowing, and collaboration and restitution within the Arts
+					Council of the African Studies Association (ACASA).
+				</p>
+				<a class="read-link" href="https://doi.org/10.1162/AFAR.a.847"
+					>Read the article <span aria-hidden="true">↗</span></a
+				>
+			</article>
+		</section>
+
 		<section class="reports" aria-labelledby="reports-title">
 			<h2 id="reports-title" class="heading-section">Reports &amp; coverage</h2>
 			<article class="feature">
