@@ -100,10 +100,10 @@
 		<section class="conference" aria-labelledby="related-publications-title">
 			<div>
 				<h2 id="related-publications-title" class="heading-section">
-					Publications referring to the workshops
+					Publications referring to the workshop
 				</h2>
 				<p class="prose-serif-sm">
-					Scholarship that cites the workshops or draws on their discussions.
+					Scholarship that cites the workshop or draws on its discussions.
 				</p>
 			</div>
 			<article>
