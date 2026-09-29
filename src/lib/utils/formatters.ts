@@ -1,6 +1,20 @@
 /**
- * Shared formatting utilities for reference data
+ * Shared formatting utilities for reference data and dates
  */
+
+/**
+ * "9 September 2026" from an ISO calendar date. Pinned to UTC: `new Date()`
+ * reads a bare date as UTC midnight, so formatting it in the local zone would
+ * print the previous day on any machine west of Greenwich.
+ */
+export function formatLongDate(isoDate: string): string {
+	return new Date(isoDate).toLocaleDateString('en-GB', {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric',
+		timeZone: 'UTC'
+	});
+}
 
 const typeMap: Record<string, string> = {
 	'article-magazine': 'Magazine Article',

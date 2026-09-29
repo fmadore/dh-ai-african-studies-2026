@@ -6,6 +6,8 @@
 	import { participants } from '$lib/data/participants';
 	import { workStreams } from '$lib/data/work-streams';
 	import { interviews } from '$lib/data/interviews';
+	import { paperPublicationDate } from '$lib/data/position-paper-meta';
+	import { formatLongDate } from '$lib/utils/formatters';
 	import { reveal } from '$lib/utils/reveal';
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import FundingNote from '$lib/components/FundingNote.svelte';
@@ -78,7 +80,7 @@
 	const outcomes = [
 		{
 			title: 'Position Paper',
-			description: 'Published open access in ZMO Programmatic Texts, no. 16, on 9 September 2026.',
+			description: `Published open access in ZMO Programmatic Texts, no. 16, on ${formatLongDate(paperPublicationDate)}.`,
 			href: positionPaperHref,
 			media: 'paper' as const
 		},

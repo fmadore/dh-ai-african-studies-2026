@@ -8,6 +8,8 @@
 	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '$lib/utils/seo';
 	import { participants } from '$lib/data/participants';
 	import { mediaCredit } from '$lib/data/photos';
+	import { paperPublicationDate } from '$lib/data/position-paper-meta';
+	import { formatLongDate } from '$lib/utils/formatters';
 	import { resolveAssetPath, resolveAppPath } from '$lib/utils/paths';
 	import { reveal } from '$lib/utils/reveal';
 
@@ -188,7 +190,8 @@
 					<p class="prose-serif">
 						The workshop produced a jointly authored
 						<a href={resolveAppPath('/position-paper')} class="link-secondary">position paper</a>,
-						published open access on 9 September 2026 in <em>ZMO Programmatic Texts</em>, no. 16.
+						published open access on {formatLongDate(paperPublicationDate)} in
+						<em>ZMO Programmatic Texts</em>, no. 16.
 					</p>
 					<p class="prose-serif">
 						Drawing on insights from the daily sessions, this document provides a strategic

@@ -4,6 +4,7 @@
 	import AppButton from '$lib/components/AppButton.svelte';
 	import AuthorByline from '$lib/components/AuthorByline.svelte';
 	import { positionPaperMeta } from '$lib/data/position-paper-meta';
+	import { formatLongDate } from '$lib/utils/formatters';
 	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
 	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
 
@@ -67,7 +68,9 @@
 <div class="padding-inline-section archive">
 	<div class="content-width-wide">
 		<section class="paper-lead" aria-labelledby="paper-title">
-			<p class="text-label text-accent">Central workshop outcome · Published 9 September 2026</p>
+			<p class="text-label text-accent">
+				Central workshop outcome · Published {formatLongDate(positionPaperMeta.publicationDate)}
+			</p>
 			<h2 id="paper-title">
 				<a href={resolveAppPath('/position-paper')}>{positionPaperMeta.title}</a>
 			</h2>

@@ -1,6 +1,14 @@
 import type { PositionPaperMeta } from '$lib/reader/types';
 
 /**
+ * Exported on its own so pages that only mention the date (home, about,
+ * publications) don't bundle the whole record — abstract, 25 authors — to
+ * print it. Every "published on" line derives from this; hand-typed dates
+ * drifted from the metadata once already.
+ */
+export const paperPublicationDate = '2026-09-09';
+
+/**
  * Single source of truth for the position paper's bibliographic metadata.
  * Drives SEO/Google Scholar/Dublin Core meta tags, JSON-LD, and the
  * "How to cite" widget.
@@ -70,7 +78,7 @@ export const positionPaperMeta: PositionPaperMeta = {
 	],
 	authorshipNote:
 		'Frédérick Madore and Vincent Hiribarren, who convened the workshop, are listed first, followed by the remaining authors in alphabetical order. The order reflects the collaborative writing process and implies no hierarchy of contribution. Affiliations and short biographies of all workshop participants are available on the workshop website: https://fmadore.github.io/dh-ai-african-studies-2026/participants. We thank the two reviewers for their thoughtful comments on an earlier version of this text.',
-	publicationDate: '2026-09-08',
+	publicationDate: paperPublicationDate,
 	revisedDate: undefined,
 	// Verbatim from the paper's own abstract — this is what the scholarly meta
 	// tags and JSON-LD advertise, so it must match the published text.

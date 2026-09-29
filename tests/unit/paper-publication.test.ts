@@ -1,5 +1,6 @@
 import { expect, it } from 'vitest';
-import { positionPaperMeta } from '$lib/data/position-paper-meta';
+import { paperPublicationDate, positionPaperMeta } from '$lib/data/position-paper-meta';
+import { formatLongDate } from '$lib/utils/formatters';
 import { createScholarlyMeta, createScholarlyArticleJsonLd } from '$lib/utils/seo';
 
 it('exports the published issue and pagination without advertising an unavailable PDF', () => {
@@ -8,13 +9,13 @@ it('exports the published issue and pagination without advertising an unavailabl
 	const value = (name: string) => tags.find((tag) => tag.name === name)?.content;
 	expect(value('citation_abstract')).toBe(positionPaperMeta.abstract);
 	expect(value('DC.description')).toBe(positionPaperMeta.abstract);
-	expect(value('citation_publication_date')).toBe('2026/09/08');
+	expect(value('citation_publication_date')).toBe('2026/09/09');
 	expect(value('citation_issue')).toBe('16');
 	expect(value('citation_firstpage')).toBe('1');
 	expect(value('citation_lastpage')).toBe('24');
 	expect(value('citation_pdf_url')).toBeUndefined();
 	expect(createScholarlyArticleJsonLd(options)).toMatchObject({
-		datePublished: '2026-09-08',
+		datePublished: '2026-09-09',
 		pageStart: '1',
 		pageEnd: '24',
 		isPartOf: {
@@ -23,4 +24,17 @@ it('exports the published issue and pagination without advertising an unavailabl
 			isPartOf: { '@type': 'Periodical' }
 		}
 	});
+});
+
+it('prints the publication date as a calendar date in any time zone', () => {
+	const zone = process.env.TZ;
+	try {
+		for (const tz of ['UTC', 'America/Los_Angeles', 'Pacific/Auckland']) {
+			process.env.TZ = tz;
+			expect(formatLongDate(paperPublicationDate)).toBe('9 September 2026');
+		}
+	} finally {
+		process.env.TZ = zone;
+	}
+	expect(positionPaperMeta.publicationDate).toBe(paperPublicationDate);
 });

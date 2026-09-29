@@ -5,6 +5,7 @@
 	import PaperKeywords from '$lib/components/PaperKeywords.svelte';
 	import { resolveAssetPath } from '$lib/utils/paths';
 	import { mediaCredit } from '$lib/data/photos';
+	import { formatLongDate } from '$lib/utils/formatters';
 
 	interface Props {
 		meta: PositionPaperMeta;
@@ -12,13 +13,7 @@
 
 	let { meta }: Props = $props();
 
-	let formattedDate = $derived(
-		new Date(meta.publicationDate).toLocaleDateString('en-GB', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		})
-	);
+	let formattedDate = $derived(formatLongDate(meta.publicationDate));
 </script>
 
 <header class="reader-masthead">

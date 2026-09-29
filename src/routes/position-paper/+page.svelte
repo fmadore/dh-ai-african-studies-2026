@@ -26,6 +26,8 @@
 
 	import { copyToClipboard } from '$lib/utils/clipboard';
 
+	import { formatLongDate } from '$lib/utils/formatters';
+
 	const seo = createSeoMeta({
 		path: '/position-paper',
 
@@ -70,13 +72,7 @@
 
 	/** Publication date from the shared bibliographic record. */
 
-	const published = new Date(positionPaperMeta.publicationDate).toLocaleDateString('en-GB', {
-		day: 'numeric',
-
-		month: 'long',
-
-		year: 'numeric'
-	});
+	const published = formatLongDate(positionPaperMeta.publicationDate);
 
 	const { licence } = positionPaperMeta;
 
