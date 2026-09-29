@@ -4,6 +4,7 @@
  */
 
 import type { CslDate, CslName, CslReference } from '$lib/types/csl';
+import { stripDiacritics } from '$lib/utils/text';
 
 /** Format date as YYYY-MM-DD from CSL date-parts */
 export function formatCslDate(issued?: CslDate): string | null {
@@ -47,33 +48,13 @@ export function escapeBibtex(str: string): string {
 	return str.replace(/[\\&%$#_{}~^]/g, (char) => BIBTEX_ESCAPES[char]);
 }
 
-/** Letters NFKD leaves whole, so stripping combining marks alone would drop them. */
-const ASCII_FOLDS: Record<string, string> = {
-	ł: 'l',
-	Ł: 'L',
-	ø: 'o',
-	Ø: 'O',
-	æ: 'ae',
-	Æ: 'AE',
-	œ: 'oe',
-	Œ: 'OE',
-	ß: 'ss',
-	đ: 'd',
-	Đ: 'D',
-	ı: 'i'
-};
-
 /**
  * Reduce a key component to ASCII letters and digits. BibTeX ends a key at a
  * comma and chokes on `&`, `'` and non-ASCII, all of which occur in this
  * bibliography's institutional author names.
  */
 function toKeyPart(value: string): string {
-	return value
-		.normalize('NFKD')
-		.replace(/[̀-ͯ]/g, '')
-		.replace(/[^\p{ASCII}]/gu, (char) => ASCII_FOLDS[char] ?? '')
-		.replace(/[^A-Za-z0-9]/g, '');
+	return stripDiacritics(value).replace(/[^A-Za-z0-9]/g, '');
 }
 
 function bibtexKeyBase(ref: CslReference): string {

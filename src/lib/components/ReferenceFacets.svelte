@@ -3,6 +3,7 @@
 	import { FilterOutline, SearchOutline, CloseOutline } from 'flowbite-svelte-icons';
 	import { formatType, formatLanguage } from '$lib/utils/formatters';
 	import { getCslYear } from '$lib/utils/citation-export';
+	import { foldForSearch } from '$lib/utils/text';
 	import { SORT_OPTIONS, type ReferenceFilterState } from '$lib/utils/reference-filters.svelte';
 	import type { CslReference } from '$lib/types/csl';
 
@@ -77,8 +78,8 @@
 	const SEARCH_TAG_LIMIT = 24;
 
 	let matchingTags = $derived.by(() => {
-		const search = keywordSearch.trim().toLowerCase();
-		return search ? availableTags.filter((tag) => tag.toLowerCase().includes(search)) : [];
+		const search = foldForSearch(keywordSearch.trim());
+		return search ? availableTags.filter((tag) => foldForSearch(tag).includes(search)) : [];
 	});
 
 	let popularTags = $derived(

@@ -12,6 +12,7 @@
 	import SearchFilter from '$lib/components/SearchFilter.svelte';
 	import UrlTabs from '$lib/components/UrlTabs.svelte';
 	import { resolveAssetPath } from '$lib/utils/paths';
+	import { foldForSearch } from '$lib/utils/text';
 
 	let searchQuery = $state('');
 	let directoryEl: HTMLElement | undefined = $state();
@@ -42,43 +43,41 @@
 		{ id: 'groups', label: 'By Thematic Group', icon: UsersGroupSolid }
 	];
 
-	const baseParticipants = participants.filter(
-		(participant) => participant.role !== 'Student assistant'
-	);
+	// Photo paths resolved once, for the directory, the groups and the map alike
+	const baseParticipants = participants
+		.filter((participant) => participant.role !== 'Student assistant')
+		.map((participant) => ({ ...participant, photoUrl: resolveAssetPath(participant.photoUrl) }));
 	const totalParticipants = baseParticipants.length;
 	const totalCountries = new Set(baseParticipants.map((participant) => participant.country)).size;
 
 	function getGroupParticipants(groupName: string) {
-		return baseParticipants
-			.filter((p) => p.thematicGroup === groupName)
-			.map((participant) => ({
-				...participant,
-				photoUrl: resolveAssetPath(participant.photoUrl)
-			}));
+		return baseParticipants.filter((p) => p.thematicGroup === groupName);
 	}
 
-	let displayedParticipants = $derived(
-		baseParticipants
-			.filter((participant) => {
-				const query = searchQuery.toLowerCase();
-				return (
-					participant.name.toLowerCase().includes(query) ||
-					participant.affiliation.toLowerCase().includes(query) ||
-					participant.country.toLowerCase().includes(query) ||
-					participant.researchRegions.some((region) => region.toLowerCase().includes(query))
-				);
-			})
-			.map((participant) => ({
-				...participant,
-				photoUrl: resolveAssetPath(participant.photoUrl)
-			}))
+	/** Accent-insensitive, so "frederick" finds "Frédérick" and "bloch" "Błoch". */
+	const searchText = new Map(
+		baseParticipants.map((participant) => [
+			participant.name,
+			foldForSearch(
+				[
+					participant.name,
+					participant.affiliation,
+					participant.country,
+					...participant.researchRegions
+				].join('\n')
+			)
+		])
 	);
 
+	let displayedParticipants = $derived.by(() => {
+		const query = foldForSearch(searchQuery.trim());
+		return baseParticipants.filter((participant) =>
+			searchText.get(participant.name)!.includes(query)
+		);
+	});
+
 	// The world map always shows everyone — it lives outside the search context
-	const mapParticipants = baseParticipants.map((participant) => ({
-		...participant,
-		photoUrl: resolveAssetPath(participant.photoUrl)
-	}));
+	const mapParticipants = baseParticipants;
 
 	/** A pin click filters the directory below rather than only opening a popup. */
 	function filterByLocation(affiliation: string) {

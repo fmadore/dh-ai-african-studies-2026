@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { ConceptNode, ConceptGroup } from '$lib/types/concept-graph';
 	import { SearchOutline } from 'flowbite-svelte-icons';
+	import { foldForSearch } from '$lib/utils/text';
 
 	interface Props {
 		nodes: ConceptNode[];
@@ -16,17 +17,19 @@
 	let searchInputEl: HTMLInputElement | undefined;
 
 	let searchResults = $derived.by(() => {
-		const q = searchQuery.trim().toLowerCase();
+		const q = foldForSearch(searchQuery.trim());
 		if (!q) return [];
 		return nodes
-			.filter((n) => n.label.toLowerCase().includes(q))
+			.map((node) => ({ node, label: foldForSearch(node.label) }))
+			.filter(({ label }) => label.includes(q))
 			.sort((a, b) => {
-				const aStarts = a.label.toLowerCase().startsWith(q) ? 0 : 1;
-				const bStarts = b.label.toLowerCase().startsWith(q) ? 0 : 1;
+				const aStarts = a.label.startsWith(q) ? 0 : 1;
+				const bStarts = b.label.startsWith(q) ? 0 : 1;
 				if (aStarts !== bStarts) return aStarts - bStarts;
-				return b.degree - a.degree;
+				return b.node.degree - a.node.degree;
 			})
-			.slice(0, 8);
+			.slice(0, 8)
+			.map(({ node }) => node);
 	});
 
 	function onSearchInput(event: Event) {

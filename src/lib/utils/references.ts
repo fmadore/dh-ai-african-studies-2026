@@ -4,6 +4,7 @@
 
 import type { CslName, CslReference } from '$lib/types/csl';
 import { getCslYear } from '$lib/utils/citation-export';
+import { foldForSearch } from '$lib/utils/text';
 
 /** "Given Family", or an institution's single-field name as written. */
 export function formatPersonName(name: CslName): string {
@@ -41,17 +42,13 @@ export function filterReferences<T extends Filterable>(
 	references: T[],
 	filters: ReferenceFilters
 ): T[] {
-	const query = filters.searchQuery.toLowerCase();
+	const query = foldForSearch(filters.searchQuery.trim());
 
 	return references.filter((ref) => {
 		// Title, author, keyword: what the search field's placeholder promises
-		const searchContent = [
-			ref.title,
-			...(ref.author?.map(formatPersonName) ?? []),
-			...(ref.tags ?? [])
-		]
-			.join(' ')
-			.toLowerCase();
+		const searchContent = foldForSearch(
+			[ref.title, ...(ref.author?.map(formatPersonName) ?? []), ...(ref.tags ?? [])].join(' ')
+		);
 		const matchesSearch = searchContent.includes(query);
 
 		const matchesType =
