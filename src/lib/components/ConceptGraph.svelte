@@ -24,9 +24,7 @@
 	import GraphFilters from './concept-graph/GraphFilters.svelte';
 	import { nextGraphNode, type GraphNavigationKey } from './concept-graph/graph-navigation';
 	import { GraphRenderer, type ResolvedGraphEdge } from './concept-graph/graph-renderer';
-	import type { D3DragEvent } from 'd3-drag';
-	import type { Selection } from 'd3-selection';
-	import type { D3ZoomEvent, ZoomBehavior } from 'd3-zoom';
+	import { createGraphSimulation, type GraphSimulation } from './concept-graph/graph-simulation';
 
 	interface Props {
 		data: ConceptGraphData;
@@ -34,15 +32,6 @@
 
 	let { data }: Props = $props();
 	const graphInstructionsId = $props.id();
-
-	type GraphDragSubject = { x?: number; y?: number };
-	type GraphTransition = {
-		duration: (_milliseconds: number) => GraphTransition;
-		call: (_callback: unknown, ..._args: unknown[]) => GraphTransition;
-	};
-	type GraphSelection = Selection<SVGSVGElement, unknown, null, undefined> & {
-		transition: () => GraphTransition;
-	};
 
 	// The stage is dark in both themes, so the palette is fixed rather than
 	// following the page theme — see graph-config.ts.
@@ -83,11 +72,8 @@
 	const graphRenderer = new GraphRenderer({ getNodeRadius });
 	const view = graphRenderer.view;
 
-	// Track references for programmatic control
-	let zoomBehaviorRef: ZoomBehavior<SVGSVGElement, unknown> | null = null;
-	let svgSelectionRef: GraphSelection | null = null;
-	let d3ZoomModuleRef: typeof import('d3-zoom') | null = null;
-	let applyDragRef: (() => void) | null = null;
+	// Force layout, zoom and drag (graph-simulation.ts); null until D3 loads
+	let simulation: GraphSimulation | null = null;
 
 	// --- Adjacency, built once from the source data ---
 	// The spotlight used to rediscover a node's neighbours by walking every
@@ -172,7 +158,7 @@
 			Array.from(svgEl.querySelectorAll<SVGGElement>('.node-group')),
 			Array.from(svgEl.querySelectorAll<SVGTextElement>('.node-label'))
 		);
-		applyDragRef?.();
+		simulation?.bindDrag();
 	});
 
 	// --- Canvas backing store ---
@@ -199,16 +185,16 @@
 
 	// --- Zoom to node (called by search) ---
 	function zoomToNode(node: ConceptNode) {
-		if (!zoomBehaviorRef || !svgSelectionRef || !d3ZoomModuleRef) return;
-		const nx = node.x ?? containerWidth / 2;
-		const ny = node.y ?? containerHeight / 2;
-		const scale = 1.4;
-		const tx = containerWidth / 2 - nx * scale;
-		const ty = containerHeight / 2 - ny * scale;
-		svgSelectionRef
-			.transition()
-			.duration(motionDuration(500))
-			.call(zoomBehaviorRef.transform, d3ZoomModuleRef.zoomIdentity.translate(tx, ty).scale(scale));
+		if (!simulation) return;
+		const k = 1.4;
+		simulation.zoomTo(
+			{
+				x: containerWidth / 2 - (node.x ?? containerWidth / 2) * k,
+				y: containerHeight / 2 - (node.y ?? containerHeight / 2) * k,
+				k
+			},
+			motionDuration(500)
+		);
 		selectedNode = node;
 		focusGraphNode(node);
 	}
@@ -249,146 +235,40 @@
 		// Read `data` synchronously so the effect tracks it and rebuilds on change
 		const graphData = data;
 		let destroyed = false;
-		let cleanup: (() => void) | null = null;
+		let readyTimer: ReturnType<typeof setTimeout> | undefined;
 
-		Promise.all([
-			import('d3-force'),
-			import('d3-zoom'),
-			import('d3-selection'),
-			import('d3-drag')
-		]).then(([d3Force, d3Zoom, d3Selection, d3Drag]) => {
-			if (destroyed) return;
-
-			const nodes: ConceptNode[] = graphData.nodes.map((n) => ({ ...n }));
-			const edges: ConceptEdge[] = graphData.edges.map((e) => ({ ...e }));
-
-			const width = containerWidth;
-			const height = containerHeight;
-
-			const simulation = d3Force
-				.forceSimulation(nodes)
-				.alphaDecay(0.05)
-				.velocityDecay(0.4)
-				.force(
-					'link',
-					d3Force
-						.forceLink<ConceptNode, ConceptEdge>(edges)
-						.id((d) => d.id)
-						.distance(140)
-						.strength(0.15)
-				)
-				.force('charge', d3Force.forceManyBody().strength(-350).distanceMax(500))
-				.force('center', d3Force.forceCenter(width / 2, height / 2))
-				.force(
-					'collide',
-					d3Force
-						.forceCollide<ConceptNode>()
-						.radius((d) => getNodeRadius(d.degree) + 12)
-						.strength(0.8)
-				)
-				.force('x', d3Force.forceX(width / 2).strength(0.02))
-				.force('y', d3Force.forceY(height / 2).strength(0.02));
-
-			simulation.on('end', () => {
+		createGraphSimulation({
+			data: graphData,
+			svg: svgEl,
+			getSize: () => ({ width: containerWidth, height: containerHeight }),
+			getNodeRadius,
+			// A tick schedules a repaint rather than touching reactive state
+			onTick: () => graphRenderer.scheduleRender(true),
+			onSettled: () => {
 				simulationReady = true;
 				graphRenderer.scheduleRender(true);
-			});
-
-			const readyTimer = setTimeout(() => {
-				if (!destroyed) simulationReady = true;
-			}, 300);
-
-			// --- d3-zoom on SVG ---
-			const svg = d3Selection.select(svgEl);
-			const zoomBehavior = d3Zoom
-				.zoom<SVGSVGElement, unknown>()
-				.scaleExtent([0.3, 5])
-				.filter((event: Event) => {
-					if (event.type === 'wheel') {
-						const wheelEvent = event as WheelEvent;
-						return wheelEvent.ctrlKey || wheelEvent.metaKey;
-					}
-					return true;
-				})
-				.on('zoom', (event: D3ZoomEvent<SVGSVGElement, unknown>) => {
-					view.x = event.transform.x;
-					view.y = event.transform.y;
-					view.k = event.transform.k;
-					graphRenderer.scheduleRender();
-				});
-
-			svg.call(zoomBehavior);
-			zoomBehaviorRef = zoomBehavior;
-			svgSelectionRef = svg as GraphSelection;
-			d3ZoomModuleRef = d3Zoom;
-
-			// --- d3-drag on nodes ---
-			// Drag events fire per pointer move, so resolve ids through a map
-			// rather than scanning every node each time.
-			const nodesById = new Map(nodes.map((n) => [n.id, n]));
-			function findNode(el: SVGGElement): ConceptNode | undefined {
-				const id = el.getAttribute('data-node-id');
-				return id ? nodesById.get(id) : undefined;
-			}
-
-			const dragBehavior = d3Drag
-				.drag<SVGGElement, unknown, GraphDragSubject>()
-				.subject(function () {
-					const node = findNode(this);
-					return node ? { x: node.x, y: node.y } : { x: 0, y: 0 };
-				})
-				.on('start', function (event: D3DragEvent<SVGGElement, unknown, GraphDragSubject>) {
-					const node = findNode(this);
-					if (!node) return;
-					if (!event.active) simulation.alphaTarget(0.3).restart();
-					node.fx = node.x;
-					node.fy = node.y;
-					draggedNode = node;
-				})
-				.on('drag', function (event: D3DragEvent<SVGGElement, unknown, GraphDragSubject>) {
-					const node = findNode(this);
-					if (!node) return;
-					node.fx = event.x;
-					node.fy = event.y;
-				})
-				.on('end', function (event: D3DragEvent<SVGGElement, unknown, GraphDragSubject>) {
-					const node = findNode(this);
-					if (!node) return;
-					if (!event.active) simulation.alphaTarget(0);
-					node.fx = null;
-					node.fy = null;
-					draggedNode = null;
-				});
-
-			applyDragRef = () => {
-				if (destroyed || !svgEl) return;
-				d3Selection.select(svgEl).selectAll<SVGGElement, unknown>('.node-group').call(dragBehavior);
-			};
-
-			// A tick only moves nodes; it never changes which nodes or edges exist.
-			// So it schedules a repaint rather than touching reactive state.
-			simulation.on('tick', () => graphRenderer.scheduleRender(true));
-
+			},
+			onZoom: (next) => {
+				Object.assign(view, next);
+				graphRenderer.scheduleRender();
+			},
+			onDrag: (node) => (draggedNode = node)
+		}).then((created) => {
+			if (destroyed) return created.destroy();
+			simulation = created;
 			// Assigned once. `$state.raw` means d3's in-place writes to x/y on these
 			// very objects stay invisible to Svelte.
-			simEdges = edges;
-			simNodes = nodes;
-
-			cleanup = () => {
-				clearTimeout(readyTimer);
-				simulation.stop();
-				svg.on('.zoom', null);
-				zoomBehaviorRef = null;
-				svgSelectionRef = null;
-				d3ZoomModuleRef = null;
-				applyDragRef = null;
-			};
+			simEdges = created.edges;
+			simNodes = created.nodes;
+			// Reveal the graph after a moment of spreading out, not only once it rests
+			readyTimer = setTimeout(() => (simulationReady = true), 300);
 		});
 
 		return () => {
 			destroyed = true;
-			cleanup?.();
-			cleanup = null;
+			clearTimeout(readyTimer);
+			simulation?.destroy();
+			simulation = null;
 		};
 	});
 
@@ -419,24 +299,15 @@
 
 	// --- Zoom controls ---
 	function zoomIn() {
-		if (!zoomBehaviorRef || !svgSelectionRef) return;
-		svgSelectionRef.transition().duration(motionDuration(300)).call(zoomBehaviorRef.scaleBy, 1.5);
+		simulation?.zoomBy(1.5, motionDuration(300));
 	}
 
 	function zoomOut() {
-		if (!zoomBehaviorRef || !svgSelectionRef) return;
-		svgSelectionRef
-			.transition()
-			.duration(motionDuration(300))
-			.call(zoomBehaviorRef.scaleBy, 1 / 1.5);
+		simulation?.zoomBy(1 / 1.5, motionDuration(300));
 	}
 
 	function recenter() {
-		if (!zoomBehaviorRef || !svgSelectionRef || !d3ZoomModuleRef) return;
-		svgSelectionRef
-			.transition()
-			.duration(motionDuration(400))
-			.call(zoomBehaviorRef.transform, d3ZoomModuleRef.zoomIdentity);
+		simulation?.zoomTo({ x: 0, y: 0, k: 1 }, motionDuration(400));
 	}
 
 	// --- Fullscreen ---
