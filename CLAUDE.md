@@ -88,6 +88,10 @@ pages 1–24 (DOI: 10.58144/20260827-000).
 
   side-effect-free so unused component themes are tree-shaken; keep that rule.
 
+  `src/app.css` scans only the Flowbite folders in use; importing a new Flowbite
+
+  component fails `tests/unit/flowbite-source.test.ts` until its folder is added.
+
 - **Styling:** Tailwind CSS v4
 
 - **Maps:** Leaflet + MapLibre GL basemap (both dynamically imported) —

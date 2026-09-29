@@ -4,15 +4,18 @@ import { gzipSync } from 'node:zlib';
 
 const buildDirectory = path.resolve('build');
 const budgets = {
-	cssGzipBytes: 75 * 1024,
+	// ~54 KiB since Tailwind stopped scanning unused Flowbite folders (was ~70)
+	cssGzipBytes: 62 * 1024,
 	javascriptGzipBytes: 700 * 1024,
 	// Split by whether an asset is on a page's critical path. An asset named in
 	// a prerendered page's markup is fetched before that page can settle, so it
-	// keeps the original tight ceiling. A chunk reachable only through a dynamic
+	// gets a tight ceiling: today's largest is the ~30 KiB global stylesheet,
+	// and 60 KiB would have caught the 61 KiB chunk of unused Flowbite themes
+	// that every page used to load. A chunk reachable only through a dynamic
 	// import downloads when a component asks for it and never blocks first
 	// paint, which is what buys the MapLibre basemap engine (~270 KiB gzip on
 	// /participants alone) its larger allowance.
-	largestEagerAssetGzipBytes: 150 * 1024,
+	largestEagerAssetGzipBytes: 60 * 1024,
 	largestLazyAssetGzipBytes: 300 * 1024
 };
 

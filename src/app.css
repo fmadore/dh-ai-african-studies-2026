@@ -21,5 +21,9 @@
 @import './styles/utilities.css';
 @import './styles/print.css';
 
-@source '../node_modules/flowbite-svelte/dist';
+/* Only the Flowbite folders the site bundles. Scanning all of dist/ compiled
+   classes for ~60 components into the stylesheet every page blocks on, when
+   about a dozen are used. tests/unit/flowbite-source.test.ts fails if an
+   import reaches a folder missing here — add it, or its styles vanish. */
+@source '../node_modules/flowbite-svelte/dist/{accordion,buttons,darkmode,dropdown,forms/checkbox,forms/input-field,forms/label,forms/select,spinner,tabs,typography/heading,typography/paragraph,utils}';
 @source '../node_modules/flowbite-svelte-icons/dist';
