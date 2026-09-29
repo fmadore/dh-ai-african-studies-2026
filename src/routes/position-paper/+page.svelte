@@ -1,7 +1,6 @@
 <script lang="ts">
 	import {
 		createSeoMeta,
-		createWorkshopEventJsonLd,
 		createWebPageJsonLd,
 		createScholarlyMeta,
 		createScholarlyArticleJsonLd
@@ -54,12 +53,6 @@
 
 			'Research Framework'
 		]
-	});
-
-	const eventJsonLd = createWorkshopEventJsonLd({
-		description: seo.description,
-
-		url: seo.canonical
 	});
 
 	const webPageJsonLd = createWebPageJsonLd({
@@ -131,7 +124,7 @@
 	}
 </script>
 
-<SeoHead seo={scholarlySeo} jsonLd={[eventJsonLd, webPageJsonLd, articleJsonLd]} />
+<SeoHead seo={scholarlySeo} jsonLd={[webPageJsonLd, articleJsonLd]} />
 
 <!-- Published paper: full text, downloads and a complete bibliographic record. -->
 

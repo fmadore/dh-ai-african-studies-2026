@@ -1,7 +1,6 @@
 <script lang="ts">
 	import {
 		createSeoMeta,
-		createWorkshopEventJsonLd,
 		createScholarlyMeta,
 		createScholarlyArticleJsonLd,
 		type ScholarlyMetaOptions
@@ -61,10 +60,9 @@
 		meta: [...seo.meta, ...createScholarlyMeta(scholarlyOptions)]
 	});
 
-	let jsonLd = $derived([
-		createScholarlyArticleJsonLd(scholarlyOptions),
-		createWorkshopEventJsonLd({ description: seo.description, url: seo.canonical })
-	]);
+	// ScholarlyArticle only: Event data belongs to home, about and schedule, and
+	// here it would have named the reader's own URL as the workshop's.
+	let jsonLd = $derived(createScholarlyArticleJsonLd(scholarlyOptions));
 </script>
 
 <SeoHead seo={seoWithScholarly} {jsonLd} />

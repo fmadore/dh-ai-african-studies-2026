@@ -8,14 +8,14 @@
  * content and the compiled data, not third-party media.
  */
 
-import { workshopInfo } from './workshop-info';
+import { SITE_BASE_URL } from '$lib/utils/seo/constants';
 
 export const siteCitation = {
 	authors: 'Madore, Frédérick & Hiribarren, Vincent',
 	year: 2026,
 	title: 'Charting New Territory: Digital Humanities and AI in African Studies',
 	publisher: 'Leibniz-Zentrum Moderner Orient',
-	url: 'https://fmadore.github.io/dh-ai-african-studies-2026/'
+	url: `${SITE_BASE_URL}/`
 } as const;
 
 /**
@@ -38,5 +38,3 @@ export const siteLicence = {
 
 /** Rendered in the footer and copyable as a single line. */
 export const citationString = `${siteCitation.authors} (${siteCitation.year}). ${siteCitation.title}. ${siteCitation.publisher}. ${siteCitation.url}`;
-
-export const organiserCredit = workshopInfo.organizers.full;

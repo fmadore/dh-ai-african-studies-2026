@@ -1,8 +1,7 @@
 import type { RequestHandler } from './$types';
+import { SITE_BASE_URL } from '$lib/utils/seo/constants';
 
 export const prerender = true;
-
-const SITE_BASE_URL = 'https://fmadore.github.io/dh-ai-african-studies-2026';
 
 /**
  * Canonical routes only — no query-string variants (they are non-canonical
