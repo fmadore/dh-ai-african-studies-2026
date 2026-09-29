@@ -238,8 +238,10 @@
 		margin-block: var(--space-xl);
 	}
 
+	/* --text-link, not --accent: teal-600 sits at 3.6:1 on the page, short of
+	   AA for text this small (axe, light theme). */
 	.reader-prose sup[data-footnote-ref] a {
-		color: var(--accent);
+		color: var(--text-link);
 		font-weight: var(--font-weight-semibold);
 		text-decoration: none;
 		padding-inline: 0.15em;
@@ -277,10 +279,11 @@
 	.reader-footnotes .footnote-item + .footnote-item {
 		margin-block-start: var(--space-xs);
 	}
+	/* Keeps the prose link colour and underline: an accent-only arrow failed
+	   contrast in light mode and, in dark mode, was told apart from the note
+	   text by colour alone (1.8:1). */
 	.reader-footnotes .footnote-backref {
 		margin-inline-start: var(--space-2xs);
-		color: var(--accent);
-		text-decoration: none;
 	}
 
 	/* ---- Anchor copy button (injected next to h2/h3) ---- */
@@ -506,7 +509,7 @@
 	}
 	.reader-toolbar__segment[aria-pressed='true'] {
 		background: var(--bg-raised);
-		color: var(--accent);
+		color: var(--text-link);
 		box-shadow: var(--shadow-xs);
 	}
 	.reader-toolbar__segment--serif {

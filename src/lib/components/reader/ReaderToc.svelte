@@ -108,7 +108,7 @@
 		onclick={() => (mobileOpen = !mobileOpen)}
 		class="reader-toc__toggle reader-toc-mobile__toggle"
 		aria-expanded={mobileOpen}
-		aria-controls="reader-toc-mobile-panel"
+		aria-controls={mobileOpen ? 'reader-toc-mobile-panel' : undefined}
 	>
 		<span class="flex items-center gap-2 font-semibold">
 			<ListOutline class="h-4 w-4" />
