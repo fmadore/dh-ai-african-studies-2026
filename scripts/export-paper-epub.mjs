@@ -21,7 +21,10 @@ try {
 	const refs = JSON.parse(readFileSync(resolve(root, 'src/lib/data/references.json'), 'utf8'));
 	const paper = processPaper(readFileSync(source, 'utf8'), refs);
 	const result = spawnSync(
-		process.env.EPUB_PYTHON || (process.platform === 'win32' ? 'python' : 'python3'),
+		// Same default as scripts/python.mjs; EPUB_PYTHON predates the shared PYTHON
+		process.env.EPUB_PYTHON ||
+			process.env.PYTHON ||
+			(process.platform === 'win32' ? 'python' : 'python3'),
 		[resolve(root, 'scripts/package-paper-epub.py')],
 		{
 			cwd: root,

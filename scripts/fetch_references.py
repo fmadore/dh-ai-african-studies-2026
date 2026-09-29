@@ -17,7 +17,9 @@ def load_env():
                     env_vars[key.strip()] = value.strip()
     return env_vars
 
-env = load_env()
+# Real environment variables win over .env, so CI or a one-off
+# `ZOTERO_API_KEY=… npm run fetch:references` works without a file on disk
+env = {**load_env(), **{k: v for k, v in os.environ.items() if k.startswith('ZOTERO_')}}
 
 # Configuration
 ZOTERO_USER_ID = env.get('ZOTERO_USER_ID', '3161450')
@@ -25,7 +27,7 @@ ZOTERO_COLLECTION_ID = env.get('ZOTERO_COLLECTION_ID', 'FI8KEUSF')
 ZOTERO_API_KEY = env.get('ZOTERO_API_KEY', '')
 
 if not ZOTERO_API_KEY:
-    raise ValueError("ZOTERO_API_KEY not found in .env file")
+    raise ValueError("ZOTERO_API_KEY not found in the environment or the .env file")
 
 BASE_URL = f"https://api.zotero.org/users/{ZOTERO_USER_ID}/collections/{ZOTERO_COLLECTION_ID}/items/top"
 OUTPUT_FILE = os.path.join(os.path.dirname(__file__), '../src/lib/data/references.json')

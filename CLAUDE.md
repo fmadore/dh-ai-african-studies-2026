@@ -38,7 +38,9 @@ npm run fetch:references
 
 ```
 
-Requires `ZOTERO_API_KEY` in `.env` file (see `.env.example`).
+Requires `ZOTERO_API_KEY` in `.env` (see `.env.example`) or the environment. Runs
+
+`python3` (`python` on Windows); set `PYTHON` to use another interpreter.
 
 **Optimize images after adding any to `static/images/`:**
 

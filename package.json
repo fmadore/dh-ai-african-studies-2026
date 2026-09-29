@@ -24,7 +24,7 @@
     "format:check": "prettier --check .",
     "optimize:images": "node scripts/optimize_images.mjs",
     "og:image": "node scripts/make_og_image.mjs",
-    "fetch:references": "python scripts/fetch_references.py",
+    "fetch:references": "node scripts/python.mjs scripts/fetch_references.py",
     "build:paper": "npm run export:epub && vite build",
     "export:epub": "node scripts/export-paper-epub.mjs"
   },

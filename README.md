@@ -197,7 +197,8 @@ src/
 │   └── schedule/       # Workshop schedule
 └── app.css             # Global styles & design system
 scripts/
-├── fetch_references.py       # Zotero API data fetcher (needs ZOTERO_API_KEY in .env)
+├── fetch_references.py       # Zotero API data fetcher (needs ZOTERO_API_KEY)
+├── python.mjs                # Runs a Python script with python3 / python / $PYTHON
 ├── extract_concept_graph.py  # Builds concept-graph.json from Obsidian notes
 ├── optimize_images.mjs       # Resizes/compresses participant + photo images
 └── make_og_image.mjs         # Builds the 1200x630 social card (npm run og:image)
@@ -234,11 +235,13 @@ The participant is automatically imported via `import.meta.glob`.
 
 ### Updating References
 
-Copy `.env.example` to `.env`, fill in `ZOTERO_API_KEY`, then:
+Copy `.env.example` to `.env`, fill in `ZOTERO_API_KEY` (or set it in the environment), then:
 
 ```sh
 npm run fetch:references
 ```
+
+This runs `python3` (`python` on Windows); set `PYTHON` to use another interpreter.
 
 ### Optimizing Images
 
