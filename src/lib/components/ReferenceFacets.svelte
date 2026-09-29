@@ -3,6 +3,7 @@
 	import { FilterOutline, SearchOutline, CloseOutline } from 'flowbite-svelte-icons';
 	import { formatType, formatLanguage } from '$lib/utils/formatters';
 	import { getCslYear } from '$lib/utils/citation-export';
+	import { SORT_OPTIONS, type ReferenceFilterState } from '$lib/utils/reference-filters.svelte';
 	import type { CslReference } from '$lib/types/csl';
 
 	/* Structural: the facets only read classification fields, so both the full
@@ -11,18 +12,16 @@
 
 	interface Props {
 		references: FacetSource[];
-		searchQuery: string;
-		selectedTypes: string[];
-		selectedYears: string[];
-		selectedTags: string[];
-		selectedLanguages: string[];
-		selectedSort: string;
+		/** Shared with the page, which owns it and mirrors it into the URL. */
+		filters: ReferenceFilterState;
 		idPrefix?: string;
 		/**
-		 * Sidebar mode: the panel fills its (viewport-capped) container and scrolls
-		 * its own body, so every facet is reachable without scrolling the results.
+		 * Sidebar mode, from the lg breakpoint up: the panel fills its
+		 * (viewport-capped) container and scrolls its own body, so every facet is
+		 * reachable without scrolling the results.
 		 */
 		fillHeight?: boolean;
+		/** A dismiss control for the small-screen sheet; hidden in sidebar mode. */
 		showCloseButton?: boolean;
 		closeLabel?: string;
 		onclose?: () => void;
@@ -30,12 +29,7 @@
 
 	let {
 		references,
-		searchQuery = $bindable(),
-		selectedTypes = $bindable(),
-		selectedYears = $bindable(),
-		selectedTags = $bindable(),
-		selectedLanguages = $bindable(),
-		selectedSort = $bindable(),
+		filters,
 		idPrefix = 'reference-facets',
 		fillHeight = false,
 		showCloseButton = false,
@@ -105,10 +99,10 @@
 	let visibleTags = $derived.by(() => {
 		const candidates = keywordSearch.trim() ? matchingTags : popularTags;
 		const limit = keywordSearch.trim() ? SEARCH_TAG_LIMIT : DEFAULT_TAG_LIMIT;
-		const tags = [...selectedTags];
+		const tags = [...filters.selectedTags];
 
 		for (const tag of candidates) {
-			if (tags.length >= limit && !selectedTags.includes(tag)) break;
+			if (tags.length >= limit && !filters.selectedTags.includes(tag)) break;
 			if (!tags.includes(tag)) tags.push(tag);
 		}
 
@@ -119,28 +113,8 @@
 	let sortInputId = $derived(`${idPrefix}-sort`);
 	let keywordInputId = $derived(`${idPrefix}-keyword-search`);
 
-	let activeFiltersCount = $derived(
-		(searchQuery ? 1 : 0) +
-			selectedTypes.length +
-			selectedYears.length +
-			selectedTags.length +
-			selectedLanguages.length
-	);
-
-	const sortOptions = [
-		{ value: 'newest', name: 'Newest first' },
-		{ value: 'oldest', name: 'Oldest first' },
-		{ value: 'title', name: 'Title (A-Z)' },
-		{ value: 'author', name: 'Author (A-Z)' }
-	];
-
 	function resetFilters() {
-		searchQuery = '';
-		selectedTypes = [];
-		selectedYears = [];
-		selectedTags = [];
-		selectedLanguages = [];
-		selectedSort = 'newest';
+		filters.reset();
 		keywordSearch = '';
 	}
 </script>
@@ -153,7 +127,7 @@
 			<span class="facets-panel__title">Filters</span>
 		</div>
 		<div class="gap-2xs flex items-center">
-			{#if activeFiltersCount > 0}
+			{#if filters.activeCount > 0}
 				<!-- Same action, same name as the chip row's "Clear all" below the
 				     toolbar: one concept, one verb. Muted, not danger — clearing
 				     filters is safe and instantly reversible. -->
@@ -162,7 +136,7 @@
 					onclick={resetFilters}
 					class="facets-clear tap-target tap-target-flush text-xs font-semibold"
 				>
-					Clear all ({activeFiltersCount})
+					Clear all ({filters.activeCount})
 				</button>
 			{/if}
 			{#if showCloseButton}
@@ -188,7 +162,7 @@
 					id={searchInputId}
 					type="search"
 					placeholder="Title, author, keyword..."
-					bind:value={searchQuery}
+					bind:value={filters.searchQuery}
 					class="facets-text-input w-full py-2.5 pr-4 pl-10 text-sm"
 				/>
 			</div>
@@ -197,7 +171,12 @@
 		<!-- Sort -->
 		<div class="space-y-2">
 			<Label for={sortInputId} class="facets-label">Sort by</Label>
-			<Select id={sortInputId} items={sortOptions} bind:value={selectedSort} class="text-sm" />
+			<Select
+				id={sortInputId}
+				items={SORT_OPTIONS}
+				bind:value={filters.selectedSort}
+				class="text-sm"
+			/>
 		</div>
 
 		<!-- Filter Sections -->
@@ -209,7 +188,7 @@
 					{/snippet}
 					<div class="space-y-2">
 						{#each availableTypes as type (type)}
-							<Checkbox color="teal" bind:group={selectedTypes} value={type}>
+							<Checkbox color="teal" bind:group={filters.selectedTypes} value={type}>
 								<span class="text-muted-ink text-sm">{formatType(type)}</span>
 							</Checkbox>
 						{/each}
@@ -222,9 +201,9 @@
 					{#snippet header()}
 						<span class="facets-label">
 							Keywords
-							{#if selectedTags.length > 0}
+							{#if filters.selectedTags.length > 0}
 								<span class="facets-count-pill">
-									{selectedTags.length}
+									{filters.selectedTags.length}
 								</span>
 							{/if}
 						</span>
@@ -249,7 +228,7 @@
 						<!-- Keywords list -->
 						<div class="facets-list custom-scrollbar max-h-52 space-y-1.5 overflow-y-auto pr-1">
 							{#each visibleTags as tag (tag)}
-								<Checkbox color="teal" bind:group={selectedTags} value={tag}>
+								<Checkbox color="teal" bind:group={filters.selectedTags} value={tag}>
 									<span class="text-muted-ink truncate text-xs">{tag}</span>
 								</Checkbox>
 							{:else}
@@ -267,7 +246,7 @@
 									No additional keywords match this search.
 								{/if}
 							{:else}
-								{#if selectedTags.length > 0}
+								{#if filters.selectedTags.length > 0}
 									Showing {visibleTags.length} selected and frequently used keywords.
 								{:else}
 									Showing the {Math.min(DEFAULT_TAG_LIMIT, availableTags.length)} most-used keywords.
@@ -286,7 +265,7 @@
 					{/snippet}
 					<div class="space-y-2">
 						{#each availableLanguages as language (language)}
-							<Checkbox color="teal" bind:group={selectedLanguages} value={language}>
+							<Checkbox color="teal" bind:group={filters.selectedLanguages} value={language}>
 								<span class="text-muted-ink text-sm">{formatLanguage(language)}</span>
 							</Checkbox>
 						{/each}
@@ -303,7 +282,7 @@
 						class="facets-list facets-list--years custom-scrollbar max-h-40 space-y-2 overflow-y-auto pr-1"
 					>
 						{#each availableYears as year (year)}
-							<Checkbox color="teal" bind:group={selectedYears} value={year}>
+							<Checkbox color="teal" bind:group={filters.selectedYears} value={year}>
 								<span class="text-muted-ink text-sm">{year}</span>
 							</Checkbox>
 						{/each}
@@ -342,33 +321,42 @@
 		color: var(--text-primary);
 	}
 
-	/* Sidebar mode. The panel is capped to the viewport by its container, so the
-	 * body — not the page — is what scrolls: a pinned panel taller than the
-	 * viewport hid its lower facets until you reached the end of the results. */
-	.facets-panel--fill {
-		display: flex;
-		flex-direction: column;
-		min-height: 0;
-	}
+	/* Sidebar mode (lg and up; below that the same panel is the filter sheet).
+	 * The panel is capped to the viewport by its container, so the body — not
+	 * the page — is what scrolls: a pinned panel taller than the viewport hid
+	 * its lower facets until you reached the end of the results. */
+	@media (min-width: 1024px) {
+		.facets-panel--fill {
+			display: flex;
+			flex-direction: column;
+			min-height: 0;
+		}
 
-	.facets-panel--fill .facets-header {
-		flex: 0 0 auto;
-	}
+		.facets-panel--fill .facets-header {
+			flex: 0 0 auto;
+		}
 
-	.facets-panel--fill .facets-body {
-		flex: 1 1 auto;
-		min-height: 0;
-		overflow-y: auto;
-		/* Room for focus outlines against the scroll edge */
-		padding-inline-end: var(--space-2xs);
-		margin-inline-end: calc(var(--space-2xs) * -1);
-	}
+		.facets-panel--fill .facets-body {
+			flex: 1 1 auto;
+			min-height: 0;
+			overflow-y: auto;
+			/* Room for focus outlines against the scroll edge */
+			padding-inline-end: var(--space-2xs);
+			margin-inline-end: calc(var(--space-2xs) * -1);
+		}
 
-	/* One scroll region, not three. The keyword list is already bounded to
-	 * 16–24 entries, so it can flow; only the year list stays capped. */
-	.facets-panel--fill .facets-list:not(.facets-list--years) {
-		max-height: none;
-		overflow-y: visible;
+		/* One scroll region, not three. The keyword list is already bounded to
+		 * 16–24 entries, so it can flow; only the year list stays capped. */
+		.facets-panel--fill .facets-list:not(.facets-list--years) {
+			max-height: none;
+			overflow-y: visible;
+		}
+
+		/* Nothing to dismiss: the sidebar is always there. (Qualified to outrank
+		   the base .facets-close-btn rule further down.) */
+		.facets-panel .facets-close-btn {
+			display: none;
+		}
 	}
 
 	/* This panel is the mobile filter sheet: its dismiss control was a bare 16px

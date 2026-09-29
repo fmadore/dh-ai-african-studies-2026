@@ -2,13 +2,15 @@
 	import { Button } from 'flowbite-svelte';
 	import { SearchOutline, CloseOutline, FilterOutline } from 'flowbite-svelte-icons';
 	import { SvelteSet } from 'svelte/reactivity';
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { page } from '$app/state';
+	import { replaceState } from '$app/navigation';
 	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
 	import { fade, slide } from 'svelte/transition';
 	import type { CslReference } from '$lib/types/csl';
 	import type { PageData } from './$types';
 	import { filterReferences, sortReferences } from '$lib/utils/references';
+	import { ReferenceFilterState } from '$lib/utils/reference-filters.svelte';
 	import { resolveAppPath } from '$lib/utils/paths';
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import PageHero from '$lib/components/PageHero.svelte';
@@ -85,105 +87,69 @@
 			.filter((r): r is CslReference => Boolean(r));
 	}
 
-	// Filter state. `?q=` is honoured so the concept map (and any external link)
-	// can hand the bibliography a starting query — applied after hydration, so
-	// the prerendered markup and the first client render still agree.
-	let searchQuery = $state('');
-
-	onMount(() => {
-		const q = page.url.searchParams.get('q');
-		if (q) searchQuery = q;
-	});
-	let selectedTypes = $state<string[]>([]);
-	let selectedYears = $state<string[]>([]);
-	let selectedTags = $state<string[]>([]);
-	let selectedLanguages = $state<string[]>([]);
-	let selectedSort = $state('newest');
+	// Filters, sort, page size and page live in the query string (see
+	// reference-filters.svelte.ts). They are read after hydration, so the
+	// prerendered markup and the first client render still agree; the concept
+	// map's `?q=` links arrive the same way.
+	const filters = new ReferenceFilterState();
 	let showMobileFilters = $state(false);
-	let isDesktop = $state(false);
+	let mobileFiltersEl: HTMLDivElement | undefined = $state();
 	let expandedReferences = new SvelteSet<string>();
-
-	// Only one facets tree exists at a time. The previous CSS-hidden desktop
-	// sidebar still mounted 900+ keyword controls on mobile.
-	onMount(() => {
-		const desktopQuery = window.matchMedia('(min-width: 1024px)');
-		const syncViewport = () => {
-			isDesktop = desktopQuery.matches;
-			if (isDesktop) showMobileFilters = false;
-		};
-
-		syncViewport();
-		desktopQuery.addEventListener('change', syncViewport);
-		return () => desktopQuery.removeEventListener('change', syncViewport);
-	});
 
 	/**
 	 * Pagination. For a bibliography the browser's own find-in-page is often the
 	 * fastest tool, and pagination defeats it — so "All" is a first-class option.
 	 */
 	const PAGE_SIZE_OPTIONS = [20, 50, 0] as const;
-	let pageSize = $state<number>(20);
-	let currentPage = $state(1);
+	const DEFAULT_PAGE_SIZE = 20;
+	let pageSize = $state<number>(DEFAULT_PAGE_SIZE);
 	let resultsEl: HTMLDivElement | undefined = $state();
 
 	let filteredReferences = $derived(
-		sortReferences(
-			filterReferences(references, {
-				searchQuery,
-				selectedTypes,
-				selectedYears,
-				selectedTags,
-				selectedLanguages
-			}),
-			selectedSort
-		)
+		sortReferences(filterReferences(references, filters.criteria), filters.selectedSort)
 	);
 
 	/** One accent for every filter chip; the label carries the category. */
 	let activeFilters = $derived([
-		...(searchQuery
+		...(filters.searchQuery
 			? [
 					{
-						key: `q:${searchQuery}`,
-						label: `Search: ${searchQuery}`,
-						clear: () => (searchQuery = '')
+						key: `q:${filters.searchQuery}`,
+						label: `Search: ${filters.searchQuery}`,
+						clear: () => (filters.searchQuery = '')
 					}
 				]
 			: []),
-		...selectedTypes.map((type) => ({
+		...filters.selectedTypes.map((type) => ({
 			key: `type:${type}`,
 			label: `Type: ${formatType(type)}`,
-			clear: () => (selectedTypes = selectedTypes.filter((t) => t !== type))
+			clear: () => (filters.selectedTypes = filters.selectedTypes.filter((t) => t !== type))
 		})),
-		...selectedTags.map((tag) => ({
+		...filters.selectedTags.map((tag) => ({
 			key: `tag:${tag}`,
 			label: `Keyword: ${tag}`,
-			clear: () => (selectedTags = selectedTags.filter((t) => t !== tag))
+			clear: () => filters.toggleTag(tag)
 		})),
-		...selectedLanguages.map((lang) => ({
+		...filters.selectedLanguages.map((lang) => ({
 			key: `lang:${lang}`,
 			label: `Language: ${formatLanguage(lang)}`,
-			clear: () => (selectedLanguages = selectedLanguages.filter((l) => l !== lang))
+			clear: () => (filters.selectedLanguages = filters.selectedLanguages.filter((l) => l !== lang))
 		})),
-		...selectedYears.map((year) => ({
+		...filters.selectedYears.map((year) => ({
 			key: `year:${year}`,
 			label: `Year: ${year}`,
-			clear: () => (selectedYears = selectedYears.filter((y) => y !== year))
+			clear: () => (filters.selectedYears = filters.selectedYears.filter((y) => y !== year))
 		}))
 	]);
 
-	let activeFiltersCount = $derived(activeFilters.length);
-
-	// Reset pagination whenever the result set changes (filters, sort, search)
-	let resultsKey = $derived(
-		`${searchQuery}|${selectedTypes.join(',')}|${selectedYears.join(',')}|${selectedTags.join(',')}|${selectedLanguages.join(',')}|${selectedSort}|${pageSize}`
-	);
-
-	$effect(() => {
-		// Track the key so the effect re-runs on any filter change
-		resultsKey;
-		currentPage = 1;
-	});
+	/*
+	 * The chosen page belongs to one result set. Tagging it with the set's key
+	 * sends any filter, sort or page-size change back to page 1 as a plain
+	 * derivation, where an effect used to write the reset back into state.
+	 */
+	let resultsKey = $derived(`${filters.key}|${pageSize}`);
+	let chosenPage = $state({ key: '', page: 1 });
+	let currentPage = $derived(chosenPage.key === resultsKey ? chosenPage.page : 1);
 
 	let paginated = $derived(pageSize > 0);
 	let totalPages = $derived(
@@ -203,23 +169,53 @@
 	function goToPage(p: number) {
 		const target = Math.max(1, Math.min(totalPages, p));
 		if (target === clampedPage) return;
-		currentPage = target;
+		chosenPage = { key: resultsKey, page: target };
 		// Instant, not smooth: html:focus-within scopes smooth scrolling to
 		// genuine anchor navigation, and a filter re-render is not that.
 		resultsEl?.scrollIntoView({ block: 'start' });
 	}
 
+	// --- Query string ---
+	let urlSynced = $state(false);
+
+	onMount(() => {
+		const params = page.url.searchParams;
+		filters.readFrom(params);
+		const size = params.get('per');
+		if (size !== null && (PAGE_SIZE_OPTIONS as readonly number[]).includes(Number(size))) {
+			pageSize = Number(size);
+		}
+		const requested = Number.parseInt(params.get('page') ?? '', 10);
+		if (requested > 1) chosenPage = { key: resultsKey, page: requested };
+		urlSynced = true;
+	});
+
+	// Replace, not push: refining a filter shouldn't make Back step through
+	// every keystroke. Defaults are omitted, so the plain list keeps a clean URL.
+	$effect(() => {
+		if (!urlSynced) return;
+		const params = new URLSearchParams(); // eslint-disable-line svelte/prefer-svelte-reactivity -- built and discarded per run
+		filters.writeTo(params);
+		if (pageSize !== DEFAULT_PAGE_SIZE) params.set('per', String(pageSize));
+		if (clampedPage > 1) params.set('page', String(clampedPage));
+		const query = params.toString();
+		const search = query ? `?${query}` : '';
+		if (search === location.search) return;
+		untrack(() => replaceState(`${location.pathname}${search}${location.hash}`, page.state));
+	});
+
 	function resetFilters() {
-		searchQuery = '';
-		selectedTypes = [];
-		selectedYears = [];
-		selectedTags = [];
-		selectedLanguages = [];
-		selectedSort = 'newest';
+		filters.reset();
 	}
 
 	function toggleMobileFilters() {
 		showMobileFilters = !showMobileFilters;
+	}
+
+	/** The sheet's close button disappears with it, so hand focus back. */
+	function closeMobileFilters() {
+		showMobileFilters = false;
+		mobileFiltersEl?.querySelector('button')?.focus();
 	}
 
 	function toggleReference(id: string) {
@@ -234,14 +230,6 @@
 		const ref = references.find((r) => r.id === id);
 		if (ref && !ref.abstractIsComplete && !fullRecords) {
 			ensureFullRecords().catch(() => {});
-		}
-	}
-
-	function toggleTagFilter(tag: string) {
-		if (selectedTags.includes(tag)) {
-			selectedTags = selectedTags.filter((t) => t !== tag);
-		} else {
-			selectedTags = [...selectedTags, tag];
 		}
 	}
 
@@ -262,66 +250,48 @@
 
 <section class="band-tight padding-inline-section">
 	<div class="content-width-wide">
-		{#if !isDesktop}
-			<div class="mobile-filters">
-				<Button
-					color="light"
-					onclick={toggleMobileFilters}
-					class="w-full items-center justify-between text-left"
-					aria-expanded={showMobileFilters}
-					aria-controls={showMobileFilters ? 'reference-filters' : undefined}
-				>
-					<span class="flex items-center gap-2 font-semibold">
-						<FilterOutline class="h-4 w-4" />
-						Filters
-					</span>
-					<span class="flex items-center gap-1 text-xs font-medium">
-						{#if activeFiltersCount > 0}
-							<span class="filter-count">{activeFiltersCount}</span>
-						{/if}
-						<span>{showMobileFilters ? 'Hide' : 'Show'}</span>
-					</span>
-				</Button>
+		<!-- Small screens only (CSS): the same facets panel below doubles as the
+		     filter sheet this button opens. -->
+		<div class="mobile-filters" bind:this={mobileFiltersEl}>
+			<Button
+				color="light"
+				onclick={toggleMobileFilters}
+				class="w-full items-center justify-between text-left"
+				aria-expanded={showMobileFilters}
+				aria-controls="reference-filters"
+			>
+				<span class="flex items-center gap-2 font-semibold">
+					<FilterOutline class="h-4 w-4" />
+					Filters
+				</span>
+				<span class="flex items-center gap-1 text-xs font-medium">
+					{#if filters.activeCount > 0}
+						<span class="filter-count">{filters.activeCount}</span>
+					{/if}
+					<span>{showMobileFilters ? 'Hide' : 'Show'}</span>
+				</span>
+			</Button>
+		</div>
 
-				{#if showMobileFilters}
-					<div
-						id="reference-filters"
-						class="mt-4"
-						in:slide={{ duration: 200 }}
-						out:fade={{ duration: 150 }}
-					>
-						<ReferenceFacets
-							{references}
-							bind:searchQuery
-							bind:selectedTypes
-							bind:selectedYears
-							bind:selectedTags
-							bind:selectedLanguages
-							bind:selectedSort
-							showCloseButton
-							onclose={() => (showMobileFilters = false)}
-						/>
-					</div>
-				{/if}
-			</div>
-		{/if}
-
-		<div class="gap-xl grid grid-cols-1 items-start lg:grid-cols-12">
-			<!-- Sidebar / Facets -->
-			{#if isDesktop}
-				<aside class="reference-sidebar lg:col-span-3">
-					<ReferenceFacets
-						{references}
-						bind:searchQuery
-						bind:selectedTypes
-						bind:selectedYears
-						bind:selectedTags
-						bind:selectedLanguages
-						bind:selectedSort
-						fillHeight
-					/>
-				</aside>
-			{/if}
+		<div class="reference-layout gap-xl grid grid-cols-1 items-start lg:grid-cols-12">
+			<!-- One facets tree, laid out by CSS: the sidebar from lg up, the sheet
+			     below. Deciding in script (matchMedia) left it out of the
+			     prerendered page, so on desktop it popped in after hydration and
+			     shoved the results sideways. -->
+			<aside
+				id="reference-filters"
+				class="reference-sidebar lg:col-span-3"
+				class:is-open={showMobileFilters}
+				aria-label="Filters"
+			>
+				<ReferenceFacets
+					{references}
+					{filters}
+					fillHeight
+					showCloseButton
+					onclose={closeMobileFilters}
+				/>
+			</aside>
 
 			<!-- Main Content -->
 			<div class="lg:col-span-9">
@@ -366,7 +336,7 @@
 						</div>
 					</div>
 
-					{#if activeFiltersCount > 0}
+					{#if filters.activeCount > 0}
 						<div class="active-filters">
 							{#each activeFilters as filter (filter.key)}
 								<span class="filter-chip tap-target-compact">
@@ -395,12 +365,12 @@
 							>
 								<ReferenceCard
 									reference={ref}
-									{selectedTags}
+									selectedTags={filters.selectedTags}
 									expanded={expandedReferences.has(ref.id)}
 									fullAbstract={fullRecords?.get(ref.id)?.abstract ?? null}
 									abstractFailed={fullRecordsFailed}
 									ontoggleexpand={toggleReference}
-									ontoggletag={toggleTagFilter}
+									ontoggletag={(tag) => filters.toggleTag(tag)}
 								/>
 							</div>
 						{/each}
@@ -436,16 +406,51 @@
 </section>
 
 <style>
+	/* Below lg the facets panel is a sheet the Filters button opens, above the
+	 * results. The breakpoint matches the grid's lg:grid-cols-12. */
+	@media (max-width: 1023.98px) {
+		.reference-layout {
+			row-gap: var(--space-md);
+		}
+
+		.reference-sidebar:not(.is-open) {
+			display: none;
+		}
+
+		.reference-sidebar.is-open {
+			animation: filters-sheet-in 200ms var(--ease-standard);
+		}
+	}
+
+	@keyframes filters-sheet-in {
+		from {
+			opacity: 0;
+			transform: translateY(-0.5rem);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.reference-sidebar.is-open {
+			animation: none;
+		}
+	}
+
 	/* Was `sticky top-24` — a magic number with no sticky header to clear.
 	 * Capped to the viewport and turned into a flex column: the facets panel
 	 * scrolls its own body rather than hanging below the fold for the length of
 	 * the results list. */
-	.reference-sidebar {
-		position: sticky;
-		top: var(--scroll-offset);
-		display: flex;
-		flex-direction: column;
-		max-height: calc(100dvh - var(--scroll-offset) - var(--space-lg));
+	@media (min-width: 1024px) {
+		.reference-sidebar {
+			position: sticky;
+			top: var(--scroll-offset);
+			display: flex;
+			flex-direction: column;
+			max-height: calc(100dvh - var(--scroll-offset) - var(--space-lg));
+		}
+
+		.mobile-filters {
+			display: none;
+		}
 	}
 
 	/* The disclosure is a control for the results below it, not a page banner —

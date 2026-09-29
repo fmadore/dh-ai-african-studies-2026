@@ -93,6 +93,36 @@ test('Outcomes disclosure opens, and closes when focus leaves it', async ({ page
 	await expect(page.locator('#site-nav-outcomes')).toBeHidden();
 });
 
+test('reference filters live in the URL and survive a reload', async ({ page }) => {
+	await page.goto('/references?type=book&sort=title');
+	const book = page.getByRole('checkbox', { name: 'Book', exact: true });
+	const filterButton = page.locator('.mobile-filters button');
+	if (await filterButton.isVisible()) await filterButton.click();
+
+	await expect(book).toBeChecked();
+	await expect(page.getByLabel('Sort by')).toHaveValue('title');
+
+	await page.getByRole('checkbox', { name: 'Report', exact: true }).check();
+	await expect(page).toHaveURL(/\?type=book&type=report&sort=title$/);
+	await page.reload();
+	if (await filterButton.isVisible()) await filterButton.click();
+	await expect(page.getByRole('checkbox', { name: 'Report', exact: true })).toBeChecked();
+});
+
+test.describe('without JavaScript', () => {
+	test.use({ javaScriptEnabled: false });
+
+	test('the desktop reference filters are part of the prerendered page', async ({
+		page,
+		isMobile
+	}) => {
+		test.skip(isMobile, 'below lg the filters are a sheet the Filters button opens');
+		await page.goto('/references');
+		await expect(page.locator('#reference-filters')).toBeVisible();
+		await expect(page.locator('.mobile-filters')).toBeHidden();
+	});
+});
+
 test('ARIA ID references resolve to one existing element', async ({ page }) => {
 	for (const route of routes) {
 		await page.goto(route);
