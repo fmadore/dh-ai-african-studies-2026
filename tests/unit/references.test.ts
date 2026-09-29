@@ -4,6 +4,7 @@ import {
 	buildPageItems,
 	filterReferences,
 	formatCitation,
+	formatPersonName,
 	getAccessLink,
 	sortReferences,
 	stripReadingStatusTags
@@ -57,6 +58,28 @@ describe('reference utilities', () => {
 		});
 
 		expect(result.map((ref) => ref.id)).toEqual(['one']);
+	});
+
+	it('matches search terms against keywords as well as titles and authors', () => {
+		const search = (searchQuery: string) =>
+			filterReferences(references, {
+				searchQuery,
+				selectedTypes: [],
+				selectedYears: [],
+				selectedTags: [],
+				selectedLanguages: []
+			}).map((ref) => ref.id);
+
+		expect(search('ai')).toEqual(['two']);
+		expect(search('hopper')).toEqual(['two']);
+		expect(search('undefined')).toEqual([]);
+	});
+
+	it('formats personal and institutional names without placeholders', () => {
+		expect(formatPersonName({ given: 'Ada', family: 'Lovelace' })).toBe('Ada Lovelace');
+		expect(formatPersonName({ family: 'FRANCE 24', given: '' })).toBe('FRANCE 24');
+		expect(formatPersonName({ family: 'UNESCO' })).toBe('UNESCO');
+		expect(formatPersonName({ literal: 'World Bank' })).toBe('World Bank');
 	});
 
 	it('sorts a copy of references and keeps the source order intact', () => {

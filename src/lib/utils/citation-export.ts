@@ -47,12 +47,73 @@ export function escapeBibtex(str: string): string {
 	return str.replace(/[\\&%$#_{}~^]/g, (char) => BIBTEX_ESCAPES[char]);
 }
 
-/** Generate BibTeX citation key from reference */
-function generateBibtexKey(ref: CslReference): string {
-	const author = ref.author?.[0]?.family || ref.editor?.[0]?.family || 'Unknown';
+/** Letters NFKD leaves whole, so stripping combining marks alone would drop them. */
+const ASCII_FOLDS: Record<string, string> = {
+	ł: 'l',
+	Ł: 'L',
+	ø: 'o',
+	Ø: 'O',
+	æ: 'ae',
+	Æ: 'AE',
+	œ: 'oe',
+	Œ: 'OE',
+	ß: 'ss',
+	đ: 'd',
+	Đ: 'D',
+	ı: 'i'
+};
+
+/**
+ * Reduce a key component to ASCII letters and digits. BibTeX ends a key at a
+ * comma and chokes on `&`, `'` and non-ASCII, all of which occur in this
+ * bibliography's institutional author names.
+ */
+function toKeyPart(value: string): string {
+	return value
+		.normalize('NFKD')
+		.replace(/[̀-ͯ]/g, '')
+		.replace(/[^\p{ASCII}]/gu, (char) => ASCII_FOLDS[char] ?? '')
+		.replace(/[^A-Za-z0-9]/g, '');
+}
+
+function bibtexKeyBase(ref: CslReference): string {
+	const creator = ref.author?.[0] ?? ref.editor?.[0];
+	const author = toKeyPart(creator?.family || creator?.literal || '') || 'Unknown';
 	const year = getCslYear(ref.issued) || 'nd';
-	const titleWord = (ref.title?.split(' ')[0] || 'untitled').replace(/[^a-zA-Z]/g, '');
-	return `${author}${year}${titleWord}`.replace(/\s+/g, '');
+	const titleWord = toKeyPart(ref.title?.split(/\s+/)[0] ?? '') || 'untitled';
+	return `${author}${year}${titleWord}`;
+}
+
+/** 0 → a, 25 → z, 26 → aa … */
+function alphabeticSuffix(index: number): string {
+	let suffix = '';
+	for (let n = index + 1; n > 0; n = Math.floor((n - 1) / 26)) {
+		suffix = String.fromCharCode(97 + ((n - 1) % 26)) + suffix;
+	}
+	return suffix;
+}
+
+/**
+ * One key per record, unique within the export: records whose author, year and
+ * first title word coincide get a/b/c suffixes, since BibTeX drops (or refuses)
+ * every repeated entry after the first.
+ */
+export function assignBibtexKeys(refs: CslReference[]): string[] {
+	const bases = refs.map(bibtexKeyBase);
+	const counts = new Map<string, number>();
+	for (const base of bases) counts.set(base, (counts.get(base) ?? 0) + 1);
+
+	const used = new Set(bases.filter((base) => counts.get(base) === 1));
+	const nextSuffix = new Map<string, number>();
+	return bases.map((base) => {
+		if (counts.get(base) === 1) return base;
+		let index = nextSuffix.get(base) ?? 0;
+		let key = `${base}${alphabeticSuffix(index)}`;
+		while (used.has(key)) key = `${base}${alphabeticSuffix(++index)}`;
+		nextSuffix.set(base, index + 1);
+		used.add(key);
+		return key;
+	});
 }
 
 /** Map CSL type to BibTeX type */
@@ -77,18 +138,43 @@ function cslToBibtexType(cslType: string): string {
 	return typeMap[cslType] || 'misc';
 }
 
+/**
+ * Zotero stores an institution as a single-field name: a lone `family` (or a
+ * CSL `literal`) with no given name.
+ */
+function singleFieldName(name: CslName): string | null {
+	if (name.given) return null;
+	return name.family || name.literal || '';
+}
+
+/** Format one name for BibTeX */
+function formatBibtexName(name: CslName): string {
+	const single = singleFieldName(name);
+	// Braced whole, so BibTeX neither splits "… Human and Peoples' Rights" at its
+	// "and" nor reads the comma in "Ministry of Information, Communications …"
+	// as "Last, First".
+	if (single !== null) return `{${escapeBibtex(single)}}`;
+	return `${escapeBibtex(name.family || '')}, ${escapeBibtex(name.given || '')}`;
+}
+
 /** Format authors for BibTeX */
 function formatBibtexAuthors(authors: CslName[]): string {
 	if (!authors?.length) return '';
-	return authors.map((a) => `${a.family || ''}, ${a.given || ''}`).join(' and ');
+	return authors.map(formatBibtexName).join(' and ');
+}
+
+/** Format one name for RIS: "Family, Given", or the institution as written */
+function formatRisName(name: CslName): string {
+	return singleFieldName(name) ?? `${name.family || ''}, ${name.given || ''}`;
 }
 
 /** Generate BibTeX output */
 export function generateBibtex(refs: CslReference[]): string {
+	const keys = assignBibtexKeys(refs);
 	return refs
-		.map((ref) => {
+		.map((ref, index) => {
 			const type = cslToBibtexType(ref.type);
-			const key = generateBibtexKey(ref);
+			const key = keys[index];
 			const fields: string[] = [];
 
 			if (ref.author?.length) {
@@ -145,7 +231,7 @@ export function generateBibtex(refs: CslReference[]): string {
 				fields.push(`  langid = {${ref.language}}`);
 			}
 			if (ref.tags?.length) {
-				fields.push(`  keywords = {${ref.tags.join(', ')}}`);
+				fields.push(`  keywords = {${ref.tags.map(escapeBibtex).join(', ')}}`);
 			}
 
 			return `@${type}{${key},\n${fields.join(',\n')}\n}`;
@@ -185,12 +271,12 @@ export function generateRis(refs: CslReference[]): string {
 
 			if (ref.author?.length) {
 				ref.author.forEach((a) => {
-					lines.push(`AU  - ${a.family || ''}, ${a.given || ''}`);
+					lines.push(`AU  - ${formatRisName(a)}`);
 				});
 			}
 			if (ref.editor?.length) {
 				ref.editor.forEach((e) => {
-					lines.push(`ED  - ${e.family || ''}, ${e.given || ''}`);
+					lines.push(`ED  - ${formatRisName(e)}`);
 				});
 			}
 			if (ref.title) {
@@ -213,7 +299,7 @@ export function generateRis(refs: CslReference[]): string {
 				lines.push(`IS  - ${ref.issue}`);
 			}
 			if (ref.page) {
-				const pages = ref.page.split('-');
+				const pages = ref.page.split(/[-–—]/);
 				if (pages[0]) lines.push(`SP  - ${pages[0]}`);
 				if (pages[1]) lines.push(`EP  - ${pages[1]}`);
 			}

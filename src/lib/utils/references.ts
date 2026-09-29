@@ -2,8 +2,13 @@
  * Pure filtering / sorting / pagination helpers for the references page.
  */
 
-import type { CslReference } from '$lib/types/csl';
+import type { CslName, CslReference } from '$lib/types/csl';
 import { getCslYear } from '$lib/utils/citation-export';
+
+/** "Given Family", or an institution's single-field name as written. */
+export function formatPersonName(name: CslName): string {
+	return [name.given, name.family].filter(Boolean).join(' ') || name.literal || '';
+}
 
 /**
  * Zotero reading-status tags that are workflow metadata, not subject tags.
@@ -39,8 +44,14 @@ export function filterReferences<T extends Filterable>(
 	const query = filters.searchQuery.toLowerCase();
 
 	return references.filter((ref) => {
-		const searchContent =
-			`${ref.title} ${ref.author?.map((a) => `${a.given} ${a.family}`).join(' ')}`.toLowerCase();
+		// Title, author, keyword: what the search field's placeholder promises
+		const searchContent = [
+			ref.title,
+			...(ref.author?.map(formatPersonName) ?? []),
+			...(ref.tags ?? [])
+		]
+			.join(' ')
+			.toLowerCase();
 		const matchesSearch = searchContent.includes(query);
 
 		const matchesType =
@@ -111,9 +122,9 @@ export function formatCitation(ref: Pick<CslReference, 'author' | 'editor' | 'is
 	let authors = 'Unknown Author';
 
 	if (ref.author && ref.author.length > 0) {
-		authors = ref.author.map((a) => `${a.given} ${a.family}`).join(', ');
+		authors = ref.author.map(formatPersonName).join(', ');
 	} else if (ref.editor && ref.editor.length > 0) {
-		const editorNames = ref.editor.map((e) => `${e.given} ${e.family}`).join(', ');
+		const editorNames = ref.editor.map(formatPersonName).join(', ');
 		authors = `${editorNames} (ed${ref.editor.length > 1 ? 's' : ''})`;
 	}
 
