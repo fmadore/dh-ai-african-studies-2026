@@ -28,4 +28,5 @@ export const participants: Participant[] = Object.values(participantModules)
 		);
 		return entry?.[1] ?? null;
 	})
-	.filter((participant): participant is Participant => participant !== null);
+	.filter((participant): participant is Participant => participant !== null)
+	.sort((a, b) => a.name.localeCompare(b.name, 'en'));

@@ -1,30 +1,36 @@
-node_modules
+# Dependencies
+node_modules/
 
-# Output
-.output
-.vercel
-.netlify
-.wrangler
-/.svelte-kit
-/build
+# Build and tool output
+/build/
+/.svelte-kit/
+dist/
+.output/
+.vercel/
+.netlify/
+.wrangler/
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+playwright-report/
+test-results/
 
-# OS
-.DS_Store
-Thumbs.db
-
-# Env
+# Environment
 .env
 .env.*
 !.env.example
 !.env.test
 
-# Vite
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
-playwright-report/
-test-results/
+# OS
+.DS_Store
+Thumbs.db
 nul
+
+# Local tooling
 .claude/
 
 # Local PDF extraction, source comparisons, and unpublished paper backups.
 /tmp/pdfs/
+
+# Deliberately tracked, not ignored: package-lock.json (CI runs `npm ci`) and
+# src/lib/data/references.json (the build reads it; refresh it with
+# `npm run fetch:references`).

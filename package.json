@@ -25,7 +25,6 @@
     "optimize:images": "node scripts/optimize_images.mjs",
     "og:image": "node scripts/make_og_image.mjs",
     "fetch:references": "python scripts/fetch_references.py",
-    "dev:paper": "vite dev",
     "build:paper": "npm run export:epub && vite build",
     "export:epub": "node scripts/export-paper-epub.mjs"
   },

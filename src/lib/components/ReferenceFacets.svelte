@@ -2,6 +2,7 @@
 	import { Label, Checkbox, Select, Accordion, AccordionItem } from 'flowbite-svelte';
 	import { FilterOutline, SearchOutline, CloseOutline } from 'flowbite-svelte-icons';
 	import { formatType, formatLanguage } from '$lib/utils/formatters';
+	import { getCslYear } from '$lib/utils/citation-export';
 	import type { CslReference } from '$lib/types/csl';
 
 	/* Structural: the facets only read classification fields, so both the full
@@ -52,9 +53,7 @@
 
 	let availableYears = $derived.by(() => {
 		const years = new Set(
-			references
-				.map((r) => r.issued?.['date-parts']?.[0]?.[0]?.toString())
-				.filter((y): y is string => Boolean(y))
+			references.map((r) => getCslYear(r.issued)).filter((y): y is string => y !== null)
 		);
 		return Array.from(years).sort().reverse();
 	});

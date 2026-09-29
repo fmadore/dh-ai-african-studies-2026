@@ -294,7 +294,7 @@
 				graphRenderer.scheduleRender(true);
 			});
 
-			setTimeout(() => {
+			const readyTimer = setTimeout(() => {
 				if (!destroyed) simulationReady = true;
 			}, 300);
 
@@ -323,9 +323,12 @@
 			d3ZoomModuleRef = d3Zoom;
 
 			// --- d3-drag on nodes ---
+			// Drag events fire per pointer move, so resolve ids through a map
+			// rather than scanning every node each time.
+			const nodesById = new Map(nodes.map((n) => [n.id, n]));
 			function findNode(el: SVGGElement): ConceptNode | undefined {
 				const id = el.getAttribute('data-node-id');
-				return id ? nodes.find((n) => n.id === id) : undefined;
+				return id ? nodesById.get(id) : undefined;
 			}
 
 			const dragBehavior = d3Drag
@@ -372,6 +375,7 @@
 			simNodes = nodes;
 
 			cleanup = () => {
+				clearTimeout(readyTimer);
 				simulation.stop();
 				svg.on('.zoom', null);
 				zoomBehaviorRef = null;

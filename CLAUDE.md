@@ -76,11 +76,17 @@ pages 1–24 (DOI: 10.58144/20260827-000).
 
   false and use the DOI's publisher-edition link until that PDF is available.
 
+- The publication date is `paperPublicationDate` in `position-paper-meta.ts`.
+
+  Print it with `formatLongDate()` (UTC-pinned); never type the date into copy.
+
 ## Technology Stack
 
 - **Framework:** SvelteKit with Svelte 5 (runes syntax mandatory)
 
-- **UI:** Flowbite Svelte
+- **UI:** Flowbite Svelte — `vite.config.ts` marks its `dist/**/*.js` modules
+
+  side-effect-free so unused component themes are tree-shaken; keep that rule.
 
 - **Styling:** Tailwind CSS v4
 
