@@ -3,7 +3,7 @@
 	import { QuoteSolid, ChevronDownOutline, CheckOutline } from 'flowbite-svelte-icons';
 	import type { PositionPaperMeta } from '$lib/reader/types';
 	import { toBibtex, toRis, toChicago, toApa } from '$lib/reader/citation-formatters';
-	import { copyToClipboard } from '$lib/utils/clipboard';
+	import { CopyFeedback } from '$lib/utils/copy-feedback.svelte';
 
 	interface Props {
 		meta: PositionPaperMeta;
@@ -31,25 +31,15 @@
 		{ id: 'ris', label: 'RIS', hint: 'Universal reference manager', build: toRis }
 	];
 
-	let copied = $state<string | null>(null);
+	const feedback = new CopyFeedback();
 	let announcement = $state('');
-	let copyTimer: ReturnType<typeof setTimeout> | undefined;
 
 	async function copy(format: CitationFormat) {
-		const ok = await copyToClipboard(format.build(meta, canonicalUrl));
+		const ok = await feedback.copy(format.build(meta, canonicalUrl), format.id);
 		announcement = ok
 			? `${format.label} citation copied to clipboard`
 			: `Could not copy the ${format.label} citation`;
-		if (!ok) return;
-
-		copied = format.id;
-		clearTimeout(copyTimer);
-		copyTimer = setTimeout(() => {
-			copied = null;
-		}, 2000);
 	}
-
-	$effect(() => () => clearTimeout(copyTimer));
 </script>
 
 <Button color="light" size="sm" class="font-medium">
@@ -61,7 +51,7 @@
 	{#each formats as format (format.id)}
 		<DropdownItem onclick={() => copy(format)}>
 			<span class="text-primary-ink block font-medium">
-				{#if copied === format.id}
+				{#if feedback.copied === format.id}
 					<CheckOutline class="mr-1 inline h-4 w-4" />Copied
 				{:else}
 					{format.label}

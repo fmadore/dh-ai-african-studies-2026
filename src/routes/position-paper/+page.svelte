@@ -23,7 +23,7 @@
 
 	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
 
-	import { copyToClipboard } from '$lib/utils/clipboard';
+	import { CopyFeedback } from '$lib/utils/copy-feedback.svelte';
 
 	import { formatLongDate } from '$lib/utils/formatters';
 
@@ -115,13 +115,7 @@
 
 	const articleJsonLd = createScholarlyArticleJsonLd(scholarlyOptions);
 
-	let citationCopied = $state(false);
-
-	async function copyCitation() {
-		citationCopied = await copyToClipboard(citation.text);
-
-		if (citationCopied) setTimeout(() => (citationCopied = false), 2000);
-	}
+	const citationCopy = new CopyFeedback();
 </script>
 
 <SeoHead seo={scholarlySeo} jsonLd={[webPageJsonLd, articleJsonLd]} />
@@ -196,8 +190,12 @@
 						{citation.beforeSeries} <em>{citation.series}</em>{citation.afterSeries}
 					</p>
 
-					<button type="button" class="cite-block__copy tap-target" onclick={copyCitation}>
-						{citationCopied ? 'Citation copied' : 'Copy citation'}
+					<button
+						type="button"
+						class="cite-block__copy tap-target"
+						onclick={() => citationCopy.copy(citation.text)}
+					>
+						{citationCopy.copied ? 'Citation copied' : 'Copy citation'}
 					</button>
 				</div>
 			</header>

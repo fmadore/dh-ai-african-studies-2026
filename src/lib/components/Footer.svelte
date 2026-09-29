@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
 	import { citationString, siteCitation, siteLicence } from '$lib/data/site-meta';
-	import { copyToClipboard } from '$lib/utils/clipboard';
+	import { CopyFeedback } from '$lib/utils/copy-feedback.svelte';
 
 	/**
 	 * The trimmed marks (see scripts/optimize_images.mjs) — the originals carry
@@ -80,12 +80,7 @@
 		}
 	];
 
-	let copied = $state(false);
-
-	async function copyCitation() {
-		copied = await copyToClipboard(citationString);
-		if (copied) setTimeout(() => (copied = false), 2000);
-	}
+	const citationCopy = new CopyFeedback();
 </script>
 
 <footer class="site-footer band-sunken mt-auto">
@@ -137,8 +132,12 @@
 					{siteCitation.authors} ({siteCitation.year}).
 					<em>{siteCitation.title}</em>. {siteCitation.publisher}.
 				</p>
-				<button type="button" class="footer-copy tap-target" onclick={copyCitation}>
-					{copied ? 'Citation copied' : 'Copy citation'}
+				<button
+					type="button"
+					class="footer-copy tap-target"
+					onclick={() => citationCopy.copy(citationString)}
+				>
+					{citationCopy.copied ? 'Citation copied' : 'Copy citation'}
 				</button>
 				<p class="footer-licence">
 					{siteLicence.scope} are licensed under
