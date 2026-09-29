@@ -31,6 +31,14 @@
 			outcomesOpen = false;
 		}
 	}
+
+	/** Tabbing out of the group closes it, as clicking outside already does. */
+	function handleGroupFocusOut(event: FocusEvent) {
+		const group = event.currentTarget as HTMLElement;
+		if (!(event.relatedTarget instanceof Node) || !group.contains(event.relatedTarget)) {
+			outcomesOpen = false;
+		}
+	}
 </script>
 
 <svelte:window
@@ -99,15 +107,17 @@
 				<ul class="nav-links">
 					{#each primaryNavigation as link (link.label)}
 						{@const active = isNavigationGroupActive(link, activeUrl)}
-						<li class="nav-item">
+						<li class="nav-item" onfocusout={link.children ? handleGroupFocusOut : undefined}>
 							{#if link.children}
+								<!-- A disclosure, not a menu: aria-haspopup would promise menu
+								     semantics and arrow-key handling the list doesn't have. -->
 								<button
 									bind:this={outcomesButtonEl}
 									type="button"
 									class="nav-link nav-link--group"
 									class:active
 									aria-expanded={outcomesOpen}
-									aria-haspopup="true"
+									aria-controls="site-nav-outcomes"
 									onclick={() => (outcomesOpen = !outcomesOpen)}
 								>
 									{link.label}
@@ -127,7 +137,11 @@
 										/>
 									</svg>
 								</button>
-								<ul class="nav-submenu" class:nav-submenu--open={outcomesOpen}>
+								<ul
+									id="site-nav-outcomes"
+									class="nav-submenu"
+									class:nav-submenu--open={outcomesOpen}
+								>
 									{#each link.children as child (child.href)}
 										<li>
 											<a
