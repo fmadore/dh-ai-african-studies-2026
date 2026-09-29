@@ -10,7 +10,9 @@ const routes = [
 	'/photos',
 	'/interviews',
 	'/references',
-	'/position-paper'
+	'/publications',
+	'/position-paper',
+	'/position-paper/read'
 ];
 
 const themes = ['light', 'dark'] as const;
@@ -21,14 +23,15 @@ async function setTheme(page: Page, theme: string) {
 	}, theme);
 }
 
+/** The site's own images only: a YouTube thumbnail that fails to load says
+ * nothing about this build, and made the check depend on a third party. */
 async function expectNoBrokenImages(page: Page) {
-	const failed = await page
-		.locator('img')
-		.evaluateAll((images) =>
-			(images as HTMLImageElement[])
-				.filter((image) => image.complete && image.naturalWidth === 0)
-				.map((image) => image.getAttribute('src'))
-		);
+	const failed = await page.locator('img').evaluateAll((images) =>
+		(images as HTMLImageElement[])
+			.filter((image) => new URL(image.currentSrc || image.src).origin === location.origin)
+			.filter((image) => image.complete && image.naturalWidth === 0)
+			.map((image) => image.getAttribute('src'))
+	);
 	expect(failed).toEqual([]);
 }
 
@@ -74,6 +77,20 @@ test('theme toggle updates the document theme', async ({ page }) => {
 	await page.waitForLoadState('networkidle');
 	await page.getByRole('button', { name: 'Dark mode' }).click({ timeout: 15_000 });
 	await expect(page.locator('html')).toHaveClass(/dark/);
+});
+
+test('Outcomes disclosure opens, and closes when focus leaves it', async ({ page, isMobile }) => {
+	test.skip(isMobile, 'the mobile menu nests Outcomes inside the hamburger panel');
+	await page.goto('/');
+	const toggle = page.getByRole('button', { name: 'Outcomes' });
+	await toggle.click();
+	await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+	await expect(page.locator('#site-nav-outcomes')).toBeVisible();
+
+	// Five links inside, then out of the group
+	for (let step = 0; step < 6; step += 1) await page.keyboard.press('Tab');
+	await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+	await expect(page.locator('#site-nav-outcomes')).toBeHidden();
 });
 
 test('ARIA ID references resolve to one existing element', async ({ page }) => {
@@ -131,7 +148,7 @@ test('photo dialog traps focus and graph controls remain keyboard reachable', as
 });
 
 for (const theme of themes) {
-	for (const route of ['/about', '/participants', '/concepts', '/photos', '/references']) {
+	for (const route of routes) {
 		test(`axe: ${theme} ${route}`, async ({ page }) => {
 			await page.emulateMedia({ reducedMotion: 'reduce' });
 			await page.goto(route);
