@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { participants } from '$lib/data/participants';
 import { positionPaperMeta } from '$lib/data/position-paper-meta';
 import { interviews } from '$lib/data/interviews';
+import { interviewPosterPath, interviewPosters } from '$lib/server/interview-posters';
 import { GET as sitemap } from '../../src/routes/sitemap.xml/+server';
 
 /** Every prerendered page route, as a URL path ("" for the root). */
@@ -66,5 +67,18 @@ describe('participant records', () => {
 			...interviews.map((interview) => interview.participantName)
 		];
 		expect(people.filter((name) => !names.has(name))).toEqual([]);
+	});
+});
+
+describe('interview posters', () => {
+	it('are served locally only when the file exists', () => {
+		const posters = interviewPosters([...interviews.map((i) => i.youtubeId), 'not-a-video']);
+
+		expect(posters['not-a-video']).toBeUndefined();
+		for (const path of Object.values(posters)) expect(existsSync(join('static', path))).toBe(true);
+	});
+
+	it('include the homepage feature, so the front page never calls YouTube', () => {
+		expect(interviewPosterPath(interviews[0].youtubeId)).toBeDefined();
 	});
 });

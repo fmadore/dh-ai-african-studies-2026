@@ -69,13 +69,11 @@
 		}
 	];
 
-	const firstInterview = interviews[0];
 	/* Saved locally rather than hotlinked from i.ytimg.com — this was the only
-	   third-party request the homepage made. Regenerate with
-	   `npm run optimize:images` if the featured interview changes. */
-	const interviewPoster = firstInterview
-		? resolveAssetPath(`/images/interviews/${firstInterview.youtubeId}.webp`)
-		: undefined;
+	   third-party request the homepage made. `npm run optimize:images` fetches
+	   the poster if the featured interview changes; until then the tile shows
+	   no image rather than a broken one. */
+	let interviewPoster = $derived(resolveAssetPath(data.featuredInterviewPoster));
 
 	const outcomes = [
 		{

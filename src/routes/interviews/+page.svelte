@@ -6,6 +6,10 @@
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import PageHero from '$lib/components/PageHero.svelte';
 	import LiteYouTube from '$lib/components/LiteYouTube.svelte';
+	import { resolveAssetPath } from '$lib/utils/paths';
+	import type { PageData } from './$types';
+
+	let { data }: { data: PageData } = $props();
 
 	const seo = createSeoMeta({
 		title: 'Interviews',
@@ -58,6 +62,7 @@
 					<LiteYouTube
 						videoId={interview.youtubeId}
 						title="Interview with {interview.participantName}"
+						poster={resolveAssetPath(data.posters[interview.youtubeId])}
 					/>
 
 					<!-- Topic first: it is why anyone clicks. The name and affiliation

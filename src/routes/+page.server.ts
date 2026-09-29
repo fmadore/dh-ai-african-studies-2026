@@ -1,4 +1,6 @@
 import type { PageServerLoad } from './$types';
+import { interviews } from '$lib/data/interviews';
+import { interviewPosterPath } from '$lib/server/interview-posters';
 import { loadPhotoSample } from '$lib/server/photos';
 
 /**
@@ -6,5 +8,10 @@ import { loadPhotoSample } from '$lib/server/photos';
  * of an event that happened; its front page previously showed none of it.
  */
 export const load: PageServerLoad = async () => {
-	return { stripPhotos: await loadPhotoSample(4) };
+	const featured = interviews[0];
+	return {
+		stripPhotos: await loadPhotoSample(4),
+		// Self-hosted, so the homepage makes no request to YouTube
+		featuredInterviewPoster: featured ? interviewPosterPath(featured.youtubeId) : undefined
+	};
 };

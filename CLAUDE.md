@@ -48,6 +48,10 @@ npm run optimize:images
 
 ```
 
+It also downloads the poster of any interview in `interviews.ts` that has none in
+
+`static/images/interviews/`; pages use YouTube's thumbnail until it exists.
+
 ## Published Position Paper
 
 The paper was published on 9 September 2026 in ZMO Programmatic Texts, no. 16,

@@ -4,7 +4,8 @@
  * - static/images/participants/*  → resized (max 640px) WebP portraits
  * - static/images/interviews/*    → resized (max 640px) WebP video posters
  *                                   (saved copies of the YouTube thumbnails, so
- *                                   the homepage makes no third-party request)
+ *                                   no page makes a third-party request; any
+ *                                   interview without one is fetched first)
  * - static/images/photos/*        → resized (max 1920px) JPEGs, EXIF preserved
  *                                   (the photos page reads DateTimeOriginal to
  *                                   group by workshop day) + 640px WebP thumbs
@@ -69,13 +70,46 @@ async function optimizeParticipants() {
 	console.log(`participants: ${kb(before)} → ${kb(after)}`);
 }
 
+/** YouTube ids from src/lib/data/interviews.ts (read as text: this script is plain Node). */
+function interviewIds() {
+	const source = readFileSync(join(ROOT, 'src', 'lib', 'data', 'interviews.ts'), 'utf8');
+	return [...source.matchAll(/youtubeId:\s*'([\w-]+)'/g)].map((match) => match[1]);
+}
+
+/**
+ * Download the poster of every interview that has none yet. maxresdefault is
+ * 16:9 but missing for some uploads; hqdefault always exists (4:3,
+ * letterboxed — the facade's object-fit crops the bars).
+ */
+async function fetchMissingInterviewPosters() {
+	mkdirSync(INTERVIEWS_DIR, { recursive: true });
+	const have = new Set(listImages(INTERVIEWS_DIR).map((file) => basename(file, extname(file))));
+
+	for (const id of interviewIds().filter((id) => !have.has(id))) {
+		let saved = false;
+		for (const size of ['maxresdefault', 'hqdefault']) {
+			try {
+				const response = await fetch(`https://i.ytimg.com/vi/${id}/${size}.jpg`);
+				if (!response.ok) continue;
+				writeFileSync(join(INTERVIEWS_DIR, `${id}.jpg`), Buffer.from(await response.arrayBuffer()));
+				console.log(`interviews: fetched ${size} poster for ${id}`);
+				saved = true;
+				break;
+			} catch (error) {
+				console.warn(`interviews: could not fetch ${size} for ${id}: ${error.message}`);
+			}
+		}
+		if (!saved) console.warn(`interviews: no poster for ${id}; pages fall back to YouTube's`);
+	}
+}
+
 /**
  * Video posters are saved locally rather than hotlinked from i.ytimg.com, so no
  * page ships a third-party image request before the visitor asks for the video.
  * File names are the YouTube id, which is what the interview data keys on.
  */
 async function optimizeInterviews() {
-	mkdirSync(INTERVIEWS_DIR, { recursive: true });
+	await fetchMissingInterviewPosters();
 	let before = 0;
 	let after = 0;
 

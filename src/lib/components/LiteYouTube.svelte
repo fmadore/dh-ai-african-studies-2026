@@ -7,13 +7,15 @@
 	interface Props {
 		videoId: string;
 		title: string;
+		/** Self-hosted poster (already base-resolved); YouTube's thumbnail otherwise. */
+		poster?: string;
 	}
 
-	let { videoId, title }: Props = $props();
+	let { videoId, title, poster }: Props = $props();
 
 	let activated = $state(false);
 
-	let thumbnailUrl = $derived(`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`);
+	let thumbnailUrl = $derived(poster ?? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`);
 </script>
 
 <div class="aspect-video-embed overflow-hidden rounded-md">
