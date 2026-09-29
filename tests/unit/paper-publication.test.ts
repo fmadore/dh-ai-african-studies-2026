@@ -14,6 +14,7 @@ it('exports the published issue and pagination without advertising an unavailabl
 	expect(value('citation_firstpage')).toBe('1');
 	expect(value('citation_lastpage')).toBe('24');
 	expect(value('citation_pdf_url')).toBeUndefined();
+	expect(value('citation_fulltext_html_url')).toBeUndefined();
 	expect(createScholarlyArticleJsonLd(options)).toMatchObject({
 		datePublished: '2026-09-09',
 		pageStart: '1',
@@ -24,6 +25,17 @@ it('exports the published issue and pagination without advertising an unavailabl
 			isPartOf: { '@type': 'Periodical' }
 		}
 	});
+});
+
+it('points the landing page at its full-text HTML when there is one', () => {
+	const tags = createScholarlyMeta({
+		...positionPaperMeta,
+		abstractUrl: 'https://example.org/position-paper',
+		fullTextUrl: 'https://example.org/position-paper/read'
+	});
+	expect(tags.find((tag) => tag.name === 'citation_fulltext_html_url')?.content).toBe(
+		'https://example.org/position-paper/read'
+	);
 });
 
 it('prints the publication date as a calendar date in any time zone', () => {

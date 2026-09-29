@@ -109,7 +109,12 @@
 
 	const citation = recommendedCitation(positionPaperMeta, seo.canonical);
 
-	const scholarlyOptions = { ...positionPaperMeta, abstractUrl: seo.canonical };
+	// This page is the landing page Scholar indexes; the reader is its full text.
+	const scholarlyOptions = {
+		...positionPaperMeta,
+		abstractUrl: seo.canonical,
+		fullTextUrl: `${seo.canonical}/read`
+	};
 
 	const scholarlySeo = { ...seo, meta: [...seo.meta, ...createScholarlyMeta(scholarlyOptions)] };
 

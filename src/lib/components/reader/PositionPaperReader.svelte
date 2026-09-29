@@ -25,7 +25,9 @@
 
 	let seo = $derived(
 		createSeoMeta({
-			title: 'Position Paper',
+			// Distinct from the landing page's "Position Paper", which shares the
+			// abstract as its description
+			title: 'Position Paper: Full Text',
 			description: meta.abstract,
 			path: '/position-paper/read',
 			type: 'article',
@@ -49,6 +51,7 @@
 		pageStart: meta.pageStart,
 		pageEnd: meta.pageEnd,
 		abstractUrl: seo.canonical,
+		fullTextUrl: seo.canonical,
 		doi: meta.doi,
 		issn: meta.issn,
 		licence: meta.licence

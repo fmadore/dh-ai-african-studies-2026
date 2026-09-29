@@ -34,6 +34,13 @@ export function createScholarlyMeta(opts: ScholarlyMetaOptions): SeoMetaTag[] {
 		name: 'citation_abstract_html_url',
 		content: opts.abstractUrl
 	});
+	if (opts.fullTextUrl) {
+		tags.push({
+			key: 'citation_fulltext_html_url',
+			name: 'citation_fulltext_html_url',
+			content: opts.fullTextUrl
+		});
+	}
 	if (opts.pdfUrl) {
 		tags.push({ key: 'citation_pdf_url', name: 'citation_pdf_url', content: opts.pdfUrl });
 	}

@@ -196,6 +196,8 @@ export interface ScholarlyMetaOptions {
 	pageEnd?: string;
 	/** Absolute URL of the HTML landing page (what Google Scholar indexes). */
 	abstractUrl: string;
+	/** Absolute URL of a separate full-text HTML page, when there is one. */
+	fullTextUrl?: string;
 	/** Absolute URL of the PDF, when available. */
 	pdfUrl?: string;
 	doi?: string;
