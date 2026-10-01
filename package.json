@@ -35,7 +35,7 @@
     "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
     "@fontsource-variable/source-serif-4": "^5.3.0",
     "@fontsource/atkinson-hyperlegible": "^5.3.0",
-    "@playwright/test": "^1.62.1",
+    "@playwright/test": "^1.63.0",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.70.3",
     "@sveltejs/vite-plugin-svelte": "^7.3.0",
