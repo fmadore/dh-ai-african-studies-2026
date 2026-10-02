@@ -91,6 +91,12 @@ with each device's screen and font settings.
 - npm
 - Python 3.10+ (data transformations, EPUB export, and their tests; standard library only)
 
+SvelteKit 3 configuration lives in `vite.config.ts`, including static prerendering
+and the GitHub Pages `BASE_PATH`. Vitest reuses that configuration. Existing `$lib`
+imports are retained through an explicit compatibility alias; new subpath-import
+conventions can be adopted independently. TypeScript remains on version 6 to match
+the framework and linter peer requirements.
+
 ### Install dependencies
 
 ```sh

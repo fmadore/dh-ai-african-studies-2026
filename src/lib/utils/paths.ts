@@ -1,18 +1,11 @@
-import { base } from '$app/paths';
+import { asset, resolve } from '$app/paths';
+import type { AssetPath } from '$app/types';
 
 const PROTOCOL_PATTERN = /^(?:[a-z][a-z\d+.-]*:)?\/\//i;
 
-function ensureLeadingSlash(path: string): string {
-	if (!path.length) {
-		return '/';
-	}
-
-	return path.startsWith('/') ? path : `/${path}`;
-}
-
 export function resolveAppPath(path = '/'): string {
 	if (!path || path === '/') {
-		return base || '/';
+		return resolve('');
 	}
 
 	if (
@@ -24,7 +17,8 @@ export function resolveAppPath(path = '/'): string {
 		return path;
 	}
 
-	return `${base}${ensureLeadingSlash(path)}`;
+	// Callers include data-driven links, so narrow the argument tuple at this boundary.
+	return resolve(...([path.replace(/^\//, '')] as Parameters<typeof resolve>));
 }
 
 export function resolveAssetPath(path?: string): string | undefined {
@@ -36,5 +30,5 @@ export function resolveAssetPath(path?: string): string | undefined {
 		return path;
 	}
 
-	return `${base}${ensureLeadingSlash(path)}`;
+	return asset(path.replace(/^\//, '') as AssetPath);
 }

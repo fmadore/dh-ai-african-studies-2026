@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { CameraPhotoOutline } from 'flowbite-svelte-icons';
 	import { page } from '$app/state';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
 	import { photoCategories, mediaCredit } from '$lib/data/photos';
 	import SeoHead from '$lib/components/SeoHead.svelte';

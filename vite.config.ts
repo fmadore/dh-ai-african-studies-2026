@@ -1,4 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
+import adapter from '@sveltejs/adapter-static';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import { existsSync } from 'node:fs';
@@ -9,7 +11,27 @@ export default defineConfig({
 			new URL('./static/documents/position-paper.epub', import.meta.url)
 		)
 	},
-	plugins: [tailwindcss(), sveltekit()],
+	plugins: [
+		tailwindcss(),
+		sveltekit({
+			preprocess: vitePreprocess(),
+			compilerOptions: { runes: true },
+			// Preserve existing imports during the framework migration. SvelteKit
+			// still supports explicit aliases; #lib can be adopted separately.
+			alias: { $lib: './src/lib' },
+			adapter: adapter({
+				pages: 'build',
+				assets: 'build',
+				precompress: false,
+				strict: true
+			}),
+			paths: { base: (process.env.BASE_PATH || '') as '' | `/${string}` },
+			prerender: {
+				// Endpoints not linked from prerendered pages need explicit entries.
+				entries: ['*', '/sitemap.xml', '/references/data.json']
+			}
+		})
+	],
 	build: {
 		rolldownOptions: {
 			treeshake: {

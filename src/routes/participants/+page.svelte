@@ -88,12 +88,11 @@
 
 	/** A pin click filters the directory below rather than only opening a popup. */
 	async function filterByLocation(affiliation: string) {
-		const url = new URL(page.url);
+		const url = new URL(page.url.href);
 		url.searchParams.delete('view');
 		await goto(url.pathname + url.search, {
-			replaceState: true,
-			noScroll: true,
-			keepFocus: true,
+			replace: true,
+			reset: false,
 			state: page.state
 		});
 		searchQuery = affiliation;
