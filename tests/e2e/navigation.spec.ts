@@ -76,14 +76,23 @@ test('map pins switch from thematic groups to the filtered participant directory
 	const pin = page.locator('.custom-map-marker').first();
 	await expect(pin).toBeVisible();
 	const affiliation = (await pin.getAttribute('aria-label'))!.split(' from ')[1];
-	await pin.press('Enter');
-	await expect(page.getByRole('tab', { name: 'All Participants' })).toHaveAttribute(
-		'aria-selected',
-		'true'
-	);
-	await expect(page.getByLabel('Search participants')).toHaveValue(affiliation);
-	await expect(page.getByLabel('Search participants')).toBeFocused();
-	await expect(page.locator('.participant-grid')).toBeVisible();
+	for (const activation of ['Enter', 'Space', 'click']) {
+		await page.getByRole('tab', { name: 'By Thematic Group' }).click();
+		await expect(page.getByRole('tab', { name: 'By Thematic Group' })).toHaveAttribute(
+			'aria-selected',
+			'true'
+		);
+		await pin.scrollIntoViewIfNeeded();
+		if (activation === 'click') await pin.click();
+		else await pin.press(activation);
+		await expect(page.getByRole('tab', { name: 'All Participants' })).toHaveAttribute(
+			'aria-selected',
+			'true'
+		);
+		await expect(page.getByLabel('Search participants')).toHaveValue(affiliation);
+		await expect(page.getByLabel('Search participants')).toBeFocused();
+		await expect(page.locator('.participant-grid')).toBeVisible();
+	}
 });
 
 test('gallery selection follows same-route navigation and browser Back', async ({ page }) => {

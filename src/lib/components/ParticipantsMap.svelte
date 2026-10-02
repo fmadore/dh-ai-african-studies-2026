@@ -194,6 +194,15 @@
 						element?.setAttribute('aria-label', markerLabel);
 						element?.setAttribute('title', markerLabel);
 						element?.setAttribute('role', 'button');
+						// Leaflet's Enter handler only opens the popup: it does not
+						// fire the click event that also selects this institution.
+						// Give the div marker full button semantics through one path.
+						element?.addEventListener('keydown', (event) => {
+							if (event.key !== 'Enter' && event.key !== ' ') return;
+							event.preventDefault();
+							event.stopPropagation();
+							if (!event.repeat) element.click();
+						});
 					});
 
 					marker.addTo(map!);
