@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const baseURL = `http://127.0.0.1:4173${process.env.BASE_PATH || ''}`;
+const baseURL = `http://127.0.0.1:4173${process.env.BASE_PATH || ''}/`;
 
 export default defineConfig({
 	testDir: './tests/e2e',
@@ -21,6 +21,11 @@ export default defineConfig({
 		{
 			name: 'mobile-chromium',
 			use: { ...devices['iPhone 13'], browserName: 'chromium' }
+		},
+		{
+			name: 'webkit-smoke',
+			testMatch: /(?:navigation|reader)\.spec\.ts/,
+			use: { ...devices['Desktop Safari'] }
 		}
 	],
 	webServer: {

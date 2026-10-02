@@ -10,10 +10,12 @@
 	}
 
 	let { nodes, getNodeColor, onselect }: Props = $props();
+	const componentId = $props.id();
+	const resultsId = `${componentId}-results`;
 
 	let searchQuery = $state('');
 	let searchOpen = $state(false);
-	let searchHighlightIndex = $state(0);
+	let requestedHighlightIndex = $state(0);
 	let searchInputEl: HTMLInputElement | undefined;
 
 	let searchResults = $derived.by(() => {
@@ -32,20 +34,27 @@
 			.map(({ node }) => node);
 	});
 
+	let searchHighlightIndex = $derived(
+		Math.max(0, Math.min(requestedHighlightIndex, searchResults.length - 1))
+	);
+
 	function onSearchInput(event: Event) {
 		const input = event.target as HTMLInputElement;
 		searchQuery = input.value;
 		searchOpen = searchQuery.trim().length > 0;
-		searchHighlightIndex = 0;
+		requestedHighlightIndex = 0;
 	}
 
 	function onSearchKeydown(event: KeyboardEvent) {
 		if (event.key === 'ArrowDown') {
 			event.preventDefault();
-			searchHighlightIndex = Math.min(searchHighlightIndex + 1, searchResults.length - 1);
+			requestedHighlightIndex = Math.max(
+				0,
+				Math.min(searchHighlightIndex + 1, searchResults.length - 1)
+			);
 		} else if (event.key === 'ArrowUp') {
 			event.preventDefault();
-			searchHighlightIndex = Math.max(searchHighlightIndex - 1, 0);
+			requestedHighlightIndex = Math.max(searchHighlightIndex - 1, 0);
 		} else if (event.key === 'Enter' && searchResults.length > 0) {
 			event.preventDefault();
 			selectResult(searchResults[searchHighlightIndex]);
@@ -93,9 +102,9 @@
 			}}
 			aria-label="Search concepts"
 			aria-expanded={searchOpen && searchResults.length > 0}
-			aria-controls={searchOpen && searchResults.length > 0 ? 'search-results' : undefined}
+			aria-controls={searchOpen && searchResults.length > 0 ? resultsId : undefined}
 			aria-activedescendant={searchOpen && searchResults.length > 0
-				? `search-result-${searchHighlightIndex}`
+				? `${resultsId}-${searchHighlightIndex}`
 				: undefined}
 			role="combobox"
 			aria-autocomplete="list"
@@ -114,23 +123,21 @@
 		{/if}
 	</div>
 	{#if searchOpen && searchResults.length > 0}
-		<ul class="search-dropdown" id="search-results" role="listbox">
+		<ul class="search-dropdown" id={resultsId} role="listbox" aria-label="Matching concepts">
 			{#each searchResults as result, i (result.id)}
 				<li
-					id="search-result-{i}"
+					id="{resultsId}-{i}"
 					role="option"
 					aria-selected={i === searchHighlightIndex}
 					class="search-result"
 					class:highlighted={i === searchHighlightIndex}
 				>
 					<button
+						type="button"
 						class="search-result-btn"
-						onmousedown={(e) => {
-							e.preventDefault();
-							selectResult(result);
-						}}
+						onclick={() => selectResult(result)}
 						onpointerenter={() => {
-							searchHighlightIndex = i;
+							requestedHighlightIndex = i;
 						}}
 					>
 						<span class="search-result-dot" style="background-color: {getNodeColor(result.group)}"

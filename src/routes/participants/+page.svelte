@@ -2,6 +2,9 @@
 	import { Button } from 'flowbite-svelte';
 	import { UsersGroupSolid, UsersGroupOutline, SearchOutline } from 'flowbite-svelte-icons';
 	import { SvelteSet } from 'svelte/reactivity';
+	import { onMount, tick } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 	import ParticipantAvatar from '$lib/components/ParticipantAvatar.svelte';
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import PageHero from '$lib/components/PageHero.svelte';
@@ -15,6 +18,10 @@
 	import { foldForSearch } from '$lib/utils/text';
 
 	let searchQuery = $state('');
+	let enhanced = $state(false);
+	onMount(() => {
+		enhanced = true;
+	});
 	let directoryEl: HTMLElement | undefined = $state();
 
 	/** Which cards have their bio and regions revealed. The whole card is the
@@ -80,9 +87,21 @@
 	const mapParticipants = baseParticipants;
 
 	/** A pin click filters the directory below rather than only opening a popup. */
-	function filterByLocation(affiliation: string) {
+	async function filterByLocation(affiliation: string) {
+		const url = new URL(page.url);
+		url.searchParams.delete('view');
+		await goto(url.pathname + url.search, {
+			replaceState: true,
+			noScroll: true,
+			keepFocus: true,
+			state: page.state
+		});
 		searchQuery = affiliation;
+		await tick();
 		directoryEl?.scrollIntoView({ block: 'start' });
+		directoryEl
+			?.querySelector<HTMLInputElement>('input[type="search"]')
+			?.focus({ preventScroll: true });
 	}
 
 	const seo = createSeoMeta({
@@ -131,16 +150,16 @@
 		<UrlTabs
 			tabs={viewTabs}
 			paramName="view"
+			label="Participant views"
 			defaultTab="all"
 			tabStyle="underline"
-			activeClass="text-primary-700 border-primary-700 dark:text-primary-300 dark:border-primary-300"
 			class="mb-xl"
 		>
 			{#snippet children(activeTab)}
 				{#if activeTab === 'all'}
 					<h2 class="sr-only">All participants</h2>
 
-					<div class="directory-toolbar">
+					<div class="directory-toolbar" hidden={!enhanced}>
 						<SearchFilter
 							bind:value={searchQuery}
 							label="Search participants"
@@ -166,7 +185,7 @@
 					{#if displayedParticipants.length > 0}
 						<ul class="participant-grid">
 							{#each displayedParticipants as participant (participant.name)}
-								{@const isOpen = expanded.has(participant.name)}
+								{@const isOpen = !enhanced || expanded.has(participant.name)}
 								{@const hasDetail =
 									Boolean(participant.bio) || participant.researchRegions.length > 0}
 								{@const detailId = participantDetailId(participant.name)}
@@ -175,6 +194,7 @@
 										<button
 											type="button"
 											class="participant-card__trigger"
+											disabled={!enhanced}
 											aria-expanded={isOpen}
 											aria-controls={detailId}
 											onclick={() => toggleCard(participant.name)}

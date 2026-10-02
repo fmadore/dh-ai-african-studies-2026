@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { TocItem } from '$lib/reader/types';
+	import { replaceState } from '$app/navigation';
+	import { page } from '$app/state';
 	import { ListOutline, CloseOutline } from 'flowbite-svelte-icons';
 	import { fade, slide } from 'svelte/transition';
 	import { prefersReducedMotion } from '$lib/utils/motion';
@@ -42,6 +44,8 @@
 	});
 
 	function handleLinkClick(event: MouseEvent, id: string) {
+		if (event.defaultPrevented || event.button !== 0) return;
+		if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 		event.preventDefault();
 		mobileOpen = false;
 		activeId = id;
@@ -52,7 +56,7 @@
 			block: 'start'
 		});
 		// Update URL hash without extra scroll jump.
-		history.replaceState(null, '', `#${id}`);
+		replaceState(`#${id}`, page.state);
 		if (window.matchMedia('(max-width: 1023px)').matches)
 			mobileToggle?.focus({ preventScroll: true });
 	}

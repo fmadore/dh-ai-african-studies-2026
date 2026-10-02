@@ -17,13 +17,13 @@
 		body {
 			margin: 0;
 			padding: 0;
-			overflow: hidden;
+			overflow: auto;
 		}
 	</style>
 </svelte:head>
 
 <div class="embed-wrapper">
-	<ConceptGraph data={graph} />
+	<ConceptGraph data={graph} embedded />
 </div>
 
 <style>
@@ -33,11 +33,10 @@
 	 * Literal rather than var(--graph-ink): that token is declared on
 	 * .concept-graph-wrapper, which is this element's child. */
 	.embed-wrapper {
-		width: 100vw;
-		height: 100vh;
+		width: 100%;
+		min-height: 100vh;
 		padding: 1rem;
 		box-sizing: border-box;
-		overflow: hidden;
 		background-color: #171514;
 	}
 </style>

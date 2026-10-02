@@ -7,16 +7,12 @@ const budgets = {
 	// ~54 KiB since Tailwind stopped scanning unused Flowbite folders (was ~70)
 	cssGzipBytes: 62 * 1024,
 	javascriptGzipBytes: 700 * 1024,
-	// Split by whether an asset is on a page's critical path. An asset named in
-	// a prerendered page's markup is fetched before that page can settle, so it
-	// gets a tight ceiling: today's largest is the ~30 KiB global stylesheet,
-	// and 60 KiB would have caught the 61 KiB chunk of unused Flowbite themes
-	// that every page used to load. A chunk reachable only through a dynamic
-	// import downloads when a component asks for it and never blocks first
-	// paint, which is what buys the MapLibre basemap engine (~270 KiB gzip on
-	// /participants alone) its larger allowance.
+	// Static import descendants are eager even when absent from the HTML.
+	// Dynamic imports have a separate ceiling; this does not imply that a
+	// component waits for interaction before requesting them.
 	largestEagerAssetGzipBytes: 60 * 1024,
-	largestLazyAssetGzipBytes: 300 * 1024
+	largestLazyAssetGzipBytes: 300 * 1024,
+	largestRouteJavascriptGzipBytes: 180 * 1024
 };
 
 async function filesIn(directory) {
@@ -33,17 +29,48 @@ async function filesIn(directory) {
 const allFiles = await filesIn(buildDirectory);
 const assets = allFiles.filter((file) => /\.(?:css|js)$/u.test(file));
 
-// Every basename mentioned anywhere in the prerendered HTML: SvelteKit writes
-// the entry and route chain into each page as script/modulepreload/stylesheet
-// links, so appearing there is the same thing as being on that page's critical
-// path. Anything else in the graph is only reachable through import().
-const markup = await Promise.all(
-	allFiles.filter((file) => file.endsWith('.html')).map((file) => readFile(file, 'utf8'))
+const manifest = JSON.parse(
+	await readFile('.svelte-kit/output/client/.vite/manifest.json', 'utf8')
 );
-const eagerNames = new Set();
-for (const html of markup) {
-	for (const match of html.matchAll(/[\w.-]+\.(?:css|js)/gu)) eagerNames.add(match[0]);
+const byFile = new Map(Object.entries(manifest).map(([key, value]) => [value.file, key]));
+const byBasename = new Map([...byFile].map(([file, key]) => [path.basename(file), key]));
+function staticAssets(roots) {
+	const seen = new Set();
+	const files = new Set();
+	function visit(key) {
+		if (seen.has(key) || !manifest[key]) return;
+		seen.add(key);
+		const chunk = manifest[key];
+		files.add(chunk.file);
+		for (const file of [...(chunk.css || []), ...(chunk.assets || [])]) files.add(file);
+		for (const imported of chunk.imports || []) visit(imported);
+	}
+	for (const root of roots) visit(root);
+	return files;
 }
+
+const htmlFiles = allFiles.filter((file) => file.endsWith('.html'));
+const markup = await Promise.all(htmlFiles.map((file) => readFile(file, 'utf8')));
+const eagerNames = new Set();
+const routeAssets = markup.map((html) => {
+	const roots = new Set();
+	for (const match of html.matchAll(/[\w.-]+\.(?:css|js)/gu)) {
+		eagerNames.add(match[0]);
+		const key = byBasename.get(match[0]);
+		if (key) roots.add(key);
+	}
+	// SvelteKit also lists its initially hydrated route modules by node ID.
+	const nodeIds = html.match(/node_ids:\s*\[([\d,\s]*)\]/)?.[1];
+	for (const id of nodeIds?.match(/\d+/g) || []) {
+		for (const [key, chunk] of Object.entries(manifest)) {
+			if (chunk.name === `nodes/${id}` || (/\/nodes\//.test(key) && key.endsWith(`/${id}.js`)))
+				roots.add(key);
+		}
+	}
+	const files = staticAssets(roots);
+	for (const file of files) eagerNames.add(path.basename(file));
+	return files;
+});
 
 const sizedAssets = await Promise.all(
 	assets.map(async (file) => ({
@@ -68,6 +95,27 @@ const largestOf = (assetsToRank) =>
 	});
 const largestEagerAsset = largestOf(sizedAssets.filter((asset) => asset.eager));
 const largestLazyAsset = largestOf(sizedAssets.filter((asset) => !asset.eager));
+const assetSizes = new Map(sizedAssets.map((asset) => [asset.file, asset]));
+const routeSizes = await Promise.all(
+	routeAssets.map(async (files, index) => {
+		const javascript = [...files].filter((file) => file.endsWith('.js'));
+		const fonts = [...files].filter((file) => /\.woff2?$/.test(file));
+		return {
+			route: path.relative(buildDirectory, htmlFiles[index]),
+			javascriptGzipBytes: javascript.reduce(
+				(sum, file) => sum + (assetSizes.get(file)?.gzipBytes || 0),
+				0
+			),
+			htmlGzipBytes: gzipSync(markup[index]).length,
+			// This is the complete referenced font inventory, not a claim that all
+			// unicode-range subsets are downloaded by every browser.
+			referencedFontBytes: (
+				await Promise.all(fonts.map((file) => stat(path.join(buildDirectory, file))))
+			).reduce((sum, file) => sum + file.size, 0)
+		};
+	})
+);
+console.table(routeSizes.sort((a, b) => b.javascriptGzipBytes - a.javascriptGzipBytes));
 
 console.table(sizedAssets.sort((a, b) => b.gzipBytes - a.gzipBytes).slice(0, 12));
 console.log(
@@ -84,6 +132,8 @@ console.log(
 );
 
 const violations = [
+	routeSizes.some((route) => route.javascriptGzipBytes > budgets.largestRouteJavascriptGzipBytes) &&
+		'per-route static JavaScript gzip budget exceeded',
 	cssGzipBytes > budgets.cssGzipBytes && 'total CSS gzip budget exceeded',
 	javascriptGzipBytes > budgets.javascriptGzipBytes && 'total JavaScript gzip budget exceeded',
 	largestEagerAsset.gzipBytes > budgets.largestEagerAssetGzipBytes &&

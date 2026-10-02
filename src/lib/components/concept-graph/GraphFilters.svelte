@@ -38,10 +38,11 @@
 </div>
 
 <!-- Group filters -->
-<div class="group-filters">
+<div class="group-filters" role="group" aria-label="Filter concepts by group">
 	<button
 		class="filter-btn filter-btn-all"
 		class:active={activeGroupCount === totalGroupCount}
+		aria-pressed={activeGroupCount === totalGroupCount}
 		onclick={onactivateall}
 	>
 		All
@@ -50,6 +51,7 @@
 		<button
 			class="filter-btn"
 			class:active={activeGroups.has(group)}
+			aria-pressed={activeGroups.has(group)}
 			onclick={() => ontoggle(group)}
 			style="--group-color: {getNodeColor(group)}"
 		>

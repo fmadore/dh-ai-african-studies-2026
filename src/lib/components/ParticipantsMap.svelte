@@ -33,6 +33,22 @@
 	let appliedStyle: string | null = null;
 	let mapReady = $state(false);
 	let mapFailed = $state(false);
+	let tilesUnavailable = $state(false);
+	let attempt = $state(0);
+	let styleTimeout: ReturnType<typeof setTimeout> | undefined;
+
+	function failMap() {
+		clearTimeout(styleTimeout);
+		mapFailed = true;
+		mapReady = false;
+	}
+
+	function beginStyleLoad() {
+		clearTimeout(styleTimeout);
+		tilesUnavailable = false;
+		// Includes stalled style requests, which need not emit an error event.
+		styleTimeout = setTimeout(failMap, 15_000);
+	}
 
 	// OpenFreeMap vector styles. CARTO began watermarking keyless raster tiles
 	// and is considering freezing that endpoint entirely; OpenFreeMap needs no
@@ -87,6 +103,9 @@
 
 		// Snapshot reactive values synchronously so the effect tracks them
 		const groups = markerGroups;
+		void attempt;
+		mapFailed = false;
+		tilesUnavailable = false;
 		// Theme changes use setStyle below; they must not recreate the Leaflet map.
 		const initialDark = untrack(() => isDarkMode);
 		let destroyed = false;
@@ -125,12 +144,25 @@
 				// draw its own attribution inside the canvas; suppressed so the
 				// credit sits in Leaflet's control with the rest of the chrome.
 				appliedStyle = initialDark ? STYLE_URLS.dark : STYLE_URLS.light;
+				beginStyleLoad();
 				glMap = maplibreGL({
 					style: appliedStyle,
 					attributionControl: false
 				})
 					.addTo(map)
 					.getMaplibreMap();
+				glMap.on('style.load', () => {
+					if (destroyed) return;
+					clearTimeout(styleTimeout);
+				});
+				glMap.on('error', (event) => {
+					if (destroyed) return;
+					const failedUrl = (event.error as Error & { url?: string }).url;
+					// Failed/invalid style JSON prevents any basemap. Tile or source
+					// failures retain the usable map and its participant controls.
+					if (failedUrl === appliedStyle || !glMap?.getStyle()) failMap();
+					else tilesUnavailable = true;
+				});
 				map.attributionControl.addAttribution(ATTRIBUTION);
 
 				// Add markers for each location
@@ -162,6 +194,15 @@
 						element?.setAttribute('aria-label', markerLabel);
 						element?.setAttribute('title', markerLabel);
 						element?.setAttribute('role', 'button');
+						// Leaflet's Enter handler only opens the popup: it does not
+						// fire the click event that also selects this institution.
+						// Give the div marker full button semantics through one path.
+						element?.addEventListener('keydown', (event) => {
+							if (event.key !== 'Enter' && event.key !== ' ') return;
+							event.preventDefault();
+							event.stopPropagation();
+							if (!event.repeat) element.click();
+						});
 					});
 
 					marker.addTo(map!);
@@ -220,12 +261,13 @@
 			.catch(() => {
 				// A failed chunk load (flaky network) should degrade to a stated
 				// alternative, not an empty grey rectangle.
-				if (!destroyed) mapFailed = true;
+				if (!destroyed) failMap();
 			});
 
 		return () => {
 			// Cleanup map on component destroy
 			destroyed = true;
+			clearTimeout(styleTimeout);
 			if (map) {
 				map.remove();
 				map = null;
@@ -240,23 +282,57 @@
 		const nextStyle = isDarkMode ? STYLE_URLS.dark : STYLE_URLS.light;
 		if (mapReady && glMap && appliedStyle !== nextStyle) {
 			appliedStyle = nextStyle;
-			glMap.setStyle(nextStyle);
+			beginStyleLoad();
+			try {
+				glMap.setStyle(nextStyle);
+			} catch {
+				failMap();
+			}
 		}
 	});
 </script>
+
+<div bind:this={mapContainer} class="map-canvas" hidden={mapFailed}></div>
 
 {#if mapFailed}
 	<div class="map-canvas map-canvas--failed" role="status">
 		<p class="map-failed__lead">The interactive map could not be loaded.</p>
 		<p class="map-failed__body">
-			The directory above lists every participant with their affiliation and country.
+			The directory below lists every participant with their affiliation and country.
 		</p>
+		<button type="button" class="map-retry tap-target" onclick={() => attempt++}>Retry map</button>
 	</div>
-{:else}
-	<div bind:this={mapContainer} class="map-canvas"></div>
+{:else if tilesUnavailable}
+	<div class="map-notice" role="status">
+		<p>Some map tiles could not be loaded. Participant pins and the directory remain available.</p>
+		<button type="button" class="map-retry tap-target" onclick={() => attempt++}>Retry map</button>
+	</div>
 {/if}
+<noscript
+	><p class="map-notice">
+		The interactive map requires JavaScript. The complete participant directory is below.
+	</p></noscript
+>
 
 <style>
+	.map-notice {
+		padding: var(--space-sm) var(--space-lg);
+		color: var(--text-muted);
+		font-size: var(--text-sm);
+	}
+	.map-retry {
+		margin-top: var(--space-xs);
+		padding-inline: var(--space-md);
+		border: 1px solid var(--border-accent);
+		border-radius: var(--radius-md);
+		background: var(--bg-raised);
+		color: var(--text-link);
+		font-weight: var(--font-weight-semibold);
+		cursor: pointer;
+	}
+	.map-canvas[hidden] {
+		display: none;
+	}
 	:global(.map-canvas) {
 		height: clamp(22rem, 48vw, 32rem);
 		width: 100%;

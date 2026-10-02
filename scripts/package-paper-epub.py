@@ -1,6 +1,10 @@
 """Package the reader export as EPUB 3; no third-party Python packages required."""
 import json
+import argparse
+import io
+import os
 import sys
+import tempfile
 import zipfile
 from datetime import datetime, timezone
 from html import escape
@@ -46,15 +50,15 @@ class XhtmlParser(HTMLParser):
             node.text = (node.text or '') + data
 
 
-def xhtml(title, body):
+def xhtml(title, body, language='en'):
     return (f'<?xml version="1.0" encoding="utf-8"?>\n'
-            f'<html xmlns="{XHTML}" xmlns:epub="{EPUB}" xml:lang="en" lang="en">'
+            f'<html xmlns="{XHTML}" xmlns:epub="{EPUB}" xml:lang="{escape(language)}" lang="{escape(language)}">'
             f'<head><title>{escape(title)}</title><link rel="stylesheet" href="style.css" /></head>'
             f'{body}</html>')
 
 
-def main():
-    data = json.loads(sys.stdin.buffer.read().decode('utf-8'))
+def build_epub(data, photo):
+    """Build in memory so validation failures never truncate the published EPUB."""
     meta, paper = data['meta'], data['paper']
     title = escape(meta['title'])
     authors = ', '.join(a['name'] for a in meta['authors'])
@@ -76,19 +80,22 @@ def main():
     parser.feed(intro + paper['html'] + colophon)
     if len(parser.stack) != 1:
         raise ValueError('Unclosed HTML elements')
-    body = xhtml(meta['title'], ET.tostring(parser.root, encoding='unicode'))
+    body = xhtml(meta['title'], ET.tostring(parser.root, encoding='unicode'), meta['language'])
     toc = [{'id': 'abstract', 'text': 'Abstract'}, *paper['toc'],
-           {'id': 'reader-footnotes-heading', 'text': 'Notes'},
+           *([{'id': 'reader-footnotes-heading', 'text': 'Notes'}]
+             if 'id="reader-footnotes-heading"' in paper['html'] else []),
            {'id': 'publication', 'text': 'Publication details'}]
     nav = xhtml('Contents', '<body><nav epub:type="toc" id="toc"><h1>Contents</h1><ol>' + ''.join(
         f'<li><a href="paper.xhtml#{escape(item["id"])}">{escape(item["text"])}</a></li>' for item in toc
-    ) + '</ol></nav></body>')
-    modified = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+    ) + '</ol></nav></body>', meta['language'])
+    # The edition's revision date is stable; a rebuild is not a textual revision.
+    modified = datetime.fromisoformat(meta.get('revisedDate') or meta['publicationDate'])
+    modified = modified.replace(tzinfo=timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     opf = (f'<?xml version="1.0" encoding="utf-8"?>'
            '<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="pub-id">'
            '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">'
            f'<dc:identifier id="pub-id">https://doi.org/{escape(meta["doi"])}</dc:identifier>'
-           f'<dc:title>{title}</dc:title><dc:language>en</dc:language>'
+           f'<dc:title>{title}</dc:title><dc:language>{escape(meta["language"])}</dc:language>'
            + ''.join(f'<dc:creator>{escape(a["name"])}</dc:creator>' for a in meta['authors'])
            + f'<dc:publisher>{escape(meta["publisher"])}</dc:publisher>'
            f'<dc:date>{escape(meta["publicationDate"])}</dc:date>'
@@ -134,19 +141,60 @@ def main():
             dest = 'EPUB/' + url.path if url.path else name
             if dest not in assets or (url.fragment and unquote(url.fragment) not in ids.get(dest, set())):
                 raise ValueError(f'Broken internal link: {target}')
-    output = Path('static/documents/position-paper.epub')
-    output.parent.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(output, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
-        archive.writestr('mimetype', 'application/epub+zip', compress_type=zipfile.ZIP_STORED)
-        for name, content in files.items():
-            archive.writestr(name, content.encode('utf-8'))
-        archive.write('static/images/photos/3V7A0875.jpg', 'EPUB/group-photo.jpg')
-    with zipfile.ZipFile(output) as archive:
+    contents = {'mimetype': b'application/epub+zip',
+                **{name: content.encode('utf-8') for name, content in files.items()},
+                'EPUB/group-photo.jpg': photo}
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, 'w') as archive:
+        for name, content in contents.items():
+            info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+            info.create_system = 3
+            info.external_attr = 0o100644 << 16
+            info.compress_type = zipfile.ZIP_STORED if name == 'mimetype' else zipfile.ZIP_DEFLATED
+            archive.writestr(info, content, compresslevel=9)
+    payload = buffer.getvalue()
+    with zipfile.ZipFile(io.BytesIO(payload)) as archive:
         assert archive.testzip() is None
         assert archive.infolist()[0].filename == 'mimetype'
         assert archive.infolist()[0].compress_type == zipfile.ZIP_STORED
-    notes = sum(n.get('epub:type') == 'footnote' for n in parser.root.iter())
-    print(f'Created {output} ({output.stat().st_size:,} bytes); {notes} notes; XML and internal links verified.')
+    return payload
+
+
+def archive_contents(payload):
+    """Compare content and entry requirements without depending on zlib version."""
+    with zipfile.ZipFile(io.BytesIO(payload)) as archive:
+        return [(entry.filename, entry.compress_type, archive.read(entry))
+                for entry in archive.infolist()]
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check', action='store_true', help='Verify the committed EPUB without writing it')
+    args = parser.parse_args()
+    data = json.loads(sys.stdin.buffer.read().decode('utf-8'))
+    photo = Path('static/images/photos/3V7A0875.jpg').read_bytes()
+    payload = build_epub(data, photo)
+    output = Path('static/documents/position-paper.epub')
+    if args.check:
+        try:
+            matches = archive_contents(output.read_bytes()) == archive_contents(payload)
+        except (OSError, zipfile.BadZipFile):
+            matches = False
+        if not matches:
+            raise SystemExit('The EPUB is missing or stale. Run npm run export:epub and commit the result.')
+        print(f'EPUB is current; XML and internal links verified: {output}')
+        return
+    output.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(dir=output.parent, delete=False) as handle:
+            temporary = handle.name
+            handle.write(payload)
+        os.replace(temporary, output)
+    finally:
+        if temporary and os.path.exists(temporary):
+            os.unlink(temporary)
+    print(f'Created {output} ({len(payload):,} bytes); XML and internal links verified.')
 
 
 if __name__ == '__main__':

@@ -145,10 +145,7 @@ export function parseBibliography(entryTexts: string[]): BibEntry[] {
 	return entries;
 }
 
-interface Match {
-	entry: BibEntry;
-	issue?: CitationIssue;
-}
+type Match = { entry: BibEntry; issue?: CitationIssue } | { entry: null; issue: CitationIssue };
 
 /** Resolve a `names` + `year` pair against the index. */
 function findEntry(
@@ -174,7 +171,7 @@ function findEntry(
 			? candidates.filter((e) => rest.every((n) => e.allNames.has(n)))
 			: candidates;
 		if (narrowed.length !== 1) {
-			return { entry: candidates[0], issue: { text: rawText, reason: 'ambiguous' } };
+			return { entry: null, issue: { text: rawText, reason: 'ambiguous' } };
 		}
 		return { entry: narrowed[0] };
 	}
@@ -296,11 +293,14 @@ function findSpans(
 				continue;
 			}
 			if (found.issue) issues.push(found.issue);
+			if (!found.entry) continue;
 
-			// `(Carroll et al. 2020, 2021)` is two works: link the first citation up
-			// to its year, then treat the trailing year as a second citation with
-			// the same authors. A page locator stays inside the first link.
-			const locatorIsYear = locator ? /^(?:1[89]|20)\d{2}[a-z]?$/.test(locator.trim()) : false;
+			// A tail consisting only of years cites additional works by the same
+			// authors. Resolve each independently; ordinary page locators stay
+			// inside the first citation link.
+			const locatorIsYear = locator
+				? /^(?:1[89]|20)\d{2}[a-z]?(?:\s*,\s*(?:1[89]|20)\d{2}[a-z]?)*$/.test(locator.trim())
+				: false;
 
 			const partOffsetInText = partStart;
 			const yearEndInPart = (m.index ?? 0) + m[0].indexOf(year) + year.length;
@@ -314,14 +314,21 @@ function findSpans(
 					end: partOffsetInText + yearEndInPart,
 					slug: found.entry.slug
 				});
-				const second = findEntry(entries, resolvedNames, locator!.trim(), part.trim());
-				if (second) {
-					const at = part.indexOf(locator!.trim(), yearEndInPart);
-					spans.push({
-						start: partOffsetInText + at,
-						end: partOffsetInText + at + locator!.trim().length,
-						slug: second.entry.slug
-					});
+				let nextYearStart = yearEndInPart;
+				for (const nextYear of locator!.split(',').map((value) => value.trim())) {
+					const nextText = `${resolvedNames.join(' and ')} ${nextYear}`;
+					const next = findEntry(entries, resolvedNames, nextYear, nextText);
+					const at = part.indexOf(nextYear, nextYearStart);
+					nextYearStart = at + nextYear.length;
+					if (!next) issues.push({ text: nextText, reason: 'no-match' });
+					else if (next.issue) issues.push(next.issue);
+					if (next?.entry) {
+						spans.push({
+							start: partOffsetInText + at,
+							end: partOffsetInText + nextYearStart,
+							slug: next.entry.slug
+						});
+					}
 				}
 			} else {
 				spans.push({
@@ -406,19 +413,19 @@ export function createCitationRule(onReport?: (_report: CitationReport) => void)
 			// --- link citations in the body ----------------------------------
 			const issues: CitationIssue[] = [];
 			let linked = 0;
-			// Plain text seen so far, for resolving bare years.
-			let recent = '';
-
 			for (let i = 0; i < tokens.length; i++) {
 				if (i >= refStart && i < refEnd) continue;
 				const token = tokens[i];
 				if (token.type !== 'inline' || !token.children) continue;
 				// Headings carry no citations and must stay plain for the TOC.
 				if (tokens[i - 1]?.type === 'heading_open') {
-					recent = '';
 					continue;
 				}
 
+				// Narrative citations may span emphasis/link tokens, but an author's
+				// name in a preceding paragraph must not turn an ordinary date into
+				// a citation in the next paragraph, list item, or footnote.
+				let recent = '';
 				const rebuilt: Token[] = [];
 				let insideLink = 0;
 

@@ -118,6 +118,7 @@
 		<UrlTabs
 			tabs={dayTabs}
 			paramName="day"
+			label="Programme days"
 			defaultTab="day1"
 			tabStyle="pill"
 			class="schedule-tabs"

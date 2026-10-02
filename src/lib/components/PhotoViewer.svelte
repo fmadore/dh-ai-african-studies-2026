@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount, untrack } from 'svelte';
+	import { untrack } from 'svelte';
+	import { page } from '$app/state';
 	import { replaceState } from '$app/navigation';
 	import type { Photo, PhotoCategory } from '$lib/types/photo';
 	import { resolveAssetPath } from '$lib/utils/paths';
@@ -27,9 +28,14 @@
 	 */
 	let activeCategory = $state<string>('All');
 
-	onMount(() => {
-		const seed = untrack(() => initialCategory);
-		if (seed && seed !== 'All') activeCategory = seed;
+	// Effects run after hydration and also follow same-route URL navigation.
+	$effect(() => {
+		const next = categories.includes(initialCategory as PhotoCategory) ? initialCategory : 'All';
+		if (next !== untrack(() => activeCategory)) {
+			activeCategory = next;
+			lightboxOpen = false;
+			lightboxIndex = 0;
+		}
 	});
 	let lightboxOpen = $state(false);
 	let lightboxIndex = $state(0);
@@ -83,13 +89,14 @@
 
 	function setCategory(cat: string) {
 		activeCategory = cat;
+		lightboxOpen = false;
 		lightboxIndex = 0;
 		if (typeof window === 'undefined') return;
 		// SvelteKit's own replaceState — the native one conflicts with its router
 		const url = new URL(window.location.href);
 		if (cat === 'All') url.searchParams.delete('day');
 		else url.searchParams.set('day', cat);
-		replaceState(url.pathname + url.search, {});
+		replaceState(url.pathname + url.search + url.hash, page.state);
 	}
 
 	/**
