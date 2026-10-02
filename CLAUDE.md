@@ -104,7 +104,7 @@ pages 1–24 (DOI: 10.58144/20260827-000).
 
   OpenFreeMap vector styles, keyless; never reintroduce a keyed raster provider.
 
-  `maplibre-gl` uses the 6.8 patch line with `@maplibre/maplibre-gl-leaflet` 0.1.4.
+  `maplibre-gl` uses the 6.11 patch line with `@maplibre/maplibre-gl-leaflet` 0.1.4.
 
   v6 requires `setWorkerUrl()` with Vite's `?worker&url` import before map creation.
 
@@ -234,7 +234,7 @@ Only home, about, and schedule additionally pass `createWorkshopEventJsonLd({ de
 
 - `AppButton.svelte` - Primary/secondary CTA button (`variant` prop)
 
-- `UrlTabs.svelte` - URL-synced tab navigation
+- `UrlTabs.svelte` - SSR-complete, progressively enhanced URL-synced tabs
 
 - `ParticipantsMap.svelte` - Leaflet interactive map on an OpenFreeMap basemap
 
@@ -421,3 +421,17 @@ Use these defined in `src/app.css` instead of arbitrary Tailwind:
 - No server-side code (API routes, form actions with POST)
 
 - External links to full URLs work normally
+
+## Validation and generated artifacts
+
+Use Node 24. `npm run test:python` and `npm run test:scripts` exercise offline data
+transformations. Test the build with `BASE_PATH=/dh-ai-african-studies-2026`;
+all browser navigation must use `sitePath` from `tests/e2e/helpers.ts`.
+`npm run test:static` checks that programme, directory and reader content survive
+without hydration. Production deploy depends on the full validation job.
+
+After changing paper content, parser or metadata, run `npm run export:epub` and
+`npm run check:epub`. Image optimization must preserve unchanged derivative bytes:
+keep `scripts/image-optimization-manifest.json` and future archived originals.
+Graph selection counts distinct seed neighbours, never both directions twice.
+Do not claim private source notes were rerun when repairing only a published snapshot.

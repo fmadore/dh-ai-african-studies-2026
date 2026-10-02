@@ -7,6 +7,9 @@ import { resolve } from 'node:path';
 import { createServer } from 'vite';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
+const args = process.argv.slice(2);
+if (args.some((arg) => arg !== '--check'))
+	throw new Error('Usage: node scripts/export-paper-epub.mjs [--check]');
 const source = resolve(root, 'src/lib/content/position-paper.md');
 if (!existsSync(source))
 	throw new Error('The final position-paper.md is required to export an EPUB.');
@@ -25,7 +28,7 @@ try {
 		process.env.EPUB_PYTHON ||
 			process.env.PYTHON ||
 			(process.platform === 'win32' ? 'python' : 'python3'),
-		[resolve(root, 'scripts/package-paper-epub.py')],
+		[resolve(root, 'scripts/package-paper-epub.py'), ...args],
 		{
 			cwd: root,
 			input: JSON.stringify({ meta, paper, credit: mediaCredit, citation: toChicago(meta) }),

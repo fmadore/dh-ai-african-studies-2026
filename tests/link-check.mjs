@@ -5,11 +5,17 @@ import { LinkChecker, LinkState } from 'linkinator';
 
 const host = '127.0.0.1';
 const port = 4174;
-const baseUrl = `http://${host}:${port}/`;
+const origin = `http://${host}:${port}`;
+const basePath = (process.env.BASE_PATH || '').replace(/\/$/, '');
+const baseUrl = `${origin}${basePath}/`;
 const vite = path.resolve('node_modules/vite/bin/vite.js');
-const server = spawn(process.execPath, [vite, 'preview', '--host', host, '--port', String(port)], {
-	stdio: 'inherit'
-});
+const server = spawn(
+	process.execPath,
+	[vite, 'preview', '--host', host, '--port', String(port), '--strictPort'],
+	{
+		stdio: 'inherit'
+	}
+);
 
 async function waitForServer() {
 	let lastError;
@@ -34,7 +40,9 @@ try {
 		recurse: true,
 		checkCss: true,
 		checkFragments: true,
-		linksToSkip: async (url) => !url.startsWith(baseUrl),
+		// Check accidental root-relative links too: excluding them would hide
+		// precisely the regressions a GitHub Pages prefix check must detect.
+		linksToSkip: async (url) => new URL(url).origin !== origin,
 		timeout: 10_000
 	});
 	const broken = result.links.filter((link) => link.state === LinkState.BROKEN);

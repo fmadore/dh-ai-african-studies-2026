@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { resolveAppPath } from '$lib/utils/paths';
 import {
 	isNavigationGroupActive,
 	isNavigationLinkActive,
@@ -9,8 +10,8 @@ import type { ConceptNode } from '$lib/types/concept-graph';
 
 describe('primary navigation state', () => {
 	it('matches the home link only on the root', () => {
-		expect(isNavigationLinkActive('/', '/')).toBe(true);
-		expect(isNavigationLinkActive('/', '/about')).toBe(false);
+		expect(isNavigationLinkActive(resolveAppPath('/'), resolveAppPath('/'))).toBe(true);
+		expect(isNavigationLinkActive(resolveAppPath('/'), resolveAppPath('/about'))).toBe(false);
 	});
 
 	it('matches nested routes and tolerates trailing slashes', () => {
@@ -21,8 +22,8 @@ describe('primary navigation state', () => {
 
 	it('marks the Outcomes group active on any of its child routes', () => {
 		const outcomes = primaryNavigation.find((link) => link.children)!;
-		expect(isNavigationGroupActive(outcomes, '/references')).toBe(true);
-		expect(isNavigationGroupActive(outcomes, '/schedule')).toBe(false);
+		expect(isNavigationGroupActive(outcomes, resolveAppPath('/references'))).toBe(true);
+		expect(isNavigationGroupActive(outcomes, resolveAppPath('/schedule'))).toBe(false);
 	});
 });
 

@@ -107,7 +107,8 @@ export function createReferenceRule(references: CslReference[]) {
 			const slice = state.src.slice(pos);
 			const match = REF_PATTERN.exec(slice);
 			if (!match) return false;
-			const [full, refId, locator] = match;
+			const [full, refId, rawLocator] = match;
+			const locator = rawLocator?.trim();
 
 			const csl = byId.get(refId);
 			if (!csl) {
@@ -143,8 +144,14 @@ export function createReferenceRule(references: CslReference[]) {
 				};
 			}
 
-			const label = `ref-${slug}`;
-			const key = `:${label}`;
+			// Repeated citations share a note only when their cited location also
+			// agrees. Keep the locator in the note itself for print, EPUB, and
+			// readers without JavaScript, not just the interactive popover.
+			const label = `ref-${slug}${locator ? `-${encodeURIComponent(locator)}` : ''}`;
+			const noteCitation = locator
+				? `${fullCitation} Cited location: ${locator.replace(/\.$/, '')}.`
+				: fullCitation;
+			const key = `:csl:${JSON.stringify([refId, locator ?? null])}`;
 			let footnoteId: number;
 			if (env.footnotes.refs[key] === undefined) {
 				footnoteId = env.footnotes.list.length;
@@ -153,12 +160,12 @@ export function createReferenceRule(references: CslReference[]) {
 				// parser, which would re-trigger the footnote_tail rule and produce
 				// a nested footnote block.
 				const bodyToken = new state.Token('text', '', 0);
-				bodyToken.content = fullCitation;
+				bodyToken.content = noteCitation;
 				env.footnotes.list.push({
 					label,
 					count: 0,
 					tokens: [bodyToken],
-					content: fullCitation
+					content: noteCitation
 				});
 			} else {
 				footnoteId = env.footnotes.refs[key];

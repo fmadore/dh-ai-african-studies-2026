@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import type {
 		ConceptNode,
 		ConceptEdge,
@@ -22,15 +23,18 @@
 	import GraphSearch from './concept-graph/GraphSearch.svelte';
 	import GraphDetailPanel from './concept-graph/GraphDetailPanel.svelte';
 	import GraphFilters from './concept-graph/GraphFilters.svelte';
+	import GraphTextView from './concept-graph/GraphTextView.svelte';
+	import { fitGraphView } from './concept-graph/graph-viewport';
 	import { nextGraphNode, type GraphNavigationKey } from './concept-graph/graph-navigation';
 	import { GraphRenderer, type ResolvedGraphEdge } from './concept-graph/graph-renderer';
 	import { createGraphSimulation, type GraphSimulation } from './concept-graph/graph-simulation';
 
 	interface Props {
 		data: ConceptGraphData;
+		embedded?: boolean;
 	}
 
-	let { data }: Props = $props();
+	let { data, embedded = false }: Props = $props();
 	const graphInstructionsId = $props.id();
 
 	// The stage is dark in both themes, so the palette is fixed rather than
@@ -59,6 +63,8 @@
 	let draggedNode = $state.raw<ConceptNode | null>(null);
 	let activeGroups = $state.raw<Set<ConceptGroup>>(new Set(ALL_GROUPS));
 	let simulationReady = $state(false);
+	let graphFailed = $state(false);
+	let fittingView = true;
 	let isFullscreen = $state(false);
 	let prefersReducedMotion = $state(false);
 	let focusedNodeId = $state<string | null>(null);
@@ -173,7 +179,10 @@
 	$effect(() => {
 		if (typeof window === 'undefined') return;
 		const query = window.matchMedia('(prefers-reduced-motion: reduce)');
-		const syncPreference = () => (prefersReducedMotion = query.matches);
+		const syncPreference = () => {
+			prefersReducedMotion = query.matches;
+			simulation?.setReducedMotion(query.matches);
+		};
 		syncPreference();
 		query.addEventListener('change', syncPreference);
 		return () => query.removeEventListener('change', syncPreference);
@@ -186,6 +195,7 @@
 	// --- Zoom to node (called by search) ---
 	function zoomToNode(node: ConceptNode) {
 		if (!simulation) return;
+		fittingView = false;
 		const k = 1.4;
 		simulation.zoomTo(
 			{
@@ -217,11 +227,14 @@
 			for (const entry of entries) {
 				const w = entry.contentRect.width;
 				containerWidth = w;
-				if (isFullscreen) {
+				if (document.fullscreenElement === containerEl) {
 					containerHeight = entry.contentRect.height;
 				} else {
-					containerHeight = Math.max(400, Math.min(w * 0.65, 700));
+					containerHeight = embedded
+						? Math.max(240, Math.min(w * 0.65, window.innerHeight * 0.55))
+						: Math.max(400, Math.min(w * 0.65, 700));
 				}
+				fitGraph(0);
 			}
 		});
 		ro.observe(target);
@@ -235,38 +248,54 @@
 		// Read `data` synchronously so the effect tracks it and rebuilds on change
 		const graphData = data;
 		let destroyed = false;
-		let readyTimer: ReturnType<typeof setTimeout> | undefined;
+		graphFailed = false;
+		simulationReady = false;
+		fittingView = true;
+		selectedNode = null;
+		hoveredNode = null;
 
 		createGraphSimulation({
 			data: graphData,
 			svg: svgEl,
 			getSize: () => ({ width: containerWidth, height: containerHeight }),
 			getNodeRadius,
+			reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
 			// A tick schedules a repaint rather than touching reactive state
-			onTick: () => graphRenderer.scheduleRender(true),
+			onTick: () => {
+				if (!destroyed) graphRenderer.scheduleRender(true);
+			},
 			onSettled: () => {
+				if (destroyed) return;
 				simulationReady = true;
+				if (fittingView) fitGraph(0);
 				graphRenderer.scheduleRender(true);
 			},
-			onZoom: (next) => {
+			onZoom: (next, fromGesture) => {
+				if (fromGesture) fittingView = false;
 				Object.assign(view, next);
 				graphRenderer.scheduleRender();
 			},
-			onDrag: (node) => (draggedNode = node)
-		}).then((created) => {
-			if (destroyed) return created.destroy();
-			simulation = created;
-			// Assigned once. `$state.raw` means d3's in-place writes to x/y on these
-			// very objects stay invisible to Svelte.
-			simEdges = created.edges;
-			simNodes = created.nodes;
-			// Reveal the graph after a moment of spreading out, not only once it rests
-			readyTimer = setTimeout(() => (simulationReady = true), 300);
-		});
+			onDrag: (node) => {
+				draggedNode = node;
+				if (node) fittingView = false;
+			}
+		})
+			.then((created) => {
+				if (destroyed) return created.destroy();
+				simulation = created;
+				// Assigned once. `$state.raw` means d3's in-place writes to x/y on these
+				// very objects stay invisible to Svelte.
+				simEdges = created.edges;
+				simNodes = created.nodes;
+				fitGraph(0);
+				simulationReady = true;
+			})
+			.catch(() => {
+				if (!destroyed) graphFailed = true;
+			});
 
 		return () => {
 			destroyed = true;
-			clearTimeout(readyTimer);
 			simulation?.destroy();
 			simulation = null;
 		};
@@ -291,6 +320,8 @@
 			next.add(group);
 		}
 		activeGroups = next;
+		if (selectedNode && !next.has(selectedNode.group)) selectedNode = null;
+		if (hoveredNode && !next.has(hoveredNode.group)) hoveredNode = null;
 	}
 
 	function activateAllGroups() {
@@ -299,30 +330,39 @@
 
 	// --- Zoom controls ---
 	function zoomIn() {
+		fittingView = false;
 		simulation?.zoomBy(1.5, motionDuration(300));
 	}
 
 	function zoomOut() {
+		fittingView = false;
 		simulation?.zoomBy(1 / 1.5, motionDuration(300));
 	}
 
+	function fitGraph(duration: number) {
+		// Keep dimensions and filters out of the simulation initialization effect.
+		untrack(() => {
+			if (!simulation) return;
+			simulation.zoomTo(
+				fitGraphView(filteredNodes, containerWidth, containerHeight, getNodeRadius),
+				duration
+			);
+		});
+	}
+
 	function recenter() {
-		simulation?.zoomTo({ x: 0, y: 0, k: 1 }, motionDuration(400));
+		fittingView = true;
+		fitGraph(motionDuration(400));
 	}
 
 	// --- Fullscreen ---
 	function toggleFullscreen() {
-		if (!containerEl) return;
+		if (!containerEl?.requestFullscreen) return;
 		if (!document.fullscreenElement) {
 			// isFullscreen itself is kept in sync by the fullscreenchange listener
-			containerEl
-				.requestFullscreen()
-				.then(() => {
-					setTimeout(recenter, 200);
-				})
-				.catch(() => {
-					// Fullscreen unsupported (e.g. iOS Safari) — ignore
-				});
+			containerEl.requestFullscreen().catch(() => {
+				// Fullscreen unsupported (e.g. iOS Safari) — ignore
+			});
 		} else {
 			document.exitFullscreen().catch(() => {});
 		}
@@ -331,7 +371,7 @@
 	$effect(() => {
 		if (typeof window === 'undefined') return;
 		function onFullscreenChange() {
-			isFullscreen = !!document.fullscreenElement;
+			isFullscreen = document.fullscreenElement === containerEl;
 		}
 		document.addEventListener('fullscreenchange', onFullscreenChange);
 		return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
@@ -392,7 +432,7 @@
 	}}
 />
 
-<div class="concept-graph-wrapper" bind:this={containerEl}>
+<div class="concept-graph-wrapper" class:embedded bind:this={containerEl}>
 	<!-- Toolbar: stats + search + group filters -->
 	<div class="graph-toolbar">
 		<GraphFilters
@@ -415,7 +455,16 @@
 		<p id={graphInstructionsId} class="sr-only">
 			Use the arrow keys to move between concepts. Press Enter or Space to show a concept's details.
 		</p>
-		{#if !simulationReady}
+		{#if graphFailed}
+			<div class="loading-overlay graph-error" role="status">
+				<p>The interactive graph could not be loaded.</p>
+				<p>All concepts and connections are available in the text directory below.</p>
+				<!-- A new document clears failed module imports retained by some browsers. -->
+				<button class="graph-retry" onclick={() => window.location.reload()}
+					>Reload page and retry</button
+				>
+			</div>
+		{:else if !simulationReady}
 			<div class="loading-overlay">
 				<Spinner size="8" color="teal" />
 				<p class="body-text-muted">Building concept network...</p>
@@ -537,7 +586,12 @@
 			<button class="control-btn" onclick={zoomOut} aria-label="Zoom out" title="Zoom out">
 				<MinusOutline class="h-4 w-4" />
 			</button>
-			<button class="control-btn" onclick={recenter} aria-label="Recenter graph" title="Recenter">
+			<button
+				class="control-btn"
+				onclick={recenter}
+				aria-label="Recenter graph"
+				title="Fit all visible concepts"
+			>
 				<svg
 					width="16"
 					height="16"
@@ -600,12 +654,13 @@
 		<GraphDetailPanel
 			node={selectedNode}
 			neighbors={selectedNeighbors}
-			{isMobile}
+			isMobile={isMobile && !embedded}
 			{getNodeColor}
 			onclose={() => (selectedNode = null)}
 			onnavigate={navigateToNeighbor}
 		/>
 	{/if}
+	<GraphTextView {data} open={graphFailed} />
 </div>
 
 <style>
@@ -761,6 +816,7 @@
 		padding: var(--space-md);
 		display: flex;
 		flex-direction: column;
+		overflow-y: auto;
 	}
 
 	.concept-graph-wrapper:fullscreen::backdrop {
@@ -769,6 +825,7 @@
 
 	.concept-graph-wrapper:fullscreen .graph-canvas {
 		flex: 1;
+		min-height: 240px;
 	}
 
 	.concept-graph-wrapper:fullscreen .graph-svg {
@@ -826,6 +883,22 @@
 		justify-content: center;
 		gap: var(--space-sm);
 		z-index: 2;
+	}
+
+	.graph-error {
+		padding: var(--space-lg);
+		text-align: center;
+		background: var(--graph-surface);
+	}
+
+	.graph-retry {
+		min-height: 2.75rem;
+		padding: var(--space-xs) var(--space-md);
+		border: 1px solid var(--border-strong);
+		border-radius: var(--radius-control);
+		background: var(--graph-raised);
+		color: var(--text-primary);
+		cursor: pointer;
 	}
 
 	@keyframes spin {

@@ -1,98 +1,60 @@
 /**
- * One-shot / repeatable image optimization for the static assets.
- *
- * - static/images/participants/*  → resized (max 640px) WebP portraits
- * - static/images/interviews/*    → resized (max 640px) WebP video posters
- *                                   (saved copies of the YouTube thumbnails, so
- *                                   no page makes a third-party request; any
- *                                   interview without one is fetched first)
- * - static/images/photos/*        → resized (max 1920px) JPEGs, EXIF preserved
- *                                   (the photos page reads DateTimeOriginal to
- *                                   group by workshop day) + 640px WebP thumbs
- *                                   in static/images/photos/thumbs/
- * - static/images/logo/*          → whitespace-trimmed WebP marks in
- *                                   static/images/logo/trimmed/
- *
- * Run with: npm run optimize:images
- * Idempotent: already-small images are only re-encoded, never upscaled.
+ * Hash-tracked image derivatives. Unchanged images retain their exact bytes.
+ * New originals are retained under assets/image-originals/, outside static/.
+ * --adopt-existing registers the legacy optimized corpus without recompression.
+ * --offline skips YouTube poster downloads. Originals are required to rebuild
+ * adopted derivatives when settings change; they are never recompressed blindly.
  */
-
-import sharp from 'sharp';
-import { readdirSync, mkdirSync, readFileSync, unlinkSync, statSync, writeFileSync } from 'node:fs';
-import { join, extname, basename } from 'node:path';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { basename, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
+import {
+	SETTINGS,
+	adoptAsset,
+	atomicWrite,
+	loadManifest,
+	optimizeAsset,
+	outputUnchanged,
+	relativePath
+} from './image-pipeline.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
-const PARTICIPANTS_DIR = join(ROOT, 'static', 'images', 'participants');
-const INTERVIEWS_DIR = join(ROOT, 'static', 'images', 'interviews');
-const PHOTOS_DIR = join(ROOT, 'static', 'images', 'photos');
-const THUMBS_DIR = join(PHOTOS_DIR, 'thumbs');
-const LOGO_DIR = join(ROOT, 'static', 'images', 'logo');
-const LOGO_TRIMMED_DIR = join(LOGO_DIR, 'trimmed');
-
 const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp']);
-
-const kb = (bytes) => `${Math.round(bytes / 1024)} KB`;
+const LOGO_SOURCES = [
+	{ file: 'VWST-logo.png', slug: 'vwst' },
+	{ file: 'ZMO-logo.png', slug: 'zmo' },
+	{ file: 'uni-bayreuth-africa-multiple-logo.jpeg', slug: 'africa-multiple' }
+];
 
 function listImages(dir) {
-	return readdirSync(dir).filter((f) => IMAGE_EXTENSIONS.has(extname(f).toLowerCase()));
+	return existsSync(dir)
+		? readdirSync(dir)
+				.filter((file) => IMAGE_EXTENSIONS.has(extname(file).toLowerCase()))
+				.sort()
+		: [];
 }
 
-/**
- * Hand sharp a buffer, never a path, wherever the output overwrites the input.
- * Given a path sharp keeps its own handle open, and on Windows the subsequent
- * `writeFileSync` to the same file then fails with an opaque UNKNOWN errno.
- */
-function loadImage(path) {
-	return sharp(readFileSync(path));
-}
-
-async function optimizeParticipants() {
-	let before = 0;
-	let after = 0;
-
-	for (const file of listImages(PARTICIPANTS_DIR)) {
-		const input = join(PARTICIPANTS_DIR, file);
-		const slug = basename(file, extname(file));
-		const output = join(PARTICIPANTS_DIR, `${slug}.webp`);
-
-		before += statSync(input).size;
-		const buffer = await loadImage(input)
-			.rotate()
-			.resize(640, 640, { fit: 'inside', withoutEnlargement: true })
-			.webp({ quality: 82 })
-			.toBuffer();
-		if (input !== output) unlinkSync(input);
-		writeFileSync(output, buffer);
-		after += statSync(output).size;
-	}
-
-	console.log(`participants: ${kb(before)} → ${kb(after)}`);
-}
-
-/** YouTube ids from src/lib/data/interviews.ts (read as text: this script is plain Node). */
-function interviewIds() {
-	const source = readFileSync(join(ROOT, 'src', 'lib', 'data', 'interviews.ts'), 'utf8');
-	return [...source.matchAll(/youtubeId:\s*'([\w-]+)'/g)].map((match) => match[1]);
-}
-
-/**
- * Download the poster of every interview that has none yet. maxresdefault is
- * 16:9 but missing for some uploads; hqdefault always exists (4:3,
- * letterboxed — the facade's object-fit crops the bars).
- */
-async function fetchMissingInterviewPosters() {
-	mkdirSync(INTERVIEWS_DIR, { recursive: true });
-	const have = new Set(listImages(INTERVIEWS_DIR).map((file) => basename(file, extname(file))));
-
-	for (const id of interviewIds().filter((id) => !have.has(id))) {
+async function fetchPosters(root) {
+	const path = join(root, 'src/lib/data/interviews.ts');
+	if (!existsSync(path)) return;
+	const ids = [...readFileSync(path, 'utf8').matchAll(/youtubeId:\s*['"]([\w-]+)['"]/g)].map(
+		(match) => match[1]
+	);
+	const directory = join(root, 'static/images/interviews');
+	const have = new Set(listImages(directory).map((file) => basename(file, extname(file))));
+	for (const id of new Set(ids.filter((value) => !have.has(value)))) {
 		let saved = false;
 		for (const size of ['maxresdefault', 'hqdefault']) {
 			try {
-				const response = await fetch(`https://i.ytimg.com/vi/${id}/${size}.jpg`);
+				const response = await fetch(`https://i.ytimg.com/vi/${id}/${size}.jpg`, {
+					signal: AbortSignal.timeout(15_000)
+				});
 				if (!response.ok) continue;
-				writeFileSync(join(INTERVIEWS_DIR, `${id}.jpg`), Buffer.from(await response.arrayBuffer()));
-				console.log(`interviews: fetched ${size} poster for ${id}`);
+				const bytes = Buffer.from(await response.arrayBuffer());
+				if (bytes.length > 10 * 1024 * 1024) throw new Error('Poster exceeds 10 MiB');
+				await sharp(bytes).metadata();
+				atomicWrite(join(directory, `${id}.jpg`), bytes);
 				saved = true;
 				break;
 			} catch (error) {
@@ -103,115 +65,72 @@ async function fetchMissingInterviewPosters() {
 	}
 }
 
-/**
- * Video posters are saved locally rather than hotlinked from i.ytimg.com, so no
- * page ships a third-party image request before the visitor asks for the video.
- * File names are the YouTube id, which is what the interview data keys on.
- */
-async function optimizeInterviews() {
-	await fetchMissingInterviewPosters();
-	let before = 0;
-	let after = 0;
-
-	for (const file of listImages(INTERVIEWS_DIR)) {
-		const input = join(INTERVIEWS_DIR, file);
-		const id = basename(file, extname(file));
-		const output = join(INTERVIEWS_DIR, `${id}.webp`);
-
-		before += statSync(input).size;
-		const buffer = await loadImage(input)
-			.resize(640, 640, { fit: 'inside', withoutEnlargement: true })
-			.webp({ quality: 82 })
-			.toBuffer();
-		if (input !== output) unlinkSync(input);
-		writeFileSync(output, buffer);
-		after += statSync(output).size;
+export async function optimizeImages({ root = ROOT, adoptExisting = false, offline = false } = {}) {
+	const manifest = loadManifest(root);
+	const counts = { adopted: 0, optimized: 0, skipped: 0 };
+	if (!offline && !adoptExisting) await fetchPosters(root);
+	for (const category of ['participants', 'interviews', 'photos']) {
+		const directory = join(root, 'static/images', category);
+		const groups = new Map();
+		for (const file of listImages(directory)) {
+			const slug = basename(file, extname(file));
+			if (!groups.has(slug)) groups.set(slug, []);
+			groups.get(slug).push(relativePath(root, join(directory, file)));
+		}
+		// Missing outputs can be regenerated from an archived original.
+		for (const key of Object.keys(manifest.assets).filter((key) =>
+			key.startsWith(`${category}/`)
+		)) {
+			const slug = key.slice(category.length + 1);
+			if (!groups.has(slug)) groups.set(slug, []);
+		}
+		for (const [slug, files] of [...groups].sort()) {
+			const key = `${category}/${slug}`;
+			const outputs = [
+				`static/images/${category}/${slug}.${category === 'photos' ? 'jpg' : 'webp'}`
+			];
+			if (category === 'photos') outputs.push(`static/images/photos/thumbs/${slug}.webp`);
+			const options = { root, manifest, key, outputs, settings: SETTINGS[category] };
+			let status;
+			if (adoptExisting && !manifest.assets[key]) {
+				status = await adoptAsset(options);
+			} else {
+				const incoming = files.filter((path) => !outputUnchanged(root, manifest.assets[key], path));
+				if (incoming.length > 1)
+					throw new Error(`Conflicting inputs for ${key}: ${incoming.join(', ')}`);
+				status = await optimizeAsset({ ...options, input: incoming[0] || files[0] });
+			}
+			counts[status]++;
+		}
 	}
-
-	console.log(`interviews: ${kb(before)} → ${kb(after)}`);
-}
-
-async function optimizePhotos() {
-	mkdirSync(THUMBS_DIR, { recursive: true });
-	let before = 0;
-	let after = 0;
-
-	for (const file of listImages(PHOTOS_DIR)) {
-		const input = join(PHOTOS_DIR, file);
-		const id = basename(file, extname(file));
-		const output = join(PHOTOS_DIR, `${id}.jpg`);
-
-		before += statSync(input).size;
-
-		// Full-size image for the lightbox — EXIF kept for day categorisation
-		const fullBuffer = await loadImage(input)
-			.rotate()
-			.resize(1920, 1920, { fit: 'inside', withoutEnlargement: true })
-			.jpeg({ quality: 80, mozjpeg: true })
-			.withMetadata()
-			.toBuffer();
-
-		// Grid thumbnail (no EXIF needed)
-		await loadImage(input)
-			.rotate()
-			.resize(640, 640, { fit: 'inside', withoutEnlargement: true })
-			.webp({ quality: 75 })
-			.toFile(join(THUMBS_DIR, `${id}.webp`));
-
-		if (input !== output) unlinkSync(input);
-		writeFileSync(output, fullBuffer);
-		after += statSync(output).size;
-	}
-
-	console.log(`photos: ${kb(before)} → ${kb(after)} (+ thumbs)`);
-}
-
-/**
- * Funder marks carry a lot of baked-in whitespace — the Africa Multiple JPEG is
- * 2250x1175 for 2105x524 of actual logo, so at a fixed box height the mark
- * rendered at less than half the size of its neighbours. Trimming lets the
- * footer size every mark by its real ink rather than its canvas.
- *
- * Sources with alpha keep it. Opaque sources are flattened onto white, which is
- * the footer plate's colour, so no seam is visible where the two meet.
- */
-const LOGO_SOURCES = [
-	{ file: 'VWST-logo.png', slug: 'vwst' },
-	{ file: 'ZMO-logo.png', slug: 'zmo' },
-	{ file: 'uni-bayreuth-africa-multiple-logo.jpeg', slug: 'africa-multiple' }
-];
-
-async function optimizeLogos() {
-	mkdirSync(LOGO_TRIMMED_DIR, { recursive: true });
-	let before = 0;
-	let after = 0;
-
 	for (const { file, slug } of LOGO_SOURCES) {
-		const input = join(LOGO_DIR, file);
-		const output = join(LOGO_TRIMMED_DIR, `${slug}.webp`);
-
-		before += statSync(input).size;
-
-		const { hasAlpha } = await sharp(input).metadata();
-		let pipeline = sharp(input);
-		// Flatten first: trim() keys off the top-left pixel, and a transparent
-		// canvas round-trips differently from a white one.
-		if (!hasAlpha) pipeline = pipeline.flatten({ background: '#ffffff' });
-
-		await pipeline
-			.trim({ threshold: 12 })
-			.resize(600, 600, { fit: 'inside', withoutEnlargement: true })
-			.webp({ quality: 92, alphaQuality: 100 })
-			.toFile(output);
-
-		after += statSync(output).size;
+		const source = `static/images/logo/${file}`;
+		if (!existsSync(join(root, source))) continue;
+		const key = `logos/${slug}`;
+		const options = {
+			root,
+			manifest,
+			key,
+			outputs: [`static/images/logo/trimmed/${slug}.webp`],
+			settings: SETTINGS.logos
+		};
+		const status =
+			adoptExisting && !manifest.assets[key]
+				? await adoptAsset({ ...options, source })
+				: await optimizeAsset({ ...options, input: source, keepInput: true });
+		counts[status]++;
 	}
-
-	console.log(`logos: ${kb(before)} → ${kb(after)} (trimmed)`);
+	return counts;
 }
 
-await optimizeParticipants();
-await optimizeInterviews();
-await optimizePhotos();
-await optimizeLogos();
-console.log('done');
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+	const allowed = new Set(['--adopt-existing', '--offline']);
+	for (const flag of process.argv.slice(2))
+		if (!allowed.has(flag)) throw new Error(`Unknown option: ${flag}`);
+	console.log(
+		await optimizeImages({
+			adoptExisting: process.argv.includes('--adopt-existing'),
+			offline: process.argv.includes('--offline')
+		})
+	);
+}

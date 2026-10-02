@@ -48,7 +48,9 @@ from the local final Markdown, using the reader's parser and publication metadat
 Python 3 is required (standard library only); set `EPUB_PYTHON` to its executable
 path if it is not available as `python` on Windows or `python3` elsewhere.
 The export includes the Day 3 photo, project links, references, and numbered notes.
-The packager checks XML, internal link targets, and ZIP integrity.
+The packager checks XML, internal link targets, and ZIP integrity. Exports use stable
+metadata and ZIP timestamps; `npm run check:epub` compares normalized archive contents
+without modifying the file. CI additionally runs checksum-pinned EPUBCheck 5.4.0.
 
 `npm run build:paper` regenerates the EPUB before building the reader. For direct
 `npm run build` usage, rerun `npm run export:epub` after changing the paper first.
@@ -85,14 +87,14 @@ with each device's screen and font settings.
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v20.19 or later; `.nvmrc` pins v24)
+- [Node.js](https://nodejs.org/) (v24; `.nvmrc` and `engines` use the tested Node 24 line)
 - npm
-- Python 3.10+ (only for the data scripts; both are stdlib-only)
+- Python 3.10+ (data transformations, EPUB export, and their tests; standard library only)
 
 ### Install dependencies
 
 ```sh
-npm install
+npm ci
 ```
 
 ### Start the development server
@@ -118,16 +120,25 @@ npm run lint
 ### Tests and production checks
 
 ```sh
-npm run test:unit      # reference, path, SEO, and citation utilities
-npm run build
-npm run test:bundle    # gzip size budgets for generated CSS and JavaScript
-npm run test:links     # generated internal links and fragments
-npm run test:e2e       # desktop/mobile, light/dark, keyboard, and axe checks
+npm run test:unit      # reader, graph viewport, photos, reference and SEO utilities
+npm run test:python    # offline reference-fetching and graph extraction fixtures
+npm run test:scripts   # image pipeline: idempotence, metadata and atomic writes
+npm run check:epub     # verify the downloadable edition matches current sources
+BASE_PATH=/dh-ai-african-studies-2026 npm run build
+npm run test:static    # core archive content is present before hydration
+npm run test:bundle    # global and per-route static-import budgets
+BASE_PATH=/dh-ai-african-studies-2026 npm run test:links
+BASE_PATH=/dh-ai-african-studies-2026 npm run test:e2e
 ```
 
-Install the Chromium test runtime once with `npm run test:e2e:install`. Pull requests run the
-browser suite, dependency review, and the existing format/lint/type/build workflow in GitHub
-Actions. A scheduled CodeQL workflow covers JavaScript and TypeScript.
+Install Chromium and WebKit once with `npm run test:e2e:install`. On Windows, set
+`BASE_PATH` in the shell environment before running the commands instead of the inline
+POSIX assignment shown above. The production validation workflow runs formatting, lint,
+types, offline transformations, EPUB freshness/conformance, static content, link/bundle
+checks and browser journeys before uploading the exact tested build for deployment.
+WebKit covers reader/navigation journeys; Chromium covers desktop and mobile, themes,
+keyboard interactions and axe. Dependency review and scheduled CodeQL (JavaScript,
+TypeScript and Python) remain independent security checks.
 
 The durable visual rules and machine-readable design tokens live in [`DESIGN.md`](DESIGN.md) and
 `.impeccable/design.json`. New UI should preserve that system and extend semantic tokens rather
@@ -156,7 +167,9 @@ npm run preview
 
 ## Deployment
 
-The site automatically deploys to GitHub Pages when changes are pushed to the `main` branch via GitHub Actions.
+The site deploys to GitHub Pages after a push to `main` passes the production validation
+job. Pull requests run the same validation without deploying. No artifact is published
+until its unit, transformation, EPUB, static-content, bundle, link and browser checks pass.
 
 ### Manual Deployment
 
@@ -251,9 +264,27 @@ After adding images to `static/images/participants/` or `static/images/photos/`:
 npm run optimize:images
 ```
 
-Portraits are converted to 640px WebP; gallery photos are resized to 1920px
-JPEG (EXIF preserved — the photos page uses capture dates to group by day)
-with 640px WebP thumbnails.
+Portraits are converted to 640px WebP; gallery photos are resized to 1920px JPEG
+with 640px WebP thumbnails. Capture dates and attribution are retained; unrelated
+camera metadata is removed from new derivatives. The committed optimization manifest
+records source/settings/output hashes, so unchanged images are not recompressed.
+Existing optimized assets were adopted without changing their bytes. New originals
+are kept under ignored `assets/image-originals/`, outside public `static/`; back these
+up separately and commit the manifest with generated derivatives. A fresh clone can
+skip unchanged derivatives without the originals, but rebuilding needs the source.
+Output and manifest writes are transactional. Use `--offline` to skip poster downloads;
+`--adopt-existing` is a migration-only option already applied to the 94 legacy assets.
+
+The graph download at `/concepts/data.json` includes extraction provenance. The
+current snapshot was corrected from the existing published graph by removing four
+nonseed nodes that lacked two distinct seed neighbours; its provenance identifies
+that transformation rather than claiming a new extraction from private notes.
+Future exports use `scripts/extract_concept_graph.py` with explicit input paths,
+distinct-neighbour selection, canonical sorted edges and an input snapshot digest.
+
+The programme and directory are rendered completely before JavaScript; tabs progressively
+enhance those sections after hydration. The concept map includes a searchable text
+directory, and map/graph failures retain access to the underlying archive.
 
 ## Contributing
 

@@ -14,6 +14,7 @@
 	let graph = $derived(data.graph as ConceptGraphData);
 
 	const referencesHref = resolveAppPath('/references');
+	const graphDownloadHref = resolveAppPath('/concepts/data.json');
 
 	/** The hero and the section intro used to state the same numbers 200px
 	 *  apart. They are stated once, here, as a strip that doubles as a legend. */
@@ -125,6 +126,15 @@
 			>
 			vault built from the workshop's
 			<a href={referencesHref} class="link-secondary">bibliography</a>.
+		</p>
+		<p class="text-body-sm mt-sm">
+			The downloadable snapshot records its export and correction history. The current correction
+			removed concepts that did not meet the expansion threshold; it did not re-extract the private
+			reading vault. Connections represent links between notes, not the strength of evidence or
+			agreement in the literature.
+			<a href={graphDownloadHref} download="workshop-concept-graph.json" class="link-secondary"
+				>Download the concept graph with provenance (JSON)</a
+			>.
 		</p>
 	</div>
 </section>

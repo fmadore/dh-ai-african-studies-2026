@@ -23,11 +23,13 @@ export interface GraphSimulationOptions {
 	 */
 	getSize: () => { width: number; height: number };
 	getNodeRadius: (degree: number) => number;
+	/** Settle the initial layout before showing it, without animated ticks. */
+	reducedMotion?: boolean;
 	/** Node positions moved (every tick). */
 	onTick: () => void;
 	/** The layout has come to rest. */
 	onSettled: () => void;
-	onZoom: (view: GraphView) => void;
+	onZoom: (view: GraphView, fromGesture: boolean) => void;
 	/** The node being dragged, or null when a drag ends. */
 	onDrag: (node: ConceptNode | null) => void;
 }
@@ -40,6 +42,7 @@ export interface GraphSimulation {
 	bindDrag: () => void;
 	zoomBy: (factor: number, durationMs: number) => void;
 	zoomTo: (view: GraphView, durationMs: number) => void;
+	setReducedMotion: (reduced: boolean) => void;
 	destroy: () => void;
 }
 
@@ -54,6 +57,7 @@ type Transition = {
 };
 type SvgSelection = Selection<SVGSVGElement, unknown, null, undefined> & {
 	transition: () => Transition;
+	interrupt: () => SvgSelection;
 };
 
 export async function createGraphSimulation(
@@ -67,12 +71,14 @@ export async function createGraphSimulation(
 	]);
 	const { data, getNodeRadius } = options;
 	const { width, height } = options.getSize();
+	let reducedMotion = options.reducedMotion ?? false;
 
 	const nodes: ConceptNode[] = data.nodes.map((n) => ({ ...n }));
 	const edges: ConceptEdge[] = data.edges.map((e) => ({ ...e }));
 
 	const simulation = d3Force
 		.forceSimulation(nodes)
+		.stop()
 		.alphaDecay(0.05)
 		.velocityDecay(0.4)
 		.force(
@@ -99,17 +105,33 @@ export async function createGraphSimulation(
 	simulation.on('tick', options.onTick);
 	simulation.on('end', options.onSettled);
 
+	function settle() {
+		simulation.stop().alphaTarget(0);
+		// tick() intentionally does not dispatch events; notify the renderer once.
+		const ticks = Math.ceil(
+			Math.log(simulation.alphaMin() / simulation.alpha()) / Math.log(1 - simulation.alphaDecay())
+		);
+		if (ticks > 0) simulation.tick(ticks);
+		options.onTick();
+	}
+
+	if (reducedMotion) settle();
+	else {
+		// Start with a legible spread; the remaining relaxation is brief.
+		simulation.tick(60).restart();
+	}
+
 	// --- Zoom: pinch and drag always; the wheel only with Ctrl/⌘, so the page
 	// still scrolls past the graph ---
 	const svg = d3Selection.select(options.svg) as SvgSelection;
 	const zoomBehavior = d3Zoom
 		.zoom<SVGSVGElement, unknown>()
-		.scaleExtent([0.3, 5])
+		.scaleExtent([0.05, 5])
 		.filter((event: Event) =>
 			event.type === 'wheel' ? (event as WheelEvent).ctrlKey || (event as WheelEvent).metaKey : true
 		)
-		.on('zoom', ({ transform }: D3ZoomEvent<SVGSVGElement, unknown>) =>
-			options.onZoom({ x: transform.x, y: transform.y, k: transform.k })
+		.on('zoom', ({ transform, sourceEvent }: D3ZoomEvent<SVGSVGElement, unknown>) =>
+			options.onZoom({ x: transform.x, y: transform.y, k: transform.k }, Boolean(sourceEvent))
 		);
 	svg.call(zoomBehavior);
 
@@ -126,7 +148,7 @@ export async function createGraphSimulation(
 		.on('start', function (event: DragEvent) {
 			const node = nodeOf(this);
 			if (!node) return;
-			if (!event.active) simulation.alphaTarget(0.3).restart();
+			if (!event.active && !reducedMotion) simulation.alphaTarget(0.3).restart();
 			node.fx = node.x;
 			node.fy = node.y;
 			options.onDrag(node);
@@ -136,6 +158,11 @@ export async function createGraphSimulation(
 			if (!node) return;
 			node.fx = event.x;
 			node.fy = event.y;
+			if (reducedMotion) {
+				node.x = event.x;
+				node.y = event.y;
+				options.onTick();
+			}
 		})
 		.on('end', function (event: DragEvent) {
 			const node = nodeOf(this);
@@ -150,16 +177,30 @@ export async function createGraphSimulation(
 		nodes,
 		edges,
 		bindDrag: () => svg.selectAll<SVGGElement, unknown>('.node-group').call(dragBehavior),
-		zoomBy: (factor, durationMs) =>
-			svg.transition().duration(durationMs).call(zoomBehavior.scaleBy, factor),
-		zoomTo: ({ x, y, k }, durationMs) =>
-			svg
-				.transition()
-				.duration(durationMs)
-				.call(zoomBehavior.transform, d3Zoom.zoomIdentity.translate(x, y).scale(k)),
+		zoomBy: (factor, durationMs) => {
+			svg.interrupt();
+			if (durationMs === 0) svg.call(zoomBehavior.scaleBy, factor);
+			else svg.transition().duration(durationMs).call(zoomBehavior.scaleBy, factor);
+		},
+		zoomTo: ({ x, y, k }, durationMs) => {
+			const transform = d3Zoom.zoomIdentity.translate(x, y).scale(k);
+			svg.interrupt();
+			if (durationMs === 0) svg.call(zoomBehavior.transform, transform);
+			else svg.transition().duration(durationMs).call(zoomBehavior.transform, transform);
+		},
+		setReducedMotion: (reduced) => {
+			reducedMotion = reduced;
+			if (reduced) {
+				svg.interrupt();
+				settle();
+				options.onSettled();
+			}
+		},
 		destroy: () => {
 			simulation.stop();
+			svg.interrupt();
 			svg.on('.zoom', null);
+			svg.selectAll('.node-group').on('.drag', null);
 		}
 	};
 }

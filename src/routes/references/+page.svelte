@@ -2,9 +2,9 @@
 	import { Button } from 'flowbite-svelte';
 	import { SearchOutline, CloseOutline, FilterOutline } from 'flowbite-svelte-icons';
 	import { SvelteSet } from 'svelte/reactivity';
-	import { onMount, untrack } from 'svelte';
+	import { untrack } from 'svelte';
 	import { page } from '$app/state';
-	import { replaceState } from '$app/navigation';
+	import { afterNavigate, replaceState } from '$app/navigation';
 	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
 	import { fade, slide } from 'svelte/transition';
 	import type { CslReference } from '$lib/types/csl';
@@ -178,15 +178,18 @@
 	// --- Query string ---
 	let urlSynced = $state(false);
 
-	onMount(() => {
+	// SvelteKit can reuse this page when only its query changes. Read every
+	// completed navigation, not just the first mount, so shared links stay true.
+	afterNavigate(() => {
 		const params = page.url.searchParams;
 		filters.readFrom(params);
 		const size = params.get('per');
+		pageSize = DEFAULT_PAGE_SIZE;
 		if (size !== null && (PAGE_SIZE_OPTIONS as readonly number[]).includes(Number(size))) {
 			pageSize = Number(size);
 		}
 		const requested = Number.parseInt(params.get('page') ?? '', 10);
-		if (requested > 1) chosenPage = { key: resultsKey, page: requested };
+		chosenPage = { key: resultsKey, page: requested > 1 ? requested : 1 };
 		urlSynced = true;
 	});
 

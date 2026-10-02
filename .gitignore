@@ -13,6 +13,11 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 playwright-report/
 test-results/
+__pycache__/
+*.py[cod]
+
+# Local full-resolution sources may contain private camera metadata.
+/assets/image-originals/
 
 # Environment
 .env

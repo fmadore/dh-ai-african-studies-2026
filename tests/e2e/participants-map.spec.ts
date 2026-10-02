@@ -1,4 +1,5 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures';
+import { sitePath } from './helpers';
 import sharp from 'sharp';
 
 test('basemap worker renders geometry through theme, zoom and resize changes', async ({ page }) => {
@@ -44,7 +45,7 @@ test('basemap worker renders geometry through theme, zoom and resize changes', a
 			}
 		});
 	});
-	await page.goto(`${process.env.BASE_PATH || ''}/participants`);
+	await page.goto(sitePath('/participants'));
 	const map = page.locator('.map-canvas');
 	await map.scrollIntoViewIfNeeded();
 	const canvas = map.locator('canvas');
@@ -90,11 +91,11 @@ test('missing WebGL2 shows the participant directory fallback', async ({ page })
 			return getContext.apply(this, args);
 		} as typeof getContext;
 	});
-	await page.goto(`${process.env.BASE_PATH || ''}/participants`);
+	await page.goto(sitePath('/participants'));
 	await expect(page.getByText('The interactive map could not be loaded.')).toBeVisible();
 	await expect(
 		page.getByText(
-			'The directory above lists every participant with their affiliation and country.'
+			'The directory below lists every participant with their affiliation and country.'
 		)
 	).toBeVisible();
 });

@@ -30,6 +30,8 @@
 	}
 
 	async function onProseClick(event: MouseEvent) {
+		if (event.defaultPrevented || event.button !== 0) return;
+		if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 		const target = event.target as HTMLElement | null;
 		if (!target) return;
 		const sup = target.closest('sup[data-footnote-ref]') as HTMLElement | null;
@@ -70,7 +72,9 @@
 	});
 
 	let bibLink = $derived(
-		activeRef ? `${resolveAppPath('/references')}#ref-${activeRef.slug}` : '#'
+		activeRef
+			? `${resolveAppPath('/references')}?q=${encodeURIComponent(activeRef.csl.title || activeRef.refId)}`
+			: '#'
 	);
 </script>
 

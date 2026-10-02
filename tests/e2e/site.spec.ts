@@ -1,5 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from './fixtures';
+import { sitePath } from './helpers';
 
 const routes = [
 	'/',
@@ -26,6 +28,19 @@ async function setTheme(page: Page, theme: string) {
 /** The site's own images only: a YouTube thumbnail that fails to load says
  * nothing about this build, and made the check depend on a third party. */
 async function expectNoBrokenImages(page: Page) {
+	await page.locator('img:visible').evaluateAll(async (images) => {
+		await Promise.all(
+			images.map(async (image) => {
+				const img = image as HTMLImageElement;
+				if (
+					new URL(img.currentSrc || img.src).origin === location.origin &&
+					img.loading !== 'lazy'
+				) {
+					await img.decode().catch(() => {});
+				}
+			})
+		);
+	});
 	const failed = await page.locator('img').evaluateAll((images) =>
 		(images as HTMLImageElement[])
 			.filter((image) => new URL(image.currentSrc || image.src).origin === location.origin)
@@ -39,7 +54,7 @@ test.describe('public route smoke checks', () => {
 	for (const theme of themes) {
 		for (const route of routes) {
 			test(`${theme} ${route}`, async ({ page }) => {
-				await page.goto(route);
+				await page.goto(sitePath(route));
 				await setTheme(page, theme);
 
 				await expect(page.locator('main')).toHaveCount(1);
@@ -57,7 +72,7 @@ test.describe('public route smoke checks', () => {
 
 test('About stays within a mobile viewport', async ({ page }) => {
 	await page.setViewportSize({ width: 390, height: 844 });
-	await page.goto('/about');
+	await page.goto(sitePath('/about'));
 
 	const overflows = await page.locator('.about-layout, .section-nav').evaluateAll((elements) => {
 		const viewportWidth = document.documentElement.clientWidth;
@@ -73,7 +88,7 @@ test('About stays within a mobile viewport', async ({ page }) => {
 });
 
 test('theme toggle updates the document theme', async ({ page }) => {
-	await page.goto('/');
+	await page.goto(sitePath('/'));
 	await page.waitForLoadState('networkidle');
 	await page.getByRole('button', { name: 'Dark mode' }).click({ timeout: 15_000 });
 	await expect(page.locator('html')).toHaveClass(/dark/);
@@ -81,7 +96,7 @@ test('theme toggle updates the document theme', async ({ page }) => {
 
 test('Outcomes disclosure opens, and closes when focus leaves it', async ({ page, isMobile }) => {
 	test.skip(isMobile, 'the mobile menu nests Outcomes inside the hamburger panel');
-	await page.goto('/');
+	await page.goto(sitePath('/'));
 	const toggle = page.getByRole('button', { name: 'Outcomes' });
 	await toggle.click();
 	await expect(toggle).toHaveAttribute('aria-expanded', 'true');
@@ -94,7 +109,7 @@ test('Outcomes disclosure opens, and closes when focus leaves it', async ({ page
 });
 
 test('reference filters live in the URL and survive a reload', async ({ page }) => {
-	await page.goto('/references?type=book&sort=title');
+	await page.goto(sitePath('/references?type=book&sort=title'));
 	const book = page.getByRole('checkbox', { name: 'Book', exact: true });
 	const filterButton = page.locator('.mobile-filters button');
 	if (await filterButton.isVisible()) await filterButton.click();
@@ -117,7 +132,7 @@ test.describe('without JavaScript', () => {
 		isMobile
 	}) => {
 		test.skip(isMobile, 'below lg the filters are a sheet the Filters button opens');
-		await page.goto('/references');
+		await page.goto(sitePath('/references'));
 		await expect(page.locator('#reference-filters')).toBeVisible();
 		await expect(page.locator('.mobile-filters')).toBeHidden();
 	});
@@ -125,7 +140,7 @@ test.describe('without JavaScript', () => {
 
 test('ARIA ID references resolve to one existing element', async ({ page }) => {
 	for (const route of routes) {
-		await page.goto(route);
+		await page.goto(sitePath(route));
 		const brokenReferences = await page
 			.locator('[aria-controls], [aria-describedby], [aria-labelledby]')
 			.evaluateAll((elements) => {
@@ -149,7 +164,7 @@ test('ARIA ID references resolve to one existing element', async ({ page }) => {
 });
 
 test('photo dialog traps focus and graph controls remain keyboard reachable', async ({ page }) => {
-	await page.goto('/photos');
+	await page.goto(sitePath('/photos'));
 	await page.waitForLoadState('networkidle');
 	await page
 		.getByRole('button', { name: /^View / })
@@ -162,7 +177,7 @@ test('photo dialog traps focus and graph controls remain keyboard reachable', as
 		await page.evaluate(() => document.activeElement?.closest('[role="dialog"]') !== null)
 	).toBe(true);
 
-	await page.goto('/concepts');
+	await page.goto(sitePath('/concepts'));
 	const nodes = page.locator('.node-group[role="button"]');
 	await expect(nodes.first()).toBeVisible({ timeout: 15_000 });
 	await expect(page.locator('.node-group[role="button"][tabindex="0"]')).toHaveCount(1);
@@ -181,7 +196,7 @@ for (const theme of themes) {
 	for (const route of routes) {
 		test(`axe: ${theme} ${route}`, async ({ page }) => {
 			await page.emulateMedia({ reducedMotion: 'reduce' });
-			await page.goto(route);
+			await page.goto(sitePath(route));
 			await setTheme(page, theme);
 			await page.waitForTimeout(100);
 			const results = await new AxeBuilder({ page })
