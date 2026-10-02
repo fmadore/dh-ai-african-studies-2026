@@ -1,16 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-
-/** Inspect the HTML delivered before hydration, excluding serialized page data. */
-function renderedText(html) {
-	return html
-		.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
-		.replace(/<!--[\s\S]*?-->/g, '')
-		.replace(/<[^>]+>/g, ' ')
-		.replace(/&amp;/g, '&')
-		.replace(/&#(?:39|x27);|&apos;/gi, "'")
-		.replace(/\s+/g, ' ');
-}
+import { prerenderedMainText } from './helpers/prerendered-text.mjs';
 
 for (const [route, expected] of [
 	['participants', ['Albrecht Hofheinz', 'Frédérick Madore', 'Vincent Hiribarren']],
@@ -25,7 +15,7 @@ for (const [route, expected] of [
 	],
 	['position-paper/read', ['For Whom and For What Purpose?', 'References']]
 ]) {
-	const text = renderedText(await readFile(`build/${route}.html`, 'utf8'));
+	const text = prerenderedMainText(await readFile(`build/${route}.html`, 'utf8'));
 	for (const phrase of expected) {
 		assert.ok(text.includes(phrase), `${route}: missing prerendered content: ${phrase}`);
 	}
