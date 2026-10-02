@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures';
 import { sitePath } from './helpers';
-import records from '../../src/lib/data/references.json';
+import records from '../../src/lib/data/references.json' with { type: 'json' };
 
 for (const format of ['bib', 'ris'] as const) {
 	test(`filtered bibliography downloads complete ${format} records`, async ({ page }) => {
