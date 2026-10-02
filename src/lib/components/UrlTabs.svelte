@@ -57,7 +57,7 @@
 	});
 
 	function tabUrl(tabId: string) {
-		const url = new URL(page.url);
+		const url = new URL(page.url.href);
 		if (tabId === fallback) url.searchParams.delete(paramName);
 		else url.searchParams.set(paramName, tabId);
 		return url.pathname + url.search + url.hash;
@@ -65,9 +65,8 @@
 
 	function activate(tabId: string) {
 		void goto(tabUrl(tabId), {
-			replaceState: true,
-			noScroll: true,
-			keepFocus: true,
+			replace: true,
+			reset: false,
 			state: page.state
 		});
 	}

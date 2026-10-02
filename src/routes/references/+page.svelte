@@ -182,7 +182,7 @@
 	// completed navigation, not just the first mount, so shared links stay true.
 	afterNavigate(() => {
 		const params = page.url.searchParams;
-		filters.readFrom(params);
+		filters.readFrom(new URLSearchParams(params.toString()));
 		const size = params.get('per');
 		pageSize = DEFAULT_PAGE_SIZE;
 		if (size !== null && (PAGE_SIZE_OPTIONS as readonly number[]).includes(Number(size))) {
