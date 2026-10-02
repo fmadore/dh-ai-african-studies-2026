@@ -1,8 +1,16 @@
+import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
 import { sitePath } from './helpers';
 
-test('reader section navigation preserves Back and Forward routing', async ({ page, isMobile }) => {
+async function openHydratedReader(page: Page) {
 	await page.goto(sitePath('/position-paper/read'));
+	// The controls already exist in the static HTML. Anchor-copy buttons are
+	// inserted by ReaderProse's effect after hydration has attached handlers.
+	await expect(page.locator('.anchor-copy-button').first()).toBeAttached();
+}
+
+test('reader section navigation preserves Back and Forward routing', async ({ page, isMobile }) => {
+	await openHydratedReader(page);
 	await page.emulateMedia({ reducedMotion: 'reduce' });
 	if (isMobile) await page.getByRole('button', { name: 'Sections', exact: true }).click();
 	const toc = page.getByRole('navigation', { name: 'Table of contents' }).filter({ visible: true });
@@ -24,7 +32,7 @@ test('modified section clicks retain ordinary new-tab behavior', async ({
 	isMobile
 }) => {
 	test.skip(isMobile, 'modifier-key clicks are a desktop interaction');
-	await page.goto(sitePath('/position-paper/read'));
+	await openHydratedReader(page);
 	const originalUrl = page.url();
 	const link = page
 		.getByRole('navigation', { name: 'Table of contents' })
@@ -39,7 +47,7 @@ test('modified section clicks retain ordinary new-tab behavior', async ({
 });
 
 test('citation dialog restores focus and follows through to the bibliography', async ({ page }) => {
-	await page.goto(sitePath('/position-paper/read'));
+	await openHydratedReader(page);
 	const citation = page.locator('a[data-cite]').first();
 	const target = await citation.getAttribute('href');
 	await citation.focus();
@@ -57,10 +65,11 @@ test('citation dialog restores focus and follows through to the bibliography', a
 });
 
 test('reader preferences survive reload and are scoped to the reader route', async ({ page }) => {
-	await page.goto(sitePath('/position-paper/read'));
+	await openHydratedReader(page);
 	await page.getByRole('button', { name: 'Set font to accessible', exact: true }).click();
 	await page.getByRole('button', { name: 'Largest text', exact: true }).click();
 	await page.reload();
+	await expect(page.locator('.anchor-copy-button').first()).toBeAttached();
 	await expect(page.locator('html')).toHaveAttribute('data-reader-font', 'accessible');
 	await expect(page.locator('html')).toHaveAttribute('data-reader-size', '130');
 	await expect(page.getByRole('button', { name: 'Largest text', exact: true })).toHaveAttribute(

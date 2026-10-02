@@ -32,10 +32,15 @@ async function expectNoBrokenImages(page: Page) {
 		await Promise.all(
 			images.map(async (image) => {
 				const img = image as HTMLImageElement;
+				const rect = img.getBoundingClientRect();
+				const inViewport =
+					rect.bottom > 0 && rect.top < innerHeight && rect.right > 0 && rect.left < innerWidth;
 				if (
 					new URL(img.currentSrc || img.src).origin === location.origin &&
-					img.loading !== 'lazy'
+					(img.loading !== 'lazy' || inViewport)
 				) {
+					// Trigger viewport images even before the browser's lazy-load task runs.
+					img.loading = 'eager';
 					await img.decode().catch(() => {});
 				}
 			})
@@ -166,16 +171,17 @@ test('ARIA ID references resolve to one existing element', async ({ page }) => {
 test('photo dialog traps focus and graph controls remain keyboard reachable', async ({ page }) => {
 	await page.goto(sitePath('/photos'));
 	await page.waitForLoadState('networkidle');
-	await page
-		.getByRole('button', { name: /^View / })
-		.first()
-		.click({ timeout: 15_000 });
+	const opener = page.getByRole('button', { name: /^View / }).first();
+	await opener.click({ timeout: 15_000 });
 	const dialog = page.getByRole('dialog');
 	await expect(dialog).toBeVisible();
 	await page.keyboard.press('Shift+Tab');
 	expect(
 		await page.evaluate(() => document.activeElement?.closest('[role="dialog"]') !== null)
 	).toBe(true);
+	await page.keyboard.press('Escape');
+	await expect(dialog).toBeHidden();
+	await expect(opener).toBeFocused();
 
 	await page.goto(sitePath('/concepts'));
 	const nodes = page.locator('.node-group[role="button"]');
