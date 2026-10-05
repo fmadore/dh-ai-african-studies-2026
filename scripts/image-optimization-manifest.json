@@ -1,6 +1,23 @@
 {
   "version": 1,
   "assets": {
+    "interviews/GXv8OQVLYk4": {
+      "settingsHash": "6c54464ad4f28414a261f001fd708e1ffbfaa387f4ffeed8922d46c99045b034",
+      "settings": {
+        "version": 1,
+        "format": "webp",
+        "size": 640,
+        "quality": 82
+      },
+      "source": {
+        "path": "assets/image-originals/interviews/GXv8OQVLYk4/a82f19569255da21cfa992973688b0f54de475e484aae41aa7af16df18f2d32a-GXv8OQVLYk4.jpg",
+        "sha256": "a82f19569255da21cfa992973688b0f54de475e484aae41aa7af16df18f2d32a"
+      },
+      "outputs": {
+        "static/images/interviews/GXv8OQVLYk4.webp": "81ddf188f717507a20bb5cdd2df0a6878bacd25ac6baaaa10a784cea7bd0313f"
+      },
+      "adopted": false
+    },
     "interviews/IpSY7i_bses": {
       "settingsHash": "6c54464ad4f28414a261f001fd708e1ffbfaa387f4ffeed8922d46c99045b034",
       "settings": {
@@ -14,6 +31,74 @@
         "static/images/interviews/IpSY7i_bses.webp": "94a5aeefa96b1eeb40318067e4f377d1b876a5483de532fe8ac61167481c49b0"
       },
       "adopted": true
+    },
+    "interviews/VE3r8xbumnY": {
+      "settingsHash": "6c54464ad4f28414a261f001fd708e1ffbfaa387f4ffeed8922d46c99045b034",
+      "settings": {
+        "version": 1,
+        "format": "webp",
+        "size": 640,
+        "quality": 82
+      },
+      "source": {
+        "path": "assets/image-originals/interviews/VE3r8xbumnY/456fa5b9474befb8e24fde8acd1bbd82f0d692eab605938d782e3c59dca20562-VE3r8xbumnY.jpg",
+        "sha256": "456fa5b9474befb8e24fde8acd1bbd82f0d692eab605938d782e3c59dca20562"
+      },
+      "outputs": {
+        "static/images/interviews/VE3r8xbumnY.webp": "8008ffd39e121352b69c3527e63df72b3c5a274e218f5850669d8749470e8a2f"
+      },
+      "adopted": false
+    },
+    "interviews/uGettNm8W_s": {
+      "settingsHash": "6c54464ad4f28414a261f001fd708e1ffbfaa387f4ffeed8922d46c99045b034",
+      "settings": {
+        "version": 1,
+        "format": "webp",
+        "size": 640,
+        "quality": 82
+      },
+      "source": {
+        "path": "assets/image-originals/interviews/uGettNm8W_s/d5a62d4031f2dcd07d34d097b49c5e35c7d0919852aec3f8619ec85298ea3cbb-uGettNm8W_s.jpg",
+        "sha256": "d5a62d4031f2dcd07d34d097b49c5e35c7d0919852aec3f8619ec85298ea3cbb"
+      },
+      "outputs": {
+        "static/images/interviews/uGettNm8W_s.webp": "efa3268e92fb4ed26a9d13c27dfec31acf173da8a1c9a4c988e71ea6f272eeff"
+      },
+      "adopted": false
+    },
+    "interviews/wZNZSDVfO-I": {
+      "settingsHash": "6c54464ad4f28414a261f001fd708e1ffbfaa387f4ffeed8922d46c99045b034",
+      "settings": {
+        "version": 1,
+        "format": "webp",
+        "size": 640,
+        "quality": 82
+      },
+      "source": {
+        "path": "assets/image-originals/interviews/wZNZSDVfO-I/3d6645788f4f7fdc8a50ec48a165d1bdc6a2df724e7062f7699bfe6a2e0b1980-wZNZSDVfO-I.jpg",
+        "sha256": "3d6645788f4f7fdc8a50ec48a165d1bdc6a2df724e7062f7699bfe6a2e0b1980"
+      },
+      "outputs": {
+        "static/images/interviews/wZNZSDVfO-I.webp": "4e932d8d00718ae299d46b68397672e812638e0a5e8428be6898f3b62c23dd20"
+      },
+      "adopted": false
+    },
+    "interviews/yYB4dGN6h-M": {
+      "settingsHash": "6c54464ad4f28414a261f001fd708e1ffbfaa387f4ffeed8922d46c99045b034",
+      "settings": {
+        "version": 1,
+        "format": "webp",
+        "size": 640,
+        "quality": 82
+      },
+      "source": {
+        "path": "assets/image-originals/interviews/yYB4dGN6h-M/eeaa9e9ca0d6157e8d16d8e7ffebe0a5610457b52148141779933789488698bf-yYB4dGN6h-M.jpg",
+        "sha256": "eeaa9e9ca0d6157e8d16d8e7ffebe0a5610457b52148141779933789488698bf"
+      },
+      "outputs": {
+        "static/images/interviews/yYB4dGN6h-M.webp": "9c364869c7d0e0b80af5c064e381eb1959834198bbab077262aaa0cfb3f51fa9"
+      },
+      "adopted": false
     },
     "logos/africa-multiple": {
       "settingsHash": "8ef9fbe070df0d8acf46730edbddc2dccb3bc8077dc57d7fd9bee92a032030dc",
