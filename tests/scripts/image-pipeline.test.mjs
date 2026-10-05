@@ -129,17 +129,19 @@ test('photo keeps date/credit, strips private camera metadata and creates a thum
 			IFD2: { DateTimeOriginal: '2026:02:18 12:34:56', BodySerialNumber: 'private-camera-123' }
 		})
 		.toFile(join(root, input));
-	const sourceExif = await exifr.parse(join(root, input));
+	// Buffers, not paths: sharp and exifr keep file handles open, and Windows
+	// then refuses to delete the temporary workspace.
+	const sourceExif = await exifr.parse(readFileSync(join(root, input)));
 	assert.equal(sourceExif.SerialNumber, 'private-camera-123');
 	await optimizeImages({ root, offline: true });
-	const full = await sharp(join(root, input)).metadata();
+	const full = await sharp(readFileSync(join(root, input))).metadata();
 	assert.equal(full.width, 1920);
-	const exif = await exifr.parse(join(root, input), { reviveValues: false });
+	const exif = await exifr.parse(readFileSync(join(root, input)), { reviveValues: false });
 	assert.equal(exif.DateTimeOriginal, '2026:02:18 12:34:56');
 	assert.equal(exif.Artist, 'Photographer');
 	assert.equal(exif.SerialNumber, undefined);
 	const thumb = join(root, 'static/images/photos/thumbs/20260218_fixture.webp');
-	assert.equal((await sharp(thumb).metadata()).width, 640);
+	assert.equal((await sharp(readFileSync(thumb)).metadata()).width, 640);
 	assert.equal((await optimizeImages({ root, offline: true })).skipped, 1);
 });
 

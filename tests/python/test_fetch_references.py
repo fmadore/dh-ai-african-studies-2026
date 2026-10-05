@@ -3,6 +3,7 @@
 import contextlib
 import io
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -13,6 +14,9 @@ import urllib.error
 from urllib.parse import parse_qs, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
+# A bare environment proves no credentials leak in. Windows still needs
+# SYSTEMROOT, or importing asyncio fails to load Winsock (WinError 10106).
+BARE_ENV = {'SYSTEMROOT': os.environ['SYSTEMROOT']} if os.name == 'nt' else {}
 sys.path.insert(0, str(ROOT))
 from scripts import fetch_references as refresh
 
@@ -79,10 +83,10 @@ class ReferenceRefreshTests(unittest.TestCase):
             'from pathlib import Path\nfrom unittest.mock import patch\n'
             'with patch.object(Path, "exists", side_effect=AssertionError("Unexpected config access")):\n'
             '    from scripts import fetch_references\n',
-        ], capture_output=True, text=True, env={}, cwd=ROOT)
+        ], capture_output=True, text=True, env=BARE_ENV, cwd=ROOT)
         self.assertEqual(result.returncode, 0, result.stderr)
         result = subprocess.run([sys.executable, str(ROOT / 'scripts/fetch_references.py'), '--help'],
-                                capture_output=True, text=True, env={})
+                                capture_output=True, text=True, env=BARE_ENV)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn('--allow-empty', result.stdout)
         self.assertIn('--output', result.stdout)

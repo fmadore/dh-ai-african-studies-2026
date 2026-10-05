@@ -51,7 +51,8 @@ describe('build-time photo index', () => {
 			'notes.txt'
 		]);
 		mocks.parse.mockImplementation(async (buffer: Buffer) => {
-			if (!buffer.toString().endsWith('/camera.jpg')) throw new Error('Malformed EXIF');
+			// The mocked buffer is the joined path, with `\` separators on Windows
+			if (!/[\\/]camera\.jpg$/.test(buffer.toString())) throw new Error('Malformed EXIF');
 			return {
 				DateTimeOriginal: new Date(2026, 1, 18, 0, 15),
 				ExifImageWidth: 4000,

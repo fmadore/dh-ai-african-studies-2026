@@ -19,6 +19,8 @@ const fixture = () => ({
 });
 
 function inspect(code: string, data = fixture()) {
+	// The harness decodes stdin as UTF-8 bytes, as the script's own main() does:
+	// a text-mode `sys.stdin` uses the Windows code page and mangles non-ASCII.
 	const result = spawnSync(
 		python,
 		[
@@ -27,7 +29,7 @@ function inspect(code: string, data = fixture()) {
 			`import importlib.util,json,sys,io,zipfile,xml.etree.ElementTree as ET
 spec=importlib.util.spec_from_file_location('epub',sys.argv[1])
 m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
-data=json.load(sys.stdin)
+data=json.loads(sys.stdin.buffer.read().decode('utf-8'))
 ${code}`,
 			script
 		],
