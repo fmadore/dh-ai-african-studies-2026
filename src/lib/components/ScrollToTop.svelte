@@ -51,6 +51,12 @@
 		animation: fade-in 300ms var(--ease-standard);
 	}
 
+	/* Overlays inside the app shell (the concept map's sheet and expanded stage)
+	 * cannot rise above this button, so it steps aside while one is open. */
+	:global(body:has([data-viewport-overlay])) .scroll-to-top {
+		display: none;
+	}
+
 	.scroll-to-top:hover {
 		background-color: var(--accent);
 		border-color: var(--accent);

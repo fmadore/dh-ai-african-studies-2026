@@ -115,3 +115,59 @@ test.describe('concept directory without JavaScript', () => {
 		await expect(concepts.first().getByText('Connected to:', { exact: true })).toBeVisible();
 	});
 });
+
+test('mobile detail sheet is opaque and leaves the searched node in view', async ({
+	page,
+	isMobile
+}) => {
+	test.skip(!isMobile, 'The bottom sheet is the phone layout');
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	await page.goto(sitePath('/concepts'));
+	await expect(page.locator('.node-group').first()).toHaveAttribute('transform', /^translate\(/);
+	const search = page.getByRole('combobox', { name: 'Search concepts' });
+	await search.fill('Data Sovereignty');
+	await search.press('Enter');
+	const sheet = page.getByRole('dialog', { name: 'Data Sovereignty' });
+	await expect(sheet).toBeVisible();
+	await expect(page.getByRole('button', { name: 'Close detail panel' })).toBeFocused();
+	// The sheet overlays the graph; a translucent one showed labels through its text
+	expect(await sheet.evaluate((el) => getComputedStyle(el).backgroundColor)).toMatch(/^rgb\(/);
+	await expect(page.locator('.scroll-to-top')).toBeHidden();
+	await expect
+		.poll(() =>
+			page.evaluate(() => {
+				const node = document
+					.querySelector('.node-group[aria-pressed="true"]')!
+					.getBoundingClientRect();
+				const sheetTop = document.querySelector('.detail-panel')!.getBoundingClientRect().top;
+				const y = node.top + node.height / 2;
+				return y > 0 && y < sheetTop;
+			})
+		)
+		.toBe(true);
+});
+
+test('fullscreen falls back to an expanded stage without the Fullscreen API', async ({ page }) => {
+	// iPhone Safari has no element fullscreen, and the button used to do nothing
+	await page.addInitScript(() => {
+		delete (Element.prototype as Partial<Element>).requestFullscreen;
+	});
+	await page.goto(sitePath('/concepts'));
+	await expect(page.locator('.node-group').first()).toBeVisible();
+	await page.getByRole('button', { name: 'Fullscreen', exact: true }).click();
+	await expect(page.getByRole('button', { name: 'Exit fullscreen' })).toBeVisible();
+	const viewport = page.viewportSize()!;
+	await expect
+		.poll(() => page.locator('.concept-graph-wrapper').boundingBox())
+		.toEqual({ x: 0, y: 0, width: viewport.width, height: viewport.height });
+	// Neither the sticky header nor the back-to-top button paints over the stage
+	const covered = await page.evaluate(() =>
+		[
+			[innerWidth / 2, 4],
+			[innerWidth - 46, innerHeight - 46]
+		].every(([x, y]) => document.elementFromPoint(x, y)?.closest('.concept-graph-wrapper'))
+	);
+	expect(covered).toBe(true);
+	await page.keyboard.press('Escape');
+	await expect(page.getByRole('button', { name: 'Fullscreen', exact: true })).toBeVisible();
+});

@@ -65,7 +65,8 @@
 	let simulationReady = $state(false);
 	let graphFailed = $state(false);
 	let fittingView = true;
-	let isFullscreen = $state(false);
+	let fullscreenMode = $state<'native' | 'expanded' | null>(null);
+	let isFullscreen = $derived(fullscreenMode !== null);
 	let prefersReducedMotion = $state(false);
 	let focusedNodeId = $state<string | null>(null);
 
@@ -197,16 +198,30 @@
 		if (!simulation) return;
 		fittingView = false;
 		const k = 1.4;
+		// The mobile sheet covers the lower half of the screen, so the node is
+		// placed in the upper part of the stage rather than at its centre.
+		const cy = asSheet ? containerHeight * 0.35 : containerHeight / 2;
 		simulation.zoomTo(
 			{
 				x: containerWidth / 2 - (node.x ?? containerWidth / 2) * k,
-				y: containerHeight / 2 - (node.y ?? containerHeight / 2) * k,
+				y: cy - (node.y ?? containerHeight / 2) * k,
 				k
 			},
 			motionDuration(500)
 		);
 		selectedNode = node;
-		focusGraphNode(node);
+		if (asSheet) {
+			// Search sits above the graph, and focusing the node would scroll it to
+			// mid-screen, under the sheet. Focus stays in the sheet; the stage is
+			// brought up beneath the header instead (fullscreen has no page to scroll).
+			focusedNodeId = node.id;
+			if (!isFullscreen)
+				containerEl
+					?.querySelector('.graph-canvas')
+					?.scrollIntoView({ block: 'start', behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+		} else {
+			focusGraphNode(node);
+		}
 	}
 
 	// --- Tooltip positioning ---
@@ -227,7 +242,7 @@
 			for (const entry of entries) {
 				const w = entry.contentRect.width;
 				containerWidth = w;
-				if (document.fullscreenElement === containerEl) {
+				if (isFullscreen) {
 					containerHeight = entry.contentRect.height;
 				} else {
 					containerHeight = embedded
@@ -356,25 +371,40 @@
 	}
 
 	// --- Fullscreen ---
+	// iPhone Safari has no Fullscreen API for anything but video, so the button
+	// used to do nothing there. Where the API is missing or refuses, the stage
+	// is instead fixed over the viewport ("expanded") — same layout, no browser
+	// chrome hidden.
 	function toggleFullscreen() {
-		if (!containerEl?.requestFullscreen) return;
-		if (!document.fullscreenElement) {
-			// isFullscreen itself is kept in sync by the fullscreenchange listener
-			containerEl.requestFullscreen().catch(() => {
-				// Fullscreen unsupported (e.g. iOS Safari) — ignore
-			});
-		} else {
+		if (fullscreenMode === 'native') {
 			document.exitFullscreen().catch(() => {});
+		} else if (fullscreenMode === 'expanded') {
+			fullscreenMode = null;
+		} else if (containerEl?.requestFullscreen && document.fullscreenEnabled) {
+			// fullscreenMode itself is kept in sync by the fullscreenchange listener
+			containerEl.requestFullscreen().catch(() => (fullscreenMode = 'expanded'));
+		} else {
+			fullscreenMode = 'expanded';
 		}
 	}
 
 	$effect(() => {
 		if (typeof window === 'undefined') return;
 		function onFullscreenChange() {
-			isFullscreen = document.fullscreenElement === containerEl;
+			if (document.fullscreenElement === containerEl) fullscreenMode = 'native';
+			else if (fullscreenMode === 'native') fullscreenMode = null;
 		}
 		document.addEventListener('fullscreenchange', onFullscreenChange);
 		return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
+	});
+
+	// The page behind an expanded stage must not scroll, and <main>'s z-index
+	// would otherwise keep the sticky header painted over it (see the styles).
+	$effect(() => {
+		if (fullscreenMode !== 'expanded') return;
+		const root = document.documentElement;
+		root.classList.add('concept-graph-expanded');
+		return () => root.classList.remove('concept-graph-expanded');
 	});
 
 	// --- Detail panel navigation ---
@@ -385,6 +415,8 @@
 
 	// --- Mobile detection ---
 	let isMobile = $derived(containerWidth < 640);
+	// The embed keeps the panel inline: in a short iframe a sheet would bury the graph.
+	let asSheet = $derived(isMobile && !embedded);
 
 	// --- Keyboard focus spotlight (parity with pointer hover) ---
 	function onNodeFocus(node: ConceptNode) {
@@ -428,11 +460,21 @@
 
 <svelte:window
 	onkeydown={(e) => {
-		if (e.key === 'Escape' && selectedNode) selectedNode = null;
+		if (e.key !== 'Escape') return;
+		// The browser exits native fullscreen itself; the expanded stage needs this
+		if (selectedNode) selectedNode = null;
+		else if (fullscreenMode === 'expanded') fullscreenMode = null;
 	}}
 />
 
-<div class="concept-graph-wrapper" class:embedded bind:this={containerEl}>
+<div
+	class="concept-graph-wrapper"
+	class:embedded
+	class:is-fullscreen={isFullscreen}
+	class:is-expanded={fullscreenMode === 'expanded'}
+	data-viewport-overlay={fullscreenMode === 'expanded' ? '' : undefined}
+	bind:this={containerEl}
+>
 	<!-- Toolbar: stats + search + group filters -->
 	<div class="graph-toolbar">
 		<GraphFilters
@@ -631,7 +673,8 @@
 		</div>
 
 		<!-- Hover tooltip -->
-		{#if hoveredNode && !draggedNode}
+		<!-- Not while the mobile sheet is open: it only repeats the sheet's header. -->
+		{#if hoveredNode && !draggedNode && !(asSheet && selectedNode)}
 			<div class="graph-tooltip" style="left: {tooltipX + 14}px; top: {tooltipY - 10}px;">
 				<div class="tooltip-label">{hoveredNode.label}</div>
 				<div class="tooltip-meta">
@@ -654,7 +697,7 @@
 		<GraphDetailPanel
 			node={selectedNode}
 			neighbors={selectedNeighbors}
-			isMobile={isMobile && !embedded}
+			isMobile={asSheet}
 			{getNodeColor}
 			onclose={() => (selectedNode = null)}
 			onnavigate={navigateToNeighbor}
@@ -693,6 +736,10 @@
 		--bg-raised: var(--graph-raised);
 		--bg-sunken: var(--graph-sunken);
 		--bg-overlay: #3a3633;
+		/* `.card-surface` paints with --surface-2, which `.band-ink` also sets to
+		 * 5% white. The mobile detail sheet overlays the graph, so it showed the
+		 * nodes and labels straight through its text. */
+		--surface-2: var(--graph-surface);
 
 		--text-primary: var(--color-gray-50);
 		--text-secondary: var(--color-gray-200);
@@ -765,6 +812,7 @@
 		border-radius: var(--radius-xl);
 		/* Opaque, so the stage does not depend on whatever is behind it. */
 		background-color: var(--graph-surface);
+		scroll-margin-top: var(--scroll-offset);
 	}
 
 	/* Edge layer sits under the interactive SVG and never takes a pointer event. */
@@ -810,8 +858,9 @@
 	/* Fullscreen mode. The ink, not --bg-page: the ancestor band stops painting
 	 * once this element is in the top layer, and --bg-page is the *page*
 	 * background, so fullscreen used to swap the dark stage for a near-white
-	 * one in light mode. */
-	.concept-graph-wrapper:fullscreen {
+	 * one in light mode. A class rather than :fullscreen, so the expanded
+	 * fallback below shares every rule. */
+	.concept-graph-wrapper.is-fullscreen {
 		background: var(--graph-ink);
 		padding: var(--space-md);
 		display: flex;
@@ -823,14 +872,59 @@
 		background: var(--graph-ink);
 	}
 
-	.concept-graph-wrapper:fullscreen .graph-canvas {
+	.is-fullscreen .graph-canvas {
 		flex: 1;
 		min-height: 240px;
 	}
 
-	.concept-graph-wrapper:fullscreen .graph-svg {
+	/* Nothing behind the stage to scroll, so every gesture belongs to the graph */
+	.is-fullscreen .graph-svg {
 		width: 100%;
 		height: 100%;
+		touch-action: none;
+	}
+
+	/* Expanded: the Fullscreen API stand-in, fixed over the viewport. */
+	.concept-graph-wrapper.is-expanded {
+		position: fixed;
+		inset: 0;
+		z-index: var(--z-modal);
+		overscroll-behavior: contain;
+	}
+
+	/* <main> is `relative z-10`, a stacking context under the sticky header
+	 * (--z-overlay), so no z-index inside it can clear the header. While the
+	 * stage is expanded, <main> stops being one. */
+	:global(html.concept-graph-expanded) {
+		overflow: hidden;
+	}
+
+	:global(html.concept-graph-expanded #main-content) {
+		z-index: auto;
+	}
+
+	/* On a phone the toolbar wraps to nearly half the screen, which left the
+	 * fullscreen graph 240px tall. Fullscreen keeps search and the filters, as
+	 * one swipeable row, and leaves the counts and directory to the page. */
+	@media (max-width: 640px) {
+		.is-fullscreen :global(.stats-bar),
+		.is-fullscreen :global(.graph-text-view) {
+			display: none;
+		}
+
+		.is-fullscreen :global(.group-filters) {
+			flex-wrap: nowrap;
+			justify-content: flex-start;
+			overflow-x: auto;
+			scrollbar-width: none;
+			margin-inline: calc(var(--space-md) * -1);
+			padding-inline: var(--space-md);
+		}
+
+		.is-fullscreen :global(.filter-btn) {
+			flex-shrink: 0;
+			white-space: nowrap;
+		}
 	}
 
 	/* Graph controls */

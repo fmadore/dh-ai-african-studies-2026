@@ -14,6 +14,7 @@
 	let { node, neighbors, isMobile, getNodeColor, onclose, onnavigate }: Props = $props();
 
 	let closeButtonEl: HTMLButtonElement | undefined;
+	let connectionsEl: HTMLDivElement | undefined = $state();
 
 	/**
 	 * The map's value is that it connects concepts to the reading behind them.
@@ -31,11 +32,18 @@
 			closeButtonEl?.focus();
 		}
 	});
+
+	// Following a connection swaps the list; start the new one from the top
+	$effect(() => {
+		void node;
+		if (connectionsEl) connectionsEl.scrollTop = 0;
+	});
 </script>
 
 <div
 	class="detail-panel card-surface surface-padding-sm"
 	class:bottom-sheet={isMobile}
+	data-viewport-overlay={isMobile ? '' : undefined}
 	role={isMobile ? 'dialog' : undefined}
 	aria-label={isMobile ? node.label : undefined}
 >
@@ -67,18 +75,18 @@
 		<span class="body-text-muted">{node.degree} connections</span>
 	</div>
 	{#if neighbors.length > 0}
-		<div class="detail-connections">
+		<div class="detail-connections" bind:this={connectionsEl}>
 			<p class="detail-connections-label">Connected to:</p>
 			<div class="connection-tags">
 				{#each neighbors as neighbor (neighbor)}
-					<button class="connection-tag" onclick={() => onnavigate(neighbor)}>
+					<button class="connection-tag tap-target-compact" onclick={() => onnavigate(neighbor)}>
 						{neighbor}
 					</button>
 				{/each}
 			</div>
 		</div>
 	{/if}
-	<a href={bibliographyHref} class="detail-reading">
+	<a href={bibliographyHref} class="detail-reading tap-target tap-target-flush">
 		Find “{node.label}” in the bibliography →
 	</a>
 </div>
@@ -105,16 +113,38 @@
 		text-underline-offset: 3px;
 	}
 
+	/* Content-sized up to half the screen; only the connection list scrolls, so
+	 * the title, close button and bibliography link stay put. <main> is its own
+	 * stacking context below the header, so the nav menu still opens over it;
+	 * the back-to-top button hides itself via [data-viewport-overlay]. */
 	.detail-panel.bottom-sheet {
 		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
+		inset: auto 0 0;
 		z-index: var(--z-overlay);
-		border-radius: var(--radius-panel) var(--radius-panel) 0 0;
 		max-height: 50vh;
+		max-height: min(50dvh, 26rem);
 		overflow-y: auto;
-		box-shadow: var(--shadow-xl);
+		padding: var(--space-md) var(--space-md)
+			calc(var(--space-xs) + env(safe-area-inset-bottom, 0px));
+		gap: var(--space-xs);
+		border-bottom: 0;
+		border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+		box-shadow: 0 -16px 40px -12px rgba(0, 0, 0, 0.7);
+	}
+
+	.bottom-sheet .detail-connections {
+		flex: 1 1 auto;
+		min-height: 0;
+		max-height: none;
+		margin-inline: calc(var(--space-md) * -1);
+		padding-inline: var(--space-md);
+		border-block: 1px solid var(--border-subtle);
+		padding-block: var(--space-xs);
+	}
+
+	.bottom-sheet .connection-tag {
+		font-size: var(--text-sm);
+		padding-inline: var(--space-sm);
 	}
 
 	.detail-header {
@@ -139,13 +169,19 @@
 		margin-bottom: var(--space-xs);
 	}
 
+	/* A 44px target, pulled back into the corner so the glyph stays aligned */
 	.detail-close {
+		display: grid;
+		place-items: center;
+		flex-shrink: 0;
+		width: 2.75rem;
+		height: 2.75rem;
+		margin: calc(var(--space-xs) * -1) calc(var(--space-xs) * -1) 0 0;
 		font-size: var(--text-xl);
 		line-height: 1;
 		color: var(--text-subtle);
 		background: none;
 		border: none;
-		padding: var(--space-3xs);
 		cursor: pointer;
 		border-radius: var(--radius-md);
 		transition:
@@ -173,16 +209,12 @@
 		font-weight: var(--font-weight-medium);
 	}
 
+	/* The graph's stage is dark in both themes, so there is no light variant:
+	 * the old one put teal-700 text on the near-black stage. */
 	.detail-badge-seed {
-		background: color-mix(in srgb, var(--color-secondary-500) 12%, transparent);
-		color: var(--color-secondary-700);
-		border: 1px solid color-mix(in srgb, var(--color-secondary-500) 30%, transparent);
-	}
-
-	:global(.dark) .detail-badge-seed {
 		background: color-mix(in srgb, var(--color-secondary-400) 15%, transparent);
 		color: var(--color-secondary-300);
-		border-color: color-mix(in srgb, var(--color-secondary-400) 30%, transparent);
+		border: 1px solid color-mix(in srgb, var(--color-secondary-400) 30%, transparent);
 	}
 
 	.detail-connections {
