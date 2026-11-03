@@ -240,7 +240,7 @@
 	<a
 		href={photosHref}
 		class="photo-strip band-bleed"
-		aria-label="Browse the workshop photo gallery"
+		aria-label="Workshop gallery: browse the photos"
 	>
 		{#each stripPhotos as photo (photo.id)}
 			<img
@@ -252,7 +252,7 @@
 				decoding="async"
 			/>
 		{/each}
-		<span class="photo-strip__label">Workshop gallery →</span>
+		<span class="photo-strip__label">Workshop gallery <span aria-hidden="true">→</span></span>
 	</a>
 {/if}
 

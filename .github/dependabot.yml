@@ -30,6 +30,11 @@ updates:
       - dependency-name: 'typescript'
         update-types:
           - 'version-update:semver-major'
+      # @types/node tracks the runtime in `engines` and `.nvmrc` (Node 26 LTS).
+      # Bump its major together with them, not ahead of them.
+      - dependency-name: '@types/node'
+        update-types:
+          - 'version-update:semver-major'
     groups:
       svelte:
         patterns:

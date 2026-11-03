@@ -40,11 +40,12 @@
 					type="button"
 					class="reader-toolbar__segment {font.className}"
 					aria-pressed={readerPrefs.fontFamily === font.value}
-					aria-label="Set font to {font.value}"
 					title="{font.value.charAt(0).toUpperCase() + font.value.slice(1)} font"
 					onclick={() => (readerPrefs.fontFamily = font.value)}
 				>
-					{font.label}
+					<span class="sr-only">Set font to {font.value}</span><span aria-hidden="true"
+						>{font.label}</span
+					>
 				</button>
 			{/each}
 		</div>
@@ -55,11 +56,10 @@
 					type="button"
 					class="reader-toolbar__segment"
 					aria-pressed={readerPrefs.fontSize === size.value}
-					aria-label={size.aria}
 					title={size.aria}
 					onclick={() => (readerPrefs.fontSize = size.value)}
 				>
-					{size.label}
+					<span class="sr-only">{size.aria}</span><span aria-hidden="true">{size.label}</span>
 				</button>
 			{/each}
 		</div>

@@ -85,10 +85,13 @@ test('short embeds allow selected details and the text directory to scroll into 
 });
 
 test('failed D3 chunk leaves a retry control and a working text directory', async ({ page }) => {
-	const manifest = JSON.parse(
+	const manifest: Record<string, { file: string }> = JSON.parse(
 		readFileSync('.svelte-kit/output/client/.vite/manifest.json', 'utf8')
 	);
-	const chunk = manifest['node_modules/d3-force/src/index.js'].file as string;
+	// Match the package, not its entry file: d3-force 3.0.1 moved from src/ to dist/.
+	const entry = Object.keys(manifest).find((key) => key.startsWith('node_modules/d3-force/'));
+	expect(entry, 'd3-force chunk in the Vite manifest').toBeDefined();
+	const chunk = manifest[entry!].file;
 	await page.route(`**/${chunk}`, (route) => route.abort());
 	await page.goto(sitePath('/concepts'));
 	await expect(

@@ -87,7 +87,7 @@ with each device's screen and font settings.
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v24; `.nvmrc` and `engines` use the tested Node 24 line)
+- [Node.js](https://nodejs.org/) (v26; `.nvmrc` and `engines` use the tested Node 26 LTS line)
 - npm
 - Python 3.10+ (data transformations, EPUB export, and their tests; standard library only)
 

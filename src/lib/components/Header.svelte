@@ -62,12 +62,7 @@
 <header class="site-header surface-glass" class:site-header--scrolled={scrolled}>
 	<nav class="content-width-wide site-nav" bind:this={navEl} aria-label="Primary">
 		<div class="nav-bar">
-			<a
-				href={homeHref}
-				class="logo-link brand-lockup"
-				onclick={closeMenu}
-				aria-label="DH & AI in African Studies"
-			>
+			<a href={homeHref} class="logo-link brand-lockup" onclick={closeMenu}>
 				<span class="brand-monogram" aria-hidden="true">
 					<span>DH</span><span class="brand-monogram__dot">·</span><span>AI</span>
 				</span>
@@ -245,9 +240,16 @@
 		white-space: nowrap;
 	}
 
+	/* Hidden visually, not with display: none: the wordmark is the link's
+	   accessible name, so no aria-label has to repeat (and mismatch) it. */
 	@media (max-width: 400px) {
 		.brand-wordmark {
-			display: none;
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+			clip-path: inset(50%);
+			white-space: nowrap;
 		}
 	}
 
