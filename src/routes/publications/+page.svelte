@@ -13,6 +13,20 @@
 	const reports = [
 		{
 			type: 'Blog post',
+			language: 'French',
+			lang: 'fr',
+			title: 'Humanités numériques dans les études africaines, un retour sur les REAF 2026',
+			authors: 'Maxine Huguet & Yanis Mokri',
+			venue: 'Carnet of the Huma-Num consortium distam+ (Hypotheses)',
+			date: '11 November 2026',
+			datetime: '2026-11-11',
+			description:
+				'A review of the digital humanities sessions at REAF 2026, which discusses the position paper from the Hanover workshop and its account of AI in African studies.',
+			url: 'https://doi.org/10.58079/173o1',
+			action: 'Read the blog post'
+		},
+		{
+			type: 'Blog post',
 			image: '/images/publications/digital-history-bielefeld.webp',
 			language: 'German',
 			lang: 'de',
