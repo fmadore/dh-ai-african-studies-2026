@@ -8,7 +8,7 @@
  * content and the compiled data, not third-party media.
  */
 
-import { SITE_BASE_URL } from '$lib/utils/seo/constants';
+import { SITE_BASE_URL } from '#lib/utils/seo/constants';
 
 export const siteCitation = {
 	authors: 'Madore, Frédérick & Hiribarren, Vincent',

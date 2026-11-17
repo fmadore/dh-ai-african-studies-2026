@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { ConceptNode, ConceptGroup } from '$lib/types/concept-graph';
-	import { resolveAppPath } from '$lib/utils/paths';
+	import type { ConceptNode, ConceptGroup } from '#lib/types/concept-graph';
+	import { resolveAppPath } from '#lib/utils/paths';
 
 	interface Props {
 		node: ConceptNode;

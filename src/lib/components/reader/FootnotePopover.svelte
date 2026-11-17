@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 	import { CloseOutline } from 'flowbite-svelte-icons';
-	import type { ResolvedReference } from '$lib/reader/types';
-	import { resolveAppPath } from '$lib/utils/paths';
+	import type { ResolvedReference } from '#lib/reader/types';
+	import { resolveAppPath } from '#lib/utils/paths';
 
 	interface Props {
 		/** The prose container to delegate click events from. */

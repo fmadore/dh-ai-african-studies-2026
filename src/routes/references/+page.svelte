@@ -5,20 +5,20 @@
 	import { untrack } from 'svelte';
 	import { page } from '$app/state';
 	import { afterNavigate, replaceState } from '$app/navigation';
-	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
+	import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
 	import { fade, slide } from 'svelte/transition';
-	import type { CslReference } from '$lib/types/csl';
+	import type { CslReference } from '#lib/types/csl';
 	import type { PageData } from './$types';
-	import { filterReferences, sortReferences } from '$lib/utils/references';
-	import { ReferenceFilterState } from '$lib/utils/reference-filters.svelte';
-	import { resolveAppPath } from '$lib/utils/paths';
-	import SeoHead from '$lib/components/SeoHead.svelte';
-	import PageHero from '$lib/components/PageHero.svelte';
-	import ReferenceFacets from '$lib/components/ReferenceFacets.svelte';
-	import ReferenceCard from '$lib/components/ReferenceCard.svelte';
-	import ExportReferences from '$lib/components/ExportReferences.svelte';
-	import Pagination from '$lib/components/Pagination.svelte';
-	import { formatLanguage, formatType } from '$lib/utils/formatters';
+	import { filterReferences, sortReferences } from '#lib/utils/references';
+	import { ReferenceFilterState } from '#lib/utils/reference-filters.svelte';
+	import { resolveAppPath } from '#lib/utils/paths';
+	import SeoHead from '#lib/components/SeoHead.svelte';
+	import PageHero from '#lib/components/PageHero.svelte';
+	import ReferenceFacets from '#lib/components/ReferenceFacets.svelte';
+	import ReferenceCard from '#lib/components/ReferenceCard.svelte';
+	import ExportReferences from '#lib/components/ExportReferences.svelte';
+	import Pagination from '#lib/components/Pagination.svelte';
+	import { formatLanguage, formatType } from '#lib/utils/formatters';
 
 	const seo = createSeoMeta({
 		title: 'References',

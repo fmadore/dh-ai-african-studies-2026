@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
-import { paperPublicationDate, positionPaperMeta } from '$lib/data/position-paper-meta';
-import { formatLongDate } from '$lib/utils/formatters';
-import { createScholarlyMeta, createScholarlyArticleJsonLd } from '$lib/utils/seo';
+import { paperPublicationDate, positionPaperMeta } from '#lib/data/position-paper-meta';
+import { formatLongDate } from '#lib/utils/formatters';
+import { createScholarlyMeta, createScholarlyArticleJsonLd } from '#lib/utils/seo';
 
 it('exports the published issue and pagination without advertising an unavailable PDF', () => {
 	const options = { ...positionPaperMeta, abstractUrl: 'https://example.org/position-paper' };

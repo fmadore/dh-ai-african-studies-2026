@@ -16,9 +16,6 @@ export default defineConfig({
 		sveltekit({
 			preprocess: vitePreprocess(),
 			compilerOptions: { runes: true },
-			// Preserve existing imports during the framework migration. SvelteKit
-			// still supports explicit aliases; #lib can be adopted separately.
-			alias: { $lib: './src/lib' },
 			adapter: adapter({
 				pages: 'build',
 				assets: 'build',

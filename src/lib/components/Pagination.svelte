@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ChevronLeftOutline, ChevronRightOutline } from 'flowbite-svelte-icons';
-	import { buildPageItems } from '$lib/utils/references';
+	import { buildPageItems } from '#lib/utils/references';
 
 	interface Props {
 		currentPage: number;

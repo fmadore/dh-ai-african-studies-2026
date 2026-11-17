@@ -5,7 +5,7 @@ import GithubSlugger from 'github-slugger';
 import { createReferenceRule } from './reference-resolver';
 import { createCitationRule, type CitationReport } from './citations';
 import type { CslReference } from './types';
-import { SITE_BASE_URL } from '$lib/utils/seo/constants';
+import { SITE_BASE_URL } from '#lib/utils/seo/constants';
 
 /**
  * Builds a configured markdown-it instance for the position paper.

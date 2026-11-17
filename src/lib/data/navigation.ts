@@ -1,4 +1,4 @@
-import { resolveAppPath } from '$lib/utils/paths';
+import { resolveAppPath } from '#lib/utils/paths';
 
 export interface NavLink {
 	href: string;

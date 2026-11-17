@@ -4,15 +4,15 @@
 		createScholarlyMeta,
 		createScholarlyArticleJsonLd,
 		type ScholarlyMetaOptions
-	} from '$lib/utils/seo';
-	import SeoHead from '$lib/components/SeoHead.svelte';
-	import ReaderShell from '$lib/components/reader/ReaderShell.svelte';
-	import { readerPrefsBootScript } from '$lib/utils/reader-preferences.svelte';
-	import type { PositionPaperData } from '$lib/reader/load-paper';
+	} from '#lib/utils/seo';
+	import SeoHead from '#lib/components/SeoHead.svelte';
+	import ReaderShell from '#lib/components/reader/ReaderShell.svelte';
+	import { readerPrefsBootScript } from '#lib/utils/reader-preferences.svelte';
+	import type { PositionPaperData } from '#lib/reader/load-paper';
 
 	// Reader-only styles + webfonts. Imported here rather than from app.css so
 	// they are bundled only when the reader route is built.
-	import '$lib/reader/reader.css';
+	import '#lib/reader/reader.css';
 
 	interface Props {
 		data: PositionPaperData;

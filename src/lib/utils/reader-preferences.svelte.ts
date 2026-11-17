@@ -1,4 +1,4 @@
-import type { ReaderFontFamily, ReaderFontSize } from '$lib/reader/types';
+import type { ReaderFontFamily, ReaderFontSize } from '#lib/reader/types';
 
 const STORAGE_KEY = 'dh2026:reader-prefs';
 

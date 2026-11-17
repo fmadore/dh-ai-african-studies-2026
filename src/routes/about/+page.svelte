@@ -1,17 +1,17 @@
 <script lang="ts">
-	import ParticipantAvatar from '$lib/components/ParticipantAvatar.svelte';
-	import SeoHead from '$lib/components/SeoHead.svelte';
-	import PageHero from '$lib/components/PageHero.svelte';
-	import SectionNav from '$lib/components/SectionNav.svelte';
-	import WorkStreamCards from '$lib/components/WorkStreamCards.svelte';
-	import FundingNote from '$lib/components/FundingNote.svelte';
-	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '$lib/utils/seo';
-	import { participants } from '$lib/data/participants';
-	import { mediaCredit } from '$lib/data/photos';
-	import { paperPublicationDate } from '$lib/data/position-paper-meta';
-	import { formatLongDate } from '$lib/utils/formatters';
-	import { resolveAssetPath, resolveAppPath } from '$lib/utils/paths';
-	import { reveal } from '$lib/utils/reveal';
+	import ParticipantAvatar from '#lib/components/ParticipantAvatar.svelte';
+	import SeoHead from '#lib/components/SeoHead.svelte';
+	import PageHero from '#lib/components/PageHero.svelte';
+	import SectionNav from '#lib/components/SectionNav.svelte';
+	import WorkStreamCards from '#lib/components/WorkStreamCards.svelte';
+	import FundingNote from '#lib/components/FundingNote.svelte';
+	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '#lib/utils/seo';
+	import { participants } from '#lib/data/participants';
+	import { mediaCredit } from '#lib/data/photos';
+	import { paperPublicationDate } from '#lib/data/position-paper-meta';
+	import { formatLongDate } from '#lib/utils/formatters';
+	import { resolveAssetPath, resolveAppPath } from '#lib/utils/paths';
+	import { reveal } from '#lib/utils/reveal';
 
 	let { data } = $props();
 	let backgroundPhoto = $derived(data.backgroundPhoto);

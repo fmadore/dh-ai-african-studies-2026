@@ -6,7 +6,7 @@
 		isNavigationGroupActive,
 		isNavigationLinkActive,
 		primaryNavigation
-	} from '$lib/data/navigation';
+	} from '#lib/data/navigation';
 
 	let activeUrl = $derived(page.url.pathname);
 	let menuOpen = $state(false);

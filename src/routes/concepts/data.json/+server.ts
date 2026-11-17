@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import graph from '$lib/data/concept-graph.json';
+import graph from '#lib/data/concept-graph.json';
 
 export const prerender = true;
 

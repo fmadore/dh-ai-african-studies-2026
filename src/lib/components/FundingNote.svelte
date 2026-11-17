@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { workshopInfo } from '$lib/data/workshop-info';
+	import { workshopInfo } from '#lib/data/workshop-info';
 </script>
 
 This scoping workshop was made possible by the generous support of the

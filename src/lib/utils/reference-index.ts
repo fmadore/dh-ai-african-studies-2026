@@ -5,7 +5,7 @@
  * text stays in the prerendered /references/data.json.
  */
 
-import type { CslReference, ReferenceListItem } from '$lib/types/csl';
+import type { CslReference, ReferenceListItem } from '#lib/types/csl';
 
 /* Three lines at the card's 68ch measure show ~210 characters; 300 keeps the
  * clamp full (and short abstracts intact) without shipping the other half of

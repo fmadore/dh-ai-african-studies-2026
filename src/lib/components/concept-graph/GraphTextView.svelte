@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { ConceptGraphData } from '$lib/types/concept-graph';
-	import { resolveAppPath } from '$lib/utils/paths';
+	import type { ConceptGraphData } from '#lib/types/concept-graph';
+	import { resolveAppPath } from '#lib/utils/paths';
 
 	let { data, open = false }: { data: ConceptGraphData; open?: boolean } = $props();
 	let nodes = $derived(data.nodes.toSorted((a, b) => a.label.localeCompare(b.label)));

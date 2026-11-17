@@ -1,11 +1,11 @@
 <script lang="ts">
-	import ConceptGraph from '$lib/components/ConceptGraph.svelte';
-	import { resolveAppPath } from '$lib/utils/paths';
-	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
-	import SeoHead from '$lib/components/SeoHead.svelte';
-	import PageHero from '$lib/components/PageHero.svelte';
-	import { reveal } from '$lib/utils/reveal';
-	import type { ConceptGraphData } from '$lib/types/concept-graph';
+	import ConceptGraph from '#lib/components/ConceptGraph.svelte';
+	import { resolveAppPath } from '#lib/utils/paths';
+	import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
+	import SeoHead from '#lib/components/SeoHead.svelte';
+	import PageHero from '#lib/components/PageHero.svelte';
+	import { reveal } from '#lib/utils/reveal';
+	import type { ConceptGraphData } from '#lib/types/concept-graph';
 	import type { PageData } from './$types';
 
 	// Graph data and its build-time stats arrive as prerendered page data from

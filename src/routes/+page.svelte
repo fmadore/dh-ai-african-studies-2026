@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { CalendarMonthOutline, MapPinAltOutline } from 'flowbite-svelte-icons';
-	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '$lib/utils/seo';
-	import { workshopInfo } from '$lib/data/workshop-info';
-	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
-	import { participants } from '$lib/data/participants';
-	import { workStreams } from '$lib/data/work-streams';
-	import { interviews } from '$lib/data/interviews';
-	import { paperPublicationDate } from '$lib/data/position-paper-meta';
-	import { formatLongDate } from '$lib/utils/formatters';
-	import { reveal } from '$lib/utils/reveal';
-	import SeoHead from '$lib/components/SeoHead.svelte';
-	import FundingNote from '$lib/components/FundingNote.svelte';
-	import AppButton from '$lib/components/AppButton.svelte';
-	import WorkStreamCards from '$lib/components/WorkStreamCards.svelte';
+	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '#lib/utils/seo';
+	import { workshopInfo } from '#lib/data/workshop-info';
+	import { resolveAppPath, resolveAssetPath } from '#lib/utils/paths';
+	import { participants } from '#lib/data/participants';
+	import { workStreams } from '#lib/data/work-streams';
+	import { interviews } from '#lib/data/interviews';
+	import { paperPublicationDate } from '#lib/data/position-paper-meta';
+	import { formatLongDate } from '#lib/utils/formatters';
+	import { reveal } from '#lib/utils/reveal';
+	import SeoHead from '#lib/components/SeoHead.svelte';
+	import FundingNote from '#lib/components/FundingNote.svelte';
+	import AppButton from '#lib/components/AppButton.svelte';
+	import WorkStreamCards from '#lib/components/WorkStreamCards.svelte';
 
 	let { data } = $props();
 	let stripPhotos = $derived(data.stripPhotos);

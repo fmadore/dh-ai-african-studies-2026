@@ -1,7 +1,7 @@
 import type { D3DragEvent } from 'd3-drag';
 import type { Selection } from 'd3-selection';
 import type { D3ZoomEvent } from 'd3-zoom';
-import type { ConceptEdge, ConceptGraphData, ConceptNode } from '$lib/types/concept-graph';
+import type { ConceptEdge, ConceptGraphData, ConceptNode } from '#lib/types/concept-graph';
 import type { GraphView } from './graph-renderer';
 
 /**

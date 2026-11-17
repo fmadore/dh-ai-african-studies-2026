@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Button, Dropdown, DropdownItem, Spinner } from 'flowbite-svelte';
 	import { DownloadOutline, ChevronDownOutline } from 'flowbite-svelte-icons';
-	import type { CslReference } from '$lib/types/csl';
-	import { generateBibtex, generateRis } from '$lib/utils/citation-export';
+	import type { CslReference } from '#lib/types/csl';
+	import { generateBibtex, generateRis } from '#lib/utils/citation-export';
 
 	interface Props {
 		/** How many records the current filters select — drives the disabled state. */

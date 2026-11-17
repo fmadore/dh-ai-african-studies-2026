@@ -4,7 +4,7 @@ import {
 	createSeoMeta,
 	createScholarlyArticleJsonLd,
 	jsonLdScript
-} from '$lib/utils/seo';
+} from '#lib/utils/seo';
 
 describe('SEO utilities', () => {
 	it('normalises canonical URLs and generates absolute social images', () => {

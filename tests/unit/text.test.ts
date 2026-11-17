@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { foldForSearch, stripDiacritics } from '$lib/utils/text';
-import { filterReferences } from '$lib/utils/references';
+import { foldForSearch, stripDiacritics } from '#lib/utils/text';
+import { filterReferences } from '#lib/utils/references';
 
 describe('text folding', () => {
 	it('strips accents, including letters that do not decompose', () => {

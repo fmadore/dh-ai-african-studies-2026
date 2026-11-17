@@ -1,5 +1,5 @@
 import type { RequestHandler } from './$types';
-import { SITE_BASE_URL } from '$lib/utils/seo/constants';
+import { SITE_BASE_URL } from '#lib/utils/seo/constants';
 
 export const prerender = true;
 

@@ -4,7 +4,7 @@
  * Respects prefers-reduced-motion
  */
 
-import { prefersReducedMotion } from '$lib/utils/motion';
+import { prefersReducedMotion } from '#lib/utils/motion';
 
 export interface RevealOptions {
 	/**

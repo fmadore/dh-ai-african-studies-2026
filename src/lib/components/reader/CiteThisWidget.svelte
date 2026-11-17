@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 	import { QuoteSolid, ChevronDownOutline, CheckOutline } from 'flowbite-svelte-icons';
-	import type { PositionPaperMeta } from '$lib/reader/types';
-	import { toBibtex, toRis, toChicago, toApa } from '$lib/reader/citation-formatters';
-	import { CopyFeedback } from '$lib/utils/copy-feedback.svelte';
+	import type { PositionPaperMeta } from '#lib/reader/types';
+	import { toBibtex, toRis, toChicago, toApa } from '#lib/reader/citation-formatters';
+	import { CopyFeedback } from '#lib/utils/copy-feedback.svelte';
 
 	interface Props {
 		meta: PositionPaperMeta;

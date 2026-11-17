@@ -1,6 +1,6 @@
 <script lang="ts">
-	import ConceptGraph from '$lib/components/ConceptGraph.svelte';
-	import type { ConceptGraphData } from '$lib/types/concept-graph';
+	import ConceptGraph from '#lib/components/ConceptGraph.svelte';
+	import type { ConceptGraphData } from '#lib/types/concept-graph';
 	import type { PageData } from './$types';
 
 	// Prerendered page data from +page.server.ts — see that file for why.

@@ -1,5 +1,5 @@
-import referencesData from '$lib/data/references.json';
-import { positionPaperMeta } from '$lib/data/position-paper-meta';
+import referencesData from '#lib/data/references.json';
+import { positionPaperMeta } from '#lib/data/position-paper-meta';
 import { processPaper } from './process-paper';
 import type { CslReference, PositionPaperMeta, ProcessedPaper } from './types';
 

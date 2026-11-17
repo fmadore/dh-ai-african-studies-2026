@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Participant } from '$lib/types/participant';
+	import type { Participant } from '#lib/types/participant';
 	import { untrack } from 'svelte';
 	import type * as Leaflet from 'leaflet';
 	import type { Map as MaplibreMap } from 'maplibre-gl';
-	import { useDarkMode } from '$lib/utils/dark-mode.svelte';
+	import { useDarkMode } from '#lib/utils/dark-mode.svelte';
 	import 'leaflet/dist/leaflet.css';
 
 	interface Props {

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import '../app.css';
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import ScrollToTop from '$lib/components/ScrollToTop.svelte';
+	import Header from '#lib/components/Header.svelte';
+	import Footer from '#lib/components/Footer.svelte';
+	import ScrollToTop from '#lib/components/ScrollToTop.svelte';
 	import { page } from '$app/state';
 
 	let { children } = $props();

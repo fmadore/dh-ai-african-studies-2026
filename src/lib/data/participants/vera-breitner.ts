@@ -1,4 +1,4 @@
-import type { Participant } from '$lib/types/participant';
+import type { Participant } from '#lib/types/participant';
 
 export const veraBreitner: Participant = {
 	name: 'Vera Breitner',

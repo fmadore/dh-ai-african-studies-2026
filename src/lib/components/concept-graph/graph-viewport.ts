@@ -1,4 +1,4 @@
-import type { ConceptNode } from '$lib/types/concept-graph';
+import type { ConceptNode } from '#lib/types/concept-graph';
 import type { GraphView } from './graph-renderer';
 
 /** Keep every circle inside the viewport, including at narrow embed sizes. */

@@ -5,7 +5,7 @@
 		ConceptEdge,
 		ConceptGraphData,
 		ConceptGroup
-	} from '$lib/types/concept-graph';
+	} from '#lib/types/concept-graph';
 	import {
 		GROUP_COLORS,
 		ALL_GROUPS,

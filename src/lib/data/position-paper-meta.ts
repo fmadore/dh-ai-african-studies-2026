@@ -1,4 +1,4 @@
-import type { PositionPaperMeta } from '$lib/reader/types';
+import type { PositionPaperMeta } from '#lib/reader/types';
 
 /**
  * Exported on its own so pages that only mention the date (home, about,

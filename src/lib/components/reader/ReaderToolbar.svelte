@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { readerPrefs } from '$lib/utils/reader-preferences.svelte';
-	import type { PositionPaperMeta, ReaderFontFamily, ReaderFontSize } from '$lib/reader/types';
+	import { readerPrefs } from '#lib/utils/reader-preferences.svelte';
+	import type { PositionPaperMeta, ReaderFontFamily, ReaderFontSize } from '#lib/reader/types';
 	import CiteThisWidget from './CiteThisWidget.svelte';
 	import PdfDownloadButton from './PdfDownloadButton.svelte';
-	import { resolveAssetPath } from '$lib/utils/paths';
+	import { resolveAssetPath } from '#lib/utils/paths';
 	import { Button } from 'flowbite-svelte';
 	import { DownloadOutline } from 'flowbite-svelte-icons';
 

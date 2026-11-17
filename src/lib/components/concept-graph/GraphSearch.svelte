@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { ConceptNode, ConceptGroup } from '$lib/types/concept-graph';
+	import type { ConceptNode, ConceptGroup } from '#lib/types/concept-graph';
 	import { SearchOutline } from 'flowbite-svelte-icons';
-	import { foldForSearch } from '$lib/utils/text';
+	import { foldForSearch } from '#lib/utils/text';
 
 	interface Props {
 		nodes: ConceptNode[];

@@ -30,7 +30,7 @@ describe('build-time photo index', () => {
 			active--;
 			return null;
 		});
-		const { loadWorkshopPhotos } = await import('$lib/server/photos');
+		const { loadWorkshopPhotos } = await import('#lib/server/photos');
 		const first = loadWorkshopPhotos();
 		const second = loadWorkshopPhotos();
 		expect(first).toBe(second);
@@ -60,7 +60,7 @@ describe('build-time photo index', () => {
 				Orientation: 6
 			};
 		});
-		const { loadWorkshopPhotos } = await import('$lib/server/photos');
+		const { loadWorkshopPhotos } = await import('#lib/server/photos');
 		const photos = await loadWorkshopPhotos();
 		expect(photos.map((photo) => [photo.id, photo.category])).toEqual([
 			['camera', 'Day 1'],
@@ -74,14 +74,14 @@ describe('build-time photo index', () => {
 		mocks.readdir
 			.mockRejectedValueOnce(new Error('Temporary filesystem error'))
 			.mockResolvedValueOnce([]);
-		const { loadWorkshopPhotos } = await import('$lib/server/photos');
+		const { loadWorkshopPhotos } = await import('#lib/server/photos');
 		await expect(loadWorkshopPhotos()).rejects.toThrow('Temporary filesystem error');
 		await expect(loadWorkshopPhotos()).resolves.toEqual([]);
 		expect(mocks.readdir).toHaveBeenCalledTimes(2);
 	});
 
 	it('handles empty samples and rejects invalid sample counts', async () => {
-		const { loadPhotoSample } = await import('$lib/server/photos');
+		const { loadPhotoSample } = await import('#lib/server/photos');
 		await expect(loadPhotoSample(0)).resolves.toEqual([]);
 		for (const count of [-1, 1.5, Infinity])
 			await expect(loadPhotoSample(count)).rejects.toThrow(RangeError);

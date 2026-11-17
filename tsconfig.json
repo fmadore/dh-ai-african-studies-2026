@@ -9,7 +9,13 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    // Vite resolves #lib through the package.json "imports" field, but
+    // TypeScript substitutes that target without trying extensions, so
+    // extensionless specifiers need an explicit paths mapping.
+    "paths": {
+      "#lib/*": ["./src/lib/*"]
+    }
   },
   "include": ["src", "tests/**/*.ts", "*.ts"],
   "exclude": ["node_modules", "build", "dist"]

@@ -1,4 +1,4 @@
-import type { ConceptGroup } from '$lib/types/concept-graph';
+import type { ConceptGroup } from '#lib/types/concept-graph';
 
 /**
  * One palette, not a light/dark pair: the graph always paints on its own dark

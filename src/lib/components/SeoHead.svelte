@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { JsonLdSchema, SeoMetaResult } from '$lib/utils/seo';
-	import { jsonLdScript } from '$lib/utils/seo';
+	import type { JsonLdSchema, SeoMetaResult } from '#lib/utils/seo';
+	import { jsonLdScript } from '#lib/utils/seo';
 
 	interface Props {
 		seo: SeoMetaResult;

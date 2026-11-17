@@ -4,8 +4,8 @@
  * `positionPaperMeta`, used by the "How to cite" widget.
  */
 
-import { escapeBibtex } from '$lib/utils/citation-export';
-import type { Author } from '$lib/utils/seo';
+import { escapeBibtex } from '#lib/utils/citation-export';
+import type { Author } from '#lib/utils/seo';
 import type { PositionPaperMeta } from './types';
 
 function givenName(person: Author): string {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { CalendarMonthOutline, MapPinAltOutline } from 'flowbite-svelte-icons';
-	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '$lib/utils/seo';
-	import { workshopInfo } from '$lib/data/workshop-info';
+	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '#lib/utils/seo';
+	import { workshopInfo } from '#lib/data/workshop-info';
 	import {
 		schedule,
 		scheduleLastUpdated,
@@ -9,12 +9,12 @@
 		isQuietItem,
 		worldCafeFormat,
 		type ScheduleItem
-	} from '$lib/data/schedule';
-	import UrlTabs, { type Tab } from '$lib/components/UrlTabs.svelte';
-	import SeoHead from '$lib/components/SeoHead.svelte';
-	import PageHero from '$lib/components/PageHero.svelte';
-	import { resolveAppPath } from '$lib/utils/paths';
-	import { reveal } from '$lib/utils/reveal';
+	} from '#lib/data/schedule';
+	import UrlTabs, { type Tab } from '#lib/components/UrlTabs.svelte';
+	import SeoHead from '#lib/components/SeoHead.svelte';
+	import PageHero from '#lib/components/PageHero.svelte';
+	import { resolveAppPath } from '#lib/utils/paths';
+	import { reveal } from '#lib/utils/reveal';
 
 	interface DayTab extends Tab {
 		dayNumber: number;

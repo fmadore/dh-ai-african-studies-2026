@@ -1,4 +1,4 @@
-import type { ThematicGroupName } from '$lib/data/thematic-groups';
+import type { ThematicGroupName } from '#lib/data/thematic-groups';
 
 export type ParticipantRole = 'Participant' | 'Co-organizer' | 'Student assistant';
 

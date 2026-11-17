@@ -4,8 +4,8 @@
 		ProcessedPaper,
 		TocItem,
 		ResolvedReference
-	} from '$lib/reader/types';
-	import { readerPrefs } from '$lib/utils/reader-preferences.svelte';
+	} from '#lib/reader/types';
+	import { readerPrefs } from '#lib/utils/reader-preferences.svelte';
 	import ReaderMasthead from './ReaderMasthead.svelte';
 	import ReaderToolbar from './ReaderToolbar.svelte';
 	import ReaderProse from './ReaderProse.svelte';

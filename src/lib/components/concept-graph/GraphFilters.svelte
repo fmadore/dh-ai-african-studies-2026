@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ConceptGroup } from '$lib/types/concept-graph';
+	import type { ConceptGroup } from '#lib/types/concept-graph';
 
 	interface Props {
 		groups: ConceptGroup[];

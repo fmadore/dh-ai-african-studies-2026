@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { resolveAppPath } from '$lib/utils/paths';
+import { resolveAppPath } from '#lib/utils/paths';
 import {
 	isNavigationGroupActive,
 	isNavigationLinkActive,
 	primaryNavigation
-} from '$lib/data/navigation';
-import { nextGraphNode } from '$lib/components/concept-graph/graph-navigation';
-import type { ConceptNode } from '$lib/types/concept-graph';
+} from '#lib/data/navigation';
+import { nextGraphNode } from '#lib/components/concept-graph/graph-navigation';
+import type { ConceptNode } from '#lib/types/concept-graph';
 
 describe('primary navigation state', () => {
 	it('matches the home link only on the root', () => {

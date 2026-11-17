@@ -5,7 +5,7 @@
  * be linked to.
  */
 
-import type { ReferenceFilters, ReferenceSort } from '$lib/utils/references';
+import type { ReferenceFilters, ReferenceSort } from '#lib/utils/references';
 
 export const SORT_OPTIONS: { value: ReferenceSort; name: string }[] = [
 	{ value: 'newest', name: 'Newest first' },

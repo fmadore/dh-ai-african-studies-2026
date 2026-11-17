@@ -4,28 +4,28 @@
 		createWebPageJsonLd,
 		createScholarlyMeta,
 		createScholarlyArticleJsonLd
-	} from '$lib/utils/seo';
+	} from '#lib/utils/seo';
 
-	import AppButton from '$lib/components/AppButton.svelte';
+	import AppButton from '#lib/components/AppButton.svelte';
 
-	import PdfDownloadButton from '$lib/components/reader/PdfDownloadButton.svelte';
+	import PdfDownloadButton from '#lib/components/reader/PdfDownloadButton.svelte';
 
-	import SeoHead from '$lib/components/SeoHead.svelte';
+	import SeoHead from '#lib/components/SeoHead.svelte';
 
-	import AuthorByline from '$lib/components/AuthorByline.svelte';
-	import PaperKeywords from '$lib/components/PaperKeywords.svelte';
+	import AuthorByline from '#lib/components/AuthorByline.svelte';
+	import PaperKeywords from '#lib/components/PaperKeywords.svelte';
 
-	import { positionPaperSeries as series } from '$lib/data/position-paper-series';
+	import { positionPaperSeries as series } from '#lib/data/position-paper-series';
 
-	import { positionPaperMeta } from '$lib/data/position-paper-meta';
+	import { positionPaperMeta } from '#lib/data/position-paper-meta';
 
-	import { recommendedCitation } from '$lib/reader/citation-formatters';
+	import { recommendedCitation } from '#lib/reader/citation-formatters';
 
-	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
+	import { resolveAppPath, resolveAssetPath } from '#lib/utils/paths';
 
-	import { CopyFeedback } from '$lib/utils/copy-feedback.svelte';
+	import { CopyFeedback } from '#lib/utils/copy-feedback.svelte';
 
-	import { formatLongDate } from '$lib/utils/formatters';
+	import { formatLongDate } from '#lib/utils/formatters';
 
 	const seo = createSeoMeta({
 		path: '/position-paper',

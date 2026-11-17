@@ -1,10 +1,10 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { participants } from '$lib/data/participants';
-import { positionPaperMeta } from '$lib/data/position-paper-meta';
-import { interviews } from '$lib/data/interviews';
-import { interviewPosterPath, interviewPosters } from '$lib/server/interview-posters';
+import { participants } from '#lib/data/participants';
+import { positionPaperMeta } from '#lib/data/position-paper-meta';
+import { interviews } from '#lib/data/interviews';
+import { interviewPosterPath, interviewPosters } from '#lib/server/interview-posters';
 import { GET as sitemap } from '../../src/routes/sitemap.xml/+server';
 
 /** Every prerendered page route, as a URL path ("" for the root). */

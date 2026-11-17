@@ -1,8 +1,8 @@
 import { expect, it } from 'vitest';
-import source from '$lib/content/position-paper.md?raw';
-import references from '$lib/data/references.json';
-import { processPaper } from '$lib/reader/process-paper';
-import type { CslReference } from '$lib/reader/types';
+import source from '#lib/content/position-paper.md?raw';
+import references from '#lib/data/references.json';
+import { processPaper } from '#lib/reader/process-paper';
+import type { CslReference } from '#lib/reader/types';
 
 it('resolves the published manuscript citations and all generated internal targets', () => {
 	const paper = processPaper(source, references as unknown as CslReference[]);

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
-	import { interviews, captionsUrl } from '$lib/data/interviews';
-	import { mediaCredit } from '$lib/data/photos';
-	import { reveal } from '$lib/utils/reveal';
-	import SeoHead from '$lib/components/SeoHead.svelte';
-	import PageHero from '$lib/components/PageHero.svelte';
-	import LiteYouTube from '$lib/components/LiteYouTube.svelte';
-	import { resolveAssetPath } from '$lib/utils/paths';
+	import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
+	import { interviews, captionsUrl } from '#lib/data/interviews';
+	import { mediaCredit } from '#lib/data/photos';
+	import { reveal } from '#lib/utils/reveal';
+	import SeoHead from '#lib/components/SeoHead.svelte';
+	import PageHero from '#lib/components/PageHero.svelte';
+	import LiteYouTube from '#lib/components/LiteYouTube.svelte';
+	import { resolveAssetPath } from '#lib/utils/paths';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();

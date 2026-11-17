@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { createMarkdownIt } from '$lib/reader/markdown';
+import { createMarkdownIt } from '#lib/reader/markdown';
 
 it('opens external project and note links in new tabs without changing internal navigation', () => {
 	const html = createMarkdownIt([]).render(

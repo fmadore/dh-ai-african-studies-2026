@@ -1,4 +1,4 @@
-import type { ConceptNode } from '$lib/types/concept-graph';
+import type { ConceptNode } from '#lib/types/concept-graph';
 
 export type GraphNavigationKey =
 	'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'Home' | 'End';

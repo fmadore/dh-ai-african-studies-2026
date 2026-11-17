@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { Label, Checkbox, Select, Accordion, AccordionItem } from 'flowbite-svelte';
 	import { FilterOutline, SearchOutline, CloseOutline } from 'flowbite-svelte-icons';
-	import { formatType, formatLanguage } from '$lib/utils/formatters';
-	import { getCslYear } from '$lib/utils/citation-export';
-	import { foldForSearch } from '$lib/utils/text';
-	import { SORT_OPTIONS, type ReferenceFilterState } from '$lib/utils/reference-filters.svelte';
-	import type { CslReference } from '$lib/types/csl';
+	import { formatType, formatLanguage } from '#lib/utils/formatters';
+	import { getCslYear } from '#lib/utils/citation-export';
+	import { foldForSearch } from '#lib/utils/text';
+	import { SORT_OPTIONS, type ReferenceFilterState } from '#lib/utils/reference-filters.svelte';
+	import type { CslReference } from '#lib/types/csl';
 
 	/* Structural: the facets only read classification fields, so both the full
 	 * CSL records and the lean list index satisfy this. */

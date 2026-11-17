@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { CslReference } from '$lib/types/csl';
-import referencesData from '$lib/data/references.json';
+import type { CslReference } from '#lib/types/csl';
+import referencesData from '#lib/data/references.json';
 import {
 	assignBibtexKeys,
 	escapeBibtex,
@@ -8,7 +8,7 @@ import {
 	generateBibtex,
 	generateRis,
 	getCslYear
-} from '$lib/utils/citation-export';
+} from '#lib/utils/citation-export';
 
 const reference: CslReference = {
 	id: 'example',

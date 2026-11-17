@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { CopyFeedback } from '$lib/utils/copy-feedback.svelte';
+import { CopyFeedback } from '#lib/utils/copy-feedback.svelte';
 
 function stubClipboard(writeText: () => Promise<void>) {
 	vi.stubGlobal('navigator', { clipboard: { writeText } });

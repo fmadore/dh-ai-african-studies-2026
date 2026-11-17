@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { positionPaperMeta } from '$lib/data/position-paper-meta';
+import { positionPaperMeta } from '#lib/data/position-paper-meta';
 import {
 	recommendedCitation,
 	toApa,
 	toBibtex,
 	toChicago,
 	toRis
-} from '$lib/reader/citation-formatters';
+} from '#lib/reader/citation-formatters';
 
 describe('position paper publication details', () => {
 	it('names every contributor and gives total pages in the recommended citation', () => {

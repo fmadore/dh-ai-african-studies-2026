@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { mediaCredit } from '$lib/data/photos';
+	import { mediaCredit } from '#lib/data/photos';
 
 	interface Props {
 		/** e.g. "Filmed by" or "Photography by" */

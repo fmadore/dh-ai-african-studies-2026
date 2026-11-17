@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { ResolvedReference } from '$lib/reader/types';
-	import { copyToClipboard } from '$lib/utils/clipboard';
+	import type { ResolvedReference } from '#lib/reader/types';
+	import { copyToClipboard } from '#lib/utils/clipboard';
 	import FootnotePopover from './FootnotePopover.svelte';
 	import CitationPopover from './CitationPopover.svelte';
 

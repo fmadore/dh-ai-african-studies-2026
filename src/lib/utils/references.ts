@@ -2,9 +2,9 @@
  * Pure filtering / sorting / pagination helpers for the references page.
  */
 
-import type { CslName, CslReference } from '$lib/types/csl';
-import { getCslYear } from '$lib/utils/citation-export';
-import { foldForSearch } from '$lib/utils/text';
+import type { CslName, CslReference } from '#lib/types/csl';
+import { getCslYear } from '#lib/utils/citation-export';
+import { foldForSearch } from '#lib/utils/text';
 
 /** "Given Family", or an institution's single-field name as written. */
 export function formatPersonName(name: CslName): string {

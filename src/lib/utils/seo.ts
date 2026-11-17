@@ -1,4 +1,4 @@
-// Stable public entry point: import sites continue to use `$lib/utils/seo`.
+// Stable public entry point: import sites continue to use `#lib/utils/seo`.
 export {
 	createEventJsonLd,
 	createWebPageJsonLd,

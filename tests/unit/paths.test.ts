@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
+import { resolveAppPath, resolveAssetPath } from '#lib/utils/paths';
 
 const prefix = process.env.BASE_PATH || '';
 

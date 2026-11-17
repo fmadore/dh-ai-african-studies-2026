@@ -1,4 +1,4 @@
-import type { ConceptEdge, ConceptGraphData, ConceptNode } from '$lib/types/concept-graph';
+import type { ConceptEdge, ConceptGraphData, ConceptNode } from '#lib/types/concept-graph';
 
 interface RawConceptNode extends ConceptNode {
 	/** Written by the export script but never read — the renderer maps

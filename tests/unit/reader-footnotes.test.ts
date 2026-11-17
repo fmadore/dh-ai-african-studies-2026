@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { processPaper } from '$lib/reader/process-paper';
-import type { CslReference } from '$lib/reader/types';
+import { processPaper } from '#lib/reader/process-paper';
+import type { CslReference } from '#lib/reader/types';
 
 const reference: CslReference = {
 	id: '123/ABC',

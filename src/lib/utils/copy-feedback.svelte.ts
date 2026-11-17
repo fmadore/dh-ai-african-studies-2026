@@ -1,4 +1,4 @@
-import { copyToClipboard } from '$lib/utils/clipboard';
+import { copyToClipboard } from '#lib/utils/clipboard';
 
 /**
  * Copy text and show "copied" for a moment. `copied` holds the id of what was

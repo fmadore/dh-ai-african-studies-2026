@@ -1,4 +1,4 @@
-import { workshopInfo } from '$lib/data/workshop-info';
+import { workshopInfo } from '#lib/data/workshop-info';
 
 import { DEFAULT_AUTHORS, SITE_BASE_URL, SITE_DESCRIPTION, SITE_NAME } from './constants';
 import type {

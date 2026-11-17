@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types';
-import { interviews } from '$lib/data/interviews';
-import { interviewPosterPath } from '$lib/server/interview-posters';
-import { loadPhotoSample } from '$lib/server/photos';
+import { interviews } from '#lib/data/interviews';
+import { interviewPosterPath } from '#lib/server/interview-posters';
+import { loadPhotoSample } from '#lib/server/photos';
 
 /**
  * A small sample of the gallery for the homepage strip. The site is an archive

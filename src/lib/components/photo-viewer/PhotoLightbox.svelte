@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Photo } from '$lib/types/photo';
-	import { resolveAssetPath } from '$lib/utils/paths';
-	import { portal } from '$lib/utils/portal';
+	import type { Photo } from '#lib/types/photo';
+	import { resolveAssetPath } from '#lib/utils/paths';
+	import { portal } from '#lib/utils/portal';
 	import { ChevronLeftOutline, ChevronRightOutline, CloseOutline } from 'flowbite-svelte-icons';
 
 	interface Props {

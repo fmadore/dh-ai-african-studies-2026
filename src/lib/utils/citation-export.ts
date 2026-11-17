@@ -3,8 +3,8 @@
  * Kept out of components so the logic is testable and reusable.
  */
 
-import type { CslDate, CslName, CslReference } from '$lib/types/csl';
-import { stripDiacritics } from '$lib/utils/text';
+import type { CslDate, CslName, CslReference } from '#lib/types/csl';
+import { stripDiacritics } from '#lib/utils/text';
 
 /** Format date as YYYY-MM-DD from CSL date-parts */
 export function formatCslDate(issued?: CslDate): string | null {

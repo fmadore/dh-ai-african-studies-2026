@@ -1,8 +1,8 @@
 import type { PageServerLoad } from './$types';
-import type { CslReference } from '$lib/types/csl';
-import referencesData from '$lib/data/references.json';
-import { stripReadingStatusTags } from '$lib/utils/references';
-import { toReferenceListItem } from '$lib/utils/reference-index';
+import type { CslReference } from '#lib/types/csl';
+import referencesData from '#lib/data/references.json';
+import { stripReadingStatusTags } from '#lib/utils/references';
+import { toReferenceListItem } from '#lib/utils/reference-index';
 
 /**
  * The full bibliography is 437 KB of JSON, half of it abstracts the collapsed

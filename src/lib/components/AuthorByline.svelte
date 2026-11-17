@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Author } from '$lib/utils/seo';
+	import type { Author } from '#lib/utils/seo';
 
 	interface Props {
 		authors: readonly Author[];

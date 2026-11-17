@@ -144,10 +144,10 @@ Do NOT use legacy syntax (`export let`, `$:` reactive statements).
 
 ## Path Helpers (Critical for GitHub Pages)
 
-All internal links and assets must use path helpers from `$lib/utils/paths`:
+All internal links and assets must use path helpers from `#lib/utils/paths`:
 
 ```typescript
-import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
+import { resolveAppPath, resolveAssetPath } from '#lib/utils/paths';
 
 const href = resolveAppPath('/schedule'); // For routes
 
@@ -179,7 +179,7 @@ This handles the `/dh-ai-african-studies-2026` base path in production.
 Create `src/lib/data/participants/firstname-lastname.ts`:
 
 ```typescript
-import type { Participant } from '$lib/types/participant';
+import type { Participant } from '#lib/types/participant';
 
 export const firstnameLastname: Participant = {
   name: 'Firstname Lastname',
@@ -206,9 +206,9 @@ Every page uses the shared `SeoHead` component:
 
 ```svelte
 <script lang="ts">
-  import SeoHead from '$lib/components/SeoHead.svelte';
+  import SeoHead from '#lib/components/SeoHead.svelte';
 
-  import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
+  import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
 
   const seo = createSeoMeta({ title: 'Page', description: '...', path: '/route' });
 
@@ -324,7 +324,7 @@ The site uses a **"Future Forward"** aesthetic - sophisticated and tech-forward 
 
 ```svelte
 <script lang="ts">
-  import { reveal } from '$lib/utils/reveal';
+  import { reveal } from '#lib/utils/reveal';
 
   // ... other imports
 </script>

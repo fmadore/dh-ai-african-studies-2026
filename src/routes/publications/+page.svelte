@@ -1,12 +1,12 @@
 <script lang="ts">
-	import PageHero from '$lib/components/PageHero.svelte';
-	import SeoHead from '$lib/components/SeoHead.svelte';
-	import AppButton from '$lib/components/AppButton.svelte';
-	import AuthorByline from '$lib/components/AuthorByline.svelte';
-	import { positionPaperMeta } from '$lib/data/position-paper-meta';
-	import { formatLongDate } from '$lib/utils/formatters';
-	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
-	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
+	import PageHero from '#lib/components/PageHero.svelte';
+	import SeoHead from '#lib/components/SeoHead.svelte';
+	import AppButton from '#lib/components/AppButton.svelte';
+	import AuthorByline from '#lib/components/AuthorByline.svelte';
+	import { positionPaperMeta } from '#lib/data/position-paper-meta';
+	import { formatLongDate } from '#lib/utils/formatters';
+	import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
+	import { resolveAppPath, resolveAssetPath } from '#lib/utils/paths';
 
 	const bulletinUrl =
 		'https://www.frederickmadore.com/publications/madore-2026-conversation-coauthorship-dh-ai';

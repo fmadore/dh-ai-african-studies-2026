@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { TocItem } from '$lib/reader/types';
+	import type { TocItem } from '#lib/reader/types';
 	import { replaceState } from '$app/navigation';
 	import { page } from '$app/state';
 	import { ListOutline, CloseOutline } from 'flowbite-svelte-icons';
 	import { fade, slide } from 'svelte/transition';
-	import { prefersReducedMotion } from '$lib/utils/motion';
+	import { prefersReducedMotion } from '#lib/utils/motion';
 
 	interface Props {
 		toc: TocItem[];

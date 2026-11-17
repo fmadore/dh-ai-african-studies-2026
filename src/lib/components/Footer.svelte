@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { resolveAppPath, resolveAssetPath } from '$lib/utils/paths';
-	import { citationString, siteCitation, siteLicence } from '$lib/data/site-meta';
-	import { CopyFeedback } from '$lib/utils/copy-feedback.svelte';
+	import { resolveAppPath, resolveAssetPath } from '#lib/utils/paths';
+	import { citationString, siteCitation, siteLicence } from '#lib/data/site-meta';
+	import { CopyFeedback } from '#lib/utils/copy-feedback.svelte';
 
 	/**
 	 * The trimmed marks (see scripts/optimize_images.mjs) — the originals carry

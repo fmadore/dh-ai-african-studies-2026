@@ -5,17 +5,17 @@
 	import { onMount, tick } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-	import ParticipantAvatar from '$lib/components/ParticipantAvatar.svelte';
-	import SeoHead from '$lib/components/SeoHead.svelte';
-	import PageHero from '$lib/components/PageHero.svelte';
-	import { participants } from '$lib/data/participants';
-	import { thematicGroups } from '$lib/data/thematic-groups';
-	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
-	import ParticipantsMap from '$lib/components/ParticipantsMap.svelte';
-	import SearchFilter from '$lib/components/SearchFilter.svelte';
-	import UrlTabs from '$lib/components/UrlTabs.svelte';
-	import { resolveAssetPath } from '$lib/utils/paths';
-	import { foldForSearch } from '$lib/utils/text';
+	import ParticipantAvatar from '#lib/components/ParticipantAvatar.svelte';
+	import SeoHead from '#lib/components/SeoHead.svelte';
+	import PageHero from '#lib/components/PageHero.svelte';
+	import { participants } from '#lib/data/participants';
+	import { thematicGroups } from '#lib/data/thematic-groups';
+	import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
+	import ParticipantsMap from '#lib/components/ParticipantsMap.svelte';
+	import SearchFilter from '#lib/components/SearchFilter.svelte';
+	import UrlTabs from '#lib/components/UrlTabs.svelte';
+	import { resolveAssetPath } from '#lib/utils/paths';
+	import { foldForSearch } from '#lib/utils/text';
 
 	let searchQuery = $state('');
 	let enhanced = $state(false);

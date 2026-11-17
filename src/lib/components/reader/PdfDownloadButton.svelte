@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button } from 'flowbite-svelte';
 	import { FileCheckOutline, ClockOutline } from 'flowbite-svelte-icons';
-	import { resolveAssetPath } from '$lib/utils/paths';
+	import { resolveAssetPath } from '#lib/utils/paths';
 
 	interface Props {
 		pdfPath: string;

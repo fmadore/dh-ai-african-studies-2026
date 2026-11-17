@@ -11,8 +11,8 @@ import { existsSync } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import { join, extname } from 'node:path';
 import exifr from 'exifr';
-import type { Photo, PhotoCategory } from '$lib/types/photo';
-import { mediaCredit } from '$lib/data/photos';
+import type { Photo, PhotoCategory } from '#lib/types/photo';
+import { mediaCredit } from '#lib/data/photos';
 
 const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 

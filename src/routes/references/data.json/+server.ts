@@ -1,8 +1,8 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import type { CslReference } from '$lib/types/csl';
-import referencesData from '$lib/data/references.json';
-import { stripReadingStatusTags } from '$lib/utils/references';
+import type { CslReference } from '#lib/types/csl';
+import referencesData from '#lib/data/references.json';
+import { stripReadingStatusTags } from '#lib/utils/references';
 
 export const prerender = true;
 

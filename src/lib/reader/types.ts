@@ -1,5 +1,5 @@
-import type { Author } from '$lib/utils/seo';
-import type { CslReference } from '$lib/types/csl';
+import type { Author } from '#lib/utils/seo';
+import type { CslReference } from '#lib/types/csl';
 import type { CitationReport } from './citations';
 
 export type { CslReference };

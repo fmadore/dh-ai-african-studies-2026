@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ReferenceFilterState } from '$lib/utils/reference-filters.svelte';
+import { ReferenceFilterState } from '#lib/utils/reference-filters.svelte';
 
 describe('reference filter state', () => {
 	it('round-trips through the query string, omitting defaults', () => {

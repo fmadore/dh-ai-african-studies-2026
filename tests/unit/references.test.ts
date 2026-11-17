@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { CslReference } from '$lib/types/csl';
+import type { CslReference } from '#lib/types/csl';
 import {
 	buildPageItems,
 	filterReferences,
@@ -8,8 +8,8 @@ import {
 	getAccessLink,
 	sortReferences,
 	stripReadingStatusTags
-} from '$lib/utils/references';
-import { toReferenceListItem } from '$lib/utils/reference-index';
+} from '#lib/utils/references';
+import { toReferenceListItem } from '#lib/utils/reference-index';
 
 const references: CslReference[] = [
 	{

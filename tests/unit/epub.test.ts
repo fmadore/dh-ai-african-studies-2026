@@ -3,8 +3,8 @@ import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'nod
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { positionPaperMeta } from '$lib/data/position-paper-meta';
-import { processPaper } from '$lib/reader/process-paper';
+import { positionPaperMeta } from '#lib/data/position-paper-meta';
+import { processPaper } from '#lib/reader/process-paper';
 
 const python =
 	process.env.EPUB_PYTHON ||

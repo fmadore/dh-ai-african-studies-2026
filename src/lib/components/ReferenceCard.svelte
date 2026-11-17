@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { ChevronDownOutline, ChevronUpOutline } from 'flowbite-svelte-icons';
-	import type { ReferenceListItem } from '$lib/types/csl';
-	import { formatCitation, getAccessLink } from '$lib/utils/references';
-	import { formatType } from '$lib/utils/formatters';
+	import type { ReferenceListItem } from '#lib/types/csl';
+	import { formatCitation, getAccessLink } from '#lib/utils/references';
+	import { formatType } from '#lib/utils/formatters';
 
 	interface Props {
 		reference: ReferenceListItem;

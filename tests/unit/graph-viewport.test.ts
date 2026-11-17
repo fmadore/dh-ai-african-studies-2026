@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { fitGraphView } from '$lib/components/concept-graph/graph-viewport';
-import type { ConceptNode } from '$lib/types/concept-graph';
+import { fitGraphView } from '#lib/components/concept-graph/graph-viewport';
+import type { ConceptNode } from '#lib/types/concept-graph';
 
 const node = (id: string, x: number, y: number, degree = 10): ConceptNode => ({
 	id,

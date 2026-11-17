@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { loadPhotoSample } from '$lib/server/photos';
+import { loadPhotoSample } from '#lib/server/photos';
 
 /**
  * One documentary image for the Background section — the intellectual heart of

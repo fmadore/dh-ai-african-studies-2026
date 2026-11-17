@@ -2,11 +2,11 @@
 	import { CameraPhotoOutline } from 'flowbite-svelte-icons';
 	import { page } from '$app/state';
 	import { browser } from '$app/env';
-	import { createSeoMeta, createWebPageJsonLd } from '$lib/utils/seo';
-	import { photoCategories, mediaCredit } from '$lib/data/photos';
-	import SeoHead from '$lib/components/SeoHead.svelte';
-	import PageHero from '$lib/components/PageHero.svelte';
-	import PhotoViewer from '$lib/components/PhotoViewer.svelte';
+	import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
+	import { photoCategories, mediaCredit } from '#lib/data/photos';
+	import SeoHead from '#lib/components/SeoHead.svelte';
+	import PageHero from '#lib/components/PageHero.svelte';
+	import PhotoViewer from '#lib/components/PhotoViewer.svelte';
 
 	let { data } = $props();
 	let photos = $derived(data.photos);

@@ -2,10 +2,10 @@
 	import { untrack } from 'svelte';
 	import { page } from '$app/state';
 	import { replaceState } from '$app/navigation';
-	import type { Photo, PhotoCategory } from '$lib/types/photo';
-	import { resolveAssetPath } from '$lib/utils/paths';
-	import { reveal } from '$lib/utils/reveal';
-	import PhotoLightbox from '$lib/components/photo-viewer/PhotoLightbox.svelte';
+	import type { Photo, PhotoCategory } from '#lib/types/photo';
+	import { resolveAssetPath } from '#lib/utils/paths';
+	import { reveal } from '#lib/utils/reveal';
+	import PhotoLightbox from '#lib/components/photo-viewer/PhotoLightbox.svelte';
 	import { Heading, P, Button } from 'flowbite-svelte';
 	import { ImageOutline } from 'flowbite-svelte-icons';
 

@@ -1,4 +1,4 @@
-import type { ConceptNode } from '$lib/types/concept-graph';
+import type { ConceptNode } from '#lib/types/concept-graph';
 import { EDGE_COLOR } from './graph-config';
 
 /** An edge after d3-force has resolved its string ids to node objects. */

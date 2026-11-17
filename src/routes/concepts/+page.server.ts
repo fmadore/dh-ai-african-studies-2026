@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
-import graphJson from '$lib/data/concept-graph.json';
-import { toConceptGraphData } from '$lib/utils/concept-graph-data';
+import graphJson from '#lib/data/concept-graph.json';
+import { toConceptGraphData } from '#lib/utils/concept-graph-data';
 
 // Only the workshop's own groups: the graph also buckets nodes as
 // "Cross-cutting" and "Extended", which are not thematic groups.

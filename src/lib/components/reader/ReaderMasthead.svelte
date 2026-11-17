@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { Heading, P } from 'flowbite-svelte';
-	import type { PositionPaperMeta } from '$lib/reader/types';
-	import AuthorByline from '$lib/components/AuthorByline.svelte';
-	import PaperKeywords from '$lib/components/PaperKeywords.svelte';
-	import { resolveAssetPath } from '$lib/utils/paths';
-	import { mediaCredit } from '$lib/data/photos';
-	import { formatLongDate } from '$lib/utils/formatters';
+	import type { PositionPaperMeta } from '#lib/reader/types';
+	import AuthorByline from '#lib/components/AuthorByline.svelte';
+	import PaperKeywords from '#lib/components/PaperKeywords.svelte';
+	import { resolveAssetPath } from '#lib/utils/paths';
+	import { mediaCredit } from '#lib/data/photos';
+	import { formatLongDate } from '#lib/utils/formatters';
 
 	interface Props {
 		meta: PositionPaperMeta;

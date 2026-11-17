@@ -92,10 +92,11 @@ with each device's screen and font settings.
 - Python 3.10+ (data transformations, EPUB export, and their tests; standard library only)
 
 SvelteKit 3 configuration lives in `vite.config.ts`, including static prerendering
-and the GitHub Pages `BASE_PATH`. Vitest reuses that configuration. Existing `$lib`
-imports are retained through an explicit compatibility alias; new subpath-import
-conventions can be adopted independently. TypeScript remains on version 6 to match
-the framework and linter peer requirements.
+and the GitHub Pages `BASE_PATH`. Vitest reuses that configuration. Library imports
+use the `#lib/*` subpath import declared in `package.json`; Vite resolves it from
+that `imports` field, and `tsconfig.json` maps it again under `paths` because
+TypeScript does not try file extensions on an `imports` target. TypeScript remains
+on version 6 to match the framework and linter peer requirements.
 
 ### Install dependencies
 
@@ -237,7 +238,7 @@ static/
 2. Export a participant object using the `Participant` type:
 
 ```typescript
-import type { Participant } from '$lib/types/participant';
+import type { Participant } from '#lib/types/participant';
 
 export const janeDoe: Participant = {
   name: 'Jane Doe',
