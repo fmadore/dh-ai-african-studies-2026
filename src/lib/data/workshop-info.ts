@@ -34,5 +34,3 @@ export const workshopInfo = {
 		url: 'https://www.volkswagenstiftung.de/en'
 	}
 } as const;
-
-export type WorkshopInfo = typeof workshopInfo;

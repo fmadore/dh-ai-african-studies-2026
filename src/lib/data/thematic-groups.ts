@@ -116,17 +116,3 @@ export const thematicGroups: ThematicGroup[] = [
 		]
 	}
 ];
-
-/**
- * Get a thematic group by its ID
- */
-export function getThematicGroupById(id: string): ThematicGroup | undefined {
-	return thematicGroups.find((group) => group.id === id);
-}
-
-/**
- * Get a thematic group by its name (as stored in participant data)
- */
-export function getThematicGroupByName(name: string): ThematicGroup | undefined {
-	return thematicGroups.find((group) => group.name === name);
-}

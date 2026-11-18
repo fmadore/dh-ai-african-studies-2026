@@ -6,7 +6,7 @@
 		/** Short eyebrow above the title (e.g. "Outcome", "Programme") */
 		eyebrow?: string;
 		lede?: string;
-		width?: 'default' | 'narrow' | 'wide';
+		width?: 'default' | 'wide';
 		/** `compact` trims the vertical padding for pages whose content is the point (photos) */
 		size?: 'default' | 'compact';
 		/** Extra hero content rendered below the lede (meta rows, credits, …) */
@@ -17,7 +17,6 @@
 
 	const widthClass: Record<NonNullable<Props['width']>, string> = {
 		default: 'content-width',
-		narrow: 'content-width-narrow',
 		wide: 'content-width-wide'
 	};
 </script>

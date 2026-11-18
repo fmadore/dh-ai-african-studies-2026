@@ -1,14 +1,6 @@
 <script lang="ts">
 	import { workStreams } from '#lib/data/work-streams';
 	import { reveal } from '#lib/utils/reveal';
-
-	interface Props {
-		/** Heading level for the card titles, so the cards fit the surrounding
-		 * document outline (h3 on the landing page, h4 inside the reader panel). */
-		headingTag?: 'h3' | 'h4';
-	}
-
-	let { headingTag = 'h3' }: Props = $props();
 </script>
 
 <ol class="work-stream-grid stagger-children" use:reveal>
@@ -17,9 +9,9 @@
 			<span class="work-stream__index" aria-hidden="true">
 				{String(stream.id).padStart(2, '0')}
 			</span>
-			<svelte:element this={headingTag} class="heading-sub text-lg">
+			<h3 class="heading-sub text-lg">
 				{stream.title}
-			</svelte:element>
+			</h3>
 			<p class="text-body-sm">{stream.description}</p>
 		</li>
 	{/each}

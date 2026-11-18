@@ -8,11 +8,6 @@
 		margin-inline: auto;
 	}
 
-	.content-width-narrow {
-		width: min(100% - var(--space-lg), var(--container-3xl));
-		margin-inline: auto;
-	}
-
 	.content-width-wide {
 		width: min(100% - var(--space-lg), var(--container-7xl));
 		margin-inline: auto;
@@ -24,10 +19,6 @@
 	 * container runs to ~113/145 characters per line. */
 	.prose-measure {
 		max-width: var(--measure-prose);
-	}
-
-	.lede-measure {
-		max-width: var(--measure-lede);
 	}
 
 	/* ---------- Full-bleed bands — the missing rhythm primitive ---------- */
@@ -121,51 +112,16 @@
 		padding: var(--space-lg);
 	}
 
-	.surface-padding-xs {
-		padding: var(--space-md);
-	}
-
 	.padding-inline-lg {
 		padding-inline: var(--space-lg);
-	}
-
-	.padding-block-xl {
-		padding-block: var(--space-xl);
 	}
 
 	.padding-block-section {
 		padding-block: var(--space-3xl);
 	}
 
-	.padding-block-section-sm {
-		padding-block: var(--space-2xl);
-	}
-
 	.padding-inline-section {
 		padding-inline: var(--space-lg);
-	}
-
-	.margin-inline-auto {
-		margin-inline: auto;
-	}
-
-	.-mt-lg {
-		margin-top: calc(var(--space-lg) * -1);
-	}
-
-	/* ---------- Auto grid ---------- */
-	.auto-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-		gap: var(--space-lg);
-	}
-
-	.auto-grid-sm {
-		grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-	}
-
-	.auto-grid-lg {
-		grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr));
 	}
 
 	/* ---------- Vertical stacks ---------- */
@@ -214,53 +170,16 @@
 		gap: var(--space-2xl);
 	}
 
-	.p-xs {
-		padding: var(--space-xs);
-	}
-	.p-sm {
-		padding: var(--space-sm);
-	}
-	.p-md {
-		padding: var(--space-md);
-	}
-	.p-lg {
-		padding: var(--space-lg);
-	}
-
-	.px-xs {
-		padding-inline: var(--space-xs);
-	}
 	.px-sm {
 		padding-inline: var(--space-sm);
-	}
-	.px-md {
-		padding-inline: var(--space-md);
-	}
-	.px-lg {
-		padding-inline: var(--space-lg);
 	}
 
 	.py-xs {
 		padding-block: var(--space-xs);
 	}
-	.py-sm {
-		padding-block: var(--space-sm);
-	}
-	.py-md {
-		padding-block: var(--space-md);
-	}
-	.py-lg {
-		padding-block: var(--space-lg);
-	}
 
-	.mb-sm {
-		margin-bottom: var(--space-sm);
-	}
 	.mb-md {
 		margin-bottom: var(--space-md);
-	}
-	.mb-lg {
-		margin-bottom: var(--space-lg);
 	}
 	.mb-xl {
 		margin-bottom: var(--space-xl);
@@ -269,20 +188,11 @@
 	/* The `mt-*` half of the pair. These read like Tailwind utilities but are
 	   ours — `--space-*` is not in Tailwind's `--spacing-*` namespace, so
 	   `mt-lg` generates nothing unless it is declared here. */
-	.mt-xs {
-		margin-top: var(--space-xs);
-	}
 	.mt-sm {
 		margin-top: var(--space-sm);
 	}
-	.mt-md {
-		margin-top: var(--space-md);
-	}
 	.mt-lg {
 		margin-top: var(--space-lg);
-	}
-	.mt-xl {
-		margin-top: var(--space-xl);
 	}
 
 	/* ---------- Icon sizes (semantic) ---------- */
@@ -298,30 +208,10 @@
 		width: 2rem;
 		height: 2rem;
 	}
-	.size-icon-xl {
-		width: 2.5rem;
-		height: 2.5rem;
-	}
-	.size-icon-2xl {
-		width: 3.5rem;
-		height: 3.5rem;
-	}
-	.size-legend-dot {
-		width: 0.625rem;
-		height: 0.625rem;
-	}
 
 	/* ---------- Semantic color utilities ---------- */
 	.bg-page {
 		background-color: var(--bg-page);
-	}
-
-	.bg-page-soft {
-		background-color: var(--bg-sunken);
-	}
-
-	.bg-raised {
-		background-color: var(--bg-raised);
 	}
 
 	.text-primary-ink {
@@ -344,29 +234,6 @@
 		color: var(--text-accent);
 	}
 
-	.text-on-accent {
-		color: var(--text-on-accent);
-	}
-
-	/* Status text/background utilities */
-	.text-warning {
-		color: var(--warning);
-	}
-
-	.text-danger {
-		color: var(--danger);
-		transition: color var(--transition-micro);
-	}
-
-	.text-danger:hover {
-		color: var(--danger-hover);
-	}
-
-	.bg-warning-soft {
-		background-color: var(--warning-soft);
-		color: var(--warning-on-soft);
-	}
-
 	/* Body-copy variants */
 	.body-text {
 		color: var(--text-secondary);
@@ -381,12 +248,6 @@
 	.body-text-muted {
 		color: var(--text-muted);
 		font-size: var(--text-sm);
-	}
-
-	.text-body-lg {
-		font-size: var(--text-lg);
-		line-height: var(--leading-relaxed);
-		color: var(--text-secondary);
 	}
 
 	.text-body-sm {
@@ -443,9 +304,6 @@
 	}
 
 	/* Heading sizes — decoupled from semantic heading classes */
-	.heading-xl {
-		font-size: var(--text-5xl);
-	}
 	.heading-lg {
 		font-size: var(--text-4xl);
 	}
@@ -461,20 +319,6 @@
 	}
 
 	/* ---------- Links ---------- */
-	.link-primary {
-		color: var(--brand);
-		text-decoration: underline;
-		text-decoration-color: color-mix(in srgb, var(--brand) 45%, transparent);
-		text-underline-offset: 3px;
-		text-decoration-thickness: 1px;
-		transition:
-			text-decoration-color var(--transition-micro),
-			color var(--transition-micro);
-	}
-
-	.link-primary:hover {
-		text-decoration-color: var(--brand);
-	}
 
 	.link-secondary {
 		color: var(--text-link);
@@ -679,56 +523,8 @@
 	}
 
 	/* ---------- Vertical rhythm helpers ---------- */
-	.stack-item-xs {
-		margin-top: var(--space-xs);
-	}
-	.stack-item-sm {
-		margin-top: var(--space-sm);
-	}
 	.stack-item-md {
 		margin-top: var(--space-md);
-	}
-	.stack-item-lg {
-		margin-top: var(--space-lg);
-	}
-	.stack-item-xl {
-		margin-top: var(--space-xl);
-	}
-
-	/* ---------- Transition aliases ---------- */
-	.transition-fast {
-		transition: all var(--transition-micro);
-	}
-	.transition-base {
-		transition: all var(--transition-base);
-	}
-	.transition-slow {
-		transition: all var(--transition-slow);
-	}
-
-	/* ---------- Gap axis utilities ---------- */
-	.gap-x-sm {
-		column-gap: var(--space-sm);
-	}
-	.gap-x-md {
-		column-gap: var(--space-md);
-	}
-	.gap-x-lg {
-		column-gap: var(--space-lg);
-	}
-	.gap-y-sm {
-		row-gap: var(--space-sm);
-	}
-	.gap-y-md {
-		row-gap: var(--space-md);
-	}
-	.gap-y-lg {
-		row-gap: var(--space-lg);
-	}
-
-	/* ---------- Padding-top ---------- */
-	.pt-md {
-		padding-top: var(--space-md);
 	}
 
 	/* ---------- Aspect ratio helper ---------- */

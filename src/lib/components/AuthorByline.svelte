@@ -5,11 +5,9 @@
 		authors: readonly Author[];
 		/** Footnote revealed by a marker set after the last author. */
 		note?: string;
-		/** Marker glyph — the usual footnote asterisk. */
-		marker?: string;
 	}
 
-	let { authors, note, marker = '*' }: Props = $props();
+	let { authors, note }: Props = $props();
 
 	const noteId = $props.id();
 	const nameList = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
@@ -74,7 +72,7 @@
 		onclick={() => (pinned = !pinned)}
 		onmouseenter={() => peek(true)}
 		onmouseleave={() => peek(false)}
-	><span class="sr-only">Note on authorship</span><span aria-hidden="true">{marker}</span></button><span
+	><span class="sr-only">Note on authorship</span><span aria-hidden="true">*</span></button><span
 		id={noteId}
 		class="author-byline__note"
 		role="note"

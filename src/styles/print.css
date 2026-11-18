@@ -93,10 +93,6 @@
 		word-break: break-all;
 	}
 
-	.page-break-before {
-		page-break-before: always;
-	}
-
 	.avoid-break {
 		page-break-inside: avoid;
 	}

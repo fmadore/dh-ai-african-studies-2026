@@ -4,8 +4,9 @@ import { gzipSync } from 'node:zlib';
 
 const buildDirectory = path.resolve('build');
 const budgets = {
-	// ~54 KiB since Tailwind stopped scanning unused Flowbite folders (was ~70)
-	cssGzipBytes: 62 * 1024,
+	// ~53 KiB: Tailwind scans only the Flowbite folders in use (was ~70), and
+	// the unused typography plugin and dead utilities are gone (was ~55)
+	cssGzipBytes: 60 * 1024,
 	javascriptGzipBytes: 700 * 1024,
 	// Static import descendants are eager even when absent from the HTML.
 	// Dynamic imports have a separate ceiling; this does not imply that a

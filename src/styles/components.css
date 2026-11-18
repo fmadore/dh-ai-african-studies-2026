@@ -58,10 +58,6 @@
 		background: linear-gradient(90deg, var(--accent-muted), var(--accent));
 	}
 
-	.section-head--bare::after {
-		display: none;
-	}
-
 	/* ---------- Surfaces ---------- */
 	/* Solid panel — section wrappers. No blur: --bg-glass over the page resolved
 	   to a 2/255 step, so ten promoted compositing layers per page bought
@@ -147,10 +143,6 @@
 	}
 
 	/* ---------- Gradients ---------- */
-	.gradient-accent {
-		background: linear-gradient(135deg, var(--color-secondary-500), var(--color-secondary-700));
-	}
-
 	.text-gradient-teal {
 		background: linear-gradient(
 			130deg,
