@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
+	import { createSeoMeta, createVideoObjectJsonLd, createWebPageJsonLd } from '#lib/utils/seo';
+	import { workshopInfo } from '#lib/data/workshop-info';
 	import { interviews, captionsUrl } from '#lib/data/interviews';
 	import { mediaCredit } from '#lib/data/photos';
 	import { reveal } from '#lib/utils/reveal';
@@ -13,8 +14,7 @@
 
 	const seo = createSeoMeta({
 		title: 'Interviews',
-		description:
-			'Short video interviews with participants of the Charting New Territory workshop on Digital Humanities and AI in African Studies, held 18–20 February 2026 in Hanover, Germany.',
+		description: `Video interviews with participants of the workshop on digital humanities and AI in African Studies, held ${workshopInfo.dates.full} in ${workshopInfo.location.city}, ${workshopInfo.location.country}.`,
 		path: '/interviews',
 		keywords: [
 			'Workshop Interviews',
@@ -33,9 +33,21 @@
 		description: seo.description,
 		url: seo.canonical
 	});
+
+	// One VideoObject per interview, thumbnailed with the same poster the page
+	// shows. No uploadDate until interviews.ts records YouTube's own dates.
+	const videoJsonLd = interviews.map((interview) =>
+		createVideoObjectJsonLd({
+			name: `${interview.topic}: interview with ${interview.participantName}`,
+			description: interview.description,
+			youtubeId: interview.youtubeId,
+			thumbnail: data.posters[interview.youtubeId],
+			uploadDate: interview.uploadDate
+		})
+	);
 </script>
 
-<SeoHead {seo} jsonLd={webPageJsonLd} />
+<SeoHead {seo} jsonLd={[webPageJsonLd, ...videoJsonLd]} />
 
 <PageHero
 	eyebrow="Outcomes"
@@ -55,14 +67,16 @@
 <section class="band-tight padding-inline-section">
 	<div class="content-width-wide">
 		<div class="interview-grid">
-			{#each interviews as interview (interview.participantName)}
+			{#each interviews as interview, index (interview.participantName)}
 				<article class="interview animate-section-reveal" use:reveal>
 					<!-- No card, no glow border, no hover lift: the 16:9 thumbnail is
-					     already the card. -->
+					     already the card. The first row (two cards from 768px, one
+					     below) is above the fold, so its posters are the LCP. -->
 					<LiteYouTube
 						videoId={interview.youtubeId}
 						title="Interview with {interview.participantName}"
 						poster={resolveAssetPath(data.posters[interview.youtubeId])}
+						priority={index < 2}
 					/>
 
 					<!-- Topic first: it is why anyone clicks. The name and affiliation
@@ -73,10 +87,6 @@
 					</p>
 					<p class="prose-serif-sm">{interview.description}</p>
 					<p class="interview__meta">
-						{#if interview.durationMinutes}
-							<span>{interview.durationMinutes} min</span>
-							<span aria-hidden="true">·</span>
-						{/if}
 						<a
 							href={captionsUrl(interview)}
 							target="_blank"

@@ -9,11 +9,11 @@ export interface Interview {
 	topic: string;
 	description: string;
 	/**
-	 * Runtime in minutes. "Short interviews" was the only indication of length
-	 * anywhere on the site. Fill these in per interview; the card omits the
-	 * line when the value is absent rather than guessing.
+	 * Date the video was published on YouTube (ISO 8601), as YouTube shows it.
+	 * Google needs it for video rich results; the page's VideoObject omits it
+	 * until it is filled in rather than guessing from the workshop dates.
 	 */
-	durationMinutes?: number;
+	uploadDate?: string;
 }
 
 /** YouTube carries the captions, which matter for accessibility and citation. */

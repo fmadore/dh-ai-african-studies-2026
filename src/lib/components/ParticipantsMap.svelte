@@ -106,8 +106,6 @@
 		void attempt;
 		mapFailed = false;
 		tilesUnavailable = false;
-		// Theme changes use setStyle below; they must not recreate the Leaflet map.
-		const initialDark = untrack(() => isDarkMode);
 		let destroyed = false;
 
 		Promise.all([
@@ -143,6 +141,13 @@
 				// Add the vector basemap for the current theme. MapLibre would
 				// draw its own attribution inside the canvas; suppressed so the
 				// credit sits in Leaflet's control with the rest of the chrome.
+				// The theme is read now, after the chunks have loaded, not when the
+				// effect started: a theme flipped during the import would otherwise
+				// leave appliedStyle stale, and the theme effect below would call
+				// setStyle() on the style still loading — the blank map described
+				// at appliedStyle. Untracked: theme changes go through setStyle and
+				// must not recreate the Leaflet map.
+				const initialDark = untrack(() => darkMode.isDark);
 				appliedStyle = initialDark ? STYLE_URLS.dark : STYLE_URLS.light;
 				beginStyleLoad();
 				glMap = maplibreGL({

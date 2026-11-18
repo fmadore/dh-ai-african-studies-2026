@@ -43,11 +43,15 @@
 
 <svelte:window
 	onkeydown={(e) => {
-		if (e.key !== 'Escape') return;
+		// A handled Escape is marked, so page-level handlers (the concept
+		// graph's) skip it: one press closes one thing.
+		if (e.key !== 'Escape' || e.defaultPrevented) return;
 		if (outcomesOpen) {
+			e.preventDefault();
 			outcomesOpen = false;
 			outcomesButtonEl?.focus();
 		} else if (menuOpen) {
+			e.preventDefault();
 			closeMenu();
 			hamburgerEl?.focus();
 		}

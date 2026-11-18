@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { ConceptNode, ConceptGroup } from '#lib/types/concept-graph';
+	import type { ConceptNode } from '#lib/types/concept-graph';
 	import { SearchOutline } from 'flowbite-svelte-icons';
 	import { foldForSearch } from '#lib/utils/text';
+	import { GROUP_COLORS } from './graph-config';
 
 	interface Props {
 		nodes: ConceptNode[];
-		getNodeColor: (_group: ConceptGroup) => string;
 		onselect: (_node: ConceptNode) => void;
 	}
 
-	let { nodes, getNodeColor, onselect }: Props = $props();
+	let { nodes, onselect }: Props = $props();
 	const componentId = $props.id();
 	const resultsId = `${componentId}-results`;
 
@@ -58,10 +58,14 @@
 		} else if (event.key === 'Enter' && searchResults.length > 0) {
 			event.preventDefault();
 			selectResult(searchResults[searchHighlightIndex]);
-		} else if (event.key === 'Escape') {
+		} else if (event.key === 'Escape' && (searchQuery || searchOpen)) {
+			// Escape dismisses the search and nothing else: the graph's window
+			// handler skips a handled event, so one press never also clears the
+			// selection or leaves the expanded stage. Focus stays in the field (it
+			// used to blur to <body>). With nothing to dismiss, Escape passes on.
+			event.preventDefault();
 			searchQuery = '';
 			searchOpen = false;
-			searchInputEl?.blur();
 		}
 	}
 
@@ -115,6 +119,8 @@
 				onclick={() => {
 					searchQuery = '';
 					searchOpen = false;
+					// The button unmounts with the query; keep focus in the field
+					searchInputEl?.focus();
 				}}
 				aria-label="Clear search"
 			>
@@ -140,7 +146,7 @@
 							requestedHighlightIndex = i;
 						}}
 					>
-						<span class="search-result-dot" style="background-color: {getNodeColor(result.group)}"
+						<span class="search-result-dot" style="background-color: {GROUP_COLORS[result.group]}"
 						></span>
 						<span class="search-result-label">{result.label}</span>
 						<span class="search-result-degree">{result.degree}</span>
@@ -173,19 +179,18 @@
 		background: var(--bg-raised);
 		color: var(--text-primary);
 		font-size: var(--text-sm);
-		transition:
-			border-color var(--transition-micro),
-			box-shadow var(--transition-micro);
-		outline: none;
+		transition: border-color var(--transition-micro);
 	}
 
 	.search-input::placeholder {
 		color: var(--text-subtle);
 	}
 
+	/* The focus indicator is the global teal :focus-visible outline; the border
+	 * only echoes it. No outline suppression or box-shadow glow here — scoped
+	 * rules beat the base layer, so either would replace the real ring. */
 	.search-input:focus {
 		border-color: var(--accent);
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
 	}
 
 	.search-clear {
@@ -205,6 +210,16 @@
 		transition:
 			background var(--transition-micro),
 			color var(--transition-micro);
+	}
+
+	/* 20px visually; a 44px touch surface on coarse pointers (DESIGN.md), drawn
+	 * by an invisible pseudo-element so the glyph keeps its size. */
+	@media (pointer: coarse) {
+		.search-clear::before {
+			content: '';
+			position: absolute;
+			inset: calc((1.25rem - 2.75rem) / 2);
+		}
 	}
 
 	.search-clear:hover {

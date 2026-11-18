@@ -4,7 +4,7 @@
 	import { SvelteSet } from 'svelte/reactivity';
 	import { untrack } from 'svelte';
 	import { page } from '$app/state';
-	import { afterNavigate, replaceState } from '$app/navigation';
+	import { afterNavigate, goto } from '$app/navigation';
 	import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
 	import { fade, slide } from 'svelte/transition';
 	import type { CslReference } from '#lib/types/csl';
@@ -19,6 +19,7 @@
 	import ExportReferences from '#lib/components/ExportReferences.svelte';
 	import Pagination from '#lib/components/Pagination.svelte';
 	import { formatLanguage, formatType } from '#lib/utils/formatters';
+	import { prefersReducedMotion } from '#lib/utils/motion';
 
 	const seo = createSeoMeta({
 		title: 'References',
@@ -173,6 +174,46 @@
 		// Instant, not smooth: html:focus-within scopes smooth scrolling to
 		// genuine anchor navigation, and a filter re-render is not that.
 		resultsEl?.scrollIntoView({ block: 'start' });
+		// The only pagination control sits below the list. Left there, focus
+		// would strand a keyboard or screen-reader user at the end of a page they
+		// have not read; the new page starts at the results, so focus does too.
+		// Filter changes never come through here, so typing keeps its field.
+		resultsEl?.focus({ preventScroll: true });
+	}
+
+	/*
+	 * Card transitions are for small, legible changes: a keyword toggled, a
+	 * card or two in or out. Switching to "All", turning a page, or a keystroke
+	 * that swaps most of the list would start dozens of slides at once (228 for
+	 * "All") and make every keystroke re-animate the column, so those snap.
+	 * The pre-effect runs before the list re-renders, so the transitions below
+	 * read the verdict for the change they belong to.
+	 */
+	const LARGE_CHANGE = 8;
+	let renderedIds: Set<string> | null = null;
+	let largeChange = false;
+
+	$effect.pre(() => {
+		const ids = new Set(pagedReferences.map((ref) => ref.id));
+		let changed = 0;
+		if (renderedIds) {
+			for (const id of ids) if (!renderedIds.has(id)) changed++;
+			for (const id of renderedIds) if (!ids.has(id)) changed++;
+		}
+		largeChange = changed > LARGE_CHANGE;
+		renderedIds = ids;
+	});
+
+	function animateCards() {
+		return pageSize !== 0 && !largeChange && !prefersReducedMotion();
+	}
+
+	function cardIn(node: Element) {
+		return animateCards() ? slide(node, { duration: 200 }) : { duration: 0 };
+	}
+
+	function cardOut(node: Element) {
+		return animateCards() ? fade(node, { duration: 150 }) : { duration: 0 };
 	}
 
 	// --- Query string ---
@@ -180,7 +221,10 @@
 
 	// SvelteKit can reuse this page when only its query changes. Read every
 	// completed navigation, not just the first mount, so shared links stay true.
-	afterNavigate(() => {
+	afterNavigate((navigation) => {
+		// The query-string writes below are shallow navigations of this page's
+		// own state; reading them back could undo a keystroke typed meanwhile.
+		if (navigation.shallow) return;
 		const params = page.url.searchParams;
 		filters.readFrom(new URLSearchParams(params.toString()));
 		const size = params.get('per');
@@ -195,6 +239,9 @@
 
 	// Replace, not push: refining a filter shouldn't make Back step through
 	// every keystroke. Defaults are omitted, so the plain list keeps a clean URL.
+	// Shallow: the URL and page.state change without a navigation, so there is
+	// no load, no scroll reset and no focus reset (replaceState's semantics,
+	// which this goto replaces now that replaceState is deprecated).
 	$effect(() => {
 		if (!urlSynced) return;
 		const params = new URLSearchParams(); // eslint-disable-line svelte/prefer-svelte-reactivity -- built and discarded per run
@@ -204,7 +251,15 @@
 		const query = params.toString();
 		const search = query ? `?${query}` : '';
 		if (search === location.search) return;
-		untrack(() => replaceState(`${location.pathname}${search}${location.hash}`, page.state));
+		untrack(() => {
+			goto(`${location.pathname}${search}${location.hash}`, {
+				state: page.state,
+				shallow: true,
+				replace: true
+			}).catch(() => {
+				// Superseded by a newer write before it settled; that one wins.
+			});
+		});
 	});
 
 	function resetFilters() {
@@ -301,12 +356,14 @@
 				<!-- Outside the stack on purpose: `.sr-only` is out of flow but still an
 				     adjacent sibling, so as a stack child it pushed the toolbar down and
 				     knocked the results column out of alignment with the facets panel. -->
-				<h2 class="sr-only">Results</h2>
+				<h2 class="sr-only" id="reference-results-heading">Results</h2>
 
 				<div class="stack-md">
 					<!-- A status readout, not a card: this used to lift and glow on hover -->
 					<div class="results-toolbar">
-						<p class="text-body-sm">
+						<!-- A polite status, as the keyword hint in the facets panel is: the
+						     count is how a screen-reader user learns what a filter did. -->
+						<p class="text-body-sm" role="status" aria-atomic="true">
 							{#if paginated && filteredReferences.length > pageSize}
 								Showing <span class="results-toolbar__figure">{pageStart + 1}–{pageEnd}</span>
 								of <span class="results-toolbar__figure">{filteredReferences.length}</span> references
@@ -359,13 +416,16 @@
 
 					<!-- `stack-lg`, not `stack-md`: the interval between two records has to
 					     beat the 24px inside one, or twenty cards read as a single block. -->
-					<div class="stack-lg" bind:this={resultsEl}>
+					<!-- Focusable (not tabbable) so a page turn can move focus here. -->
+					<div
+						class="stack-lg"
+						role="region"
+						aria-labelledby="reference-results-heading"
+						tabindex="-1"
+						bind:this={resultsEl}
+					>
 						{#each pagedReferences as ref (ref.id)}
-							<div
-								class:reference-result={pageSize === 0}
-								in:slide|local={{ duration: 200 }}
-								out:fade|local={{ duration: 150 }}
-							>
+							<div class:reference-result={pageSize === 0} in:cardIn|local out:cardOut|local>
 								<ReferenceCard
 									reference={ref}
 									selectedTags={filters.selectedTags}

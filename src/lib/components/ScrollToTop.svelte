@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { ArrowUpOutline } from 'flowbite-svelte-icons';
+	import { prefersReducedMotion } from '#lib/utils/motion';
 
 	let visible = $state(false);
 
@@ -13,8 +14,7 @@
 	});
 
 	function scrollToTop() {
-		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+		window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
 	}
 </script>
 
@@ -57,9 +57,11 @@
 		display: none;
 	}
 
+	/* Secondary-700, not --accent: white on the dark-mode accent (#2dd4bf) is
+	   1.86:1. This step keeps the arrow above 4.5:1 in both themes. */
 	.scroll-to-top:hover {
-		background-color: var(--accent);
-		border-color: var(--accent);
+		background-color: var(--color-secondary-700);
+		border-color: var(--color-secondary-700);
 		color: var(--text-on-accent);
 		box-shadow: var(--shadow-lg);
 		transform: translateY(-2px);

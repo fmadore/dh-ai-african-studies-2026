@@ -70,4 +70,10 @@
 	:global(.btn-refined--secondary:hover) {
 		box-shadow: var(--shadow-sm);
 	}
+	/* Reduced motion keeps the fill and shadow change, drops the lift. */
+	@media (prefers-reduced-motion: reduce) {
+		:global(.btn-refined:hover) {
+			transform: none;
+		}
+	}
 </style>

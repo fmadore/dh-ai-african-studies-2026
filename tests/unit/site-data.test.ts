@@ -1,8 +1,9 @@
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { participants } from '#lib/data/participants';
-import { positionPaperMeta } from '#lib/data/position-paper-meta';
+import { paperPublicationDate, positionPaperMeta } from '#lib/data/position-paper-meta';
+import { workshopInfo } from '#lib/data/workshop-info';
 import { interviews } from '#lib/data/interviews';
 import { interviewPosterPath, interviewPosters } from '#lib/server/interview-posters';
 import { GET as sitemap } from '../../src/routes/sitemap.xml/+server';
@@ -33,6 +34,47 @@ describe('sitemap', () => {
 			.sort();
 
 		expect(listed).toEqual(expected);
+	});
+
+	it('gives lastmod only to pages with a real content date', async () => {
+		const response = await sitemap({} as Parameters<typeof sitemap>[0]);
+		const xml = await response.text();
+		const dated = [
+			...xml.matchAll(/<loc>[^<]*\/dh-ai-african-studies-2026([^<]*)<\/loc>\s*<lastmod>([^<]*)</g)
+		].map(([, path, lastmod]) => [path, lastmod]);
+
+		expect(dated).toEqual([
+			['/position-paper', paperPublicationDate],
+			['/position-paper/read', paperPublicationDate]
+		]);
+		expect(xml.match(/<lastmod>/g)).toHaveLength(2);
+	});
+});
+
+describe('routes', () => {
+	// The 404.html fallback switches off adapter-static's `strict` check for
+	// routes that are not prerendered, and GitHub Pages cannot serve them.
+	it('never opt out of prerendering', () => {
+		const sources = (directory: string): string[] =>
+			readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+				const path = join(directory, entry.name);
+				if (entry.isDirectory()) return sources(path);
+				return /^\+(page|layout|server)(\.server)?\.ts$/.test(entry.name) ? [path] : [];
+			});
+		const optedOut = sources('src/routes').filter((path) =>
+			/export const (prerender\s*=\s*(false|'auto')|ssr\s*=\s*false)/.test(
+				readFileSync(path, 'utf8')
+			)
+		);
+
+		expect(readFileSync('src/routes/+layout.ts', 'utf8')).toMatch(/export const prerender = true/);
+		expect(optedOut).toEqual([]);
+	});
+});
+
+describe('workshop info', () => {
+	it('prints the date range with an en dash', () => {
+		expect(workshopInfo.dates.full).toBe('18–20 February 2026');
 	});
 });
 

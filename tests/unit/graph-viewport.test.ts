@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { fitGraphView } from '#lib/components/concept-graph/graph-viewport';
+import { fitGraphView, viewAfterResize } from '#lib/components/concept-graph/graph-viewport';
 import type { ConceptNode } from '#lib/types/concept-graph';
 
 const node = (id: string, x: number, y: number, degree = 10): ConceptNode => ({
@@ -46,5 +46,19 @@ describe('fit graph to viewport', () => {
 		expect(view.k).toBeLessThanOrEqual(1.4);
 		expect(100 * view.k + view.x).toBe(175);
 		expect(150 * view.k + view.y).toBe(200);
+	});
+});
+
+describe('view after a stage resize', () => {
+	const nodes = [node('a', 0, 0), node('b', 400, 300)];
+
+	it('refits an untouched fit-all view to the new stage size', () => {
+		expect(viewAfterResize(true, nodes, 600, 300, radius)).toEqual(
+			fitGraphView(nodes, 600, 300, radius)
+		);
+	});
+
+	it('keeps the user zoom instead of snapping back to fit-all', () => {
+		expect(viewAfterResize(false, nodes, 600, 300, radius)).toBeNull();
 	});
 });

@@ -90,7 +90,6 @@
 		background-color: var(--surface-2);
 		border: 1px solid var(--border-subtle);
 		box-shadow: var(--shadow-xs);
-		transition: border-color var(--transition-base);
 	}
 
 	/* Opt-in variant for cards that really are links or buttons */
@@ -113,6 +112,16 @@
 	.dark .card-surface--link:hover,
 	.dark .card-surface--link:focus-within {
 		box-shadow: var(--shadow-lg);
+	}
+
+	/* Reduced motion keeps the border and shadow feedback but drops the lift:
+	   the policy in utilities.css removes authored travel, not state. */
+	@media (prefers-reduced-motion: reduce) {
+		.card-surface--link,
+		.card-surface--link:hover,
+		.card-surface--link:focus-within {
+			transform: none;
+		}
 	}
 
 	/* Empty-state card — dashed border, centered copy */
@@ -255,8 +264,13 @@
 		height: 100%;
 	}
 
-	/* ---------- Schedule tabs ---------- */
-	.schedule-tabs [role='tablist'] {
+	/* ---------- Schedule tabs ----------
+	 * Keyed on UrlTabs' own class names, not on `role`: the tab roles only
+	 * appear after hydration, so the prerendered programme rendered unstyled
+	 * and restyled itself the moment JS arrived. Shape, colour, weight and the
+	 * selected fill come from UrlTabs' `pill` style; this adds the sunken track
+	 * and keeps the selected tab's nested labels on the white foreground. */
+	.schedule-tabs .url-tabs__list {
 		background-color: var(--bg-sunken);
 		border-radius: var(--radius-lg);
 		padding: var(--space-2xs);
@@ -265,38 +279,22 @@
 		justify-content: center;
 	}
 
-	.schedule-tabs [role='tablist'] > * {
-		margin-left: 0 !important;
-		margin-right: 0 !important;
-	}
-
-	.dark .schedule-tabs [role='tablist'] {
+	.dark .schedule-tabs .url-tabs__list {
 		background-color: var(--bg-overlay);
 	}
 
-	.schedule-tabs [role='tab'] {
-		color: var(--text-secondary);
-		font-weight: var(--font-weight-medium);
-		border-radius: var(--radius-md);
-		transition: all var(--transition-micro);
+	.schedule-tabs .url-tabs__tab {
 		min-width: 0;
+		transition:
+			background-color var(--transition-micro),
+			color var(--transition-micro);
 	}
 
-	.schedule-tabs [role='tab']:hover:not([aria-selected='true']) {
-		background-color: var(--bg-raised);
-		color: var(--text-primary);
-	}
-
-	/* Ink, not terracotta: this was the only place the brand colour acted as a
-	   selection fill, against a philosophy that reserves it for CTAs. */
-	.schedule-tabs [role='tab'][aria-selected='true'],
-	.dark .schedule-tabs [role='tab'][aria-selected='true'] {
-		background-color: var(--color-secondary-700);
-		color: var(--text-on-accent);
+	.schedule-tabs .url-tabs__tab[aria-selected='true'] {
 		box-shadow: var(--shadow-xs);
 	}
 
-	.schedule-tabs [role='tab'][aria-selected='true'] * {
+	.schedule-tabs .url-tabs__tab[aria-selected='true'] * {
 		color: var(--text-on-accent) !important;
 	}
 

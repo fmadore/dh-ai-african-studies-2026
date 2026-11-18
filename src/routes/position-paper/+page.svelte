@@ -17,7 +17,7 @@
 
 	import { positionPaperSeries as series } from '#lib/data/position-paper-series';
 
-	import { positionPaperMeta } from '#lib/data/position-paper-meta';
+	import { paperSummary, positionPaperMeta } from '#lib/data/position-paper-meta';
 
 	import { recommendedCitation } from '#lib/reader/citation-formatters';
 
@@ -32,7 +32,9 @@
 
 		title: 'Position Paper',
 
-		description: positionPaperMeta.abstract,
+		// The short summary, not the abstract: search results and social cards
+		// truncate at ~160 characters. citation_abstract keeps the full text.
+		description: paperSummary,
 
 		type: 'article',
 

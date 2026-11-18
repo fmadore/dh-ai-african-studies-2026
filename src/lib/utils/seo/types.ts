@@ -73,7 +73,7 @@ export interface JsonLdEvent {
 	startDate?: string;
 	endDate?: string;
 	location?: JsonLdPlace;
-	organizer?: JsonLdOrganization;
+	organizer?: JsonLdPerson | JsonLdPerson[];
 	funder?: JsonLdOrganization;
 	image?: string;
 	url?: string;
@@ -88,6 +88,7 @@ export interface JsonLdWebSite {
 	name: string;
 	url: string;
 	description?: string;
+	inLanguage?: string;
 	publisher?: JsonLdOrganization;
 }
 
@@ -97,12 +98,16 @@ export interface JsonLdPerson {
 	url?: string;
 }
 
+/** WebPage and the two subtypes this site uses for collection pages. */
+export type WebPageType = 'WebPage' | 'CollectionPage' | 'ImageGallery';
+
 export interface JsonLdWebPage {
 	'@context': 'https://schema.org';
-	'@type': 'WebPage';
+	'@type': WebPageType;
 	name: string;
 	url: string;
 	description?: string;
+	inLanguage?: string;
 	author?: JsonLdPerson | JsonLdPerson[];
 	isPartOf?: {
 		'@type': 'WebSite';
@@ -147,7 +152,22 @@ export interface JsonLdScholarlyArticle {
 	identifier?: string;
 }
 
-export type JsonLdSchema = JsonLdEvent | JsonLdWebSite | JsonLdWebPage | JsonLdScholarlyArticle;
+export interface JsonLdVideoObject {
+	'@context': 'https://schema.org';
+	'@type': 'VideoObject';
+	name: string;
+	description: string;
+	thumbnailUrl: string;
+	/** ISO 8601. Google requires it for video rich results; emitted only when known. */
+	uploadDate?: string;
+	embedUrl: string;
+	/** The watch page — not `contentUrl`, which must be the media file itself. */
+	url: string;
+	inLanguage?: string;
+}
+
+export type JsonLdSchema =
+	JsonLdEvent | JsonLdWebSite | JsonLdWebPage | JsonLdScholarlyArticle | JsonLdVideoObject;
 
 export interface CreateEventJsonLdOptions {
 	name?: string;
@@ -161,8 +181,8 @@ export interface CreateEventJsonLdOptions {
 	locationPostalCode?: string;
 	image?: string;
 	url?: string;
-	organizerName?: string;
-	organizerUrl?: string;
+	/** People who organised the event, emitted as schema.org Person nodes. */
+	organizers?: Author[];
 	funderName?: string;
 	funderUrl?: string;
 	eventStatus?: JsonLdEvent['eventStatus'];
@@ -175,6 +195,17 @@ export interface CreateWebPageJsonLdOptions {
 	url: string;
 	authors?: Author[];
 	dateModified?: string;
+	/** Defaults to 'WebPage'. */
+	type?: WebPageType;
+}
+
+export interface CreateVideoObjectJsonLdOptions {
+	name: string;
+	description: string;
+	youtubeId: string;
+	/** Site-relative or absolute; YouTube's own thumbnail when omitted. */
+	thumbnail?: string;
+	uploadDate?: string;
 }
 
 export interface ScholarlyMetaOptions {

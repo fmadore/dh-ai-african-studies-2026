@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { TocItem } from '#lib/reader/types';
-	import { replaceState } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { ListOutline, CloseOutline } from 'flowbite-svelte-icons';
 	import { fade, slide } from 'svelte/transition';
 	import { prefersReducedMotion } from '#lib/utils/motion';
+	import { observeActiveSection } from '#lib/utils/active-section';
 
 	interface Props {
 		toc: TocItem[];
@@ -29,18 +30,9 @@
 
 		if (headings.length === 0) return;
 
-		const observer = new IntersectionObserver(
-			(entries) => {
-				const visible = entries
-					.filter((e) => e.isIntersecting)
-					.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-				if (visible) activeId = visible.target.id;
-			},
-			{ rootMargin: '-20% 0px -70% 0px', threshold: 0 }
-		);
-
-		headings.forEach((h) => observer.observe(h));
-		return () => observer.disconnect();
+		return observeActiveSection(headings, (id) => {
+			activeId = id;
+		});
 	});
 
 	function handleLinkClick(event: MouseEvent, id: string) {
@@ -55,10 +47,15 @@
 			behavior: prefersReducedMotion() ? 'auto' : 'smooth',
 			block: 'start'
 		});
-		// Update URL hash without extra scroll jump.
-		replaceState(`#${id}`, page.state);
-		if (window.matchMedia('(max-width: 1023px)').matches)
-			mobileToggle?.focus({ preventScroll: true });
+		// Move focus with the view, so Tab continues from the section rather
+		// than from the contents list (or, on mobile, the closed sheet).
+		if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+		el.focus({ preventScroll: true });
+		// Update the URL hash: a shallow, replacing navigation — no scroll jump,
+		// no extra history entry.
+		goto(`#${id}`, { state: page.state, shallow: true, replace: true }).catch(() => {
+			// Superseded by a newer section click before it settled.
+		});
 	}
 </script>
 

@@ -71,8 +71,15 @@
 	</section>
 
 	<figure class="reader-masthead__photo">
+		<!-- The 640px gallery thumbnail (35 KB) serves phones; wider layouts
+		     fall back to the 1920px JPEG (320 KB). Sizes track the masthead
+		     panel inside the 80rem reader column. -->
 		<img
 			src={resolveAssetPath('/images/photos/3V7A0875.jpg')}
+			srcset="{resolveAssetPath('/images/photos/thumbs/3V7A0875.webp')} 640w, {resolveAssetPath(
+				'/images/photos/3V7A0875.jpg'
+			)} 1920w"
+			sizes="(min-width: 85rem) 76rem, calc(100vw - 4rem)"
 			alt="Workshop participants posing together on the outdoor steps at Xplanatorium Herrenhausen on Day 3."
 			width="1920"
 			height="1280"

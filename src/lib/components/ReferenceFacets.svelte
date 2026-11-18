@@ -15,7 +15,6 @@
 		references: FacetSource[];
 		/** Shared with the page, which owns it and mirrors it into the URL. */
 		filters: ReferenceFilterState;
-		idPrefix?: string;
 		/**
 		 * Sidebar mode, from the lg breakpoint up: the panel fills its
 		 * (viewport-capped) container and scrolls its own body, so every facet is
@@ -24,17 +23,14 @@
 		fillHeight?: boolean;
 		/** A dismiss control for the small-screen sheet; hidden in sidebar mode. */
 		showCloseButton?: boolean;
-		closeLabel?: string;
 		onclose?: () => void;
 	}
 
 	let {
 		references,
 		filters,
-		idPrefix = 'reference-facets',
 		fillHeight = false,
 		showCloseButton = false,
-		closeLabel = 'Close filters',
 		onclose
 	}: Props = $props();
 
@@ -110,9 +106,10 @@
 		return tags;
 	});
 
-	let searchInputId = $derived(`${idPrefix}-search`);
-	let sortInputId = $derived(`${idPrefix}-sort`);
-	let keywordInputId = $derived(`${idPrefix}-keyword-search`);
+	// The page renders one facets panel (sidebar and sheet are the same tree).
+	const searchInputId = 'reference-facets-search';
+	const sortInputId = 'reference-facets-sort';
+	const keywordInputId = 'reference-facets-keyword-search';
 
 	function resetFilters() {
 		filters.reset();
@@ -145,7 +142,7 @@
 					type="button"
 					onclick={() => onclose?.()}
 					class="facets-close-btn text-subtle-ink"
-					aria-label={closeLabel}
+					aria-label="Close filters"
 				>
 					<CloseOutline class="size-icon-sm" />
 				</button>

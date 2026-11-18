@@ -1,6 +1,8 @@
 // Stable public entry point: import sites continue to use `#lib/utils/seo`.
 export {
 	createEventJsonLd,
+	createImageGalleryJsonLd,
+	createVideoObjectJsonLd,
 	createWebPageJsonLd,
 	createWebSiteJsonLd,
 	createWorkshopEventJsonLd,
@@ -12,6 +14,7 @@ export type {
 	Author,
 	CreateEventJsonLdOptions,
 	CreateSeoMetaOptions,
+	CreateVideoObjectJsonLdOptions,
 	CreateWebPageJsonLdOptions,
 	JsonLdEvent,
 	JsonLdOrganization,
@@ -21,10 +24,12 @@ export type {
 	JsonLdPostalAddress,
 	JsonLdSchema,
 	JsonLdScholarlyArticle,
+	JsonLdVideoObject,
 	JsonLdWebPage,
 	JsonLdWebSite,
 	ScholarlyMetaOptions,
 	SeoLinkTag,
 	SeoMetaResult,
-	SeoMetaTag
+	SeoMetaTag,
+	WebPageType
 } from './seo/types';

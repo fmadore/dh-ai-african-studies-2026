@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Photo } from '#lib/types/photo';
 	import { resolveAssetPath } from '#lib/utils/paths';
+	import { photoPositionLabel } from '#lib/data/photos';
 	import { portal } from '#lib/utils/portal';
 	import { ChevronLeftOutline, ChevronRightOutline, CloseOutline } from 'flowbite-svelte-icons';
 
@@ -93,7 +94,7 @@
 	role="dialog"
 	aria-modal="true"
 	tabindex="-1"
-	aria-label="Photo viewer: {photo.alt}"
+	aria-label="Photo viewer: {photoPositionLabel(index, total, photo.category)}"
 >
 	<button
 		type="button"

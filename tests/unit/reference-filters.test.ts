@@ -33,7 +33,7 @@ describe('reference filter state', () => {
 		expect(params.toString()).toBe('');
 	});
 
-	it('changes its key with the result set, and resets everything', () => {
+	it('changes its key with the result set, and clears every filter but not the sort', () => {
 		const filters = new ReferenceFilterState();
 		const initial = filters.key;
 		filters.toggleTag('AI');
@@ -44,7 +44,20 @@ describe('reference filter state', () => {
 		filters.readFrom(new URLSearchParams('q=x&year=2024&sort=oldest'));
 		filters.reset();
 		expect(filters.activeCount).toBe(0);
-		expect(filters.selectedSort).toBe('newest');
+		expect(filters.criteria).toEqual({
+			searchQuery: '',
+			selectedTypes: [],
+			selectedYears: [],
+			selectedTags: [],
+			selectedLanguages: []
+		});
+		expect(filters.selectedSort).toBe('oldest');
+
+		const params = new URLSearchParams();
+		filters.writeTo(params);
+		expect(params.toString()).toBe('sort=oldest');
+
+		filters.readFrom(new URLSearchParams());
 		expect(filters.key).toBe(initial);
 	});
 });

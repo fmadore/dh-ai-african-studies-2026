@@ -4,6 +4,7 @@
 	import AppButton from '#lib/components/AppButton.svelte';
 	import AuthorByline from '#lib/components/AuthorByline.svelte';
 	import { positionPaperMeta } from '#lib/data/position-paper-meta';
+	import { workshopInfo } from '#lib/data/workshop-info';
 	import { formatLongDate } from '#lib/utils/formatters';
 	import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
 	import { resolveAppPath, resolveAssetPath } from '#lib/utils/paths';
@@ -28,6 +29,7 @@
 		{
 			type: 'Blog post',
 			image: '/images/publications/digital-history-bielefeld.webp',
+			imageAlt: 'Screenshot of the Digital History Bielefeld blog post.',
 			language: 'German',
 			lang: 'de',
 			title:
@@ -60,7 +62,7 @@
 	const seo = createSeoMeta({
 		title: 'Publications & reports',
 		description:
-			'Publications from and referring to Charting New Territory: Digital Humanities and AI in African Studies, alongside workshop reports, news coverage and conference presentations.',
+			'Publications from and referring to the Hanover workshop on digital humanities and AI in African Studies, with workshop reports, news coverage and talks.',
 		path: '/publications'
 	});
 	const jsonLd = createWebPageJsonLd({
@@ -126,7 +128,7 @@
 			<article>
 				<p class="text-label text-accent">Journal article · English</p>
 				<h3>
-					<a href="https://doi.org/10.1162/AFAR.a.847"
+					<a href="https://doi.org/10.1162/AFAR.a.847" target="_blank" rel="noopener noreferrer"
 						>Are We Ready Not to Know, to Unlearn, and to Learn Anew?</a
 					>
 				</h3>
@@ -140,8 +142,11 @@
 					listening, multiple ways of knowing, and collaboration and restitution within the Arts
 					Council of the African Studies Association (ACASA).
 				</p>
-				<a class="read-link" href="https://doi.org/10.1162/AFAR.a.847"
-					>Read the article <span aria-hidden="true">↗</span></a
+				<a
+					class="read-link"
+					href="https://doi.org/10.1162/AFAR.a.847"
+					target="_blank"
+					rel="noopener noreferrer">Read the article <span aria-hidden="true">↗</span></a
 				>
 			</article>
 		</section>
@@ -150,7 +155,12 @@
 			<h2 id="reports-title" class="heading-section">Reports &amp; coverage</h2>
 			<article class="feature">
 				<figure>
-					<a href={bulletinUrl} aria-label="Read From Conversation to Co-authorship">
+					<a
+						href={bulletinUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Read From Conversation to Co-authorship"
+					>
 						<img
 							src={resolveAssetPath('/images/publications/zmo-bulletin-48.webp')}
 							alt="Article page from ZMO Bulletin 48, with photographs of the workshop participants and organisers."
@@ -162,10 +172,14 @@
 				</figure>
 				<div class="feature-copy">
 					<p class="text-label text-accent">Bulletin article · English</p>
-					<h3><a href={bulletinUrl}>From Conversation to Co-authorship</a></h3>
+					<h3>
+						<a href={bulletinUrl} target="_blank" rel="noopener noreferrer"
+							>From Conversation to Co-authorship</a
+						>
+					</h3>
 					<p class="subtitle">
-						A Workshop on Digital Humanities and AI in African Studies, 18–20 February 2026,
-						Herrenhausen, Hanover
+						A Workshop on Digital Humanities and AI in African Studies, {workshopInfo.dates.full},
+						Herrenhausen, {workshopInfo.location.city}
 					</p>
 					<p class="byline">Frédérick Madore</p>
 					<p class="text-caption">
@@ -176,7 +190,7 @@
 						writing project, bringing researchers into conversation across digital humanities, AI
 						and African studies.
 					</p>
-					<a class="read-link" href={bulletinUrl}
+					<a class="read-link" href={bulletinUrl} target="_blank" rel="noopener noreferrer"
 						>Read the article <span aria-hidden="true">↗</span></a
 					>
 				</div>
@@ -186,10 +200,16 @@
 				{#each reports as report (report.url)}
 					<article class="report">
 						{#if report.image}
-							<a class="report-preview" href={report.url} aria-label="Read {report.title}">
+							<a
+								class="report-preview"
+								href={report.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label="Read {report.title}"
+							>
 								<img
 									src={resolveAssetPath(report.image)}
-									alt="Screenshot of the Digital History Bielefeld blog post."
+									alt={report.imageAlt}
 									width="800"
 									height="800"
 									loading="lazy"
@@ -197,13 +217,15 @@
 							</a>
 						{/if}
 						<p class="text-label text-accent">{report.type} · {report.language}</p>
-						<h3 lang={report.lang}><a href={report.url}>{report.title}</a></h3>
+						<h3 lang={report.lang}>
+							<a href={report.url} target="_blank" rel="noopener noreferrer">{report.title}</a>
+						</h3>
 						<p class="byline">{report.authors}</p>
 						<p class="text-caption">
 							{report.venue} · <time datetime={report.datetime}>{report.date}</time>
 						</p>
 						<p class="prose-serif-sm">{report.description}</p>
-						<a class="read-link" href={report.url}
+						<a class="read-link" href={report.url} target="_blank" rel="noopener noreferrer"
 							>{report.action} <span aria-hidden="true">↗</span></a
 						>
 					</article>

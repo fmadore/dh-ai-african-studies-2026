@@ -117,7 +117,7 @@
 			{/each}
 		</ol>
 
-		<p class="text-body-sm mt-lg">
+		<p class="text-body-sm prose-measure mt-lg">
 			Source notes live in an <a
 				href="https://obsidian.md"
 				target="_blank"
@@ -127,7 +127,7 @@
 			vault built from the workshop's
 			<a href={referencesHref} class="link-secondary">bibliography</a>.
 		</p>
-		<p class="text-body-sm mt-sm">
+		<p class="text-body-sm prose-measure mt-sm">
 			The downloadable snapshot records its export and correction history. The current correction
 			removed concepts that did not meet the expansion threshold; it did not re-extract the private
 			reading vault. Connections represent links between notes, not the strength of evidence or

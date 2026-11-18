@@ -8,7 +8,7 @@
 	import ParticipantAvatar from '#lib/components/ParticipantAvatar.svelte';
 	import SeoHead from '#lib/components/SeoHead.svelte';
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { participants } from '#lib/data/participants';
+	import { attendees } from '#lib/data/participants';
 	import { thematicGroups } from '#lib/data/thematic-groups';
 	import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
 	import ParticipantsMap from '#lib/components/ParticipantsMap.svelte';
@@ -51,9 +51,10 @@
 	];
 
 	// Photo paths resolved once, for the directory, the groups and the map alike
-	const baseParticipants = participants
-		.filter((participant) => participant.role !== 'Student assistant')
-		.map((participant) => ({ ...participant, photoUrl: resolveAssetPath(participant.photoUrl) }));
+	const baseParticipants = attendees.map((participant) => ({
+		...participant,
+		photoUrl: resolveAssetPath(participant.photoUrl)
+	}));
 	const totalParticipants = baseParticipants.length;
 	const totalCountries = new Set(baseParticipants.map((participant) => participant.country)).size;
 
@@ -88,13 +89,17 @@
 
 	/** A pin click filters the directory below rather than only opening a popup. */
 	async function filterByLocation(affiliation: string) {
-		const url = new URL(page.url.href);
-		url.searchParams.delete('view');
-		await goto(url.pathname + url.search, {
-			replace: true,
-			reset: false,
-			state: page.state
-		});
+		// The search lives in the "All" view; leave "By thematic group" for it,
+		// and skip the navigation entirely when that view is already showing.
+		if (page.url.searchParams.has('view')) {
+			const url = new URL(page.url.href);
+			url.searchParams.delete('view');
+			await goto(url.pathname + url.search, {
+				replace: true,
+				reset: false,
+				state: page.state
+			});
+		}
 		searchQuery = affiliation;
 		await tick();
 		directoryEl?.scrollIntoView({ block: 'start' });
@@ -146,6 +151,16 @@
 
 <section class="band-tight padding-inline-section" bind:this={directoryEl}>
 	<div class="content-width-wide">
+		<!-- Portrait and identity, shared by the expandable card and the static one -->
+		{#snippet cardIdentity(participant: (typeof baseParticipants)[number])}
+			<ParticipantAvatar src={participant.photoUrl} alt={participant.name} size="sm" />
+			<span class="participant-card__identity">
+				<span class="participant-card__name">{participant.name}</span>
+				<span class="participant-card__affiliation">{participant.affiliation}</span>
+				<span class="participant-card__country">{participant.country}</span>
+			</span>
+		{/snippet}
+
 		<UrlTabs
 			tabs={viewTabs}
 			paramName="view"
@@ -165,7 +180,9 @@
 							placeholder="Search by name, affiliation, or region..."
 						/>
 						<div class="directory-status">
-							<p class="text-body-sm">
+							<!-- Polite: the count is how a screen-reader user hears what the
+							     search did. -->
+							<p class="text-body-sm" role="status" aria-atomic="true">
 								<span class="directory-status__figure">{displayedParticipants.length}</span>
 								of {totalParticipants} participants
 							</p>
@@ -198,16 +215,7 @@
 											aria-controls={detailId}
 											onclick={() => toggleCard(participant.name)}
 										>
-											<ParticipantAvatar
-												src={participant.photoUrl}
-												alt={participant.name}
-												size="sm"
-											/>
-											<span class="participant-card__identity">
-												<span class="participant-card__name">{participant.name}</span>
-												<span class="participant-card__affiliation">{participant.affiliation}</span>
-												<span class="participant-card__country">{participant.country}</span>
-											</span>
+											{@render cardIdentity(participant)}
 											<svg class="participant-card__chevron" viewBox="0 0 10 6" aria-hidden="true">
 												<path
 													d="M1 1l4 4 4-4"
@@ -221,16 +229,7 @@
 										</button>
 									{:else}
 										<div class="participant-card__trigger participant-card__trigger--static">
-											<ParticipantAvatar
-												src={participant.photoUrl}
-												alt={participant.name}
-												size="sm"
-											/>
-											<span class="participant-card__identity">
-												<span class="participant-card__name">{participant.name}</span>
-												<span class="participant-card__affiliation">{participant.affiliation}</span>
-												<span class="participant-card__country">{participant.country}</span>
-											</span>
+											{@render cardIdentity(participant)}
 										</div>
 									{/if}
 

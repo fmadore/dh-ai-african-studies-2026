@@ -1,5 +1,16 @@
-# allow crawling everything except the iframe-only embed view
+# Allow everything.
+#
+# On a GitHub project Pages site this file is served from the sub-path
+# (/dh-ai-african-studies-2026/robots.txt), and crawlers only ever read
+# /robots.txt at the host root, which this repository does not control, so
+# nothing here is obeyed today. It is kept for a future custom domain, where it
+# would be read.
+#
+# There is deliberately no Disallow for /concepts/embed: a crawler barred from
+# a page never fetches it, so it would never see that page's
+# <meta name="robots" content="noindex"> and could still index the bare URL
+# from links. Letting it crawl is what keeps the embed view out of results.
 User-agent: *
-Disallow: /dh-ai-african-studies-2026/concepts/embed
+Allow: /
 
 Sitemap: https://fmadore.github.io/dh-ai-african-studies-2026/sitemap.xml

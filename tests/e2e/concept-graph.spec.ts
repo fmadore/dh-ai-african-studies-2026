@@ -174,3 +174,127 @@ test('fullscreen falls back to an expanded stage without the Fullscreen API', as
 	await page.keyboard.press('Escape');
 	await expect(page.getByRole('button', { name: 'Fullscreen', exact: true })).toBeVisible();
 });
+
+type GraphJson = {
+	nodes: { id: string; label: string; group: string }[];
+	edges: { source: string; target: string }[];
+};
+const graphJson: GraphJson = JSON.parse(readFileSync('src/lib/data/concept-graph.json', 'utf8'));
+
+/** A node with a neighbour in another group, for the hidden-group cases. */
+function crossGroupPair() {
+	const byId = new Map(graphJson.nodes.map((node) => [node.id, node]));
+	for (const edge of graphJson.edges) {
+		const from = byId.get(edge.source)!;
+		const to = byId.get(edge.target)!;
+		if (from.group !== to.group) return { from, to };
+	}
+	throw new Error('no cross-group edge in the graph data');
+}
+
+const graphNode = (page: import('@playwright/test').Page, id: string) =>
+	page.locator(`.node-group[data-node-id="${id.replace(/"/g, '\\"')}"]`);
+
+/** Select a node from the keyboard: overlapping circles make clicks flaky. */
+async function selectNode(page: import('@playwright/test').Page, id: string) {
+	await graphNode(page, id).focus();
+	await page.keyboard.press('Enter');
+	await expect(graphNode(page, id)).toHaveAttribute('aria-pressed', 'true');
+}
+
+async function openExpandedStage(page: import('@playwright/test').Page) {
+	await page.addInitScript(() => {
+		delete (Element.prototype as Partial<Element>).requestFullscreen;
+	});
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	await page.goto(sitePath('/concepts'));
+	await expect(page.locator('.node-group').first()).toHaveAttribute('transform', /^translate\(/);
+	await page.getByRole('button', { name: 'Fullscreen', exact: true }).click();
+	await expect(page.getByRole('button', { name: 'Exit fullscreen' })).toBeVisible();
+}
+
+test('opening the detail panel in fullscreen keeps the user zoom', async ({ page, isMobile }) => {
+	test.skip(isMobile, 'The phone sheet overlays the stage instead of shrinking it');
+	await openExpandedStage(page);
+	const stage = page.locator('.graph-canvas');
+	const viewport = page.locator('.graph-svg > g');
+	// Let the stage's own resize refit settle before measuring
+	await page.waitForTimeout(150);
+	const fitted = await viewport.getAttribute('transform');
+	await page.getByRole('button', { name: 'Zoom in' }).click();
+	await expect.poll(() => viewport.getAttribute('transform')).not.toBe(fitted);
+	await page.waitForTimeout(100);
+	const zoomed = await viewport.getAttribute('transform');
+	const stageHeight = (await stage.boundingBox())!.height;
+	await selectNode(page, graphJson.nodes[0].id);
+	await expect(page.locator('.detail-panel')).toBeVisible();
+	// The panel takes room from the `flex: 1` stage, which used to refit all
+	await expect.poll(async () => (await stage.boundingBox())!.height).toBeLessThan(stageHeight);
+	await page.waitForTimeout(100);
+	await expect(viewport).toHaveAttribute('transform', zoomed!);
+});
+
+test('following a connection into a hidden group shows that group again', async ({ page }) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	await page.goto(sitePath('/concepts'));
+	await expect(page.locator('.node-group').first()).toHaveAttribute('transform', /^translate\(/);
+	const { from, to } = crossGroupPair();
+	const filter = page
+		.getByRole('group', { name: 'Filter concepts by group' })
+		.getByRole('button', { name: to.group, exact: true });
+	await filter.click();
+	await expect(filter).toHaveAttribute('aria-pressed', 'false');
+	await expect(graphNode(page, to.id)).toHaveCount(0);
+	await selectNode(page, from.id);
+	await page
+		.locator('.detail-connections')
+		.getByRole('button', { name: to.id, exact: true })
+		.click();
+	await expect(filter).toHaveAttribute('aria-pressed', 'true');
+	await expect(graphNode(page, to.id)).toHaveAttribute('aria-pressed', 'true');
+	// The activated tag is gone after the hop; focus lands on the new heading
+	await expect(page.locator('.detail-title')).toHaveText(to.label);
+	await expect(page.locator('.detail-title')).toBeFocused();
+});
+
+test('closing the detail panel returns focus to the selected node', async ({ page }) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	await page.goto(sitePath('/concepts'));
+	await expect(page.locator('.node-group').first()).toHaveAttribute('transform', /^translate\(/);
+	const id = graphJson.nodes[0].id;
+	await selectNode(page, id);
+	await page.getByRole('button', { name: 'Close detail panel' }).click();
+	await expect(page.locator('.detail-panel')).toHaveCount(0);
+	await expect(graphNode(page, id)).toBeFocused();
+});
+
+test('Escape clears the selection before it leaves the expanded stage', async ({ page }) => {
+	await openExpandedStage(page);
+	await selectNode(page, graphJson.nodes[0].id);
+	await page.keyboard.press('Escape');
+	await expect(page.locator('.selection-pill')).toHaveCount(0);
+	await expect(page.getByRole('button', { name: 'Exit fullscreen' })).toBeVisible();
+	await page.keyboard.press('Escape');
+	await expect(page.getByRole('button', { name: 'Fullscreen', exact: true })).toBeVisible();
+});
+
+test('Escape in the search dismisses only the search', async ({ page }) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	await page.goto(sitePath('/concepts'));
+	await expect(page.locator('.node-group').first()).toHaveAttribute('transform', /^translate\(/);
+	await selectNode(page, graphJson.nodes[0].id);
+	const search = page.getByRole('combobox', { name: 'Search concepts' });
+	await search.fill('archive');
+	await expect(page.getByRole('listbox', { name: 'Matching concepts' })).toBeVisible();
+	await search.press('Escape');
+	await expect(page.getByRole('listbox', { name: 'Matching concepts' })).toHaveCount(0);
+	await expect(search).toHaveValue('');
+	await expect(search).toBeFocused();
+	await expect(page.locator('.selection-pill')).toBeVisible();
+	// The real focus ring, not a box-shadow glow
+	const ring = await search.evaluate((input) => {
+		const style = getComputedStyle(input);
+		return { outline: style.outlineStyle, shadow: style.boxShadow };
+	});
+	expect(ring).toEqual({ outline: 'solid', shadow: 'none' });
+});

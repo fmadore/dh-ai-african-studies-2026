@@ -19,8 +19,7 @@
 		paramName?: string;
 		defaultTab?: string;
 		label?: string;
-		tabStyle?: 'underline' | 'pill' | 'full';
-		activeClass?: string;
+		tabStyle?: 'underline' | 'pill';
 		class?: string;
 		contentClass?: string;
 		children: Snippet<[string, Tab]>;
@@ -33,7 +32,6 @@
 		defaultTab = tabs[0]?.id ?? '',
 		label = 'Views',
 		tabStyle = 'underline',
-		activeClass = '',
 		class: className = '',
 		contentClass = '',
 		children,
@@ -115,7 +113,7 @@
 				aria-selected={enhanced ? activeTab === tab.id : undefined}
 				aria-controls={enhanced ? `${id}-${tab.id}-panel` : undefined}
 				tabindex={enhanced && activeTab !== tab.id ? -1 : 0}
-				class="url-tabs__tab {enhanced && activeTab === tab.id ? activeClass : ''}"
+				class="url-tabs__tab"
 				onclick={(event) => {
 					if (!enhanced || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
 					event.preventDefault();
@@ -177,22 +175,16 @@
 		color: var(--text-accent);
 		border-color: var(--accent);
 	}
-	.url-tabs__list--pill,
-	.url-tabs__list--full {
+	.url-tabs__list--pill {
 		border-bottom: 0;
 	}
-	.url-tabs__list--pill .url-tabs__tab,
-	.url-tabs__list--full .url-tabs__tab {
+	.url-tabs__list--pill .url-tabs__tab {
 		border-radius: var(--radius-card);
 	}
-	.url-tabs__list--pill .url-tabs__tab[aria-selected='true'],
-	.url-tabs__list--full .url-tabs__tab[aria-selected='true'] {
+	.url-tabs__list--pill .url-tabs__tab[aria-selected='true'] {
 		background: var(--color-secondary-700);
 		color: var(--text-on-accent);
 		border-color: transparent;
-	}
-	.url-tabs__list--full .url-tabs__tab {
-		flex: 1;
 	}
 	.url-tabs[data-enhanced='false'] .url-tabs__panel + .url-tabs__panel {
 		margin-top: var(--space-2xl);

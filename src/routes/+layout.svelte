@@ -54,4 +54,12 @@
 	.skip-link:focus-visible {
 		transform: translateY(0);
 	}
+
+	/* Still parked off-screen until focused, but it appears in place rather
+	   than sliding in. */
+	@media (prefers-reduced-motion: reduce) {
+		.skip-link {
+			transition: none;
+		}
+	}
 </style>

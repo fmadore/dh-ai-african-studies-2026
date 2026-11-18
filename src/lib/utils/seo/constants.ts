@@ -1,8 +1,15 @@
+import { workshopInfo } from '#lib/data/workshop-info';
+
 import type { Author, CreateSeoMetaOptions } from './types';
 
 export const SITE_NAME = 'Digital Humanities and AI in African Studies 2026';
-export const SITE_DESCRIPTION =
-	'Charting New Territory: Digital Humanities and AI in African Studies — A conference funded by Volkswagen Foundation.';
+/**
+ * The fallback description of every page and the WebSite record. The site is
+ * an archive of an event that has happened, so it says what took place and
+ * what came of it; dates and place come from workshopInfo, which imports
+ * nothing, so there is no cycle. Keep it within ~160 characters.
+ */
+export const SITE_DESCRIPTION = `Charting New Territory, a workshop on digital humanities and AI in African Studies held ${workshopInfo.dates.full} in ${workshopInfo.location.city}: position paper, interviews and photos.`;
 export const SITE_BASE_URL = 'https://fmadore.github.io/dh-ai-african-studies-2026';
 
 /**

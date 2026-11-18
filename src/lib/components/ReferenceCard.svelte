@@ -44,8 +44,9 @@
 <!--
 	A bibliography set in serif reads as a bibliography: title and abstract take
 	the reading face, while every piece of machinery — type pill, keywords,
-	access button — stays sans. Padding is `sm` and there is no hover lift:
-	twenty of these per page made for a very long and very twitchy scroll.
+	access button — stays sans. Padding is `sm` and there is no hover lift or
+	hover border: the card is not a target (its title, toggle and keywords are),
+	and twenty of these per page made for a very long and very twitchy scroll.
 -->
 <article class="card-surface reference-card">
 	<div class="reference-card__body">
@@ -153,10 +154,6 @@
 	.reference-card {
 		padding: var(--space-lg);
 		width: 100%;
-	}
-
-	.reference-card:hover {
-		border-color: var(--border-accent);
 	}
 
 	/* Rhythm, not a single repeated interval. The head is the title's own kicker

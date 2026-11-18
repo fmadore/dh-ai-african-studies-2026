@@ -32,7 +32,9 @@
 	];
 </script>
 
-<div class="reader-toolbar no-print" role="toolbar" aria-label="Reader controls">
+<!-- Not role="toolbar": that promises one tab stop with arrow-key movement,
+     and this holds dropdowns and links. The named groups carry the structure. -->
+<div class="reader-toolbar no-print">
 	<div class="reader-toolbar__settings">
 		<div class="reader-toolbar__group" role="group" aria-label="Font family">
 			{#each families as font (font.value)}

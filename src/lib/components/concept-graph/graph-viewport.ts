@@ -34,3 +34,21 @@ export function fitGraphView(
 		k
 	};
 }
+
+/**
+ * The view to apply after the stage changes size, or `null` to keep the
+ * current transform. Only an untouched, fit-all view follows the stage: once
+ * the user has zoomed, panned, dragged or searched, a resize — the detail
+ * panel shrinking the fullscreen stage, say — must neither snap their view
+ * back nor interrupt a running zoom transition. The transform is anchored at
+ * the stage's top-left corner, so keeping it leaves every node where it was.
+ */
+export function viewAfterResize(
+	fitting: boolean,
+	nodes: readonly ConceptNode[],
+	width: number,
+	height: number,
+	getRadius: (degree: number) => number
+): GraphView | null {
+	return fitting ? fitGraphView(nodes, width, height, getRadius) : null;
+}
