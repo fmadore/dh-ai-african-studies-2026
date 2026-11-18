@@ -99,3 +99,58 @@ test('missing WebGL2 shows the participant directory fallback', async ({ page })
 		)
 	).toBeVisible();
 });
+
+test('a theme flipped while the map chunks load is the only basemap requested', async ({
+	page
+}) => {
+	const styleRequests: string[] = [];
+	await page.route('https://tiles.openfreemap.org/styles/*', async (route) => {
+		styleRequests.push(route.request().url());
+		await route.fulfill({
+			json: {
+				version: 8,
+				sources: {},
+				layers: [
+					{ id: 'background', type: 'background', paint: { 'background-color': '#0000ff' } }
+				]
+			}
+		});
+	});
+	// Hold back the chunk that carries Leaflet (its source names leafletjs.com),
+	// so the theme can change between the effect starting and the map existing.
+	let release!: () => void;
+	const gate = new Promise<void>((resolve) => (release = resolve));
+	await page.route('**/*.js', async (route) => {
+		const response = await route.fetch();
+		const body = await response.text();
+		if (body.includes('leafletjs.com')) await gate;
+		await route.fulfill({ response, body });
+	});
+
+	await page.goto(sitePath('/participants'));
+	// The toolbar appears on hydration, by which point the map effect has run.
+	await expect(page.getByLabel('Search participants')).toBeVisible();
+	await page.evaluate(() => document.documentElement.classList.add('dark'));
+	release();
+
+	await expect(page.locator('.map-canvas canvas')).toBeVisible();
+	await expect.poll(() => styleRequests.length).toBeGreaterThan(0);
+	// A light style created mid-flip and then swapped by setStyle() could leave
+	// a blank map; the map must start on the theme showing when it is built.
+	await page.waitForTimeout(500);
+	expect(styleRequests.every((url) => url.endsWith('/dark'))).toBe(true);
+	await expect(page.getByText('The interactive map could not be loaded.')).toHaveCount(0);
+});
+
+test('a pin keeps the directory search and leaves a clean URL', async ({ page }) => {
+	await page.goto(sitePath('/participants'));
+	await expect(page.getByLabel('Search participants')).toBeVisible();
+	const marker = page.locator('.custom-map-marker').first();
+	await marker.scrollIntoViewIfNeeded();
+	await marker.press('Enter');
+	const search = page.getByLabel('Search participants');
+	await expect(search).toBeFocused();
+	await expect(search).not.toHaveValue('');
+	await expect(page).toHaveURL(new RegExp(`${sitePath('/participants')}$`));
+	await expect(page.getByRole('status').filter({ hasText: 'of' })).toContainText('participants');
+});

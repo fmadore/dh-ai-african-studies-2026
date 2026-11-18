@@ -17,8 +17,13 @@ class FakeObserver {
 }
 
 function heading(id: string, top: number) {
-	return { id, top, getBoundingClientRect() { return { top: this.top }; } } as unknown as
-		HTMLElement & { top: number };
+	return {
+		id,
+		top,
+		getBoundingClientRect() {
+			return { top: this.top };
+		}
+	} as unknown as HTMLElement & { top: number };
 }
 
 describe('observeActiveSection', () => {
