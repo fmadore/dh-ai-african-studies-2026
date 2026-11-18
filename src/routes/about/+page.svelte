@@ -19,6 +19,8 @@
 
 	type PersonCard = (typeof data.coOrganizers)[number];
 
+	const heroLede = `A scoping workshop held ${workshopInfo.dates.full} in ${workshopInfo.location.city}, ${workshopInfo.location.country}, bringing together researchers from Africa, Europe and beyond.`;
+
 	const sections = [
 		{ id: 'background', label: 'Background' },
 		{ id: 'format', label: 'Format' },
@@ -60,12 +62,7 @@
 
 <SeoHead {seo} jsonLd={[eventJsonLd, webPageJsonLd]} />
 
-<PageHero
-	eyebrow="The workshop"
-	title="About the Workshop"
-	lede="A scoping workshop held {workshopInfo.dates
-		.full} in Hanover, Germany, bringing together researchers from Africa, Europe and beyond."
-/>
+<PageHero eyebrow="The workshop" title="About the Workshop" lede={heroLede} />
 
 <!-- One card for both people sections; the size of the portrait is the only
      difference between an organiser and an assistant. -->

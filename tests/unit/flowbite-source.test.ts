@@ -6,7 +6,8 @@ import { expect, it } from 'vitest';
  * app.css scans only the flowbite-svelte folders the site uses. This walks the
  * real import graph from every `flowbite-svelte` import in src/ and fails when
  * it reaches a folder that isn't scanned, since that component's classes
- * would silently be missing from the build.
+ * would silently be missing from the build. It also fails on a scanned folder
+ * that nothing reaches, whose classes would only bloat the stylesheet.
  */
 const DIST = resolve('node_modules/flowbite-svelte/dist');
 
@@ -92,14 +93,20 @@ it('scans every flowbite-svelte folder the site bundles', () => {
 
 	const folders = scannedFolders();
 	const unscanned = new Set<string>();
+	const reached = new Set<string>();
 	for (const file of reachableFiles(names.map((name) => components.get(name)!))) {
 		const path = relative(DIST, file).split(sep).join('/');
 		// Root helpers and the theme plumbing carry no class strings
 		if (!path.includes('/') || path.startsWith('theme/')) continue;
+		for (const folder of folders) if (path.startsWith(`${folder}/`)) reached.add(folder);
 		if (!folders.some((folder) => path.startsWith(`${folder}/`))) {
 			unscanned.add(path.slice(0, path.lastIndexOf('/')));
 		}
 	}
 
 	expect([...unscanned], 'add these folders to the @source list in src/app.css').toEqual([]);
+	expect(
+		folders.filter((folder) => !reached.has(folder)),
+		'remove these unused folders from the @source list in src/app.css'
+	).toEqual([]);
 });
