@@ -110,9 +110,7 @@ test('a theme flipped while the map chunks load is the only basemap requested', 
 			json: {
 				version: 8,
 				sources: {},
-				layers: [
-					{ id: 'background', type: 'background', paint: { 'background-color': '#0000ff' } }
-				]
+				layers: [{ id: 'background', type: 'background', paint: { 'background-color': '#0000ff' } }]
 			}
 		});
 	});

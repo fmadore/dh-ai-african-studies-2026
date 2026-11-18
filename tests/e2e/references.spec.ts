@@ -75,9 +75,7 @@ test('the result count is announced as a status', async ({ page }) => {
 	await expect(page.getByLabel('Search', { exact: true })).toHaveValue('archives');
 });
 
-test('turning a page keeps the clicked button and moves focus to the results', async ({
-	page
-}) => {
+test('turning a page keeps the clicked button and moves focus to the results', async ({ page }) => {
 	await page.goto(sitePath('/references?page=4'));
 	const pagination = page.getByRole('navigation', { name: 'References pagination' });
 	await expect(pagination.getByRole('button', { name: 'Page 4' })).toHaveAttribute(
