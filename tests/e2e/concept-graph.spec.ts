@@ -193,7 +193,7 @@ function crossGroupPair() {
 }
 
 const graphNode = (page: import('@playwright/test').Page, id: string) =>
-	page.locator(`.node-group[data-node-id="${id.replace(/"/g, '\\"')}"]`);
+	page.locator(`.node-group[data-node-id="${id.replace(/["\\]/g, '\\$&')}"]`);
 
 /** Select a node from the keyboard: overlapping circles make clicks flaky. */
 async function selectNode(page: import('@playwright/test').Page, id: string) {

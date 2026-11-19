@@ -119,8 +119,9 @@ test('a theme flipped while the map chunks load is the only basemap requested', 
 		});
 	});
 	// Hold back the chunk that carries Leaflet, so the theme can change between
-	// the map effect starting and the map existing. Leaflet's attribution prefix
-	// links to leafletjs.com: a runtime string minification keeps. Should that
+	// the map effect starting and the map existing. `leaflet-tile-container` is a
+	// class name Leaflet sets at runtime, so minification keeps it, and no other
+	// script chunk carries it. Should that
 	// ever change, `held` stays false and the test fails below instead of
 	// passing without having held anything back.
 	let release!: () => void;
@@ -129,7 +130,7 @@ test('a theme flipped while the map chunks load is the only basemap requested', 
 	await page.route('**/*.js', async (route) => {
 		const response = await route.fetch();
 		const body = await response.text();
-		if (body.includes('leafletjs.com')) {
+		if (body.includes('leaflet-tile-container')) {
 			held = true;
 			await gate;
 		}
