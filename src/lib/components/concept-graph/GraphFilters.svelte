@@ -1,15 +1,13 @@
 <script lang="ts">
 	import type { ConceptGroup } from '#lib/types/concept-graph';
+	import { GROUP_COLORS } from './graph-config';
 
 	interface Props {
 		groups: ConceptGroup[];
-		activeGroups: Set<ConceptGroup>;
+		activeGroups: ReadonlySet<ConceptGroup>;
 		filteredNodeCount: number;
 		totalNodeCount: number;
 		filteredEdgeCount: number;
-		activeGroupCount: number;
-		totalGroupCount: number;
-		getNodeColor: (_group: ConceptGroup) => string;
 		ontoggle: (_group: ConceptGroup) => void;
 		onactivateall: () => void;
 	}
@@ -20,12 +18,11 @@
 		filteredNodeCount,
 		totalNodeCount,
 		filteredEdgeCount,
-		activeGroupCount,
-		totalGroupCount,
-		getNodeColor,
 		ontoggle,
 		onactivateall
 	}: Props = $props();
+
+	let allActive = $derived(activeGroups.size === groups.length);
 </script>
 
 <!-- Stats bar -->
@@ -34,15 +31,15 @@
 	<span class="stats-sep">·</span>
 	<span><strong>{filteredEdgeCount}</strong> relationships</span>
 	<span class="stats-sep">·</span>
-	<span><strong>{activeGroupCount}</strong> of {totalGroupCount} groups active</span>
+	<span><strong>{activeGroups.size}</strong> of {groups.length} groups active</span>
 </div>
 
 <!-- Group filters -->
 <div class="group-filters" role="group" aria-label="Filter concepts by group">
 	<button
 		class="filter-btn filter-btn-all"
-		class:active={activeGroupCount === totalGroupCount}
-		aria-pressed={activeGroupCount === totalGroupCount}
+		class:active={allActive}
+		aria-pressed={allActive}
 		onclick={onactivateall}
 	>
 		All
@@ -53,9 +50,9 @@
 			class:active={activeGroups.has(group)}
 			aria-pressed={activeGroups.has(group)}
 			onclick={() => ontoggle(group)}
-			style="--group-color: {getNodeColor(group)}"
+			style="--group-color: {GROUP_COLORS[group]}"
 		>
-			<span class="filter-dot" style="background-color: {getNodeColor(group)}"></span>
+			<span class="filter-dot" style="background-color: {GROUP_COLORS[group]}"></span>
 			{group}
 		</button>
 	{/each}

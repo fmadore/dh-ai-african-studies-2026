@@ -1,19 +1,22 @@
 <script lang="ts">
-	import type { ConceptNode, ConceptGroup } from '#lib/types/concept-graph';
+	import { tick } from 'svelte';
+	import type { ConceptNode } from '#lib/types/concept-graph';
 	import { resolveAppPath } from '#lib/utils/paths';
+	import { GROUP_COLORS } from './graph-config';
 
 	interface Props {
 		node: ConceptNode;
 		neighbors: string[];
 		isMobile: boolean;
-		getNodeColor: (_group: ConceptGroup) => string;
 		onclose: () => void;
 		onnavigate: (_nodeId: string) => void;
 	}
 
-	let { node, neighbors, isMobile, getNodeColor, onclose, onnavigate }: Props = $props();
+	let { node, neighbors, isMobile, onclose, onnavigate }: Props = $props();
 
 	let closeButtonEl: HTMLButtonElement | undefined;
+	let headingEl: HTMLHeadingElement | undefined;
+	let groupColor = $derived(GROUP_COLORS[node.group]);
 	let connectionsEl: HTMLDivElement | undefined = $state();
 
 	/**
@@ -33,6 +36,18 @@
 		}
 	});
 
+	/**
+	 * The list is keyed by neighbour, so the button that was activated is
+	 * destroyed on every hop and focus used to fall to <body>. It moves to the
+	 * new concept's heading instead — after the update, so it also wins over
+	 * the mobile sheet's close-button focus above.
+	 */
+	async function navigate(nodeId: string) {
+		onnavigate(nodeId);
+		await tick();
+		headingEl?.focus();
+	}
+
 	// Following a connection swaps the list; start the new one from the top
 	$effect(() => {
 		void node;
@@ -48,7 +63,7 @@
 	aria-label={isMobile ? node.label : undefined}
 >
 	<div class="detail-header">
-		<h3 class="detail-title">{node.label}</h3>
+		<h3 class="detail-title" tabindex="-1" bind:this={headingEl}>{node.label}</h3>
 		<button
 			bind:this={closeButtonEl}
 			class="detail-close"
@@ -61,11 +76,7 @@
 	<div class="detail-meta">
 		<span
 			class="detail-badge"
-			style="background-color: color-mix(in srgb, {getNodeColor(
-				node.group
-			)} 12%, transparent); color: {getNodeColor(
-				node.group
-			)}; border: 1px solid color-mix(in srgb, {getNodeColor(node.group)} 25%, transparent);"
+			style="background-color: color-mix(in srgb, {groupColor} 12%, transparent); color: {groupColor}; border: 1px solid color-mix(in srgb, {groupColor} 25%, transparent);"
 		>
 			{node.group}
 		</span>
@@ -79,7 +90,7 @@
 			<p class="detail-connections-label">Connected to:</p>
 			<div class="connection-tags">
 				{#each neighbors as neighbor (neighbor)}
-					<button class="connection-tag tap-target-compact" onclick={() => onnavigate(neighbor)}>
+					<button class="connection-tag tap-target-compact" onclick={() => navigate(neighbor)}>
 						{neighbor}
 					</button>
 				{/each}

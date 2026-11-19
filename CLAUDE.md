@@ -22,7 +22,7 @@ npm run preview      # Preview production build
 
 npm run check        # TypeScript type checking
 
-npm run lint         # ESLint
+npm run lint         # ESLint, --max-warnings 0 (a warning fails it)
 
 npm run format       # Format all files with Prettier
 
@@ -96,7 +96,9 @@ pages 1–24 (DOI: 10.58144/20260827-000).
 
   `src/app.css` scans only the Flowbite folders in use; importing a new Flowbite
 
-  component fails `tests/unit/flowbite-source.test.ts` until its folder is added.
+  component fails `tests/unit/flowbite-source.test.ts` until its folder is added,
+
+  and so does a listed folder nothing reaches any more: remove it.
 
 - **Styling:** Tailwind CSS v4
 
@@ -174,6 +176,12 @@ This handles the `/dh-ai-african-studies-2026` base path in production.
 
 - `photos.ts` - Photo categories + media credit
 
+Home and about reduce participant data in their `+page.server.ts` (counts,
+
+names, person cards) so other participants' records and bios stay out of their
+
+client bundles. Do the same rather than importing `#lib/data/participants` there.
+
 ### Adding Participants
 
 Create `src/lib/data/participants/firstname-lastname.ts`:
@@ -226,6 +234,30 @@ Every page uses the shared `SeoHead` component:
 
 Only home, about, and schedule additionally pass `createWorkshopEventJsonLd({ description, url })` — Event structured data on ancillary pages reads as spam to search engines. The sitemap is generated at build time by `src/routes/sitemap.xml/+server.ts`; add new routes there.
 
+- Descriptions stay ≤160 characters; `tests/unit/seo.test.ts` enforces it for
+
+  `SITE_DESCRIPTION` and `paperSummary`. The paper pages' description is
+
+  `paperSummary` (`position-paper-meta.ts`), condensed from the abstract; scholarly
+
+  meta tags and JSON-LD carry the verbatim abstract. Keep `paperSummary` off
+
+  `positionPaperMeta`, which the EPUB exporter serialises whole.
+
+- The sitemap emits `lastmod` only where a real content date exists (the paper
+
+  routes, from `paperPublicationDate`). Never stamp the build date.
+
+- `static/robots.txt` is inert on a project Pages site (crawlers read only the
+
+  host root's); it is kept for a future custom domain. Never `Disallow`
+
+  `/concepts/embed`: a crawler must fetch it to see its `noindex`.
+
+- `src/routes/+error.svelte` is the 404 page. The adapter's `fallback: '404.html'`
+
+  renders it as a client-only shell that GitHub Pages serves for unknown paths.
+
 ### Key Components (`src/lib/components/`)
 
 - `Header.svelte`, `Footer.svelte` - Global layout
@@ -238,7 +270,21 @@ Only home, about, and schedule additionally pass `createWorkshopEventJsonLd({ de
 
 - `ParticipantsMap.svelte` - Leaflet interactive map on an OpenFreeMap basemap
 
-- `ConceptGraph.svelte` (+ `concept-graph/`) - D3 force-directed concept map
+- `ConceptGraph.svelte` - D3 force-directed concept map; it keeps UI state and
+
+  accessibility, and `concept-graph/` holds the rest: `graph-simulation.ts` (D3
+
+  force, zoom, drag; loaded on demand), `graph-renderer.ts` (painting),
+
+  `graph-selection.ts` (undirected neighbour sets), `graph-navigation.ts`
+
+  (arrow-key roving focus), `graph-viewport.ts` (fit to viewport),
+
+  `graph-fullscreen.svelte.ts` (Fullscreen API, fixed-overlay fallback on iOS),
+
+  `graph-config.ts` (stage palette), and the `Graph*.svelte` controls, search,
+
+  filters, detail panel, tooltip, selection pill and text view
 
 - `PhotoViewer.svelte` - Photo grid + lightbox
 
@@ -280,7 +326,9 @@ The site uses a **"Future Forward"** aesthetic - sophisticated and tech-forward 
 
      recessed band, `.band-ink` for a dark band, `.band-bleed` for full width.
 
-   - One sunken band and one ink band per long page — no more.
+   - One sunken band and one ink band per long page — no more. The footer's
+
+     `.band-sunken` is global chrome and is exempt.
 
    - `.surface-panel` is solid (no `backdrop-filter`). Glass survives only in
 
@@ -288,7 +336,9 @@ The site uses a **"Future Forward"** aesthetic - sophisticated and tech-forward 
 
 4. **Orchestrated entrance animations** with staggered timing
 
-   - Hero: title (50ms) → subtitle (150ms) → CTAs (250ms+)
+   - Hero delays: title 60ms → subtitle 180ms → eyebrow 240ms → lede 300ms →
+
+     CTAs 360/440/520ms (`.animate-hero-*` in `utilities.css`)
 
    - Sections: Use `use:reveal` action with `.animate-section-reveal`
 
@@ -300,9 +350,7 @@ The site uses a **"Future Forward"** aesthetic - sophisticated and tech-forward 
 
    - Use the `.section-head` pattern (`.section-head__eyebrow` + a heading);
 
-     the rule is drawn by a pseudo-element. Centred `.accent-underline` is no
-
-     longer the default.
+     the rule is drawn by a pseudo-element. There is no centred variant.
 
 6. **Cap the measure on running text**
 
@@ -350,13 +398,13 @@ The site uses a **"Future Forward"** aesthetic - sophisticated and tech-forward 
 
 ### Animation Guidelines
 
-- **Subtle & Professional**: 300-500ms transitions
+- **Subtle & Professional**: `--transition-micro` (150ms), `--transition-base` (220ms), `--transition-slow` (360ms) from `tokens.css`; hero entrances run 360–520ms
 
 - **Scroll reveals**: Trigger once the element enters the bottom ~88% of the viewport (rootMargin-based — never use a fixed intersection ratio: it is unreachable for elements taller than the viewport and leaves them invisible)
 
 - **Respect `prefers-reduced-motion`**: The `reveal` action handles this automatically
 
-- **Stagger delays**: 50ms between children
+- **Stagger delays**: 60ms between the first six children; the rest join at 300ms
 
 - **Don't wrap very tall grids in a single `use:reveal`** — apply it per card instead
 
@@ -368,7 +416,7 @@ Use these defined in `src/app.css` instead of arbitrary Tailwind:
 
 - `.surface-panel` (solid), `.card-surface` / `.card-surface--link`,
 
-  `.surface-glass` (sticky header + lightbox only), `.section-plain`
+  `.surface-glass` (sticky header + lightbox only)
 
 - `--surface-1` / `--surface-2` / `--surface-3` / `--surface-ink`
 
@@ -386,7 +434,7 @@ Use these defined in `src/app.css` instead of arbitrary Tailwind:
 
 - `.prose-serif`, `.prose-serif-sm`, `.text-lead` — the Source Serif 4 voice
 
-- `.prose-measure` (68ch), `.lede-measure` (46ch)
+- `.prose-measure` (68ch); `.text-lead` carries the 46ch lede measure
 
 - `.text-gradient-teal` — homepage h1 only
 
@@ -410,13 +458,19 @@ Use these defined in `src/app.css` instead of arbitrary Tailwind:
 
 - `.stagger-children` - Auto-stagger (first six children only)
 
-- `.animate-hero-title`, `.animate-hero-subtitle` - Hero entrance
+- `.animate-hero-title`, `-subtitle`, `-eyebrow`, `-lede`, `-cta`/`-cta-2`/`-cta-3` - Hero entrance
 
 **Theme colors:** primary (Deep Terra Cotta #e05d44), secondary (African Teal #0d9488)
 
 ## Static Site Constraints
 
-- All routes must be prerenderable (`export const prerender = true;`)
+- All routes must be prerenderable: `src/routes/+layout.ts` sets
+
+  `export const prerender = true`. The `404.html` fallback switches off
+
+  adapter-static's `strict` check, so `tests/unit/site-data.test.ts` fails
+
+  instead on any `prerender = false`/`'auto'` or `ssr = false`.
 
 - No server-side code (API routes, form actions with POST)
 

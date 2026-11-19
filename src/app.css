@@ -11,7 +11,6 @@
 @import 'tailwindcss';
 
 @plugin 'flowbite/plugin';
-@plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -24,6 +23,7 @@
 /* Only the Flowbite folders the site bundles. Scanning all of dist/ compiled
    classes for ~60 components into the stylesheet every page blocks on, when
    about a dozen are used. tests/unit/flowbite-source.test.ts fails if an
-   import reaches a folder missing here — add it, or its styles vanish. */
-@source '../node_modules/flowbite-svelte/dist/{accordion,buttons,darkmode,dropdown,forms/checkbox,forms/input-field,forms/label,forms/select,spinner,tabs,typography/heading,typography/paragraph,utils}';
+   import reaches a folder missing here — add it, or its styles vanish — and
+   if a folder here is no longer reached, so drop it when a component goes. */
+@source '../node_modules/flowbite-svelte/dist/{accordion,buttons,darkmode,dropdown,forms/checkbox,forms/input-field,forms/label,forms/select,spinner,typography/heading,typography/paragraph,utils}';
 @source '../node_modules/flowbite-svelte-icons/dist';

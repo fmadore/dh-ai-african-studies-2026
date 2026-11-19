@@ -13,19 +13,21 @@
 		LABEL_COLOR
 	} from './concept-graph/graph-config';
 	import { Spinner } from 'flowbite-svelte';
-	import {
-		CloseOutline,
-		PlusOutline,
-		MinusOutline,
-		ExpandOutline,
-		CompressOutline
-	} from 'flowbite-svelte-icons';
 	import GraphSearch from './concept-graph/GraphSearch.svelte';
 	import GraphDetailPanel from './concept-graph/GraphDetailPanel.svelte';
 	import GraphFilters from './concept-graph/GraphFilters.svelte';
 	import GraphTextView from './concept-graph/GraphTextView.svelte';
-	import { fitGraphView } from './concept-graph/graph-viewport';
+	import GraphControls from './concept-graph/GraphControls.svelte';
+	import GraphTooltip from './concept-graph/GraphTooltip.svelte';
+	import GraphSelectionPill from './concept-graph/GraphSelectionPill.svelte';
+	import { GraphFullscreen } from './concept-graph/graph-fullscreen.svelte';
+	import { fitGraphView, viewAfterResize } from './concept-graph/graph-viewport';
 	import { nextGraphNode, type GraphNavigationKey } from './concept-graph/graph-navigation';
+	import {
+		buildAdjacency,
+		sortedNeighbors,
+		withGroupActive
+	} from './concept-graph/graph-selection';
 	import { GraphRenderer, type ResolvedGraphEdge } from './concept-graph/graph-renderer';
 	import { createGraphSimulation, type GraphSimulation } from './concept-graph/graph-simulation';
 
@@ -37,17 +39,13 @@
 	let { data, embedded = false }: Props = $props();
 	const graphInstructionsId = $props.id();
 
-	// The stage is dark in both themes, so the palette is fixed rather than
-	// following the page theme — see graph-config.ts.
-	function getNodeColor(group: ConceptGroup): string {
-		return GROUP_COLORS[group];
-	}
-
 	// --- Elements ---
 	let svgEl: SVGSVGElement;
 	let canvasEl: HTMLCanvasElement;
 	let viewportEl: SVGGElement;
 	let containerEl: HTMLDivElement;
+	/** The `.graph-canvas` stage: sized by the ResizeObserver, tooltip origin. */
+	let stageEl: HTMLDivElement;
 
 	let containerWidth = $state(800);
 	let containerHeight = $state(500);
@@ -61,18 +59,20 @@
 	let hoveredNode = $state.raw<ConceptNode | null>(null);
 	let selectedNode = $state.raw<ConceptNode | null>(null);
 	let draggedNode = $state.raw<ConceptNode | null>(null);
-	let activeGroups = $state.raw<Set<ConceptGroup>>(new Set(ALL_GROUPS));
+	let activeGroups = $state.raw<ReadonlySet<ConceptGroup>>(new Set(ALL_GROUPS));
 	let simulationReady = $state(false);
 	let graphFailed = $state(false);
 	let fittingView = true;
-	let fullscreenMode = $state<'native' | 'expanded' | null>(null);
-	let isFullscreen = $derived(fullscreenMode !== null);
+	const fullscreen = new GraphFullscreen(() => containerEl);
 	let prefersReducedMotion = $state(false);
 	let focusedNodeId = $state<string | null>(null);
 
 	// --- Tooltip state ---
 	let tooltipX = $state(0);
 	let tooltipY = $state(0);
+	// Read once per hovered node rather than on every pointermove; dropped
+	// when the stage resizes or anything scrolls.
+	let stageRect: DOMRect | null = null;
 
 	// The renderer owns DOM writes and the non-reactive view transform, keeping
 	// high-frequency D3 ticks out of Svelte's reactive graph.
@@ -85,21 +85,7 @@
 	// --- Adjacency, built once from the source data ---
 	// The spotlight used to rediscover a node's neighbours by walking every
 	// edge on each pointerenter. Precomputed, that lookup is O(1).
-	let adjacency = $derived.by(() => {
-		const map = new Map<string, string[]>(); // eslint-disable-line svelte/prefer-svelte-reactivity
-		const link = (from: string, to: string) => {
-			const list = map.get(from);
-			if (list) list.push(to);
-			else map.set(from, [to]);
-		};
-		for (const e of data.edges) {
-			const s = typeof e.source === 'string' ? e.source : e.source.id;
-			const t = typeof e.target === 'string' ? e.target : e.target.id;
-			link(s, t);
-			link(t, s);
-		}
-		return map;
-	});
+	let adjacency = $derived(buildAdjacency(data.edges));
 
 	// --- Filtered data ---
 	// `simNodes` is now stable across ticks, so these recompute only when the
@@ -137,10 +123,9 @@
 	});
 
 	// --- Selected node neighbors for detail panel ---
-	let selectedNeighbors = $derived.by(() => {
-		if (!selectedNode) return [];
-		return [...new Set(adjacency.get(selectedNode.id) ?? [])].sort();
-	});
+	// Every distinct neighbour, hidden groups included: following one into a
+	// hidden group shows that group again (see navigateToNeighbor).
+	let selectedNeighbors = $derived(selectedNode ? sortedNeighbors(adjacency, selectedNode.id) : []);
 
 	// Mirror reactive state into the renderer. It is the only bridge between
 	// Svelte state and the imperative canvas/SVG paint loop.
@@ -215,41 +200,66 @@
 			// mid-screen, under the sheet. Focus stays in the sheet; the stage is
 			// brought up beneath the header instead (fullscreen has no page to scroll).
 			focusedNodeId = node.id;
-			if (!isFullscreen)
-				containerEl
-					?.querySelector('.graph-canvas')
-					?.scrollIntoView({ block: 'start', behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+			if (!fullscreen.active)
+				stageEl?.scrollIntoView({
+					block: 'start',
+					behavior: prefersReducedMotion ? 'auto' : 'smooth'
+				});
 		} else {
 			focusGraphNode(node);
 		}
 	}
 
 	// --- Tooltip positioning ---
-	function onNodePointerMove(event: PointerEvent) {
-		const canvas = containerEl?.querySelector('.graph-canvas');
-		if (!canvas) return;
-		const rect = canvas.getBoundingClientRect();
-		tooltipX = event.clientX - rect.left;
-		tooltipY = event.clientY - rect.top;
+	function onNodePointerEnter(node: ConceptNode) {
+		hoveredNode = node;
+		stageRect = stageEl?.getBoundingClientRect() ?? null;
 	}
+
+	function onNodePointerMove(event: PointerEvent) {
+		stageRect ??= stageEl?.getBoundingClientRect() ?? null;
+		if (!stageRect) return;
+		tooltipX = event.clientX - stageRect.left;
+		tooltipY = event.clientY - stageRect.top;
+	}
+
+	$effect(() => {
+		const invalidate = () => (stageRect = null);
+		// Capture: a scroll inside any ancestor (the expanded stage scrolls) moves it too
+		window.addEventListener('scroll', invalidate, { capture: true, passive: true });
+		return () => window.removeEventListener('scroll', invalidate, { capture: true });
+	});
 
 	// --- Responsive sizing ---
 	$effect(() => {
 		if (typeof window === 'undefined' || !containerEl) return;
-		const graphCanvas = containerEl.querySelector('.graph-canvas') as HTMLElement | null;
-		const target = graphCanvas ?? containerEl;
+		const target = stageEl ?? containerEl;
 		const ro = new ResizeObserver((entries) => {
 			for (const entry of entries) {
 				const w = entry.contentRect.width;
 				containerWidth = w;
-				if (isFullscreen) {
+				if (fullscreen.active) {
 					containerHeight = entry.contentRect.height;
 				} else {
 					containerHeight = embedded
 						? Math.max(240, Math.min(w * 0.65, window.innerHeight * 0.55))
 						: Math.max(400, Math.min(w * 0.65, 700));
 				}
-				fitGraph(0);
+				stageRect = null;
+				// Only an untouched fit-all view follows the stage. In fullscreen the
+				// stage is `flex: 1`, so opening the detail panel shrinks it; refitting
+				// unconditionally threw away the user's zoom and cut zoomToNode's
+				// transition short.
+				untrack(() => {
+					const next = viewAfterResize(
+						fittingView,
+						filteredNodes,
+						containerWidth,
+						containerHeight,
+						getNodeRadius
+					);
+					if (next) simulation?.zoomTo(next, 0);
+				});
 			}
 		});
 		ro.observe(target);
@@ -326,6 +336,18 @@
 		selectedNode = null;
 	}
 
+	/**
+	 * Clear the selection. Closing the detail panel or the selection pill
+	 * unmounts the control that had focus, so `restoreFocus` returns it to the
+	 * node that was selected — the mobile sheet is a dialog, and a dialog hands
+	 * focus back to where it came from.
+	 */
+	function clearSelection(restoreFocus: boolean) {
+		const node = selectedNode;
+		selectedNode = null;
+		if (restoreFocus && node && filteredNodeIds.has(node.id)) focusGraphNode(node);
+	}
+
 	// --- Group toggle ---
 	function toggleGroup(group: ConceptGroup) {
 		const next = new Set(activeGroups); // eslint-disable-line svelte/prefer-svelte-reactivity
@@ -335,6 +357,7 @@
 			next.add(group);
 		}
 		activeGroups = next;
+		// Invariant: the selection (and hover) always belongs to an active group
 		if (selectedNode && !next.has(selectedNode.group)) selectedNode = null;
 		if (hoveredNode && !next.has(hoveredNode.group)) hoveredNode = null;
 	}
@@ -370,47 +393,16 @@
 		fitGraph(motionDuration(400));
 	}
 
-	// --- Fullscreen ---
-	// iPhone Safari has no Fullscreen API for anything but video, so the button
-	// used to do nothing there. Where the API is missing or refuses, the stage
-	// is instead fixed over the viewport ("expanded") — same layout, no browser
-	// chrome hidden.
-	function toggleFullscreen() {
-		if (fullscreenMode === 'native') {
-			document.exitFullscreen().catch(() => {});
-		} else if (fullscreenMode === 'expanded') {
-			fullscreenMode = null;
-		} else if (containerEl?.requestFullscreen && document.fullscreenEnabled) {
-			// fullscreenMode itself is kept in sync by the fullscreenchange listener
-			containerEl.requestFullscreen().catch(() => (fullscreenMode = 'expanded'));
-		} else {
-			fullscreenMode = 'expanded';
-		}
-	}
-
-	$effect(() => {
-		if (typeof window === 'undefined') return;
-		function onFullscreenChange() {
-			if (document.fullscreenElement === containerEl) fullscreenMode = 'native';
-			else if (fullscreenMode === 'native') fullscreenMode = null;
-		}
-		document.addEventListener('fullscreenchange', onFullscreenChange);
-		return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
-	});
-
-	// The page behind an expanded stage must not scroll, and <main>'s z-index
-	// would otherwise keep the sticky header painted over it (see the styles).
-	$effect(() => {
-		if (fullscreenMode !== 'expanded') return;
-		const root = document.documentElement;
-		root.classList.add('concept-graph-expanded');
-		return () => root.classList.remove('concept-graph-expanded');
-	});
-
 	// --- Detail panel navigation ---
+	// The panel lists every neighbour, so one may sit in a group the user has
+	// switched off. Selecting it there left an un-rendered node selected and the
+	// whole graph dimmed; its group is shown again instead, keeping the
+	// invariant toggleGroup enforces.
 	function navigateToNeighbor(nodeId: string) {
 		const n = simNodes.find((nd) => nd.id === nodeId);
-		if (n) selectedNode = n;
+		if (!n) return;
+		activeGroups = withGroupActive(activeGroups, n.group);
+		selectedNode = n;
 	}
 
 	// --- Mobile detection ---
@@ -456,23 +448,39 @@
 		const next = nextGraphNode(filteredNodes, node.id, event.key as GraphNavigationKey);
 		if (next) focusGraphNode(next);
 	}
+
+	/**
+	 * The one owner of Escape for the graph: one press does one thing. Inner
+	 * handlers that consume Escape (search dropdown, header menu) call
+	 * preventDefault, and this skips the event; otherwise it clears the
+	 * selection first, and only a later press leaves the expanded stage. The
+	 * browser exits native fullscreen itself.
+	 */
+	function onWindowKeydown(event: KeyboardEvent) {
+		if (event.key !== 'Escape' || event.defaultPrevented) return;
+		if (selectedNode) {
+			event.preventDefault();
+			// Focus inside the panel or on the pill would be lost when they unmount
+			const active = document.activeElement;
+			const inSelectionUi =
+				active instanceof Element &&
+				containerEl?.contains(active) &&
+				active.closest('.detail-panel, .selection-pill') !== null;
+			clearSelection(inSelectionUi);
+		} else if (fullscreen.exitExpanded()) {
+			event.preventDefault();
+		}
+	}
 </script>
 
-<svelte:window
-	onkeydown={(e) => {
-		if (e.key !== 'Escape') return;
-		// The browser exits native fullscreen itself; the expanded stage needs this
-		if (selectedNode) selectedNode = null;
-		else if (fullscreenMode === 'expanded') fullscreenMode = null;
-	}}
-/>
+<svelte:window onkeydown={onWindowKeydown} />
 
 <div
 	class="concept-graph-wrapper"
 	class:embedded
-	class:is-fullscreen={isFullscreen}
-	class:is-expanded={fullscreenMode === 'expanded'}
-	data-viewport-overlay={fullscreenMode === 'expanded' ? '' : undefined}
+	class:is-fullscreen={fullscreen.active}
+	class:is-expanded={fullscreen.expanded}
+	data-viewport-overlay={fullscreen.expanded ? '' : undefined}
 	bind:this={containerEl}
 >
 	<!-- Toolbar: stats + search + group filters -->
@@ -483,17 +491,18 @@
 			filteredNodeCount={filteredNodes.length}
 			totalNodeCount={simNodes.length}
 			filteredEdgeCount={filteredEdges.length}
-			activeGroupCount={activeGroups.size}
-			totalGroupCount={ALL_GROUPS.length}
-			{getNodeColor}
 			ontoggle={toggleGroup}
 			onactivateall={activateAllGroups}
 		/>
-		<GraphSearch nodes={filteredNodes} {getNodeColor} onselect={zoomToNode} />
+		<GraphSearch nodes={filteredNodes} onselect={zoomToNode} />
 	</div>
 
 	<!-- Graph canvas -->
-	<div class="graph-canvas card-surface" class:has-selection={selectedNode !== null}>
+	<div
+		class="graph-canvas card-surface"
+		class:has-selection={selectedNode !== null}
+		bind:this={stageEl}
+	>
 		<p id={graphInstructionsId} class="sr-only">
 			Use the arrow keys to move between concepts. Press Enter or Space to show a concept's details.
 		</p>
@@ -518,7 +527,7 @@
 		     relationship is also reachable as text in the detail panel. -->
 		<canvas bind:this={canvasEl} class="graph-edges" aria-hidden="true"></canvas>
 
-		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions, a11y_click_events_have_key_events -->
 		<svg
 			bind:this={svgEl}
 			width={containerWidth}
@@ -530,9 +539,6 @@
 			aria-describedby={graphInstructionsId}
 			tabindex="-1"
 			onclick={onBackgroundClick}
-			onkeydown={(e) => {
-				if (e.key === 'Escape') selectedNode = null;
-			}}
 		>
 			<g bind:this={viewportEl}>
 				<!-- Nodes (circles only). Position, opacity and the zoom transform are
@@ -546,7 +552,7 @@
 						aria-label="{node.label} — {node.degree} connections"
 						aria-pressed={selectedNode?.id === node.id}
 						data-node-id={node.id}
-						onpointerenter={() => (hoveredNode = node)}
+						onpointerenter={() => onNodePointerEnter(node)}
 						onpointermove={onNodePointerMove}
 						onpointerleave={() => {
 							if (hoveredNode?.id === node.id) hoveredNode = null;
@@ -568,7 +574,7 @@
 							<circle
 								r={r + 4}
 								fill="none"
-								stroke={getNodeColor(node.group)}
+								stroke={GROUP_COLORS[node.group]}
 								stroke-width="1.5"
 								opacity="0.3"
 							/>
@@ -577,7 +583,7 @@
 						<!-- Main circle -->
 						<circle
 							{r}
-							fill={getNodeColor(node.group)}
+							fill={GROUP_COLORS[node.group]}
 							stroke="rgba(255,255,255,0.18)"
 							stroke-width="1.5"
 						/>
@@ -602,66 +608,17 @@
 			</g>
 		</svg>
 
-		<!-- Selection pill -->
 		{#if selectedNode}
-			<button
-				class="selection-pill"
-				onclick={() => {
-					selectedNode = null;
-				}}
-				aria-label="Clear selection: {selectedNode.label}"
-			>
-				<span
-					class="selection-pill-dot"
-					style="background-color: {getNodeColor(selectedNode.group)}"
-				></span>
-				<span class="selection-pill-label">{selectedNode.label}</span>
-				<CloseOutline class="h-3.5 w-3.5" aria-hidden="true" />
-			</button>
+			<GraphSelectionPill node={selectedNode} onclear={() => clearSelection(true)} />
 		{/if}
 
-		<!-- Graph controls -->
-		<div class="graph-controls">
-			<button class="control-btn" onclick={zoomIn} aria-label="Zoom in" title="Zoom in">
-				<PlusOutline class="h-4 w-4" />
-			</button>
-			<button class="control-btn" onclick={zoomOut} aria-label="Zoom out" title="Zoom out">
-				<MinusOutline class="h-4 w-4" />
-			</button>
-			<button
-				class="control-btn"
-				onclick={recenter}
-				aria-label="Recenter graph"
-				title="Fit all visible concepts"
-			>
-				<svg
-					width="16"
-					height="16"
-					viewBox="0 0 16 16"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<circle cx="8" cy="8" r="3" />
-					<line x1="8" y1="1" x2="8" y2="4" />
-					<line x1="8" y1="12" x2="8" y2="15" />
-					<line x1="1" y1="8" x2="4" y2="8" />
-					<line x1="12" y1="8" x2="15" y2="8" />
-				</svg>
-			</button>
-			<button
-				class="control-btn"
-				onclick={toggleFullscreen}
-				aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
-				title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
-			>
-				{#if isFullscreen}
-					<CompressOutline class="h-4 w-4" />
-				{:else}
-					<ExpandOutline class="h-4 w-4" />
-				{/if}
-			</button>
-		</div>
+		<GraphControls
+			isFullscreen={fullscreen.active}
+			onzoomin={zoomIn}
+			onzoomout={zoomOut}
+			onrecenter={recenter}
+			ontogglefullscreen={() => fullscreen.toggle()}
+		/>
 
 		<!-- Interaction hint -->
 		<div class="interaction-hint body-text-muted">
@@ -675,20 +632,7 @@
 		<!-- Hover tooltip -->
 		<!-- Not while the mobile sheet is open: it only repeats the sheet's header. -->
 		{#if hoveredNode && !draggedNode && !(asSheet && selectedNode)}
-			<div class="graph-tooltip" style="left: {tooltipX + 14}px; top: {tooltipY - 10}px;">
-				<div class="tooltip-label">{hoveredNode.label}</div>
-				<div class="tooltip-meta">
-					<span class="tooltip-dot" style="background-color: {getNodeColor(hoveredNode.group)}"
-					></span>
-					<span class="tooltip-group">{hoveredNode.group}</span>
-				</div>
-				<div class="tooltip-stats">
-					{hoveredNode.degree} connection{hoveredNode.degree !== 1 ? 's' : ''}
-					{#if hoveredNode.seed}
-						<span class="tooltip-seed">· Seed</span>
-					{/if}
-				</div>
-			</div>
+			<GraphTooltip node={hoveredNode} x={tooltipX} y={tooltipY} />
 		{/if}
 	</div>
 
@@ -698,8 +642,7 @@
 			node={selectedNode}
 			neighbors={selectedNeighbors}
 			isMobile={asSheet}
-			{getNodeColor}
-			onclose={() => (selectedNode = null)}
+			onclose={() => clearSelection(true)}
 			onnavigate={navigateToNeighbor}
 		/>
 	{/if}
@@ -846,6 +789,10 @@
 		}
 	}
 
+	/* The keyboard indicator is drawn in the graph rather than as a box: a
+	 * rectangular outline around a <g> lands on its bounding box (the hit disc
+	 * on touch) and does not follow the zoom. The main circle's thick pale
+	 * stroke below replaces it. */
 	.node-group:focus-visible {
 		outline: none;
 	}
@@ -927,47 +874,6 @@
 		}
 	}
 
-	/* Graph controls */
-	.graph-controls {
-		position: absolute;
-		top: var(--space-sm);
-		right: var(--space-sm);
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-		z-index: 3;
-	}
-
-	.control-btn {
-		display: grid;
-		place-items: center;
-		width: 2.75rem;
-		height: 2.75rem;
-		border-radius: var(--radius-md);
-		background: var(--bg-raised);
-		color: var(--text-muted);
-		border: 1px solid var(--border-default);
-		cursor: pointer;
-		transition:
-			background var(--transition-micro),
-			color var(--transition-micro),
-			box-shadow var(--transition-micro),
-			transform var(--transition-micro);
-		box-shadow: var(--shadow-sm);
-	}
-
-	/* Lift, not sink: on the ink stage --bg-sunken is darker than --bg-raised,
-	 * so the old hover made the control recede. */
-	.control-btn:hover {
-		background: var(--bg-overlay);
-		color: var(--text-primary);
-		box-shadow: var(--shadow-md);
-	}
-
-	.control-btn:active {
-		transform: scale(0.93);
-	}
-
 	.loading-overlay {
 		position: absolute;
 		inset: 0;
@@ -993,12 +899,6 @@
 		background: var(--graph-raised);
 		color: var(--text-primary);
 		cursor: pointer;
-	}
-
-	@keyframes spin {
-		to {
-			transform: rotate(360deg);
-		}
 	}
 
 	.interaction-hint {
@@ -1027,111 +927,5 @@
 			0 0 4px var(--graph-surface),
 			0 0 4px var(--graph-surface),
 			0 0 8px var(--graph-surface);
-	}
-
-	/* Selection pill */
-	.selection-pill {
-		position: absolute;
-		top: var(--space-sm);
-		left: var(--space-sm);
-		display: inline-flex;
-		align-items: center;
-		gap: var(--space-2xs);
-		padding: var(--space-3xs) var(--space-xs) var(--space-3xs) var(--space-sm);
-		border-radius: var(--radius-full);
-		background: var(--bg-raised);
-		border: 1px solid var(--border-default);
-		box-shadow: var(--shadow-sm);
-		font-size: var(--text-xs);
-		font-weight: var(--font-weight-medium);
-		color: var(--text-secondary);
-		cursor: pointer;
-		z-index: 3;
-		transition:
-			background var(--transition-micro),
-			box-shadow var(--transition-micro);
-		max-width: 14rem;
-		min-height: 2.75rem;
-	}
-
-	.selection-pill:hover {
-		background: var(--bg-overlay);
-		box-shadow: var(--shadow-md);
-	}
-
-	.selection-pill-dot {
-		width: 0.5rem;
-		height: 0.5rem;
-		border-radius: var(--radius-full);
-		flex-shrink: 0;
-	}
-
-	.selection-pill-label {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.selection-pill :global(svg) {
-		flex-shrink: 0;
-		opacity: 0.5;
-	}
-
-	.selection-pill:hover :global(svg) {
-		opacity: 1;
-	}
-
-	/* Tooltip */
-	.graph-tooltip {
-		position: absolute;
-		pointer-events: none;
-		z-index: var(--z-dropdown);
-		background: var(--bg-raised);
-		border: 1px solid var(--border-default);
-		border-radius: var(--radius-lg);
-		padding: var(--space-2xs) var(--space-xs);
-		box-shadow: var(--shadow-md);
-		max-width: 14rem;
-		white-space: nowrap;
-	}
-
-	.tooltip-label {
-		font-size: var(--text-sm);
-		font-weight: var(--font-weight-semibold);
-		color: var(--text-primary);
-		line-height: var(--leading-snug);
-	}
-
-	.tooltip-meta {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-		margin-top: 0.125rem;
-	}
-
-	.tooltip-dot {
-		width: 0.375rem;
-		height: 0.375rem;
-		border-radius: var(--radius-full);
-		flex-shrink: 0;
-	}
-
-	.tooltip-group {
-		font-size: var(--text-xs);
-		color: var(--text-subtle);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.tooltip-stats {
-		font-size: var(--text-xs);
-		color: var(--text-subtle);
-		margin-top: var(--space-3xs);
-	}
-
-	.tooltip-seed {
-		color: var(--accent);
-		font-weight: var(--font-weight-medium);
 	}
 </style>

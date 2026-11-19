@@ -36,7 +36,32 @@ export interface ReferenceFilters {
 /* The helpers are structural so they serve both the full CSL records and the
  * lean ReferenceListItem index the page actually renders from. */
 type Filterable = Pick<CslReference, 'title' | 'author' | 'type' | 'issued' | 'tags' | 'language'>;
-type Sortable = Pick<CslReference, 'issued' | 'title' | 'author'>;
+type Sortable = Pick<CslReference, 'issued' | 'title' | 'author' | 'editor'>;
+
+/*
+ * The folded haystack depends only on the record, never on the query, so it is
+ * built once per record rather than for every record on every keystroke. Keyed
+ * weakly by the record object: the page's index is immutable page data.
+ */
+const searchTextCache = new WeakMap<Filterable, string>();
+
+function searchText(ref: Filterable): string {
+	let text = searchTextCache.get(ref);
+	if (text === undefined) {
+		// Title, author, keyword: what the search field's placeholder promises
+		text = foldForSearch(
+			[ref.title, ...(ref.author?.map(formatPersonName) ?? []), ...(ref.tags ?? [])].join(' ')
+		);
+		searchTextCache.set(ref, text);
+	}
+	return text;
+}
+
+/** The sort name of a record's first creator: an author, else an editor. */
+function firstCreatorName(ref: Sortable): string {
+	const creator = ref.author?.[0] ?? ref.editor?.[0];
+	return creator?.family || creator?.literal || '';
+}
 
 export function filterReferences<T extends Filterable>(
 	references: T[],
@@ -45,11 +70,7 @@ export function filterReferences<T extends Filterable>(
 	const query = foldForSearch(filters.searchQuery.trim());
 
 	return references.filter((ref) => {
-		// Title, author, keyword: what the search field's placeholder promises
-		const searchContent = foldForSearch(
-			[ref.title, ...(ref.author?.map(formatPersonName) ?? []), ...(ref.tags ?? [])].join(' ')
-		);
-		const matchesSearch = searchContent.includes(query);
+		const matchesSearch = query === '' || searchText(ref).includes(query);
 
 		const matchesType =
 			filters.selectedTypes.length === 0 || filters.selectedTypes.includes(ref.type);
@@ -84,11 +105,8 @@ export function sortReferences<T extends Sortable>(references: T[], sort: string
 				return numericYear(a) - numericYear(b);
 			case 'title':
 				return (a.title || '').localeCompare(b.title || '');
-			case 'author': {
-				const authorA = a.author?.[0]?.family || '';
-				const authorB = b.author?.[0]?.family || '';
-				return authorA.localeCompare(authorB);
-			}
+			case 'author':
+				return firstCreatorName(a).localeCompare(firstCreatorName(b));
 			default:
 				return 0;
 		}

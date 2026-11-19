@@ -35,6 +35,16 @@ updates:
       - dependency-name: '@types/node'
         update-types:
           - 'version-update:semver-major'
+      # maplibre-gl stays on the 6.16 patch line (`~6.16.0`) with
+      # @maplibre/maplibre-gl-leaflet 0.1.4: the pair is verified together,
+      # v6 needs the `?worker&url` setWorkerUrl() wiring, and a bump needs the
+      # map browser regressions plus a look at real rendered tiles (CLAUDE.md).
+      # maplibre-gl patches still come through; anything larger, by hand.
+      - dependency-name: 'maplibre-gl'
+        update-types:
+          - 'version-update:semver-minor'
+          - 'version-update:semver-major'
+      - dependency-name: '@maplibre/maplibre-gl-leaflet'
     groups:
       svelte:
         patterns:

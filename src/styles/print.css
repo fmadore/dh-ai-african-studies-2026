@@ -5,8 +5,79 @@
 	nav,
 	footer,
 	.site-header,
+	.scroll-to-top,
 	.no-print {
 		display: none !important;
+	}
+
+	/* Paper is always light. `.dark` only re-pointed `body`, so a page printed
+	   from dark mode laid --text-primary (gray-50) on white. These are the
+	   :root assignments from tokens.css, restated — the same palette steps,
+	   no new values. `.band-ink` gets them too: it also redefines the text
+	   tokens, and once its background is dropped below they print white. */
+	.dark,
+	.band-ink {
+		color-scheme: light;
+
+		--text-primary: var(--color-gray-900);
+		--text-secondary: var(--color-gray-700);
+		--text-muted: var(--color-gray-600);
+		--text-subtle: var(--color-gray-600);
+		--text-disabled: var(--color-gray-400);
+		--text-inverse: var(--color-gray-50);
+		--text-link: var(--color-secondary-700);
+		--text-link-hover: var(--color-secondary-800);
+		--text-accent: var(--color-secondary-700);
+
+		--surface-1: var(--color-gray-50);
+		--surface-2: #ffffff;
+		--surface-3: var(--color-gray-100);
+		--bg-page: var(--surface-1);
+		--bg-raised: var(--surface-2);
+		--bg-sunken: var(--surface-3);
+		--bg-overlay: var(--color-gray-200);
+
+		--shadow-tint: 28 25 23;
+		--border-subtle: color-mix(in oklab, var(--color-gray-900) 7%, transparent);
+		--border-default: color-mix(in oklab, var(--color-gray-900) 12%, transparent);
+		--border-strong: color-mix(in oklab, var(--color-gray-900) 20%, transparent);
+		--border-accent: rgba(13, 148, 136, 0.28);
+
+		--accent: var(--color-secondary-600);
+		--accent-soft: var(--color-secondary-100);
+		--brand: var(--color-primary-600);
+		--brand-soft: var(--color-primary-50);
+		--warning: var(--color-warning-500);
+		--warning-soft: var(--color-warning-100);
+		--warning-on-soft: var(--color-warning-900);
+		--danger: var(--color-error-500);
+
+		--shadow-xs: 0 1px 2px 0 rgb(var(--shadow-tint) / 0.06);
+		--shadow-sm:
+			0 1px 2px -1px rgb(var(--shadow-tint) / 0.08), 0 2px 6px -2px rgb(var(--shadow-tint) / 0.06);
+		--shadow-md:
+			0 4px 12px -4px rgb(var(--shadow-tint) / 0.1), 0 2px 4px -2px rgb(var(--shadow-tint) / 0.06);
+		--shadow-lg: 0 12px 28px -10px rgb(var(--shadow-tint) / 0.14);
+	}
+
+	/* reveal.ts adds `.animating` on mount and `.revealed` only on
+	   intersection, so every section below the fold printed at opacity 0.
+	   Paper has no scroll: show everything at rest. */
+	.animate-section-reveal,
+	.animate-section-reveal.animating:not(.revealed),
+	.stagger-children > *,
+	.stagger-children.animating:not(.revealed) > *,
+	.animate-hero-title,
+	.animate-hero-subtitle,
+	.animate-hero-eyebrow,
+	.animate-hero-lede,
+	.animate-hero-cta,
+	.animate-hero-cta-2,
+	.animate-hero-cta-3 {
+		opacity: 1 !important;
+		transform: none !important;
+		transition: none !important;
+		animation: none !important;
 	}
 
 	body {
@@ -20,10 +91,6 @@
 		content: ' (' attr(href) ')';
 		font-size: 0.8em;
 		word-break: break-all;
-	}
-
-	.page-break-before {
-		page-break-before: always;
 	}
 
 	.avoid-break {

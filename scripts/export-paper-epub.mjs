@@ -5,6 +5,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { createServer } from 'vite';
+import { resolvePython } from './python.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
@@ -24,10 +25,7 @@ try {
 	const refs = JSON.parse(readFileSync(resolve(root, 'src/lib/data/references.json'), 'utf8'));
 	const paper = processPaper(readFileSync(source, 'utf8'), refs);
 	const result = spawnSync(
-		// Same default as scripts/python.mjs; EPUB_PYTHON predates the shared PYTHON
-		process.env.EPUB_PYTHON ||
-			process.env.PYTHON ||
-			(process.platform === 'win32' ? 'python' : 'python3'),
+		resolvePython({ override: 'EPUB_PYTHON' }),
 		[resolve(root, 'scripts/package-paper-epub.py'), ...args],
 		{
 			cwd: root,
@@ -37,7 +35,7 @@ try {
 		}
 	);
 	if (result.error)
-		throw new Error('Python 3 is required. Set EPUB_PYTHON to its executable path.', {
+		throw new Error('Python 3 is required. Set EPUB_PYTHON (or PYTHON) to its executable path.', {
 			cause: result.error
 		});
 	if (result.stdout) process.stdout.write(result.stdout);

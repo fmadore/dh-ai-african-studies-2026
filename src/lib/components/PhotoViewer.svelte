@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { page } from '$app/state';
-	import { replaceState } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import type { Photo, PhotoCategory } from '#lib/types/photo';
 	import { resolveAssetPath } from '#lib/utils/paths';
+	import { photoPositionLabel } from '#lib/data/photos';
 	import { reveal } from '#lib/utils/reveal';
 	import PhotoLightbox from '#lib/components/photo-viewer/PhotoLightbox.svelte';
 	import { Heading, P, Button } from 'flowbite-svelte';
@@ -39,7 +40,11 @@
 	});
 	let lightboxOpen = $state(false);
 	let lightboxIndex = $state(0);
-	let gridButtonRefs: HTMLButtonElement[] = $state([]);
+	// Read only imperatively (focus return), so plain bookkeeping, not state.
+	const gridButtonRefs: HTMLButtonElement[] = [];
+
+	/** The first row is the page's LCP: load it up front rather than lazily. */
+	const EAGER_THUMBS = 4;
 
 	let filteredPhotos = $derived(
 		activeCategory === 'All' ? photos : photos.filter((p) => p.category === activeCategory)
@@ -92,11 +97,18 @@
 		lightboxOpen = false;
 		lightboxIndex = 0;
 		if (typeof window === 'undefined') return;
-		// SvelteKit's own replaceState — the native one conflicts with its router
+		// A shallow, replacing navigation through SvelteKit's router (the native
+		// history API conflicts with it): no load, no scroll, no history entry.
 		const url = new URL(window.location.href);
 		if (cat === 'All') url.searchParams.delete('day');
 		else url.searchParams.set('day', cat);
-		replaceState(url.pathname + url.search + url.hash, page.state);
+		goto(url.pathname + url.search + url.hash, {
+			state: page.state,
+			shallow: true,
+			replace: true
+		}).catch(() => {
+			// Superseded by a newer filter change before it settled; that one wins.
+		});
 	}
 
 	/**
@@ -173,14 +185,15 @@
 							class="photo-card"
 							onclick={() => openLightbox(index)}
 							bind:this={gridButtonRefs[index]}
-							aria-label="View {photo.alt}"
+							aria-label="View {photoPositionLabel(index, filteredPhotos.length, photo.category)}"
 						>
 							<img
 								src={resolveAssetPath(photo.thumbnail ?? photo.src)}
 								alt={photo.alt}
 								width={photo.width}
 								height={photo.height}
-								loading="lazy"
+								loading={index < EAGER_THUMBS ? 'eager' : 'lazy'}
+								fetchpriority={index === 0 ? 'high' : undefined}
 								decoding="async"
 								class="photo-card-image"
 							/>
@@ -248,9 +261,8 @@
 		margin-bottom: var(--space-sm);
 		padding: var(--space-3xs) var(--space-sm);
 		border-radius: var(--radius-full);
-		background-color: var(--bg-glass);
-		-webkit-backdrop-filter: blur(12px);
-		backdrop-filter: blur(12px);
+		/* Solid: glass is reserved for the site header and the lightbox chrome. */
+		background-color: var(--surface-2);
 		border: 1px solid var(--border-subtle);
 		font-family: var(--font-family-display);
 		font-weight: var(--font-weight-semibold);
@@ -315,6 +327,14 @@
 	.photo-card:hover .photo-card-image,
 	.photo-card:focus-visible .photo-card-image {
 		transform: scale(1.04);
+	}
+
+	/* Reduced motion keeps the caption fade, drops the zoom. */
+	@media (prefers-reduced-motion: reduce) {
+		.photo-card:hover .photo-card-image,
+		.photo-card:focus-visible .photo-card-image {
+			transform: none;
+		}
 	}
 
 	.photo-card-overlay {

@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { tick } from 'svelte';
-	import { CloseOutline } from 'flowbite-svelte-icons';
+	import ReaderPopover from './ReaderPopover.svelte';
 
 	interface Props {
 		/** The prose container to delegate click events from. */
@@ -9,7 +8,6 @@
 
 	let { container }: Props = $props();
 
-	let dialogEl = $state<HTMLDialogElement | null>(null);
 	/** Reference-list entry markup, lifted straight out of the rendered page. */
 	let entryHtml = $state('');
 	let targetId = $state('');
@@ -19,43 +17,23 @@
 		targetId = '';
 	}
 
-	function close() {
-		dialogEl?.close();
-		// Escape dismisses the dialog without routing through here, so `onclose`
-		// clears state as well.
-		clearState();
-	}
-
-	async function onProseClick(event: MouseEvent) {
-		// Let modified clicks and middle-clicks behave like ordinary link clicks.
-		if (event.defaultPrevented || event.button !== 0) return;
-		if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-
-		const link = (event.target as HTMLElement | null)?.closest<HTMLElement>('a[data-cite]');
-		if (!link) return;
+	function claim(target: HTMLElement): boolean {
+		const link = target.closest<HTMLElement>('a[data-cite]');
+		if (!link) return false;
 
 		const slug = link.dataset.cite;
-		if (!slug) return;
+		if (!slug) return false;
 		const entry = document.getElementById(`bib-${slug}`);
 		// Without the entry on the page the href still works — leave it alone.
-		if (!entry) return;
+		if (!entry) return false;
 
-		event.preventDefault();
 		entryHtml = entry.innerHTML;
 		targetId = `bib-${slug}`;
-
-		// Render before opening so focus has somewhere to land.
-		await tick();
-		dialogEl?.showModal();
-	}
-
-	/** Close when the click lands on the backdrop rather than the panel. */
-	function onDialogClick(event: MouseEvent) {
-		if (event.target === dialogEl) close();
+		return true;
 	}
 
 	/** Follow through to the reference list, for readers who want the full list. */
-	function jumpToEntry() {
+	function jumpToEntry(close: () => void) {
 		const id = targetId;
 		close();
 		// Set the fragment rather than calling scrollIntoView, so this behaves
@@ -69,41 +47,22 @@
 		// jump whenever frames are not being produced, as in a background tab.
 		window.location.hash = id;
 	}
-
-	$effect(() => {
-		if (!container) return;
-		container.addEventListener('click', onProseClick);
-		return () => {
-			container.removeEventListener('click', onProseClick);
-		};
-	});
 </script>
 
-<dialog
-	bind:this={dialogEl}
-	class="footnote-popover-panel"
-	aria-label="Reference"
-	onclick={onDialogClick}
-	onclose={clearState}
->
-	{#if entryHtml}
-		<div class="footnote-popover-panel__header">
-			<p class="footnote-popover-panel__title">Reference</p>
-			<button
-				type="button"
-				class="footnote-popover-panel__close"
-				aria-label="Close reference"
-				onclick={close}
-			>
-				<CloseOutline class="h-5 w-5" aria-hidden="true" />
-			</button>
-		</div>
+<ReaderPopover {container} {claim} active={entryHtml !== ''} onclear={clearState}>
+	{#snippet body()}
 		<p class="footnote-popover-panel__full">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -- lifted from this page's own prerendered reference list -->
 			{@html entryHtml}
 		</p>
-		<button type="button" class="footnote-popover-panel__link link-secondary" onclick={jumpToEntry}>
+	{/snippet}
+	{#snippet footer(close)}
+		<button
+			type="button"
+			class="footnote-popover-panel__link link-secondary"
+			onclick={() => jumpToEntry(close)}
+		>
 			Show in the reference list →
 		</button>
-	{/if}
-</dialog>
+	{/snippet}
+</ReaderPopover>

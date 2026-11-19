@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
+	import { observeActiveSection } from '#lib/utils/active-section';
 
 	/**
 	 * Sticky in-page navigation for long single-scroll pages.
@@ -26,30 +27,15 @@
 		const targets = sections
 			.map((section) => document.getElementById(section.id))
 			.filter((el): el is HTMLElement => el !== null);
-		if (targets.length === 0) return;
-
-		/**
-		 * The callback only reports sections whose state *changed*, so the batch
-		 * on its own is not enough to decide what is on screen — track the
-		 * latest state of every section and pick the topmost one still visible.
-		 */
-		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- plain bookkeeping; nothing renders from it
-		const intersecting = new Set<string>();
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) {
-					if (entry.isIntersecting) intersecting.add(entry.target.id);
-					else intersecting.delete(entry.target.id);
-				}
-				const topmost = targets.find((target) => intersecting.has(target.id));
-				if (topmost) activeId = topmost.id;
+		// Tracks every section's latest state, not just the changed batch — see
+		// observeActiveSection.
+		return observeActiveSection(
+			targets,
+			(id) => {
+				activeId = id;
 			},
-			{ rootMargin: '-15% 0px -70% 0px' }
+			{ top: 0.15, bottom: 0.7 }
 		);
-
-		targets.forEach((target) => observer.observe(target));
-		return () => observer.disconnect();
 	});
 </script>
 

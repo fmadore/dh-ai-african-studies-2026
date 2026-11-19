@@ -1,17 +1,39 @@
 import { workshopInfo } from '#lib/data/workshop-info';
 
-import { DEFAULT_AUTHORS, SITE_BASE_URL, SITE_DESCRIPTION, SITE_NAME } from './constants';
+import {
+	DEFAULT_AUTHORS,
+	DEFAULT_OG_IMAGE,
+	SITE_BASE_URL,
+	SITE_DESCRIPTION,
+	SITE_NAME
+} from './constants';
 import type {
 	Author,
 	CreateEventJsonLdOptions,
+	CreateVideoObjectJsonLdOptions,
 	CreateWebPageJsonLdOptions,
 	JsonLdEvent,
+	JsonLdPerson,
 	JsonLdPlace,
 	JsonLdSchema,
+	JsonLdVideoObject,
 	JsonLdWebPage,
 	JsonLdWebSite
 } from './types';
-import { resolveAssetUrl } from './url';
+import { resolveAssetUrl, resolveCanonicalUrl } from './url';
+
+/** The whole site is written in English. */
+const SITE_LANGUAGE = 'en';
+
+function personNode(author: Author): JsonLdPerson {
+	return { '@type': 'Person', name: author.name, url: author.url };
+}
+
+/** One Person stays a single node; several become an array. */
+function personNodes(authors: Author[]): JsonLdPerson | JsonLdPerson[] | undefined {
+	if (authors.length === 0) return undefined;
+	return authors.length === 1 ? personNode(authors[0]) : authors.map(personNode);
+}
 
 /** Creates JSON-LD structured data for an Event. */
 export function createEventJsonLd(options: CreateEventJsonLdOptions = {}): JsonLdEvent {
@@ -58,13 +80,8 @@ export function createEventJsonLd(options: CreateEventJsonLdOptions = {}): JsonL
 		jsonLd.location = location;
 	}
 
-	if (options.organizerName) {
-		jsonLd.organizer = {
-			'@type': 'Organization',
-			name: options.organizerName,
-			url: options.organizerUrl
-		};
-	}
+	const organizer = personNodes(options.organizers ?? []);
+	if (organizer) jsonLd.organizer = organizer;
 
 	if (options.funderName) {
 		jsonLd.funder = {
@@ -91,13 +108,19 @@ export function createWorkshopEventJsonLd(options: {
 		description: options.description,
 		startDate: workshopInfo.dates.startISO,
 		endDate: workshopInfo.dates.endISO,
+		// No street address: the venue's name is not one, and a postal address
+		// we cannot vouch for is worse than locality and country alone.
 		locationName: workshopInfo.location.venue,
-		locationAddress: workshopInfo.location.venue,
 		locationCity: workshopInfo.location.city,
 		locationCountry: workshopInfo.location.country,
-		organizerName: workshopInfo.organizers.full,
+		// Two people, not one Organization named "A and B". Profile URLs come
+		// from DEFAULT_AUTHORS where the names match.
+		organizers: workshopInfo.organizers.names.map(
+			(name) => DEFAULT_AUTHORS.find((author) => author.name === name) ?? { name }
+		),
 		funderName: workshopInfo.funder.name,
 		funderUrl: workshopInfo.funder.url,
+		image: DEFAULT_OG_IMAGE,
 		url: options.url
 	});
 }
@@ -115,8 +138,11 @@ export function createWebSiteJsonLd(
 		'@context': 'https://schema.org',
 		'@type': 'WebSite',
 		name: options.name ?? SITE_NAME,
-		url: SITE_BASE_URL,
-		description: options.description ?? SITE_DESCRIPTION
+		// The home page's own canonical (with the trailing slash), so the
+		// WebSite node and the page that carries it name the same URL.
+		url: resolveCanonicalUrl('/'),
+		description: options.description ?? SITE_DESCRIPTION,
+		inLanguage: SITE_LANGUAGE
 	};
 
 	if (options.publisherName) {
@@ -132,38 +158,60 @@ export function createWebSiteJsonLd(
 
 /** Creates JSON-LD structured data for an authored webpage. */
 export function createWebPageJsonLd(options: CreateWebPageJsonLdOptions): JsonLdWebPage {
-	const authors = options.authors ?? DEFAULT_AUTHORS;
-
 	const jsonLd: JsonLdWebPage = {
 		'@context': 'https://schema.org',
-		'@type': 'WebPage',
+		'@type': options.type ?? 'WebPage',
 		name: options.name,
 		url: options.url,
 		description: options.description ?? SITE_DESCRIPTION,
+		inLanguage: SITE_LANGUAGE,
 		isPartOf: {
 			'@type': 'WebSite',
 			name: SITE_NAME,
-			url: SITE_BASE_URL
+			url: resolveCanonicalUrl('/')
 		}
 	};
 
-	if (authors.length === 1) {
-		jsonLd.author = {
-			'@type': 'Person',
-			name: authors[0].name,
-			url: authors[0].url
-		};
-	} else if (authors.length > 1) {
-		jsonLd.author = authors.map((author: Author) => ({
-			'@type': 'Person' as const,
-			name: author.name,
-			url: author.url
-		}));
-	}
+	const author = personNodes(options.authors ?? DEFAULT_AUTHORS);
+	if (author) jsonLd.author = author;
 
 	if (options.dateModified) {
 		jsonLd.dateModified = options.dateModified;
 	}
+
+	return jsonLd;
+}
+
+/** An ImageGallery (a CollectionPage subtype) for the photo archive. */
+export function createImageGalleryJsonLd(
+	options: Omit<CreateWebPageJsonLdOptions, 'type'>
+): JsonLdWebPage {
+	return createWebPageJsonLd({ ...options, type: 'ImageGallery' });
+}
+
+/**
+ * VideoObject for a YouTube-hosted video. `uploadDate` is emitted only when
+ * the caller knows it: Google requires it for video rich results, but an
+ * invented date is worse than a missing one.
+ */
+export function createVideoObjectJsonLd(
+	options: CreateVideoObjectJsonLdOptions
+): JsonLdVideoObject {
+	const jsonLd: JsonLdVideoObject = {
+		'@context': 'https://schema.org',
+		'@type': 'VideoObject',
+		name: options.name,
+		description: options.description,
+		thumbnailUrl: resolveAssetUrl(
+			options.thumbnail ?? `https://i.ytimg.com/vi/${options.youtubeId}/hqdefault.jpg`
+		),
+		// The same privacy-enhanced host the page's player loads.
+		embedUrl: `https://www.youtube-nocookie.com/embed/${options.youtubeId}`,
+		url: `https://www.youtube.com/watch?v=${options.youtubeId}`,
+		inLanguage: SITE_LANGUAGE
+	};
+
+	if (options.uploadDate) jsonLd.uploadDate = options.uploadDate;
 
 	return jsonLd;
 }

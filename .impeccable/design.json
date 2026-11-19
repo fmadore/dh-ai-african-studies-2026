@@ -104,7 +104,7 @@
         "role": "secondary",
         "displayName": "Terracotta Deep",
         "canonical": "#c23a24",
-        "notes": "Light-mode --brand: .link-primary and the native accent-color."
+        "notes": "Light-mode --brand: .link-subtle hover, brand session chips and the native accent-color."
       },
       "brand-terracotta-strong": {
         "role": "secondary",
@@ -192,7 +192,7 @@
         "role": "neutral",
         "displayName": "Stone Print",
         "canonical": "#78716c",
-        "notes": "The print stylesheet's body grey. Not used on screen — it clears AA by two hundredths."
+        "notes": "The print stylesheet's band border. Not used on screen — as text it clears AA by two hundredths."
       },
       "stone-graphite": {
         "role": "neutral",

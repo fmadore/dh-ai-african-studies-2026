@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
-import { sitePath } from './helpers';
+import { clickUntil, sitePath } from './helpers';
 
 const routes = [
 	'/',
@@ -18,11 +18,58 @@ const routes = [
 ];
 
 const themes = ['light', 'dark'] as const;
+type Theme = (typeof themes)[number];
 
-async function setTheme(page: Page, theme: string) {
-	await page.evaluate((selectedTheme) => {
-		document.documentElement.classList.toggle('dark', selectedTheme === 'dark');
+/**
+ * Start every page in `theme` before its first paint, through the stored
+ * preference that the header's Flowbite DarkMode head script reads on every
+ * route (the key is literally `THEME_PREFERENCE_KEY`); the colour scheme is
+ * emulated to match its no-preference fallback. Flipping `.dark` after load
+ * instead animated every link and button between palettes (see base.css on
+ * `theme-switching`), so axe could sample, or strand, mid-transition colours.
+ */
+async function startInTheme(page: Page, theme: Theme) {
+	await page.emulateMedia({ colorScheme: theme });
+	await page.addInitScript((selected) => {
+		try {
+			localStorage.setItem('THEME_PREFERENCE_KEY', selected);
+		} catch {
+			// about:blank and opaque origins have no storage; nothing to theme there.
+		}
 	}, theme);
+}
+
+async function expectTheme(page: Page, theme: Theme) {
+	if (theme === 'dark') await expect(page.locator('html')).toHaveClass(/(?:^|\s)dark(?:\s|$)/);
+	else await expect(page.locator('html')).not.toHaveClass(/(?:^|\s)dark(?:\s|$)/);
+}
+
+/** Every finite CSS transition, CSS animation and Web Animation has finished,
+ * so axe reads final colours and opacities. Infinite ambient loops never
+ * finish and are left out; they are not entrance or theme transitions. */
+async function waitForAnimationsToSettle(page: Page) {
+	await expect
+		.poll(
+			() =>
+				page.evaluate(() =>
+					document
+						.getAnimations()
+						.filter(
+							(animation) =>
+								animation.playState === 'running' &&
+								animation.effect?.getComputedTiming().endTime !== Infinity
+						)
+						.map((animation) =>
+							animation instanceof CSSTransition
+								? `transition ${animation.transitionProperty}`
+								: animation instanceof CSSAnimation
+									? `animation ${animation.animationName}`
+									: 'web animation'
+						)
+				),
+			{ message: 'finite animations still running before the axe scan' }
+		)
+		.toEqual([]);
 }
 
 /** The site's own images only: a YouTube thumbnail that fails to load says
@@ -59,16 +106,12 @@ test.describe('public route smoke checks', () => {
 	for (const theme of themes) {
 		for (const route of routes) {
 			test(`${theme} ${route}`, async ({ page }) => {
+				await startInTheme(page, theme);
 				await page.goto(sitePath(route));
-				await setTheme(page, theme);
 
 				await expect(page.locator('main')).toHaveCount(1);
 				await expect(page.locator('h1')).toHaveCount(1);
-				if (theme === 'dark') {
-					await expect(page.locator('html')).toHaveClass(/dark/);
-				} else {
-					await expect(page.locator('html')).not.toHaveClass(/dark/);
-				}
+				await expectTheme(page, theme);
 				await expectNoBrokenImages(page);
 			});
 		}
@@ -94,16 +137,18 @@ test('About stays within a mobile viewport', async ({ page }) => {
 
 test('theme toggle updates the document theme', async ({ page }) => {
 	await page.goto(sitePath('/'));
-	await page.waitForLoadState('networkidle');
-	await page.getByRole('button', { name: 'Dark mode' }).click({ timeout: 15_000 });
-	await expect(page.locator('html')).toHaveClass(/dark/);
+	const html = page.locator('html');
+	await expectTheme(page, 'light');
+	const isDark = () => html.evaluate((element) => element.classList.contains('dark'));
+	await clickUntil(page.getByRole('button', { name: 'Dark mode' }), isDark);
+	await expectTheme(page, 'dark');
 });
 
 test('Outcomes disclosure opens, and closes when focus leaves it', async ({ page, isMobile }) => {
 	test.skip(isMobile, 'the mobile menu nests Outcomes inside the hamburger panel');
 	await page.goto(sitePath('/'));
 	const toggle = page.getByRole('button', { name: 'Outcomes' });
-	await toggle.click();
+	await clickUntil(toggle, async () => (await toggle.getAttribute('aria-expanded')) === 'true');
 	await expect(toggle).toHaveAttribute('aria-expanded', 'true');
 	await expect(page.locator('#site-nav-outcomes')).toBeVisible();
 
@@ -117,14 +162,17 @@ test('reference filters live in the URL and survive a reload', async ({ page }) 
 	await page.goto(sitePath('/references?type=book&sort=title'));
 	const book = page.getByRole('checkbox', { name: 'Book', exact: true });
 	const filterButton = page.locator('.mobile-filters button');
-	if (await filterButton.isVisible()) await filterButton.click();
-
-	await expect(book).toBeChecked();
+	// The prerendered page has no query string: the sort reflects the URL only
+	// once hydration has read it, so it gates the clicks below. The checkboxes
+	// sit inside the filter sheet on phones, so they are checked after it opens.
 	await expect(page.getByLabel('Sort by')).toHaveValue('title');
+	if (await filterButton.isVisible()) await filterButton.click();
+	await expect(book).toBeChecked();
 
 	await page.getByRole('checkbox', { name: 'Report', exact: true }).check();
 	await expect(page).toHaveURL(/\?type=book&type=report&sort=title$/);
 	await page.reload();
+	await expect(page.getByLabel('Sort by')).toHaveValue('title');
 	if (await filterButton.isVisible()) await filterButton.click();
 	await expect(page.getByRole('checkbox', { name: 'Report', exact: true })).toBeChecked();
 });
@@ -170,10 +218,9 @@ test('ARIA ID references resolve to one existing element', async ({ page }) => {
 
 test('photo dialog traps focus and graph controls remain keyboard reachable', async ({ page }) => {
 	await page.goto(sitePath('/photos'));
-	await page.waitForLoadState('networkidle');
 	const opener = page.getByRole('button', { name: /^View / }).first();
-	await opener.click({ timeout: 15_000 });
 	const dialog = page.getByRole('dialog');
+	await clickUntil(opener, () => dialog.isVisible());
 	await expect(dialog).toBeVisible();
 	await page.keyboard.press('Shift+Tab');
 	expect(
@@ -202,9 +249,10 @@ for (const theme of themes) {
 	for (const route of routes) {
 		test(`axe: ${theme} ${route}`, async ({ page }) => {
 			await page.emulateMedia({ reducedMotion: 'reduce' });
+			await startInTheme(page, theme);
 			await page.goto(sitePath(route));
-			await setTheme(page, theme);
-			await page.waitForTimeout(100);
+			await expectTheme(page, theme);
+			await waitForAnimationsToSettle(page);
 			const results = await new AxeBuilder({ page })
 				.withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
 				.analyze();

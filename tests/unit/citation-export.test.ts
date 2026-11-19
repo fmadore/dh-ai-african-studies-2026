@@ -143,4 +143,21 @@ describe('institutional authors', () => {
 		expect(ris).toContain('SP  - 112');
 		expect(ris).toContain('EP  - 130');
 	});
+
+	it('keeps every RIS value on one line', () => {
+		const ris = generateRis([
+			{
+				...reference,
+				title: 'A title\nthat wraps',
+				abstract: 'First paragraph.\r\n\r\n  Second paragraph\nwith a break.  ',
+				publisher: 'Example\nPress'
+			}
+		]);
+		const lines = ris.split('\n');
+
+		expect(ris).toContain('AB  - First paragraph. Second paragraph with a break.\n');
+		expect(ris).toContain('TI  - A title that wraps\n');
+		expect(ris).toContain('PB  - Example Press\n');
+		expect(lines.every((line) => /^[A-Z][A-Z0-9] {2}- /.test(line))).toBe(true);
+	});
 });

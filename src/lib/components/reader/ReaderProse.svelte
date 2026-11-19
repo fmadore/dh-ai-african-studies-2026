@@ -21,7 +21,10 @@
 		if (proseEl && onRootMount) onRootMount(proseEl);
 	});
 
-	// Inject anchor-copy buttons next to h2/h3 headings after hydration.
+	// Inject anchor-copy buttons beside h2/h3 headings after hydration. The
+	// button sits next to the heading, in a wrapper, not inside it: inside, it
+	// became part of the heading's accessible name ("Title Copy link to
+	// section: Title"). The wrapper is the hover/positioning context instead.
 	$effect(() => {
 		if (!proseEl) return;
 		const headings = Array.from(proseEl.querySelectorAll<HTMLElement>('h2[id], h3[id]'));
@@ -29,7 +32,10 @@
 
 		for (const heading of headings) {
 			// Avoid double-insertion on HMR / re-renders.
-			if (heading.querySelector('.anchor-copy-button')) continue;
+			if (heading.parentElement?.classList.contains('reader-heading-anchor')) continue;
+
+			const wrapper = document.createElement('div');
+			wrapper.className = 'reader-heading-anchor';
 
 			const btn = document.createElement('button');
 			btn.type = 'button';
@@ -49,11 +55,14 @@
 			};
 
 			btn.addEventListener('click', handler);
-			heading.appendChild(btn);
+			heading.before(wrapper);
+			wrapper.append(heading, btn);
 			cleanups.push(() => {
 				clearTimeout(resetTimer);
 				btn.removeEventListener('click', handler);
-				btn.remove();
+				// Put the heading back where {@html} left it.
+				if (wrapper.isConnected) wrapper.replaceWith(heading);
+				else btn.remove();
 			});
 		}
 

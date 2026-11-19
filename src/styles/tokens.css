@@ -52,10 +52,10 @@
 	--color-warning-300: #fbbf24;
 	--color-warning-100: #fef3c7;
 	--color-warning-900: #78350f;
+	--color-error-600: #b91c1c;
 	--color-error-500: #dc2626;
 	--color-error-400: #ef4444;
 	--color-error-300: #f87171;
-	--color-info-500: #2563eb;
 
 	/* ---------- Type system ---------- */
 	--font-family-display: 'Outfit Variable', system-ui, -apple-system, sans-serif;
@@ -112,7 +112,6 @@
 	--space-3xl: clamp(2.5rem, 2.2rem + 1.5vw, 3.5rem);
 	--space-4xl: clamp(3rem, 2.5rem + 2.5vw, 4.5rem);
 	--space-5xl: clamp(4rem, 3.3rem + 3.5vw, 6rem);
-	--space-6xl: clamp(5rem, 4rem + 5vw, 8rem);
 
 	/* Match Tailwind numeric spacing to the fluid scale where we override */
 	--spacing-6: clamp(0.875rem, 0.8rem + 0.15vw, 1.125rem);
@@ -138,7 +137,6 @@
 	--radius-md: 0.625rem;
 	--radius-lg: 0.875rem;
 	--radius-xl: 1.25rem;
-	--radius-2xl: 1.75rem;
 	--radius-full: 9999px;
 
 	/* ---------- Motion primitives ----------
@@ -159,13 +157,11 @@
 	--transition-slow: var(--duration-slow) var(--ease-emphasized);
 
 	/* ---------- Z-index scale ---------- */
-	--z-base: 0;
 	--z-dropdown: 10;
 	--z-sticky: 20;
 	--z-overlay: 30;
 	--z-modal: 40;
 	--z-popover: 50;
-	--z-tooltip: 60;
 	--z-notification: 70;
 	--z-lightbox: 9999;
 }
@@ -239,7 +235,6 @@
 	--radius-control: var(--radius-sm);
 	--radius-card: var(--radius-lg);
 	--radius-panel: var(--radius-xl);
-	--radius-pill: var(--radius-full);
 
 	/* Focus + selection — a real outline, in the interactive hue (teal) */
 	--focus-ring: var(--color-secondary-600);
@@ -261,7 +256,7 @@
 	--warning-soft: var(--color-warning-100);
 	--warning-on-soft: var(--color-warning-900);
 	--danger: var(--color-error-500);
-	--danger-hover: #b91c1c;
+	--danger-hover: var(--color-error-600);
 
 	/* Shadows — one set, warm-tinted and deliberately shallow. Depth on this
 	   site comes from surface steps and bands, not from lift. */

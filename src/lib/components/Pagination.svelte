@@ -11,7 +11,18 @@
 
 	let { currentPage, totalPages, label = 'Pagination', onnavigate }: Props = $props();
 
-	let pageItems = $derived(buildPageItems(currentPage, totalPages));
+	/*
+	 * Keyed by page number, not position: keyed by index, clicking "5" reused
+	 * that <button> for whatever page moved into its slot, so focus landed on
+	 * "6". The two ellipses get keys of their own; the leading one only ever
+	 * sits right after page 1.
+	 */
+	let pageItems = $derived(
+		buildPageItems(currentPage, totalPages).map((item, index) => ({
+			item,
+			key: item === 'ellipsis' ? (index === 1 ? 'ellipsis-start' : 'ellipsis-end') : item
+		}))
+	);
 </script>
 
 <nav class="pagination" aria-label={label}>
@@ -27,7 +38,7 @@
 	</button>
 
 	<ul class="pagination__pages" role="list">
-		{#each pageItems as item, i (i)}
+		{#each pageItems as { item, key } (key)}
 			{#if item === 'ellipsis'}
 				<li class="pagination__ellipsis" aria-hidden="true">…</li>
 			{:else}

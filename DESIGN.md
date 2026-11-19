@@ -199,7 +199,7 @@ Terracotta is the institutional voice and the call-to-action fill. It is not a g
 
 - **Archive Terracotta** (`brand-terracotta`): the brand tone itself; brand emphasis, the warm counterweight in the hero gradient, the dark-mode `brand-muted`.
 - **Terracotta Strong / Darkest** (`brand-terracotta-strong`, `brand-terracotta-darkest`): the primary button's rest and hover fills.
-- **Terracotta Deep** (`brand-terracotta-deep`): the light-mode `brand` alias used by `.link-primary` and by `accent-color` on native controls.
+- **Terracotta Deep** (`brand-terracotta-deep`): the light-mode `brand` alias used by `.link-subtle`'s hover, brand session chips and `accent-color` on native controls.
 - **Terracotta Bright / Light** (`brand-terracotta-bright`, `brand-terracotta-light`): dark-mode brand text and the monogram's punctuation dot, where the deep steps go muddy on near-black.
 - **Terracotta Soft** (`brand-terracotta-soft`): the light-mode soft brand fill.
 
@@ -217,7 +217,7 @@ The concept network paints on its own dark stage and therefore owns one categori
 - **Raised Paper** (`raised-paper`): cards, panels and controls on the light canvas; also the on-accent foreground.
 - **Sunken Paper** (`sunken-paper`): the recessed band and the hero gradient's base.
 - **Warm Line / Warm Rule** (`warm-line`, `warm-rule`): the light-mode overlay fill and the ramp step borders and dividers are mixed toward.
-- **Stone Mute / Stone Subtle / Stone Print** (`stone-mute`, `stone-subtle`, `stone-print`): disabled text, the dark-mode subtle tone (a half-step that exists so small text still clears AA on near-black), and the print stylesheet's body grey.
+- **Stone Mute / Stone Subtle / Stone Print** (`stone-mute`, `stone-subtle`, `stone-print`): disabled text, the dark-mode subtle tone (a half-step that exists so small text still clears AA on near-black), and the print stylesheet's band border, which marks where a dropped band background was.
 - **Stone Graphite** (`stone-graphite`): the light-mode muted and subtle text tone — every page-hero eyebrow, caption and credit line.
 - **Stone Slate / Warm Charcoal** (`stone-slate`, `warm-charcoal`): secondary text and the darkest interface fills before ink.
 - **Warm Ink / Warm Ink Deep** (`warm-ink`, `warm-ink-deep`): light-mode text, the ink band's surface, the hue that borders and shadows are mixed from, and the scrim source.
@@ -265,7 +265,7 @@ The ramp is fluid throughout (a ~1.2 minor third opening to a major third), with
 
 Content sits in centered containers ranging from 48rem for focused reading through 64rem for the default page to 80rem for maps, galleries, and multi-column archives. Inline padding and section gaps use fluid tokens, so density expands gradually rather than jumping at every breakpoint. Running text stays near 68 characters per line even inside a wide page; ledes cap at 46 and captions at 42.
 
-Vertical rhythm comes from bands, not from floating slabs: a plain band, a tight band, a recessed band, an ink band, and a full-bleed variant. One recessed band and one ink band per long page. Grids are auto-fit with a 15rem, 20rem, or 25rem minimum track.
+Vertical rhythm comes from bands, not from floating slabs: a plain band, a tight band, a recessed band, an ink band, and a full-bleed variant. One recessed band and one ink band per long page; the site footer's recessed band is global chrome and does not count against that. Grids are auto-fit or auto-fill, each with a minimum track sized to its content (roughly 12–19rem).
 
 The three breakpoints in use are 640px, 768px, and 1024px. Mobile layouts must use shrinkable grid tracks (`minmax(0, 1fr)`) and `min-width: 0` on content-bearing children. Horizontal scrolling is reserved for clearly bounded navigation or filter strips; page content itself must remain within the viewport. Interactive targets are at least 2.75rem on coarse pointers and on dense visual controls such as maps and graph chrome; text-only controls get a 44px minimum hit area (`.tap-target`, or `.tap-target-flush` when the control must stay flush with the text column it sits in), and dense chip rows are compact on a mouse and 44px on touch. Where a target's size carries meaning — the concept graph's degree-scaled nodes — the visual mark stays honest and an invisible touch surface supplies the floor on coarse pointers only.
 
@@ -319,7 +319,7 @@ Controls use gently rounded 0.375rem corners, cards use 0.875rem, and large pane
 
 ### Navigation
 
-The sticky header uses the body face and a typographic monogram — a teal gradient tile with a terracotta dot — rather than an image mark. Glass appears only here and in the lightbox chrome, the two surfaces that genuinely overlap moving content; everywhere else panels are solid. Nav links are medium-weight small text at control radius with a 2.75rem target, one active-state treatment, and a sunken hover fill. Mobile navigation returns focus to its trigger when dismissed. Section navigation may scroll horizontally within its own bounded track but never expands the page grid.
+The sticky header uses the body face and a typographic monogram — a teal gradient tile with a terracotta dot — rather than an image mark. Glass appears only here and in the lightbox chrome, the two surfaces that genuinely overlap moving content; everywhere else panels are solid. The header uses `.surface-glass`; its dark `.surface-glass--scrim` variant (the 92% scrim with a 20px blur, dropped under reduced motion) is for the lightbox backdrop only. The theme toggle is an `.icon-button-accent`: `--accent` at rest, `--text-accent` on hover. Nav links are medium-weight small text at control radius with a 2.75rem target, one active-state treatment, and a sunken hover fill. Mobile navigation returns focus to its trigger when dismissed. Section navigation may scroll horizontally within its own bounded track but never expands the page grid.
 
 ### Concept Network
 

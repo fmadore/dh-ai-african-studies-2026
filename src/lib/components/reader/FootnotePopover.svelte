@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { tick } from 'svelte';
-	import { CloseOutline } from 'flowbite-svelte-icons';
 	import type { ResolvedReference } from '#lib/reader/types';
 	import { resolveAppPath } from '#lib/utils/paths';
+	import ReaderPopover from './ReaderPopover.svelte';
 
 	interface Props {
 		/** The prose container to delegate click events from. */
@@ -13,7 +12,6 @@
 
 	let { container, resolvedRefs }: Props = $props();
 
-	let dialogEl = $state<HTMLDialogElement | null>(null);
 	let activeRef = $state<ResolvedReference | null>(null);
 	let locator = $state<string | null>(null);
 
@@ -22,54 +20,20 @@
 		locator = null;
 	}
 
-	function close() {
-		dialogEl?.close();
-		// Cleared here as well as in `onclose`: Escape dismisses the dialog
-		// without routing through this function, so both paths need covering.
-		clearState();
-	}
-
-	async function onProseClick(event: MouseEvent) {
-		if (event.defaultPrevented || event.button !== 0) return;
-		if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-		const target = event.target as HTMLElement | null;
-		if (!target) return;
+	function claim(target: HTMLElement): boolean {
 		const sup = target.closest('sup[data-footnote-ref]') as HTMLElement | null;
-		if (!sup) return;
+		if (!sup) return false;
 		const slug = sup.dataset.refSlug;
-		if (!slug) return; // Unresolved footnote — let default behaviour run.
+		if (!slug) return false; // Unresolved footnote — let default behaviour run.
 
 		const ref = resolvedRefs[slug];
-		if (!ref) return;
+		if (!ref) return false;
 
-		// Prevent the jump-to-footnote default; the backref link still works.
-		event.preventDefault();
-
+		// Claiming prevents the jump-to-footnote default; the backref link still works.
 		activeRef = ref;
 		locator = sup.dataset.refLocator ?? null;
-
-		// Render the contents before opening, so the UA has something focusable
-		// to move to and the dialog never paints an empty frame.
-		await tick();
-
-		// showModal() handles what a hand-rolled dialog has to reimplement:
-		// moves focus inside, traps it, makes the rest of the page inert,
-		// closes on Escape, and restores focus to the <sup> on close.
-		dialogEl?.showModal();
+		return true;
 	}
-
-	/** Close when the click lands on the backdrop rather than the panel. */
-	function onDialogClick(event: MouseEvent) {
-		if (event.target === dialogEl) close();
-	}
-
-	$effect(() => {
-		if (!container) return;
-		container.addEventListener('click', onProseClick);
-		return () => {
-			container.removeEventListener('click', onProseClick);
-		};
-	});
 
 	let bibLink = $derived(
 		activeRef
@@ -78,31 +42,18 @@
 	);
 </script>
 
-<dialog
-	bind:this={dialogEl}
-	class="footnote-popover-panel"
-	aria-label="Reference"
-	onclick={onDialogClick}
-	onclose={clearState}
->
-	{#if activeRef}
-		<div class="footnote-popover-panel__header">
-			<p class="footnote-popover-panel__title">Reference</p>
-			<button
-				type="button"
-				class="footnote-popover-panel__close"
-				aria-label="Close reference"
-				onclick={close}
-			>
-				<CloseOutline class="h-5 w-5" aria-hidden="true" />
-			</button>
-		</div>
-		<p class="footnote-popover-panel__short">
-			{activeRef.short}{#if locator}, {locator}{/if}
-		</p>
-		<p class="footnote-popover-panel__full">{activeRef.full}</p>
+<ReaderPopover {container} {claim} active={activeRef !== null} onclear={clearState}>
+	{#snippet body()}
+		{#if activeRef}
+			<p class="footnote-popover-panel__short">
+				{activeRef.short}{#if locator}, {locator}{/if}
+			</p>
+			<p class="footnote-popover-panel__full">{activeRef.full}</p>
+		{/if}
+	{/snippet}
+	{#snippet footer(close)}
 		<a class="footnote-popover-panel__link link-secondary" href={bibLink} onclick={close}
 			>View in bibliography →</a
 		>
-	{/if}
-</dialog>
+	{/snippet}
+</ReaderPopover>

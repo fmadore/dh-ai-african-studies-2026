@@ -9,6 +9,16 @@ import type { PositionPaperMeta } from '#lib/reader/types';
 export const paperPublicationDate = '2026-09-09';
 
 /**
+ * Search-result and social-card description (≤160 characters), condensed from
+ * the abstract: the full abstract ran to ~1,900 characters and was truncated
+ * mid-sentence wherever it was shown. Kept off `positionPaperMeta` because the
+ * EPUB exporter serialises that whole record; scholarly meta tags and JSON-LD
+ * still carry the verbatim abstract.
+ */
+export const paperSummary =
+	'Twenty-six scholars from a 2026 Hanover workshop ask for whom and for what purpose DH and AI serve African Studies, and propose situated practices.';
+
+/**
  * Single source of truth for the position paper's bibliographic metadata.
  * Drives SEO/Google Scholar/Dublin Core meta tags, JSON-LD, and the
  * "How to cite" widget.

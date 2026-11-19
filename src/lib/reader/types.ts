@@ -75,8 +75,3 @@ export interface PositionPaperMeta {
 
 export type ReaderFontFamily = 'sans' | 'serif' | 'accessible';
 export type ReaderFontSize = 90 | 100 | 115 | 130;
-
-export interface ReaderPreferencesState {
-	fontFamily: ReaderFontFamily;
-	fontSize: ReaderFontSize;
-}

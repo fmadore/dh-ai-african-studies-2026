@@ -30,6 +30,58 @@ const DEFAULT_OPTIONS: Required<RevealOptions> = {
 	once: true
 };
 
+interface SharedObserver {
+	observer: IntersectionObserver;
+	/** Each observed node and whether it stops watching after its first reveal. */
+	targets: Map<Element, boolean>;
+}
+
+/**
+ * One observer per distinct threshold/rootMargin pair. A gallery page used to
+ * build an observer per card (65 of them) for identical options; the browser
+ * batches every target of one observer into a single callback instead.
+ */
+const sharedObservers = new Map<string, SharedObserver>();
+
+function observe(node: HTMLElement, threshold: number, rootMargin: string, once: boolean) {
+	const key = `${threshold}|${rootMargin}`;
+	let shared = sharedObservers.get(key);
+	if (!shared) {
+		const targets = new Map<Element, boolean>();
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					const targetOnce = targets.get(entry.target);
+					if (targetOnce === undefined) continue;
+					if (entry.isIntersecting) {
+						entry.target.classList.add('revealed');
+						if (targetOnce) release(key, entry.target);
+					} else if (!targetOnce) {
+						entry.target.classList.remove('revealed');
+					}
+				}
+			},
+			{ threshold, rootMargin }
+		);
+		shared = { observer, targets };
+		sharedObservers.set(key, shared);
+	}
+	shared.targets.set(node, once);
+	shared.observer.observe(node);
+	return key;
+}
+
+/** Stop watching one node; drop the observer once nothing is left on it. */
+function release(key: string, node: Element) {
+	const shared = sharedObservers.get(key);
+	if (!shared || !shared.targets.delete(node)) return;
+	shared.observer.unobserve(node);
+	if (shared.targets.size === 0) {
+		shared.observer.disconnect();
+		sharedObservers.delete(key);
+	}
+}
+
 export function reveal(node: HTMLElement, options: RevealOptions = {}) {
 	if (prefersReducedMotion()) {
 		// Immediately show content without animation
@@ -41,38 +93,20 @@ export function reveal(node: HTMLElement, options: RevealOptions = {}) {
 	// This allows content to be visible during SSR, then animate when JS loads
 	node.classList.add('animating');
 
-	function createObserver(opts: RevealOptions): IntersectionObserver {
+	function start(opts: RevealOptions) {
 		const { threshold, rootMargin, once } = { ...DEFAULT_OPTIONS, ...opts };
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						node.classList.add('revealed');
-						if (once) {
-							observer.unobserve(node);
-						}
-					} else if (!once) {
-						node.classList.remove('revealed');
-					}
-				});
-			},
-			{ threshold, rootMargin }
-		);
-
-		observer.observe(node);
-		return observer;
+		return observe(node, threshold, rootMargin, once);
 	}
 
-	let currentObserver = createObserver(options);
+	let currentKey = start(options);
 
 	return {
 		destroy() {
-			currentObserver.disconnect();
+			release(currentKey, node);
 		},
 		update(newOptions: RevealOptions) {
-			currentObserver.disconnect();
-			currentObserver = createObserver({ ...options, ...newOptions });
+			release(currentKey, node);
+			currentKey = start({ ...options, ...newOptions });
 		}
 	};
 }

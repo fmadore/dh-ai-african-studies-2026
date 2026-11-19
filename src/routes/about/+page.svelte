@@ -6,29 +6,20 @@
 	import WorkStreamCards from '#lib/components/WorkStreamCards.svelte';
 	import FundingNote from '#lib/components/FundingNote.svelte';
 	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '#lib/utils/seo';
-	import { participants } from '#lib/data/participants';
 	import { mediaCredit } from '#lib/data/photos';
-	import { paperPublicationDate } from '#lib/data/position-paper-meta';
-	import { formatLongDate } from '#lib/utils/formatters';
+	import { workshopInfo } from '#lib/data/workshop-info';
 	import { resolveAssetPath, resolveAppPath } from '#lib/utils/paths';
 	import { reveal } from '#lib/utils/reveal';
 
 	let { data } = $props();
 	let backgroundPhoto = $derived(data.backgroundPhoto);
+	// Reduced from the participant records at prerender time (+page.server.ts)
+	let coOrganizers = $derived(data.coOrganizers);
+	let studentAssistants = $derived(data.studentAssistants);
 
-	function decorateWithPhotoUrl(participant: (typeof participants)[number]) {
-		return {
-			...participant,
-			photoUrl: resolveAssetPath(participant.photoUrl)
-		};
-	}
+	type PersonCard = (typeof data.coOrganizers)[number];
 
-	const coOrganizers = participants
-		.filter((participant) => participant.role === 'Co-organizer')
-		.map(decorateWithPhotoUrl);
-	const studentAssistants = participants
-		.filter((participant) => participant.role === 'Student assistant')
-		.map(decorateWithPhotoUrl);
+	const heroLede = `A scoping workshop held ${workshopInfo.dates.full} in ${workshopInfo.location.city}, ${workshopInfo.location.country}, bringing together researchers from Africa, Europe and beyond.`;
 
 	const sections = [
 		{ id: 'background', label: 'Background' },
@@ -42,7 +33,7 @@
 	const seo = createSeoMeta({
 		title: 'About the Workshop',
 		description:
-			'This scoping workshop convened international experts to map the intersection of digital humanities and AI within African studies, highlighting opportunities and challenges across equity, linguistics, and methodology.',
+			'The scoping workshop convened international experts to map digital humanities and AI in African studies, across equity, linguistics and methodology.',
 		path: '/about',
 		keywords: [
 			'Digital Humanities',
@@ -71,11 +62,42 @@
 
 <SeoHead {seo} jsonLd={[eventJsonLd, webPageJsonLd]} />
 
-<PageHero
-	eyebrow="The workshop"
-	title="About the Workshop"
-	lede="A scoping workshop held 18–20 February 2026 in Hanover, Germany, bringing together researchers from Africa, Europe and beyond."
-/>
+<PageHero eyebrow="The workshop" title="About the Workshop" lede={heroLede} />
+
+<!-- One card for both people sections; the size of the portrait is the only
+     difference between an organiser and an assistant. -->
+{#snippet personCard(person: PersonCard, avatarSize: 'sm' | 'md')}
+	<article class="card-surface surface-padding-sm person-card">
+		<div class="person-card__head">
+			<ParticipantAvatar
+				src={resolveAssetPath(person.photoUrl)}
+				alt={person.name}
+				size={avatarSize}
+			/>
+			<div class="stack-3xs">
+				<h3 class="person-card__name">
+					{#if person.website}
+						<a
+							href={person.website}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="link-secondary">{person.name}</a
+						>
+					{:else}
+						{person.name}
+					{/if}
+				</h3>
+				<p class="text-body-sm body-text-muted">{person.affiliation}</p>
+				{#if person.researchRegions.length > 0}
+					<p class="text-caption">{person.researchRegions.join(' · ')}</p>
+				{/if}
+			</div>
+		</div>
+		{#if person.bio}
+			<p class="prose-serif-sm">{person.bio}</p>
+		{/if}
+	</article>
+{/snippet}
 
 <div class="padding-inline-section band-tight">
 	<div class="content-width-wide about-layout">
@@ -190,7 +212,7 @@
 					<p class="prose-serif">
 						The workshop produced a jointly authored
 						<a href={resolveAppPath('/position-paper')} class="link-secondary">position paper</a>,
-						published open access on {formatLongDate(paperPublicationDate)} in
+						published open access on {data.paperPublishedOn} in
 						<em>ZMO Programmatic Texts</em>, no. 16.
 					</p>
 					<p class="prose-serif">
@@ -215,34 +237,7 @@
 					</div>
 					<div class="people-grid stagger-children" use:reveal>
 						{#each coOrganizers as organizer (organizer.name)}
-							<article class="card-surface surface-padding-sm person-card">
-								<div class="person-card__head">
-									<ParticipantAvatar src={organizer.photoUrl} alt={organizer.name} size="md" />
-									<div class="stack-3xs">
-										<h3 class="person-card__name">
-											{#if organizer.website}
-												<a
-													href={organizer.website}
-													target="_blank"
-													rel="noopener noreferrer"
-													class="link-secondary">{organizer.name}</a
-												>
-											{:else}
-												{organizer.name}
-											{/if}
-										</h3>
-										<p class="text-body-sm body-text-muted">{organizer.affiliation}</p>
-										{#if organizer.researchRegions.length > 0}
-											<p class="text-caption">
-												{organizer.researchRegions.toSorted().join(' · ')}
-											</p>
-										{/if}
-									</div>
-								</div>
-								{#if organizer.bio}
-									<p class="prose-serif-sm">{organizer.bio}</p>
-								{/if}
-							</article>
+							{@render personCard(organizer, 'md')}
 						{/each}
 					</div>
 				</section>
@@ -257,23 +252,7 @@
 					</div>
 					<div class="people-grid stagger-children" use:reveal>
 						{#each studentAssistants as assistant (assistant.name)}
-							<article class="card-surface surface-padding-sm person-card">
-								<div class="person-card__head">
-									<ParticipantAvatar src={assistant.photoUrl} alt={assistant.name} size="sm" />
-									<div class="stack-3xs">
-										<h3 class="person-card__name">{assistant.name}</h3>
-										<p class="text-body-sm body-text-muted">{assistant.affiliation}</p>
-										{#if assistant.researchRegions.length > 0}
-											<p class="text-caption">
-												{assistant.researchRegions.toSorted().join(' · ')}
-											</p>
-										{/if}
-									</div>
-								</div>
-								{#if assistant.bio}
-									<p class="prose-serif-sm">{assistant.bio}</p>
-								{/if}
-							</article>
+							{@render personCard(assistant, 'sm')}
 						{/each}
 					</div>
 				</section>

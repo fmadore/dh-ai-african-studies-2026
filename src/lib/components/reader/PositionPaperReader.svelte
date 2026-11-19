@@ -1,14 +1,11 @@
 <script lang="ts">
-	import {
-		createSeoMeta,
-		createScholarlyMeta,
-		createScholarlyArticleJsonLd,
-		type ScholarlyMetaOptions
-	} from '#lib/utils/seo';
+	import { createSeoMeta, createScholarlyMeta, createScholarlyArticleJsonLd } from '#lib/utils/seo';
+	import { paperScholarlyOptions } from '#lib/utils/paper-scholarly';
 	import SeoHead from '#lib/components/SeoHead.svelte';
 	import ReaderShell from '#lib/components/reader/ReaderShell.svelte';
 	import { readerPrefsBootScript } from '#lib/utils/reader-preferences.svelte';
 	import type { PositionPaperData } from '#lib/reader/load-paper';
+	import { paperSummary } from '#lib/data/position-paper-meta';
 
 	// Reader-only styles + webfonts. Imported here rather than from app.css so
 	// they are bundled only when the reader route is built.
@@ -26,9 +23,9 @@
 	let seo = $derived(
 		createSeoMeta({
 			// Distinct from the landing page's "Position Paper", which shares the
-			// abstract as its description
+			// summary as its description; the full abstract rides in citation_abstract
 			title: 'Position Paper: Full Text',
-			description: meta.abstract,
+			description: paperSummary,
 			path: '/position-paper/read',
 			type: 'article',
 			robots: 'index,follow',
@@ -37,25 +34,10 @@
 		})
 	);
 
-	let scholarlyOptions = $derived<ScholarlyMetaOptions>({
-		title: meta.title,
-		authors: [...meta.authors],
-		publicationDate: meta.publicationDate,
-		revisedDate: meta.revisedDate,
-		abstract: meta.abstract,
-		keywords: [...meta.keywords],
-		language: meta.language,
-		publisher: meta.publisher,
-		journalTitle: meta.journalTitle,
-		issue: meta.issue,
-		pageStart: meta.pageStart,
-		pageEnd: meta.pageEnd,
-		abstractUrl: seo.canonical,
-		fullTextUrl: seo.canonical,
-		doi: meta.doi,
-		issn: meta.issn,
-		licence: meta.licence
-	});
+	// Same record as the landing page; here the reader is both landing and full text.
+	let scholarlyOptions = $derived(
+		paperScholarlyOptions(meta, { abstractUrl: seo.canonical, fullTextUrl: seo.canonical })
+	);
 
 	// Google Scholar / Dublin Core tags ride alongside the standard SEO set.
 	let seoWithScholarly = $derived({

@@ -8,13 +8,23 @@
  */
 import { spawnSync } from 'node:child_process';
 
-const python = process.env.PYTHON || (process.platform === 'win32' ? 'python' : 'python3');
-const result = spawnSync(python, process.argv.slice(2), { stdio: 'inherit' });
-
-if (result.error) {
-	console.error(
-		`Could not run "${python}" (${result.error.message}). Set PYTHON to a Python 3 executable.`
-	);
-	process.exit(1);
+/**
+ * The Python 3 command to run. `override` names a script-specific variable
+ * that wins over PYTHON (the EPUB export's EPUB_PYTHON predates PYTHON).
+ */
+export function resolvePython({ override, env = process.env, platform = process.platform } = {}) {
+	return (override && env[override]) || env.PYTHON || (platform === 'win32' ? 'python' : 'python3');
 }
-process.exit(result.status ?? 1);
+
+if (import.meta.main) {
+	const python = resolvePython();
+	const result = spawnSync(python, process.argv.slice(2), { stdio: 'inherit' });
+
+	if (result.error) {
+		console.error(
+			`Could not run "${python}" (${result.error.message}). Set PYTHON to a Python 3 executable.`
+		);
+		process.exit(1);
+	}
+	process.exit(result.status ?? 1);
+}

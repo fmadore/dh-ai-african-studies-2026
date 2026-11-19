@@ -20,6 +20,13 @@ export default defineConfig({
 				pages: 'build',
 				assets: 'build',
 				precompress: false,
+				// GitHub Pages serves 404.html for any unknown path. The adapter
+				// renders it as a client-only shell (absolute asset paths, so it
+				// works at any depth) that boots the router into +error.svelte.
+				// Setting a fallback also switches off `strict`'s check for
+				// non-prerendered routes; tests/unit/site-data.test.ts keeps that
+				// guard by failing if any route opts out of prerendering.
+				fallback: '404.html',
 				strict: true
 			}),
 			paths: { base: (process.env.BASE_PATH || '') as '' | `/${string}` },

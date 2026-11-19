@@ -89,6 +89,42 @@ describe('reference utilities', () => {
 		expect(references.map((ref) => ref.id)).toEqual(['one', 'two', 'three']);
 	});
 
+	it('sorts by the first author, falling back to an editor or an institution', () => {
+		const people: CslReference[] = [
+			{ id: 'zed', type: 'book', author: [{ given: 'Zoe', family: 'Zed' }] },
+			{ id: 'edited', type: 'book', editor: [{ given: 'Mo', family: 'Mbeki' }] },
+			{ id: 'institution', type: 'report', author: [{ literal: 'African Union' }] },
+			{ id: 'empty-authors', type: 'book', author: [], editor: [{ family: 'Bello' }] }
+		];
+
+		expect(sortReferences(people, 'author').map((ref) => ref.id)).toEqual([
+			'institution',
+			'empty-authors',
+			'edited',
+			'zed'
+		]);
+	});
+
+	it('searches folded text and returns the same results on repeat queries', () => {
+		const accented: CslReference[] = [
+			{ id: 'accent', type: 'book', title: 'Études', author: [{ given: 'Kọ́lá', family: 'Błoch' }] }
+		];
+		const search = (searchQuery: string) =>
+			filterReferences(accented, {
+				searchQuery,
+				selectedTypes: [],
+				selectedYears: [],
+				selectedTags: [],
+				selectedLanguages: []
+			}).map((ref) => ref.id);
+
+		expect(search('bloch')).toEqual(['accent']);
+		expect(search('ETUDES')).toEqual(['accent']);
+		expect(search('kola')).toEqual(['accent']);
+		expect(search('nothing')).toEqual([]);
+		expect(search('')).toEqual(['accent']);
+	});
+
 	it('builds compact pagination with ellipses', () => {
 		expect(buildPageItems(5, 10)).toEqual([1, 'ellipsis', 4, 5, 6, 'ellipsis', 10]);
 	});

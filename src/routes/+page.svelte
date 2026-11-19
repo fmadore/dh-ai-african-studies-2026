@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { CalendarMonthOutline, MapPinAltOutline } from 'flowbite-svelte-icons';
-	import { createSeoMeta, createWorkshopEventJsonLd, createWebPageJsonLd } from '#lib/utils/seo';
+	import {
+		createSeoMeta,
+		createWorkshopEventJsonLd,
+		createWebPageJsonLd,
+		createWebSiteJsonLd
+	} from '#lib/utils/seo';
 	import { workshopInfo } from '#lib/data/workshop-info';
 	import { resolveAppPath, resolveAssetPath } from '#lib/utils/paths';
-	import { participants } from '#lib/data/participants';
 	import { workStreams } from '#lib/data/work-streams';
-	import { interviews } from '#lib/data/interviews';
-	import { paperPublicationDate } from '#lib/data/position-paper-meta';
-	import { formatLongDate } from '#lib/utils/formatters';
 	import { reveal } from '#lib/utils/reveal';
 	import SeoHead from '#lib/components/SeoHead.svelte';
 	import FundingNote from '#lib/components/FundingNote.svelte';
@@ -17,7 +18,14 @@
 	let { data } = $props();
 	let stripPhotos = $derived(data.stripPhotos);
 
-	const seo = createSeoMeta({ path: '/' });
+	// The site name alone said neither what the event was nor where; the
+	// title is the line a search result leads with. 60 characters.
+	const seo = createSeoMeta({
+		title: 'Digital Humanities & AI in African Studies Workshop, Hanover',
+		appendSiteName: false,
+		path: '/'
+	});
+	const webSiteJsonLd = createWebSiteJsonLd();
 	const eventJsonLd = createWorkshopEventJsonLd({
 		description: seo.description,
 		url: seo.canonical
@@ -35,21 +43,21 @@
 	const referencesHref = resolveAppPath('/references');
 	const participantsHref = resolveAppPath('/participants');
 
-	const attendees = participants.filter((p) => p.role !== 'Student assistant');
-	const organiserNames = participants
-		.filter((p) => p.role === 'Co-organizer')
-		.map((p) => `${p.name} (${p.affiliation})`);
+	// Counts and names come from the prerender-time load (+page.server.ts), so
+	// this bundle does not carry the participant, interview or paper records.
+	let participantCount = $derived(data.participantCount);
+	let organiserNames = $derived(data.organiserNames);
 
 	/** The hero's right-hand column used to be two rotated, 32px-blurred radial
 	 *  gradients — the "blurry blob" this project's own design philosophy says
 	 *  it replaced with grids. These are the same five columns, saying something. */
-	const heroFacts = [
-		{ value: String(attendees.length), label: 'participants' },
-		{ value: String(new Set(attendees.map((p) => p.country)).size), label: 'countries' },
+	let heroFacts = $derived([
+		{ value: String(data.participantCount), label: 'participants' },
+		{ value: String(data.countryCount), label: 'countries' },
 		{ value: String(workStreams.length), label: 'work streams' },
 		/* Workshop participation and recorded outcomes. */
-		{ value: String(interviews.length), label: 'video interviews' }
-	];
+		{ value: String(data.interviewCount), label: 'video interviews' }
+	]);
 
 	const workshopGoals = [
 		{
@@ -75,10 +83,10 @@
 	   no image rather than a broken one. */
 	let interviewPoster = $derived(resolveAssetPath(data.featuredInterviewPoster));
 
-	const outcomes = [
+	let outcomes = $derived([
 		{
 			title: 'Position Paper',
-			description: `Published open access in ZMO Programmatic Texts, no. 16, on ${formatLongDate(paperPublicationDate)}.`,
+			description: `Published open access in ZMO Programmatic Texts, no. 16, on ${data.paperPublishedOn}.`,
 			href: positionPaperHref,
 			media: 'paper' as const
 		},
@@ -106,10 +114,10 @@
 			href: referencesHref,
 			media: 'references' as const
 		}
-	];
+	]);
 </script>
 
-<SeoHead {seo} jsonLd={[eventJsonLd, webPageJsonLd]} />
+<SeoHead {seo} jsonLd={[webSiteJsonLd, eventJsonLd, webPageJsonLd]} />
 
 <!-- Hero -->
 <section class="gradient-hero-future hero-viewport relative flex items-center overflow-hidden">
@@ -185,7 +193,7 @@
 				     to go; this is their destination. -->
 				<p class="hero-facts__more">
 					<a href={participantsHref} class="link-secondary tap-target"
-						>Meet the {attendees.length} participants</a
+						>Meet the {participantCount} participants</a
 					>
 				</p>
 			</div>

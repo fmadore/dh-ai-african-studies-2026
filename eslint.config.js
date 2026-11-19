@@ -22,10 +22,8 @@ export default [
 		files: ['**/*.svelte'],
 		languageOptions: {
 			parserOptions: {
-				parser: tseslint.parser,
-				svelteFeatures: {
-					experimentalRunes: true
-				}
+				// No runes flag: the parser defers to the Svelte 5 compiler, which detects runes per file
+				parser: tseslint.parser
 			},
 			globals: {
 				...globals.browser
@@ -36,7 +34,8 @@ export default [
 			'svelte/no-at-html-tags': 'off',
 			// Custom resolveAppPath/resolveAssetPath helpers handle base path resolution
 			'svelte/no-navigation-without-resolve': 'off',
-			// Allow each blocks without keys where order is stable
+			// `npm run lint` passes --max-warnings 0, so an unkeyed each block fails
+			// the lint as surely as an error would
 			'svelte/require-each-key': 'warn'
 		}
 	},

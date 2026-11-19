@@ -129,7 +129,7 @@ npm run lint
 ```sh
 npm run test:unit      # reader, graph viewport, photos, reference and SEO utilities
 npm run test:python    # offline reference-fetching and graph extraction fixtures
-npm run test:scripts   # image pipeline: idempotence, metadata and atomic writes
+npm run test:scripts   # image pipeline, prerendered-text helper and Python resolver
 npm run check:epub     # verify the downloadable edition matches current sources
 BASE_PATH=/dh-ai-african-studies-2026 npm run build
 npm run test:static    # core archive content is present before hydration
@@ -182,7 +182,8 @@ until its unit, transformation, EPUB, static-content, bundle, link and browser c
 
 1. Go to the Actions tab in the GitHub repository
 2. Select "Deploy to GitHub Pages" workflow
-3. Click "Run workflow"
+3. Click "Run workflow" with `main` selected; a run from any other branch validates
+   without deploying
 
 ## Project Structure
 
@@ -227,7 +228,8 @@ static/
 │   ├── og-image.jpg    # Social card — og:image for every page, and the
 │   │                   # repo's GitHub social preview (uploaded by hand)
 │   └── ...             # Run npm run optimize:images after adding photos
-└── robots.txt          # SEO robots file (sitemap.xml is generated at build time)
+└── robots.txt          # Inert on a project Pages site; kept for a custom domain
+                        # (sitemap.xml is generated at build time)
 ```
 
 ## Adding Content

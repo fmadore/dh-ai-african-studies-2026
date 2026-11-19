@@ -242,78 +242,91 @@ function cslToRisType(cslType: string): string {
 	return typeMap[cslType] || 'GEN';
 }
 
+/**
+ * RIS is line-oriented: a tag starts each line, so a value carrying a newline
+ * (abstracts pasted from PDFs often do) would end the field early and leave
+ * the rest as an untagged line most importers drop or misread.
+ */
+function toRisValue(value: string | number): string {
+	return String(value)
+		.replace(/\s*[\r\n]+\s*/g, ' ')
+		.trim();
+}
+
 /** Generate RIS output */
 export function generateRis(refs: CslReference[]): string {
 	return refs
 		.map((ref) => {
 			const lines: string[] = [];
+			const field = (tag: string, value: string | number) =>
+				lines.push(`${tag}  - ${toRisValue(value)}`);
 
-			lines.push(`TY  - ${cslToRisType(ref.type)}`);
+			field('TY', cslToRisType(ref.type));
 
 			if (ref.author?.length) {
 				ref.author.forEach((a) => {
-					lines.push(`AU  - ${formatRisName(a)}`);
+					field('AU', formatRisName(a));
 				});
 			}
 			if (ref.editor?.length) {
 				ref.editor.forEach((e) => {
-					lines.push(`ED  - ${formatRisName(e)}`);
+					field('ED', formatRisName(e));
 				});
 			}
 			if (ref.title) {
-				lines.push(`TI  - ${ref.title}`);
+				field('TI', ref.title);
 			}
 			if (ref['container-title']) {
-				lines.push(`JO  - ${ref['container-title']}`);
-				lines.push(`T2  - ${ref['container-title']}`);
+				field('JO', ref['container-title']);
+				field('T2', ref['container-title']);
 			}
 			if (ref.issued) {
 				const year = getCslYear(ref.issued);
 				const fullDate = formatCslDate(ref.issued);
-				if (year) lines.push(`PY  - ${year}`);
-				if (fullDate) lines.push(`DA  - ${fullDate.replace(/-/g, '/')}`);
+				if (year) field('PY', year);
+				if (fullDate) field('DA', fullDate.replace(/-/g, '/'));
 			}
 			if (ref.volume) {
-				lines.push(`VL  - ${ref.volume}`);
+				field('VL', ref.volume);
 			}
 			if (ref.issue) {
-				lines.push(`IS  - ${ref.issue}`);
+				field('IS', ref.issue);
 			}
 			if (ref.page) {
 				const pages = ref.page.split(/[-–—]/);
-				if (pages[0]) lines.push(`SP  - ${pages[0]}`);
-				if (pages[1]) lines.push(`EP  - ${pages[1]}`);
+				if (pages[0]) field('SP', pages[0]);
+				if (pages[1]) field('EP', pages[1]);
 			}
 			if (ref.publisher) {
-				lines.push(`PB  - ${ref.publisher}`);
+				field('PB', ref.publisher);
 			}
 			if (ref['publisher-place']) {
-				lines.push(`CY  - ${ref['publisher-place']}`);
+				field('CY', ref['publisher-place']);
 			}
 			if (ref.DOI) {
-				lines.push(`DO  - ${ref.DOI}`);
+				field('DO', ref.DOI);
 			}
 			if (ref.URL) {
-				lines.push(`UR  - ${ref.URL}`);
+				field('UR', ref.URL);
 			}
 			// RIS has a single SN tag; prefer ISBN for books, ISSN otherwise
 			if (ref.type === 'book' || ref.type === 'chapter') {
-				if (ref.ISBN) lines.push(`SN  - ${ref.ISBN}`);
-				else if (ref.ISSN) lines.push(`SN  - ${ref.ISSN}`);
+				if (ref.ISBN) field('SN', ref.ISBN);
+				else if (ref.ISSN) field('SN', ref.ISSN);
 			} else if (ref.ISSN) {
-				lines.push(`SN  - ${ref.ISSN}`);
+				field('SN', ref.ISSN);
 			} else if (ref.ISBN) {
-				lines.push(`SN  - ${ref.ISBN}`);
+				field('SN', ref.ISBN);
 			}
 			if (ref.abstract) {
-				lines.push(`AB  - ${ref.abstract}`);
+				field('AB', ref.abstract);
 			}
 			if (ref.language) {
-				lines.push(`LA  - ${ref.language}`);
+				field('LA', ref.language);
 			}
 			if (ref.tags?.length) {
 				ref.tags.forEach((tag) => {
-					lines.push(`KW  - ${tag}`);
+					field('KW', tag);
 				});
 			}
 

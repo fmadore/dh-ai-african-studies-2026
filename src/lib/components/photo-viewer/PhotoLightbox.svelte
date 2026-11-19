@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Photo } from '#lib/types/photo';
 	import { resolveAssetPath } from '#lib/utils/paths';
+	import { photoPositionLabel } from '#lib/data/photos';
 	import { portal } from '#lib/utils/portal';
 	import { ChevronLeftOutline, ChevronRightOutline, CloseOutline } from 'flowbite-svelte-icons';
 
@@ -93,11 +94,11 @@
 	role="dialog"
 	aria-modal="true"
 	tabindex="-1"
-	aria-label="Photo viewer: {photo.alt}"
+	aria-label="Photo viewer: {photoPositionLabel(index, total, photo.category)}"
 >
 	<button
 		type="button"
-		class="lightbox-backdrop"
+		class="lightbox-backdrop surface-glass surface-glass--scrim"
 		tabindex="-1"
 		onclick={onclose}
 		aria-label="Close photo viewer"
@@ -214,9 +215,7 @@
 		height: 100%;
 		padding: 0;
 		border: 0;
-		background: var(--bg-scrim-strong);
-		backdrop-filter: blur(20px);
-		-webkit-backdrop-filter: blur(20px);
+		/* Scrim colour and blur come from .surface-glass--scrim (components.css). */
 	}
 
 	.lightbox-btn {
@@ -373,11 +372,6 @@
 	@media (prefers-reduced-motion: reduce) {
 		.lightbox {
 			animation: none;
-		}
-
-		.lightbox-backdrop {
-			backdrop-filter: none;
-			-webkit-backdrop-filter: none;
 		}
 	}
 </style>

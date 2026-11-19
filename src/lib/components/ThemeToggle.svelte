@@ -29,6 +29,6 @@
 
 <span bind:this={wrapper} class="contents">
 	<DarkMode
-		class="text-secondary-600 hover:text-secondary-700 dark:text-secondary-400 dark:hover:text-secondary-300 inline-flex size-11 shrink-0 items-center justify-center p-0 transition-colors"
+		class="icon-button-accent inline-flex size-11 shrink-0 items-center justify-center p-0 transition-colors"
 	/>
 </span>

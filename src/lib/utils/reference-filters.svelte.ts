@@ -69,13 +69,13 @@ export class ReferenceFilterState {
 		};
 	}
 
+	/** "Clear all": every filter goes; the chosen sort order stays. */
 	reset() {
 		this.searchQuery = '';
 		this.selectedTypes = [];
 		this.selectedYears = [];
 		this.selectedTags = [];
 		this.selectedLanguages = [];
-		this.selectedSort = DEFAULT_SORT;
 	}
 
 	toggleTag(tag: string) {

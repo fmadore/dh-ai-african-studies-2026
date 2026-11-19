@@ -107,7 +107,7 @@
 				class="link-secondary">{workshopInfo.location.venue}, {workshopInfo.location.city}</a
 			>
 		</span>
-		<span class="text-caption" style="max-width:none"
+		<span class="text-caption meta-caption"
 			>Schedule as run · last edited {scheduleLastUpdated}</span
 		>
 	</div>
@@ -283,6 +283,12 @@
 </section>
 
 <style>
+	/* A one-line meta row beside the date and venue, not a caption under an
+	   image: the 42ch caption measure would wrap it early. */
+	.meta-caption {
+		max-width: none;
+	}
+
 	.day-head {
 		margin-bottom: var(--space-lg);
 	}

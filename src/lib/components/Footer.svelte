@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { resolveAppPath, resolveAssetPath } from '#lib/utils/paths';
+	import { resolveAssetPath } from '#lib/utils/paths';
 	import { citationString, siteCitation, siteLicence } from '#lib/data/site-meta';
-	import { CopyFeedback } from '#lib/utils/copy-feedback.svelte';
+	import { footerNavigation } from '#lib/data/navigation';
+	import CopyCitationButton from '#lib/components/CopyCitationButton.svelte';
 
 	/**
 	 * The trimmed marks (see scripts/optimize_images.mjs) — the originals carry
@@ -47,40 +48,9 @@
 		}
 	];
 
-	/** For a research archive the footer is prime real estate, not a colophon. */
-	const columns = [
-		{
-			title: 'Workshop',
-			links: [
-				{ href: resolveAppPath('/about'), label: 'About' },
-				{ href: resolveAppPath('/schedule'), label: 'Schedule' },
-				{ href: resolveAppPath('/participants'), label: 'Participants' }
-			]
-		},
-		{
-			title: 'Outcomes',
-			links: [
-				{ href: resolveAppPath('/position-paper'), label: 'Position paper' },
-				{ href: resolveAppPath('/publications'), label: 'Publications & reports' },
-				{ href: resolveAppPath('/photos'), label: 'Photos' },
-				{ href: resolveAppPath('/interviews'), label: 'Interviews' }
-			]
-		},
-		{
-			title: 'Resources',
-			links: [
-				{ href: resolveAppPath('/references'), label: 'References' },
-				{ href: resolveAppPath('/concepts'), label: 'Concept map' },
-				{
-					href: 'https://github.com/fmadore/dh-ai-african-studies-2026',
-					label: 'Source code',
-					external: true
-				}
-			]
-		}
-	];
-
-	const citationCopy = new CopyFeedback();
+	// The footer is prime archive real estate; its columns are declared with the
+	// header's routes in data/navigation.ts so each route is listed once.
+	const columns = footerNavigation;
 </script>
 
 <footer class="site-footer band-sunken mt-auto">
@@ -132,13 +102,7 @@
 					{siteCitation.authors} ({siteCitation.year}).
 					<em>{siteCitation.title}</em>. {siteCitation.publisher}.
 				</p>
-				<button
-					type="button"
-					class="footer-copy tap-target"
-					onclick={() => citationCopy.copy(citationString)}
-				>
-					{citationCopy.copied ? 'Citation copied' : 'Copy citation'}
-				</button>
+				<CopyCitationButton text={citationString} class="footer-copy tap-target" />
 				<p class="footer-licence">
 					{siteLicence.scope} are licensed under
 					<a
@@ -316,20 +280,9 @@
 		color: var(--text-secondary);
 	}
 
-	.footer-copy {
+	/* The rest of the button's look lives in CopyCitationButton. */
+	.footer-grid :global(.footer-copy) {
 		align-self: flex-start;
-		font-size: var(--text-xs);
-		font-weight: var(--font-weight-semibold);
-		color: var(--text-link);
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		padding-inline: 0;
-		transition: color var(--transition-micro);
-	}
-
-	.footer-copy:hover {
-		color: var(--text-link-hover);
 	}
 
 	.footer-licence,

@@ -7,7 +7,8 @@
 
 export const workshopInfo = {
 	dates: {
-		full: '18-20 February 2026',
+		/** En dash: a date range, and the form every page prints. */
+		full: '18–20 February 2026',
 		/** ISO 8601 format for structured data */
 		startISO: '2026-02-18',
 		/** ISO 8601 format for structured data */
@@ -33,5 +34,3 @@ export const workshopInfo = {
 		url: 'https://www.volkswagenstiftung.de/en'
 	}
 } as const;
-
-export type WorkshopInfo = typeof workshopInfo;

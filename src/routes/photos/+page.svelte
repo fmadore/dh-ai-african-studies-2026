@@ -2,8 +2,9 @@
 	import { CameraPhotoOutline } from 'flowbite-svelte-icons';
 	import { page } from '$app/state';
 	import { browser } from '$app/env';
-	import { createSeoMeta, createWebPageJsonLd } from '#lib/utils/seo';
+	import { createImageGalleryJsonLd, createSeoMeta } from '#lib/utils/seo';
 	import { photoCategories, mediaCredit } from '#lib/data/photos';
+	import { workshopInfo } from '#lib/data/workshop-info';
 	import SeoHead from '#lib/components/SeoHead.svelte';
 	import PageHero from '#lib/components/PageHero.svelte';
 	import PhotoViewer from '#lib/components/PhotoViewer.svelte';
@@ -22,8 +23,7 @@
 
 	const seo = createSeoMeta({
 		title: 'Photos',
-		description:
-			'Photo gallery from the Charting New Territory workshop on Digital Humanities and AI in African Studies, held 18–20 February 2026 in Hanover, Germany.',
+		description: `Photo gallery from the Charting New Territory workshop on Digital Humanities and AI in African Studies, held ${workshopInfo.dates.full} in ${workshopInfo.location.city}, ${workshopInfo.location.country}.`,
 		path: '/photos',
 		keywords: [
 			'Workshop Photos',
@@ -36,18 +36,22 @@
 		]
 	});
 
-	const webPageJsonLd = createWebPageJsonLd({
+	const when = `${workshopInfo.dates.full}, ${workshopInfo.location.city}`;
+
+	// ImageGallery rather than a plain WebPage: it tells search engines the
+	// page is a collection of photographs.
+	const galleryJsonLd = createImageGalleryJsonLd({
 		name: seo.title,
 		description: seo.description,
 		url: seo.canonical
 	});
 </script>
 
-<SeoHead {seo} jsonLd={webPageJsonLd} />
+<SeoHead {seo} jsonLd={galleryJsonLd} />
 
 <PageHero title="Photos" width="wide" size="compact">
 	<p class="text-body-sm">
-		{photos.length} images from the workshop, 18–20 February 2026, Hanover. Photography by
+		{photos.length} images from the workshop, {when}. Photography by
 		<a href={mediaCredit.url} target="_blank" rel="noopener noreferrer" class="link-secondary"
 			>{mediaCredit.name}</a
 		>.

@@ -88,3 +88,22 @@ describe('build-time photo index', () => {
 		expect(mocks.readdir).not.toHaveBeenCalled();
 	});
 });
+
+describe('photo position labels', () => {
+	it('names each photo by its position, since every photo of a day shares one alt', async () => {
+		const { photoPositionLabel } = await import('#lib/data/photos');
+		expect(photoPositionLabel(11, 65, 'Day 1')).toBe('photo 12 of 65, Day 1');
+		const labels = Array.from({ length: 20 }, (_, i) => photoPositionLabel(i, 20, 'Day 2'));
+		expect(new Set(labels).size).toBe(labels.length);
+	});
+
+	it('keeps the descriptive alt text on indexed photos', async () => {
+		mocks.readdir.mockResolvedValue(['20260219_a.jpg']);
+		mocks.parse.mockResolvedValue(null);
+		const { loadWorkshopPhotos } = await import('#lib/server/photos');
+		const [photo] = await loadWorkshopPhotos();
+		expect(photo.alt).toBe(
+			'Workshop participants during Day 2 of Digital Humanities and AI in African Studies'
+		);
+	});
+});

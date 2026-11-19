@@ -1,20 +1,15 @@
 <script lang="ts">
 	import { Button } from 'flowbite-svelte';
 	import type { Snippet } from 'svelte';
-	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
+	import type { HTMLAnchorAttributes } from 'svelte/elements';
 
+	/** A call-to-action link styled as a button; the secondary variant is outlined. */
 	interface Props {
 		children: Snippet;
 		variant?: 'primary' | 'secondary';
 		href?: string;
 		size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-		/** Only applies to the secondary variant (defaults to outline) */
-		outline?: boolean;
-		disabled?: boolean;
 		class?: string;
-		onclick?: HTMLButtonAttributes['onclick'];
-		target?: HTMLAnchorAttributes['target'];
-		rel?: HTMLAnchorAttributes['rel'];
 		download?: HTMLAnchorAttributes['download'];
 	}
 
@@ -23,24 +18,16 @@
 		variant = 'primary',
 		href,
 		size = 'lg',
-		outline,
-		disabled = false,
 		class: className = '',
-		onclick,
-		target,
-		rel,
 		download
 	}: Props = $props();
-
-	let extraProps = $derived(href ? { href, target, rel, download } : { onclick });
-	let isOutline = $derived(outline ?? variant === 'secondary');
 </script>
 
 <Button
-	{...extraProps}
+	{href}
+	{download}
 	{size}
-	{disabled}
-	outline={isOutline}
+	outline={variant === 'secondary'}
 	color={variant}
 	class="btn-refined btn-refined--{variant} {className}"
 >
@@ -69,5 +56,11 @@
 	   compositing layer to blur nothing. */
 	:global(.btn-refined--secondary:hover) {
 		box-shadow: var(--shadow-sm);
+	}
+	/* Reduced motion keeps the fill and shadow change, drops the lift. */
+	@media (prefers-reduced-motion: reduce) {
+		:global(.btn-refined:hover) {
+			transform: none;
+		}
 	}
 </style>

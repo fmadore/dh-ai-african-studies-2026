@@ -9,11 +9,25 @@
 		title: string;
 		/** Self-hosted poster (already base-resolved); YouTube's thumbnail otherwise. */
 		poster?: string;
+		/**
+		 * Above the fold: load the poster eagerly at high priority. It is the
+		 * page's largest contentful paint, and `loading="lazy"` held it back
+		 * until layout had run.
+		 */
+		priority?: boolean;
 	}
 
-	let { videoId, title, poster }: Props = $props();
+	let { videoId, title, poster, priority = false }: Props = $props();
 
 	let activated = $state(false);
+	let iframe = $state<HTMLIFrameElement>();
+
+	// The poster button that had focus is removed on activation, which would
+	// drop focus to <body> and send keyboard users back to the top of the page.
+	// Moving it to the player keeps them where they were.
+	$effect(() => {
+		if (activated) iframe?.focus();
+	});
 
 	let thumbnailUrl = $derived(poster ?? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`);
 </script>
@@ -21,6 +35,7 @@
 <div class="aspect-video-embed overflow-hidden rounded-md">
 	{#if activated}
 		<iframe
+			bind:this={iframe}
 			src="https://www.youtube-nocookie.com/embed/{videoId}?autoplay=1"
 			{title}
 			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -33,7 +48,15 @@
 			onclick={() => (activated = true)}
 			aria-label="Play video: {title}"
 		>
-			<img src={thumbnailUrl} alt="" width="480" height="360" loading="lazy" decoding="async" />
+			<img
+				src={thumbnailUrl}
+				alt=""
+				width="480"
+				height="360"
+				loading={priority ? 'eager' : 'lazy'}
+				fetchpriority={priority ? 'high' : undefined}
+				decoding="async"
+			/>
 			<span class="lite-yt-play" aria-hidden="true">
 				<svg viewBox="0 0 68 48" width="68" height="48">
 					<path
