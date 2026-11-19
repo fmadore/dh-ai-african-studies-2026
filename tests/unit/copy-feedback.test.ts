@@ -45,4 +45,24 @@ describe('copy feedback', () => {
 		expect(await feedback.copy('text')).toBe(false);
 		expect(feedback.copied).toBeNull();
 	});
+
+	it('announces the outcome only when given messages, and keeps it after the reset', async () => {
+		vi.useFakeTimers();
+		const messages = { copied: 'Citation copied to clipboard', failed: 'Could not copy' };
+		stubClipboard(() => Promise.resolve());
+		const feedback = new CopyFeedback(1000);
+
+		await feedback.copy('text');
+		expect(feedback.announcement).toBe('');
+		await feedback.copy('text', 'default', messages);
+		expect(feedback.announcement).toBe(messages.copied);
+		vi.advanceTimersByTime(1000);
+		expect(feedback.copied).toBeNull();
+		expect(feedback.announcement).toBe(messages.copied);
+
+		vi.spyOn(console, 'error').mockImplementation(() => {});
+		stubClipboard(() => Promise.reject(new Error('denied')));
+		await feedback.copy('text', 'default', messages);
+		expect(feedback.announcement).toBe(messages.failed);
+	});
 });

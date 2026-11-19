@@ -17,7 +17,7 @@
 		 * after loading the content to show; false leaves the click alone so
 		 * the link's default behaviour runs.
 		 */
-		claim: (target: HTMLElement) => boolean;
+		claim: (_target: HTMLElement) => boolean;
 		/** Whether there is content to render. */
 		active: boolean;
 		/** Drop the wrapper's content once the dialog has closed. */

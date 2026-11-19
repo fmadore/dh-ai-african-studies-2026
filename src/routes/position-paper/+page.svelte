@@ -122,7 +122,6 @@
 	const scholarlySeo = { ...seo, meta: [...seo.meta, ...createScholarlyMeta(scholarlyOptions)] };
 
 	const articleJsonLd = createScholarlyArticleJsonLd(scholarlyOptions);
-
 </script>
 
 <SeoHead seo={scholarlySeo} jsonLd={[webPageJsonLd, articleJsonLd]} />

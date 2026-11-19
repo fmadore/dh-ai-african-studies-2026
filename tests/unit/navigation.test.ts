@@ -1,6 +1,8 @@
+import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { resolveAppPath } from '#lib/utils/paths';
 import {
+	footerNavigation,
 	isNavigationGroupActive,
 	isNavigationLinkActive,
 	primaryNavigation
@@ -24,6 +26,69 @@ describe('primary navigation state', () => {
 		const outcomes = primaryNavigation.find((link) => link.children)!;
 		expect(isNavigationGroupActive(outcomes, resolveAppPath('/references'))).toBe(true);
 		expect(isNavigationGroupActive(outcomes, resolveAppPath('/schedule'))).toBe(false);
+	});
+});
+
+describe('footer navigation', () => {
+	const prefix = resolveAppPath('/').replace(/\/$/, '');
+	const internal = footerNavigation
+		.flatMap((column) => column.links)
+		.filter((link) => !link.external);
+
+	it('renders the same columns, labels and order as before', () => {
+		expect(
+			footerNavigation.map((column) => ({
+				title: column.title,
+				links: column.links.map((link) => [link.label, link.href])
+			}))
+		).toEqual([
+			{
+				title: 'Workshop',
+				links: [
+					['About', resolveAppPath('/about')],
+					['Schedule', resolveAppPath('/schedule')],
+					['Participants', resolveAppPath('/participants')]
+				]
+			},
+			{
+				title: 'Outcomes',
+				links: [
+					['Position paper', resolveAppPath('/position-paper')],
+					['Publications & reports', resolveAppPath('/publications')],
+					['Photos', resolveAppPath('/photos')],
+					['Interviews', resolveAppPath('/interviews')]
+				]
+			},
+			{
+				title: 'Resources',
+				links: [
+					['References', resolveAppPath('/references')],
+					['Concept map', resolveAppPath('/concepts')],
+					['Source code', 'https://github.com/fmadore/dh-ai-african-studies-2026']
+				]
+			}
+		]);
+	});
+
+	it('links every internal entry to a real route', () => {
+		for (const link of internal) {
+			const route = link.href.slice(prefix.length).replace(/^\//, '');
+			expect(existsSync(`src/routes/${route}/+page.svelte`), link.href).toBe(true);
+		}
+	});
+
+	it('shares its routes with the header rather than redeclaring them', () => {
+		const headerHrefs = primaryNavigation.flatMap((link) => [
+			link.href,
+			...(link.children ?? []).map((child) => child.href)
+		]);
+		for (const link of internal) expect(headerHrefs).toContain(link.href);
+	});
+
+	it('marks only off-site links as external', () => {
+		for (const link of footerNavigation.flatMap((column) => column.links)) {
+			expect(Boolean(link.external), link.href).toBe(/^https?:\/\//.test(link.href));
+		}
 	});
 });
 

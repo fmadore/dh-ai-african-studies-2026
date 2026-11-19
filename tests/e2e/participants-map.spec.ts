@@ -1,6 +1,21 @@
 import { expect, test } from './fixtures';
 import { sitePath } from './helpers';
 import sharp from 'sharp';
+import type { Locator } from '@playwright/test';
+
+/** Share of the canvas painted in pure green (`channel` 1) or blue (2). */
+async function fillShare(canvas: Locator, channel: 1 | 2): Promise<number> {
+	const { data, info } = await sharp(await canvas.screenshot())
+		.removeAlpha()
+		.raw()
+		.toBuffer({ resolveWithObject: true });
+	const other = channel === 1 ? 2 : 1;
+	let colored = 0;
+	for (let i = 0; i < data.length; i += info.channels) {
+		if (data[i] < 30 && data[i + channel] > 220 && data[i + other] < 30) colored++;
+	}
+	return colored / (info.width * info.height);
+}
 
 test('basemap worker renders geometry through theme, zoom and resize changes', async ({ page }) => {
 	const errors: string[] = [];
@@ -54,21 +69,7 @@ test('basemap worker renders geometry through theme, zoom and resize changes', a
 	for (const dark of [false, true, false]) {
 		await page.evaluate((value) => document.documentElement.classList.toggle('dark', value), dark);
 		await expect
-			.poll(
-				async () => {
-					const { data, info } = await sharp(await canvas.screenshot())
-						.removeAlpha()
-						.raw()
-						.toBuffer({ resolveWithObject: true });
-					let colored = 0;
-					for (let i = 0; i < data.length; i += info.channels) {
-						if (data[i] < 30 && data[i + (dark ? 2 : 1)] > 220 && data[i + (dark ? 1 : 2)] < 30)
-							colored++;
-					}
-					return colored / (info.width * info.height);
-				},
-				{ timeout: 20_000 }
-			)
+			.poll(() => fillShare(canvas, dark ? 2 : 1), { timeout: 20_000 })
 			.toBeGreaterThan(0.01);
 		await expect(canvas).toHaveCount(1);
 		await expect(originalCanvas!.evaluate((element) => element.isConnected)).resolves.toBe(true);
@@ -105,37 +106,56 @@ test('a theme flipped while the map chunks load is the only basemap requested', 
 }) => {
 	const styleRequests: string[] = [];
 	await page.route('https://tiles.openfreemap.org/styles/*', async (route) => {
-		styleRequests.push(route.request().url());
+		const url = route.request().url();
+		styleRequests.push(url);
+		// Distinct colours, so the canvas shows which style the map settled on.
+		const color = url.endsWith('/dark') ? '#0000ff' : '#00ff00';
 		await route.fulfill({
 			json: {
 				version: 8,
 				sources: {},
-				layers: [{ id: 'background', type: 'background', paint: { 'background-color': '#0000ff' } }]
+				layers: [{ id: 'background', type: 'background', paint: { 'background-color': color } }]
 			}
 		});
 	});
-	// Hold back the chunk that carries Leaflet (its source names leafletjs.com),
-	// so the theme can change between the effect starting and the map existing.
+	// Hold back the chunk that carries Leaflet, so the theme can change between
+	// the map effect starting and the map existing. Leaflet's attribution prefix
+	// links to leafletjs.com: a runtime string minification keeps. Should that
+	// ever change, `held` never resolves and the test fails below instead of
+	// passing without having held anything back.
 	let release!: () => void;
 	const gate = new Promise<void>((resolve) => (release = resolve));
+	let held = false;
 	await page.route('**/*.js', async (route) => {
 		const response = await route.fetch();
 		const body = await response.text();
-		if (body.includes('leafletjs.com')) await gate;
+		if (body.includes('leafletjs.com')) {
+			held = true;
+			await gate;
+		}
 		await route.fulfill({ response, body });
 	});
 
 	await page.goto(sitePath('/participants'));
-	// The toolbar appears on hydration, by which point the map effect has run.
-	await expect(page.getByLabel('Search participants')).toBeVisible();
+	// The map effect requested its chunks only after hydration, and one of
+	// them is now in flight: the flip below lands mid-import for certain.
+	await expect
+		.poll(() => held, { message: 'no Leaflet chunk was intercepted, so nothing was held' })
+		.toBe(true);
+	expect(styleRequests).toEqual([]);
 	await page.evaluate(() => document.documentElement.classList.add('dark'));
 	release();
 
-	await expect(page.locator('.map-canvas canvas')).toBeVisible();
-	await expect.poll(() => styleRequests.length).toBeGreaterThan(0);
+	const canvas = page.locator('.map-canvas canvas');
+	await expect(canvas).toBeVisible();
+	// Markers are added in the same task that sets mapReady, so by the time
+	// they are visible the theme effect has run and issued any setStyle(); the
+	// blue canvas then shows the map finished loading the dark style.
+	await expect(page.locator('.custom-map-marker').first()).toBeAttached();
+	await expect.poll(() => fillShare(canvas, 2), { timeout: 20_000 }).toBeGreaterThan(0.01);
 	// A light style created mid-flip and then swapped by setStyle() could leave
 	// a blank map; the map must start on the theme showing when it is built.
-	await page.waitForTimeout(500);
+	expect(styleRequests.length).toBeGreaterThan(0);
 	expect(styleRequests.every((url) => url.endsWith('/dark'))).toBe(true);
 	await expect(page.getByText('The interactive map could not be loaded.')).toHaveCount(0);
 });
