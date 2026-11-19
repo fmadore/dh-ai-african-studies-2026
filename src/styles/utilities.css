@@ -234,6 +234,23 @@
 		color: var(--text-accent);
 	}
 
+	/* Accent-coloured icon button (the theme toggle): --accent at rest,
+	   deepening to --text-accent on hover (600 → 700 light, 400 → 300 dark).
+	   Lives in the utilities layer, after Tailwind's own utilities, because
+	   Flowbite's DarkMode keeps its default text-gray-500 / dark:text-gray-400
+	   (tailwind-merge cannot see that this class sets a colour) and a
+	   components-layer rule would lose to them. Hover sits behind
+	   (hover: hover), matching Tailwind's hover: variant. */
+	.icon-button-accent {
+		color: var(--accent);
+	}
+
+	@media (hover: hover) {
+		.icon-button-accent:hover {
+			color: var(--text-accent);
+		}
+	}
+
 	/* Body-copy variants */
 	.body-text {
 		color: var(--text-secondary);

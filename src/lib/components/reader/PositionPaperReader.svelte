@@ -1,10 +1,6 @@
 <script lang="ts">
-	import {
-		createSeoMeta,
-		createScholarlyMeta,
-		createScholarlyArticleJsonLd,
-		type ScholarlyMetaOptions
-	} from '#lib/utils/seo';
+	import { createSeoMeta, createScholarlyMeta, createScholarlyArticleJsonLd } from '#lib/utils/seo';
+	import { paperScholarlyOptions } from '#lib/utils/paper-scholarly';
 	import SeoHead from '#lib/components/SeoHead.svelte';
 	import ReaderShell from '#lib/components/reader/ReaderShell.svelte';
 	import { readerPrefsBootScript } from '#lib/utils/reader-preferences.svelte';
@@ -38,25 +34,10 @@
 		})
 	);
 
-	let scholarlyOptions = $derived<ScholarlyMetaOptions>({
-		title: meta.title,
-		authors: [...meta.authors],
-		publicationDate: meta.publicationDate,
-		revisedDate: meta.revisedDate,
-		abstract: meta.abstract,
-		keywords: [...meta.keywords],
-		language: meta.language,
-		publisher: meta.publisher,
-		journalTitle: meta.journalTitle,
-		issue: meta.issue,
-		pageStart: meta.pageStart,
-		pageEnd: meta.pageEnd,
-		abstractUrl: seo.canonical,
-		fullTextUrl: seo.canonical,
-		doi: meta.doi,
-		issn: meta.issn,
-		licence: meta.licence
-	});
+	// Same record as the landing page; here the reader is both landing and full text.
+	let scholarlyOptions = $derived(
+		paperScholarlyOptions(meta, { abstractUrl: seo.canonical, fullTextUrl: seo.canonical })
+	);
 
 	// Google Scholar / Dublin Core tags ride alongside the standard SEO set.
 	let seoWithScholarly = $derived({

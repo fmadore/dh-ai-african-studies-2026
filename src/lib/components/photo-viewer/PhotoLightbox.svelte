@@ -98,7 +98,7 @@
 >
 	<button
 		type="button"
-		class="lightbox-backdrop"
+		class="lightbox-backdrop surface-glass surface-glass--scrim"
 		tabindex="-1"
 		onclick={onclose}
 		aria-label="Close photo viewer"
@@ -215,9 +215,7 @@
 		height: 100%;
 		padding: 0;
 		border: 0;
-		background: var(--bg-scrim-strong);
-		backdrop-filter: blur(20px);
-		-webkit-backdrop-filter: blur(20px);
+		/* Scrim colour and blur come from .surface-glass--scrim (components.css). */
 	}
 
 	.lightbox-btn {
@@ -374,11 +372,6 @@
 	@media (prefers-reduced-motion: reduce) {
 		.lightbox {
 			animation: none;
-		}
-
-		.lightbox-backdrop {
-			backdrop-filter: none;
-			-webkit-backdrop-filter: none;
 		}
 	}
 </style>

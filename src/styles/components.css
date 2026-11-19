@@ -78,6 +78,23 @@
 		border: 1px solid var(--border-subtle);
 	}
 
+	/* Dark scrim variant — lightbox backdrop only. The near-opaque scrim
+	   (--bg-scrim-strong, 92%) with a heavier blur and no border; used as
+	   `surface-glass surface-glass--scrim`. Reduced motion drops the blur. */
+	.surface-glass--scrim {
+		background-color: var(--bg-scrim-strong);
+		-webkit-backdrop-filter: blur(20px);
+		backdrop-filter: blur(20px);
+		border: 0;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.surface-glass--scrim {
+			-webkit-backdrop-filter: none;
+			backdrop-filter: none;
+		}
+	}
+
 	/* Solid card — the primary content container. Static by default: hover
 	   feedback on a non-target is a false affordance. */
 	.card-surface {

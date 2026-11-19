@@ -32,13 +32,12 @@
 	];
 
 	const feedback = new CopyFeedback();
-	let announcement = $state('');
 
-	async function copy(format: CitationFormat) {
-		const ok = await feedback.copy(format.build(meta, canonicalUrl), format.id);
-		announcement = ok
-			? `${format.label} citation copied to clipboard`
-			: `Could not copy the ${format.label} citation`;
+	function copy(format: CitationFormat) {
+		return feedback.copy(format.build(meta, canonicalUrl), format.id, {
+			copied: `${format.label} citation copied to clipboard`,
+			failed: `Could not copy the ${format.label} citation`
+		});
 	}
 </script>
 
@@ -63,4 +62,4 @@
 </Dropdown>
 
 <!-- Copy feedback is otherwise visual only; announce it for screen readers. -->
-<span class="sr-only" role="status" aria-live="polite">{announcement}</span>
+<span class="sr-only" role="status" aria-live="polite">{feedback.announcement}</span>

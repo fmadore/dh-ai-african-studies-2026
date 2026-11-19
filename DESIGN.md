@@ -319,7 +319,7 @@ Controls use gently rounded 0.375rem corners, cards use 0.875rem, and large pane
 
 ### Navigation
 
-The sticky header uses the body face and a typographic monogram — a teal gradient tile with a terracotta dot — rather than an image mark. Glass appears only here and in the lightbox chrome, the two surfaces that genuinely overlap moving content; everywhere else panels are solid. Nav links are medium-weight small text at control radius with a 2.75rem target, one active-state treatment, and a sunken hover fill. Mobile navigation returns focus to its trigger when dismissed. Section navigation may scroll horizontally within its own bounded track but never expands the page grid.
+The sticky header uses the body face and a typographic monogram — a teal gradient tile with a terracotta dot — rather than an image mark. Glass appears only here and in the lightbox chrome, the two surfaces that genuinely overlap moving content; everywhere else panels are solid. The header uses `.surface-glass`; its dark `.surface-glass--scrim` variant (the 92% scrim with a 20px blur, dropped under reduced motion) is for the lightbox backdrop only. The theme toggle is an `.icon-button-accent`: `--accent` at rest, `--text-accent` on hover. Nav links are medium-weight small text at control radius with a 2.75rem target, one active-state treatment, and a sunken hover fill. Mobile navigation returns focus to its trigger when dismissed. Section navigation may scroll horizontally within its own bounded track but never expands the page grid.
 
 ### Concept Network
 

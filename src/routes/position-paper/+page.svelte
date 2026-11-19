@@ -23,7 +23,9 @@
 
 	import { resolveAppPath, resolveAssetPath } from '#lib/utils/paths';
 
-	import { CopyFeedback } from '#lib/utils/copy-feedback.svelte';
+	import CopyCitationButton from '#lib/components/CopyCitationButton.svelte';
+
+	import { paperScholarlyOptions } from '#lib/utils/paper-scholarly';
 
 	import { formatLongDate } from '#lib/utils/formatters';
 
@@ -112,17 +114,15 @@
 	const citation = recommendedCitation(positionPaperMeta, seo.canonical);
 
 	// This page is the landing page Scholar indexes; the reader is its full text.
-	const scholarlyOptions = {
-		...positionPaperMeta,
+	const scholarlyOptions = paperScholarlyOptions(positionPaperMeta, {
 		abstractUrl: seo.canonical,
 		fullTextUrl: `${seo.canonical}/read`
-	};
+	});
 
 	const scholarlySeo = { ...seo, meta: [...seo.meta, ...createScholarlyMeta(scholarlyOptions)] };
 
 	const articleJsonLd = createScholarlyArticleJsonLd(scholarlyOptions);
 
-	const citationCopy = new CopyFeedback();
 </script>
 
 <SeoHead seo={scholarlySeo} jsonLd={[webPageJsonLd, articleJsonLd]} />
@@ -197,13 +197,7 @@
 						{citation.beforeSeries} <em>{citation.series}</em>{citation.afterSeries}
 					</p>
 
-					<button
-						type="button"
-						class="cite-block__copy tap-target"
-						onclick={() => citationCopy.copy(citation.text)}
-					>
-						{citationCopy.copied ? 'Citation copied' : 'Copy citation'}
-					</button>
+					<CopyCitationButton text={citation.text} class="cite-block__copy tap-target" />
 				</div>
 			</header>
 
@@ -330,27 +324,5 @@
 		color: var(--text-secondary);
 
 		max-width: var(--measure-prose);
-	}
-
-	.cite-block__copy {
-		font-size: var(--text-xs);
-
-		font-weight: var(--font-weight-semibold);
-
-		color: var(--text-link);
-
-		background: transparent;
-
-		border: none;
-
-		cursor: pointer;
-
-		padding-inline: 0;
-
-		transition: color var(--transition-micro);
-	}
-
-	.cite-block__copy:hover {
-		color: var(--text-link-hover);
 	}
 </style>
