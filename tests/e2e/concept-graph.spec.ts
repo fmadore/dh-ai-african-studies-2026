@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { test, expect } from './fixtures';
-import { sitePath } from './helpers';
+import { sitePath, waitForStableFrames } from './helpers';
 
 test('concept search supports result-button and combobox keyboard activation', async ({ page }) => {
 	await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -219,18 +219,22 @@ test('opening the detail panel in fullscreen keeps the user zoom', async ({ page
 	const stage = page.locator('.graph-canvas');
 	const viewport = page.locator('.graph-svg > g');
 	// Let the stage's own resize refit settle before measuring
-	await page.waitForTimeout(150);
+	await waitForStableFrames(stage);
+	await waitForStableFrames(viewport, 'transform');
 	const fitted = await viewport.getAttribute('transform');
 	await page.getByRole('button', { name: 'Zoom in' }).click();
 	await expect.poll(() => viewport.getAttribute('transform')).not.toBe(fitted);
-	await page.waitForTimeout(100);
+	await waitForStableFrames(viewport, 'transform');
 	const zoomed = await viewport.getAttribute('transform');
 	const stageHeight = (await stage.boundingBox())!.height;
 	await selectNode(page, graphJson.nodes[0].id);
 	await expect(page.locator('.detail-panel')).toBeVisible();
 	// The panel takes room from the `flex: 1` stage, which used to refit all
 	await expect.poll(async () => (await stage.boundingBox())!.height).toBeLessThan(stageHeight);
-	await page.waitForTimeout(100);
+	// A refit would land in the ResizeObserver callback of the frames in which
+	// the stage shrank; once size and transform hold still, it has had its turn.
+	await waitForStableFrames(stage);
+	await waitForStableFrames(viewport, 'transform');
 	await expect(viewport).toHaveAttribute('transform', zoomed!);
 });
 

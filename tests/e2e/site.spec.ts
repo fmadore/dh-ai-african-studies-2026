@@ -162,11 +162,12 @@ test('reference filters live in the URL and survive a reload', async ({ page }) 
 	await page.goto(sitePath('/references?type=book&sort=title'));
 	const book = page.getByRole('checkbox', { name: 'Book', exact: true });
 	const filterButton = page.locator('.mobile-filters button');
-	// The prerendered page has no query string: these reflect the URL only
-	// once hydration has read it, so they gate the clicks below.
-	await expect(book).toBeChecked();
+	// The prerendered page has no query string: the sort reflects the URL only
+	// once hydration has read it, so it gates the clicks below. The checkboxes
+	// sit inside the filter sheet on phones, so they are checked after it opens.
 	await expect(page.getByLabel('Sort by')).toHaveValue('title');
 	if (await filterButton.isVisible()) await filterButton.click();
+	await expect(book).toBeChecked();
 
 	await page.getByRole('checkbox', { name: 'Report', exact: true }).check();
 	await expect(page).toHaveURL(/\?type=book&type=report&sort=title$/);

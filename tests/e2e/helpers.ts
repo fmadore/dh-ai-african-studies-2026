@@ -28,9 +28,10 @@ export async function clickUntil(
 }
 
 /**
- * Resolve once the element's size (and `attribute`, if given) has held one
- * value for `frames` consecutive animation frames. ResizeObserver callbacks
- * and their zero-duration refits run inside the rendering step, so a value
+ * Resolve once `attribute`, or the element's rendered size when none is
+ * given, has held one value for `frames` consecutive animation frames.
+ * ResizeObserver callbacks and their zero-duration refits run inside the
+ * rendering step, so a value
  * that survives several frames has absorbed them. Counting frames rather than
  * milliseconds ties the wait to the rendering pipeline, not to machine speed.
  */
@@ -43,8 +44,9 @@ export async function waitForStableFrames(
 		(element, [name, needed]) =>
 			new Promise<void>((resolve, reject) => {
 				const read = () => {
+					if (name) return String(element.getAttribute(name));
 					const { width, height } = element.getBoundingClientRect();
-					return `${name ? element.getAttribute(name) : ''}|${width}x${height}`;
+					return `${width}x${height}`;
 				};
 				let last = read();
 				let same = 0;
