@@ -42,6 +42,28 @@ Requires `ZOTERO_API_KEY` in `.env` (see `.env.example`) or the environment. Run
 
 `python3` (`python` on Windows); set `PYTHON` to use another interpreter.
 
+**Discover new references (ACL Anthology + arXiv):** run the `discover-references`
+
+skill (`.claude/skills/`). `npm run discover:references -- harvest` collects papers
+
+about Africa not yet in the bibliography or in `scripts/reference-discovery-ledger.json`;
+
+`reference-triage` Haiku agents (`.claude/agents/`) decide in parallel, then one
+
+`reference-zotero-writer` agent adds the inclusions to the Zotero subcollection
+
+"À valider" through the Zotero MCP, sequentially; `-- record` updates the ledger. ACL
+
+papers go to Zotero as generated CSL-JSON, never BibTeX (Zotero's BibTeX import cuts
+
+abstracts at `{\%}`). The
+
+site reads only the parent collection, so nothing is published until the user moves an
+
+item there and refreshes. Commit the ledger after every run; never ledger a paper whose
+
+Zotero write failed.
+
 **Optimize images after adding any to `static/images/`:**
 
 ```bash

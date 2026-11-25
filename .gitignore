@@ -30,8 +30,11 @@ __pycache__/
 Thumbs.db
 nul
 
-# Local tooling
-.claude/
+# Local tooling; the reference-discovery agent and skill are shared.
+.claude/*
+!.claude/agents/
+!.claude/skills/
+/.cache/
 
 # Local PDF extraction, source comparisons, and unpublished paper backups.
 /tmp/pdfs/

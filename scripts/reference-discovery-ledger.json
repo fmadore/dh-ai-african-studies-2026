@@ -1,0 +1,301 @@
+{
+  "entries": {
+    "acl:2026.abjadnlp-1.23": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "AjamiMorph: Zero-Annotation Morphological Discovery for Hausa Ajami via Multi-Method Consensus"
+    },
+    "acl:2026.abjadnlp-1.36": {
+      "date": "2026-11-25",
+      "score": 2,
+      "status": "rejected",
+      "title": "HACS-TL: Cross-Script Transfer Learning for Hausa Ajami Hate Speech Detection Using Transformer-Based Architecture"
+    },
+    "acl:2026.acl-long.1965": {
+      "date": "2026-11-25",
+      "score": 5,
+      "status": "proposed",
+      "title": "The African Languages Lab: A Collaborative Approach to Advancing Low-Resource African NLP",
+      "zotero_key": "W9QCP3HD"
+    },
+    "acl:2026.africanlp-main.25": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Sudanese-Flores: Extending FLORES+ to Sudanese Arabic Dialect",
+      "zotero_key": "4YK7RHRR"
+    },
+    "acl:2026.africanlp-main.30": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "AfriNLLB: Efficient Translation Models for African Languages"
+    },
+    "acl:2026.africanlp-main.5": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "AfriCaption: Establishing a New Paradigm for Image Captioning in African Languages",
+      "zotero_key": "K9EN4ZSG"
+    },
+    "acl:2026.africanlp-main.8": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "ÒWE-Voice: An Evaluation of Monolingual and Multilingual ASR Model Using Yoruba Proverb Speech Dataset"
+    },
+    "acl:2026.eacl-short.27": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "SAFARI: A Community-Engaged Approach and Dataset of Stereotype Resources in the Sub-Saharan African Context",
+      "zotero_key": "DNRBMRSN"
+    },
+    "acl:2026.emnlp-main.757": {
+      "date": "2026-11-25",
+      "score": 5,
+      "status": "proposed",
+      "title": "AfriScience-MT: Towards Decolonizing Science in Africa through Text Translation",
+      "zotero_key": "RZ8JDUZ4"
+    },
+    "acl:2026.findings-emnlp.1308": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "AFROSCOPE: A Framework for Studying the Linguistic Landscape of Africa",
+      "zotero_key": "WQF7GZ7R"
+    },
+    "acl:2026.loreslm-1.54": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "Contributing to Speech-to-Speech Translation for African Low-Resource Languages : Study of French-Mooré Pair"
+    },
+    "acl:2026.loreslm-1.8": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "Evaluating Retrieval-Augmented Generation for Medication Question Answering on Nigerian Drug Labels in Yorùbá"
+    },
+    "acl:2026.lrec-1.253": {
+      "date": "2026-11-25",
+      "score": 5,
+      "status": "proposed",
+      "title": "A Dataset of Wolof Ajami Manuscripts for HTR and OCR",
+      "zotero_key": "T7WK8Q3P"
+    },
+    "acl:2026.lrec-1.460": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "SALAN: A Massive ASR Dataset for the Languages of Niger",
+      "zotero_key": "UYZGTAA4"
+    },
+    "acl:2026.lrec-1.627": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Amharic DBpedia Chapter: A Knowledge Graph for a Low-Resource Language",
+      "zotero_key": "LS2XCWS9"
+    },
+    "acl:2026.mrl-1.18": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "Geometric Representations of African Languages: A Regional Semantic Hub and Cultural Steering"
+    },
+    "acl:2026.mrl-1.49": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "MGhana-ST: A Low-Resource Speech Translation Dataset for Ghanaian Languages and an Analysis of Multilingual Training Trade-offs"
+    },
+    "acl:2026.rail-1.9": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "HaYo: Repurposing DiaSafety Dataset for Dialogue Safety Evaluation in Hausa and Yoruba",
+      "zotero_key": "72ZKENZM"
+    },
+    "acl:2026.trustaudio-1.2": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "TeleASR-Amharic: A Benchmark for Robust Amharic ASR in Realistic Telecommunication Conditions"
+    },
+    "acl:2026.udw-1.10": {
+      "date": "2026-11-25",
+      "score": 2,
+      "status": "rejected",
+      "title": "Word segmentation for UD: a comparison of isiZulu and Sepedi"
+    },
+    "acl:2026.wmt-main.193": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "Measuring the Cost of Variety Conflation in Multilingual MT Evaluation: Adding Mozambican Xichangana, Nyanja and Sena to FLORES+"
+    },
+    "acl:2026.wmt-main.196": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Closing the Resource Gap for Tigre: A Diaspora-Sourced English–Tigre Parallel Dataset for SMOL",
+      "zotero_key": "CFN6RIZD"
+    },
+    "acl:2026.woah-1.35": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "GENDIS: Gender-Related Discourse and Stance in Multilingual YouTube Comments from India, Kenya, and Nigeria"
+    },
+    "arxiv:2601.05624": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "Text Detoxification in isiXhosa and Yorùbá: A Cross-Lingual Machine Learning Approach for Low-Resource African Languages"
+    },
+    "arxiv:2601.06145": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Bridging the AI divide in sub-Saharan Africa: Challenges and opportunities for inclusivity",
+      "zotero_key": "8Y4YTMNR"
+    },
+    "arxiv:2603.06598": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "Evaluating AI-Enabled deception vulnerability amongst Sub-Saharan-Africa migrants"
+    },
+    "arxiv:2603.29244": {
+      "date": "2026-11-25",
+      "score": 5,
+      "status": "proposed",
+      "title": "The Thiomi Dataset: A Large-Scale Multimodal Corpus for Low-Resource African Languages",
+      "zotero_key": "4P5A5QMJ"
+    },
+    "arxiv:2604.22730": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Neural Recovery of Historical Lexical Structure in Bantu Languages from Modern Data",
+      "zotero_key": "Z4YT4WK4"
+    },
+    "arxiv:2605.04177": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Are LLMs Ready for Conflict Monitoring? Empirical Evidence from West Africa",
+      "zotero_key": "NMI9XYC5"
+    },
+    "arxiv:2605.18232": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "SomaliWeb v1: A Quality-Filtered Somali Web Corpus with a Matched Tokenizer and a Public Language-Identification Benchmark",
+      "zotero_key": "2Z8ELR6N"
+    },
+    "arxiv:2606.22269": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Evaluating Large Language Models for Hausa and Fongbe Machine Translation: Benchmarks, Failures, and Metric Reliability",
+      "zotero_key": "59843PQA"
+    },
+    "arxiv:2606.24460": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "The African Language Tax: Quantifying the Cost, Latency, and Context Penalty of Tokenizing African Languages in Frontier LLMs",
+      "zotero_key": "D6DCKM9X"
+    },
+    "arxiv:2607.04515": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "Towards Digital Preservation of Efik: TTS for a Low-Resource African Language"
+    },
+    "arxiv:2607.15209": {
+      "date": "2026-11-25",
+      "score": 2,
+      "status": "rejected",
+      "title": "Expanding the Lexicon of Ge'ez Based African Languages: A Comparative Study of Amharic and Tigrinya"
+    },
+    "arxiv:2607.18912": {
+      "date": "2026-11-25",
+      "score": 3,
+      "status": "rejected",
+      "title": "From a Multilingual Streaming ASR Backbone to Kenyan-Language Systems: Data-Centric Adaptation of Nemotron 3.5 for Kikuyu, Dholuo, and Kalenjin"
+    },
+    "arxiv:2608.08607": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "North Africa's Missing Framework: NLP-Driven Mental Healthcare in Algeria and Implications for Low-resource Settings",
+      "zotero_key": "X9FVZWIA"
+    },
+    "arxiv:2608.21326": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Invisible Agents, Uninformed Patients: Towards Responsible Deployment Of Autonomous AI Diagnostic Agents In Sub-Saharan Africa",
+      "zotero_key": "EN2DJFX5"
+    },
+    "arxiv:2610.28173": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Africa-Papers: A 10-Billion-Token Multi-Domain Academic Corpus for African Foundation Language Models",
+      "zotero_key": "JGYG8TCA"
+    },
+    "arxiv:2610.31344": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Making Generative AI Workable at Work: Accountability, Localization, and Representation in Kenyan and Nigerian Small Businesses",
+      "zotero_key": "6K7H72GG"
+    },
+    "arxiv:2610.37245": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Aligning Large Language Models for Safety in African Languages: A Case Study of Hausa",
+      "zotero_key": "SIJT2B23"
+    },
+    "arxiv:2610.39590": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Red-Teaming Large Language Models in Low-Resource African Languages: A Case Study of Yoruba and Nigerian Pidgin",
+      "zotero_key": "A34G6FXB"
+    },
+    "arxiv:2611.06504": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "NaijaFacts: A Framework for Disentangling Language from Knowledge in Facts about Nigeria",
+      "zotero_key": "PLH6BZAX"
+    },
+    "arxiv:2611.14818": {
+      "date": "2026-11-25",
+      "score": 2,
+      "status": "rejected",
+      "title": "What Do Tokenizer Comparisons Measure? Disentangling Granularity, Root Assignment, and Word-Level Readout across Amharic and Hausa"
+    },
+    "arxiv:2611.22708": {
+      "date": "2026-11-25",
+      "score": 4,
+      "status": "proposed",
+      "title": "Cross-cultural Adaptation of Recipes for Low-Resource Languages: A Benchmark and Multilingual Culinary Lexicon for Hausa, Yorùbá, and Igbo",
+      "zotero_key": "RRERFRUW"
+    },
+    "arxiv:2611.32630": {
+      "date": "2026-11-25",
+      "score": 2,
+      "status": "rejected",
+      "title": "MargEmbed-Akan: Bridging Twi Questions and English Knowledge through Cross-Lingual Score Distillation"
+    }
+  },
+  "version": 1
+}

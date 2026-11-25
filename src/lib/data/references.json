@@ -481,6 +481,7 @@
       }
     ],
     "citation-key": "ajuzieoguWhenAIDoesnt2025",
+    "container-title": "Aylgorith",
     "id": "3005271/3BC76U3A",
     "issued": {
       "date-parts": [
@@ -559,6 +560,57 @@
     "type": "webpage"
   },
   {
+    "DOI": "10.58079/173o1",
+    "ISSN": "2824-2807",
+    "URL": "https://doi.org/10.58079/173o1",
+    "abstract": "Ce billet a été rédigé par Maxine Huguet (Paris 1 Panthéon-Sorbonne) et Yanis Mokri (UAR 2999 distam+, Paris 1 Panthéon-Sorbonne)",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          16
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Huguet",
+        "given": "Maxine"
+      },
+      {
+        "family": "Yanis",
+        "given": "Mokri"
+      }
+    ],
+    "citation-key": "yanisHumanitesNumeriquesDans2026",
+    "container-title": "Carnet hypothèses du consortium Huma-Num distam+ (DIgital STudies Africa, Asia, Middle East)",
+    "genre": "Billet",
+    "id": "3005271/3TXMM47V",
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          11
+        ]
+      ]
+    },
+    "language": "fr",
+    "tags": [
+      "african studies",
+      "anonymisation",
+      "data extractivism",
+      "digital archives",
+      "digital humanities",
+      "digital infrastructure",
+      "digitisation",
+      "prosopography"
+    ],
+    "title": "Humanités numériques dans les études africaines, un retour sur les REAF 2026",
+    "type": "post-weblog"
+  },
+  {
     "URL": "https://www.globalcenter.ai/research/unlocking-human-centered-ai-building-inclusive-futures-through-community-engagement",
     "abstract": "In the realm of Artificial Intelligence, there’s a glaring truth: AI doesn’t understand the intricacies of human experience or the nuances of social context. So how do we harness AI’s potential to truly benefit humanity? The answer lies in tapping into our unique human ability to contextualize information, derive meaning from it and to envision a better world. This approach forms the foundation of researching human-centered technologies within communities",
     "accessed": {
@@ -631,7 +683,7 @@
       "open data"
     ],
     "title": "The Africa Declaration on Artificial Intelligence",
-    "type": "document"
+    "type": "report"
   },
   {
     "DOI": "10.3917/mond1.221.0073",
@@ -1191,6 +1243,7 @@
       }
     ],
     "citation-key": "ResearchDevelopmentKnowledge",
+    "container-title": "Global Center on AI Governance",
     "id": "3005271/4WQYWM59",
     "issued": {
       "date-parts": [
@@ -1287,6 +1340,7 @@
     "volume": "48"
   },
   {
+    "DOI": "10.5281/zenodo.17655158",
     "URL": "https://doi.org/10.5281/zenodo.17655158",
     "abstract": "This presentation develops a theory of decolonial prompting as a method of engaging large language models (LLMs) and other AI systems from the perspective of Black studies and decolonial thought. It argues that prompting is not a neutral technical skill but a political act situated within the coloniality of power, where race, knowledge, and humanity have been historically organized through Eurocentric hierarchies.\n\nDrawing on Quijano, Mignolo, and Wynter, the talk traces how modern AI systems inherit and reproduce colonial logics in their training data, defaults, and interfaces. It then introduces decolonial prompting as a practical method for Black scholars and communities to contest erasure, expose algorithmic anti-Blackness, and rewrite machinic outputs toward Black futures.\n\nUsing case studies from my experience with OpenAI’s Sora and Canva, alongside mainstream chat and image models, the presentation shows how visual and textual outputs often encode Blackness as deficit or pathology. It maps the layered subject positions involved in prompting such as colonized subjects, programmers, validators, and corporate/state actors—and argues that every prompt is a negotiation between subject, object, and frame.\n\nThe slide deck was prepared for the African Studies conference panel on AI, race, and decoloniality with the full paper published by the Cambridge University Press in the African Studies Review in 2026. It is intended both as a conceptual intervention and a practical resource for those seeking to engage AI critically and strategically, and in solidarity with Black and other marginalized communities.",
     "accessed": {
@@ -1845,6 +1899,8 @@
     "shortTitle": "IrokoBench",
     "tags": [
       "African languages",
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language",
       "Masakhane",
       "benchmarks",
       "computational linguistics",
@@ -2085,6 +2141,7 @@
     "type": "chapter"
   },
   {
+    "DOI": "10.1515/9783110767377-016",
     "ISBN": "978-3-11-076737-7",
     "URL": "https://doi.org/10.1515/9783110767377-016",
     "accessed": {
@@ -2259,6 +2316,245 @@
     "type": "book"
   },
   {
+    "DOI": "10.18653/v1/2020.findings-emnlp.195",
+    "URL": "https://doi.org/10.18653/v1/2020.findings-emnlp.195",
+    "abstract": "Research in NLP lacks geographic diversity, and the question of how NLP can be scaled to low-resourced languages has not yet been adequately solved. `Low-resourced'-ness is a complex problem going beyond data availability and reflects systemic problems in society. In this paper, we focus on the task of Machine Translation (MT), that plays a crucial role for information accessibility and communication worldwide. Despite immense improvements in MT over the past decade, MT is centered around a few high-resourced languages. As MT researchers cannot solve the problem of low-resourcedness alone, we propose participatory research as a means to involve all necessary agents required in the MT development process. We demonstrate the feasibility and scalability of participatory research with a case study on MT for African languages. Its implementation leads to a collection of novel translation datasets, MT benchmarks for over 30 languages, with human evaluations for a third of them, and enables participants without formal training to make a unique scientific contribution. Benchmarks, models, data, code, and evaluation results are released at https://github.com/masakhane-io/masakhane-mt.",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          21
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Nekoto",
+        "given": "Wilhelmina"
+      },
+      {
+        "family": "Marivate",
+        "given": "Vukosi"
+      },
+      {
+        "family": "Matsila",
+        "given": "Tshinondiwa"
+      },
+      {
+        "family": "Fasubaa",
+        "given": "Timi"
+      },
+      {
+        "family": "Fagbohungbe",
+        "given": "Taiwo"
+      },
+      {
+        "family": "Akinola",
+        "given": "Solomon Oluwole"
+      },
+      {
+        "family": "Muhammad",
+        "given": "Shamsuddeen"
+      },
+      {
+        "family": "Kabongo Kabenamualu",
+        "given": "Salomon"
+      },
+      {
+        "family": "Osei",
+        "given": "Salomey"
+      },
+      {
+        "family": "Sackey",
+        "given": "Freshia"
+      },
+      {
+        "family": "Niyongabo",
+        "given": "Rubungo Andre"
+      },
+      {
+        "family": "Macharm",
+        "given": "Ricky"
+      },
+      {
+        "family": "Ogayo",
+        "given": "Perez"
+      },
+      {
+        "family": "Ahia",
+        "given": "Orevaoghene"
+      },
+      {
+        "family": "Berhe",
+        "given": "Musie Meressa"
+      },
+      {
+        "family": "Adeyemi",
+        "given": "Mofetoluwa"
+      },
+      {
+        "family": "Mokgesi-Selinga",
+        "given": "Masabata"
+      },
+      {
+        "family": "Okegbemi",
+        "given": "Lawrence"
+      },
+      {
+        "family": "Martinus",
+        "given": "Laura"
+      },
+      {
+        "family": "Tajudeen",
+        "given": "Kolawole"
+      },
+      {
+        "family": "Degila",
+        "given": "Kevin"
+      },
+      {
+        "family": "Ogueji",
+        "given": "Kelechi"
+      },
+      {
+        "family": "Siminyu",
+        "given": "Kathleen"
+      },
+      {
+        "family": "Kreutzer",
+        "given": "Julia"
+      },
+      {
+        "family": "Webster",
+        "given": "Jason"
+      },
+      {
+        "family": "Ali",
+        "given": "Jamiil Toure"
+      },
+      {
+        "family": "Abbott",
+        "given": "Jade"
+      },
+      {
+        "family": "Orife",
+        "given": "Iroro"
+      },
+      {
+        "family": "Ezeani",
+        "given": "Ignatius"
+      },
+      {
+        "family": "Dangana",
+        "given": "Idris Abdulkadir"
+      },
+      {
+        "family": "Kamper",
+        "given": "Herman"
+      },
+      {
+        "family": "Elsahar",
+        "given": "Hady"
+      },
+      {
+        "family": "Duru",
+        "given": "Goodness"
+      },
+      {
+        "family": "Kioko",
+        "given": "Ghollah"
+      },
+      {
+        "family": "Espoir",
+        "given": "Murhabazi"
+      },
+      {
+        "family": "van Biljon",
+        "given": "Elan"
+      },
+      {
+        "family": "Whitenack",
+        "given": "Daniel"
+      },
+      {
+        "family": "Onyefuluchi",
+        "given": "Christopher"
+      },
+      {
+        "family": "Emezue",
+        "given": "Chris Chinenye"
+      },
+      {
+        "family": "Dossou",
+        "given": "Bonaventure F. P."
+      },
+      {
+        "family": "Sibanda",
+        "given": "Blessing"
+      },
+      {
+        "family": "Bassey",
+        "given": "Blessing"
+      },
+      {
+        "family": "Olabiyi",
+        "given": "Ayodele"
+      },
+      {
+        "family": "Ramkilowan",
+        "given": "Arshath"
+      },
+      {
+        "family": "Öktem",
+        "given": "Alp"
+      },
+      {
+        "family": "Akinfaderin",
+        "given": "Adewale"
+      },
+      {
+        "family": "Bashir",
+        "given": "Abdallah"
+      }
+    ],
+    "citation-key": "nekotoParticipatoryResearchLowresourced2020",
+    "container-title": "Findings of the Association for Computational Linguistics: EMNLP 2020",
+    "editor": [
+      {
+        "family": "Cohn",
+        "given": "Trevor"
+      },
+      {
+        "family": "He",
+        "given": "Yulan"
+      },
+      {
+        "family": "Liu",
+        "given": "Yang"
+      }
+    ],
+    "event-title": "Findings 2020",
+    "id": "3005271/6EJX9BS7",
+    "issued": {
+      "date-parts": [
+        [
+          2020,
+          11
+        ]
+      ]
+    },
+    "language": "en",
+    "page": "2144–2160",
+    "publisher": "Association for Computational Linguistics",
+    "publisher-place": "Online",
+    "shortTitle": "Participatory Research for Low-resourced Machine Translation",
+    "tags": [],
+    "title": "Participatory Research for Low-resourced Machine Translation: A Case Study in African Languages",
+    "title-short": "Participatory Research for Low-resourced Machine Translation",
+    "type": "paper-conference"
+  },
+  {
     "URL": "https://rpublc.com/august-september-2025/an-african-manual-for-debugging-empire/",
     "abstract": "Our latest issue, An African Manual for Debugging Empire, confronts the erasure of Africans in global tech debates and highlights the ways the continent is actively shaping, contesting and redefining the futures of AI.",
     "accessed": {
@@ -2347,7 +2643,16 @@
     },
     "page": "9169-9183",
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "Nigeria",
+      "Nollywood",
+      "algorithmic bias",
+      "cultural production",
+      "cultural representation",
+      "generative ai",
+      "informal labour",
+      "precarity"
+    ],
     "title": "A perspective from Nollywood: examining how GenAI is integrated in the Nigerian film industry",
     "type": "article-journal",
     "volume": "41"
@@ -2484,6 +2789,7 @@
       }
     ],
     "citation-key": "AtlanticFellowsPress",
+    "container-title": "Atlantic Fellows",
     "id": "3005271/7FG7254N",
     "issued": {
       "date-parts": [
@@ -2994,7 +3300,7 @@
       "multilingual AI"
     ],
     "title": "The value of inclusion of African Languages in AI",
-    "type": "webpage"
+    "type": "post-weblog"
   },
   {
     "DOI": "10.48550/arXiv.2602.02734",
@@ -3201,6 +3507,9 @@
     "shortTitle": "WAXAL",
     "tags": [
       "African languages",
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language",
+      "Electrical Engineering and Systems Science - Audio and Speech Processing",
       "automatic speech recognition",
       "community partnership",
       "digital divide",
@@ -3308,9 +3617,10 @@
       "slow metadata"
     ],
     "title": "AI and African Literary Studies",
-    "type": "article-journal"
+    "type": "article"
   },
   {
+    "DOI": "10.1093/9780198945215.003.0202",
     "ISBN": "978-0-19-894521-5",
     "URL": "https://doi.org/10.1093/9780198945215.003.0202",
     "abstract": "The article develops an Afrocentric critique of the dominant paradigms of educational artificial intelligence (AI), unveiling how Cartesian dualism and methodological individualism underpin their conception. This analysis demonstrates how these epistemic foundations, foreign to African ontologies and contexts, generate significant cultural biases in learning algorithms, compromising their effectiveness and relevance for African learners. Faced with these tensions, the paper proposes an ontological reinvention of educational paradigms through three complementary axes: the reconceptualization of educational AI systems inspired by Ubuntu, developing a relational approach to machine learning (ML); the integration of oral epistemologies into adaptive systems; and the development of a theoretical framework to evaluate and advance ontologically inclusive educational AI technologies. The research emphasizes epistemic justice by centering African knowledge systems, while addressing technological decolonization through culturally grounded design.The study presents case studies of pioneering African educational initiatives that mobilize AI from a local ontological perspective, demonstrating the feasibility and benefits of such an approach. It further articulates concrete strategies to implement this vision, including training teachers and designers at the intersection of traditional knowledge and emerging technologies—a key aspect of techno-pedagogy—as well as participatory methodologies for the co-creation of culturally relevant AI systems. By foregrounding African ontologies as foundational to ethical AI development, the work challenges Eurocentric paradigms and advocates for inclusive, contextually transformative educational technologies.",
@@ -3750,7 +4060,16 @@
     },
     "page": "4235-4263",
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "Egypt",
+      "ai governance",
+      "architectural design",
+      "automation",
+      "generative ai",
+      "prompt engineering",
+      "technology adoption",
+      "text to image"
+    ],
     "title": "Perceptions of generative AI in the architectural profession in Egypt: opportunities, threats, concerns for the future, and steps to improve",
     "type": "article-journal",
     "volume": "40"
@@ -3859,7 +4178,7 @@
       ]
     },
     "citation-key": "ReflectionsAfricanDH2020",
-    "container-title": "African Digital Humanites @ KU",
+    "container-title": "African Digital Humanities @ KU",
     "id": "3005271/9FR5SX5W",
     "issued": {
       "date-parts": [
@@ -3943,6 +4262,53 @@
     "title-short": "Freedom Narratives",
     "type": "article-journal",
     "volume": "48"
+  },
+  {
+    "ISSN": "0261-3077",
+    "URL": "https://www.theguardian.com/global-development/2026/mar/17/arctic-world-archive-nigeria-history-culture-svalbard",
+    "abstract": "It is the first African country to deposit data in the Arctic World Archive, a storage facility designed to preserve records of everything from cultural practices to historical events",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          16
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Opara",
+        "given": "Gabriella"
+      }
+    ],
+    "citation-key": "oparaWorldsMemoryWhy2026",
+    "container-title": "The Guardian",
+    "id": "3005271/9RVDHVBJ",
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          3,
+          17
+        ]
+      ]
+    },
+    "language": "en",
+    "section": "Global development",
+    "shortTitle": "‘The world’s memory’",
+    "source": "The Guardian",
+    "tags": [
+      "Africa",
+      "Culture",
+      "Global development",
+      "Nigeria",
+      "Norway",
+      "World news"
+    ],
+    "title": "‘The world’s memory’: why Nigeria is burying its history under a mountain in Svalbard",
+    "title-short": "‘The world’s memory’",
+    "type": "article-newspaper"
   },
   {
     "URL": "Heritage Protection in Ghadames, Libya",
@@ -4256,7 +4622,15 @@
     },
     "page": "4599-4610",
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "AI ethics",
+      "Benin",
+      "algorithmic governance",
+      "data colonialism",
+      "digital health",
+      "epistemic justice",
+      "healthcare pluralism"
+    ],
     "title": "Algorithmic ethics and healthcare pluralism: rethinking care between automation and global inequality",
     "type": "article-journal",
     "volume": "41"
@@ -4465,7 +4839,7 @@
     ],
     "title": "\"Tintin au pays des archives\" : pourquoi les millions d'archives belges de l’Africa Museum intéressent Bill Gates et les Américains",
     "title-short": "'Tintin au pays des archives'",
-    "type": "webpage"
+    "type": "article-newspaper"
   },
   {
     "URL": "https://www.unesco.org/en/articles/readiness-ethical-ai-adoption-and-localization-unesco-elevates-africas-voice-bangkok",
@@ -4559,7 +4933,16 @@
     },
     "page": "2769-2781",
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "Nigeria",
+      "Uganda",
+      "digital agriculture",
+      "digital literacy",
+      "disability inclusion",
+      "gender equality",
+      "participatory design",
+      "responsible ai"
+    ],
     "title": "An integrated approach to gender equality, diversity, and inclusion in the development of artificial intelligence tools in agriculture and food system in Africa",
     "type": "article-journal",
     "volume": "41"
@@ -5041,6 +5424,7 @@
     "volume": "9"
   },
   {
+    "DOI": "10.1093/9780198945215.003.0047",
     "ISBN": "978-0-19-894521-5",
     "URL": "https://doi.org/10.1093/9780198945215.003.0047",
     "abstract": "While the use of artificial intelligence (AI) technologies in Africa is growing, the disparities in use persist along various dimensions. This article aims to address how enabling governance frameworks can make large language models (LLMs) more inclusive through representation of low-resource languages in training data sets to enable equitable access to information and services. This article assesses emerging governance ecosystems in Africa from the perspective of coloniality and representation in generative AI and the extent to which LLMs can be used to tackle power asymmetries between African data subjects and AI developers to reduce inequalities that the adoption of generative AI may induce in Africa. By assessing the emerging national AI strategies in Africa, this article identifies a gap in AI governance frameworks across Africa specifically in relation to inclusivity in AI development. The countries briefly reviewed are Kenya, South Africa, and Nigeria due to the size and importance of their economies in sub-Saharan Africa and the recent efforts by the governments in these countries to adopt a governance framework to maximize AI technologies in their economies. With the use of case studies and developments across Africa, this article identifies three main data governance areas that will enable equitable generative AI in Africa. These are data generation and collection, regulatory sandboxes, and policy prototypes as well as data sharing. The issues addressed in this article center on data justice and the necessity for visibility, fairness, and representation in the adoption of generative AI across Africa.",
@@ -5161,6 +5545,44 @@
     "title-short": "Revolutionizing Library Services",
     "type": "article-journal",
     "volume": "25"
+  },
+  {
+    "DOI": "10.58144/20260430-000",
+    "URL": "https://doi.org/10.58144/20260430-000",
+    "abstract": "On 9 November 2023, the Islam West Africa Collection (IWAC) was officially launched at the offices of Media in Cooperation and Transition (MiCT) in Berlin. Directed by Frédérick Madore (ZMO), the IWAC is a collaborative, open-access digital database that currently contains over 5,000 archival documents, newspaper articles, Islamic publications of various kinds, audio and video recordings, and photographs on Islam and Muslims in Burkina Faso, Benin, Niger, Nigeria, Togo, and Côte d'Ivoire. The site also indexes over 800 relevant bibliographic references. This project was funded by the Berlin Senate Department for Science, Health, and Care.",
+    "author": [
+      {
+        "family": "Madore",
+        "given": "Frédérick"
+      }
+    ],
+    "citation-key": "madoreConversationCoauthorshipWorkshop2026",
+    "container-title": "ZMO Bulletin",
+    "id": "3005271/CTI8EQ6T",
+    "issue": "48",
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          5
+        ]
+      ]
+    },
+    "language": "en",
+    "page": "10",
+    "tags": [
+      "AI governance",
+      "African studies",
+      "artificial intelligence",
+      "collaborative writing",
+      "decolonisation",
+      "digital archives",
+      "digital humanities",
+      "language technologies",
+      "research infrastructure"
+    ],
+    "title": "From Conversation to Co-authorship: A Workshop on Digital Humanitiesand AI in African Studies, 18–20 February 2026, Herrenhausen, Hanover",
+    "type": "article-magazine"
   },
   {
     "DOI": "10.1017/hia.2020.5",
@@ -5357,7 +5779,16 @@
     },
     "page": "3763-3776",
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "Egypt",
+      "algorithmic governance",
+      "institutional trust",
+      "privacy cynicism",
+      "self censorship",
+      "smart cities",
+      "surveillance",
+      "transparency"
+    ],
     "title": "The Algorithmic State’s Eye: artificial intelligence, urban surveillance, and the reshaping of citizen–state relations in Egypt",
     "type": "article-journal",
     "volume": "41"
@@ -5628,9 +6059,10 @@
       "orbital data centres"
     ],
     "title": "Data centers are racing to space — and regulation can’t keep up",
-    "type": "webpage"
+    "type": "article-magazine"
   },
   {
+    "DOI": "10.5281/zenodo.14238391",
     "URL": "https://doi.org/10.5281/zenodo.14238391",
     "abstract": "This presentation explores the intersection of artificial intelligence and journalism in Africa. This comprehensive work examines the types of AI biases affecting media narratives, such as algorithmic and data biases, and their impact on public trust and representation. It provides actionable strategies for mitigating these biases, including ethical AI usage, improving media literacy, and fostering institutional collaboration. Featuring case studies, practical prompts for AI bias analysis, and a forward-looking perspective, this research is an essential resource for understanding and improving AI's role in African media. Keywords: AI bias, African journalism, media ethics, algorithmic fairness, newsroom challenges, AI strategies in Africa.",
     "accessed": {
@@ -5695,6 +6127,7 @@
       }
     ],
     "citation-key": "ajuzieoguKenyasDataWorkers2025",
+    "container-title": "Aylgorith",
     "id": "3005271/ERARN2SX",
     "issued": {
       "date-parts": [
@@ -6085,7 +6518,16 @@
     },
     "page": "2729-2750",
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "data governance",
+      "data privacy",
+      "digital identity",
+      "e government",
+      "identity federation",
+      "interoperability",
+      "sub-Saharan Africa",
+      "vendor lock-in"
+    ],
     "title": "Considerations for trustworthy cross-border interoperability of digital identity systems in developing countries",
     "type": "article-journal",
     "volume": "40"
@@ -6410,6 +6852,7 @@
     },
     "language": "en",
     "note": "Citation Key: farinolaDigitalHumanitiesScholarship2020",
+    "publisher": "Humanities Commons",
     "shortTitle": "Digital Humanities Scholarship in Africa",
     "tags": [
       "African languages",
@@ -6424,7 +6867,7 @@
     ],
     "title": "Digital Humanities Scholarship in Africa: Prospects and Challenges",
     "title-short": "Digital Humanities Scholarship in Africa",
-    "type": "article-journal"
+    "type": "article"
   },
   {
     "DOI": "10.1017/hia.2021.13",
@@ -7046,6 +7489,90 @@
     "volume": "19"
   },
   {
+    "DOI": "10.18653/v1/2025.findings-acl.976",
+    "ISBN": "979-8-89176-256-5",
+    "URL": "https://doi.org/10.18653/v1/2025.findings-acl.976",
+    "abstract": "Large-scale multilingual evaluations, such as MEGA, often include only a handful of African languages due to the scarcity of high-qualityevaluation data and the limited discoverability of existing African datasets. This lack of representation hinders comprehensive LLM evaluation across a diverse range of languages and tasks. To address these challenges, we introduce AFROBENCH—a multi-task benchmark for evaluating the performance of LLMs across 64 African languages, 15 tasks and 22 datasets. AFROBENCH consists of nine natural language understanding datasets, six text generation datasets, six knowledge and question answering tasks, and one mathematical reasoning task. We present results comparing the performance of prompting LLMs to fine-tuned baselines based on BERT and T5-style models. Our results suggest large gaps in performance between high-resource languages, such as English, and African languages across most tasks; but performance also varies based on the availability of monolingual data resources. Our findings confirm that performance on African languages continues to remain a hurdle for current LLMs, underscoring the need for additional efforts to close this gap.",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          23
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Ojo",
+        "given": "Jessica"
+      },
+      {
+        "family": "Ogundepo",
+        "given": "Odunayo"
+      },
+      {
+        "family": "Oladipo",
+        "given": "Akintunde"
+      },
+      {
+        "family": "Ogueji",
+        "given": "Kelechi"
+      },
+      {
+        "family": "Lin",
+        "given": "Jimmy"
+      },
+      {
+        "family": "Stenetorp",
+        "given": "Pontus"
+      },
+      {
+        "family": "Adelani",
+        "given": "David Ifeoluwa"
+      }
+    ],
+    "citation-key": "ojoAfroBenchHowGood2025",
+    "container-title": "Findings of the Association for Computational Linguistics: ACL 2025",
+    "editor": [
+      {
+        "family": "Che",
+        "given": "Wanxiang"
+      },
+      {
+        "family": "Nabende",
+        "given": "Joyce"
+      },
+      {
+        "family": "Shutova",
+        "given": "Ekaterina"
+      },
+      {
+        "family": "Pilehvar",
+        "given": "Mohammad Taher"
+      }
+    ],
+    "event-title": "Findings 2025",
+    "id": "3005271/IDTMMHVX",
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          7
+        ]
+      ]
+    },
+    "language": "en",
+    "page": "19048–19095",
+    "publisher": "Association for Computational Linguistics",
+    "publisher-place": "Vienna, Austria",
+    "shortTitle": "AfroBench",
+    "tags": [],
+    "title": "AfroBench: How Good are Large Language Models on African Languages?",
+    "title-short": "AfroBench",
+    "type": "paper-conference"
+  },
+  {
     "DOI": "10.30564/fls.v7i5.9068",
     "ISSN": "2705-0602",
     "URL": "https://doi.org/10.30564/fls.v7i5.9068",
@@ -7296,6 +7823,82 @@
     "volume": "16"
   },
   {
+    "DOI": "10.18653/v1/2025.acl-long.1572",
+    "ISBN": "979-8-89176-251-0",
+    "URL": "https://doi.org/10.18653/v1/2025.acl-long.1572",
+    "abstract": "Africa's rich linguistic heritage remains underrepresented in NLP, largely due to historical policies that favor foreign languages and create significant data inequities. In this paper, we integrate theoretical insights on Africa's language landscape with an empirical evaluation using Sahara— a comprehensive benchmark curated from large-scale, publicly accessible datasets capturing the continent's linguistic diversity. By systematically assessing the performance of leading large language models (LLMs) on Sahara, we demonstrate how policy-induced data variations directly impact model effectiveness across African languages. Our findings reveal that while a few languages perform reasonably well, many Indigenous languages remain marginalized due to sparse data. Leveraging these insights, we offer actionable recommendations for policy reforms and inclusive data practices. Overall, our work underscores the urgent need for a dual approach—combining theoretical understanding with empirical evaluation—to foster linguistic diversity in AI for African communities.",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          23
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Adebara",
+        "given": "Ife"
+      },
+      {
+        "family": "Toyin",
+        "given": "Hawau Olamide"
+      },
+      {
+        "family": "Ghebremichael",
+        "given": "Nahom Tesfu"
+      },
+      {
+        "family": "Elmadany",
+        "given": "AbdelRahim A."
+      },
+      {
+        "family": "Abdul-Mageed",
+        "given": "Muhammad"
+      }
+    ],
+    "citation-key": "adebaraWhereAreWe2025",
+    "container-title": "Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    "editor": [
+      {
+        "family": "Che",
+        "given": "Wanxiang"
+      },
+      {
+        "family": "Nabende",
+        "given": "Joyce"
+      },
+      {
+        "family": "Shutova",
+        "given": "Ekaterina"
+      },
+      {
+        "family": "Pilehvar",
+        "given": "Mohammad Taher"
+      }
+    ],
+    "event-title": "ACL 2025",
+    "id": "3005271/IWRYYMAL",
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          7
+        ]
+      ]
+    },
+    "language": "en",
+    "page": "32704–32731",
+    "publisher": "Association for Computational Linguistics",
+    "publisher-place": "Vienna, Austria",
+    "shortTitle": "Where Are We?",
+    "tags": [],
+    "title": "Where Are We? Evaluating LLM Performance on African Languages",
+    "title-short": "Where Are We?",
+    "type": "paper-conference"
+  },
+  {
     "DOI": "10.21428/3e88f64f.b3a87aa3",
     "ISSN": "2766-9297",
     "URL": "https://doi.org/10.21428/3e88f64f.b3a87aa3",
@@ -7347,6 +7950,7 @@
     "volume": "5"
   },
   {
+    "DOI": "10.5281/zenodo.15707910",
     "URL": "https://doi.org/10.5281/zenodo.15707910",
     "abstract": "This presentation explores the critical yet underdeveloped field of Digital Humanities (DH) in Nigerian universities, spotlighting how AI, digital tools, and African epistemologies can bridge the educational digital divide. I also provided practical strategies for integrating DH into the Nigerian curriculum while confronting resource scarcity and infrastructural limitations.\n\nThrough real-world examples and culturally rooted digital tools like Voyant Tools, NotebookLM, and NLP systems adapted for African languages, the presentation challenges dominant Western models and emphasizes DH as a transformative methodology for preserving cultural heritage and amplifying Black scholarly futures.",
     "accessed": {
@@ -7577,6 +8181,132 @@
     "type": "article-journal"
   },
   {
+    "DOI": "10.48550/arXiv.2512.02201",
+    "URL": "https://doi.org/10.48550/arXiv.2512.02201",
+    "abstract": "This paper introduces Swivuriso, a 3000-hour multilingual speech dataset developed as part of the African Next Voices project, to support the development and benchmarking of automatic speech recognition (ASR) technologies in seven South African languages. Covering agriculture, healthcare, and general domain topics, Swivuriso addresses significant gaps in existing ASR datasets. We describe the design principles, ethical considerations, and data collection procedures that guided the dataset creation. We present baseline results of training/finetuning ASR models with this data and compare to other ASR datasets for the langauges concerned.",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          23
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Marivate",
+        "given": "Vukosi"
+      },
+      {
+        "family": "Olaleye",
+        "given": "Kayode"
+      },
+      {
+        "family": "Mundia",
+        "given": "Sitwala"
+      },
+      {
+        "family": "Bakainga",
+        "given": "Andinda"
+      },
+      {
+        "family": "Netshifhefhe",
+        "given": "Unarine"
+      },
+      {
+        "family": "Milanzie",
+        "given": "Mahmooda"
+      },
+      {
+        "family": "Mogale",
+        "given": "Tsholofelo Hope"
+      },
+      {
+        "family": "Sindane",
+        "given": "Thapelo"
+      },
+      {
+        "family": "Abdulrasaq",
+        "given": "Zainab"
+      },
+      {
+        "family": "Mokgosi",
+        "given": "Kesego"
+      },
+      {
+        "family": "Okorie",
+        "given": "Chijioke"
+      },
+      {
+        "family": "Wyk",
+        "given": "Nia Zion Van"
+      },
+      {
+        "family": "Morrissey",
+        "given": "Graham"
+      },
+      {
+        "family": "Dunbar",
+        "given": "Dale"
+      },
+      {
+        "family": "Smit",
+        "given": "Francois"
+      },
+      {
+        "family": "Chidi",
+        "given": "Tsosheletso"
+      },
+      {
+        "family": "Mabuya",
+        "given": "Rooweither"
+      },
+      {
+        "family": "Bukula",
+        "given": "Andiswa"
+      },
+      {
+        "family": "Mlambo",
+        "given": "Respect"
+      },
+      {
+        "family": "Macucwa",
+        "given": "Tebogo"
+      },
+      {
+        "family": "Abdulmumin",
+        "given": "Idris"
+      },
+      {
+        "family": "Rananga",
+        "given": "and Seani"
+      }
+    ],
+    "citation-key": "marivateSwivurisoSouthAfrican2026",
+    "id": "3005271/JRREZ3TV",
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          9
+        ]
+      ]
+    },
+    "language": "en",
+    "note": "arXiv:2512.02201 [cs.CL]",
+    "number": "arXiv:2512.02201",
+    "publisher": "arXiv",
+    "shortTitle": "Swivuriso",
+    "tags": [
+      "Computer Science - Computation and Language"
+    ],
+    "title": "Swivuriso: The South African Next Voices Multilingual Speech Dataset",
+    "title-short": "Swivuriso",
+    "type": "article"
+  },
+  {
     "DOI": "10.63744/b49fzhuz9hhz",
     "ISSN": "1938-4122",
     "URL": "https://doi.org/10.63744/b49fzhuz9hhz",
@@ -7755,7 +8485,7 @@
       "mining",
       "neocolonialism"
     ],
-    "title": "RD Congo. Tensions entre la Belgique et les États-Unis sur les archives minières - Analyse",
+    "title": "RD Congo. Tensions entre la Belgique et les États-Unis sur les archives minières",
     "type": "article-newspaper"
   },
   {
@@ -7883,6 +8613,7 @@
       }
     ],
     "citation-key": "ajuzieoguMindMinersHow2025",
+    "container-title": "Aylgorith",
     "id": "3005271/KQXK5YEK",
     "issued": {
       "date-parts": [
@@ -7927,7 +8658,7 @@
       ]
     },
     "citation-key": "AfricanDigitalStoytelling2021",
-    "container-title": "African Digital Humanites @ KU",
+    "container-title": "African Digital Humanities @ KU",
     "id": "3005271/KWHWSUPW",
     "issued": {
       "date-parts": [
@@ -7940,7 +8671,7 @@
     },
     "language": "en",
     "note": "Citation Key: AfricanDigitalStoytelling2021",
-    "shortTitle": "African Digital Stoytelling",
+    "shortTitle": "African Digital Storytelling",
     "tags": [
       "Africa",
       "African literature",
@@ -7951,8 +8682,8 @@
       "oral history",
       "virtual reality"
     ],
-    "title": "African Digital Stoytelling: A Post-Symposium Report",
-    "title-short": "African Digital Stoytelling",
+    "title": "African Digital Storytelling: A Post-Symposium Report",
+    "title-short": "African Digital Storytelling",
     "type": "webpage"
   },
   {
@@ -7997,7 +8728,7 @@
       "digitisation",
       "persistent identifiers"
     ],
-    "title": "Digitizing ELTV Television of the Liberia Broadcasting System (LBS) - Liberia",
+    "title": "Digitizing ELTV Television of the Liberia Broadcasting System (LBS)",
     "type": "webpage"
   },
   {
@@ -8019,6 +8750,7 @@
       }
     ],
     "citation-key": "ajuzieoguGhostWorkersBuilding2025",
+    "container-title": "Aylgorith",
     "id": "3005271/L269LVXL",
     "issued": {
       "date-parts": [
@@ -8146,6 +8878,7 @@
     "type": "webpage"
   },
   {
+    "DOI": "10.1093/9780198945215.003.0044",
     "ISBN": "978-0-19-894521-5",
     "URL": "https://doi.org/10.1093/9780198945215.003.0044",
     "abstract": "This research envisions an African data commons regime, rooted in the philosophy of Ubuntu, where training data for AI is pooled and shared as a common-pool resource. Artificial Intelligence (AI) is gaining traction in Africa but it is still in its nascent phase. While investment in Africa’s AI infrastructure has become a battleground in the U.S.–China race for influence, Africa suffers from a scarcity of high-quality training data. Currently, data governance centers on the notion of “privacy,” emphasizing the rights of individuals with respect to their personal information, resulting in data that is predominantly controlled by companies located outside of Africa, a phenomenon some describe as “data colonialism.” To foster a localized, African AI data ecosystem, the article proposes constructing a data governance regime rooted in the essence of collective responsibility. This approach fosters data sharing, given the intertwining of the philosophy of Ubuntu with the governance of commons. To highlight the importance of the infrastructural component of data governance, the article, grounded in Nobel Laureate Elinor Ostrom’s theories of the commons, proposes to treat training data as a common-pool resource. In this view, the analysis of various data commons will center on the physical components of data governance, specifically through the lens of the Institutional Analysis and Development (IAD) framework. The goal is to provide an analytical framework to decide what must be undertaken to cultivate a localized data ecosystem, drawing upon a governance system deeply embedded in an African worldview.",
@@ -8255,7 +8988,7 @@
       "responsible AI"
     ],
     "title": "Kenya artificial intelligence Strategy 2025 - 2030",
-    "type": "document"
+    "type": "report"
   },
   {
     "URL": "https://www.uni.lu/c2dh-en/articles/exploring-public-and-digital-history-in-kenya/",
@@ -8406,38 +9139,6 @@
     "title-short": "African ʿAjamī in the Digital Environment",
     "type": "article-journal",
     "volume": "15"
-  },
-  {
-    "DOI": "10.1007/s00146-026-03327-9",
-    "ISSN": "0951-5666",
-    "URL": "https://doi.org/10.1007/s00146-026-03327-9",
-    "abstract": "Abstract The music industry has increasingly been transformed by artificial intelligence (AI), assisting artists in composing music, mixing and mastering, lyric writing, and voice generation. Debates about how this technology will shape the music sector are rising, but a discussion often omitted in this conversation is how AI affects African Indigenous knowledge systems. Utilising Miranda Fricker’s theory of epistemic injustice, this paper argues that AI generative music platforms are often trained on Western datasets, lack culture neutrality but carry inherent epistemological values. Therefore, as these technologies are increasingly adopted, they bear the risk of erasing Indigenous African knowledge systems embedded in African musical traditions. This is because music, for many African communities, cannot be reduced merely to entertainment but is an important repository of Indigenous knowledge. Drawing on primary and secondary literature, this paper uses an integrative literature review and makes a valuable, novel contribution to the field by discussing how AI generative platforms embed epistemological frameworks within societies in the Global South, particularly in African contexts. The findings of this study show that with the rise of AI-based music systems, Western bias and musical practices are increasingly perpetuated, while cultures in some African communities are left vulnerable to epistemic injustice. These technologies silence non-Western knowledge systems and reshape cultural production. This paper contributes to debates on AI ethics, cultural perspectives, and the culturally inclusive design of AI.",
-    "author": [
-      {
-        "family": "Maisiri",
-        "given": "James"
-      },
-      {
-        "family": "Ncube",
-        "given": "Awakhiwe Thabiso"
-      }
-    ],
-    "citation-key": "maisiriTurnVolumeHow2026",
-    "container-title": "AI & SOCIETY",
-    "id": "3005271/M52CWN4W",
-    "issued": {
-      "date-parts": [
-        [
-          2026,
-          9,
-          3
-        ]
-      ]
-    },
-    "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
-    "title": "Turn down the volume! How AI music platforms carry out epistemic injustice and silence African traditions",
-    "type": "article-journal"
   },
   {
     "URL": "https://repositorium.zmo.de/receive/zmo_mods_00002426",
@@ -8786,7 +9487,7 @@
       "knowledge production",
       "symposium"
     ],
-    "title": "Potentials of Digital Humanities in Africa and Impacts to the world - Dr. James Yeku",
+    "title": "Potentials of Digital Humanities in Africa and Impacts to the world",
     "type": "motion_picture"
   },
   {
@@ -9134,6 +9835,62 @@
     "volume": "19"
   },
   {
+    "DOI": "10.1007/s00146-026-03327-9",
+    "ISSN": "1435-5655",
+    "URL": "https://doi.org/10.1007/s00146-026-03327-9",
+    "abstract": "The music industry has increasingly been transformed by artificial intelligence (AI), assisting artists in composing music, mixing and mastering, lyric writing, and voice generation. Debates about how this technology will shape the music sector are rising, but a discussion often omitted in this conversation is how AI affects African Indigenous knowledge systems. Utilising Miranda Fricker’s theory of epistemic injustice, this paper argues that AI generative music platforms are often trained on Western datasets, lack culture neutrality but carry inherent epistemological values. Therefore, as these technologies are increasingly adopted, they bear the risk of erasing Indigenous African knowledge systems embedded in African musical traditions. This is because music, for many African communities, cannot be reduced merely to entertainment but is an important repository of Indigenous knowledge. Drawing on primary and secondary literature, this paper uses an integrative literature review and makes a valuable, novel contribution to the field by discussing how AI generative platforms embed epistemological frameworks within societies in the Global South, particularly in African contexts. The findings of this study show that with the rise of AI-based music systems, Western bias and musical practices are increasingly perpetuated, while cultures in some African communities are left vulnerable to epistemic injustice. These technologies silence non-Western knowledge systems and reshape cultural production. This paper contributes to debates on AI ethics, cultural perspectives, and the culturally inclusive design of AI.",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          21
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Maisiri",
+        "given": "James"
+      },
+      {
+        "family": "Ncube",
+        "given": "Awakhiwe Thabiso"
+      }
+    ],
+    "citation-key": "maisiriTurnVolumeHow2026a",
+    "container-title": "AI & SOCIETY",
+    "id": "3005271/P2D9FFWE",
+    "issue": "11",
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "language": "en",
+    "page": "11253-11267",
+    "tags": [
+      "AI-generated music",
+      "African music",
+      "African musical traditions",
+      "Artificial intelligence",
+      "Cultural bias",
+      "Epistemic injustice",
+      "Indigenous knowledge systems",
+      "algorithmic bias",
+      "data sovereignty",
+      "epistemic injustice",
+      "ethnomusicology",
+      "indigenous knowledge",
+      "music generation"
+    ],
+    "title": "Turn down the volume! How AI music platforms carry out epistemic injustice and silence African traditions",
+    "type": "article-journal",
+    "volume": "41"
+  },
+  {
     "DOI": "10.1080/00083968.2025.2456619",
     "ISSN": "0008-3968",
     "URL": "https://doi.org/10.1080/00083968.2025.2456619",
@@ -9438,7 +10195,7 @@
       ]
     },
     "citation-key": "2024DHSymposium2024",
-    "container-title": "African Digital Humanites @ KU",
+    "container-title": "African Digital Humanities @ KU",
     "id": "3005271/PHCHH45Z",
     "issued": {
       "date-parts": [
@@ -9718,7 +10475,17 @@
     },
     "page": "9269-9281",
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "africanfuturism",
+      "cultural preservation",
+      "decolonial ai",
+      "digital infrastructure",
+      "generative ai",
+      "linguistic diversity",
+      "music ai",
+      "nigerian music",
+      "training data"
+    ],
     "title": "Building music AI in Nigeria: Korin AI and the contradictions of GenAI futures",
     "type": "article-journal",
     "volume": "41"
@@ -9814,6 +10581,75 @@
     ],
     "title": "The Labour We Do Not Dream Of",
     "type": "post-weblog"
+  },
+  {
+    "DOI": "10.1145/3715275.3732023",
+    "ISBN": "979-8-4007-1482-5",
+    "URL": "https://doi.org/10.1145/3715275.3732023",
+    "abstract": "The shift towards pluralism in global data ethics acknowledges the importance of including perspectives from the Global Majority to develop responsible data science practices that mitigate systemic harms in the current data science ecosystem. Sub-Saharan African (SSA) practitioners, in particular, are disseminating progressive data ethics principles and best practices for identifying and navigating anti-blackness and data colonialism. To center SSA voices in the global data ethics discourse, we present a framework for African data ethics informed by the thematic analysis of an interdisciplinary corpus of 47 documents. Our framework features six major principles: 1) Challenge Power Asymmetries, 2) Assert Data Self-Determination, 3) Invest in Local Data Institutions &amp; Infrastructures, 4) Utilize Communalist Practices, 5) Center Communities on the Margins, and 6) Uphold Common Good. We compare our framework to seven particularist data ethics frameworks to find similar conceptual coverage but diverging interpretations of shared values. Finally, we discuss how African data ethics demonstrates the operational value of data ethics frameworks. Our framework highlights Sub-Saharan Africa as a pivotal site of responsible data science by promoting the practice of communalism, self-determination, and cultural preservation.",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          23
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Barrett",
+        "given": "Teanna"
+      },
+      {
+        "family": "Okolo",
+        "given": "Chinasa T."
+      },
+      {
+        "family": "Biira",
+        "given": "B."
+      },
+      {
+        "family": "Sherif",
+        "given": "Eman"
+      },
+      {
+        "family": "Zhang",
+        "given": "Amy"
+      },
+      {
+        "family": "Battle",
+        "given": "Leilani"
+      }
+    ],
+    "citation-key": "barrettAfricanDataEthics2025",
+    "collection-title": "FAccT '25",
+    "container-title": "Proceedings of the 2025 ACM Conference on Fairness, Accountability, and Transparency",
+    "id": "3005271/Q6CIANGW",
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          6,
+          23
+        ]
+      ]
+    },
+    "language": "en",
+    "page": "334-349",
+    "publisher": "Association for Computing Machinery",
+    "publisher-place": "New York, NY, USA",
+    "shortTitle": "African Data Ethics",
+    "tags": [
+      "AI ethics",
+      "African philosophy",
+      "data ethics",
+      "data science",
+      "responsible AI"
+    ],
+    "title": "African Data Ethics: A Discursive Framework for Black Decolonial AI",
+    "title-short": "African Data Ethics",
+    "type": "paper-conference"
   },
   {
     "DOI": "10.29411/ncaw.2025.24.2.2",
@@ -9919,7 +10755,16 @@
     },
     "page": "5269-5284",
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "AI ethics",
+      "Nigeria",
+      "algorithmic bias",
+      "data protection",
+      "deepfakes",
+      "digital divide",
+      "gender equality",
+      "participatory design"
+    ],
     "title": "Women experience privacy differently: towards a gender and inclusion by design (GEIBD) approach in Africa",
     "type": "article-journal",
     "volume": "41"
@@ -10162,6 +11007,159 @@
     "type": "post-weblog"
   },
   {
+    "DOI": "10.18653/v1/2025.emnlp-main.1414",
+    "ISBN": "979-8-89176-332-6",
+    "URL": "https://doi.org/10.18653/v1/2025.emnlp-main.1414",
+    "abstract": "With over 2,000 languages and potentially millions of speakers, Africa represents one of the richest linguistic regions in the world. Yet, this diversity is scarcely reflected in state-of-the-art natural language processing (NLP) systems and large language models (LLMs), which predominantly support a narrow set of high-resource languages. This exclusion not only limits the reach and utility of modern NLP technologies but also risks widening the digital divide across linguistic communities. Nevertheless, NLP research on African languages is active and growing. In recent years, there has been a surge of interest in this area, driven by several factors—including the creation of multilingual language resources, the rise of community-led initiatives, and increased support through funding programs. In this survey, we analyze 884 research papers on NLP for African languages published over the past five years, offering a comprehensive overview of recent progress across core tasks. We identify key trends shaping the field and conclude by outlining promising directions to foster more inclusive and sustainable NLP research for African languages.",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          23
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Alabi",
+        "given": "Jesujoba Oluwadara"
+      },
+      {
+        "family": "Hedderich",
+        "given": "Michael A."
+      },
+      {
+        "family": "Adelani",
+        "given": "David Ifeoluwa"
+      },
+      {
+        "family": "Klakow",
+        "given": "Dietrich"
+      }
+    ],
+    "citation-key": "alabiChartingLandscapeAfrican2025",
+    "container-title": "Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing",
+    "editor": [
+      {
+        "family": "Christodoulopoulos",
+        "given": "Christos"
+      },
+      {
+        "family": "Chakraborty",
+        "given": "Tanmoy"
+      },
+      {
+        "family": "Rose",
+        "given": "Carolyn"
+      },
+      {
+        "family": "Peng",
+        "given": "Violet"
+      }
+    ],
+    "event-title": "EMNLP 2025",
+    "id": "3005271/RQFMEEDJ",
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          11
+        ]
+      ]
+    },
+    "language": "en",
+    "page": "27807–27841",
+    "publisher": "Association for Computational Linguistics",
+    "publisher-place": "Suzhou, China",
+    "shortTitle": "Charting the Landscape of African NLP",
+    "tags": [],
+    "title": "Charting the Landscape of African NLP: Mapping Progress and Shaping the Road Ahead",
+    "title-short": "Charting the Landscape of African NLP",
+    "type": "paper-conference"
+  },
+  {
+    "DOI": "10.1145/3805689.3812227",
+    "ISBN": "979-8-4007-2596-8",
+    "URL": "https://doi.org/10.1145/3805689.3812227",
+    "abstract": "Content moderation and data annotation work has shifted to the Global South, particularly Africa, where workers at business process outsourcing (BPO) companies operate under precarity to serve Global North needs. We address the invisibility of this data labour supply chain and the underdocumented working conditions of its workforce. Drawing on a participatory collaboration between academics, an NGO, and a union, we conducted desk research and deployed a questionnaire (n=81) attuned to unions' organising goals. Our findings show that data labour spans 43 out of 55 African countries, involving 17 major firms serving predominantly North-American and European clients, with workers employed on short-term contracts, under psychological stress and economic instability — conditions that obscure the competences, i.e. adaptability and resilience, that their work demands. We contribute the first comprehensive map of Africa's data labour industry and demonstrate a methodology that centers workers' collective actions in documenting their conditions, drawing on Honneth's “struggle for recognition” to capture workers' demands for professional and social acknowledgement.",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          23
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Pidoux",
+        "given": "Jessica"
+      },
+      {
+        "family": "Tighanimine",
+        "given": "Mariame"
+      },
+      {
+        "family": "Kypraiou",
+        "given": "Sofia"
+      },
+      {
+        "family": "Kgomo",
+        "given": "Sonia"
+      },
+      {
+        "family": "Malgwi",
+        "given": "Kauna Ibrahim"
+      },
+      {
+        "family": "Mathenge",
+        "given": "Richard Mwaura"
+      },
+      {
+        "family": "Okinyi",
+        "given": "Mophat"
+      },
+      {
+        "family": "Oyange",
+        "given": "James"
+      }
+    ],
+    "citation-key": "pidouxMappingDataLabour2026",
+    "collection-title": "FAccT '26",
+    "container-title": "Proceedings of the 2026 ACM Conference on Fairness, Accountability, and Transparency",
+    "id": "3005271/RWFURJBS",
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          25
+        ]
+      ]
+    },
+    "language": "en",
+    "page": "7990-8008",
+    "publisher": "Association for Computing Machinery",
+    "publisher-place": "New York, NY, USA",
+    "shortTitle": "Mapping Data Labour Supply Chain in Africa in an Era of Digital Apartheid",
+    "source": "ACM Digital Library",
+    "tags": [
+      "AI data work",
+      "AI supply chain",
+      "content moderators",
+      "data workers",
+      "digital apartheid",
+      "digital labour",
+      "outsourcing",
+      "participatory methodology"
+    ],
+    "title": "Mapping Data Labour Supply Chain in Africa in an Era of Digital Apartheid: a Struggle for Recognition",
+    "title-short": "Mapping Data Labour Supply Chain in Africa in an Era of Digital Apartheid",
+    "type": "paper-conference"
+  },
+  {
     "URL": "https://archivi.ng/the-archivist/stories/issue-1/the-economics-of-archiving-old-newspapers",
     "abstract": "We're digitally archiving old Nigerian newspapers to make history accessible to everyone.",
     "accessed": {
@@ -10230,7 +11228,16 @@
       ]
     },
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "African music",
+      "algorithmic bias",
+      "cultural heritage",
+      "data colonialism",
+      "data sovereignty",
+      "ethnomusicology",
+      "generative ai",
+      "music generation"
+    ],
     "title": "Prompting Africa, hearing the West: generative AI music, sonic data coloniality and the future of culturally accountable musical intelligence",
     "type": "article-journal"
   },
@@ -10329,6 +11336,91 @@
     "type": "paper-conference"
   },
   {
+    "DOI": "10.18653/v1/2026.africanlp-main.26",
+    "ISBN": "979-8-89176-364-7",
+    "URL": "https://doi.org/10.18653/v1/2026.africanlp-main.26",
+    "abstract": "This paper introduces the first standardized benchmark for evaluating Automatic Speech Recognition (ASR) in the Bambara language, utilizing one hour of professionally recorded Malian constitutional text. Designed as a controlled reference set under near-optimal acoustic and linguistic conditions, the benchmark was used to evaluate 37 models, ranging from Bambara-trained systems to large-scale commercial models. Our findings reveal that current ASR performance remains significantly below deployment standards; the top-performing system in terms of Word Error Rate (WER) achieved 46.76% and the best Character Error Rate (CER) of 13.00% was set by another model, while several prominent multilingual models exceeded 100% WER due to severe hallucinations. These results suggest that multilingual pre-training and model scaling alone are insufficient for underrepresented languages. Furthermore, because this dataset represents a best-case scenario of the most simplified and formal form of spoken Bambara, these figures likely establish an upper bound for performance in practical, real-world settings. We provide the benchmark and an accompanying public leaderboard to facilitate transparent evaluation and future research in Bambara speech technology.",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          23
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Diallo",
+        "given": "Seydou"
+      },
+      {
+        "family": "Diarra",
+        "given": "Yacouba"
+      },
+      {
+        "family": "Keita",
+        "given": "Mamadou K."
+      },
+      {
+        "family": "Kamaté",
+        "given": "Panga Azazia"
+      },
+      {
+        "family": "Kampo",
+        "given": "Adam Bouno"
+      },
+      {
+        "family": "Ouattara",
+        "given": "Aboubacar"
+      }
+    ],
+    "citation-key": "dialloWhereAreWe2026",
+    "container-title": "Proceedings of the 7th Workshop on African Natural Language Processing (AfricaNLP 2026)",
+    "editor": [
+      {
+        "family": "Chimoto",
+        "given": "Everlyn Asiko"
+      },
+      {
+        "family": "Lignos",
+        "given": "Constantine"
+      },
+      {
+        "family": "Muhammad",
+        "given": "Shamsuddeen"
+      },
+      {
+        "family": "Abdulmumin",
+        "given": "Idris"
+      },
+      {
+        "family": "Siro",
+        "given": "Clemencia"
+      },
+      {
+        "family": "Adelani",
+        "given": "David Ifeoluwa"
+      }
+    ],
+    "id": "3005271/SR8VYS5Z",
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          3
+        ]
+      ]
+    },
+    "language": "en",
+    "page": "248–255",
+    "publisher": "Association for Computational Linguistics",
+    "publisher-place": "Rabat, Morocco",
+    "tags": [],
+    "title": "Where Are We at with Automatic Speech Recognition for the Bambara Language?",
+    "type": "paper-conference"
+  },
+  {
     "DOI": "10.1007/s00146-025-02731-x",
     "ISSN": "0951-5666",
     "URL": "https://doi.org/10.1007/s00146-025-02731-x",
@@ -10366,7 +11458,16 @@
     },
     "page": "3981-3996",
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "AI ethics",
+      "AI governance",
+      "AI harms",
+      "Global South",
+      "data colonialism",
+      "data sovereignty",
+      "digital infrastructure",
+      "thematic analysis"
+    ],
     "title": "Understanding AI and power: situated perspectives from Global North and South practitioners",
     "type": "article-journal",
     "volume": "41"
@@ -10614,6 +11715,70 @@
     "title": "Who Will Own and Control Africa's AI Energy Future?",
     "type": "article-magazine",
     "volume": "9"
+  },
+  {
+    "DOI": "10.48550/arXiv.2511.18557",
+    "URL": "https://doi.org/10.48550/arXiv.2511.18557",
+    "abstract": "Creating speech datasets, models, and evaluation frameworks for low-resource languages remains challenging given the lack of a broad base of pertinent experience to draw from. This paper reports on the field collection of 612 hours of spontaneous speech in Bambara, a low-resource West African language; the semi-automated annotation of that dataset with transcriptions; the creation of several monolingual ultra-compact and small models using the dataset; and the automatic and human evaluation of their output. We offer practical suggestions for data collection protocols, annotation, and model design, as well as evidence for the importance of performing human evaluation. In addition to the main dataset, multiple evaluation datasets, models, and code are made publicly available.",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          23
+        ]
+      ]
+    },
+    "author": [
+      {
+        "family": "Diarra",
+        "given": "Yacouba"
+      },
+      {
+        "family": "Coulibaly",
+        "given": "Nouhoum Souleymane"
+      },
+      {
+        "family": "Kamaté",
+        "given": "Panga Azazia"
+      },
+      {
+        "family": "Tall",
+        "given": "Madani Amadou"
+      },
+      {
+        "family": "Koné",
+        "given": "Emmanuel Élisé"
+      },
+      {
+        "family": "Dembélé",
+        "given": "Aymane"
+      },
+      {
+        "family": "Leventhal",
+        "given": "Michael"
+      }
+    ],
+    "citation-key": "diarraDealingHardFacts2025",
+    "id": "3005271/TT9ZAZKG",
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          11,
+          23
+        ]
+      ]
+    },
+    "language": "en",
+    "note": "arXiv:2511.18557 [cs.CL]",
+    "number": "arXiv:2511.18557",
+    "publisher": "arXiv",
+    "tags": [
+      "Computer Science - Computation and Language"
+    ],
+    "title": "Dealing with the Hard Facts of Low-Resource African NLP",
+    "type": "article"
   },
   {
     "ISSN": "1938-4122",
@@ -10901,6 +12066,7 @@
     "type": "article-journal"
   },
   {
+    "DOI": "10.1093/acrefore/9780190277734.013.341",
     "URL": "https://doi.org/10.1093/acrefore/9780190277734.013.341",
     "abstract": "The Horn of Africa has an exceptional cultural heritage, starting with its manuscript sources, which are among the most important on the continent. It is a heritage that is rich but scattered throughout the region and not always easily accessible, prompting researchers to rely on cutting-edge technology. Since the 1970s, photography and microfilm have been key for preserving this especially valuable heritage. In the Horn of Africa, the “digital turn” has been the latest development in the close relationship between technology and research. For Ethiopian manuscript studies, the advent of digitization has meant more than simply improving old techniques. A new generation of projects is experimenting with innovative methods of research made possible by digital technology. The purpose is no longer just to provide digital copies of manuscripts but to explore the possibilities that computerization offers to study documents and other historical sources.Increasingly competitive prices and low operating costs have made the digital revolution attractive even for African institutions, which, in recent years, have sought answers to the pressing needs of preserving and enhancing their historical sources. These technological developments have significantly broadened the range of sources investigated. While important, manuscripts represent only a part of the documentary heritage of the Horn of Africa. Numerous archives and a long-overlooked print culture offer equally interesting access points for studying the region.The experience gained, though temporally circumscribed, has highlighted a number of more or less predictable problems. The projects to date, although they have often yielded only partial results, have highlighted the wealth of sources still present in the Horn of Africa and the way in which digital technology is making a valuable contribution to their preservation. Access remains perhaps the most critical issue. In the Horn of Africa, as in other African regions, digitization does not necessarily lead to Internet access.",
     "accessed": {
@@ -10949,6 +12115,35 @@
     "type": "entry-encyclopedia"
   },
   {
+    "URL": "https://afriquexxi.info/IA-et-Afrique-On-ne-batit-pas-une-capacite-avec-deux-ou-trois-concours",
+    "abstract": "ÉDITO. L’intelligence artificielle fait désormais partie du quotidien en Afrique. En ville comme à la campagne, on s’en sert pour rédiger un courrier, traduire un document, préparer un cours ou développer son activité. Mais cette présence visible cache une absence bien plus lourde de conséquences. L’Afrique reste largement à l’écart des lieux où l’on fabrique ces technologies, où l’on décide qui y aura accès et à quel prix, où s’accumule la valeur qu’elles produisent.",
+    "accessed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          17
+        ]
+      ]
+    },
+    "citation-key": "redactionIAAfriqueNe2026",
+    "container-title": "Afrique XXI",
+    "id": "3005271/ULV4ILYA",
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          10,
+          9
+        ]
+      ]
+    },
+    "language": "fr",
+    "tags": [],
+    "title": "IA et Afrique. On ne bâtit pas une capacité avec deux ou trois concours",
+    "type": "webpage"
+  },
+  {
     "DOI": "10.1007/s00146-024-02065-0",
     "ISSN": "0951-5666",
     "URL": "https://doi.org/10.1007/s00146-024-02065-0",
@@ -10974,7 +12169,16 @@
     },
     "page": "3045-3061",
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "algorithmic bias",
+      "cognitive imperialism",
+      "content moderation",
+      "data sovereignty",
+      "decolonisation",
+      "indigenous knowledge",
+      "natural language processing",
+      "participatory design"
+    ],
     "title": "Cognitive imperialism in artificial intelligence: counteracting bias with indigenous epistemologies",
     "type": "article-journal",
     "volume": "40"
@@ -11359,6 +12563,7 @@
       }
     ],
     "citation-key": "ajuzieoguHowAfricaBuilds2025",
+    "container-title": "Aylgorith",
     "id": "3005271/VLZGH72W",
     "issued": {
       "date-parts": [
@@ -12143,7 +13348,7 @@
       "regulatory sandbox"
     ],
     "title": "Zimbabwe National Artificial Intelligence (AI) Strategy 2026 – 2030",
-    "type": "document"
+    "type": "report"
   },
   {
     "URL": "https://aisel.aisnet.org/mwais2024/25",
@@ -12199,7 +13404,7 @@
     ],
     "title": "Double-edged sword: Navigating AI Opportunities and the Risk of Digital Colonization in Africa",
     "title-short": "Double-edged sword",
-    "type": "article-journal"
+    "type": "paper-conference"
   },
   {
     "URL": "https://www.globalcenter.ai/the-algorithmic-review/epistemologies-and-political-economies-of-ai-in-africa-and-the-world",
@@ -12875,9 +14080,19 @@
         ]
       ]
     },
+    "language": "en",
     "page": "9121-9137",
     "publisher": "Springer Science and Business Media LLC",
-    "tags": [],
+    "tags": [
+      "African traditional medicine",
+      "Indigenous knowledge",
+      "South Africa",
+      "decolonisation",
+      "epistemic injustice",
+      "epistemic pluralism",
+      "machine learning",
+      "mental health"
+    ],
     "title": "Epistemic decolonisation and the integration of African traditional medicine: toward an epistemic redress model for inclusive AI in mental healthcare",
     "type": "article-journal",
     "volume": "41"

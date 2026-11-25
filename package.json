@@ -25,6 +25,7 @@
     "optimize:images": "node scripts/optimize_images.mjs",
     "og:image": "node scripts/make_og_image.mjs",
     "fetch:references": "node scripts/python.mjs scripts/fetch_references.py",
+    "discover:references": "node scripts/python.mjs scripts/discover_references.py",
     "build:paper": "npm run export:epub && vite build",
     "export:epub": "node scripts/export-paper-epub.mjs",
     "test:python": "node scripts/python.mjs -B -m unittest discover -s tests/python -p test_*.py",
