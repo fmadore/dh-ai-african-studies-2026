@@ -46,6 +46,14 @@ The first harvest found about 1,150 new candidates since 2020. Take them in runs
 150 rather than raising `--max`, so each review in Zotero stays manageable. If `selected` is 0,
 report that nothing new was found and stop.
 
+**ACL versions are preferred over arXiv preprints.** The harvest drops a preprint whose ACL
+version is in the same harvest (same title, or same first author and a reworded title), and
+lists under `acl_upgrades` in `manifest.json` every ACL paper that publishes an arXiv preprint
+already in the bibliography or proposed in Zotero. Those are not triaged; tell the user about
+each one and offer to swap it in Zotero (add the ACL version, from a CSL-JSON record the script
+can generate, and retire the preprint). Never change the published collection without the
+user's go-ahead.
+
 ## 3. Triage (parallel Haiku agents)
 
 Start one `reference-triage` agent per batch in `manifest.json`, all in one message (in waves of
@@ -79,10 +87,17 @@ Results file to write: <repo>/.cache/reference-discovery/run/zotero-results-NN.j
 Zotero collection key: M4YXAI7Y
 ```
 
-If it reports failures, run `queue` again and start one more writer on the new queue file. ACL
-papers reach Zotero as CSL-JSON files the script generated, never as BibTeX: Zotero's BibTeX
-import cuts abstracts at `{\%}` and mangles LaTeX (`\ensuremath`, accents). Never ask an agent to
-paste a record into the tool: it passes only the file path or arXiv URL.
+If it reports failures, check in Zotero whether the failed papers were created anyway (a call
+that timed out can still land) before queueing them again: a retry does not recognise them and
+makes duplicates. Record those found as `existing` with their key in a new
+`zotero-results-NN*.json`, then run `queue` again for the rest and start one more writer.
+
+Every paper reaches Zotero as a CSL-JSON file the script generated from the harvested metadata:
+never as BibTeX (Zotero's BibTeX import cuts abstracts at `{\%}` and mangles `\ensuremath` and
+accents) and never as an arXiv URL (Zotero then fetches from arXiv, which throttles: minutes per
+paper, and one call hung for half an hour holding the MCP lock). Never ask an agent to paste a
+record into the tool: it passes only the file path. For queues of more than about 20 papers,
+split the file and run one writer per part, one after another.
 
 ## 5. Record
 

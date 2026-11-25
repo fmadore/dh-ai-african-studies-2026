@@ -71,7 +71,8 @@ English, a noun phrase such as `speech recognition` or a proper name such as `Wo
 ## 4. Write the decisions file
 
 Write a JSON array to the decisions path, one object per candidate in the batch, no more and no
-fewer:
+fewer, each `id` copied exactly from the batch file (`acl:2026.rail-1.4`, never a shortened
+form). Before writing, count your objects against the batch:
 
 ```json
 [

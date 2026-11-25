@@ -52,11 +52,13 @@ about Africa not yet in the bibliography or in `scripts/reference-discovery-ledg
 
 `reference-zotero-writer` agent adds the inclusions to the Zotero subcollection
 
-"À valider" through the Zotero MCP, sequentially; `-- record` updates the ledger. ACL
+"À valider" through the Zotero MCP, sequentially; `-- record` updates the ledger. Papers
 
-papers go to Zotero as generated CSL-JSON, never BibTeX (Zotero's BibTeX import cuts
+go to Zotero as generated CSL-JSON, never BibTeX (Zotero's BibTeX import cuts abstracts
 
-abstracts at `{\%}`). The
+at `{\%}`) or arXiv URLs (arXiv throttles Zotero's fetch). ACL versions win over arXiv
+
+preprints. The
 
 site reads only the parent collection, so nothing is published until the user moves an
 

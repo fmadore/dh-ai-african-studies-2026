@@ -156,6 +156,27 @@ def normalize_title(title):
     return re.sub(r'[^a-z0-9]+', '', ''.join(c for c in folded if not unicodedata.combining(c)))
 
 
+_TITLE_STOPWORDS = frozenset('a an the of for in and on to with from by via at is are'.split())
+
+
+def title_words(title):
+    folded = unicodedata.normalize('NFKD', title.casefold())
+    folded = ''.join(c for c in folded if not unicodedata.combining(c))
+    return set(re.findall(r'[a-z0-9]+', folded)) - _TITLE_STOPWORDS
+
+
+def similar_titles(first, second, threshold):
+    """Word-set overlap (Jaccard): a preprint's title is often reworded at publication."""
+    a, b = title_words(first), title_words(second)
+    return bool(a and b) and len(a & b) / len(a | b) >= threshold
+
+
+def first_surname(authors):
+    name = authors[0] if authors else ''
+    folded = unicodedata.normalize('NFKD', name.split()[-1].casefold()) if name.split() else ''
+    return ''.join(c for c in folded if not unicodedata.combining(c))
+
+
 def keyword_hits(text):
     return len(KEYWORDS.findall(text or ''))
 
@@ -478,6 +499,36 @@ def fetch_arxiv_page(start, *, opener=urllib.request.urlopen, sleep=time.sleep, 
     raise AssertionError('Unreachable retry state')
 
 
+def arxiv_name(name):
+    """arXiv gives "Given Family"; split at the last space, as Zotero's arXiv translator does."""
+    given, _, family = name.rpartition(' ')
+    return {'family': family, 'given': given} if given else {'literal': name}
+
+
+def arxiv_csl(entry):
+    """CSL-JSON for an arXiv preprint, built from the API data the harvest already holds.
+
+    Handing Zotero an arXiv URL instead makes it fetch the metadata from arXiv, which
+    throttles: about 3.5 minutes per paper. CSL "article" becomes a Zotero preprint.
+    """
+    arxiv_id = entry['arxiv_id']
+    date = [int(part) for part in entry['published'].split('-') if part.isdigit()]
+    item = {
+        'id': f'arxiv-{arxiv_id}',
+        'type': 'article',
+        'title': entry['title'],
+        'author': [arxiv_name(name) for name in entry['authors'] if name],
+        'abstract': entry['abstract'],
+        'issued': {'date-parts': [date]} if date else None,
+        'publisher': 'arXiv',
+        'number': f'arXiv:{arxiv_id}',
+        'DOI': f'10.48550/arXiv.{arxiv_id}',
+        'URL': f'https://arxiv.org/abs/{arxiv_id}',
+        'note': f'Published as: {entry["journal_ref"]}' if entry.get('journal_ref') else None,
+    }
+    return {key: value for key, value in item.items() if value not in (None, '', [])}
+
+
 def arxiv_candidates(since_year, *, opener=urllib.request.urlopen, sleep=time.sleep,
                      max_results=ARXIV_MAX_RESULTS, log=print):
     start = 0
@@ -502,7 +553,9 @@ def arxiv_candidates(since_year, *, opener=urllib.request.urlopen, sleep=time.sl
             yield Candidate(
                 id=f'arxiv:{entry["arxiv_id"]}', source='arXiv', title=entry['title'],
                 authors=entry['authors'], year=year, venue=venue, abstract=entry['abstract'],
-                url=url, doi=entry['doi'], zotero_source=url, zotero_source_type='url',
+                url=url, doi=entry['doi'],
+                zotero_source=json.dumps([arxiv_csl(entry)], ensure_ascii=False, indent=2),
+                zotero_source_type='csl_json',
                 score=score, identifiers=identifiers_for(entry['doi'], url, entry['title']),
             )
         start += len(entries)
@@ -545,8 +598,30 @@ def tag_vocabulary(references):
     return dict(sorted(counts.items(), key=lambda pair: (-pair[1], pair[0].casefold())))
 
 
+def ledger_titles(ledger):
+    """Normalised title -> ledger id, so the arXiv twin of a triaged ACL paper is caught."""
+    return {normalize_title(entry['title']): key for key, entry in ledger['entries'].items()
+            if entry.get('title') and entry.get('status') != 'duplicate'}
+
+
+def ledger_duplicates(candidates, ledger):
+    """Candidates whose title is already in the ledger under another id (candidate -> original).
+
+    Harvest filters these out; this catches any that slip through before Zotero gets a copy
+    under a different DOI or arXiv id, which its own duplicate check would not recognise.
+    """
+    titles = ledger_titles(ledger)
+    return {key: titles[title] for key, candidate in candidates.items()
+            if (title := normalize_title(candidate['title'])) in titles and titles[title] != key}
+
+
 def select_candidates(candidates, known, ledger_ids, limit):
-    """Deduplicate across sources and against the library; rank title matches and recency first."""
+    """Deduplicate across sources and against the library; rank title matches and recency first.
+
+    ledger_ids holds ledger ids and their 'title:' identifiers. A skipped candidate still adds
+    its identifiers to the seen set: otherwise an ACL paper skipped as already triaged would
+    let its arXiv preprint through.
+    """
     seen = set(known) | set(ledger_ids)
     # ACL first, so a paper on both keeps its published version.
     ordered = sorted(candidates, key=lambda c: c.source != 'ACL Anthology')
@@ -556,11 +631,59 @@ def select_candidates(candidates, known, ledger_ids, limit):
         keys = candidate.identifiers | {candidate.id}
         if keys & seen:
             skipped_known += 1
+            seen |= keys
             continue
         seen |= keys
         selected.append(candidate)
     selected.sort(key=lambda c: (c.score < 10, -c.year, -c.score, c.id))
     return selected[:limit], len(selected), skipped_known
+
+
+PREPRINT_TWIN_THRESHOLD = 0.6
+UPGRADE_THRESHOLD = 0.75
+
+
+def drop_preprint_twins(candidates):
+    """Keep the ACL version of a paper over its arXiv preprint, even under a reworded title.
+
+    Exact titles are already caught by the 'title:' identifiers; this also requires the same
+    first author, so two papers on one topic are not merged.
+    """
+    acl_by_author = {}
+    for candidate in candidates:
+        if candidate.source == 'ACL Anthology':
+            acl_by_author.setdefault(first_surname(candidate.authors), []).append(candidate)
+    kept, dropped = [], 0
+    for candidate in candidates:
+        twins = acl_by_author.get(first_surname(candidate.authors), []) if candidate.source == 'arXiv' else []
+        if any(similar_titles(candidate.title, acl.title, PREPRINT_TWIN_THRESHOLD) for acl in twins):
+            dropped += 1
+            continue
+        kept.append(candidate)
+    return kept, dropped
+
+
+def acl_upgrades(candidates, references, ledger):
+    """ACL papers that publish an arXiv preprint already in the bibliography or proposed.
+
+    These are not triaged again: they are reported so the user can swap in the ACL version,
+    which this project prefers.
+    """
+    preprints = [(item.get('title', ''), 'bibliography') for item in references
+                 if any(key.startswith('arxiv:') for key in identifiers_for(item.get('DOI'), item.get('URL')))]
+    preprints += [(entry['title'], f'proposed as {key}' + (f' (Zotero {entry["zotero_key"]})' if entry.get('zotero_key') else ''))
+                  for key, entry in ledger['entries'].items()
+                  if key.startswith('arxiv:') and entry.get('status') == 'proposed']
+    upgrades = []
+    for candidate in candidates:
+        if candidate.source != 'ACL Anthology':
+            continue
+        for title, where in preprints:
+            if similar_titles(candidate.title, title, UPGRADE_THRESHOLD):
+                upgrades.append({'id': candidate.id, 'title': candidate.title, 'url': candidate.url,
+                                 'preprint_title': title, 'preprint': where})
+                break
+    return upgrades
 
 
 def batch_entry(candidate, run_dir):
@@ -621,10 +744,19 @@ def harvest(args, *, opener=urllib.request.urlopen, sleep=time.sleep, log=print)
             log(f'  Warning: {warnings[-1]}')
         log(f'  arXiv: {len(arxiv)} papers since {args.since} pass the Africa filter')
         candidates += arxiv
+    candidates, twins = drop_preprint_twins(candidates)
+    if twins:
+        log(f'  {twins} arXiv preprints dropped in favour of their ACL versions')
+    upgrades = acl_upgrades(candidates, references, ledger)
+    upgrade_ids = {upgrade['id'] for upgrade in upgrades}
+    for upgrade in upgrades:
+        log(f'  ACL version available: {upgrade["id"]} "{upgrade["title"]}" for the arXiv preprint '
+            f'{upgrade["preprint"]} ("{upgrade["preprint_title"]}")')
     selected, available, skipped = select_candidates(
-        candidates, known_identifiers(references), ledger['entries'].keys(), args.max)
+        [c for c in candidates if c.id not in upgrade_ids], known_identifiers(references),
+        set(ledger['entries']) | {f'title:{title}' for title in ledger_titles(ledger)}, args.max)
     totals = {'available': available, 'already_known': skipped, 'selected': len(selected),
-              'warnings': warnings}
+              'warnings': warnings, 'acl_upgrades': upgrades}
     manifest = write_run(selected, tag_vocabulary(references), args.batch_size, args.run_dir,
                          since=args.since, totals=totals)
     log(f'{skipped} already in the bibliography or the ledger; {available} new candidates; '
@@ -717,9 +849,12 @@ def queue(args, *, log=print):
         return {'pending': pending, 'queued': 0, 'queue': None}
     included = {key for key, decision in decisions.items() if decision['decision'] == 'include'}
     written = {key for key, row in load_zotero_results(run_dir, included).items() if row['status'] != 'failed'}
+    duplicates = ledger_duplicates(candidates, load_ledger(args.ledger))
+    for key in sorted(included & duplicates.keys()):
+        log(f'Not queued: {key} duplicates {duplicates[key]}, already triaged ("{candidates[key]["title"]}")')
     rows = [{'id': key, 'title': candidates[key]['title'], 'source': candidates[key]['zotero_source'],
              'source_type': candidates[key]['zotero_source_type'], 'tags': decisions[key]['tags']}
-            for key in sorted(included - written)]
+            for key in sorted(included - written - duplicates.keys())]
     if not rows:
         log('Every inclusion is already in Zotero.')
         return {'pending': [], 'queued': 0, 'queue': None}
@@ -736,13 +871,18 @@ def record(args, *, log=print):
     included = {key for key, decision in decisions.items() if decision['decision'] == 'include'}
     results = load_zotero_results(run_dir, included)
     ledger = load_ledger(args.ledger)
+    duplicates = ledger_duplicates(candidates, ledger)
     today = datetime.date.today().isoformat()
-    proposed, retry, rejected = [], [], 0
+    proposed, retry, rejected, duplicated = [], [], 0, 0
     for candidate_id, decision in decisions.items():
         candidate = candidates[candidate_id]
         entry = {'date': today, 'title': candidate['title'], 'score': decision['score']}
         result = results.get(candidate_id, {'status': 'failed', 'error': 'not written to Zotero'})
-        if decision['decision'] == 'exclude':
+        if candidate_id in duplicates and result['status'] == 'failed':
+            ledger['entries'][candidate_id] = {**entry, 'status': 'duplicate',
+                                               'duplicate_of': duplicates[candidate_id]}
+            duplicated += 1
+        elif decision['decision'] == 'exclude':
             ledger['entries'][candidate_id] = {**entry, 'status': 'rejected'}
             rejected += 1
         elif result['status'] != 'failed':
@@ -753,7 +893,8 @@ def record(args, *, log=print):
             retry.append((candidate, decision))
     write_json(args.ledger, ledger)
     lines = [f'# Reference discovery — {today}', '',
-             f'{len(proposed)} proposed to Zotero, {rejected} rejected, {len(retry)} not in Zotero.', '']
+             f'{len(proposed)} proposed to Zotero, {rejected} rejected, {len(retry)} not in Zotero, '
+             f'{duplicated} duplicates of papers already triaged.', '']
     if pending:
         lines += [f'Batches without decisions (left for a later record): {", ".join(pending)}', '']
     for heading, rows in (('Proposed (Zotero "À valider")', proposed),
@@ -768,7 +909,8 @@ def record(args, *, log=print):
     report = '\n'.join(lines)
     (run_dir / 'report.md').write_text(report, encoding='utf-8')
     log(report)
-    return {'proposed': len(proposed), 'rejected': rejected, 'retry': len(retry), 'pending': pending}
+    return {'proposed': len(proposed), 'rejected': rejected, 'retry': len(retry),
+            'duplicates': duplicated, 'pending': pending}
 
 
 def main(argv=None):

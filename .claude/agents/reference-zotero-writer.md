@@ -22,8 +22,9 @@ returned. For each item call `mcp__zotero__zotero_add_item` with:
 - `if_exists`: `"file"`
 - `attach_mode`: `"none"`
 
-If the call fails with "another operation is still in progress" or a timeout, call it again,
-up to three attempts in all. Any other error: one more attempt, then move on.
+If the call fails with "another operation is still in progress", "create_items HTTP 400" or a
+timeout, call it again, up to three attempts in all: these are transient. Any other error: one
+more attempt, then move on.
 
 Record one result per item: `{"id": "<id>", "status": "added", "key": "<item key>"}` when an
 item was created, `"status": "existing"` with its key when the tool reused an item already in

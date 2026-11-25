@@ -183,7 +183,13 @@ class ArxivTests(unittest.TestCase):
         sleeps = []
         found = list(discovery.arxiv_candidates(2020, opener=opener, sleep=sleeps.append, log=lambda *_: None))
         self.assertEqual([c.id for c in found], ['arxiv:2601.00001'])
-        self.assertEqual(found[0].zotero_source, 'https://arxiv.org/abs/2601.00001')
+        self.assertEqual(found[0].zotero_source_type, 'csl_json')
+        [csl] = json.loads(found[0].zotero_source)
+        self.assertEqual(csl, {
+            'id': 'arxiv-2601.00001', 'type': 'article', 'title': 'Evaluating LLMs on Hausa',
+            'author': [{'family': 'Lovelace', 'given': 'Ada'}], 'issued': {'date-parts': [[2026, 1, 5]]},
+            'publisher': 'arXiv', 'number': 'arXiv:2601.00001', 'DOI': '10.48550/arXiv.2601.00001',
+            'URL': 'https://arxiv.org/abs/2601.00001'})
         self.assertEqual(sleeps, [discovery.ARXIV_DELAY_SECONDS])
         self.assertEqual(len(opener.requests), 2)
 
@@ -220,6 +226,41 @@ class SelectionTests(unittest.TestCase):
             {'acl:2025.x-1.1'}, 10)
         self.assertEqual([c.id for c in selected], ['acl:2026.rail-1.4'])
         self.assertEqual((available, skipped), (1, 3))
+
+    def test_the_preprint_of_a_triaged_acl_paper_is_skipped(self):
+        acl = candidate('acl:2026.x-1.1', 'AFROSCOPE: Mapping', doi='10.18653/2026.x-1.1')
+        preprint = candidate('arxiv:2601.13346', 'AfroScope: mapping', source='arXiv',
+                             url='https://arxiv.org/abs/2601.13346')
+        ledger = {'entries': {'acl:2026.x-1.1': {'status': 'proposed', 'title': 'AFROSCOPE: Mapping'}}}
+        seen = set(ledger['entries']) | {f'title:{t}' for t in discovery.ledger_titles(ledger)}
+        selected, available, skipped = discovery.select_candidates([preprint, acl], set(), seen, 10)
+        self.assertEqual((selected, available, skipped), ([], 0, 2))
+        # Even without the ledger titles, skipping the ACL paper remembers its title.
+        selected, _, _ = discovery.select_candidates([preprint, acl], set(), {'acl:2026.x-1.1'}, 10)
+        self.assertEqual(selected, [])
+
+    def test_a_reworded_preprint_gives_way_to_its_acl_version(self):
+        acl = candidate('acl:2026.x-1.2', 'Nsanku: Benchmarking LLM Translation for 43 Ghanaian Languages')
+        acl.authors = ['Ama Mensah', 'Kofi Boateng']
+        preprint = candidate('arxiv:2605.04208', 'Nsanku: an LLM translation benchmark for 43 Ghanaian languages',
+                             source='arXiv')
+        preprint.authors = ['Ama Mensah']
+        other = candidate('arxiv:2605.09999', 'Nsanku: LLM translation for 43 Ghanaian languages', source='arXiv')
+        other.authors = ['Someone Else']
+        kept, dropped = discovery.drop_preprint_twins([preprint, other, acl])
+        self.assertEqual(([c.id for c in kept], dropped), (['arxiv:2605.09999', 'acl:2026.x-1.2'], 1))
+
+    def test_acl_versions_of_listed_or_proposed_preprints_are_reported(self):
+        published = candidate('acl:2026.x-1.3', 'AfriVox: A Benchmark of In-the-Wild African Speech')
+        unrelated = candidate('acl:2026.x-1.4', 'Hausa Morphology Revisited')
+        references = [{'title': 'AfriVox: a benchmark of in-the-wild African speech',
+                       'URL': 'https://arxiv.org/abs/2605.03590'}]
+        ledger = {'entries': {'arxiv:2601.1': {'status': 'proposed', 'title': 'Hausa morphology revisited',
+                                               'zotero_key': 'K1'},
+                              'arxiv:2601.2': {'status': 'rejected', 'title': 'Something else'}}}
+        upgrades = discovery.acl_upgrades([published, unrelated], references, ledger)
+        self.assertEqual([(u['id'], u['preprint']) for u in upgrades],
+                         [('acl:2026.x-1.3', 'bibliography'), ('acl:2026.x-1.4', 'proposed as arxiv:2601.1 (Zotero K1)')])
 
     def test_ranks_title_matches_then_recency_and_caps(self):
         items = [candidate('a', 'A', year=2026, score=3), candidate('b', 'B', year=2021, score=30),
@@ -266,7 +307,7 @@ class RecordTests(unittest.TestCase):
                          ['acl:3'])
 
         result = discovery.record(self.args, log=lambda *_: None)
-        self.assertEqual(result, {'proposed': 1, 'rejected': 1, 'retry': 1, 'pending': []})
+        self.assertEqual(result, {'proposed': 1, 'rejected': 1, 'retry': 1, 'duplicates': 0, 'pending': []})
         entries = json.loads(self.ledger.read_text(encoding='utf-8'))['entries']
         self.assertEqual(entries['acl:1']['status'], 'proposed')
         self.assertEqual(entries['acl:1']['zotero_key'], 'K1')
@@ -289,6 +330,21 @@ class RecordTests(unittest.TestCase):
             discovery.write_json(self.run / 'zotero-results-01.json', rows)
             with self.subTest(rows=rows), self.assertRaises(discovery.DiscoveryError):
                 discovery.record(self.args, log=lambda *_: None)
+
+    def test_a_twin_of_a_triaged_paper_is_neither_queued_nor_proposed(self):
+        # "Kept" was proposed in an earlier run under another id (its ACL version, say).
+        discovery.write_json(self.ledger, {'version': 1, 'entries': {
+            'acl:old': {'status': 'proposed', 'title': 'KEPT', 'date': '2026-11-01', 'score': 5}}})
+        self.decide(1, [{'id': 'acl:1', 'decision': 'include', 'score': 5, 'reason': 'Core.', 'tags': ['Wolof']},
+                        {'id': 'acl:2', 'decision': 'exclude', 'score': 2, 'reason': 'Narrow.'}])
+        self.decide(2, [{'id': 'acl:3', 'decision': 'exclude', 'score': 2, 'reason': 'Narrow.'}])
+        self.assertEqual(discovery.queue(self.args, log=lambda *_: None)['queued'], 0)
+        result = discovery.record(self.args, log=lambda *_: None)
+        self.assertEqual((result['duplicates'], result['proposed'], result['retry']), (1, 0, 0))
+        entries = json.loads(self.ledger.read_text(encoding='utf-8'))['entries']
+        self.assertEqual(entries['acl:1'], {'status': 'duplicate', 'duplicate_of': 'acl:old', 'title': 'Kept',
+                                            'date': entries['acl:1']['date'], 'score': 5})
+        self.assertEqual(discovery.ledger_titles({'entries': entries})['kept'], 'acl:old')
 
     def test_queue_waits_for_every_batch(self):
         self.decide(1, [{'id': 'acl:1', 'decision': 'exclude', 'score': 1, 'reason': 'No.'},
