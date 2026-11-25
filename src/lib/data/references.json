@@ -173,6 +173,89 @@
     "type": "post-weblog"
   },
   {
+    "DOI": "10.18653/v1/2026.africanlp-main.1",
+    "ISBN": "979-8-89176-364-7",
+    "URL": "https://aclanthology.org/2026.africanlp-main.1/",
+    "abstract": "Creating speech datasets, models, and evaluation frameworks for low-resource languages remains challenging given the lack of a broad base of pertinent experience to draw from. This paper reports on the field collection of 612 hours of spontaneous speech in Bambara, a low-resource West African language; the semi-automated annotation of that dataset with transcriptions; the creation of several monolingual ultra-compact and small models using the dataset; and the automatic and human evaluation of their output. We offer practical suggestions for data collection protocols, annotation, and model design, as well as evidence for the importance of performing human evaluation. In addition to the main dataset, multiple evaluation datasets, models, and code are made publicly available.",
+    "author": [
+      {
+        "family": "Leventhal",
+        "given": "Michael"
+      },
+      {
+        "family": "Diarra",
+        "given": "Yacouba"
+      },
+      {
+        "family": "Coulibaly",
+        "given": "Nouhoum"
+      },
+      {
+        "family": "Kamaté",
+        "given": "Panga Azazia"
+      },
+      {
+        "family": "Dembélé",
+        "given": "Aymane"
+      },
+      {
+        "family": "Tall",
+        "given": "Madani Amadou"
+      },
+      {
+        "family": "Kone",
+        "given": "Emmanuel Elise"
+      }
+    ],
+    "citation-key": "leventhalDealingHardFacts2026",
+    "container-title": "Proceedings of the 7th Workshop on African Natural Language Processing (AfricaNLP 2026)",
+    "editor": [
+      {
+        "family": "Chimoto",
+        "given": "Everlyn Asiko"
+      },
+      {
+        "family": "Lignos",
+        "given": "Constantine"
+      },
+      {
+        "family": "Muhammad",
+        "given": "Shamsuddeen"
+      },
+      {
+        "family": "Abdulmumin",
+        "given": "Idris"
+      },
+      {
+        "family": "Siro",
+        "given": "Clemencia"
+      },
+      {
+        "family": "Adelani",
+        "given": "David Ifeoluwa"
+      }
+    ],
+    "id": "3005271/2DA97BZZ",
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          3
+        ]
+      ]
+    },
+    "language": "en",
+    "note": "Citation Key: leventhal-etal-2026-dealing",
+    "page": "1-10",
+    "publisher": "Association for Computational Linguistics",
+    "publisher-place": "Rabat, Morocco",
+    "tags": [
+      "Computer Science - Computation and Language"
+    ],
+    "title": "Dealing with the Hard Facts of Low-Resource African NLP",
+    "type": "paper-conference"
+  },
+  {
     "DOI": "10.4324/9781315730479-8",
     "URL": "https://doi.org/10.4324/9781315730479-8",
     "abstract": "The relationship between digital humanities and decolonization has become a popular one, representing a range of interventions. These include decolonizing digital archives, addressing representation in digital knowledge production, and using digital media to create spaces for voices that go unheard in dominant narratives of literature, history, and culture. This chapter examines the complex politics of decolonization in digital humanities. It begins by considering how discourses of decolonization have been deployed in the context of digital humanities and situating them in postcolonial theory and science and technology studies. The chapter then explores digital humanities projects that participate in decolonizing knowledge production. In doing so, it makes the case for culturally located approaches to digital humanities that resist reinscribing the politics of colonialism.",
@@ -1758,164 +1841,6 @@
     ],
     "title": "African Countries Are Racing to Create AI Strategies - But Are They Putting the Cart Before the Horse?",
     "type": "post-weblog"
-  },
-  {
-    "DOI": "10.48550/arXiv.2406.03368",
-    "URL": "https://doi.org/10.48550/arXiv.2406.03368",
-    "abstract": "Despite the widespread adoption of Large language models (LLMs), their remarkable capabilities remain limited to a few high-resource languages. Additionally, many low-resource languages (\\eg African languages) are often evaluated only on basic text classification tasks due to the lack of appropriate or comprehensive benchmarks outside of high-resource languages. In this paper, we introduce IrokoBench -- a human-translated benchmark dataset for 17 typologically-diverse low-resource African languages covering three tasks: natural language inference~(AfriXNLI), mathematical reasoning~(AfriMGSM), and multi-choice knowledge-based question answering~(AfriMMLU). We use IrokoBench to evaluate zero-shot, few-shot, and translate-test settings~(where test sets are translated into English) across 10 open and six proprietary LLMs. Our evaluation reveals a significant performance gap between high-resource languages~(such as English and French) and low-resource African languages. We observe a significant performance gap between open and proprietary models, with the highest performing open model, Gemma 2 27B only at 63\\% of the best-performing proprietary model GPT-4o performance. In addition, machine translating the test set to English before evaluation helped to close the gap for larger models that are English-centric, such as Gemma 2 27B and LLaMa 3.1 70B. These findings suggest that more efforts are needed to develop and adapt LLMs for African languages.",
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          6,
-          25
-        ]
-      ]
-    },
-    "author": [
-      {
-        "family": "Adelani",
-        "given": "David Ifeoluwa"
-      },
-      {
-        "family": "Ojo",
-        "given": "Jessica"
-      },
-      {
-        "family": "Azime",
-        "given": "Israel Abebe"
-      },
-      {
-        "family": "Zhuang",
-        "given": "Jian Yun"
-      },
-      {
-        "family": "Alabi",
-        "given": "Jesujoba O."
-      },
-      {
-        "family": "He",
-        "given": "Xuanli"
-      },
-      {
-        "family": "Ochieng",
-        "given": "Millicent"
-      },
-      {
-        "family": "Hooker",
-        "given": "Sara"
-      },
-      {
-        "family": "Bukula",
-        "given": "Andiswa"
-      },
-      {
-        "family": "Lee",
-        "given": "En-Shiun Annie"
-      },
-      {
-        "family": "Chukwuneke",
-        "given": "Chiamaka"
-      },
-      {
-        "family": "Buzaaba",
-        "given": "Happy"
-      },
-      {
-        "family": "Sibanda",
-        "given": "Blessing"
-      },
-      {
-        "family": "Kalipe",
-        "given": "Godson"
-      },
-      {
-        "family": "Mukiibi",
-        "given": "Jonathan"
-      },
-      {
-        "family": "Kabongo",
-        "given": "Salomon"
-      },
-      {
-        "family": "Yuehgoh",
-        "given": "Foutse"
-      },
-      {
-        "family": "Setaka",
-        "given": "Mmasibidi"
-      },
-      {
-        "family": "Ndolela",
-        "given": "Lolwethu"
-      },
-      {
-        "family": "Odu",
-        "given": "Nkiruka"
-      },
-      {
-        "family": "Mabuya",
-        "given": "Rooweither"
-      },
-      {
-        "family": "Muhammad",
-        "given": "Shamsuddeen Hassan"
-      },
-      {
-        "family": "Osei",
-        "given": "Salomey"
-      },
-      {
-        "family": "Samb",
-        "given": "Sokhar"
-      },
-      {
-        "family": "Guge",
-        "given": "Tadesse Kebede"
-      },
-      {
-        "family": "Sherman",
-        "given": "Tombekai Vangoni"
-      },
-      {
-        "family": "Stenetorp",
-        "given": "Pontus"
-      }
-    ],
-    "citation-key": "adelaniIrokoBenchNewBenchmark2025",
-    "id": "3005271/5XR9AFW7",
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          1,
-          23
-        ]
-      ]
-    },
-    "language": "en",
-    "number": "arXiv:2406.03368",
-    "publisher": "arXiv",
-    "shortTitle": "IrokoBench",
-    "tags": [
-      "African languages",
-      "Computer Science - Artificial Intelligence",
-      "Computer Science - Computation and Language",
-      "Masakhane",
-      "benchmarks",
-      "computational linguistics",
-      "dataset",
-      "dataset creation",
-      "language bias",
-      "large language models",
-      "low-resource languages",
-      "machine translation",
-      "multilingual AI",
-      "natural language processing"
-    ],
-    "title": "IrokoBench: A New Benchmark for African Languages in the Age of Large Language Models",
-    "title-short": "IrokoBench",
-    "type": "article"
   },
   {
     "URL": "https://www.bmz-digital.global/wp-content/uploads/2025/08/AI-Maturity-Assessment-Framework-WEB2.pdf",
@@ -5279,103 +5204,6 @@
     "type": "book"
   },
   {
-    "DOI": "10.48550/arXiv.2505.14311",
-    "URL": "https://doi.org/10.48550/arXiv.2505.14311",
-    "abstract": "Hausa Natural Language Processing (NLP) has gained increasing attention in recent years, yet remains understudied as a low-resource language despite having over 120 million first-language (L1) and 80 million second-language (L2) speakers worldwide. While significant advances have been made in high-resource languages, Hausa NLP faces persistent challenges, including limited open-source datasets and inadequate model representation. This paper presents an overview of the current state of Hausa NLP, systematically examining existing resources, research contributions, and gaps across fundamental NLP tasks: text classification, machine translation, named entity recognition, speech recognition, and question answering. We introduce HausaNLP (https://catalog.hausanlp.org), a curated catalog that aggregates datasets, tools, and research works to enhance accessibility and drive further development. Furthermore, we discuss challenges in integrating Hausa into large language models (LLMs), addressing issues of suboptimal tokenization and dialectal variation. Finally, we propose strategic research directions emphasizing dataset expansion, improved language modeling approaches, and strengthened community collaboration to advance Hausa NLP. Our work provides both a foundation for accelerating Hausa NLP progress and valuable insights for broader multilingual NLP research.",
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          6,
-          26
-        ]
-      ]
-    },
-    "author": [
-      {
-        "family": "Muhammad",
-        "given": "Shamsuddeen Hassan"
-      },
-      {
-        "family": "Ahmad",
-        "given": "Ibrahim Said"
-      },
-      {
-        "family": "Abdulmumin",
-        "given": "Idris"
-      },
-      {
-        "family": "Lawan",
-        "given": "Falalu Ibrahim"
-      },
-      {
-        "family": "Sani",
-        "given": "Babangida"
-      },
-      {
-        "family": "Imam",
-        "given": "Sukairaj Hafiz"
-      },
-      {
-        "family": "Aliyu",
-        "given": "Yusuf"
-      },
-      {
-        "family": "Sani",
-        "given": "Sani Abdullahi"
-      },
-      {
-        "family": "Umar",
-        "given": "Ali Usman"
-      },
-      {
-        "family": "Gwadabe",
-        "given": "Tajuddeen"
-      },
-      {
-        "family": "Church",
-        "given": "Kenneth"
-      },
-      {
-        "family": "Marivate",
-        "given": "Vukosi"
-      }
-    ],
-    "citation-key": "muhammadHausaNLPCurrentStatus2025",
-    "id": "3005271/C4RJFAH3",
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          7,
-          22
-        ]
-      ]
-    },
-    "language": "en",
-    "note": "arXiv:2505.14311 [cs.CL]",
-    "number": "arXiv:2505.14311",
-    "publisher": "arXiv",
-    "shortTitle": "HausaNLP",
-    "tags": [
-      "African languages",
-      "Hausa",
-      "Niger",
-      "Nigeria",
-      "computational linguistics",
-      "language resources",
-      "large language models",
-      "low-resource languages",
-      "machine translation",
-      "named entity recognition",
-      "natural language processing",
-      "sentiment analysis"
-    ],
-    "title": "HausaNLP: Current Status, Challenges and Future Directions for Hausa Natural Language Processing",
-    "title-short": "HausaNLP",
-    "type": "article"
-  },
-  {
     "URL": "https://rpublc.com/africa-2/digital-technology-in-africa/",
     "abstract": "As the world leans into the fourth industrial revolution, Africa has become a frontier for the geopolitical power play of China and the United States. Amid this, African governments must take control of their digital development or end up as pawns, again.",
     "accessed": {
@@ -5581,7 +5409,7 @@
       "language technologies",
       "research infrastructure"
     ],
-    "title": "From Conversation to Co-authorship: A Workshop on Digital Humanitiesand AI in African Studies, 18–20 February 2026, Herrenhausen, Hanover",
+    "title": "From Conversation to Co-authorship: A Workshop on Digital Humanities and AI in African Studies, 18–20 February 2026, Herrenhausen, Hanover",
     "type": "article-magazine"
   },
   {
@@ -8644,6 +8472,172 @@
     "title": "The Mind Miners: How Silicon Valley's AI Gold Rush Is Built On African Trauma",
     "title-short": "The Mind Miners",
     "type": "post-weblog"
+  },
+  {
+    "DOI": "10.18653/v1/2025.naacl-long.139",
+    "ISBN": "979-8-89176-189-6",
+    "URL": "https://aclanthology.org/2025.naacl-long.139/",
+    "abstract": "Despite the widespread adoption of Large language models (LLMs), their remarkable capabilities remain limited to a few high-resource languages. Additionally, many low-resource languages (e.g. African languages) are often evaluated only on basic text classification tasks due to the lack of appropriate or comprehensive benchmarks outside of high-resource languages. In this paper, we introduce IrokoBench—a human-translated benchmark dataset for 17 typologically-diverse low-resource African languages covering three tasks: natural language inference(AfriXNLI), mathematical reasoning(AfriMGSM), and multi-choice knowledge-based QA(AfriMMLU). We use IrokoBench to evaluate zero-shot, few-shot, and translate-test settings(where test sets are translated into English) across 10 open and four proprietary LLMs. Our evaluation reveals a significant performance gap between high-resource languages (such as English and French) and low-resource African languages. We observe a significant performance gap between open and proprietary models, with the highest performing open model, Gemma 2 27B only at 63% of the best-performing proprietary model GPT-4o performance. Machine translating the test set to English before evaluation helped to close the gap for larger models that are English-centric, like Gemma 2 27B and LLaMa 3.1 70B. These findings suggest that more efforts are needed to develop and adapt LLMs for African languages.",
+    "author": [
+      {
+        "family": "Adelani",
+        "given": "David Ifeoluwa"
+      },
+      {
+        "family": "Ojo",
+        "given": "Jessica"
+      },
+      {
+        "family": "Azime",
+        "given": "Israel Abebe"
+      },
+      {
+        "family": "Zhuang",
+        "given": "Jian Yun"
+      },
+      {
+        "family": "Alabi",
+        "given": "Jesujoba Oluwadara"
+      },
+      {
+        "family": "He",
+        "given": "Xuanli"
+      },
+      {
+        "family": "Ochieng",
+        "given": "Millicent"
+      },
+      {
+        "family": "Hooker",
+        "given": "Sara"
+      },
+      {
+        "family": "Bukula",
+        "given": "Andiswa"
+      },
+      {
+        "family": "Lee",
+        "given": "En-Shiun Annie"
+      },
+      {
+        "family": "Chukwuneke",
+        "given": "Chiamaka Ijeoma"
+      },
+      {
+        "family": "Buzaaba",
+        "given": "Happy"
+      },
+      {
+        "family": "Sibanda",
+        "given": "Blessing Kudzaishe"
+      },
+      {
+        "family": "Kalipe",
+        "given": "Godson Koffi"
+      },
+      {
+        "family": "Mukiibi",
+        "given": "Jonathan"
+      },
+      {
+        "family": "Kabongo Kabenamualu",
+        "given": "Salomon"
+      },
+      {
+        "family": "Yuehgoh",
+        "given": "Foutse"
+      },
+      {
+        "family": "Setaka",
+        "given": "Mmasibidi"
+      },
+      {
+        "family": "Ndolela",
+        "given": "Lolwethu"
+      },
+      {
+        "family": "Odu",
+        "given": "Nkiruka"
+      },
+      {
+        "family": "Mabuya",
+        "given": "Rooweither"
+      },
+      {
+        "family": "Osei",
+        "given": "Salomey"
+      },
+      {
+        "family": "Muhammad",
+        "given": "Shamsuddeen Hassan"
+      },
+      {
+        "family": "Samb",
+        "given": "Sokhar"
+      },
+      {
+        "family": "Guge",
+        "given": "Tadesse Kebede"
+      },
+      {
+        "family": "Sherman",
+        "given": "Tombekai Vangoni"
+      },
+      {
+        "family": "Stenetorp",
+        "given": "Pontus"
+      }
+    ],
+    "citation-key": "adelaniIrokoBenchNewBenchmark2025a",
+    "container-title": "Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers)",
+    "editor": [
+      {
+        "family": "Chiruzzo",
+        "given": "Luis"
+      },
+      {
+        "family": "Ritter",
+        "given": "Alan"
+      },
+      {
+        "family": "Wang",
+        "given": "Lu"
+      }
+    ],
+    "id": "3005271/KUXEQZNN",
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          4
+        ]
+      ]
+    },
+    "language": "en",
+    "note": "Citation Key: adelani-etal-2025-irokobench",
+    "page": "2732-2757",
+    "publisher": "Association for Computational Linguistics",
+    "publisher-place": "Albuquerque, New Mexico",
+    "shortTitle": "IrokoBench",
+    "tags": [
+      "African languages",
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language",
+      "Masakhane",
+      "benchmarks",
+      "computational linguistics",
+      "dataset",
+      "dataset creation",
+      "language bias",
+      "large language models",
+      "low-resource languages",
+      "machine translation",
+      "multilingual AI",
+      "natural language processing"
+    ],
+    "title": "IrokoBench: A New Benchmark for African Languages in the Age of Large Language Models",
+    "title-short": "IrokoBench",
+    "type": "paper-conference"
   },
   {
     "URL": "https://africandh.ku.edu/post-symposium-report/",
@@ -11717,70 +11711,6 @@
     "volume": "9"
   },
   {
-    "DOI": "10.48550/arXiv.2511.18557",
-    "URL": "https://doi.org/10.48550/arXiv.2511.18557",
-    "abstract": "Creating speech datasets, models, and evaluation frameworks for low-resource languages remains challenging given the lack of a broad base of pertinent experience to draw from. This paper reports on the field collection of 612 hours of spontaneous speech in Bambara, a low-resource West African language; the semi-automated annotation of that dataset with transcriptions; the creation of several monolingual ultra-compact and small models using the dataset; and the automatic and human evaluation of their output. We offer practical suggestions for data collection protocols, annotation, and model design, as well as evidence for the importance of performing human evaluation. In addition to the main dataset, multiple evaluation datasets, models, and code are made publicly available.",
-    "accessed": {
-      "date-parts": [
-        [
-          2026,
-          11,
-          23
-        ]
-      ]
-    },
-    "author": [
-      {
-        "family": "Diarra",
-        "given": "Yacouba"
-      },
-      {
-        "family": "Coulibaly",
-        "given": "Nouhoum Souleymane"
-      },
-      {
-        "family": "Kamaté",
-        "given": "Panga Azazia"
-      },
-      {
-        "family": "Tall",
-        "given": "Madani Amadou"
-      },
-      {
-        "family": "Koné",
-        "given": "Emmanuel Élisé"
-      },
-      {
-        "family": "Dembélé",
-        "given": "Aymane"
-      },
-      {
-        "family": "Leventhal",
-        "given": "Michael"
-      }
-    ],
-    "citation-key": "diarraDealingHardFacts2025",
-    "id": "3005271/TT9ZAZKG",
-    "issued": {
-      "date-parts": [
-        [
-          2025,
-          11,
-          23
-        ]
-      ]
-    },
-    "language": "en",
-    "note": "arXiv:2511.18557 [cs.CL]",
-    "number": "arXiv:2511.18557",
-    "publisher": "arXiv",
-    "tags": [
-      "Computer Science - Computation and Language"
-    ],
-    "title": "Dealing with the Hard Facts of Low-Resource African NLP",
-    "type": "article"
-  },
-  {
     "ISSN": "1938-4122",
     "abstract": "This article analyzes the possibility of a pedagogical renewal in the teaching of the history of the slave trade and slavery in middle cycle (four years of study that can begin at the age of twelve) public school classrooms in Senegal. It does so by proposing that aspects of middle cycle curricula be built around an open-source, online version of the Senegal Registers of Liberation (1857-1903) in order to achieve the National Education Orientation Law of 1991 and the Consolidated History Program of 2006. In this article, we identify the current limits of teaching about the slave trade and slavery and propose new approaches, taking into account innovative pedagogical perspectives that are essential to the training of students congruent with the evolution of historical methodologies in the digital humanities. Beyond this, the article shows the importance of addressing ethical questions around the public use of names of enslaved people which appear in the Senegal Registers of Liberation. In sum, the article explores and proposes revisions in the teaching of the slave trade and slavery in Senegal using digital resources.",
     "author": [
@@ -13305,6 +13235,106 @@
     "title": "TWAILing AI Governance: Will Third World Countries Be Left Behind?",
     "title-short": "TWAILing AI Governance",
     "type": "post-weblog"
+  },
+  {
+    "DOI": "10.18653/v1/2025.africanlp-1.27",
+    "ISBN": "979-8-89176-257-2",
+    "URL": "https://aclanthology.org/2025.africanlp-1.27/",
+    "abstract": "Hausa Natural Language Processing (NLP) has gained increasing attention in recent years, yet remains understudied as a low-resource language despite having over 120 million first-language (L1) and 80 million second-language (L2) speakers worldwide. While significant advances have been made in high-resource languages, Hausa NLP faces persistent challenges including limited open-source datasets and inadequate model representation. This paper presents an overview of the current state of Hausa NLP, systematically examining existing resources, research contributions, and gaps across fundamental NLP tasks: text classification, machine translation, named entity recognition, speech recognition, and question answering. We introduce HausaNLP, a curated catalog that aggregates datasets, tools, and research works to enhance accessibility and drive further development. Furthermore, we discuss challenges in integrating Hausa into large language models (LLMs), addressing issues of suboptimal tokenization, and dialectal variation. Finally, we propose strategic research directions emphasizing dataset expansion, improved language modeling approaches, and strengthened community collaboration to advance Hausa NLP. Our work provides both a foundation for accelerating Hausa NLP progress and valuable insights for broader multilingual NLP research.",
+    "author": [
+      {
+        "family": "Muhammad",
+        "given": "Shamsuddeen Hassan"
+      },
+      {
+        "family": "Ahmad",
+        "given": "Ibrahim Said"
+      },
+      {
+        "family": "Abdulmumin",
+        "given": "Idris"
+      },
+      {
+        "family": "Lawan",
+        "given": "Falalu Ibrahim"
+      },
+      {
+        "family": "Imam",
+        "given": "Sukairaj Hafiz"
+      },
+      {
+        "family": "Aliyu",
+        "given": "Yusuf"
+      },
+      {
+        "family": "Sani",
+        "given": "Sani Abdullahi"
+      },
+      {
+        "family": "Umar",
+        "given": "Ali Usman"
+      },
+      {
+        "family": "Gwadabe",
+        "given": "Tajuddeen"
+      },
+      {
+        "family": "Church",
+        "given": "Kenneth"
+      },
+      {
+        "family": "Marivate",
+        "given": "Vukosi"
+      }
+    ],
+    "citation-key": "muhammadHausaNLPCurrentStatus2025a",
+    "container-title": "Proceedings of the Sixth Workshop on African Natural Language Processing (AfricaNLP 2025)",
+    "editor": [
+      {
+        "family": "Lignos",
+        "given": "Constantine"
+      },
+      {
+        "family": "Abdulmumin",
+        "given": "Idris"
+      },
+      {
+        "family": "Adelani",
+        "given": "David"
+      }
+    ],
+    "id": "3005271/WYU5PI6R",
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          7
+        ]
+      ]
+    },
+    "language": "en",
+    "note": "Citation Key: muhammad-etal-2025-hausanlp",
+    "page": "176-191",
+    "publisher": "Association for Computational Linguistics",
+    "publisher-place": "Vienna, Austria",
+    "shortTitle": "HausaNLP",
+    "tags": [
+      "African languages",
+      "Hausa",
+      "Niger",
+      "Nigeria",
+      "computational linguistics",
+      "language resources",
+      "large language models",
+      "low-resource languages",
+      "machine translation",
+      "named entity recognition",
+      "natural language processing",
+      "sentiment analysis"
+    ],
+    "title": "HausaNLP: Current Status, Challenges and Future Directions for Hausa Natural Language Processing",
+    "title-short": "HausaNLP",
+    "type": "paper-conference"
   },
   {
     "URL": "https://africadataprotection.org/Zimbabwe_National_AI_Strategy.pdf",
